@@ -1,0 +1,32 @@
+{
+  "include": "$HOME/.config/waybar/modules",
+  "layer": "top",
+  //"mode": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "position": "top",
+  "spacing": 3,
+  "fixed-center": true,
+  // "ipc": true,
+  "margin-top": 3,
+  "margin-left": 8,
+  "margin-right": 8,
+  "modules-left": [],
+  "modules-center": [
+    "hyprland/workspaces#kanji"
+  ],
+  "modules-right": [
+    "network#wifi",
+    "bluetooth",
+    // "custom/separator#line",
+    "tray",
+    // "custom/separator#line",
+    "group/mobo_drawer",
+    "group/audio",
+    // "custom/separator#line",
+    // "custom/keyboard",
+    "clock",
+    "custom/power",
+    "custom/swaync"
+  ]
+}
