@@ -1,34 +1,35 @@
 {
   pkgs,
+pkgs-stable,
   lib,
   ...
 }: {
   wayland.windowManager.hyprland = {
     enable = true;
+    # package = pkgs-stable.hyprland;
     xwayland.enable = true;
     plugins = with pkgs; [
       hyprlandPlugins.borders-plus-plus
-      hyprlandPlugins.hyprbars
-      hyprlandPlugins.hyprexpo
-      hyprlandPlugins.hyprtrails
-      hyprlandPlugins.hyprwinwrap
+      # hyprlandPlugins.hyprbars
+      # hyprlandPlugins.hyprexpo
+      # hyprlandPlugins.hyprtrails
+      # hyprlandPlugins.hyprwinwrap
     ];
     systemd = {
       enable = true;
       variables = ["--all"];
     };
-    # extraConfig = baseFile;
+    extraConfig = builtins.readFile ../hypr/hyprland.conf;
     settings = {
       env = [
-        "NIXOS_OZONE_WL=1"
+        "NIXOS_OZONE_WL,1"
         "PATH,$PATH:$HOME/.config/hypr/bin"
       ];
       exec-once = [
-        "systemctl --user start hyprland-session.target"
         "${pkgs.networkmanagerapplet}/bin/nm-applet --sm-disable --indicator"
-        "clash-verge-service &"
+        "${pkgs.clash-verge-rev}/bin/clash-verge-service &"
         "${lib.getExe pkgs.clash-verge-rev} &"
-        "pot &"
+        "${lib.getExe pkgs.pot} &"
       ];
     };
   };

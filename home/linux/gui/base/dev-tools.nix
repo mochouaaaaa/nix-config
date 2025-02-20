@@ -32,6 +32,7 @@
     ++ lib.optionals myvars.packages.flameshot [
       (flameshot.overrideAttrs (oldAttrs: rec {
         name = "flameshot-with-grim"; # 修改包名，避免冲突
+        enableWlrSupport = true;
         # patches =
         #   oldAttrs.patches
         #   ++ [

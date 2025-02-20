@@ -1,7 +1,5 @@
 {
   lib,
-  pkgs,
-  config,
   myvars,
   ...
 }: let
@@ -26,8 +24,4 @@ in {
       force = true;
     };
   };
-
-  # home.activation.waybar = lib.mkAfter ''
-  #   ${pkgs.waybar}/bin/waybar &
-  # '';
 }

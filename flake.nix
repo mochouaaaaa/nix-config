@@ -18,7 +18,6 @@
     extra-substituters = [
       "https://anyrun.cachix.org"
       "https://cache.nixos.org"
-      "https://garnix.io"
 
       "https://nix-gaming.cachix.org"
 
@@ -27,7 +26,6 @@
     extra-trusted-public-keys = [
       "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "cache.nixos.org-1:jC52p8p9vN+tGcxm9x2l5E5n9c8n+tVs+j5c+z6m+pE="
 
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="

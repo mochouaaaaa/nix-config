@@ -1,1 +1,1 @@
-# desktop
+# NixConfig

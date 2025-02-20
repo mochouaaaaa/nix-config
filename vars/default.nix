@@ -58,25 +58,25 @@
     vmware = false;
   };
 
-  disk = {
-    enable = false;
-    name = "sda";
-    filesystem = "ext4";
-  };
-
-  networking = {
-    defaultGateway = "192.168.1.1";
-    nameservers = ["8.8.8.8" "8.8.4.4"];
-
-    mingzi = {
-      useDHCPv6 = true;
-      useDHCP = true;
-      ipv4.addresses = [
-        {
-          address = "192.168.1.100";
-          netmask = "255.255.255.0";
-        }
-      ];
-    };
-  };
+  # disk = {
+  #   enable = false;
+  #   name = "sda";
+  #   filesystem = "ext4";
+  # };
+  #
+  # networking = {
+  #   defaultGateway = "192.168.1.1";
+  #   nameservers = ["8.8.8.8" "8.8.4.4"];
+  #
+  #   mingzi = {
+  #     useDHCPv6 = true;
+  #     useDHCP = true;
+  #     ipv4.addresses = [
+  #       {
+  #         address = "192.168.1.100";
+  #         netmask = "255.255.255.0";
+  #       }
+  #     ];
+  #   };
+  # };
 }

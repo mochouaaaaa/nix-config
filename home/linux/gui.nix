@@ -5,7 +5,7 @@
 }: {
   imports = [
     ../base/core
-    ../base/tui
+    ../base/tools
     ../base/home.nix
 
     ./base

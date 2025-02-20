@@ -25,7 +25,6 @@
 
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
-      "https://garnix.io"
       # my own cache server
       # cuda-maintainer's cache server
       #"https://cuda-maintainers.cachix.org"
