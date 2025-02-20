@@ -33,8 +33,8 @@
       [{modules.desktop.wayland.enable = true;}]
       ++ base-modules.nixos-modules;
     home-modules =
-      [{modules.desktop.hyprland.enable = myvars.desktop.hyprland;}]
-      ++ base-modules.home-modules;
+      # [{modules.desktop.hyprland.enable = myvars.desktop.hyprland;}]
+      base-modules.home-modules;
   };
 in {
   nixosConfigurations = {

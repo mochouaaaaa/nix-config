@@ -1,6 +1,6 @@
 {
   pkgs,
-pkgs-stable,
+  pkgs-stable,
   lib,
   ...
 }: {
@@ -8,18 +8,19 @@ pkgs-stable,
     enable = true;
     # package = pkgs-stable.hyprland;
     xwayland.enable = true;
-    plugins = with pkgs; [
-      hyprlandPlugins.borders-plus-plus
-      # hyprlandPlugins.hyprbars
-      # hyprlandPlugins.hyprexpo
-      # hyprlandPlugins.hyprtrails
-      # hyprlandPlugins.hyprwinwrap
-    ];
+    # plugins = with pkgs; [
+    # hyprlandPlugins.borders-plus-plus
+    # hyprlandPlugins.hyprbars
+    # hyprlandPlugins.hyprexpo
+    # hyprlandPlugins.hyprtrails
+    # hyprlandPlugins.hyprwinwrap
+    # ];
     systemd = {
       enable = true;
       variables = ["--all"];
+      extraCommands = ["systemctl --user start hyprland-session.target"];
     };
-    extraConfig = builtins.readFile ../hypr/hyprland.conf;
+    extraConfig = builtins.readFile ./hypr/hyprland.conf;
     settings = {
       env = [
         "NIXOS_OZONE_WL,1"
@@ -36,7 +37,7 @@ pkgs-stable,
 
   xdg.configFile = {
     "hypr" = {
-      source = ../hypr;
+      source = ./hypr;
       recursive = true;
       force = true;
     };

@@ -14,12 +14,12 @@ in {
     style = lib.mkForce ./style.css;
   };
 
-  home.file = {
-    ".config/waybar/config" = {
+  xdg.configFile = {
+    "waybar/config" = {
       source = ./config;
       force = true;
     };
-    ".config/waybar/modules" = {
+    "waybar/modules" = {
       source = ./modules;
       force = true;
     };

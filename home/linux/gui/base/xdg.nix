@@ -5,7 +5,9 @@
 {
   config,
   pkgs,
-    pkgs-stable,
+  pkgs-stable,
+  lib,
+  myvars,
   ...
 }: {
   home.packages = with pkgs; [
@@ -183,16 +185,23 @@
   xdg.portal = {
     enable = true;
 
-    config = {
+    config = rec {
       common = {
         # Use xdg-desktop-portal-gtk for every portal interface...
-        default = ["hyprland" "gtk"];
+        default = ["gtk"];
         # except for the secret portal, which is handled by gnome-keyring
         "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
       };
+      gnome = lib.mkIf (myvars.desktop.gnome) {
+        default = ["gnome"] ++ common.default;
+      };
+      hyprland = lib.mkIf (myvars.desktop.hyprland) {
+        default = ["hyprland"] ++ common.default;
+      };
+      niri = lib.mkIf (myvars.desktop.niri) {
+        default = ["gnome"] ++ common.default;
+      };
     };
-
-    # configPackages = [config.wayland.windowManager.hyprland.package];
 
     # Sets environment variable NIXOS_XDG_OPEN_USE_PORTAL to 1
     # This will make xdg-open use the portal to open programs,
@@ -201,10 +210,27 @@
     # alacritty as an example, it use xdg-open as default, but you can also custom this behavior
     # and vscode has open like `External Uri Openers`
     xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
-    ];
+    configPackages = with pkgs;
+      []
+      ++ lib.optionals (myvars.desktop.hyprland) [
+        hyprland
+      ]
+      ++ lib.optionals (myvars.desktop.niri) [
+        niri-unstable
+      ];
+    extraPortals = with pkgs;
+      [
+        xdg-desktop-portal
+      ]
+      ++ lib.optionals (myvars.desktop.gnome) [xdg-desktop-portal-gnome]
+      ++ lib.optionals (myvars.desktop.hyprland) [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
+      ]
+      ++ lib.optionals (myvars.desktop.niri) [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+      ];
   };
 }

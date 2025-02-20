@@ -1,15 +1,11 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
   };
 
-  home.file = {
-    ".config/rofi" = {
+  xdg.configFile = {
+    "rofi" = {
       source = ./config;
       recursive = true;
       force = true;
@@ -24,7 +20,6 @@
           exact_match = true;
           remap = {
             "SUPER-SPACE" = {
-              # launch = ["bash" "-c" "rofilaunch.sh"];
               launch = ["bash" "-c" "$HOME/.config/rofi/bin/rofilaunch.sh"];
             };
           };

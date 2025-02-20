@@ -8,13 +8,13 @@ in {
     style = lib.mkForce ./style.css;
   };
 
-  home.file = {
-    ".config/swaync/icons" = {
+  xdg.configFile = {
+    "swaync/icons" = {
       source = ./icons;
       recursive = true;
       force = true;
     };
-    ".config/swaync/images" = {
+    "swaync/images" = {
       source = ./images;
       recursive = true;
       force = true;

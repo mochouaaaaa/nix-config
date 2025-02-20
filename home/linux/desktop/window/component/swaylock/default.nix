@@ -4,8 +4,8 @@
     package = pkgs.swaylock-effects;
   };
 
-  home.file = {
-    ".config/swaylock/lock.sh" = {
+  xdg.configFile = {
+    "swaylock/lock.sh" = {
       text = ''
         #!/usr/bin/env bash
 
