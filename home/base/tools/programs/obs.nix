@@ -5,7 +5,7 @@
   myvars,
   ...
 }: {
-  home.packages = lib.mkIf myvars.packages.obs (with pkgs; [
+  home.packages = lib.mkIf (myvars.packages.obs && pkgs.stdenv.isLinux) (with pkgs; [
     # creative
     blender # 3d modeling
     # gimp      # image editing, I prefer using figma in browser instead of this one

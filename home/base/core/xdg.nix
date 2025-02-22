@@ -1,4 +1,9 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   xdg = {
     enable = true;
     cacheHome = "${config.home.homeDirectory}/.cache";
@@ -6,7 +11,7 @@
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
-    userDirs = {
+    userDirs = lib.mkIf pkgs.stdenv.isLinux {
       enable = true;
       createDirectories = true;
       extraConfig = {

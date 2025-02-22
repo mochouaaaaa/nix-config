@@ -6,7 +6,7 @@
 }: let
   nodenv-build = pkgs.fetchgit {
     url = "https://github.com/nodenv/node-build.git";
-    hash = "sha256-j6M8zHwlZKeck6kAVDf6PdMfeQMgdNw6IwYnLaE4nbM=";
+    hash = "sha256-jBk6U0F69mcAVYQDn7uxhc0Y+3i60ACD8K4pskewVXQ=";
   };
   nodenv-vars = pkgs.fetchgit {
     url = "https://github.com/nodenv/nodenv-vars.git";
