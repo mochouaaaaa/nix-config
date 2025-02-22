@@ -3,7 +3,12 @@
   myvars,
   ...
 }: {
-  home.packages = [pkgs.wl-clipboard];
+  home.packages = with pkgs; [
+    wl-clipboard
+    tectonic
+    ghostscript
+    multimarkdown
+  ];
   programs = {
     neovim = {
       enable = myvars.packages.neovim;

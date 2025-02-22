@@ -7,8 +7,10 @@
     initialHashedPassword = "$7$CU..../....eljcZ6wMdzMIITQt.XFsn1$wDJIAx4MGcgDInqjtURmobO4JcYG/g9Z3OJUoIjcXZ5";
 
     packages = {
+      wezterm = false; # default use kitty
       ollama = true;
       neovim = true;
+      neovide = true;
       google-chrome = true;
       firefox = true;
       vscode = true;
@@ -36,7 +38,7 @@
     };
 
     # dotfilePath = "$HOME/.config/dotfile";
-    dotfilePath = ".config/dotfile";
+    dotfilePath = "dotfile";
 
     desktopName = "hyprland"; # gnome  niri
     baseDesktop = {

@@ -1,10 +1,9 @@
 {
   config,
-  pkgs,
   myvars,
   ...
 }: let
-  dotfiles = "${config.home.homeDirectory}/${myvars.dotfilePath}";
+  dotfiles = "${config.xdg.configHome}/${myvars.dotfilePath}";
   filtereg =
     builtins.filter (f:
       !(builtins.substring 0 1 f == "." || builtins.match ".*\\..*" f != null));
@@ -28,10 +27,13 @@
   visibleFiles = filtereg (builtins.attrNames allFiles);
 
   configFiles = builtins.listToAttrs (map (linkFile: {
-      name = ".config/" + linkFile;
+      name = linkFile;
       value = {
         source = config.lib.file.mkOutOfStoreSymlink (dotfiles + "/" + linkFile);
       };
     })
     visibleFiles);
-in {home.file = homeDotfiles // configFiles;}
+in {
+  home.file = homeDotfiles;
+  xdg.configFile = configFiles;
+}

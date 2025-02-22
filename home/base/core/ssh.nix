@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   programs.ssh = {
     enable = true;
 
@@ -9,10 +9,15 @@
     #   IdentityFile — the location of your SSH key authentication file for the account.
     # Format in details:
     #   https://www.ssh.com/academy/ssh/config
-    extraConfig = "
-Host github.com
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/github";
+    extraConfig = ''
+      Host github.com
+        AddKeysToAgent yes
+        ${
+        if pkgs.stdenv.isDarwin
+        then "UseKeychain yes"
+        else ""
+      }
+        IdentityFile ~/.ssh/github
+    '';
   };
 }

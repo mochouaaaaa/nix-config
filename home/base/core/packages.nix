@@ -4,15 +4,12 @@
   ...
 }: {
   home.packages = with pkgs; [
-    fastfetch
-    bat
     lsd
     eza
     procs
     less
     lftp
 
-    yazi
     zoxide
     tree
     jq

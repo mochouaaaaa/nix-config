@@ -1,8 +1,4 @@
-{
-  pkgs,
-  myvars,
-  ...
-}: let
+{pkgs, ...}: let
   pyenv-virtualenv = pkgs.fetchgit {
     url = "https://github.com/pyenv/pyenv-virtualenv.git";
     hash = "sha256-enINH1AWCVAnBR9M/uQ7eCDfNzgYgBUVV7N/ZCf3CVI=";
@@ -20,44 +16,46 @@
     hash = "sha256-U4nfLBUTi+VaalQqtC/iB3wZgYiNwwZd19aKltI/Maw=";
   };
 in {
-  home.file = {
-    ".config/env/pyenv" = {
+  xdg.configFile = {
+    "env/pyenv" = {
       source = pkgs.pyenv;
       recursive = true;
       force = true;
     };
-    ".config/env/pyenv/plugins/pyenv-virtualenv" = {
+    "env/pyenv/plugins/pyenv-virtualenv" = {
       source = pyenv-virtualenv;
       recursive = true;
       force = true;
     };
-    ".config/env/pyenv/plugins/pyenv-virtualenvwrapper" = {
+    "env/pyenv/plugins/pyenv-virtualenvwrapper" = {
       source = pyenv-virtualenvwrapper;
       recursive = true;
       force = true;
     };
-    ".config/env/pyenv/plugins/pyenv-pip-migrate" = {
+    "env/pyenv/plugins/pyenv-pip-migrate" = {
       source = pyenv-pip-migrate;
       recursive = true;
       force = true;
     };
-    ".config/env/pyenv/plugins/pyenv-doctor" = {
+    "env/pyenv/plugins/pyenv-doctor" = {
       source = pyenv-doctor;
       recursive = true;
       force = true;
     };
-    "${myvars.dotfilePath}/zsh/plugins/pyenv.zsh" = {
+  };
+  home.file = {
+    #  FIX: will cause errors in other xdg.configFiles in the same directory
+    ".config/zsh/plugins/pyenv.zsh" = {
       text = ''
         export PYENV_ROOT="$HOME/.config/env/pyenv"
         export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
-        source $HOME/${myvars.dotfilePath}/zsh/plugins/lazyZsh.zsh
+        source $HOME/.config/zsh/plugins/lazyZsh.zsh
 
         if (( $+commands[pyenv] )) &>/dev/null; then
             _sukka_lazyload_command_pyenv() {
                 eval "$(command pyenv init -)"
                 eval "$(command pyenv virtualenv-init -)"
-
             }
             _lazyload_add_command pyenv
 

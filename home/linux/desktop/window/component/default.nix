@@ -7,7 +7,13 @@
 }: let
   componentEnable = myvars.desktop.component;
 in {
-  imports = [] ++ lib.optionals componentEnable.waybar [./waybar] ++ lib.optionals componentEnable.swaync [./swaync] ++ lib.optionals componentEnable.wlogout [./wlogout] ++ lib.optionals componentEnable.swaylock [./swaylock] ++ lib.optionals componentEnable.rofi [./rofi];
+  imports =
+    []
+    ++ lib.optionals componentEnable.waybar [./waybar]
+    ++ lib.optionals componentEnable.swaync [./swaync]
+    ++ lib.optionals componentEnable.wlogout [./wlogout]
+    ++ lib.optionals componentEnable.swaylock [./swaylock]
+    ++ lib.optionals componentEnable.rofi [./rofi];
 
   home.packages = with pkgs; [
     # waybar # the status bar
@@ -38,37 +44,5 @@ in {
     mpc-cli # command-line mpd client
     ncmpcpp # a mpd client with a UI
     networkmanagerapplet # provide GUI app: nm-connection-editor
-  ];
-
-  home.file = lib.mkMerge [
-    {}
-    # (lib.mkIf componentEnable.wlogout {
-    #   ".config/wlogout" = {
-    #     source = ./wlogout;
-    #     recursive = true;
-    #     force = true;
-    #   };
-    # })
-    # (lib.mkIf componentEnable.swaync {
-    #   ".config/swaync" = {
-    #     source = ./swaync;
-    #     recursive = true;
-    #     force = true;
-    #   };
-    # })
-    # (lib.mkIf componentEnable.swaylock {
-    #   ".config/swaylock" = {
-    #     source = ./swaylock;
-    #     recursive = true;
-    #     force = true;
-    #   };
-    # })
-    # (lib.mkIf componentEnable.rofi {
-    #   ".config/rofi" = {
-    #     source = ./rofi;
-    #     recursive = true;
-    #     force = true;
-    #   };
-    # })
   ];
 }

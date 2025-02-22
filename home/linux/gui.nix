@@ -4,8 +4,6 @@
   ...
 }: {
   imports = [
-    ../base/core
-    ../base/tools
     ../base/home.nix
 
     ./base

@@ -16,28 +16,28 @@
     hash = "sha256-3Y49MI8cyzgOo0REhi7LWfgcK/ffS50jvJRzG/1Jddw=";
   };
 in {
-  home.file = {
-    ".config/env/luaenv" = {
+  xdg.configFile = {
+    "env/luaenv" = {
       source = luaenv;
       recursive = true;
       force = true;
     };
-    ".config/env/luaenv/plugins/lua-build" = {
+    "env/luaenv/plugins/lua-build" = {
       source = lua-build;
       recursive = true;
       force = true;
     };
-    ".config/env/luaenv/plugins/luaenv-luarocks" = {
+    "env/luaenv/plugins/luaenv-luarocks" = {
       source = luaenv-luarocks;
       recursive = true;
       force = true;
     };
-    "${myvars.dotfilePath}/zsh/plugins/luaenv.zsh" = {
+    "zsh/plugins/luaenv.zsh" = {
       text = ''
         export LUAENV_ROOT="$HOME/.config/env/luaenv"
         export PATH="$LUAENV_ROOT/bin:$LUAENV_ROOT/shims:$PATH"
 
-        source $HOME/${myvars.dotfilePath}/zsh/plugins/lazyZsh.zsh
+        source $HOME/.config/zsh/plugins/lazyZsh.zsh
 
         if (( $+commands[luaenv] )) &>/dev/null; then
             _sukka_lazyload_command_luaenv() {

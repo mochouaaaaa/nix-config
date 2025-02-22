@@ -23,33 +23,33 @@ in {
   #   lib.optional nodenvEnable
   #   nodenv;
 
-  home.file = lib.mkIf nodenvEnable {
-    ".config/env/nodenv" = {
+  xdg.configFile = lib.mkIf nodenvEnable {
+    "env/nodenv" = {
       source = pkgs.nodenv;
       recursive = true;
       force = true;
     };
-    ".config/env/nodenv/plugins/node-build" = {
+    "env/nodenv/plugins/node-build" = {
       source = nodenv-build;
       recursive = true;
       force = true;
     };
-    ".config/env/nodenv/plugins/nodoenv-vars" = {
+    "env/nodenv/plugins/nodoenv-vars" = {
       source = nodenv-vars;
       recursive = true;
       force = true;
     };
-    ".config/env/nodenv/plugins/nodenv-aliases" = {
+    "env/nodenv/plugins/nodenv-aliases" = {
       source = nodenv-aliases;
       recursive = true;
       force = true;
     };
-    "${myvars.dotfilePath}/zsh/plugins/nodenv.zsh" = {
+    "zsh/plugins/nodenv.zsh" = {
       text = ''
         export NODENV_ROOT="$HOME/.config/env/nodenv"
         export PATH="$NODENV_ROOT/bin:$NODENV_ROOT/shims:$PATH"
 
-        source $HOME/${myvars.dotfilePath}/zsh/plugins/lazyZsh.zsh
+        source $HOME/.config/zsh/plugins/lazyZsh.zsh
 
         if (( $+commands[nodenv] )) &>/dev/null; then
             _sukka_lazyload_command_nodenv() {
