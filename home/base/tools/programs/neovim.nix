@@ -8,6 +8,7 @@
     tectonic
     ghostscript
     multimarkdown
+    icu
   ];
   programs = {
     neovim = {

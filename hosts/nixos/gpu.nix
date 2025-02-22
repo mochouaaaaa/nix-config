@@ -1,8 +1,8 @@
-{pkgs, ...}: {
+{lib, pkgs, ...}: {
   boot.initrd.kernelModules = ["amdgpu"];
 
   services.xserver = {
-    enable = true;
+    enable = lib.mkDefault true;
     videoDrivers = ["amdgpu"];
   };
 

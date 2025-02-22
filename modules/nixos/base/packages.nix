@@ -44,6 +44,8 @@
     dmidecode # a tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard
     parted
 
+    icu
+
     #  export env
     clang
     cmake
@@ -65,8 +67,6 @@
     ncurses.dev
     pkg-config
   ];
-
-  services.flatpak.enable = true;
 
   # environment.variables = with pkgs; {
   #   XDG_TERMINAL = "${kitty}/bin/kitty '$@'";
