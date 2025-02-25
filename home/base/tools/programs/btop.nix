@@ -13,5 +13,5 @@ in {
       settings = {color_theme = "catppuccin_mocha";};
     };
   };
-  xdg.configFile."btop/btop/themes".source = catppuccinMochaTheme + "/themes";
+  xdg.configFile."btop/themes".source = catppuccinMochaTheme + "/themes";
 }
