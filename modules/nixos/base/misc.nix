@@ -25,7 +25,6 @@
     gnumake
     nautilus
     xarchiver
-    libsForQt5.dolphin
   ];
 
   services = {

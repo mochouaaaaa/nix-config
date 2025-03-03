@@ -1,4 +1,8 @@
-{lib, pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   boot.initrd.kernelModules = ["amdgpu"];
 
   services.xserver = {
@@ -8,6 +12,7 @@
 
   hardware.graphics.extraPackages = with pkgs; [
     rocmPackages.clr.icd
+    # amdgpu-firmware
   ];
 
   environment.systemPackages = with pkgs; [

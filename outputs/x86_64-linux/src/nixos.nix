@@ -11,7 +11,7 @@
   ...
 } @ args: let
   name = "nixos";
-  base-modules = {
+  modules = {
     nixos-modules =
       map mylib.relativeToRoot ["hosts/nixos" "modules/nixos/desktop.nix"]
       ++ [
@@ -25,21 +25,12 @@
         inputs.nix-flatpak.homeManagerModules.nix-flatpak
         inputs.xremap-flake.homeManagerModules.default
         inputs.stylix.homeManagerModules.stylix
-      ];
-  };
-
-  modules-hyprland = {
-    nixos-modules =
-      [{modules.desktop.wayland.enable = true;}]
-      ++ base-modules.nixos-modules;
-    home-modules =
-      # [{modules.desktop.hyprland.enable = myvars.desktop.hyprland;}]
-      base-modules.home-modules;
+      ]
+      ++ lib.optionals (myvars.desktop.kde) [inputs.plasma-manager.homeManagerModules.plasma-manager];
   };
 in {
   nixosConfigurations = {
-    # host with hyprland compositor
-    "${name}" = mylib.nixosSystem (modules-hyprland // args);
+    "${name}" = mylib.nixosSystem (modules // args);
   };
 
   # generate iso image for hosts with desktop environment

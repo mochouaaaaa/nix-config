@@ -24,6 +24,7 @@
     # grimblast
 
     # system tools
+    chntpw
     # (chntpw.overrideAttrs (oldAttrs: {
     #   patches =
     #     oldAttrs.patches
@@ -44,7 +45,7 @@
     dmidecode # a tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard
     parted
 
-    icu
+    icu.dev
 
     #  export env
     clang

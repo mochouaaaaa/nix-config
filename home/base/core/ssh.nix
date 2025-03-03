@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{isDarwin, ...}: {
   programs.ssh = {
     enable = true;
 
@@ -13,7 +13,7 @@
       Host github.com
         AddKeysToAgent yes
         ${
-        if pkgs.stdenv.isDarwin
+        if isDarwin
         then "UseKeychain yes"
         else ""
       }

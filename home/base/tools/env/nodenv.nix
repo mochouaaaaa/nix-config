@@ -19,7 +19,7 @@
 
   nodenvEnable = myvars.envs.nodenv;
 in {
-   home.packages = with pkgs; [yarn];
+  home.packages = with pkgs; [yarn];
 
   xdg.configFile = lib.mkIf nodenvEnable {
     "env/nodenv" = {

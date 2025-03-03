@@ -23,11 +23,7 @@ in
           home-manager.useUserPackages = true;
 
           home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users."${myvars.username}" = {
-            imports = home-modules;
-            # stylix.targets.xyz =
-            # lib.mkIf (myvars.desktop.component.stylix) {enable = false;};
-          };
+          home-manager.users."${myvars.username}".imports = home-modules;
         }
       ]);
   }

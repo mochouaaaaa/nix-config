@@ -1,6 +1,7 @@
 {
   pkgs,
   myvars,
+  isDarwin,
   ...
 }: let
   jetbrainsConfig = enable: {
@@ -9,7 +10,6 @@
     datagrip = enable && myvars.packages.jetbrains.datagrip;
     clion = enable && myvars.packages.jetbrains.clion;
   };
-  isDarwin = pkgs.stdenv.isDarwin;
 
   initjetbrains = jetbrainsConfig (myvars.packages.jetbrains.enable && !isDarwin);
 

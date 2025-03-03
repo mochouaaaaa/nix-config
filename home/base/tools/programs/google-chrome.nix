@@ -1,9 +1,9 @@
 {
   pkgs,
   myvars,
+  isDarwin,
   ...
 }: let
-  isDarwin = pkgs.stdenv.isDarwin;
   isEnable = !isDarwin && myvars.packages.google-chrome;
 in {
   programs = {

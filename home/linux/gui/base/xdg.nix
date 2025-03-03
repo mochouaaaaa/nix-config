@@ -187,6 +187,9 @@
       niri = lib.mkIf (myvars.desktop.niri) {
         default = ["gnome"] ++ common.default;
       };
+      kde = lib.mkIf (myvars.desktop.kde) {
+        default = ["kde"] ++ common.default;
+      };
     };
 
     # Sets environment variable NIXOS_XDG_OPEN_USE_PORTAL to 1
@@ -209,6 +212,7 @@
         xdg-desktop-portal
       ]
       ++ lib.optionals (myvars.desktop.gnome) [xdg-desktop-portal-gnome]
+      ++ lib.optionals (myvars.desktop.kde) [kdePackages.xdg-desktop-portal-kde]
       ++ lib.optionals (myvars.desktop.hyprland) [
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland

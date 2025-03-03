@@ -1,20 +1,19 @@
 {
   pkgs,
   lib,
-  config,
   myvars,
+  config,
+  defaultConfig,
   ...
 }: let
-  isDarwin = pkgs.stdenv.isDarwin;
-
-  dotfiles = "${config.xdg.configHome}/${myvars.dotfilePath}";
+  dotfiles = config.dotfiles;
   rimeConfig = "${dotfiles}/rime";
 
   fcitx5Config = pkgs.fetchFromGitHub {
     owner = "Mintimate";
     repo = "oh-my-rime";
     rev = "main";
-    sha256 = "sha256-YtZS4B82VLty/j4d0SIdjLw040/sdLdSw6VE3B5kWtQ=";
+    sha256 = "sha256-3EvPJVrnTJf9xn8I9CAUww/noMpzvg2+YUxabw9jS0o=";
   };
 
   cleanedFcitx5Config =
@@ -41,32 +40,23 @@
 
     '';
 in {
-  home.file = lib.mkIf isDarwin {
-    "Library/Rime/default.custom.yaml" = {
-      source =
-        config.lib.file.mkOutOfStoreSymlink "${rimeConfig}/default.custom.yaml";
-    };
-    "Library/Rime/squirrel.custom.yaml" = {
-      source =
-        config.lib.file.mkOutOfStoreSymlink
-        "${rimeConfig}/squirrel.custom.yaml";
-    };
-  };
-
-  i18n.inputMethod = lib.mkIf (!isDarwin) {
+  i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      # librime
-      fcitx5-rime
-      fcitx5-lua
-      fcitx5-configtool
-      fcitx5-chinese-addons
-      fcitx5-gtk
-    ];
-    fcitx5.waylandFrontend = true;
+    fcitx5 = {
+      fcitx5-with-addons = pkgs.kdePackages.fcitx5-with-addons;
+      addons = with pkgs;
+        [
+          fcitx5-rime
+          fcitx5-lua
+          fcitx5-chinese-addons
+        ]
+        ++ lib.optionals (myvars.desktop.kde) [kdePackages.fcitx5-configtool]
+        ++ lib.optionals (!myvars.desktop.kde) [fcitx5-configtool];
+      waylandFrontend = true;
+    };
   };
 
-  xdg.dataFile = lib.mkIf (!isDarwin) {
+  xdg.dataFile = {
     "fcitx5/rime" = {
       source = cleanedFcitx5Config;
       recursive = true;
@@ -75,17 +65,63 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink "${rimeConfig}/themes";
       recursive = true;
     };
-    "fcitx5/rime/fcitx5.custom.yaml" = {
-      source =
-        config.lib.file.mkOutOfStoreSymlink "${rimeConfig}/fcitx5.custom.yaml";
-    };
     "fcitx5/rime/default.custom.yaml" = {
-      source =
-        config.lib.file.mkOutOfStoreSymlink "${rimeConfig}/default.custom.yaml";
+      text = defaultConfig;
+    };
+    "fcitx5/rime/fcitx5.custom.yaml" = {
+      enable = true;
+      text = ''
+        patch:
+          "menu/page_size": 9
+          "style/candidate_list_layout": linear
+          "style/translucency": true
+
+          schema_list:
+            - schema: rime_mint # 薄荷拼音
+            - schema: rime_mint_flypy # 薄荷拼音-小鹤混输方案
+
+          # dbus-send --print-reply=literal --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.DebugInfo
+          # 特定App默认中/英文输入
+          "app_options/wezterm":
+            ascii_mode: true
+            ascii_punct: true
+          "app_options/kitty":
+            ascii_mode: true
+            ascii_punct: true
+          "app_options/code frontend": # Visual Studio Code
+            ascii_mode: true
+            ascii_punct: true # 中文状态输出英文标点(半角)
+          "app_options/neovide":
+            ascii_mode: true
+            ascii_punct: true
+          "app_options/firefox": # postman
+            ascii_mode: true
+            ascii_punct: true
+          "app_options/jetbrains.intellij": # idea
+            ascii_mode: true
+            ascii_punct: true
+          "app_options/jetbrains-pycharm":
+            ascii_mode: true
+            ascii_punct: true
+          "app_options/jetbrains-goland":
+            ascii_mode: true
+            ascii_punct: true
+          "app_options/jetbrains-datagrip":
+            ascii_mode: true
+            ascii_punct: true
+          ${lib.optionalString (myvars.desktop.kde) ''
+          "app_options/org.kde.krunner.desktop":
+              ascii_mode: true
+              ascii_punct: true
+          "app_options/org.kde.plasmashell":
+              ascii_mode: true
+              ascii_punct: true
+        ''}
+      '';
     };
   };
 
-  xdg.configFile = lib.mkIf (!isDarwin) {
+  xdg.configFile = {
     "fcitx5/profile" = {
       force = true;
       text = ''
@@ -122,7 +158,10 @@ in {
         ShowLayoutNameInIcon=True
         UseInputMethodLangaugeToDisplayText=True
         Theme=macOS-dark
+        DarkTheme=macOS-dark
+        UseDarkTheme=False
         ForceWaylandDPI=0
+        EnableFractionalScale=True
       '';
     };
     "fcitx5/conf/rime.conf" = {

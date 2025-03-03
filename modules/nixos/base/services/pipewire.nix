@@ -26,27 +26,42 @@
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   # Disable pulseaudio, it conflicts with pipewire too.
-  services.pulseaudio.enable = false;
+  services = {
+    pulseaudio = {
+      enable = false;
+      package = pkgs.pulseaudioFull;
+      configFile = pkgs.writeText "default.pa" ''
+        load-module module-bluetooth-policy
+        load-module module-bluetooth-discover
+        ## module fails to load with
+        ##   module-bluez5-device.c: Failed to get device path from module arguments
+        ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
+        # load-module module-bluez5-device
+        # load-module module-bluez5-discover
+      '';
+
+      extraConfig = "
+      load-module module-switch-on-connect
+    ";
+    };
+  };
 
   #============================= Bluetooth =============================
-
-  # enable bluetooth & gui paring tools - blueman
-  # or you can use cli:
-  # $ bluetoothctl
-  # [bluetooth] # power on
-  # [bluetooth] # agent on
-  # [bluetooth] # default-agent
-  # [bluetooth] # scan on
-  # ...put device in pairing mode and wait [hex-address] to appear here...
-  # [bluetooth] # pair [hex-address]
-  # [bluetooth] # connect [hex-address]
-  # Bluetooth devices automatically connect with bluetoothctl as well:
-  # [bluetooth] # trust [hex-address]
-  # hardware.bluetooth.enable = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-    settings = {General = {Enable = "Source,Sink,Media,Socket";};};
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
+      LE = {
+        MinConnectionInterval = 16;
+        MaxConnectionInterval = 16;
+        ConnectionLatency = 10;
+        ConnectionSupervisionTimeout = 100;
+      };
+    };
   };
   services.blueman.enable = true;
 

@@ -94,6 +94,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # kde
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     ########################  Some non-flake repositories  #########################################
 
     nur-ryan4yin.url = "github:ryan4yin/nur-packages";

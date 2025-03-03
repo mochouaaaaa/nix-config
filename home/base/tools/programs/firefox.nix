@@ -1,9 +1,8 @@
 {
-  pkgs,
   myvars,
+  isDarwin,
   ...
 }: let
-  isDarwin = pkgs.stdenv.isDarwin;
   isEnable = !isDarwin && myvars.packages.firefox;
 in {
   programs = {

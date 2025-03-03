@@ -33,8 +33,7 @@ elif ((resolution >= 1600 && resolution < 2160)); then
     echo "Setting parameters for resolution >= 2.5k and < 4k"
     wlogout --protocol layer-shell -b 6 -T $T_val -B $B_val &
 elif ((resolution >= 1440 && resolution < 1600)); then
-    T_val=$(awk "BEGIN {printf \"%.0f\", $A_1440 * 1440 * $hypr_scale / $resolution}")
-    B_val=$(awk "BEGIN {printf \"%.0f\", $B_1440 * 1440 * $hypr_scale / $resolution}")
+    T_val=$(awk "BEGIN {printf \"%.0f\", $A_1440 * 1440 * $hypr_scale / $resolution}") B_val=$(awk "BEGIN {printf \"%.0f\", $B_1440 * 1440 * $hypr_scale / $resolution}")
     echo "Setting parameters for resolution >= 2k and < 2.5k"
     wlogout --protocol layer-shell -b 6 -T $T_val -B $B_val &
 elif ((resolution >= 1080 && resolution < 1440)); then

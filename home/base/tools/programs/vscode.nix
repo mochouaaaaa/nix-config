@@ -1,31 +1,42 @@
 {
   pkgs,
+  lib,
+  config,
   myvars,
+  isDarwin,
   ...
 }: let
-  isDarwin = pkgs.stdenv.isDarwin;
   isEnable = !isDarwin && myvars.packages.vscode;
 in {
   programs = {
     vscode = {
       enable = isEnable;
       # let vscode sync and update its configuration & extensions across devices, using github account.
-      userSettings = {};
+      profiles.default.userSettings = {};
       package =
         (pkgs.vscode.override {
           isInsiders = true;
-          commandLineArgs = [
-            "--no-sandbox"
-            "--ozone-platform-hint=auto"
-            "--ozone-platform=wayland"
-            # make it use GTK_IM_MODULE if it runs with Gtk4, so fcitx5 can work with it.
-            # (only supported by chromium/chrome at this time, not electron)
-            "--gtk-version=4"
-            # make it use text-input-v1, which works for kwin 5.27 and weston
-            "--enable-wayland-ime"
-
-            "--password-store=gnome" # use gnome-keyring as password store
-          ];
+          commandLineArgs =
+            [
+              "--no-sandbox"
+              "--ozone-platform=wayland"
+              # make it use GTK_IM_MODULE if it runs with Gtk4, so fcitx5 can work with it.
+              # (only supported by chromium/chrome at this time, not electron)
+              # make it use text-input-v1, which works for kwin 5.27 and weston
+            ]
+            ++ lib.optionals (myvars.desktop.kde) [
+              "--password-store=kde"
+            ]
+            ++ lib.optionals (myvars.desktop.hyprland || myvars.desktop.niri) [
+              "--gtk-version=4"
+              "--ozone-platform-hint=auto"
+              "--password-store=gnome"
+            ]
+            ++ lib.optionals (myvars.wm.wayland) [
+              # "--enable-features=UseOzonePlatform"
+              # "--ozone-platform=wayland"
+              # "--enable-wayland-ime"
+            ];
         })
         .overrideAttrs (oldAttrs: rec {
           src = builtins.fetchTarball {

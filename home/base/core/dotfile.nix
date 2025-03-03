@@ -1,9 +1,9 @@
 {
+  lib,
   config,
   myvars,
   ...
 }: let
-  dotfiles = "${config.xdg.configHome}/${myvars.dotfilePath}";
   filtereg =
     builtins.filter (f:
       !(builtins.substring 0 1 f == "." || builtins.match ".*\\..*" f != null));
@@ -11,25 +11,26 @@
   # 获取 links 目录中的所有文件名
   linkFiles =
     builtins.filter (f: builtins.match ".*\\..*" f == null)
-    (builtins.attrNames (builtins.readDir (dotfiles + "/zsh/links")));
+    (builtins.attrNames (builtins.readDir (config.dotfiles + "/zsh/links")));
 
   homeDotfiles = builtins.listToAttrs (map (linkFile: {
       name = "." + linkFile;
       value = {
         source =
           config.lib.file.mkOutOfStoreSymlink
-          (dotfiles + "/zsh/links/" + linkFile);
+          (config.dotfiles + "/zsh/links/" + linkFile);
       };
     })
     linkFiles);
 
-  allFiles = builtins.readDir dotfiles;
+  allFiles = builtins.readDir config.dotfiles;
   visibleFiles = filtereg (builtins.attrNames allFiles);
 
   configFiles = builtins.listToAttrs (map (linkFile: {
-      name = linkFile;
+      name = "${linkFile}";
       value = {
-        source = config.lib.file.mkOutOfStoreSymlink (dotfiles + "/" + linkFile);
+        force = true;
+        source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/${linkFile}";
       };
     })
     visibleFiles);

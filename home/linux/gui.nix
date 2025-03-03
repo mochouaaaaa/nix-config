@@ -7,7 +7,7 @@
     ../base/home.nix
 
     ./base
-    ./gui/base
+    ./gui
     ./desktop/window
   ];
 }

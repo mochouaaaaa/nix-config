@@ -40,8 +40,16 @@
     # dotfilePath = "$HOME/.config/dotfile";
     dotfilePath = "dotfile";
 
-    desktopName = "hyprland"; # gnome  niri
+    wm = {
+      wayland = true;
+      x11 = false;
+    };
+    desktopName = "kde"; # hyprland gnome  niri kde
     baseDesktop = {
+      hyprland = false;
+      gnome = false;
+      niri = false;
+      kde = false;
       component = {
         stylix = false;
         rofi = true;
@@ -58,25 +66,21 @@
         if desktopName == "hyprland"
         then {
           hyprland = true;
-          gnome = false;
-          niri = false;
         }
         else if desktopName == "gnome"
         then {
           gnome = true;
-          hyprland = false;
-          niri = false;
+        }
+        else if desktopName == "kde"
+        then {
+          kde = true;
         }
         else if desktopName == "niri"
         then {
           niri = true;
-          hyprland = false;
-          gnome = false;
         }
         else {
-          hyprland = false;
-          gnome = false;
-          niri = false;
+          hyprland = true;
         }
       );
 

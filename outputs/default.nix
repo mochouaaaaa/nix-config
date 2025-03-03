@@ -12,7 +12,7 @@
   # so that I can use them in all my nixos/home-manager/darwin modules.
   genSpecialArgs = system:
     inputs
-    // {
+    // rec {
       inherit mylib myvars;
 
       # use unstable branch for some packages to get the latest updates
@@ -28,6 +28,9 @@
         # To use chrome, we need to allow the installation of non-free software
         config.allowUnfree = true;
       };
+      isNixos = builtins.pathExists "/etc/nixos";
+      isLinux = nixpkgs.legacyPackages.${system}.stdenv.isLinux && !isNixos;
+      isDarwin = nixpkgs.legacyPackages.${system}.stdenv.isDarwin;
     };
 
   # This is the args for all the haumea modules in this folder.

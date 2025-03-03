@@ -21,6 +21,5 @@
       ];
   };
 
-  modules-hyprland = {home-modules = [] ++ base-modules.home-modules;};
-  modules = modules-hyprland // args;
+  modules = base-modules.home-modules // args;
 in {homeConfigurations."${name}" = mylib.otherSystem modules;}

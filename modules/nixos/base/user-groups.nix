@@ -37,6 +37,7 @@
       "libvirtd"
       "input"
       "uinput"
+      "video"
     ];
   };
 

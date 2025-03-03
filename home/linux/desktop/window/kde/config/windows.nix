@@ -1,0 +1,3 @@
+{
+    allowWindowsToRememberPositions = true;
+}
