@@ -154,12 +154,12 @@ in {
         TrayFont="Monaco Nerd Font 10"
         TrayOutlineColor=#000000
         TrayTextColor=#ffffff
-        PreferTextIcon=False
+        PreferTextIcon=True
         ShowLayoutNameInIcon=True
         UseInputMethodLangaugeToDisplayText=True
         Theme=macOS-dark
         DarkTheme=macOS-dark
-        UseDarkTheme=False
+        UseDarkTheme=True
         ForceWaylandDPI=0
         EnableFractionalScale=True
       '';

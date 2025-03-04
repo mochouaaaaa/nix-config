@@ -4,7 +4,7 @@
   myvars,
   ...
 }: {
-  imports = [../dm/greetd.nix];
+  imports = [../../dm/greetd.nix];
   programs.hyprland = {
     enable = myvars.desktop.hyprland;
   };

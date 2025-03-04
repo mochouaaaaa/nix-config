@@ -22,6 +22,7 @@ in {
         {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
         {id = "bbbiejemhfihiooipfcjmjmbfdmobobp";} # BewlyBewly
         {id = "padekgcemlokbadohgkifijomclgjgif";} # Proxy SwitchyOmega
+        {id = "pkgccpejnmalmdinmhkkfafefagiiiad";} # 前端助手
       ];
 
       # https://wiki.archlinux.org/title/Chromium#Native_Wayland_support

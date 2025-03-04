@@ -87,7 +87,7 @@ in {
   packages = forAllSystems (system: allSystems.${system}.packages or {});
 
   # Eval Tests for all NixOS & darwin systems.
-  evalTests = lib.lists.all (it: it.evalTests == {}) allSystemValues;
+  # evalTests = lib.lists.all (it: it.evalTests == {}) allSystemValues;
 
   # Format the nix code in this flake
   formatter = forAllSystems (

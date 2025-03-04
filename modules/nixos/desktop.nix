@@ -12,9 +12,9 @@
 
       ./gui/game
     ]
-    ++ lib.optionals (myvars.desktop.hyprland) [./gui/desktop/hyprland.nix]
-    ++ lib.optionals (myvars.desktop.niri) [./gui/desktop/niri.nix]
-    ++ lib.optionals (myvars.desktop.kde) [./gui/desktop/kde.nix];
+    ++ lib.optionals (myvars.desktop.hyprland) [./gui/desktop/hyprland]
+    ++ lib.optionals (myvars.desktop.niri) [./gui/desktop/niri]
+    ++ lib.optionals (myvars.desktop.kde) [./gui/desktop/kde];
 
   xdg.portal = {
     enable = true;

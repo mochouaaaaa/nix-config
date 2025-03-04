@@ -6,11 +6,7 @@
 }: {
   imports = [
     # ../dm/greetd.nix
-    ../dm/sddm.nix
-  ];
-
-  environment.systemPackages = with pkgs; [
-    localsend
+    ../../dm/sddm.nix
   ];
 
   services = {

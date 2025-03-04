@@ -30,10 +30,10 @@
   "Switch One Desktop Up" = "Meta+Ctrl+Up";
   "Switch One Desktop to the Left" = "Meta+Ctrl+Left";
   "Switch One Desktop to the Right" = "Meta+Ctrl+Right";
-  "Switch Window Down" = "Meta+Alt+Down";
-  "Switch Window Left" = "Meta+Alt+Left";
-  "Switch Window Right" = "Meta+Alt+Right";
-  "Switch Window Up" = "Meta+Alt+Up";
+  "Switch Window Down" = "Meta+Down";
+  "Switch Window Left" = "Meta+Left";
+  "Switch Window Right" = "Meta+Right";
+  "Switch Window Up" = "Meta+Up";
   "Switch to Desktop 1" = "Meta+1";
   "Switch to Desktop 10" = "none";
   "Switch to Desktop 11" = "none";

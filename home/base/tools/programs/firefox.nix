@@ -8,6 +8,7 @@ in {
   programs = {
     firefox = {
       enable = isEnable;
+      enableGnomeExtensions = myvars.desktop.gnome;
       languagePacks = ["en"];
       policies = {
         ExtensionSettings = with builtins; let

@@ -9,7 +9,7 @@
 } @ args: {
   nixpkgs.overlays = [
     nuenv.overlays.default
-    # (import ./overlays/ja-netfilter.nix)
+    # (import ./overlays/kppleMenu.nix)
   ]; # ++ (import ./overlays args);
 
   nix.package = pkgs.nixVersions.latest;
