@@ -7,8 +7,7 @@
 }: let
   cfg = config.programs.rofi;
 in {
-  config = lib.mkIf (config.programs.waybar.enable
-    && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       inputs.rofi-tools.packages.${pkgs.system}.rofi-cliphist
       (
