@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   # FHS environment, flatpak, appImage, etc.
   environment.systemPackages = [
     # create a fhs environment by command `fhs`, so we can run non-nixos packages in nixos!
@@ -36,6 +41,25 @@
   # search path for shared libraries.
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [stdenv.cc.cc];
+    libraries = with pkgs; [
+      zlib
+      zstd
+      readline
+      stdenv.cc.cc
+      curl
+      openssl
+      attr
+      libssh
+      bzip2
+      libxml2
+      acl
+      libsodium
+      util-linux
+      xz
+      systemd
+    ];
+  };
+  environment.variables = {
+    LD_LIBRARY_PATH = lib.mkForce ''$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$NIX_LD_LIBRARY_PATH'';
   };
 }

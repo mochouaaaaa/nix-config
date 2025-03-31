@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  services.gnome.gnome-keyring.enable = false;
   security = {
     polkit = {
       enable = true;
@@ -8,6 +7,7 @@
       services = {
         greetd.enableGnomeKeyring = true;
         swaylock = {};
+        hyprlock = {};
       };
     };
   };

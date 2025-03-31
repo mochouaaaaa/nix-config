@@ -1,7 +1,8 @@
 {
   lib,
+  self,
   inputs,
-  darwin-modules,
+  darwin-modules ? [],
   home-modules ? [],
   myvars,
   system,
@@ -12,11 +13,12 @@
   inherit (inputs) home-manager nix-darwin;
 in
   nix-darwin.lib.darwinSystem {
-    inherit system specialArgs;
+    specialArgs = {
+      inherit system specialArgs inputs self;
+    };
+
     modules =
       darwin-modules
-      ++ [
-      ]
       ++ (
         lib.optionals ((lib.lists.length home-modules) > 0)
         [
@@ -24,6 +26,7 @@ in
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "home-manager.backup";
 
             home-manager.extraSpecialArgs = specialArgs;
             home-manager.users."${myvars.username}".imports = home-modules;

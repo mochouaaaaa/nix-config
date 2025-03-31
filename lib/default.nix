@@ -1,4 +1,9 @@
-{lib, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}:
+lib.makeExtensible (self: {
   macosSystem = import ./macosSystem.nix;
   nixosSystem = import ./nixosSystem.nix;
   otherSystem = import ./otherSystem.nix;
@@ -15,4 +20,15 @@
           (path != "default.nix") # ignore default.nix
           && (lib.strings.hasSuffix ".nix" path) # include .nix files
         )) (builtins.readDir path)));
-}
+
+  scanPathsAsAttrs = path:
+    builtins.listToAttrs
+    (map
+      (name: {
+        name = name;
+        value = "./${name}"; # 确保是 Nix 路径，而不是字符串
+      })
+      (builtins.attrNames
+        (lib.attrsets.filterAttrs (_name: type: type == "directory")
+          (builtins.readDir path))));
+})

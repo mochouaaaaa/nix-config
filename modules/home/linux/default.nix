@@ -1,0 +1,4 @@
+{
+  gui = ./gui;
+  base = ./base;
+}

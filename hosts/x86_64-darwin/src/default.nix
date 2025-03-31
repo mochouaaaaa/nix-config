@@ -1,0 +1,3 @@
+{
+  macos = import ./macos.nix;
+}

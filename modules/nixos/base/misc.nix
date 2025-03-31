@@ -1,8 +1,6 @@
 {
   config,
-  lib,
   pkgs,
-  pkgs-unstable,
   ...
 }: {
   # add user's shell into /etc/shells
@@ -39,15 +37,5 @@
     ssh.startAgent = true;
     # dconf is a low-level configuration system.
     dconf.enable = true;
-
-    # thunar file manager(part of xfce) related options
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-        thunar-media-tags-plugin
-      ];
-    };
   };
 }

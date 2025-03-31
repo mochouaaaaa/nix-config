@@ -1,14 +1,14 @@
 {
   pkgs,
   myvars,
-  nuenv,
+  # nuenv,
   nixpkgs,
   lib,
   inputs,
   ...
 } @ args: {
   nixpkgs.overlays = [
-    nuenv.overlays.default
+    # nuenv.overlays.default
     # (import ./overlays/kppleMenu.nix)
   ]; # ++ (import ./overlays args);
 
@@ -73,19 +73,19 @@
     # substituers that will be considered before the official ones(https://cache.nixos.org)
     substituters = [
       # cache mirror located in China
-      # status: https://mirror.sjtu.edu.cn/
       # "https://mirror.sjtu.edu.cn/nix-channels/store"
-      # status: https://mirrors.ustc.edu.cn/status/
       # "https://mirrors.ustc.edu.cn/nix-channels/store"
 
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
+      "https://hyprland.cachix.org"
       # cuda-maintainer's cache server
       #"https://cuda-maintainers.cachix.org"
     ];
 
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       #"cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
     builders-use-substitutes = true;
