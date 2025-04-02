@@ -7,7 +7,8 @@
   myvars,
   genSpecialArgs,
   ...
-} @ args: let
+}@args:
+let
   modules = {
     nixos-modules = [
       ../nixos
@@ -52,15 +53,16 @@
         };
 
         modules.packages.envs = {
-          pyenv.enable = true;
-          goenv.enable = true;
-          nodenv.enable = true;
-          luaenv.enable = true;
+          pyenv.enable = false;
+          goenv.enable = false;
+          nodenv.enable = false;
+          luaenv.enable = false;
         };
       }
     ];
   };
-in {
+in
+{
   nixosConfigurations = {
     nixos = mylib.nixosSystem (modules // args);
   };

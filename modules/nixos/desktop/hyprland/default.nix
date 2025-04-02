@@ -48,7 +48,7 @@ in
       greetd = {
         settings = {
           default_session = {
-            command = lib.mkForce "cage -s -mlast ${lib.getExe config.programs.regreet.package}";
+            # command = lib.mkForce "cage -s -mlast ${lib.getExe config.programs.regreet.package}";
           };
         };
       };

@@ -9,8 +9,8 @@
     # substituers will be appended to the default substituters when fetching packages
     extra-substituters = [
       "https://cache.nixos.org"
-      # "https://mirror.sjtu.edu.cn/nix-channels/store"
-      # "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://mirror.sjtu.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
 
       "https://nix-gaming.cachix.org"
     ];
@@ -96,14 +96,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # desktop components
+    waybar.url = "github:Alexays/Waybar/master";
+
     # hyprland or plugins
     hyprland.url = "github:hyprwm/Hyprland";
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-    hypr-darkwindow = {
-      url = "github:alexhulbert/Hyprchroma";
+    hypr-dynamic-cursors = {
+      url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
     };
     hyprlux = {

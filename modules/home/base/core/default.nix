@@ -3,8 +3,10 @@
   config,
   myvars,
   mylib,
+  isLinux,
   ...
-}: {
+}:
+{
   imports = mylib.scanPaths ./.;
 
   options = {
@@ -15,5 +17,9 @@
       example = "${config.home.homeDirectory}/.config/${myvars.dotfilePath}";
       description = "Location of the dotfiles working copy";
     };
+  };
+
+  config = lib.mkIf isLinux {
+    targets.genericLinux.enable = true;
   };
 }

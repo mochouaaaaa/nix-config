@@ -7,13 +7,53 @@
   home.shell = {
     enableZshIntegration = true;
   };
+
+  home.packages = with pkgs; [ zinit ];
+
+  programs.bash.enable = true;
   programs.zsh = {
     enable = true;
-    defaultKeymap = "vicmd";
+    initExtra = ''
+      # source $HOME/.zsh/plugins/zsh-powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
+      if [[ $- != *i* ]]; then
+          return
+      fi
+
+      source ${config.dotfiles}/zsh/init.zsh
+
+      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    '';
+    plugins = [
+      {
+        name = "zsh-powerlevel10k";
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        src = pkgs.zsh-powerlevel10k;
+      }
+      {
+        name = "zsh-fast-syntax-highlighting";
+        file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
+        src = pkgs.zsh-fast-syntax-highlighting;
+      }
+      {
+        name = "zsh-autosuggestions";
+        file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
+        src = pkgs.zsh-autosuggestions;
+      }
+      {
+        name = "zsh-fzf-tab";
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+        src = pkgs.zsh-fzf-tab;
+      }
+    ];
+    enableCompletion = true;
+    syntaxHighlighting = {
+      enable = true;
+      package = pkgs.zsh-syntax-highlighting;
+    };
     autosuggestion = {
       enable = true;
     };
-    dotDir = ".config/zsh";
     history = {
       path = "$HOME/.zsh_history";
       size = 1000;

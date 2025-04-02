@@ -1,4 +1,5 @@
-{isDarwin, ...}: {
+{ isDarwin, ... }:
+{
   programs.ssh = {
     enable = true;
 
@@ -12,11 +13,7 @@
     extraConfig = ''
       Host github.com
         AddKeysToAgent yes
-        ${
-        if isDarwin
-        then "UseKeychain yes"
-        else ""
-      }
+        ${if isDarwin then "UseKeychain yes" else ""}
         IdentityFile ~/.ssh/github
     '';
   };
