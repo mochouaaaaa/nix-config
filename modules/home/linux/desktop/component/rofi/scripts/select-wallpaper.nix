@@ -115,6 +115,8 @@ in {
 
           }
 
+          wal -i $HOME/.current_wallpaper --cols16 -s -t
+
           # Check if rofi is already running
           if pidof rofi > /dev/null; then
             pkill rofi

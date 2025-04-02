@@ -13,7 +13,7 @@
   }
   {
     label = "logout";
-    action = "loginctl kill-sesion $XDG_SESSION_ID";
+    action = "loginctl terminate-user $USER";
     text = "Logout";
     keybind = "l";
   }

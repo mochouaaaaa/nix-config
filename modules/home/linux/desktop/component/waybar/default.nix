@@ -1,20 +1,32 @@
 {
   lib,
+  pkgs,
+  inputs,
   config,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.component.waybar;
-in {
+in
+{
   options.modules.desktop.component.waybar = {
-    enable = lib.mkEnableOption "Waybar status bar" // {default = false;};
+    enable = lib.mkEnableOption "Waybar status bar" // {
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      font-awesome
+    ];
+
     programs.waybar = {
       enable = true;
+      package = inputs.waybar.packages.${pkgs.system}.waybar;
       systemd = {
         enable = true;
-        target = "wayland-session@Hyprland.target";
+        # target = "wayland-session@Hyprland.target";
+        target = "hyprland-session.target";
       };
       style = ./config/style.css;
     };

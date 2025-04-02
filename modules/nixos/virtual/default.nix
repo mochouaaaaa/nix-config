@@ -1,18 +1,21 @@
 {
   lib,
   config,
+  mylib,
   ...
-}: let
+}:
+let
   cfg = config.modules.virtual;
   importModules =
-    []
-    ++ lib.optionals (cfg.docker.enable) [./docker.nix]
-    ++ lib.optionals (cfg.qemu.enable) [./qemu.nix]
-    ++ lib.optionals (cfg.virtualbox.enable) [./virtualbox.nix]
-    ++ lib.optionals (cfg.vmware.enable) [./vmware.nix];
+    [ ]
+    ++ lib.optionals (cfg.docker.enable) [ ./docker.nix ]
+    ++ lib.optionals (cfg.qemu.enable) [ ./qemu.nix ]
+    ++ lib.optionals (cfg.virtualbox.enable) [ ./virtualbox.nix ]
+    ++ lib.optionals (cfg.vmware.enable) [ ./vmware.nix ];
 
   hasModules = lib.lists.length importModules > 0;
-in {
+in
+{
   options.modules.virtual = {
     virtualbox.enable = lib.mkEnableOption "VirtualBox";
     vmware.enable = lib.mkEnableOption "VMware";
@@ -20,14 +23,16 @@ in {
     docker.enable = lib.mkEnableOption "Docker";
   };
 
+  imports = mylib.scanPaths ./.;
+
   config = lib.mkIf hasModules {
     # For Intel:
     /*
-    options kvm_intel nested=1
-    options kvm_intel emulate_invalid_guest_state=0
-    options kvm ignore_msrs=1
+      options kvm_intel nested=1
+      options kvm_intel emulate_invalid_guest_state=0
+      options kvm ignore_msrs=1
     */
-    boot.kernelModules = ["vfio-pci"];
+    boot.kernelModules = [ "vfio-pci" ];
     services.spice-vdagentd.enable = true;
   };
 }

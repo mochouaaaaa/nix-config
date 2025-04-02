@@ -37,8 +37,8 @@
         obs-vaapi
         # obs-nvfbc
         obs-teleport
-        # obs-hyperion
-        # droidcam-obs
+        obs-hyperion
+        droidcam-obs
         obs-vkcapture
         obs-gstreamer
         obs-3d-effect

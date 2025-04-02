@@ -13,7 +13,8 @@ in {
           #!/usr/bin/env bash
 
           iDIR="$HOME/.config/swaync/icons"
-          notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ''${iDIR}/picture.png"
+          # notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ''${iDIR}/picture.png"
+          notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ''${iDIR}/screenshot.png"
 
           # Function: Notify and handle sound
           notify_view() {

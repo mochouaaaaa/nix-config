@@ -4,9 +4,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   imports = [
     inputs.hyprland.homeManagerModules.default
   ];
@@ -18,12 +20,20 @@ in {
       xwayland.enable = true;
       plugins = [
         inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
-        # inputs.hypr-darkwindow.packages.${pkgs.system}.Hypr-DarkWindow
+        # inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
+        # inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers
       ];
       systemd = {
-        enable = false;
-        variables = ["--all"];
+        enable = true;
+        variables = [ "--all" ];
         enableXdgAutostart = true;
+      };
+      settings = {
+        env = [
+          "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
+          "MOZ_ENABLE_WAYLAND,1" # for firefox to run on wayland
+          "MOZ_WEBRENDER,1"
+        ];
       };
       extraConfig = ''
 

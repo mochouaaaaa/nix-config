@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.virtual;
-in {
+in
+{
   config = lib.mkIf cfg.qemu.enable {
     environment.systemPackages = with pkgs; [
       virt-viewer
@@ -54,7 +56,7 @@ in {
           package = pkgs.qemu_kvm;
           runAsRoot = true;
           swtpm.enable = true;
-          vhostUserPackages = [pkgs.virtiofsd];
+          vhostUserPackages = [ pkgs.virtiofsd ];
           ovmf = {
             enable = true;
             #packages = [(pkgs.unstable.OVMF.override {
@@ -62,19 +64,18 @@ in {
               (pkgs.OVMF.override {
                 secureBoot = true;
                 tpmSupport = true;
-              })
-              .fd
+              }).fd
             ];
           };
         };
       };
     };
 
-    dconf.settings = {
-      "org/virt-manager/virt-manager/connections" = {
-        autoconnect = ["qemu:///system"];
-        uris = ["qemu:///system"];
-      };
-    };
+    # dconf.settings = {
+    #   "org/virt-manager/virt-manager/connections" = {
+    #     autoconnect = ["qemu:///system"];
+    #     uris = ["qemu:///system"];
+    #   };
+    # };
   };
 }

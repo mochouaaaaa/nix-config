@@ -4,9 +4,11 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   cfgHyprland = config.modules.desktop.hyprland;
-in {
+in
+{
   options.modules.desktop.hyprland = {
     enable = lib.mkEnableOption "Hyprland";
   };
@@ -16,14 +18,13 @@ in {
     programs = {
       hyprland = {
         enable = true;
-        withUWSM = true;
+        # withUWSM = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       };
-      # hyprlux = hyprlux.hyprlux;
 
-      uwsm = {
-        enable = true;
-      };
+      # uwsm = {
+      #   enable = true;
+      # };
       regreet = {
         enable = true;
       };
@@ -38,7 +39,7 @@ in {
       # };
     };
 
-    environment.systemPackages = with pkgs; [cage];
+    environment.systemPackages = with pkgs; [ cage ];
 
     services = {
       xserver = {

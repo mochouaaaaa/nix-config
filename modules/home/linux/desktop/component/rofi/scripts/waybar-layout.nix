@@ -8,7 +8,6 @@
 in {
   config = lib.mkIf (config.programs.waybar.enable
     && cfg.enable) {
-
     home.packages = with pkgs; [
       (
         writeShellScriptBin "waybar-layout" ''
