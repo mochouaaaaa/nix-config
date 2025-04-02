@@ -45,6 +45,16 @@
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
         src = pkgs.zsh-fzf-tab;
       }
+      {
+        name = "fzf-tab-source";
+        file = "fzf-tab-source.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "Freed-Wu";
+          repo = "fzf-tab-source";
+          rev = "main";
+          sha256 = "sha256-0k6x4AhO8ULqanA+1bTNLhMGVz2A3K7LXQ/MgSLuQkc=";
+        };
+      }
     ];
     enableCompletion = true;
     syntaxHighlighting = {
