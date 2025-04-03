@@ -37,8 +37,6 @@ let
       self.homeModules.linux.base
       self.homeModules.linux.gui
 
-      # self.homeModules.linux.desktop.window.hyprland
-      # self.homeModules.linux.desktop
       {
         # modules.desktop.kde.enable = true;
         modules.desktop.hyprland.enable = true;

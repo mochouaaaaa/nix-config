@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   ###################################################################################
   #
@@ -12,6 +13,7 @@
   #
   ###################################################################################
 
+  nixpkgs.hostPlatform = "x86_64-darwin";
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -20,7 +22,11 @@
   # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
   nix.settings.auto-optimise-store = false;
 
-  nix.gc.automatic = false;
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    interval = [ { Weekday = 7; } ];
+    options = lib.mkDefault "--delete-older-than 7d";
+  };
 
   system.stateVersion = 5;
 }

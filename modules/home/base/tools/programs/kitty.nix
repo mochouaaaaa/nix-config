@@ -1,38 +1,37 @@
 {
   lib,
   config,
+  isDarwin,
   ...
-}: let
-  cfgDesktop = config.modules.desktop;
-  cfgKitty = config.modules.packages.kitty;
-in {
-  options.modules.packages.kitty = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to enable the kitty terminal emulator.";
+}:
+let
+  cfgDesktop = if isDarwin then null else config.modules.desktop;
+in
+{
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "Monaco Nerd Font Mono";
+      size = 16;
+    };
+    themeFile = "Catppuccin-Mocha";
+    extraConfig = lib.concatStringsSep "\n" (
+      [ "include base.conf" ]
+      ++ lib.optionals (cfgDesktop != null && cfgDesktop.kde.enable) [
+        "hide_window_decorations yes"
+        "background_opacity 1.0"
+      ]
+    );
+    shellIntegration = {
+      enableZshIntegration = true;
+      enableBashIntegration = true;
     };
   };
 
-  config = lib.mkIf cfgKitty.enable {
-    programs.kitty = {
-      enable = true;
-      shellIntegration = {
-        enableZshIntegration = true;
-        enableBashIntegration = true;
-      };
-      extraConfig = lib.mkIf cfgDesktop.kde.enable ''
-        hide_window_decorations yes
-        background_opacity 1.0
-      '';
-    };
-
-    xdg.configFile = {
-      "kitty/kitty.conf".enable = false;
-      "kitty" = {
-        force = true;
-        source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/kitty";
-      };
+  xdg.configFile = {
+    "kitty" = {
+      force = true;
+      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/kitty";
     };
   };
 }

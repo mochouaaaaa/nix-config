@@ -30,5 +30,6 @@ in {
   # 兼容nix且nixos也可以使用
   fonts.fontconfig.enable = true;
 
-  home.packages = with pkgs; [fontconfig MonacoNerdFont MonacoNerdFontMono maple-mono.CN];
+  # home.packages = with pkgs; [fontconfig MonacoNerdFont MonacoNerdFontMono maple-mono.CN];
+  home.packages = with pkgs; [fontconfig MonacoNerdFont MonacoNerdFontMono];
 }

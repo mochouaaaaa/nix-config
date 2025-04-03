@@ -1,9 +1,11 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs = {
     mpv = {
-      enable = true && pkgs.stdenv.isLinux;
-      defaultProfiles = ["gpu-hq"];
-      scripts = [pkgs.mpvScripts.mpris];
+      enable = true;
+      package = pkgs.mpv-unwrapped;
+      defaultProfiles = [ "gpu-hq" ];
+      # scripts = [ pkgs.mpvScripts.mpris ];
     };
   };
 }

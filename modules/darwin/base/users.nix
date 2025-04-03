@@ -1,7 +1,7 @@
-{myvars, ...}: {
+{self, ...}: {
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${myvars.username}" = {
-    home = "/Users/${myvars.username}";
+  users.users."${self.myvars.username}" = {
+    home = "/Users/${self.myvars.username}";
 
     # set user's default shell back to zsh
     #    `chsh -s /bin/zsh`

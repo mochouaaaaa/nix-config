@@ -1,61 +1,60 @@
 {
   pkgs,
-  lib,
   ...
-}: {
+}:
+{
   # programs.neovim.extraPackages = lib.mkBefore (with pkgs; [
   home.packages = with pkgs; [
-        # nix
-        nil
-        nixfmt-rfc-style
+    # nix
+    nil
+    nixfmt-rfc-style
 
-        # shell
-        bash-language-server
-        shfmt
+    # shell
+    bash-language-server
+    shfmt
 
-        # lua
-        lua-language-server
-        stylua
-        # luacheck
-        luajitPackages.luacheck
+    # lua
+    lua-language-server
+    stylua
+    # luacheck
 
-        # hyprland
-        hyprls
+    # hyprland
+    hyprls
 
-        # python
-        basedpyright
-        ruff
-      
-        # go
-        gopls
-        gotools
-        goimports-reviser
+    # python
+    basedpyright
+    ruff
 
-        # rust
-        rust-analyzer
-        rustfmt
+    # go
+    gopls
+    gotools
+    goimports-reviser
 
-        # markdown
-        markdownlint-cli2
+    # rust
+    rust-analyzer
+    rustfmt
 
-        # filetypes
-        yaml-language-server
-        prettierd
-        stylelint
-        eslint_d
+    # markdown
+    marksman
+    markdownlint-cli2
 
-        # XML
-        # html-lsp
-        taplo # for TOML
+    # filetypes
+    yaml-language-server
+    prettierd
+    stylelint
+    eslint_d
 
-        # docker
-        dockerfile-language-server-nodejs
-        docker-compose-language-service
+    # XML
+    # html-lsp
+    taplo # for TOML
 
-        # Misc
-        nodePackages.cspell
-        marksman
-        sqls
+    # docker
+    dockerfile-language-server-nodejs
+    docker-compose-language-service
 
-    ];
+    # Misc
+    nodePackages.cspell
+    sqls
+
+  ];
 }

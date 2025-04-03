@@ -23,7 +23,15 @@
     neovim = {
       enable = true;
       # package = inputs.neovim.packages.${pkgs.system}.default;
-      extraLuaPackages = ps: [ ps.magick ];
+      extraLuaConfig = ''
+        -- bootstrap lazy.nvim, LazyVim and your plugins
+        require("config.lazy")
+      '';
+      extraLuaPackages = ps: [
+        ps.magick
+        pkgs.luajitPackages.luarocks
+        pkgs.luajitPackages.luacheck
+      ];
       extraPackages = [
         pkgs.imagemagick
         pkgs.sqlite
@@ -44,7 +52,6 @@
   };
 
   xdg.configFile = {
-    "nvim/init.lua".enable = false;
     "nvim" = {
       force = true;
       source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/nvim";
