@@ -13,6 +13,7 @@ let
 in
 {
   config = lib.mkIf pkgs.stdenv.isLinux {
+
     i18n.inputMethod = {
       enabled = "fcitx5";
       fcitx5 = {

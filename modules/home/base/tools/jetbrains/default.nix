@@ -1,1 +1,4 @@
-{mylib, ...}: {imports = [./jetbrains.nix];}
+{ self, ... }:
+{
+  imports = [ ./jetbrains.nix ];
+}

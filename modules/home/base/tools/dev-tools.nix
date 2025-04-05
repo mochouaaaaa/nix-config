@@ -1,9 +1,9 @@
 {
   pkgs,
   pkgs-unstable,
-  myvars,
   ...
-}: {
+}:
+{
   #############################################################
   #
   #  Basic settings for development environment

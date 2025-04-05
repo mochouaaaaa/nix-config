@@ -1,6 +1,7 @@
-{myvars, ...}: {
+{ self, ... }:
+{
   programs.wezterm = {
-    enable = myvars.packages.wezterm;
+    enable = self.myvars.packages.wezterm;
     enableBashIntegration = true;
     enableZshIntegration = true;
   };

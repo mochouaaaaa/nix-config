@@ -2,12 +2,11 @@
   inputs,
   self,
   lib,
-  myvars,
-  mylib,
   system,
   genSpecialArgs,
   ...
-} @ args: let
+}@args:
+let
   home-modules = [
     self.homeModules.base.home
     self.homeModules.base.core
@@ -17,9 +16,12 @@
     self.homeModules.linux.gui
   ];
 
-  modules = {home-modules = home-modules;} // args;
-in {
+  modules = {
+    home-modules = home-modules;
+  } // args;
+in
+{
   homeConfigurations = {
-    ubuntu = mylib.otherSystem modules;
+    ubuntu = self.mylib.otherSystem modules;
   };
 }

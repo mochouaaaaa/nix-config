@@ -1,15 +1,19 @@
 {
+  self,
   lib,
   config,
-  mylib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.niri;
-in {
-  imports = mylib.scanPaths ./.;
+in
+{
+  imports = self.mylib.scanPaths ./.;
 
   options.modules.desktop.niri = {
-    enable = lib.mkEnableOption "Niri - A Linux desktop environment" // {default = false;};
+    enable = lib.mkEnableOption "Niri - A Linux desktop environment" // {
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {

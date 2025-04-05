@@ -1,11 +1,13 @@
 {
+  self,
   pkgs,
-  myvars,
   isDarwin,
   ...
-}: let
-  isEnable = !isDarwin && myvars.packages.google-chrome;
-in {
+}:
+let
+  isEnable = !isDarwin && self.myvars.packages.google-chrome;
+in
+{
   programs = {
     # source code: https://github.com/nix-community/home-manager/blob/master/modules/programs/chromium.nix
     # google-chrome = {
@@ -13,16 +15,16 @@ in {
       enable = isEnable;
       package = pkgs.chromium;
       extensions = [
-        {id = "ffabmkklhbepgcgfonabamgnfafbdlkn";} # gzip github
-        {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock origin
-        {id = "immpkjjlgappgfkkfieppnmlhakdmaab";} # imagus
-        {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # Vimium
-        {id = "dhdgffkkebhmkfjojejmpbldmpobfkfo";} # tampermonkey
-        {id = "bpoadfkcbjbfhfodiogcnhhhpibjhbnh";} # 沉浸式翻译
-        {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
-        {id = "bbbiejemhfihiooipfcjmjmbfdmobobp";} # BewlyBewly
-        {id = "padekgcemlokbadohgkifijomclgjgif";} # Proxy SwitchyOmega
-        {id = "pkgccpejnmalmdinmhkkfafefagiiiad";} # 前端助手
+        { id = "ffabmkklhbepgcgfonabamgnfafbdlkn"; } # gzip github
+        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+        { id = "immpkjjlgappgfkkfieppnmlhakdmaab"; } # imagus
+        { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium
+        { id = "dhdgffkkebhmkfjojejmpbldmpobfkfo"; } # tampermonkey
+        { id = "bpoadfkcbjbfhfodiogcnhhhpibjhbnh"; } # 沉浸式翻译
+        { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
+        { id = "bbbiejemhfihiooipfcjmjmbfdmobobp"; } # BewlyBewly
+        { id = "padekgcemlokbadohgkifijomclgjgif"; } # Proxy SwitchyOmega
+        { id = "pkgccpejnmalmdinmhkkfafefagiiiad"; } # 前端助手
       ];
 
       # https://wiki.archlinux.org/title/Chromium#Native_Wayland_support

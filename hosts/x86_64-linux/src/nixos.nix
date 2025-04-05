@@ -3,8 +3,6 @@
   self,
   inputs,
   system,
-  mylib,
-  myvars,
   genSpecialArgs,
   ...
 }@args:
@@ -62,6 +60,6 @@ let
 in
 {
   nixosConfigurations = {
-    nixos = mylib.nixosSystem (modules // args);
+    nixos = self.mylib.nixosSystem (modules // args);
   };
 }

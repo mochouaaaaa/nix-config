@@ -1,12 +1,14 @@
 {
+  self,
   pkgs,
   config,
   lib,
-  myvars,
   ...
-}: let
+}:
+let
   cfg = config.modules.dm.greetd;
-in {
+in
+{
   options.modules.dm.greetd = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -22,7 +24,7 @@ in {
         settings = rec {
           terminal.vt = 1;
           default_session = {
-            user = myvars.username;
+            user = self.myvars.username;
             command = "${pkgs.greetd.tuigreet}/bin/tuigreet";
           };
           initial_session = default_session;

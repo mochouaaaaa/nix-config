@@ -1,20 +1,22 @@
 {
+  self,
   pkgs,
   lib,
   config,
-  myvars,
   isDarwin,
   ...
-}: let
+}:
+let
   cfgDesktop = config.modules.desktop;
 
-  isEnable = !isDarwin && myvars.packages.vscode;
-in {
+  isEnable = !isDarwin && self.myvars.packages.vscode;
+in
+{
   programs = {
     vscode = {
       enable = isEnable;
       # let vscode sync and update its configuration & extensions across devices, using github account.
-      profiles.default.userSettings = {};
+      profiles.default.userSettings = { };
       package =
         (pkgs.vscode.override {
           isInsiders = true;
@@ -34,19 +36,19 @@ in {
               "--ozone-platform-hint=auto"
               "--password-store=gnome"
             ]
-            ++ lib.optionals (myvars.wm.wayland) [
+            ++ lib.optionals (self.myvars.wm.wayland) [
               # "--enable-features=UseOzonePlatform"
               # "--ozone-platform=wayland"
               # "--enable-wayland-ime"
             ];
-        })
-        .overrideAttrs (oldAttrs: rec {
-          src = builtins.fetchTarball {
-            url = "https://update.code.visualstudio.com/latest/linux-x64/insider";
-            sha256 = "sha256:19m9yrmr7hk08ydd1frs2ibnvncnjjfi0xgjwqarpkfvn9j81vjb";
-          };
-          version = "latest";
-        });
+        }).overrideAttrs
+          (oldAttrs: rec {
+            src = builtins.fetchTarball {
+              url = "https://update.code.visualstudio.com/latest/linux-x64/insider";
+              sha256 = "sha256:19m9yrmr7hk08ydd1frs2ibnvncnjjfi0xgjwqarpkfvn9j81vjb";
+            };
+            version = "latest";
+          });
     };
   };
 }

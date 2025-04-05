@@ -1,9 +1,10 @@
 {
+  self,
   lib,
   config,
-  mylib,
   ...
-}: let
+}:
+let
   cfg = config.modules.packages.envs;
 
   pyenvEnable = cfg.pyenv.enable;
@@ -12,14 +13,23 @@
   luaenvEnable = cfg.luaenv.enable;
 
   lazyZsh = pyenvEnable || goenvEnable || nodenvEnable || luaenvEnable;
-in {
+in
+{
   options.modules.packages.envs = {
-    pyenv.enable = lib.mkEnableOption "pyenv" // {default = false;};
-    goenv.enable = lib.mkEnableOption "goenv" // {default = false;};
-    nodenv.enable = lib.mkEnableOption "nodenv" // {default = false;};
-    luaenv.enable = lib.mkEnableOption "luaenv" // {default = false;};
+    pyenv.enable = lib.mkEnableOption "pyenv" // {
+      default = false;
+    };
+    goenv.enable = lib.mkEnableOption "goenv" // {
+      default = false;
+    };
+    nodenv.enable = lib.mkEnableOption "nodenv" // {
+      default = false;
+    };
+    luaenv.enable = lib.mkEnableOption "luaenv" // {
+      default = false;
+    };
   };
-  imports = mylib.scanPaths ./.;
+  imports = self.mylib.scanPaths ./.;
 
   config = lib.mkIf lazyZsh {
     xdg.configFile."${config.dotfiles}/zsh/plugins/lazyZsh.zsh" = {

@@ -1,13 +1,15 @@
 {
+  self,
   lib,
   inputs,
-  myvars,
   config,
   isLinux,
   ...
-}: let
+}:
+let
   cfgDesktop = config.modules.desktop;
-in {
+in
+{
   imports = [
     inputs.xremap-flake.homeManagerModules.default
   ];
@@ -34,12 +36,22 @@ in {
           exact_match = true;
           remap = lib.mkMerge (
             [
-              {}
+              { }
             ]
-            ++ lib.optionals (myvars.packages.pot && (cfgDesktop.hyprland.enable || cfgDesktop.niri.enable)) [
+            ++ lib.optionals (self.packages.pot && (cfgDesktop.hyprland.enable || cfgDesktop.niri.enable)) [
               {
-                "ALT-a" = {launch = ["curl" "127.0.0.1:60828/input_translate"];};
-                "ALT-d" = {launch = ["curl" "127.0.0.1:60828/selection_translate"];};
+                "ALT-a" = {
+                  launch = [
+                    "curl"
+                    "127.0.0.1:60828/input_translate"
+                  ];
+                };
+                "ALT-d" = {
+                  launch = [
+                    "curl"
+                    "127.0.0.1:60828/selection_translate"
+                  ];
+                };
                 "ALT-s" = {
                   launch = [
                     "bash"
@@ -70,7 +82,7 @@ in {
         {
           name = "Replace Super/Command With Ctrl";
           exact_match = true;
-          application.not = ["kitty"];
+          application.not = [ "kitty" ];
           remap = {
             "SUPER-c" = "C-c";
             "SUPER-v" = "C-v";

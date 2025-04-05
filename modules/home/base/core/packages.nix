@@ -1,6 +1,5 @@
 {
   pkgs,
-  myvars,
   ...
 }:
 {
@@ -29,7 +28,6 @@
     # Modern cli tools, replacement of grep/sed/...
 
     # Interactively filter its input using fuzzy searching, not limit to filenames.
-    fzf
     luajitPackages.fzf-lua
     # search for files by name, faster than find
     fd
@@ -77,7 +75,7 @@
     # Additionally, it provides optional and fully encrypted
     # synchronisation of your history between machines, via an Atuin server.
     atuin = {
-      enable = true;
+      enable = false;
       settings = {
         style = "full";
         enter_accept = false;

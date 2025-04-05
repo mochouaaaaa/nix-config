@@ -1,26 +1,27 @@
 {
+  self,
   config,
   lib,
   pkgs,
-  myvars,
   ...
-}: {
+}:
+{
   # `programs.git` will generate the config file: ~/.config/git/config
   # to make git use this config file, `~/.gitconfig` should not exist!
   #
   #    https://git-scm.com/docs/git-config#Documentation/git-config.txt---global
-  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+  home.activation.removeExistingGitconfig = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
 
-  home.packages = with pkgs; [];
+  home.packages = with pkgs; [ ];
 
   programs.git = {
     enable = true;
     lfs.enable = true;
 
-    userName = myvars.userfullname;
-    userEmail = myvars.useremail;
+    userName = self.myvars.userfullname;
+    userEmail = self.myvars.useremail;
 
     # includes = [
     # {
@@ -38,7 +39,7 @@
 
       # replace https with ssh
       url = {
-        "ssh://git@github.com/${myvars.userfullname}" = {
+        "ssh://git@github.com/${self.myvars.userfullname}" = {
           insteadOf = "https://github.com/mochouaaaaa";
         };
         # "ssh://git@gitlab.com/" = {

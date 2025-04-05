@@ -14,7 +14,6 @@
   programs.zsh = {
     enable = true;
     initExtra = ''
-      # source $HOME/.zsh/plugins/zsh-powerlevel10k/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
       if [[ $- != *i* ]]; then
           return
@@ -56,7 +55,7 @@
         };
       }
     ];
-    enableCompletion = true;
+    enableCompletion = false;
     syntaxHighlighting = {
       enable = true;
       package = pkgs.zsh-syntax-highlighting;

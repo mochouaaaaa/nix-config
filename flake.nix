@@ -9,7 +9,6 @@
     # substituers will be appended to the default substituters when fetching packages
     extra-substituters = [
       "https://cache.nixos.org"
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
 
       "https://nix-gaming.cachix.org"
@@ -45,7 +44,6 @@
 
     # thmem
     stylix.url = "github:danth/stylix";
-    honkai-railway-grub-theme.url = "github:voidlhf/StarRailGrubThemes";
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";
     # flatpak

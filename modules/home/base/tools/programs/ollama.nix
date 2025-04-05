@@ -1,10 +1,11 @@
 {
+  self,
   pkgs,
-  myvars,
   ...
-}: {
+}:
+{
   services.ollama = {
-    enable = myvars.packages.ollama && pkgs.stdenv.isLinux;
+    enable = self.myvars.packages.ollama && pkgs.stdenv.isLinux;
     acceleration = "rocm";
   };
 }

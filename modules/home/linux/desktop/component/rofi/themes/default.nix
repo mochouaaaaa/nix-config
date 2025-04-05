@@ -1,15 +1,16 @@
 {
+  self,
   config,
   lib,
-  mylib,
   ...
-}: let
+}:
+let
   cfg = config.programs.rofi;
-in {
-  imports = mylib.scanPaths ./.;
+in
+{
+  imports = self.mylib.scanPaths ./.;
 
-  config = lib.mkIf (config.programs.waybar.enable
-    && cfg.enable) {
+  config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
     xdg.configFile = {
       "rofi/themes/default.rasi".text = ''
         @import "~/.cache/wal/colors-rofi-dark.rasi"

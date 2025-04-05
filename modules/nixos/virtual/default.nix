@@ -1,7 +1,7 @@
 {
+  self,
   lib,
   config,
-  mylib,
   ...
 }:
 let
@@ -23,7 +23,7 @@ in
     docker.enable = lib.mkEnableOption "Docker";
   };
 
-  imports = mylib.scanPaths ./.;
+  imports = self.mylib.scanPaths ./.;
 
   config = lib.mkIf hasModules {
     # For Intel:

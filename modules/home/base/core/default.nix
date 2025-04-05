@@ -1,20 +1,19 @@
 {
+  self,
   lib,
   config,
-  myvars,
-  mylib,
   isLinux,
   ...
 }:
 {
-  imports = mylib.scanPaths ./.;
+  imports = self.mylib.scanPaths ./.;
 
   options = {
     dotfiles = lib.mkOption {
       type = lib.types.path;
       apply = toString;
-      default = "${config.home.homeDirectory}/.config/${myvars.dotfilePath}";
-      example = "${config.home.homeDirectory}/.config/${myvars.dotfilePath}";
+      default = "${config.home.homeDirectory}/.config/${self.myvars.dotfilePath}";
+      example = "${config.home.homeDirectory}/.config/${self.myvars.dotfilePath}";
       description = "Location of the dotfiles working copy";
     };
   };

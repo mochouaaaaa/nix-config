@@ -4,32 +4,37 @@
   lib,
   system,
   genSpecialArgs,
-  nixos-modules ? [],
-  home-modules ? [],
+  nixos-modules ? [ ],
+  home-modules ? [ ],
   specialArgs ? (genSpecialArgs system),
   ...
-}: let
+}:
+let
   inherit (inputs) nixpkgs home-manager nixos-generators;
-  inherit (self) myvars mylib;
 in
-  nixpkgs.lib.nixosSystem {
-    # inherit system specialArgs self;
-    specialArgs = {
-      inherit system inputs specialArgs self myvars mylib;
-    };
+nixpkgs.lib.nixosSystem {
+  # inherit system specialArgs self;
+  specialArgs = {
+    inherit
+      system
+      inputs
+      specialArgs
+      self
+      ;
+  };
 
-    modules =
-      nixos-modules
-      ++ [nixos-generators.nixosModules.all-formats]
-      ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "home-manager.backup";
+  modules =
+    nixos-modules
+    ++ [ nixos-generators.nixosModules.all-formats ]
+    ++ (lib.optionals ((lib.lists.length home-modules) > 0) [
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "home-manager.backup";
 
-          home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users."${self.myvars.username}".imports = home-modules;
-        }
-      ]);
-  }
+        home-manager.extraSpecialArgs = specialArgs;
+        home-manager.users."${self.myvars.username}".imports = home-modules;
+      }
+    ]);
+}

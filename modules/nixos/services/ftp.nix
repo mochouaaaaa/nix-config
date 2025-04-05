@@ -1,15 +1,16 @@
 {
   lib,
-  myvars,
+  self,
   ...
-}: {
+}:
+{
   services.vsftpd = {
     enable = true;
     writeEnable = true;
     localUsers = true;
     localRoot = "/";
     userlistEnable = true;
-    userlist = [myvars.username];
+    userlist = [ self.myvars.username ];
     chrootlocalUser = true;
     allowWriteableChroot = true;
     extraConfig = ''

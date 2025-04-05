@@ -3,8 +3,6 @@
   self,
   inputs,
   system,
-  mylib,
-  myvars,
   genSpecialArgs,
   ...
 }@args:
@@ -37,6 +35,6 @@ let
 in
 {
   darwinConfigurations = {
-    macos = mylib.macosSystem systemArgs;
+    macos = self.mylib.macosSystem systemArgs;
   };
 }

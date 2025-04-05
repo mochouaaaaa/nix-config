@@ -1,12 +1,12 @@
 {
-  myvars,
+  self,
   ...
 }:
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
-    inherit (myvars) username;
+    inherit (self.myvars) username;
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
