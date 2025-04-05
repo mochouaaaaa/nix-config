@@ -16,7 +16,9 @@ in
     };
     themeFile = "Catppuccin-Mocha";
     extraConfig = lib.concatStringsSep "\n" (
-      [ "include base.conf" ]
+      [
+        "include init.conf"
+      ]
       ++ lib.optionals (cfgDesktop != null && cfgDesktop.kde.enable) [
         "hide_window_decorations yes"
         "background_opacity 1.0"
