@@ -8,7 +8,7 @@
 
 <details>
     <summary>目录结构</summary>
-```shell
+```txt
 .
 ├── README.md
 ├── flake.lock
