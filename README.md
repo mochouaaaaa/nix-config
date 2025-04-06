@@ -8,6 +8,7 @@
 
 <details>
     <summary>目录结构</summary>
+
 ```txt
 .
 ├── README.md
@@ -37,6 +38,7 @@
 └── vars // 全局变量
     └── default.nix
 ```
+
 </details>
 
 ## Usage
@@ -72,5 +74,15 @@ nixos-rebuild switch --flake .#nixos --impure
 
 <details>
 <summary>Hyprland</summary>
+![]
+</details>
+
+<details>
+<summary>Gnome</summary>
+![]
+</details>
+
+<details>
+<summary>KDE</summary>
 ![]
 </details>
