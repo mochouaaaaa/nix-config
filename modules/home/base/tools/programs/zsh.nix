@@ -84,6 +84,7 @@
   xdg.configFile = {
     "zsh" = {
       force = true;
+      recursive = true;
       source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/zsh";
     };
   };

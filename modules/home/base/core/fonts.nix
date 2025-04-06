@@ -36,6 +36,6 @@ in
   home.packages = with pkgs; [
     fontconfig
     makeFonts
-    maple-mono
+    # maple-mono
   ];
 }

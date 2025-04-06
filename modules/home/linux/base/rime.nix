@@ -10,9 +10,10 @@ let
   dotfiles = config.dotfiles;
   rimeConfig = "${dotfiles}/rime";
 
+  rime-data = config.modules.packages.rime.data-package;
 in
 {
-  config = lib.mkIf pkgs.stdenv.isLinux {
+  config = {
 
     i18n.inputMethod = {
       enabled = "fcitx5";
@@ -21,7 +22,7 @@ in
         addons = with pkgs; [
           (fcitx5-rime.override {
             rimeDataPkgs = [
-              (config.modules.packages.rime.data-package.rime-data { })
+              (rime-data)
             ];
           })
           fcitx5-lua

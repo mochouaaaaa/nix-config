@@ -2,9 +2,9 @@
   pkgs,
   lib,
   config,
-  isDarwin,
   ...
-}: let
+}:
+let
   cfg = config.modules.packages.jetbrains;
   jetbrainsConfig = enable: {
     pycharm = enable && cfg.pycharm.enable;
@@ -13,7 +13,7 @@
     clion = enable && cfg.clion.enable;
   };
 
-  initjetbrains = jetbrainsConfig (cfg.enable && !isDarwin);
+  initjetbrains = jetbrainsConfig cfg.enable;
 
   jetbra = pkgs.stdenv.mkDerivation {
     name = "jetbra";
@@ -32,7 +32,8 @@
     -javaagent:${jetbra}/ja-netfilter.jar=jetbrains
     -Dawt.toolkit.name=WLToolkit
   '';
-in {
+in
+{
   options.modules.packages.jetbrains = {
     enable = lib.mkEnableOption "JetBrains IDEs";
     pycharm.enable = lib.mkEnableOption "PyCharm IDE";
@@ -41,16 +42,20 @@ in {
     clion.enable = lib.mkEnableOption "CLion IDE";
   };
   config = {
-    home.packages = with pkgs;
-      []
+    home.packages =
+      with pkgs;
+      [ ]
       ++ (lib.optionals (initjetbrains.pycharm) [
-        (pkgs.jetbrains.pycharm-professional.override {vmopts = vmoptions;})
+        (pkgs.jetbrains.pycharm-professional.override { vmopts = vmoptions; })
       ])
-      ++ (lib.optionals (initjetbrains.goland)
-        [(pkgs.jetbrains.goland.override {vmopts = vmoptions;})])
-      ++ (lib.optionals (initjetbrains.datagrip)
-        [(pkgs.jetbrains.datagrip.override {vmopts = vmoptions;})])
-      ++ (lib.optionals (initjetbrains.clion)
-        [(pkgs.jetbrains.clion.override {vmopts = vmoptions;})]);
+      ++ (lib.optionals (initjetbrains.goland) [
+        (pkgs.jetbrains.goland.override { vmopts = vmoptions; })
+      ])
+      ++ (lib.optionals (initjetbrains.datagrip) [
+        (pkgs.jetbrains.datagrip.override { vmopts = vmoptions; })
+      ])
+      ++ (lib.optionals (initjetbrains.clion) [
+        (pkgs.jetbrains.clion.override { vmopts = vmoptions; })
+      ]);
   };
 }

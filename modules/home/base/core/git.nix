@@ -23,6 +23,8 @@
     userName = self.myvars.userfullname;
     userEmail = self.myvars.useremail;
 
+    ignores = [ ".DS_Store" ];
+
     # includes = [
     # {
     # use different email & name for work

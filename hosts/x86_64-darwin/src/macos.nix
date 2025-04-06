@@ -10,6 +10,7 @@ let
   modules = {
     darwin-modules = [
       ../macos
+
       self.darwinModules.base
     ];
     home-modules = [
@@ -18,13 +19,17 @@ let
       self.homeModules.base.tools
 
       self.homeModules.darwin.base
+      self.homeModules.darwin.tools
 
       {
-        modules.packages.envs = {
-          pyenv.enable = true;
-          goenv.enable = true;
-          nodenv.enable = true;
-          luaenv.enable = true;
+        modules.packages = {
+          ollama.enable = true;
+          envs = {
+            pyenv.enable = true;
+            goenv.enable = true;
+            nodenv.enable = true;
+            luaenv.enable = true;
+          };
         };
       }
 

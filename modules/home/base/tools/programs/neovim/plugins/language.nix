@@ -24,6 +24,7 @@
     # python
     basedpyright
     ruff
+    pylyzer
 
     # go
     gopls

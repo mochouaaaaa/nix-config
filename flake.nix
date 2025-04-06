@@ -85,6 +85,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     neovim = {
       url = "github:nix-community/neovim-nightly-overlay/master";
       inputs.nixpkgs.follows = "nixpkgs";

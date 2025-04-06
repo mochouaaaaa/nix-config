@@ -3,7 +3,6 @@
   lib,
   inputs,
   config,
-  isLinux,
   ...
 }:
 let
@@ -66,17 +65,6 @@ in
                 };
               }
             ]
-            # ++ lib.optionals isLinux [
-            #   {
-            #     "SUPER-C-a" = {
-            #       launch = [
-            #         "bash"
-            #         "-c"
-            #         "flameshot gui"
-            #       ];
-            #     };
-            #   }
-            # ]
           );
         }
         {

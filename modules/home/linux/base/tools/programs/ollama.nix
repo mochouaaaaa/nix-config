@@ -1,0 +1,5 @@
+{
+  services.ollama = {
+    acceleration = "rocm";
+  };
+}

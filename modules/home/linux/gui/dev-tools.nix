@@ -8,7 +8,6 @@
   home.packages =
     with pkgs;
     [
-      # clash-verge-rev
 
       # Automatically trims your branches whose tracking remote refs are merged or gone
       # It's really useful when you work on a project for a long time.
@@ -26,16 +25,16 @@
 
       spotify
     ]
-    ++ lib.optionals myvars.packages.qq [ qq ]
-    ++ lib.optionals myvars.packages.wechat [ wechat-uos ]
-    ++ lib.optionals myvars.packages.telegram [ telegram-desktop ]
-    ++ lib.optionals myvars.packages.pot [
+    ++ lib.optionals self.myvars.packages.qq [ qq ]
+    ++ lib.optionals self.myvars.packages.wechat [ wechat-uos ]
+    ++ lib.optionals self.myvars.packages.telegram [ telegram-desktop ]
+    ++ lib.optionals self.myvars.packages.pot [
       pot
       grim
       slurp
       tesseract
     ]
-    ++ lib.optionals myvars.packages.flameshot [
+    ++ lib.optionals self.myvars.packages.flameshot [
       (flameshot.overrideAttrs (oldAttrs: rec {
         name = "flameshot-with-grim"; # 修改包名，避免冲突
         enableWlrSupport = true;
@@ -43,9 +42,7 @@
           grim
           slurp
         ]; # 确保 grim 和 slurp 是构建依赖
-        cmakeFlags =
-          oldAttrs.cmakeFlags
-          ++ lib.optionals stdenv.hostPlatform.isLinux [ "-DUSE_WAYLAND_GRIM=ON" ]; # 启用 USE_WAYLAND_GRIM
+        cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DUSE_WAYLAND_GRIM=ON" ]; # 启用 USE_WAYLAND_GRIM
       }))
     ];
 }

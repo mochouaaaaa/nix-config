@@ -28,7 +28,6 @@ let
       };
       isNixos = builtins.pathExists "/etc/nixos";
       isLinux = nixpkgs.legacyPackages.${system}.stdenv.isLinux && !isNixos;
-      isDarwin = nixpkgs.legacyPackages.${system}.stdenv.isDarwin;
     };
   args = {
     inherit

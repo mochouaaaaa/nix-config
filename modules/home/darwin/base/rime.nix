@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -12,7 +11,7 @@ let
 in
 {
 
-  config = lib.mkIf pkgs.stdenv.isDarwin {
+  config = {
     modules.packages.rime.extraFiles = lib.mkBefore [
       {
         name = "squirrel.custom.yaml";
@@ -69,7 +68,7 @@ in
     home.file = {
       "Library/Rime" = {
         # source = RimeTheme;
-        source = "${rime-data { }}/share/rime-data";
+        source = "${rime-data}/share/rime-data";
         recursive = true;
       };
     };

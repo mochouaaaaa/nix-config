@@ -1,11 +1,10 @@
 {
-  lib,
   pkgs,
   pkgs-unstable,
   ...
 }:
 {
-  config = lib.mkIf pkgs.stdenv.isLinux {
+  config = {
     home.packages = with pkgs; [
       # creative
       blender # 3d modeling

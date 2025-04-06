@@ -1,7 +1,6 @@
 {
   pkgs,
   self,
-  # nuenv,
   nixpkgs,
   lib,
   inputs,
@@ -9,7 +8,8 @@
 }@args:
 {
   nixpkgs.overlays = [
-    # nuenv.overlays.default
+    inputs.nuenv.overlays.default
+    inputs.nix-vscode-extensions.overlays.default
     # (import ./overlays/kppleMenu.nix)
   ]; # ++ (import ./overlays args);
 

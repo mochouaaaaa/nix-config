@@ -9,7 +9,8 @@ let
     url = "https://github.com/catppuccin/cava";
     hash = "sha256-5AQcCRGaAxP5KFzkJtkKFYq0Ug2xVIEqr2r/k87uWwY=";
   };
-in {
+in
+{
   home.packages = with pkgs; [
     # audio control
     pavucontrol
@@ -20,20 +21,24 @@ in {
     #    nvtopPackages.full
 
     # video/audio tools
-    cava # for visualizing audio
     libva-utils
     vdpauinfo
     vulkan-tools
     glxinfo
   ];
 
+  programs.cava = {
+    enable = true;
+  };
   # https://github.com/catppuccin/cava
-  xdg.configFile."cava/config".text =
-    ''
-      # custom cava config
-    ''
-    + builtins.readFile
-    "${cavaTheme}/themes/mocha.cava";
+  # xdg.configFile."cava/config".text =
+  #   ''
+  #     # custom cava config
+  #   ''
+  #   + builtins.readFile
+  #   "${cavaTheme}/themes/mocha.cava";
 
-  services = {playerctld.enable = true;};
+  services = {
+    playerctld.enable = true;
+  };
 }

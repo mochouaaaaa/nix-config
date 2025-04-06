@@ -49,10 +49,10 @@ let
         };
 
         modules.packages.envs = {
-          pyenv.enable = false;
-          goenv.enable = false;
-          nodenv.enable = false;
-          luaenv.enable = false;
+          pyenv.enable = true;
+          goenv.enable = true;
+          nodenv.enable = true;
+          luaenv.enable = true;
         };
       }
     ];

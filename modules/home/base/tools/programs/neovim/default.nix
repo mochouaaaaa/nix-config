@@ -54,10 +54,12 @@
   xdg.configFile = {
     "nvim" = {
       force = true;
+      recursive = true;
       source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/nvim";
     };
     "rules" = {
       force = true;
+      recursive = true;
       source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/rules";
     };
   };

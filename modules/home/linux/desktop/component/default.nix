@@ -3,7 +3,8 @@
   inputs,
   pkgs-unstable,
   ...
-}: {
+}:
+{
   imports = [
     ./rofi
     ./swaylock
@@ -13,6 +14,11 @@
   ];
 
   config = {
+    services.swww = {
+      enable = true;
+      package = inputs.swww.packages.${pkgs.system}.swww;
+    };
+
     home.packages = with pkgs; [
       pywal16
       ashell
@@ -25,9 +31,7 @@
       slurp # selecting a region to screenshot
       wf-recorder # screen recording
 
-      inputs.swww.packages.${pkgs.system}.swww
       wallust
-      # rofi-wayland
       cliphist
       wttrbar
 
