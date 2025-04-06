@@ -8,6 +8,7 @@
 
 <details>
     <summary>目录结构</summary>
+```shell
 .
 ├── README.md
 ├── flake.lock
@@ -35,6 +36,7 @@
 │   └── flake-parts
 └── vars // 全局变量
     └── default.nix
+```
 </details>
 
 ## Usage
