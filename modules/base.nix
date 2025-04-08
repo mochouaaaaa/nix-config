@@ -9,6 +9,7 @@
 {
   nixpkgs.overlays = [
     inputs.nuenv.overlays.default
+    inputs.nur.overlays.default
     inputs.nix-vscode-extensions.overlays.default
     # (import ./overlays/kppleMenu.nix)
   ]; # ++ (import ./overlays args);

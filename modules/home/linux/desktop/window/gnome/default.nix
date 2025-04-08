@@ -3,13 +3,16 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.gnome;
 
   keymaps = import ./config/keymaps.nix;
-  plugins-config = import ./config/plugins-config.nix {inherit lib;};
-  extensions = import ./config/plugins.nix {inherit pkgs lib;};
-in {
+  plugins-config = import ./config/plugins-config.nix { inherit lib; };
+  extensions = import ./config/plugins.nix { inherit pkgs lib; };
+  fonts = import ./config/fonts.nix;
+in
+{
   imports = [
     ./config
   ];
@@ -30,7 +33,7 @@ in {
       StartupNotify=false
     '';
 
-    dconf.settings = {} // keymaps // plugins-config;
+    dconf.settings = { } // keymaps // plugins-config // fonts;
 
     programs.gnome-shell = {
       enable = true;

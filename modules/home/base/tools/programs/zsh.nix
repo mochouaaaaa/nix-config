@@ -8,11 +8,24 @@
     enableZshIntegration = true;
   };
 
-  home.packages = with pkgs; [ zinit ];
+  home.packages = with pkgs; [
+    zinit
+    zoxide
+    dust
+    procs
+  ];
 
-  programs.bash.enable = true;
   programs.zsh = {
     enable = true;
+    shellAliases = {
+
+      ".." = "cd ..";
+      "~" = "cd ~";
+      "--" = "cd -";
+
+      du = "dust";
+      ps = "procs";
+    };
     initExtra = ''
 
       if [[ $- != *i* ]]; then
@@ -22,6 +35,16 @@
       source ${config.dotfiles}/zsh/init.zsh
 
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+      hash -d desktop="$HOME/Desktop"
+      hash -d downloads="$HOME/Downloads"
+      hash -d documents="$HOME/Documents"
+      hash -d videos="$HOME/Videos"
+      hash -d music="$HOME/Music"
+      hash -d pictures="$HOME/Pictures"
+      hash -d movies="$HOME/Movies"
+      hash -d trash="$HOME/.Trash"
+
     '';
     plugins = [
       {
@@ -33,11 +56,6 @@
         name = "zsh-fast-syntax-highlighting";
         file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
         src = pkgs.zsh-fast-syntax-highlighting;
-      }
-      {
-        name = "zsh-autosuggestions";
-        file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
-        src = pkgs.zsh-autosuggestions;
       }
       {
         name = "zsh-fzf-tab";

@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   config,
   ...
 }:
@@ -19,7 +20,7 @@
     ./plugins
   ];
 
-  programs = {
+  programs = rec {
     neovim = {
       enable = true;
       # package = inputs.neovim.packages.${pkgs.system}.default;
@@ -45,6 +46,38 @@
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
+
+    zsh.initExtra = lib.optionalString (direnv.enable) ''
+      if (( $+commands[direnv] )) &>/dev/null; then
+          eval "$(direnv hook zsh)"
+          nixify() {
+            if [ ! -e ./.envrc ]; then
+              echo "use nix" > .envrc
+              direnv allow
+            fi
+            if [[ ! -e shell.nix ]] && [[ ! -e default.nix ]]; then
+              cat > default.nix <<'EOF'
+      with import <nixpkgs> {};
+      mkShell {
+        nativeBuildInputs = [
+          bashInteractive
+        ];
+      }
+      EOF
+          ''${EDITOR:-vim} default.nix
+            fi
+          }
+          flakify() {
+            if [ ! -e flake.nix ]; then
+              nix flake new -t github:nix-community/nix-direnv .
+            elif [ ! -e .envrc ]; then
+              echo "use flake" > .envrc
+              direnv allow
+            fi
+            ''${EDITOR:-vim} flake.nix
+          }
+      fi
+    '';
   };
 
   home.sessionVariables = {

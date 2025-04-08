@@ -35,7 +35,8 @@ in
   # home.packages = with pkgs; [fontconfig MonacoNerdFont MonacoNerdFontMono maple-mono.CN];
   home.packages = with pkgs; [
     fontconfig
-    makeFonts
-    # maple-mono
+    makeFonts # 常规, 窗口标题栏等
+    maple-mono-NF # 等宽
+    inter # 小号字体,工具栏,菜单
   ];
 }

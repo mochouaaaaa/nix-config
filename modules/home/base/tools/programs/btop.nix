@@ -1,16 +1,23 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   catppuccinMochaTheme = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "btop";
     rev = "89ff712";
     sha256 = "sha256-J3UezOQMDdxpflGax0rGBF/XMiKqdqZXuX4KMVGTxFk=";
   };
-in {
+in
+{
   programs = {
+    zsh.shellAliases = {
+      top = "btop";
+    };
     btop = {
       enable = true;
       package = pkgs.btop;
-      settings = {color_theme = "catppuccin_mocha";};
+      settings = {
+        color_theme = "catppuccin_mocha";
+      };
     };
   };
   xdg.configFile."btop/themes".source = catppuccinMochaTheme + "/themes";

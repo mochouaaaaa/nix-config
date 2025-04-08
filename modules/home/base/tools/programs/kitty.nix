@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -12,23 +13,31 @@ in
       type = lib.types.listOf lib.types.str;
       default = [
         "include init.conf"
+        "shell ${pkgs.zsh}/bin/zsh --login --interactive"
       ];
       description = "Extra configuration lines for kitty.conf.";
     };
   };
 
   config = {
-    programs.kitty = {
-      enable = true;
-      font = {
-        name = "Monaco Nerd Font Mono";
-        size = 16;
-      };
-      themeFile = "Catppuccin-Mocha";
-      extraConfig = lib.concatStringsSep "\n" (cfg.extraConfig);
-      shellIntegration = {
-        enableZshIntegration = true;
-        enableBashIntegration = true;
+    programs = {
+      zsh.initExtra = ''
+        # Completion for kitty
+        kitty +complete setup zsh | source /dev/stdin
+        alias ssh="kitty +kitten ssh"
+      '';
+      kitty = {
+        enable = true;
+        font = {
+          name = "Monaco Nerd Font Mono";
+          size = 16;
+        };
+        themeFile = "Catppuccin-Mocha";
+        extraConfig = lib.concatStringsSep "\n" (cfg.extraConfig);
+        shellIntegration = {
+          enableZshIntegration = true;
+          enableBashIntegration = true;
+        };
       };
     };
 

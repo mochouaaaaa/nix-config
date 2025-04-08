@@ -13,7 +13,6 @@
   #
   ###################################################################################
 
-  nixpkgs.hostPlatform = "x86_64-darwin";
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

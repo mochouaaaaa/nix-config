@@ -23,6 +23,8 @@
 
       thunderbird-latest-unwrapped
 
+      pkgs.nur.repos.xddxdd.dingtalk
+
       spotify
     ]
     ++ lib.optionals self.myvars.packages.qq [ qq ]

@@ -1,21 +1,32 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs = {
+    zsh.shellAliases = {
+      cat = "bat -p --style=plain";
+    };
     bat = {
       enable = true;
       package = pkgs.bat;
-      extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch];
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batman
+        batgrep
+        batwatch
+      ];
       themes = {
-        catppuccin-mocha = let
-          catppuccinMochaTheme = pkgs.fetchFromGitHub {
-            owner = "catppuccin";
-            repo = "bat";
-            rev = "699f60fc8ec434574ca7451b444b880430319941";
-            sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
+        catppuccin-mocha =
+          let
+            catppuccinMochaTheme = pkgs.fetchFromGitHub {
+              owner = "catppuccin";
+              repo = "bat";
+              rev = "699f60fc8ec434574ca7451b444b880430319941";
+              sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
+            };
+          in
+          {
+            src = catppuccinMochaTheme + "/themes";
+            file = "Catppuccin Mocha.tmTheme";
           };
-        in {
-          src = catppuccinMochaTheme + "/themes";
-          file = "Catppuccin Mocha.tmTheme";
-        };
       };
       config = {
         theme = "catppuccin-mocha";

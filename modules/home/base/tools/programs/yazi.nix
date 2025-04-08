@@ -1,7 +1,48 @@
-{ config, ... }:
 {
-  programs.yazi = {
-    enable = true;
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  home.packages = with pkgs; [
+
+    # db
+    duckdb
+
+    # pdf
+    zathura
+    evince
+  ];
+
+  programs = {
+    yazi = {
+      enable = true;
+      package = inputs.yazi.packages.${pkgs.system}.default;
+      enableZshIntegration = false;
+      enableBashIntegration = false;
+    };
+    zsh.initExtra = ''
+      _yazi(){
+          if [ -n "$YAZI_LEVEL" ]; then
+              exit
+          fi
+
+          local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+          yazi "$@" --cwd-file="$tmp"
+          if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+              cd -- "$cwd"
+          fi
+          rm -f -- "$tmp"
+      }
+      if [[ -n "$YAZI_ID" ]]; then
+          function _yazi_cd() {
+              ya pub dds-cd --str "$PWD"
+          }
+          add-zsh-hook zshexit _yazi_cd
+      fi
+
+    '';
   };
 
   xdg.configFile = {
