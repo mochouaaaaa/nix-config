@@ -15,6 +15,9 @@
     zathura
     evince
 
+    # markdown
+    glow
+
     # image
     chafa
     ueberzugpp

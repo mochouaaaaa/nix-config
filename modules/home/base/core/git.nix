@@ -14,7 +14,7 @@
     rm -f ${config.home.homeDirectory}/.gitconfig
   '';
 
-  home.packages = with pkgs; [ ];
+  home.packages = with pkgs; [ emojify ];
 
   programs.git = {
     enable = true;
@@ -23,15 +23,68 @@
     userName = self.myvars.userfullname;
     userEmail = self.myvars.useremail;
 
-    ignores = [ ".DS_Store" ];
+    ignores = [
+      # General
+      ".AppleDouble"
+      ".LSOverride"
 
-    # includes = [
-    # {
-    # use different email & name for work
-    # path = "~/work/.gitconfig";
-    # condition = "gitdir:~/work/";
-    # }
-    # ];
+      # Thumbnails
+      "._*"
+
+      # Files that might appear in the root of a volume
+      ".DocumentRevisions-V100"
+      ".fseventsd"
+      ".Spotlight-V100"
+      ".TemporaryItems"
+      ".VolumeIcon.icns"
+      ".com.apple.timemachine.donotpresent"
+
+      # Directories potentially created on remote AFP share
+      ".AppleDB"
+      ".AppleDesktop"
+      "Network Trash Folder"
+      "Temporary Items"
+      ".apdisk"
+
+      # Folder view configuration files
+      ".DS_Store"
+      "Desktop.ini"
+
+      # Thumbnail cache files
+      "._*"
+      "Thumbs.db"
+
+      # Files that might appear on external disks
+      ".Spotlight-V100"
+      ".Trashes"
+
+      # Compiled Python files
+      "__pycache__/"
+      "*.pyc"
+
+      # Compiled C++ files
+      "*.out"
+
+      # Application specific files
+      "venv/"
+      "node_modules/"
+      ".sass-cache"
+      "env/"
+
+      # Temp File
+      "*.swp"
+      "*.swa"
+      "*.swo"
+
+      # github merge file
+      "*.orig"
+
+      #vscode
+      ".vscode"
+
+      ".idea"
+
+    ];
 
     extraConfig = {
       init.defaultBranch = "main";
@@ -39,24 +92,30 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
 
+      # core.excludesfile = "${config.home.homeDirectory}/.gitignore_global";
+      pager.log = "emojify";
+      diff = {
+        tool = "kitty";
+        guitool = "kitty.gui";
+      };
+      difftool = {
+        prompt = false;
+        trustExitCode = true;
+      };
+      difftool."kitty" = {
+        cmd = "kitty +kitten diff $LOCAL $REMOTE";
+      };
+      difftool."kitty.gui" = {
+        cmd = "kitty kitty +kitten diff $LOCAL $REMOTE";
+      };
+
       # replace https with ssh
       url = {
         "ssh://git@github.com/${self.myvars.userfullname}" = {
           insteadOf = "https://github.com/mochouaaaaa";
         };
-        # "ssh://git@gitlab.com/" = {
-        #   insteadOf = "https://gitlab.com/";
-        # };
-        # "ssh://git@bitbucket.com/" = {
-        #   insteadOf = "https://bitbucket.com/";
-        # };
       };
     };
-
-    # signing = {
-    #   key = "xxx";
-    #   signByDefault = true;
-    # };
 
     # A syntax-highlighting pager in Rust(2019 ~ Now)
     delta = {

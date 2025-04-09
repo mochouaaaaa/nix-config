@@ -7,7 +7,6 @@
     lftp
 
     tree
-    jq
     ffmpegthumbnailer
     trash-cli
 

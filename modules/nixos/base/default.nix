@@ -1,4 +1,4 @@
 { self, ... }:
 {
-  imports = self.mylib.scanPaths ./. ++ [ ../../base.nix ];
+  imports = self.mylib.scanPaths ./. ++ [ self.baseModules ];
 }

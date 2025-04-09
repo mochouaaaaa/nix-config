@@ -38,14 +38,14 @@ let
 
   RimeLMDG = pkgs.fetchurl {
     url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
-    sha256 = "sha256-AAPBzGI5YjOweCEc2zusa5pnEB7g90AFvVrt/zfWV4k=";
+    sha256 = "sha256-uR7MH50yvouUWWHXUpMRv1xRKhwFx4lB2cD+YaCvBto=";
   };
 
   oh-my-rime = pkgs.fetchFromGitHub {
     owner = "Mintimate";
     repo = "oh-my-rime";
     rev = "main";
-    sha256 = "sha256-3FDgc/n1xyklr02mKCHsgUpzkWF5kIu0EtNpO2t5CAo=";
+    sha256 = "sha256-p6sEVnX7KWmLvoj9Ohvmtz7aygworDx6ZE/lHs2CMnQ=";
   };
 
   cfg = config.modules.packages.rime;
