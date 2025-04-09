@@ -57,5 +57,13 @@
     findutils
     which
     rsync
+    pango
+
+    # extra tools
+    clang
+    cmake
+    opencc
+    ccache
+
   ];
 }

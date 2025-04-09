@@ -7,7 +7,6 @@
     lftp
 
     tree
-    ffmpegthumbnailer
     trash-cli
 
     # Misc
@@ -50,8 +49,6 @@
     # productivity
     caddy # A webserver with automatic HTTPS via Let's Encrypt(replacement of nginx)
     croc # File transfer between computers securely and easily
-
-    emojify
   ];
 
   programs = {

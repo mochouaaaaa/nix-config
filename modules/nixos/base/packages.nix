@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -25,16 +26,6 @@
 
     # system tools
     chntpw
-    # (chntpw.overrideAttrs (oldAttrs: {
-    #   patches =
-    #     oldAttrs.patches
-    #     ++ [
-    #       (fetchpatch {
-    #         url = "https://git.launchpad.net/ubuntu/+source/chntpw/plain/debian/patches/17_hexdump-pointer-type.patch";
-    #         sha256 = "ir9LFl8FJq141OwF5SbyVMtjQ1kTMH1NXlHl0XZq7m8=";
-    #       })
-    #     ];
-    # }))
     psmisc # killall/pstree/prtstat/fuser/...
     lm_sensors # for `sensors` command
     ethtool
@@ -48,13 +39,11 @@
     icu.dev
 
     #  export env
-    clang
-    cmake
     llvmPackages.libcxx
     xz.dev
     tcl-9_0
     (tcl-8_5.overrideAttrs (oldAttrs: rec {
-      configureFlags = oldAttrs.configureFlags ++ ["ac_cv_header_stdc=yes"];
+      configureFlags = oldAttrs.configureFlags ++ [ "ac_cv_header_stdc=yes" ];
     }))
 
     # tk-9_0
