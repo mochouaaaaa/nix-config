@@ -10,6 +10,11 @@ let
 in
 {
   options.modules.packages.kitty = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable kitty.";
+    };
     extraConfig = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [
@@ -20,7 +25,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs = {
       zsh.initExtra = ''
         # Completion for kitty
@@ -39,6 +44,26 @@ in
         shellIntegration = {
           enableZshIntegration = true;
           enableBashIntegration = true;
+        };
+      };
+      git = {
+
+        extraConfig = {
+          diff = {
+            tool = "kitty";
+            guitool = "kitty.gui";
+          };
+          difftool = {
+            prompt = false;
+            trustExitCode = true;
+          };
+          difftool."kitty" = {
+            cmd = "kitty +kitten diff $LOCAL $REMOTE";
+          };
+          difftool."kitty.gui" = {
+            cmd = "kitty kitty +kitten diff $LOCAL $REMOTE";
+          };
+
         };
       };
     };

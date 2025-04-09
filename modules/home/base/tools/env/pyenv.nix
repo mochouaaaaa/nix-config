@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.packages.envs.pyenv;
 
   pyenv-virtualenv = pkgs.fetchgit {
@@ -22,7 +23,8 @@
     url = "https://github.com/pyenv/pyenv-doctor.git";
     hash = "sha256-U4nfLBUTi+VaalQqtC/iB3wZgYiNwwZd19aKltI/Maw=";
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       uv
@@ -53,27 +55,25 @@ in {
         recursive = true;
         force = true;
       };
-      "${config.dotfiles}/zsh/plugins/pyenv.zsh" = {
-        text = ''
-          export PYENV_ROOT="$HOME/.config/env/pyenv"
-          export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
-
-          source $HOME/.config/zsh/plugins/lazyZsh.zsh
-
-          if (( $+commands[pyenv] )) &>/dev/null; then
-              _sukka_lazyload_command_pyenv() {
-                  eval "$(command pyenv init -)"
-                  eval "$(command pyenv virtualenv-init -)"
-              }
-              _lazyload_add_command pyenv
-
-              _sukka_lazyload_completion_pyenv() {
-                  source "''${PYENV_ROOT}/completions/pyenv.zsh"
-              }
-              _lazyload_add_completion pyenv
-          fi
-        '';
-      };
     };
+    programs.zsh.initExtra = ''
+      export PYENV_ROOT="$HOME/.config/env/pyenv"
+      export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
+
+      source $HOME/.config/zsh/plugins/lazyZsh.zsh
+
+      if (( $+commands[pyenv] )) &>/dev/null; then
+          _sukka_lazyload_command_pyenv() {
+              eval "$(command pyenv init -)"
+              eval "$(command pyenv virtualenv-init -)"
+          }
+          _lazyload_add_command pyenv
+
+          _sukka_lazyload_completion_pyenv() {
+              source "''${PYENV_ROOT}/completions/pyenv.zsh"
+          }
+          _lazyload_add_completion pyenv
+      fi
+    '';
   };
 }

@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.packages.envs.luaenv;
 
   luaenv = pkgs.fetchgit {
@@ -18,7 +19,8 @@
     url = "https://github.com/xpol/luaenv-luarocks.git";
     hash = "sha256-3Y49MI8cyzgOo0REhi7LWfgcK/ffS50jvJRzG/1Jddw=";
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     xdg.configFile = {
       "env/luaenv" = {
@@ -36,27 +38,25 @@ in {
         recursive = true;
         force = true;
       };
-      "${config.dotfiles}/zsh/plugins/luaenv.zsh" = {
-        text = ''
-          export LUAENV_ROOT="$HOME/.config/env/luaenv"
-          export PATH="$LUAENV_ROOT/bin:$LUAENV_ROOT/shims:$PATH"
-
-          source $HOME/.config/zsh/plugins/lazyZsh.zsh
-
-          if (( $+commands[luaenv] )) &>/dev/null; then
-              _sukka_lazyload_command_luaenv() {
-                  eval "$(luaenv init -)"
-              }
-
-              _sukka_lazyload_completion_luaenv (){
-                  source "$LUAENV_ROOT/completions/luaenv.zsh"
-              }
-
-              _lazyload_add_command luaenv
-              _lazyload_add_completion luaenv
-          fi
-        '';
-      };
     };
+    programs.zsh.initExtra = ''
+      export LUAENV_ROOT="$HOME/.config/env/luaenv"
+      export PATH="$LUAENV_ROOT/bin:$LUAENV_ROOT/shims:$PATH"
+
+      source $HOME/.config/zsh/plugins/lazyZsh.zsh
+
+      if (( $+commands[luaenv] )) &>/dev/null; then
+          _sukka_lazyload_command_luaenv() {
+              eval "$(luaenv init -)"
+          }
+
+          _sukka_lazyload_completion_luaenv (){
+              source "$LUAENV_ROOT/completions/luaenv.zsh"
+          }
+
+          _lazyload_add_command luaenv
+          _lazyload_add_completion luaenv
+      fi
+    '';
   };
 }

@@ -32,25 +32,23 @@ in
   imports = self.mylib.scanPaths ./.;
 
   config = lib.mkIf lazyZsh {
-    xdg.configFile."${config.dotfiles}/zsh/plugins/lazyZsh.zsh" = {
-      text = ''
-        _lazyload_add_command() {
-            eval "$1() {
-                unfunction $1;
-                _sukka_lazyload_command_$1;
-                $1 $@;
-            }"
-        }
+    programs.zsh.initExtra = ''
+      _lazyload_add_command() {
+          eval "$1() {
+              unfunction $1;
+              _sukka_lazyload_command_$1;
+              $1 $@;
+          }"
+      }
 
-        _lazyload_add_completion() {
-            local comp_name="_sukka_lazyload__compfunc_$1"
-            eval "''${comp_name}() {
-                compdef -d $1;
-                _sukka_lazyload_completion_$1;
-            }"
-            compdef $comp_name $1
-        }
-      '';
-    };
+      _lazyload_add_completion() {
+          local comp_name="_sukka_lazyload__compfunc_$1"
+          eval "''${comp_name}() {
+              compdef -d $1;
+              _sukka_lazyload_completion_$1;
+          }"
+          compdef $comp_name $1
+      }
+    '';
   };
 }

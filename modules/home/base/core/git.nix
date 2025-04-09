@@ -24,14 +24,14 @@
     userEmail = self.myvars.useremail;
 
     ignores = [
-      # General
+      "# General"
       ".AppleDouble"
       ".LSOverride"
 
-      # Thumbnails
+      "# Thumbnails"
       "._*"
 
-      # Files that might appear in the root of a volume
+      "# Files that might appear in the root of a volume"
       ".DocumentRevisions-V100"
       ".fseventsd"
       ".Spotlight-V100"
@@ -39,47 +39,47 @@
       ".VolumeIcon.icns"
       ".com.apple.timemachine.donotpresent"
 
-      # Directories potentially created on remote AFP share
+      "# Directories potentially created on remote AFP share"
       ".AppleDB"
       ".AppleDesktop"
       "Network Trash Folder"
       "Temporary Items"
       ".apdisk"
 
-      # Folder view configuration files
+      "# Folder view configuration files"
       ".DS_Store"
       "Desktop.ini"
 
-      # Thumbnail cache files
+      "# Thumbnail cache files"
       "._*"
       "Thumbs.db"
 
-      # Files that might appear on external disks
+      "# Files that might appear on external disks"
       ".Spotlight-V100"
       ".Trashes"
 
-      # Compiled Python files
+      "# Compiled Python files"
       "__pycache__/"
       "*.pyc"
 
-      # Compiled C++ files
+      "# Compiled C++ files"
       "*.out"
 
-      # Application specific files
+      "# Application specific files"
       "venv/"
       "node_modules/"
       ".sass-cache"
       "env/"
 
-      # Temp File
+      "# Temp File"
       "*.swp"
       "*.swa"
       "*.swo"
 
-      # github merge file
+      "# github merge file"
       "*.orig"
 
-      #vscode
+      "#vscode"
       ".vscode"
 
       ".idea"
@@ -94,20 +94,6 @@
 
       # core.excludesfile = "${config.home.homeDirectory}/.gitignore_global";
       pager.log = "emojify";
-      diff = {
-        tool = "kitty";
-        guitool = "kitty.gui";
-      };
-      difftool = {
-        prompt = false;
-        trustExitCode = true;
-      };
-      difftool."kitty" = {
-        cmd = "kitty +kitten diff $LOCAL $REMOTE";
-      };
-      difftool."kitty.gui" = {
-        cmd = "kitty kitty +kitten diff $LOCAL $REMOTE";
-      };
 
       # replace https with ssh
       url = {

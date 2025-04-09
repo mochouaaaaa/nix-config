@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.modules.packages.envs.nodenv;
 
   nodenv-build = pkgs.fetchgit {
@@ -18,9 +19,10 @@
     url = "https://github.com/nodenv/nodenv-aliases.git";
     hash = "sha256-OxjEgY7tz8c2d9gm7Dle36EeEBPx2QS0bDctAExRcyA=";
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [yarn];
+    home.packages = with pkgs; [ yarn ];
 
     xdg.configFile = lib.mkIf cfg.enable {
       "env/nodenv" = {
@@ -43,27 +45,25 @@ in {
         recursive = true;
         force = true;
       };
-      "${config.dotfiles}/zsh/plugins/nodenv.zsh" = {
-        text = ''
-          export NODENV_ROOT="$HOME/.config/env/nodenv"
-          export PATH="$NODENV_ROOT/bin:$NODENV_ROOT/shims:$PATH"
-
-          source $HOME/.config/zsh/plugins/lazyZsh.zsh
-
-          if (( $+commands[nodenv] )) &>/dev/null; then
-              _sukka_lazyload_command_nodenv() {
-                  eval "$(nodenv init - zsh)"
-              }
-
-              _sukka_lazyload_completion_nodenv() {
-                  source "$NODENV_ROOT/completions/nodenv.zsh"
-              }
-
-              _lazyload_add_command nodenv
-              _lazyload_add_completion nodenv
-          fi
-        '';
-      };
     };
+    programs.zsh.initExtra = ''
+      export NODENV_ROOT="$HOME/.config/env/nodenv"
+      export PATH="$NODENV_ROOT/bin:$NODENV_ROOT/shims:$PATH"
+
+      source $HOME/.config/zsh/plugins/lazyZsh.zsh
+
+      if (( $+commands[nodenv] )) &>/dev/null; then
+          _sukka_lazyload_command_nodenv() {
+              eval "$(nodenv init - zsh)"
+          }
+
+          _sukka_lazyload_completion_nodenv() {
+              source "$NODENV_ROOT/completions/nodenv.zsh"
+          }
+
+          _lazyload_add_command nodenv
+          _lazyload_add_completion nodenv
+      fi
+    '';
   };
 }
