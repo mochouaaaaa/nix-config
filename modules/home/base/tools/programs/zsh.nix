@@ -13,6 +13,7 @@
     zoxide
     dust
     procs
+    less
   ];
 
   programs.zsh = {

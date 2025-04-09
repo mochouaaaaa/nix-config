@@ -59,7 +59,6 @@
     file
     findutils
     which
-    tree
     rsync
   ];
 

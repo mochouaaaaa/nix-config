@@ -4,19 +4,11 @@
 }:
 {
   home.packages = with pkgs; [
-    lsd
-    eza
-    procs
-    less
     lftp
 
-    zoxide
     tree
     jq
-    chafa
-    ueberzugpp
     ffmpegthumbnailer
-    tmux
     trash-cli
 
     # Misc
@@ -29,8 +21,6 @@
 
     # Interactively filter its input using fuzzy searching, not limit to filenames.
     luajitPackages.fzf-lua
-    # search for files by name, faster than find
-    fd
     # search for files by its content, replacement of grep
     (ripgrep.override { withPCRE2 = true; })
 

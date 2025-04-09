@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -13,16 +14,20 @@
     # pdf
     zathura
     evince
+
+    # image
+    chafa
+    ueberzugpp
   ];
 
-  programs = {
+  programs = rec {
     yazi = {
       enable = true;
       package = inputs.yazi.packages.${pkgs.system}.default;
       enableZshIntegration = false;
       enableBashIntegration = false;
     };
-    zsh.initExtra = ''
+    zsh.initExtra = lib.optionalString (yazi.enable) ''
       _yazi(){
           if [ -n "$YAZI_LEVEL" ]; then
               exit

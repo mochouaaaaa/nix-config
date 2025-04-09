@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  pkgs-unstable,
   ...
 }:
 let
@@ -28,6 +29,7 @@ in
       '';
       kitty = {
         enable = true;
+        package = pkgs-unstable.kitty;
         font = {
           name = "Monaco Nerd Font Mono";
           size = 16;
