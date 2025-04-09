@@ -11,11 +11,13 @@
       "https://cache.nixos.org"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
 
+      "https://yazi.cachix.org"
       "https://nix-gaming.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
 
+      "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
     ];
   };
@@ -23,24 +25,29 @@
   inputs = {
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     systems.url = "github:nix-systems/default";
     impermanence.url = "github:nix-community/impermanence";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # for macos
-    nix-darwin.url = "github:LnL7/nix-darwin";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
 
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/master";
-
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    clipboard-sync.url = "github:dnut/clipboard-sync";
 
     # thmem
     stylix.url = "github:danth/stylix";
@@ -50,7 +57,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -75,11 +82,6 @@
 
     nuenv.url = "github:DeterminateSystems/nuenv";
 
-    haumea = {
-      url = "github:nix-community/haumea/v0.2.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -95,8 +97,10 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    yazi.url = "github:sxyazi/yazi";
 
     # desktop components
+    clipboard-sync.url = "github:dnut/clipboard-sync";
     waybar.url = "github:Alexays/Waybar/master";
 
     # hyprland or plugins
