@@ -37,7 +37,7 @@ in
             [
               { }
             ]
-            ++ lib.optionals (self.packages.pot && (cfgDesktop.hyprland.enable || cfgDesktop.niri.enable)) [
+            ++ lib.optionals (cfgDesktop.hyprland.enable || cfgDesktop.niri.enable) [
               {
                 "ALT-a" = {
                   launch = [

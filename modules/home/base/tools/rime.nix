@@ -45,7 +45,7 @@ let
     owner = "Mintimate";
     repo = "oh-my-rime";
     rev = "main";
-    sha256 = "sha256-p6sEVnX7KWmLvoj9Ohvmtz7aygworDx6ZE/lHs2CMnQ=";
+    sha256 = "sha256-Gl3GrDGG4mGQhtT32bvCRslpPIrQkXvYdwRSVoP19Js=";
   };
 
   cfg = config.modules.packages.rime;

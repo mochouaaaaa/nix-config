@@ -39,11 +39,9 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = ''
+    programs.zsh.initExtra = lib.mkOrder 2200 ''
       export LUAENV_ROOT="$HOME/.config/env/luaenv"
       export PATH="$LUAENV_ROOT/bin:$LUAENV_ROOT/shims:$PATH"
-
-      source $HOME/.config/zsh/plugins/lazyZsh.zsh
 
       if (( $+commands[luaenv] )) &>/dev/null; then
           _sukka_lazyload_command_luaenv() {

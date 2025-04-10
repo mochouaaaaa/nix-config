@@ -1,9 +1,11 @@
 { pkgs, ... }:
 {
   programs.zsh = {
+    dirHashes = {
+      projects = "/Volumes/Code";
+    };
     initExtra = ''
       export GOPATH=/Volumes/Code/Projects/golang
-      hash -d projects="/Volumes/Code"
     '';
     envExtra = ''
       # export PATH="/etc/profiles/per-user/$USER/bin:/run/current-system/sw/bin:$PATH"

@@ -26,18 +26,4 @@ lib.makeExtensible (self: {
       )
     );
 
-  scanPathsAsAttrs =
-    path:
-    builtins.listToAttrs (
-      map
-        (name: {
-          name = name;
-          value = "./${name}"; # 确保是 Nix 路径，而不是字符串
-        })
-        (
-          builtins.attrNames (
-            lib.attrsets.filterAttrs (_name: type: type == "directory") (builtins.readDir path)
-          )
-        )
-    );
 })

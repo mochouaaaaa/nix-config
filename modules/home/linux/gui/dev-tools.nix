@@ -5,46 +5,45 @@
   ...
 }:
 {
-  home.packages =
-    with pkgs;
-    [
+  home.packages = with pkgs; [
 
-      # Automatically trims your branches whose tracking remote refs are merged or gone
-      # It's really useful when you work on a project for a long time.
-      git-trim
-      gitleaks
+    # Automatically trims your branches whose tracking remote refs are merged or gone
+    # It's really useful when you work on a project for a long time.
+    git-trim
+    gitleaks
 
-      # DB
-      # navicat-premium
+    # DB
+    # navicat-premium
 
-      authenticator
-      bitwarden-cli
-      bitwarden-desktop
+    authenticator
+    bitwarden-cli
+    bitwarden-desktop
 
-      thunderbird-latest-unwrapped
+    thunderbird-latest-unwrapped
 
-      pkgs.nur.repos.xddxdd.dingtalk
+    pkgs.nur.repos.xddxdd.dingtalk
 
-      spotify
-    ]
-    ++ lib.optionals self.myvars.packages.qq [ qq ]
-    ++ lib.optionals self.myvars.packages.wechat [ wechat-uos ]
-    ++ lib.optionals self.myvars.packages.telegram [ telegram-desktop ]
-    ++ lib.optionals self.myvars.packages.pot [
-      pot
-      grim
-      slurp
-      tesseract
-    ]
-    ++ lib.optionals self.myvars.packages.flameshot [
-      (flameshot.overrideAttrs (oldAttrs: rec {
-        name = "flameshot-with-grim"; # 修改包名，避免冲突
-        enableWlrSupport = true;
-        buildInputs = oldAttrs.buildInputs ++ [
-          grim
-          slurp
-        ]; # 确保 grim 和 slurp 是构建依赖
-        cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DUSE_WAYLAND_GRIM=ON" ]; # 启用 USE_WAYLAND_GRIM
-      }))
-    ];
+    spotify
+    qq
+    wechat-uos
+    telegram-desktop
+
+    # pot
+    pot
+    grim
+    slurp
+    tesseract
+  ];
+
+  # ++ lib.optionals self.myvars.packages.flameshot [
+  #   (flameshot.overrideAttrs (oldAttrs: rec {
+  #     name = "flameshot-with-grim"; # 修改包名，避免冲突
+  #     enableWlrSupport = true;
+  #     buildInputs = oldAttrs.buildInputs ++ [
+  #       grim
+  #       slurp
+  #     ]; # 确保 grim 和 slurp 是构建依赖
+  #     cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DUSE_WAYLAND_GRIM=ON" ]; # 启用 USE_WAYLAND_GRIM
+  #   }))
+  # ];
 }

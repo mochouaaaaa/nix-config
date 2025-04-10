@@ -9,19 +9,14 @@ let
   cfg = config.modules.desktop.hyprland;
 in
 {
-  imports = [
-    inputs.hyprland.homeManagerModules.default
-  ];
 
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
-      package = null;
+      package = pkgs.hyprland;
       xwayland.enable = true;
       plugins = [
-        inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
-        # inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
-        # inputs.hyprland-plugins.packages.${pkgs.system}.xtra-dispatchers
+        pkgs.hyprlandPlugins.hypr-dynamic-cursors
       ];
       systemd = {
         enable = true;

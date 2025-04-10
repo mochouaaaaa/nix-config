@@ -13,8 +13,25 @@
       type = lib.types.path;
       apply = toString;
       default = "${config.home.homeDirectory}/.config/${self.myvars.dotfilePath}";
-      example = "${config.home.homeDirectory}/.config/${self.myvars.dotfilePath}";
       description = "Location of the dotfiles working copy";
+    };
+    dotfileLink = lib.mkOption {
+      # type = lib.types.defaultFunctor;
+      default =
+        folderName:
+        builtins.listToAttrs (
+          let
+            dotfilesPath = "${config.dotfiles}/${folderName}";
+            dirContentsNames = builtins.attrNames (builtins.readDir dotfilesPath);
+          in
+          map (fileName: {
+            name = "${folderName}/${fileName}";
+            value = {
+              force = true;
+              source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}";
+            };
+          }) dirContentsNames
+        );
     };
 
     keymaps.Super = lib.mkOption {

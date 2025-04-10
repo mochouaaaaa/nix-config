@@ -26,13 +26,6 @@ in
         alias ssh="wezterm ssh"
       '';
     };
-    xdg.configFile = {
-      "wezterm" = {
-        force = true;
-        recursive = true;
-        executable = true;
-        source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/wezterm";
-      };
-    };
+    xdg.configFile = config.dotfileLink "wezterm";
   };
 }

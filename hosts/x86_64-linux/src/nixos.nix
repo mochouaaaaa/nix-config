@@ -41,11 +41,15 @@ let
         #  modules.desktop.niri.enable = false;
         # modules.desktop.gnome.enable = true;
 
-        modules.packages.jetbrains = {
-          enable = true;
-          pycharm.enable = true;
-          goland.enable = true;
-          datagrip.enable = true;
+        modules.packages = {
+          kitty.enable = true;
+          wezterm.enable = false;
+          jetbrains = {
+            enable = true;
+            pycharm.enable = true;
+            goland.enable = true;
+            datagrip.enable = true;
+          };
         };
 
         modules.packages.envs = {

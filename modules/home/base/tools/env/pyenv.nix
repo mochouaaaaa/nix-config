@@ -56,11 +56,9 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = ''
+    programs.zsh.initExtra = lib.mkOrder 2100 ''
       export PYENV_ROOT="$HOME/.config/env/pyenv"
       export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
-
-      source $HOME/.config/zsh/plugins/lazyZsh.zsh
 
       if (( $+commands[pyenv] )) &>/dev/null; then
           _sukka_lazyload_command_pyenv() {

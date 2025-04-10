@@ -31,6 +31,7 @@
 
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
     '';
+    dotDir = ".config/env/zsh";
     autosuggestion = {
       enable = true;
     };

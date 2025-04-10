@@ -21,15 +21,13 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = ''
+    programs.zsh.initExtra = lib.mkOrder 2050 ''
       export GOPROXY=https://goproxy.cn,direct
       export GOSUMDB=sum.golang.google.cn
       export GOENV_DISABLE_GOPATH=1
 
       export GOENV_ROOT="$HOME/.config/env/goenv"
       export PATH="$GOENV_ROOT/bin:$GOENV_ROOT/shims:$PATH"
-
-      source $HOME/.config/zsh/plugins/lazyZsh.zsh
 
       if (( $+commands[goenv] )) &>/dev/null; then
           _sukka_lazyload_command_goenv() {

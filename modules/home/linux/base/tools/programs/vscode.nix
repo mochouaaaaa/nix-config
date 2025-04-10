@@ -42,7 +42,7 @@ in
           (oldAttrs: rec {
             src = builtins.fetchTarball {
               url = "https://update.code.visualstudio.com/latest/linux-x64/insider";
-              sha256 = "sha256:1qn1smd1831wj0k98iz03vz348y2vzrrgdyq28bivnwkib117qdw";
+              sha256 = "sha256:02nv4jcjq35xxn3arlcpigvdmcbyy6apn4k00xlhraxm5ilw0q5p";
             };
             version = "latest";
           });

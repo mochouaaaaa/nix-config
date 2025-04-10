@@ -49,8 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # thmem
-    stylix.url = "github:danth/stylix";
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";
     # flatpak
@@ -103,16 +101,6 @@
     clipboard-sync.url = "github:dnut/clipboard-sync";
     waybar.url = "github:Alexays/Waybar/master";
 
-    # hyprland or plugins
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland";
-    };
     hyprlux = {
       url = "github:amadejkastelic/Hyprlux";
     };

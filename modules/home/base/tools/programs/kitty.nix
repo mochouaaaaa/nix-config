@@ -7,6 +7,22 @@
 }:
 let
   cfg = config.modules.packages.kitty;
+
+  configFilesFromDir =
+    folderName:
+    builtins.listToAttrs (
+      let
+        dotfilesPath = "${config.dotfiles}/${folderName}";
+        dirContentsNames = builtins.attrNames (builtins.readDir dotfilesPath);
+      in
+      map (fileName: {
+        name = "${folderName}/${fileName}";
+        value = {
+          force = true;
+          source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}";
+        };
+      }) dirContentsNames
+    );
 in
 {
   options.modules.packages.kitty = {
@@ -17,21 +33,28 @@ in
     };
     extraConfig = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [
-        "include init.conf"
-        "shell ${pkgs.zsh}/bin/zsh --login --interactive"
-      ];
+      default = [ ];
       description = "Extra configuration lines for kitty.conf.";
     };
   };
 
   config = lib.mkIf cfg.enable {
+
+    modules.packages.kitty.extraConfig = [
+      "include init.conf"
+      "shell ${pkgs.zsh}/bin/zsh --login --interactive"
+    ];
+
     programs = {
-      zsh.initExtra = ''
-        # Completion for kitty
-        kitty +complete setup zsh | source /dev/stdin
-        alias ssh="kitty +kitten ssh"
-      '';
+      zsh = {
+        initExtra = ''
+          # Completion for kitty
+          kitty +complete setup zsh | source /dev/stdin
+        '';
+        shellAliases = {
+          ssh = "kitty +kitten ssh";
+        };
+      };
       kitty = {
         enable = true;
         package = pkgs-unstable.kitty;
@@ -40,7 +63,7 @@ in
           size = 16;
         };
         themeFile = "Catppuccin-Mocha";
-        extraConfig = lib.concatStringsSep "\n" (cfg.extraConfig);
+        extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" (cfg.extraConfig));
         shellIntegration = {
           enableZshIntegration = true;
           enableBashIntegration = true;
@@ -66,13 +89,6 @@ in
       };
     };
 
-    xdg.configFile = {
-      "kitty" = {
-        force = true;
-        recursive = true;
-        executable = true;
-        source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/kitty";
-      };
-    };
+    xdg.configFile = config.dotfileLink "kitty";
   };
 }

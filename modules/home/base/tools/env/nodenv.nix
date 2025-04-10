@@ -46,11 +46,9 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = ''
+    programs.zsh.initExtra = lib.mkOrder 2150 ''
       export NODENV_ROOT="$HOME/.config/env/nodenv"
       export PATH="$NODENV_ROOT/bin:$NODENV_ROOT/shims:$PATH"
-
-      source $HOME/.config/zsh/plugins/lazyZsh.zsh
 
       if (( $+commands[nodenv] )) &>/dev/null; then
           _sukka_lazyload_command_nodenv() {

@@ -32,7 +32,7 @@ in
   imports = self.mylib.scanPaths ./.;
 
   config = lib.mkIf lazyZsh {
-    programs.zsh.initExtra = ''
+    programs.zsh.initExtraFirst = ''
       _lazyload_add_command() {
           eval "$1() {
               unfunction $1;

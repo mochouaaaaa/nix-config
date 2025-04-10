@@ -21,7 +21,6 @@ in
   config = lib.mkIf cfg.enable {
     programs = {
       firefox = {
-        package = pkgs.firefox-unwrapped;
         enable = true;
         languagePacks = [ "en" ];
         policies = {

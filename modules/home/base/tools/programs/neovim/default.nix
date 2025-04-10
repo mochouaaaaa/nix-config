@@ -23,7 +23,6 @@
   programs = rec {
     neovim = {
       enable = true;
-      # package = inputs.neovim.packages.${pkgs.system}.default;
       extraLuaConfig = ''
         -- bootstrap lazy.nvim, LazyVim and your plugins
         require("config.lazy")
@@ -84,16 +83,19 @@
     NVIM_IS_NIX = 1;
   };
 
-  xdg.configFile = {
-    "nvim" = {
+  home.file = {
+    ".config/nvim" = {
       force = true;
       recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/nvim";
+      source = "${config.dotfiles}/nvim";
     };
+  };
+
+  xdg.configFile = {
     "rules" = {
       force = true;
       recursive = true;
       source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/rules";
     };
-  };
+  } // config.dotfileLink "nvim";
 }
