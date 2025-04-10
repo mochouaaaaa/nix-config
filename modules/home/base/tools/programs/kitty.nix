@@ -7,22 +7,6 @@
 }:
 let
   cfg = config.modules.packages.kitty;
-
-  configFilesFromDir =
-    folderName:
-    builtins.listToAttrs (
-      let
-        dotfilesPath = "${config.dotfiles}/${folderName}";
-        dirContentsNames = builtins.attrNames (builtins.readDir dotfilesPath);
-      in
-      map (fileName: {
-        name = "${folderName}/${fileName}";
-        value = {
-          force = true;
-          source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}";
-        };
-      }) dirContentsNames
-    );
 in
 {
   options.modules.packages.kitty = {
