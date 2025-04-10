@@ -1,15 +1,15 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   lib = pkgs.lib;
-in {
-  # environment.systemPackages = [ MonacoNerdFont MonacoNerdFontMono ];
+in
+{
   fonts = {
     enableDefaultPackages = false;
     fontDir.enable = true;
 
-    packages = with pkgs;
+    packages =
+      with pkgs;
       [
-        # MonacoNerdFont
-        # MonacoNerdFontMono
         # icon fonts
         # nerdfonts
         mononoki
@@ -34,18 +34,8 @@ in {
         julia-mono
         dejavu_fonts
       ]
-      ++ builtins.filter lib.attrsets.isDerivation
-      (builtins.attrValues pkgs.nerd-fonts);
+      ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
-    # user defined fonts
-    # the reason there's Noto Color Emoji everywhere is to override DejaVu's
-    # B&W emojis that would sometimes show instead of some Color emojis
-    fontconfig.defaultFonts = {
-      serif = ["Source Han Serif SC" "Source Han Serif TC" "Noto Color Emoji"];
-      sansSerif = ["Source Han Sans SC" "Source Han Sans TC" "Noto Color Emoji"];
-      monospace = ["JetBrainsMono Nerd Font" "Noto Color Emoji"];
-      emoji = ["Noto Color Emoji"];
-    };
   };
 
   # https://wiki.archlinux.org/title/KMSCON

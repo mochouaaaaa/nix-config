@@ -47,7 +47,6 @@ in
         };
       };
       git = {
-
         extraConfig = {
           diff = {
             tool = "kitty";
@@ -63,7 +62,6 @@ in
           difftool."kitty.gui" = {
             cmd = "kitty kitty +kitten diff $LOCAL $REMOTE";
           };
-
         };
       };
     };
