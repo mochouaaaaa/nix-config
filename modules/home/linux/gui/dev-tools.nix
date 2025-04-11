@@ -22,6 +22,7 @@
     thunderbird-latest-unwrapped
 
     pkgs.nur.repos.xddxdd.dingtalk
+    pkgs.nur.repos.linyinfeng.wemeet
 
     spotify
     qq

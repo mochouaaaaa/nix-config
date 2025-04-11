@@ -19,11 +19,12 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     gnumake
-    nautilus
+    # nautilus
     xarchiver
   ];
 
   services = {
+    resolved.enable = true; # DNS resolver
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
   };

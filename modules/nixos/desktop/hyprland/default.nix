@@ -22,21 +22,18 @@ in
         # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       };
 
-      # uwsm = {
-      #   enable = true;
-      # };
       regreet = {
         enable = true;
       };
       # thunar file manager(part of xfce) related options
-      # thunar = {
-      #   enable = true;
-      #   plugins = with pkgs.xfce; [
-      #     thunar-archive-plugin
-      #     thunar-volman
-      #     thunar-media-tags-plugin
-      #   ];
-      # };
+      thunar = {
+        enable = true;
+        plugins = with pkgs.xfce; [
+          thunar-archive-plugin
+          thunar-volman
+          thunar-media-tags-plugin
+        ];
+      };
     };
 
     environment.systemPackages = with pkgs; [ cage ];

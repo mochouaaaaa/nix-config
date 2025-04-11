@@ -17,6 +17,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    # auto dark/light theme
+    modules.themes.auto.enable = true;
+
     modules.desktop = {
       component = {
         waybar.enable = true;

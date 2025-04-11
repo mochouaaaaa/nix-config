@@ -14,7 +14,6 @@ let
       self.nixosModules.base
       self.nixosModules.services
       self.nixosModules.virtual
-      self.nixosModules.desktop
       {
         # modules.desktop.kde.enable = true;
         modules.desktop.hyprland.enable = true;

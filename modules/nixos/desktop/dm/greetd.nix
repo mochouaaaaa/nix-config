@@ -18,6 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
     services = {
       greetd = {
         enable = true;
@@ -27,7 +28,9 @@ in
             user = self.myvars.username;
             command = "${pkgs.greetd.tuigreet}/bin/tuigreet";
           };
-          initial_session = default_session;
+          initial_session = default_session // {
+            command = "sh -c 'sleep 2; ${default_session.command} '";
+          };
         };
       };
     };

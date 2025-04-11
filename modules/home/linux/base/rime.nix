@@ -11,6 +11,28 @@ let
   rimeConfig = "${dotfiles}/rime";
 
   rime-data = config.modules.packages.rime.data-package;
+
+  fictx5-themes = pkgs.stdenv.mkDerivation {
+
+    name = "fcitx5-themes-candlelight";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "thep0y";
+      repo = "fcitx5-themes-candlelight";
+      rev = "d4146d3d3f7a276a8daa2847c3e5c08de20485da";
+      sha256 = "sha256-/IdN69izB30rl1gswsXivYtpAeCUdahP7oy06XJXo0I=";
+
+    };
+
+    unpackPhase = "true";
+
+    installPhase = ''
+      mkdir -p $out/share/fcitx5/themes
+      cp -r $src/* $out/share/fcitx5/themes
+    '';
+
+  };
+
 in
 {
   config = {
@@ -22,7 +44,7 @@ in
         addons = with pkgs; [
           (fcitx5-rime.override {
             rimeDataPkgs = [
-              (rime-data)
+              rime-data
             ];
           })
           fcitx5-lua
@@ -87,7 +109,7 @@ in
     ];
     xdg.dataFile = {
       "fcitx5/themes" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${rimeConfig}/themes";
+        source = "${fictx5-themes}/share/fcitx5/themes";
         recursive = true;
       };
     };
@@ -121,14 +143,14 @@ in
           PerScreenDPI=True
           WheelForPaging=True
           Font="Monaco Nerd Font 10"
-          MenuFont="Monaco Nerd Font 10"
-          TrayFont="Monaco Nerd Font 10"
+          MenuFont="inter 11"
+          TrayFont="Maple Mono NF 11"
           TrayOutlineColor=#000000
           TrayTextColor=#ffffff
           PreferTextIcon=True
           ShowLayoutNameInIcon=True
           UseInputMethodLangaugeToDisplayText=True
-          Theme=${if cfgDesktop.hyprland.enable then "macOS-light" else "macOS-dark"}
+          Theme=macOS-light
           DarkTheme=macOS-dark
           UseDarkTheme=True
           ForceWaylandDPI=0

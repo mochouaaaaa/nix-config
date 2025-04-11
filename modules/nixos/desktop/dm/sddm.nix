@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.dm.sddm;
-in {
+in
+{
   options.modules.dm.sddm = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -15,11 +17,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+
     environment.systemPackages = with pkgs; [
       (sddm-astronaut.override {
         embeddedTheme = "Pixel sakura static";
       })
     ];
+
     services = {
       displayManager = {
         sddm = {

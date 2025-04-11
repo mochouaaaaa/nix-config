@@ -3,5 +3,4 @@
 
   services = ./services;
   virtual = ./virtual;
-  desktop = ./desktop;
 }

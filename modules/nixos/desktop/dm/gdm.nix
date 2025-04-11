@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.dm.gdm;
-in {
+in
+{
   options.modules.dm.gdm = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -14,6 +16,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+
     services.xserver = {
       displayManager.gdm = {
         enable = true;
