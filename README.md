@@ -75,9 +75,9 @@ nixos-rebuild switch --flake .#nixos --impure
 <details>
 <summary>Hyprland</summary>
 
-![bizhi](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/quanping.png)
+![桌面](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/quanping.png)
 
-![jietu](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/jietu.png)
+![截图剪切板](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/jietu.png)
 
 </details>
 

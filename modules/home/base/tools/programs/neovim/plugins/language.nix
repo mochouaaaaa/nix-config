@@ -29,6 +29,7 @@
     # go
     gopls
     gotools
+    revive
     goimports-reviser
 
     # rust

@@ -6,6 +6,7 @@
     };
     initExtra = ''
       export GOPATH=/Volumes/Code/Projects/golang
+      export GOBIN=$GOPATH/bin
     '';
     envExtra = ''
       # export PATH="/etc/profiles/per-user/$USER/bin:/run/current-system/sw/bin:$PATH"

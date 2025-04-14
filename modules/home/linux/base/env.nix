@@ -5,6 +5,7 @@
     };
     initExtra = ''
       export GOPATH=$HOME/Code/Projects/golang
+      export GOBIN=$GOPATH/bin
     '';
   };
 }
