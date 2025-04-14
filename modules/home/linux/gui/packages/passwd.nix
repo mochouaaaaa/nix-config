@@ -14,16 +14,22 @@ in
       enable = lib.mkEnableOption "Bitwarden" // {
         default = true;
       };
-      package = [
-        pkgs.bitwarden-cli
-        pkgs.bitwarden-desktop
-      ];
+      package = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [
+          pkgs.bitwarden-cli
+          pkgs.bitwarden-desktop
+        ];
+      };
     };
     authenticator = {
       enable = lib.mkEnableOption "Authenticator" // {
         default = true;
       };
-      package = [ pkgs.authenticator ];
+      package = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [ pkgs.authenticator ];
+      };
     };
   };
 

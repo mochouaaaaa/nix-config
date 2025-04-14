@@ -24,7 +24,7 @@ in
           Version=1.0
           Name=Clash Verge
           Comment=Clash Vergestartup script
-          Exec=${config.programs.clash-verge.package}/bin/.clash-verge-wrapped
+          Exec=${pkgs.clash-verge-rev}/bin/.clash-verge-wrapped
           StartupNotify=false
           Terminal=false
         '';
@@ -34,7 +34,7 @@ in
           Version=1.0
           Name=Clash Verge Service
           Comment=Clash Vergestartup script
-          Exec=${config.programs.clash-verge.package}/bin/.clash-verge-service
+          Exec=${pkgs.clash-verge-rev}/bin/clash-verge-service
           StartupNotify=false
           Terminal=false
         '';

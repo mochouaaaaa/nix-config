@@ -51,8 +51,8 @@ in
       [
         kooha # 录制屏幕 GIF图
       ]
-      ++ lib.optional cfg.wiliwili.enable [ cfg.wiliwili.package ]
-      ++ lib.optional cfg.hypontix.enable [ cfg.hypontix.package ]
-      ++ lib.optional cfg.simple-live-app.enable [ cfg.simple-live-app.package ];
+      ++ lib.optionals cfg.wiliwili.enable [ cfg.wiliwili.package ]
+      ++ lib.optionals cfg.hypontix.enable [ cfg.hypontix.package ]
+      ++ lib.optionals cfg.simple-live-app.enable [ cfg.simple-live-app.package ];
   };
 }
