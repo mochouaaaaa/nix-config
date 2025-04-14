@@ -4,13 +4,17 @@
   config,
   pkgs-unstable,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      kdePackages.qt6gtk2
       hyprland-qt-support
-      hyprpolkitagent
+      # hyprpolkitagent
+      pantheon.pantheon-agent-polkit
 
       swaybg # the wallpaper
       # swaylock-effects

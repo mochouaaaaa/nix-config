@@ -3,6 +3,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
+    "electron-32.3.3"
   ];
 
   # List packages installed in system profile. To search, run:
@@ -47,20 +48,10 @@
     llvmPackages.libcxx
     xz.dev
     tcl-9_0
-    (tcl-8_5.overrideAttrs (oldAttrs: rec {
-      configureFlags = oldAttrs.configureFlags ++ [ "ac_cv_header_stdc=yes" ];
-    }))
+    # (tcl-8_5.overrideAttrs (oldAttrs: rec {
+    #   configureFlags = oldAttrs.configureFlags ++ [ "ac_cv_header_stdc=yes" ];
+    # }))
 
-    # tk-9_0
-    sqlite.dev
-    zlib.dev
-    libffi.dev
-    readline.dev
-    libedit.dev
-    bzip2.dev
-    openssl.dev
-    ncurses.dev
-    pkg-config
   ];
 
   # environment.variables = with pkgs; {

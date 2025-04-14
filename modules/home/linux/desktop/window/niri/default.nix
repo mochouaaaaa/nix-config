@@ -18,6 +18,8 @@ in
 
   config = lib.mkIf cfg.enable {
 
+    services.xremap.withWlroots = lib.mkForce true;
+
     # auto dark/light theme
     modules.themes.auto.enable = true;
 

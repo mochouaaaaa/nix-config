@@ -1,0 +1,7 @@
+{
+  programs = {
+    rclone = {
+      enable = false;
+    };
+  };
+}

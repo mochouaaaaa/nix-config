@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -25,20 +24,22 @@ in
       regreet = {
         enable = true;
       };
-      # thunar file manager(part of xfce) related options
-      thunar = {
+
+      nautilus-open-any-terminal = {
         enable = true;
-        plugins = with pkgs.xfce; [
-          thunar-archive-plugin
-          thunar-volman
-          thunar-media-tags-plugin
-        ];
+        terminal = "kitty";
       };
     };
 
-    environment.systemPackages = with pkgs; [ cage ];
+    environment.systemPackages = with pkgs; [
+      cage
+
+      turtle # nautilus plugin
+      nautilus
+    ];
 
     services = {
+      gnome.sushi.enable = true;
       xserver = {
         enable = true;
       };

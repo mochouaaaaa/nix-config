@@ -3,16 +3,48 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.component.rofi;
-in {
+
+  keymaps =
+    [
+      {
+        "SUPER-SPACE" = {
+          launch = [
+            "bash"
+            "-c"
+            "rofi -show drun"
+          ];
+        };
+        "SUPER-P" = {
+          launch = [
+            "bash"
+            "-c"
+            "rofi-cliphist -f $HOME/.config/rofi/rofi-cliphist.toml"
+          ];
+        };
+      }
+    ]
+    ++ lib.optionals (config.programs.waybar.enable) [
+      {
+        "SUPER-CTRL-SHIFT-I" = {
+          launch = [ "select-wallpaper" ];
+        };
+      }
+    ];
+
+in
+{
   imports = [
     ./scripts
     ./themes
   ];
 
   options.modules.desktop.component.rofi = {
-    enable = lib.mkEnableOption "Rofi" // {default = false;};
+    enable = lib.mkEnableOption "Rofi" // {
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,29 +66,7 @@ in {
       };
     };
 
-    services.xremap = {
-      config = {
-        keymap = [
-          {
-            name = "Rofi";
-            exact_match = true;
-            remap =
-              {
-                "SUPER-SPACE" = {
-                  launch = ["bash" "-c" "rofi -show drun"];
-                };
-                "SUPER-P" = {
-                  launch = ["bash" "-c" "rofi-cliphist -f $HOME/.config/rofi/rofi-cliphist.toml"];
-                };
-              }
-              // lib.optionals (config.programs.waybar.enable) {
-                "SUPER-CTRL-SHIFT-I" = {
-                  launch = ["select-wallpaper"];
-                };
-              };
-          }
-        ];
-      };
-    };
+    modules.shortcuts.global = lib.mkAfter keymaps;
+
   };
 }

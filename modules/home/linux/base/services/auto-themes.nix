@@ -21,12 +21,78 @@ in
 
     home.packages = with pkgs; [
       whitesur-icon-theme
-      whitesur-gtk-theme
+      (whitesur-gtk-theme.override {
+        altVariants = [ "all" ];
+        nautilusStyle = "mojave";
+        roundedMaxWindow = true;
+      })
       whitesur-cursors
+
+      (writeShellScriptBin "switch-theme" ''
+        #!/usr/bin/env bash
+
+        theme=$1
+
+        if [[ $theme == "light" ]]; then
+
+          if [[ ! -e $HOME/.cache/switch-theme.light ]]; then
+             $HOME/.local/state/home-manager/gcroots/current-home/activate
+          fi 
+
+        elif [[ $theme == "dark" ]]; then
+
+          if [[ ! -e $HOME/.cache/switch-theme.dark ]]; then
+             $HOME/.local/state/home-manager/gcroots/current-home/specialisation/dark/activate
+          fi 
+
+        else
+          echo "not fount theme mode"
+        fi
+
+        notify-send --app-name="darkman" --urgency=low --icon=$HOME/.config/swaync/icons/switch_''${theme}.png "switching to ''${theme} mode"
+
+      '')
     ];
 
+    specialisation = {
+      demo.configuration = { };
+      dark.configuration = {
+
+        # 标记当前应用的是什么主题
+        home.file = {
+          ".cache/switch-theme.light".enable = lib.mkForce false;
+          ".cache/switch-theme.dark" = {
+            text = ''dark'';
+            enable = lib.mkForce true;
+          };
+        };
+
+        qt.style.name = lib.mkForce "adwaita-dark";
+        dconf.settings = {
+          "org/gnome/desktop/interface" = {
+            color-scheme = lib.mkForce (lib.gvariant.mkString "prefer-dark");
+            gtk-theme = lib.mkForce (lib.gvariant.mkString "Adwaita-dark");
+            icon-theme = lib.mkForce (lib.gvariant.mkString "WhiteSur-dark");
+            cursor-theme = lib.mkForce (lib.gvariant.mkString "Capitaine Cursors (Nord)");
+          };
+        };
+
+        gtk = {
+          theme = {
+            name = lib.mkForce "WhiteSur-dark";
+          };
+          iconTheme = {
+            name = lib.mkForce "WhiteSur-dark";
+          };
+          cursorTheme = {
+            name = lib.mkForce "Capitaine Cursors (Nord)";
+          };
+        };
+      };
+    };
+
     services.darkman = {
-      enable = true;
+      enable = false;
       settings = {
         lat = 39.9042;
         lng = 116.4074;
@@ -34,22 +100,12 @@ in
       };
       lightModeScripts = {
         gtk-theme = ''
-          notify-send --app-name="darkman" --urgency=low --icon=$HOME/.config/swaync/icons/switch_dark.png "switching to light mode"
-          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita'"
-          dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-light'"
-          dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord) - White'"
-
+          switch-theme light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
-          notify-send --app-name="darkman" --urgency=low --icon=$HOME/.config/swaync/icons/switch_light.png "switching to dark mode"
-          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-dark'"
-          dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-dark'"
-          dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord)'"
-
+          switch-theme dark
         '';
       };
     };

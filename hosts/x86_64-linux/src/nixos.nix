@@ -41,6 +41,26 @@ let
         # modules.desktop.gnome.enable = true;
 
         modules.packages = {
+
+          # tencent enable default use true
+          tencent = {
+            # qq.enable = false;
+            # wechat.enable = false;
+            # wemeet.enable = false;
+            # dingding.enable = false;
+            # feishu.enable = false;
+          };
+
+          live = {
+            simple-live-app.enable = true;
+            wiliwili.enable = true;
+            hypontix.enable = false; # IPTV
+          };
+
+          # defalut enable true
+          bitwarden.enable = true;
+          authenticator.enable = true;
+
           kitty.enable = true;
           wezterm.enable = false;
           jetbrains = {
@@ -49,13 +69,12 @@ let
             goland.enable = true;
             datagrip.enable = true;
           };
-        };
-
-        modules.packages.envs = {
-          pyenv.enable = true;
-          goenv.enable = true;
-          nodenv.enable = true;
-          luaenv.enable = true;
+          envs = {
+            pyenv.enable = true;
+            goenv.enable = true;
+            nodenv.enable = true;
+            luaenv.enable = true;
+          };
         };
       }
     ];

@@ -20,6 +20,9 @@ in
   options.modules.desktop.gnome.enable = lib.mkEnableOption "GNOME desktop environment";
 
   config = lib.mkIf cfg.enable {
+
+    services.xremap.withGnome = lib.mkForce true;
+
     home.sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
     };
