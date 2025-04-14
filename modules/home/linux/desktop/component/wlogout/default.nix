@@ -3,11 +3,15 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.component.wlogout;
-in {
+in
+{
   options.modules.desktop.component.wlogout = {
-    enable = lib.mkEnableOption "wlogout" // {default = false;};
+    enable = lib.mkEnableOption "wlogout" // {
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -27,7 +31,6 @@ in {
 
     home.packages = with pkgs; [
       (writeShellScriptBin "wlogout.sh" ''
-        #!/usr/bin/env bash
 
         A_1080=400
         B_1080=400

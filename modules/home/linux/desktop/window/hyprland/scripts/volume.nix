@@ -3,13 +3,14 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       (writeShellScriptBin "volume" ''
-        #!/usr/bin/env bash
 
         iDIR="$HOME/.config/swaync/icons"
 

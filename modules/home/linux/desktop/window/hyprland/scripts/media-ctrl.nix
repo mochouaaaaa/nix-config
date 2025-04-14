@@ -3,13 +3,14 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       (writeShellScriptBin "media-ctrl" ''
-        #!/usr/bin/env bash
 
         music_icon="$HOME/.config/swaync/icons/music.png"
 

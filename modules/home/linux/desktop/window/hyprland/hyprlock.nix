@@ -3,17 +3,18 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       (writeShellScriptBin "Lock" ''
-        #!/usr/bin/env bash
         hyprlock
       '')
+
       (writeShellScriptBin "Dpms" ''
-        #!/usr/bin/env bash
 
         if pgrep hyprlock > /dev/null; then
             hyprctl dispatch dpms off

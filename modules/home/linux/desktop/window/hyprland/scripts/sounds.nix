@@ -3,13 +3,14 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       (writeShellScriptBin "sounds" ''
-        #!/usr/bin/env bash
 
         theme="freedesktop" # Set the theme for the system sounds.
         mute=false          # Set to true to mute the system sounds.

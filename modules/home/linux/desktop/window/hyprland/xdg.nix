@@ -24,7 +24,7 @@ in
           Version=1.0
           Name=Clash Verge
           Comment=Clash Vergestartup script
-          Exec=${pkgs.clash-verge-rev}/bin/.clash-verge-wrapped
+          Exec=${pkgs.clash-verge-rev}/bin/clash-verge
           StartupNotify=false
           Terminal=false
         '';

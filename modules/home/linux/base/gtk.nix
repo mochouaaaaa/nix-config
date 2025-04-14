@@ -23,22 +23,27 @@
     "*.dpi" = 150;
   };
 
-  home.file = {
-    ".cache/switch-theme.dark".enable = lib.mkDefault false;
-    ".cache/switch-theme.light" = {
-      text = ''light'';
-      enable = lib.mkDefault true;
-    };
-  };
+  # home.file = {
+  #   ".cache/switch-theme.dark".enable = lib.mkDefault false;
+  #   ".cache/switch-theme.light" = {
+  #     text = ''light'';
+  #     enable = lib.mkDefault true;
+  #   };
+  # };
 
   qt = lib.mkDefault {
     style.name = "adwaita";
     platformTheme.name = "gtk3";
     enable = true;
   };
+
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = lib.gvariant.mkString "prefer-light";
+      cursor-theme = lib.gvariant.mkString "Capitaine Cursors (Nord) - White";
+      # gtk-theme = lib.gvariant.mkString "Adwaita-light";
+      gtk-theme = lib.gvariant.mkString "WhiteSur-light";
+      icon-theme = lib.gvariant.mkString "WhiteSur-light";
     };
   };
 
@@ -47,7 +52,7 @@
   #   2. ~/.config/gtk-3.0/settings.ini
   #   3. ~/.config/gtk-4.0/settings.ini
   gtk = {
-    enable = true;
+    enable = false;
 
     theme = {
       name = "WhiteSur-light";

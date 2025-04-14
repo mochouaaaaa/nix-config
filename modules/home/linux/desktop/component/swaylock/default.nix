@@ -3,11 +3,15 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.component.swaylock;
-in {
+in
+{
   options.modules.desktop.component.swaylock = {
-    enable = lib.mkEnableOption "swaylock" // {default = false;};
+    enable = lib.mkEnableOption "swaylock" // {
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -18,7 +22,6 @@ in {
 
     home.packages = with pkgs; [
       (writeShellScriptBin "Lock" ''
-        #!/usr/bin/env bash
 
         swaylock \
             --screenshots \
@@ -36,7 +39,6 @@ in {
             --fade-in 0.2 # --grace 2
       '')
       (writeShellScriptBin "Dpms" ''
-        #!/usr/bin/env bash
 
         if pgrep swaylock > /dev/null; then
             hyprctl dispatch dpms off

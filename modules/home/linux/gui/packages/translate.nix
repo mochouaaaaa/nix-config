@@ -25,6 +25,19 @@ in
       tesseract
     ];
 
+    xdg.configFile."autostart/pot-app.desktop" = {
+      text = ''
+        [Desktop Entry]
+        Type=Application
+        Version=1.0
+        Name=pot
+        Comment=potstartup script
+        Exec=${pkgs.pot}/bin/pot
+        StartupNotify=false
+        Terminal=false
+      '';
+    };
+
     modules.shortcuts.global = lib.mkAfter [
       {
         "ALT-a" = {
