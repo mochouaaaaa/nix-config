@@ -35,16 +35,17 @@ in
         if [[ $theme == "light" ]]; then
           dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
           dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-light'"
-          # dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-light'"
-          dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-light'"
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-light'"
+          # 对firefox无效
+          # dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-light'"
           dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord) - White'"
           dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-light'"
 
         elif [[ $theme == "dark" ]]; then
           dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
           dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-dark'"
-          # dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-dark'"
-          dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-dark'"
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-dark'"
+          # dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-dark'"
           dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord)'"
           dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-dark'"
 

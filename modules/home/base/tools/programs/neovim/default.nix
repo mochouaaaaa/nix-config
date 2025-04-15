@@ -83,14 +83,6 @@
     NVIM_IS_NIX = 1;
   };
 
-  home.file = {
-    ".config/nvim" = {
-      force = true;
-      recursive = true;
-      source = "${config.dotfiles}/nvim";
-    };
-  };
-
   xdg.configFile = {
     "rules" = {
       force = true;

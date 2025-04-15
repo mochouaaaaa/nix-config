@@ -41,8 +41,8 @@
     "org/gnome/desktop/interface" = {
       color-scheme = lib.gvariant.mkString "prefer-light";
       cursor-theme = lib.gvariant.mkString "Capitaine Cursors (Nord) - White";
-      # gtk-theme = lib.gvariant.mkString "Adwaita-light";
-      gtk-theme = lib.gvariant.mkString "WhiteSur-light";
+      gtk-theme = lib.gvariant.mkString "Adwaita-light";
+      # gtk-theme = lib.gvariant.mkString "WhiteSur-light";
       icon-theme = lib.gvariant.mkString "WhiteSur-light";
     };
   };

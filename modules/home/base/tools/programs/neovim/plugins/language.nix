@@ -16,7 +16,7 @@
     # lua
     lua-language-server
     stylua
-    # luacheck
+    luajitPackages.luacheck
 
     # hyprland
     hyprls
