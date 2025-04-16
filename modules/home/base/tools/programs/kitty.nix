@@ -26,7 +26,7 @@ in
 
     modules.packages.kitty.extraConfig = [
       "include init.conf"
-      "shell ${pkgs.zsh}/bin/zsh --login --interactive"
+      # "shell ${config.programs.zsh.package}/bin/zsh --login --interactive"
     ];
 
     programs = {

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   #============================= Audio(PipeWire) =======================
 
   # List packages installed in system profile. To search, run:
@@ -96,7 +97,6 @@
     '';
 
     udev.packages = with pkgs; [
-      gnome-settings-daemon
       platformio # udev rules for platformio
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
       android-udev-rules # required by adb

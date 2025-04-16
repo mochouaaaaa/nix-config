@@ -15,7 +15,7 @@ in
         systemctl --user restart waybar.service
         systemctl --user restart swaync.service
 
-        ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config" || true
+        # ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config" || true
         exit 0
       '')
     ];

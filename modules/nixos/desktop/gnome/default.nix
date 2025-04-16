@@ -3,9 +3,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.gnome;
-in {
+in
+{
   options.modules.desktop.gnome = {
     enable = lib.mkEnableOption "Gnome desktop environment";
   };
@@ -28,10 +30,14 @@ in {
         xkb.layout = "us";
       };
       gnome = {
+        sushi.enable = true;
         gnome-keyring.enable = true;
         gnome-browser-connector.enable = true;
       };
-      fwupd = {enable = true;};
+      fwupd = {
+        enable = true;
+      };
+      udev.packages = lib.mkAfter [ pkgs.gnome-settings-daemon ];
     };
 
     environment.gnome.excludePackages = [

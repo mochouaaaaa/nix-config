@@ -29,6 +29,9 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     systems.url = "github:nix-systems/default";
     impermanence.url = "github:nix-community/impermanence";
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+    };
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
