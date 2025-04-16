@@ -4,7 +4,7 @@
     enable = true;
     prefix = "C-a";
     shortcut = "a";
-    shell = "${pkgs.zsh}/bin/zsh";
+    # shell = "${pkgs.zsh}/bin/zsh";
     terminal = "xterm-256color";
     clock24 = true;
     aggressiveResize = true;
@@ -115,6 +115,13 @@
       set -g status-interval 5
       #: }}}
 
+
+      set -g focus-events on
+      set -g status-style bg=default
+      set -g status-left-length 90
+      set -g status-right-length 90
+      set -g status-justify centre
+
     '';
     plugins = with pkgs.tmuxPlugins; [
       {
@@ -141,7 +148,7 @@
           set -g @catppuccin_status_connect_separator "no"
 
           set -g @catppuccin_date_time_text "%Y-%m-%d %H:%M"
-          set -g status-position top
+          set -g status-position bottom
         '';
       }
       sensible
