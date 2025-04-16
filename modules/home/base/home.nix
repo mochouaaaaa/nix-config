@@ -1,5 +1,7 @@
 {
   self,
+  lib,
+  config,
   ...
 }:
 {
@@ -17,6 +19,16 @@
     # the Home Manager release notes for a list of state version
     # changes in each release.
     stateVersion = "24.11";
+
+    activation.installPackages = {
+      data = lib.mkForce "";
+      before = lib.mkForce [ ];
+      after = lib.mkForce [ ];
+    };
+    file.nix-profile = {
+      source = config.home.path;
+      target = ".nix-profile";
+    };
   };
 
   # Let Home Manager install and manage itself.
