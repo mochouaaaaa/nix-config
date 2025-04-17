@@ -22,8 +22,10 @@ in
         enableBashIntegration = true;
         enableZshIntegration = true;
       };
-      zsh.initExtra = ''
-        alias ssh="wezterm ssh"
+      zsh.initExtra = lib.mkOrder 1850 ''
+        if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+            alias ssh="wezterm ssh"
+        fi
       '';
     };
     xdg.configFile = config.dotfileLink "wezterm";

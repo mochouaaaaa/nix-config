@@ -7,9 +7,6 @@
 let
   cfgDesktop = config.modules.desktop;
 
-  dotfiles = config.dotfiles;
-  rimeConfig = "${dotfiles}/rime";
-
   rime-data = config.modules.packages.rime.data-package;
 
   fictx5-themes = pkgs.stdenv.mkDerivation {
@@ -69,7 +66,7 @@ in
 
             # dbus-send --print-reply=literal --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.DebugInfo
             # 特定App默认中/英文输入
-            "app_options/wezterm":
+            "app_options/org.wezfurlong.wezterm":
               ascii_mode: true
               ascii_punct: true
             "app_options/kitty":

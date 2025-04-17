@@ -31,13 +31,12 @@ in
 
     programs = {
       zsh = {
-        initExtra = ''
-          # Completion for kitty
-          kitty +complete setup zsh | source /dev/stdin
+        initExtra = lib.mkOrder 1800 ''
+          if [[ "$TERM_PROGRAM" == "kitty" ]]; then
+             kitty +complete setup zsh | source /dev/stdin
+             alias ssh="kitty +kitten ssh"
+          fi
         '';
-        shellAliases = {
-          ssh = "kitty +kitten ssh";
-        };
       };
       kitty = {
         enable = true;
