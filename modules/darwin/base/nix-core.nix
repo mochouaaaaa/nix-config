@@ -27,5 +27,13 @@
     options = lib.mkDefault "--delete-older-than 7d";
   };
 
-  system.stateVersion = 5;
+  system = {
+    stateVersion = 5;
+    tools = {
+      darwin-option.enable = true;
+      darwin-rebuild.enable = true;
+      darwin-uninstaller.enable = true;
+      darwin-version.enable = true;
+    };
+  };
 }

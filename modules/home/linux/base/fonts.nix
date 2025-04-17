@@ -1,4 +1,9 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    font-awesome
+  ];
+
   fonts.fontconfig = {
     defaultFonts = {
       serif = [ "Monaco Nerd Font" ];

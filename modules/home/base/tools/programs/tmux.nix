@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.tmux = {
     enable = true;
@@ -18,7 +18,7 @@
     historyLimit = 3000;
     escapeTime = 100;
     extraConfig = ''
-      bind r source-file ~/.config/tmux/tmux.conf; display-message "Config Reloaded."
+      bind r source-file ${config.home.homeDirectory}/config/tmux/tmux.conf; display-message "Config Reloaded."
 
       set -ga terminal-overrides ",xterm-256color:Tc:clipboard"
       # Wezterm termianl Use
@@ -115,13 +115,6 @@
       set -g status-interval 5
       #: }}}
 
-
-      set -g focus-events on
-      set -g status-style bg=default
-      set -g status-left-length 90
-      set -g status-right-length 90
-      set -g status-justify centre
-
     '';
     plugins = with pkgs.tmuxPlugins; [
       {
@@ -149,6 +142,13 @@
 
           set -g @catppuccin_date_time_text "%Y-%m-%d %H:%M"
           set -g status-position bottom
+
+          set -g focus-events on
+          set -g status-style bg=default
+          set -g status-left-length 90
+          set -g status-right-length 90
+          set -g status-justify centre
+
         '';
       }
       sensible

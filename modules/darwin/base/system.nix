@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
 
@@ -42,6 +43,7 @@
 
       # customize trackpad
       trackpad = {
+        ActuationStrength = 0; # 静默点击
         # tap - 轻触触摸板, click - 点击触摸板
         Clicking = true; # enable tap to click(轻触触摸板相当于点击)
         TrackpadRightClick = true; # enable two finger right click
@@ -87,6 +89,18 @@
         NSGlobalDomain = {
           # Add a context menu item for showing the Web Inspector in web views
           WebKitDeveloperExtras = true;
+          # auto dark/light mode
+          AppleInterfaceStyleSwitchesAutomatically = true;
+          # disable auto capitalization
+          NSAutomaticCapitalizationEnabled = false;
+          # 是否像在 Linux 上一样，通过按住窗口上的任意位置来启用移动窗口。默认值为 false。
+          NSWindowShouldDragOnGesture = true;
+          # 当系统音量发生变化时发出反馈声音。此设置接受整数 0 或 1。默认值为 1。
+          "com.apple.sound.beep.feedback" = 0;
+          # 将蜂鸣声/警报音量级别设置为 0.000（静音）到 1.000（100% 音量）
+          "com.apple.sound.beep.volume" = 0;
+          # 配置触控板跟踪速度（0 到 3）。默认值为 1。
+          "com.apple.trackpad.scaling" = 2;
         };
         "com.apple.desktopservices" = {
           # Avoid creating .DS_Store files on network or USB volumes
@@ -97,13 +111,13 @@
           # Display have separate spaces
           #   true => disable this feature
           #   false => enable this feature
-          "spans-displays" = true;
+          "spans-displays" = false;
         };
         "com.apple.WindowManager" = {
           EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
-          StandardHideDesktopIcons = 0; # Show items on desktop
+          StandardHideDesktopIcons = 1; # Show items on desktop
           HideDesktop = 0; # Do not hide items on desktop & stage manager
-          StageManagerHideWidgets = 0;
+          StageManagerHideWidgets = 1;
           StandardHideWidgets = 0;
         };
         "com.apple.screensaver" = {
@@ -145,10 +159,6 @@
 
       # nerdfonts
       # https://github.com/NixOS/nixpkgs/blob/nixos-unstable-small/pkgs/data/fonts/nerd-fonts/manifests/fonts.json
-      # nerd-fonts.symbols-only # symbols icon only
-      # nerd-fonts.fira-code
-      # nerd-fonts.jetbrains-mono
-      # nerd-fonts.iosevka
 
       julia-mono
       dejavu_fonts

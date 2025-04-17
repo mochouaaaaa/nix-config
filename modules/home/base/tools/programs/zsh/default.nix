@@ -7,10 +7,6 @@
 {
   imports = self.mylib.scanPaths ./.;
 
-  home.shell = {
-    enableZshIntegration = true;
-  };
-
   home.packages = with pkgs; [
     zinit
     zoxide
@@ -37,8 +33,8 @@
     };
     history = {
       path = "$HOME/.zsh_history";
-      size = 1000;
-      save = 1000;
+      size = 5000;
+      save = 5000;
       append = true;
       saveNoDups = true;
       ignoreSpace = true;
