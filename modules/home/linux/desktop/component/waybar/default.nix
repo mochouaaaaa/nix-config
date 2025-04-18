@@ -25,7 +25,6 @@ in
       package = inputs.waybar.packages.${pkgs.system}.waybar;
       systemd = {
         enable = true;
-        # target = "wayland-session@Hyprland.target";
         target = "hyprland-session.target";
       };
       style = ./config/style.css;

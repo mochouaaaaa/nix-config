@@ -2,13 +2,17 @@
   config,
   pkgs,
   lib,
+  pkgs-stable,
+  pkgs-unstable,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.gnome;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      albert
+      pkgs-unstable.albert
       gnome-tweaks
       dconf-editor
     ];

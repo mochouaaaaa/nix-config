@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   "org/gnome/shell/extensions/SettingsCenter" = {
     items = lib.gvariant.mkString "Gnome Config Editor;gconf-editor.desktop;1;gconf-editor|Gnome Tweaks;gnome-tweaks.desktop;1;gnome-tweaks|Desktop Config Editor;dconf-editor.desktop;1;dconf-editor|Extensions Preferences;org.gnome.Extensions.desktop;1;gnome-extensions-app|NVidia Settings;nvidia-settings.desktop;0;nvidia-settings|Passwords and Keys;seahorse.desktop;1;seahorse|PulseAudio;pavucontrol.desktop;1;pavucontrol|Session Properties;session-properties.desktop;0;gnome-session-properties";
   };
@@ -13,14 +14,13 @@
       "com.obsproject.Studio.desktop:4"
     ];
   };
-
   "org/gnome/shell/extensions/user-theme" = {
     name = lib.gvariant.mkString "";
   };
-
   "org/gnome/shell/extensions/blur-my-shell" = {
     hacks-level = lib.gvariant.mkInt32 1;
     settings-version = lib.hm.gvariant.mkInt32 2;
+    pipelines = ''{'pipeline_default': {'name': 'Default','effects': [{'type': 'native_static_gaussian_blur','id': 'effect_000000000000','params': {'radius': 30,'brightness': 0.6}}]},'pipeline_default_rounded': {'name': 'Default rounded','effects': [{'type': 'native_static_gaussian_blur','id': 'effect_000000000001','params': {'radius': 30,'brightness': 0.6}},{'type': 'corner','id': 'effect_000000000002','params': {'radius': 16}}]}}'';
   };
   "org/gnome/shell/extensions/blur-my-shell/appfolder" = {
     sigma = 37;
@@ -33,10 +33,6 @@
     enable-all = true;
     opacity = 255;
     sigma = 11;
-  };
-  "org/gnome/shell/extensions/blur-my-shell/panel" = {
-    pipeline = "pipeline_80656128568266";
-    static-blur = true;
   };
   "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {
     blur = true;
@@ -52,6 +48,7 @@
   };
   "org/gnome/shell/extensions/blur-my-shell/hidetopbar" = {
     pipeline = "pipeline_default";
+    compatibility = true;
   };
   "org/gnome/shell/extensions/blur-my-shell/lockscreen" = {
     pipeline = "pipeline_default";
@@ -60,15 +57,28 @@
     pipeline = "pipeline_default";
     style-components = 3;
   };
-  "org/gnome/shell/extensions/blur-my-shell/screenshot" = {pipeline = "pipeline_default";};
 
+  "org/gnome/shell/extensions/blur-my-shell/panel" = {
+    force-light-text = true;
+    override-background = true;
+    override-background-dynamically = true;
+    pipeline = "pipeline_default";
+    static-blur = true;
+    style-panel = 0;
+    unblur-in-overview = true;
+  };
+  "org/gnome/shell/extensions/blur-my-shell/screenshot" = {
+    pipeline = "pipeline_default";
+  };
+  "org/gnome/shell/extensions/blur-my-shell/screenshot" = {
+    sigma = 40;
+  };
   "org/gnome/shell/extensions/burn-my-windows" = {
     active-profile = "/home/mochou/.config/burn-my-windows/profiles/1742968467993684.conf";
     last-extension-version = 46;
     last-prefs-version = 46;
     prefs-open-count = 11;
   };
-
   "org/gnome/shell/extensions/clipboard-indicator" = {
     enable-keybindings = lib.gvariant.mkBoolean false;
     history-size = lib.gvariant.mkInt32 100;
@@ -76,18 +86,19 @@
     paste-on-select = lib.gvariant.mkBoolean true;
     pinned-on-bottom = lib.gvariant.mkBoolean true;
   };
-
   "org/gnome/shell/extensions/coverflowalttab" = {
     dim-factor = 0.98999999999999999;
     # switcher-background-color = lib.gvariant.mkTuple [
-    #   lib.gvariant.mkString "0.25098039215686274"
-    #   lib.gvariant.mkString "0.25098039215686274"
-    #   lib.gvariant.mkString "0.25098039215686274"
+    #   lib.gvariant.mkString
+    #   "0.25098039215686274"
+    #   lib.gvariant.mkString
+    #   "0.25098039215686274"
+    #   lib.gvariant.mkString
+    #   "0.25098039215686274"
     # ];
 
     switcher-looping-method = "Flip Stack";
   };
-
   "org/gnome/shell/extensions/dash-to-dock" = {
     apply-custom-theme = lib.gvariant.mkBoolean true;
     dock-position = lib.gvariant.mkString "BOTTOM";

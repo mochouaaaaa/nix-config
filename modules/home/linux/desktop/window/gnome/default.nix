@@ -10,7 +10,7 @@ let
   keymaps = import ./config/keymaps.nix;
   plugins-config = import ./config/plugins-config.nix { inherit lib; };
   extensions = import ./config/plugins.nix { inherit pkgs lib; };
-  fonts = import ./config/fonts.nix;
+  fonts = import ./config/fonts.nix { inherit pkgs; };
 in
 {
   imports = [
@@ -36,7 +36,7 @@ in
       StartupNotify=false
     '';
 
-    dconf.settings = { } // keymaps // plugins-config // fonts;
+    dconf.settings = { } // keymaps // plugins-config // fonts.fontConfig;
 
     programs.gnome-shell = {
       enable = true;
