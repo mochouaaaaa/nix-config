@@ -29,7 +29,7 @@
       pkgs-unstable.hyprshot # screen shot
       grim # taking screenshots
       slurp # selecting a region to screenshot
-      wf-recorder # screen recording
+      # wf-recorder # screen recording
 
       wallust
       cliphist

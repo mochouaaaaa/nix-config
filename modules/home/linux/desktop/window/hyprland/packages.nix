@@ -23,9 +23,9 @@ in
       envsubst
 
       pkgs-unstable.hyprshot # screen shot
-      grim # taking screenshots
-      slurp # selecting a region to screenshot
-      wf-recorder # screen recording
+      grimblast
+      gimp
+      # wf-recorder # screen recording
 
       wallust
       cliphist

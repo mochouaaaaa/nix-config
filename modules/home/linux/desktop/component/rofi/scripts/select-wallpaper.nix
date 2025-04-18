@@ -114,7 +114,7 @@ in
 
         }
 
-        wal -i $HOME/.current_wallpaper --cols16 -s -t
+        wal -i $HOME/.current_wallpaper --cols16
 
         # Check if rofi is already running
         if pidof rofi > /dev/null; then

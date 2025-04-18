@@ -20,8 +20,7 @@ in
 
     home.packages = with pkgs; [
       pot
-      grim
-      slurp
+      grimblast
       tesseract
     ];
 
@@ -58,7 +57,7 @@ in
             "-c"
             ''
               rm -f ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png
-              if grim -g "$(slurp)" ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png; then
+              if grimblast --freeze save area ~/.cache/com.pot-app.desktop/pot_screenshot_cut.png; then
                   curl "127.0.0.1:60828/ocr_translate?screenshot=false"
               fi
             ''

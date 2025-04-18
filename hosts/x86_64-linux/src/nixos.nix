@@ -62,7 +62,7 @@ let
           authenticator.enable = true;
 
           kitty.enable = true;
-          wezterm.enable = false;
+          wezterm.enable = true;
           jetbrains = {
             enable = true;
             pycharm.enable = true;
