@@ -43,7 +43,6 @@
     # filetypes
     yaml-language-server
     prettierd
-    stylelint
     eslint_d
 
     # XML
@@ -57,6 +56,9 @@
     # Misc
     nodePackages.cspell
     sqls
+
+    # css/js
+    stylelint
 
   ];
 }

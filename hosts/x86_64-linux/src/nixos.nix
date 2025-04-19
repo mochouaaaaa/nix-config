@@ -7,6 +7,7 @@
   ...
 }@args:
 let
+  rule = builtins.getEnv "MY_ROLE";
   modules = {
     nixos-modules = [
       ../nixos
@@ -15,11 +16,9 @@ let
       self.nixosModules.services
       self.nixosModules.virtual
       {
-        # modules.desktop.kde.enable = true;
-        modules.desktop.hyprland.enable = true;
-        # modules.desktop.niri.enable = false;
-        # modules.desktop.gnome.enable = true;
 
+        modules.network.proxy.clash.enable = true;
+        # modules.network.proxy.clash.enable = builtins.trace "${rule}" true;
         modules.virtual = {
           docker.enable = true;
         };
@@ -35,11 +34,6 @@ let
       self.homeModules.linux.gui
 
       {
-        # modules.desktop.kde.enable = true;
-        modules.desktop.hyprland.enable = true;
-        #  modules.desktop.niri.enable = false;
-        # modules.desktop.gnome.enable = true;
-
         modules.packages = {
 
           # tencent enable default use true

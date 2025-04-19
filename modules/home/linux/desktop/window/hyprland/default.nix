@@ -20,8 +20,10 @@ in
   ];
 
   options.modules.desktop.hyprland = {
-    enable = lib.mkEnableOption "Hyprland desktop environment" // {
-      default = false;
+    enable = lib.mkOption {
+      default = builtins.getEnv "DESKTOP" == "hyprland";
+      type = lib.types.bool;
+      description = "Enable Hyprland desktop environment.";
     };
   };
 

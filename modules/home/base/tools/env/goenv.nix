@@ -7,9 +7,33 @@
 let
   cfg = config.modules.packages.envs.goenv;
 
-  goenv = pkgs.fetchgit {
-    url = "https://github.com/go-nv/goenv.git";
-    hash = "sha256-KOisRNvpx3hGTxtB23JqeQnIYlZzV6v/y5ZHgJy3+pw=";
+  goenv = pkgs.stdenv.mkDerivation rec {
+    name = "goenv";
+    version = "2.2.22";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "go-nv";
+      repo = "goenv";
+      tag = "${version}";
+      hash = "sha256-cNPf7pRnhTxW5Px8YjJFYhp/Z8WhJPB43Reu+ixWKEQ=";
+    };
+
+    phases = [ "installPhase" ];
+    # config
+    installPhase = ''
+
+      mkdir -p "$out"
+
+      cp $src/APP_VERSION "$out/APP_VERSION"
+      cp -R $src/bin "$out/bin"
+      cp -R $src/libexec "$out/libexec"
+      cp -R $src/plugins "$out/plugins"
+      cp -R $src/completions "$out/completions"
+
+      substituteInPlace "$out/libexec/goenv-version-name" \
+        --replace-fail "/bin/ls" "ls"
+    '';
+
   };
 in
 {

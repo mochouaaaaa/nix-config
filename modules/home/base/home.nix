@@ -1,6 +1,7 @@
 {
   self,
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -20,14 +21,13 @@
     # changes in each release.
     stateVersion = "24.11";
 
-    activation.installPackages = {
-      data = lib.mkForce "";
-      before = lib.mkForce [ ];
-      after = lib.mkForce [ ];
-    };
-    file.nix-profile = {
-      source = config.home.path;
-      target = ".nix-profile";
+    activation = {
+      fixNixProfileSymlink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        if [ -L "$HOME/.nix-profile" ] || [ -e "$HOME/.nix-profile" ]; then
+          rm -rf "$HOME/.nix-profile"
+        fi
+        ln -s "${config.home.path}" "$HOME/.nix-profile"
+      '';
     };
   };
 

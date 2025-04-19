@@ -9,7 +9,11 @@ let
 in
 {
   options.modules.desktop.hyprland = {
-    enable = lib.mkEnableOption "Hyprland";
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = builtins.getEnv "DESKTOP" == "hyprland";
+      description = "Enable Hyprland desktop environment.";
+    };
   };
   config = lib.mkIf cfgHyprland.enable {
     modules.dm.greetd.enable = true;

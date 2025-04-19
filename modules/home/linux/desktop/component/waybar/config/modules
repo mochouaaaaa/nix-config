@@ -449,9 +449,9 @@
     "on-click": "activate",
     "on-click-middle": "close",
     "ignore-list": [
-          "wofi",
-          "rofi",  
-                   ]
+        "wofi",
+        "rofi",  
+    ]
 },
       
 "custom/cycle_wall":{

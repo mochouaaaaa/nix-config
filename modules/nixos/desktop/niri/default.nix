@@ -3,11 +3,17 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfgNiri = config.modules.desktop.niri;
-in {
+in
+{
   options.modules.desktop.niri = {
-    enable = lib.mkEnableOption "Niri";
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = builtins.getEnv "DESKTOP" == "niri";
+      description = "Enable Niri, a lightweight and fast desktop environment for Linux.";
+    };
   };
 
   config = lib.mkIf cfgNiri.enable {

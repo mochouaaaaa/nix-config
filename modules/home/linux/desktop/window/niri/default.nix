@@ -11,8 +11,10 @@ in
   imports = self.mylib.scanPaths ./.;
 
   options.modules.desktop.niri = {
-    enable = lib.mkEnableOption "Niri - A Linux desktop environment" // {
-      default = false;
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = builtins.getEnv "DESKTOP" == "niri";
+      description = "Enable Niri window manager";
     };
   };
 

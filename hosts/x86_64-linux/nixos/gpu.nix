@@ -2,18 +2,22 @@
   lib,
   pkgs,
   ...
-}: {
-  boot.initrd.kernelModules = ["amdgpu"];
+}:
+{
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   services.xserver = {
     enable = lib.mkDefault true;
-    videoDrivers = ["amdgpu"];
+    videoDrivers = [ "amdgpu" ];
   };
 
-  hardware.graphics.extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-    # amdgpu-firmware
-  ];
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+      # amdgpu-firmware
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     blender-hip

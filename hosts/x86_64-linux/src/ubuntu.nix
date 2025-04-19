@@ -14,6 +14,10 @@ let
 
     self.homeModules.linux.base
     self.homeModules.linux.gui
+
+    {
+      modules.desktop.gnome.enable = true;
+    }
   ];
 
   modules = {

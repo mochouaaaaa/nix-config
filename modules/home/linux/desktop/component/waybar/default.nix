@@ -35,7 +35,6 @@ in
       style = ./config/style.css;
       settings = builtins.fromJSON (builtins.readFile ./config/config);
     };
-
     xdg.configFile = {
       # "waybar/config" = {
       #   source = ./config/config;

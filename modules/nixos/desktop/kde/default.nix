@@ -10,7 +10,11 @@ in
 {
   options.modules.desktop = {
     kde = {
-      enable = lib.mkEnableOption "KDE desktop";
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = builtins.getEnv "DESKTOP" == "kde";
+        description = "Enable KDE desktop environment.";
+      };
     };
   };
 

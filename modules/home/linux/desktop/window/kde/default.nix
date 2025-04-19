@@ -13,8 +13,12 @@ in
     ./plasma.nix
   ];
 
-  options.modules.desktop.kde.enable = lib.mkEnableOption "KDE desktop environment" // {
-    default = false;
+  options.modules.desktop.kde = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = builtins.getEnv "DESKTOP" == "kde";
+      description = "Enable KDE desktop environment.";
+    };
   };
 
   config = lib.mkIf cfg.enable {

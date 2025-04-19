@@ -4,7 +4,6 @@
     enable = true;
     prefix = "C-a";
     shortcut = "a";
-    # shell = "${pkgs.zsh}/bin/zsh";
     terminal = "xterm-256color";
     clock24 = true;
     aggressiveResize = true;
@@ -161,14 +160,14 @@
           TMUX_FZF_OPTIONS="-p -w 90% -h 60% -m"
         '';
       }
-      {
-        plugin = resurrect;
-        extraConfig = ''
-          set -g @resurrect-strategy-nvim 'session'
-          set -g @resurrect-capture-pane-contents 'on'
-        '';
-      }
-      continuum
+      # {
+      #   plugin = resurrect;
+      #   extraConfig = ''
+      #     set -g @resurrect-strategy-nvim 'session'
+      #     set -g @resurrect-capture-pane-contents 'on'
+      #   '';
+      # }
+      # continuum
       fzf-tmux-url
     ];
   };

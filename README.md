@@ -47,7 +47,7 @@
 <summary>Macos Build</summary>
 
 ```bash
-darwin-rebuild switch --flake .#macos --impure
+just switch
 ```
 
 </details>
@@ -56,7 +56,7 @@ darwin-rebuild switch --flake .#macos --impure
 <summary>Linux Build</summary>
 
 ```bash
-home-manager switch --flake .#ubuntu --impure
+just ubuntu
 ```
 
 </details>
@@ -65,7 +65,8 @@ home-manager switch --flake .#ubuntu --impure
 <summary>Nixos Build</summary>
 
 ```bash
-nixos-rebuild switch --flake .#nixos --impure
+# desktop default `hyprlan`, `gnome`, `kde`, `niri`
+just switch
 ```
 
 </details>

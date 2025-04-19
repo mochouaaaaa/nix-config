@@ -20,7 +20,7 @@ in
   options.modules.desktop.gnome = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = builtins.getEnv "DESKTOP" == "gnome";
       description = "Enable GNOME desktop environment.";
     };
   };

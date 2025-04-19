@@ -28,16 +28,12 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     systems.url = "github:nix-systems/default";
-    impermanence.url = "github:nix-community/impermanence";
-    grub2-themes = {
-      url = "github:vinceliuice/grub2-themes";
-    };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # for macos
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -45,6 +41,14 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+
+    # for linux
+    impermanence.url = "github:nix-community/impermanence";
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+    };
+    # flatpak
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     # home-manager, used for managing user configuration
     home-manager = {
@@ -54,8 +58,6 @@
 
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";
-    # flatpak
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";

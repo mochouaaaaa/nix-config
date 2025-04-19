@@ -9,7 +9,11 @@ let
 in
 {
   options.modules.desktop.gnome = {
-    enable = lib.mkEnableOption "Gnome desktop environment";
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = builtins.getEnv "DESKTOP" == "gnome";
+      description = "Enable GNOME desktop environment.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
