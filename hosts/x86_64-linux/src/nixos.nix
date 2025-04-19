@@ -7,7 +7,6 @@
   ...
 }@args:
 let
-  rule = builtins.getEnv "MY_ROLE";
   modules = {
     nixos-modules = [
       ../nixos
@@ -18,7 +17,6 @@ let
       {
 
         modules.network.proxy.clash.enable = true;
-        # modules.network.proxy.clash.enable = builtins.trace "${rule}" true;
         modules.virtual = {
           docker.enable = true;
         };
