@@ -9,10 +9,15 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`
-    xdg-user-dirs
-  ];
+  home = {
+    packages = with pkgs; [
+      xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`
+      xdg-user-dirs
+    ];
+    shellAliases = {
+      open = "xdg-open";
+    };
+  };
 
   xdg = {
     userDirs = {
@@ -41,7 +46,6 @@
           browser = [ "firefox.desktop" ];
           editor = [
             "nvim.desktop"
-            "Helix.desktop"
             "code.desktop"
             "code-insiders.desktop"
           ];

@@ -7,7 +7,7 @@
     alignment = "center"; # 居中
     opacity = "adaptive"; # 自适应
     screen = null; # 屏幕编号0123或者all
-    widgets = []; # 自定义面板
+    widgets = [ ]; # 自定义面板
   };
 
   xdg.configFile."plasma-org.kde.plasma.desktop-appletsrc" = {
@@ -109,7 +109,7 @@
       logOutSettings=qdbus org.kde.Shutdown /Shutdown logout
       restartSettings=qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logoutAndReboot
       showAdvancedMode=true
-      shutDownSettings=qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logoutAndReboot
+      shutDownSettings=qdbus org.kde.Shutdown /Shutdown org.kde.Shutdown.logoutAndShutdown
 
       [Containments][201][Applets][225][Configuration][ConfigDialog]
       DialogHeight=540

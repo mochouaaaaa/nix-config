@@ -1,4 +1,4 @@
-{
+[{
     "include": "~/.config/waybar/modules",
     "layer": "top",
     "position": "top",
@@ -30,22 +30,16 @@
         "custom/separator#blank",
         "group/audio",
         "custom/separator#blank",
-        "custom/power",
+        "custom/power"
         ],
-
-
-    // Additional format / customize modules
-
     "custom/power": {
-        "format": "<U+F011> ",
-        "icon-size": 20,
+      "icon-size": 20,
       "on-click": "wlogout -C $HOME/.config/wlogout/nova.css -l $HOME/.config/wlogout/layout -b 5 -B400 -T 400",
-        "tooltip": false,
+        "tooltip": false
     },
-
     "clock": {
-        //"format": "{:%I:%M %p - %d/%b}", //for AM/PM
-        "format": "{:%H:%M - %d/%b}", // 24H
+        "format": "{:%H:%M - %d/%b}",
         "tooltip": false
     }
 }
+]

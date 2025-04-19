@@ -17,7 +17,13 @@ in
     ./config
   ];
 
-  options.modules.desktop.gnome.enable = lib.mkEnableOption "GNOME desktop environment";
+  options.modules.desktop.gnome = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable GNOME desktop environment.";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
 
