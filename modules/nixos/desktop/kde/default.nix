@@ -3,9 +3,11 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   cfgKde = config.modules.desktop.kde;
-in {
+in
+{
   options.modules.desktop = {
     kde = {
       enable = lib.mkEnableOption "KDE desktop";
@@ -13,7 +15,9 @@ in {
   };
 
   config = lib.mkIf cfgKde.enable {
-    modules.dm.sddm.enable = true;
+
+    # modules.dm.sddm.enable = true;
+    modules.dm.greetd.enable = true;
 
     services = {
       xserver = {
