@@ -28,8 +28,8 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     systems.url = "github:nix-systems/default";
-
     flake-parts.url = "github:hercules-ci/flake-parts";
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -91,16 +91,6 @@
     };
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    neovim = {
-      url = "github:nix-community/neovim-nightly-overlay/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    yazi.url = "github:sxyazi/yazi";
 
     # desktop components
     clipboard-sync.url = "github:dnut/clipboard-sync";

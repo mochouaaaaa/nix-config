@@ -6,10 +6,10 @@ default:
     @just --list
     
 
+# format the nix files in this repo
 [group('nix')]
 fmt:
-  # format the nix files in this repo
-  nix fmt
+    nix fmt .
 
 [group('nix')]
 gc:
@@ -19,7 +19,7 @@ gc:
 # Show all the auto gc roots in the nix store
 [group('nix')]
 gcroot:
-  ls -al /nix/var/nix/gcroots/auto/
+    ls -al /nix/var/nix/gcroots/auto/
 
 
 # Verify all the store entries
@@ -28,20 +28,29 @@ gcroot:
 # and we need to fix the corrupted entries manually via `sudo nix store delete <store-path-1> <store-path-2> ...`
 [group('nix')]
 verify-store:
-  nix store verify --all
+    nix store verify --all
+
+
+[group('flake')]
+_update:
+    nix flake update nixpkgs nixpkgs-unstable nixpkgs-stable systems flake-parts home-manager
 
 #-------------------------------
 # MacOS 环境
 #-------------------------------
 
+# flake update
 [macos]
-@update:
-    nix flake update nix-darwin nixpkgs nixpkgs-stable nixpkgs-unstable nixpkgs-darwin home-manager
+update:
+    just _update
+    nix flake update nix-darwin nixpkgs-darwin 
 
+# switch flake config
 [macos]
-@switch:
+switch:
     darwin-rebuild switch --flake .#macos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 
+# repl test environment
 [macos]
 @repl:
     nix repl -f .#macos
@@ -53,8 +62,9 @@ verify-store:
 
 # flake update
 [linux]
-@update:
-    nix flake update nixpkgs nixpkgs-stable nixpkgs-unstable nixpkgs-linux home-manager
+update:
+    just _update
+    nix flake update impermanence nixos-generators grub2-themes nix-flatpak xremap-flake clipboard-sync
 
 # switch flake config
 [linux]
@@ -66,29 +76,35 @@ switch desktop="hyprland":
 @repl desktop="hyprland":
     HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild repl --flake .#nixos --impure
 
+# switch hyprland desktop environment
 [linux]
 [group('nixos desktop')]
 @hyprland:
+    nix flake update rofi-tools swww hyprlux waybar
     just switch
 
+# switch kde desktop environment
 [linux]
 [group('nixos desktop')]
 @kde:
+    nix flake update plasma-manager
     just switch kde
 
+# switch gnome desktop environment
 [linux]
 [group('nixos desktop')]
 @gnome:
     just switch gnome
 
+# switch niri desktop environment
 [linux]
 [group('nixos desktop')]
 @niri:
     just switch niri
 
-# 非 NixOS 系统
+# home-manager ubuntu gnome environment
 [linux]
-[group('not nixos')]
-@ubuntu:
+[group('home-manager')]
+ubuntu:
     home-manager switch --flake .#ubuntu --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 
