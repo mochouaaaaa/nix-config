@@ -74,17 +74,17 @@ switch desktop="hyprland":
 [linux]
 [group('nixos desktop')]
 @kde:
-    just switch DESKTOP=kde
+    just switch kde
 
 [linux]
 [group('nixos desktop')]
 @gnome:
-    just switch DESKTOP=gnome
+    just switch gnome
 
 [linux]
 [group('nixos desktop')]
 @niri:
-    just switch DESKTOP=niri
+    just switch niri
 
 # 非 NixOS 系统
 [linux]
