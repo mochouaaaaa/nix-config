@@ -1,6 +1,7 @@
 {
   self,
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -34,5 +35,11 @@ in
         swaylock.enable = true;
       };
     };
+
+    modules.packages.vscode.commandLineArgs = lib.mkAfter [
+      "--gtk-version=4"
+      "--ozone-platform-hint=auto"
+      "--password-store=gnome"
+    ];
   };
 }

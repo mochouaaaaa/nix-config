@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   lib,
   config,
@@ -15,47 +16,94 @@ let
 
   initjetbrains = jetbrainsConfig cfg.enable;
 
-  jetbra = pkgs.stdenv.mkDerivation {
+  jetbra = pkgs.stdenv.mkDerivation rec {
     name = "jetbra";
-    src = ./JetBrains; # 将本地路径作为源
+    src = ./JetBrains;
 
     installPhase = ''
-      mkdir -p $out
-      cp -r * $out # 将所有文件复制到输出目录
+      mkdir -p $out/share
+      cp -r * $out/share
+
+      cat > $out/share/vmoptions << EOF
+        --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
+        --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
+
+        -javaagent:$out/share/ja-netfilter.jar=jetbrains
+        -Dawt.toolkit.name=WLToolkit
+      EOF
     '';
   };
 
-  vmoptions = ''
-    --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
-    --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
-
-    -javaagent:${jetbra}/ja-netfilter.jar=jetbrains
-    -Dawt.toolkit.name=WLToolkit
-  '';
+  vmoptions = builtins.readFile "${jetbra}/share/vmoptions";
 in
 {
   options.modules.packages.jetbrains = {
     enable = lib.mkEnableOption "JetBrains IDEs";
-    pycharm.enable = lib.mkEnableOption "PyCharm IDE";
-    goland.enable = lib.mkEnableOption "GoLand IDE";
-    datagrip.enable = lib.mkEnableOption "DataGrip IDE";
-    clion.enable = lib.mkEnableOption "CLion IDE";
+    pycharm = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = (pkgs.jetbrains.pycharm-professional.override { vmopts = vmoptions; }).overrideAttrs {
+          src = self.nvfetcherSources.pycharm.src;
+        };
+      };
+    };
+    goland = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = (pkgs.jetbrains.goland.override { vmopts = vmoptions; }).overrideAttrs {
+          src = self.nvfetcherSources.goland.src;
+        };
+      };
+    };
+    datagrip = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = (pkgs.jetbrains.datagrip.override { vmopts = vmoptions; }).overrideAttrs {
+          src = self.nvfetcherSources.datagrip.src;
+        };
+      };
+    };
+    clion = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = (pkgs.jetbrains.clion.override { vmopts = vmoptions; }).overrideAttrs {
+          src = self.nvfetcherSources.clion.src;
+        };
+      };
+    };
   };
+
   config = {
     home.packages =
-      with pkgs;
-      [ ]
+      [
+      ]
       ++ (lib.optionals (initjetbrains.pycharm) [
-        (pkgs.jetbrains.pycharm-professional.override { vmopts = vmoptions; })
+        cfg.pycharm.package
       ])
       ++ (lib.optionals (initjetbrains.goland) [
-        (pkgs.jetbrains.goland.override { vmopts = vmoptions; })
+        cfg.goland.package
       ])
       ++ (lib.optionals (initjetbrains.datagrip) [
-        (pkgs.jetbrains.datagrip.override { vmopts = vmoptions; })
+        cfg.datagrip.package
       ])
       ++ (lib.optionals (initjetbrains.clion) [
-        (pkgs.jetbrains.clion.override { vmopts = vmoptions; })
+        cfg.clion.package
       ]);
   };
 }

@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  pkgs-stable,
   ...
 }:
 {
@@ -20,17 +21,18 @@
       # kicad     # 3d printing, eletrical engineering
 
       # fpga
-      pkgs-unstable.python312Packages.apycula # gowin fpga
-      pkgs-unstable.yosys # fpga synthesis
-      pkgs-unstable.nextpnr # fpga place and route
-      pkgs-unstable.openfpgaloader # fpga programming
+      pkgs-stable.python312Packages.apycula # gowin fpga
+      pkgs-stable.yosys # fpga synthesis
+      pkgs-stable.nextpnr # fpga place and route
+      pkgs-stable.openfpgaloader # fpga programming
     ];
 
     programs = {
       # live streaming
       obs-studio = {
         enable = true;
-        plugins = with pkgs.obs-studio-plugins; [
+        package = pkgs-stable.obs-studio;
+        plugins = with pkgs-stable.obs-studio-plugins; [
           # screen capture
           wlrobs
           obs-ndi

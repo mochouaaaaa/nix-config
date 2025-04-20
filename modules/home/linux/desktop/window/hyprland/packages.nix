@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs-unstable,
+  pkgs-stable,
   ...
 }:
 let
@@ -11,7 +12,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      kdePackages.qt6gtk2
+      pkgs-stable.kdePackages.qt6gtk2
       hyprland-qt-support
       # hyprpolkitagent
       pantheon.pantheon-agent-polkit
@@ -41,5 +42,12 @@ in
       ncmpcpp # a mpd client with a UI
       networkmanagerapplet # provide GUI app: nm-connection-editor
     ];
+
+    modules.packages.vscode.commandLineArgs = lib.mkAfter [
+      "--gtk-version=4"
+      "--ozone-platform-hint=auto"
+      "--password-store=gnome"
+    ];
+
   };
 }

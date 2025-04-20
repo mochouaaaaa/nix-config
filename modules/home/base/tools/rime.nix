@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   lib,
   config,
@@ -36,17 +37,8 @@ let
       "translator/max_homographs": 7
   '';
 
-  RimeLMDG = pkgs.fetchurl {
-    url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
-    sha256 = "sha256-IPLstNXtKUcbqf8ao0g4ptVgSgub3fH4xk7xwpmNfuw=";
-  };
-
-  oh-my-rime = pkgs.fetchFromGitHub {
-    owner = "Mintimate";
-    repo = "oh-my-rime";
-    rev = "main";
-    sha256 = "sha256-UvBgkQW5TrY6I3Tw+0ccRYsKeOqIBmvQbQwbhVjLbvQ=";
-  };
+  RimeLMDG = self.nvfetcherSources.rime-lmdg.src;
+  oh-my-rime = self.nvfetcherSources.oh-my-rime.src;
 
   cfg = config.modules.packages.rime;
 

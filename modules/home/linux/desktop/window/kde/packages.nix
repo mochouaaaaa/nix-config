@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       whitesur-kde
@@ -16,6 +18,10 @@ in {
       kdePackages.qttools
       kdePackages.qtsvg
       kde-rounded-corners
+    ];
+
+    modules.packages.vscode.commandLineArgs = lib.mkAfter [
+      "--password-store=kde"
     ];
 
     services.kdeconnect = {
