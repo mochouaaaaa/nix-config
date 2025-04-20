@@ -11,6 +11,7 @@ default:
 fmt:
     nix fmt .
 
+# nix store garbage collection
 [group('nix')]
 gc:
     sudo nix-collect-garbage -d
