@@ -15,7 +15,6 @@ let
       self.nixosModules.services
       self.nixosModules.virtual
       {
-
         modules.network.proxy.clash.enable = true;
         modules.virtual = {
           docker.enable = true;
@@ -33,7 +32,6 @@ let
 
       {
         modules.packages = {
-
           # tencent enable default use true
           tencent = {
             # qq.enable = false;

@@ -13,12 +13,10 @@ let
   inherit (inputs) nixpkgs home-manager nixos-generators;
 in
 nixpkgs.lib.nixosSystem {
-  # inherit system specialArgs self;
-  specialArgs = {
+  specialArgs = specialArgs // {
     inherit
       system
       inputs
-      specialArgs
       self
       ;
   };
