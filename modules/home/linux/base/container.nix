@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     dive # explore docker layers
     lazydocker # Docker terminal UI.

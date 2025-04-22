@@ -1,10 +1,10 @@
 {
   pkgs,
   lib,
+  pkgs-stable,
   ...
 }:
 {
-
   # FHS environment, flatpak, appImage, etc.
   environment.systemPackages = [
     # create a fhs environment by command `fhs`, so we can run non-nixos packages in nixos!
@@ -23,6 +23,8 @@
         }
       )
     )
+
+    pkgs.pkg-config
   ];
 
   # https://github.com/Mic92/nix-ld
@@ -47,12 +49,15 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      zlib
+      zlib.dev
       zstd
       readline
       stdenv.cc.cc
       curl
+      ncurses
       openssl
+      libffi
+      sqlite
       attr
       libssh
       bzip2
@@ -61,10 +66,15 @@
       libsodium
       util-linux
       xz
+      pkgs-stable.tcl
+      pkgs-stable.tk
+      pkgs-stable.tcl-9_0
+      pkgs-stable.tk-9_0
       systemd
     ];
   };
   environment.variables = {
-    LD_LIBRARY_PATH = lib.mkForce ''$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$NIX_LD_LIBRARY_PATH'';
+    # LD_LIBRARY_PATH = lib.mkForce ''$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$NIX_LD_LIBRARY_PATH'';
+    LD_LIBRARY_PATH = lib.mkForce ''$NIX_LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH'';
   };
 }

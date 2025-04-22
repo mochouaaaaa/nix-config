@@ -17,6 +17,5 @@
       # one of "undefined", "none", "file-system", "onedrive", "nextcloud", "webdav", "dropbox", "s3", "joplin-server", "joplin-cloud"
       target = null;
     };
-
   };
 }

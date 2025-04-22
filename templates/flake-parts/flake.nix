@@ -7,20 +7,23 @@
     systems.url = "github:nix-systems/default";
   };
 
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-      imports = [];
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        ...
-      }: {
-        packages.default = pkgs.hello;
-      };
-      flake = {};
+      imports = [ ];
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          packages.default = pkgs.hello;
+        };
+      flake = { };
     };
 }

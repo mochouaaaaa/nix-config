@@ -21,7 +21,7 @@ in
     {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-      ${lib.optionalString (isNixos) ''"source": "${image}",''}
+      ${lib.optionalString isNixos ''"source": "${image}",''}
       "type": "kitty-direct",
       "height": 18,
       "width": 36,
@@ -70,14 +70,14 @@ in
         "keyColor": "blue"
         },
         {
-            "type": "cursor",
-            "key": "│ ├",
-            "keyColor": "blue",
+        "type": "cursor",
+        "key": "│ ├",
+        "keyColor": "blue",
         },
         {
-            "type": "terminalfont",
-            "key": "│ ├",
-            "keyColor": "blue",
+        "type": "terminalfont",
+        "key": "│ ├",
+        "keyColor": "blue",
         },
         {
         "type": "terminal",
@@ -101,7 +101,7 @@ in
         "keyColor": "green"
         },
         {
-                "type": "display",
+        "type": "display",
         "key": "│ ├󰍹",
         "keyColor": "green",
         "compactType": "original-with-refresh-rate"

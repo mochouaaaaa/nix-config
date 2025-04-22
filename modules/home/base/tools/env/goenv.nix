@@ -33,7 +33,6 @@ let
       substituteInPlace "$out/libexec/goenv-version-name" \
         --replace-fail "/bin/ls" "ls"
     '';
-
   };
 in
 {

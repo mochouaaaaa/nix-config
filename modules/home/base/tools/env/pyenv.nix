@@ -2,6 +2,8 @@
   pkgs,
   config,
   lib,
+  pkgs-stable,
+  isNixos,
   ...
 }:
 let
@@ -26,9 +28,17 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      uv
-    ];
+
+    home = {
+      packages = with pkgs; [
+        uv
+      ];
+
+      sessionVariables = lib.mkIf (!isNixos) {
+        LD_LIBRARY_PATH = lib.mkForce ''$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$NIX_LD_LIBRARY_PATH'';
+      };
+    };
+
     xdg.configFile = {
       "env/pyenv" = {
         source = pkgs.pyenv;

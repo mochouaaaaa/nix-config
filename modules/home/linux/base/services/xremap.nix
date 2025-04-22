@@ -21,7 +21,6 @@ in
   };
 
   config = {
-
     services.xremap = {
       enable = true;
       watch = true;

@@ -3,17 +3,21 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       config = {
         kde = {
-          default = ["kde"] ++ (config.xdg.config.common.default or []);
+          default = [ "kde" ] ++ (config.xdg.config.common.default or [ ]);
         };
       };
-      extraPortals = with pkgs; [kdePackages.xdg-desktop-portal-kde] ++ (config.xdg.portal.extraPortals or []);
+      extraPortals =
+        with pkgs;
+        [ kdePackages.xdg-desktop-portal-kde ] ++ (config.xdg.portal.extraPortals or [ ]);
     };
   };
 }

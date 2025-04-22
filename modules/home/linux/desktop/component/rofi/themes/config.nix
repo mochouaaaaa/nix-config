@@ -4,11 +4,12 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.programs.rofi;
-in {
-  config = lib.mkIf (config.programs.waybar.enable
-    && cfg.enable) {
+in
+{
+  config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
     xdg.configFile."rofi/config.rasi" = {
       text = ''
         @theme "~/.config/rofi/themes/nova-dark.rasi"

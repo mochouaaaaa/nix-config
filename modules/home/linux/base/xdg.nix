@@ -2,7 +2,6 @@
 # It's a bunch of specifications from freedesktop.org intended to standardize desktops and
 # other GUI applications on various systems (primarily Unix-like) to be interoperable:
 #   https://www.freedesktop.org/wiki/Specifications/
-
 {
   config,
   pkgs,
@@ -204,6 +203,5 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal
     ];
-
   };
 }

@@ -4,13 +4,10 @@
   ...
 }:
 let
-
   cfg = config.modules.packages.rime;
   rime-data = cfg.data-package;
-
 in
 {
-
   config = {
     modules.packages.rime.extraFiles = lib.mkBefore [
       {

@@ -1,9 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.modules.network.proxy.clash;
 in
 {
-
   options.modules.network.proxy.clash = {
     enable = lib.mkOption {
       type = lib.types.bool;

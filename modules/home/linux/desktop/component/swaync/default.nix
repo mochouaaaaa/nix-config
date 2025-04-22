@@ -2,14 +2,18 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.component.swaync;
 
   jsonFile = builtins.readFile ./config.json;
   settings = builtins.fromJSON jsonFile;
-in {
+in
+{
   options.modules.desktop.component.swaync = {
-    enable = lib.mkEnableOption "swaync" // {default = false;};
+    enable = lib.mkEnableOption "swaync" // {
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {

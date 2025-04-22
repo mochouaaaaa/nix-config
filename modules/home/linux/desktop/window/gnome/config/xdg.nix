@@ -3,17 +3,19 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.gnome;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       config = {
         gnome = {
-          default = ["gnome"] ++ (config.xdg.config.common.default or []);
+          default = [ "gnome" ] ++ (config.xdg.config.common.default or [ ]);
         };
       };
-      extraPortals = lib.mkBefore (with pkgs; [xdg-desktop-portal-gnome]);
+      extraPortals = lib.mkBefore (with pkgs; [ xdg-desktop-portal-gnome ]);
     };
   };
 }

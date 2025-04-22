@@ -10,7 +10,6 @@ let
   rime-data = config.modules.packages.rime.data-package;
 
   fictx5-themes = pkgs.stdenv.mkDerivation {
-
     name = "fcitx5-themes-candlelight";
 
     src = pkgs.fetchFromGitHub {
@@ -18,7 +17,6 @@ let
       repo = "fcitx5-themes-candlelight";
       rev = "d4146d3d3f7a276a8daa2847c3e5c08de20485da";
       sha256 = "sha256-/IdN69izB30rl1gswsXivYtpAeCUdahP7oy06XJXo0I=";
-
     };
 
     unpackPhase = "true";
@@ -27,13 +25,10 @@ let
       mkdir -p $out/share/fcitx5/themes
       cp -r $src/* $out/share/fcitx5/themes
     '';
-
   };
-
 in
 {
   config = {
-
     i18n.inputMethod = {
       enabled = "fcitx5";
       fcitx5 = {

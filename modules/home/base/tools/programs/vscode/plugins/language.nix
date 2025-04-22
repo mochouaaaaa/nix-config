@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs = {
     vscode = {
@@ -40,12 +44,10 @@
 
               # js
               bradlc.vscode-tailwindcss
-
             ]
           );
         };
       };
     };
   };
-
 }

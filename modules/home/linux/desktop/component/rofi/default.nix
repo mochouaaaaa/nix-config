@@ -33,7 +33,6 @@ let
         };
       }
     ];
-
 in
 {
   imports = [
@@ -67,6 +66,5 @@ in
     };
 
     modules.shortcuts.global = lib.mkAfter keymaps;
-
   };
 }

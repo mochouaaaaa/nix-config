@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   position = "center";
   activateWhenTypingOnDesktop = false; # 在桌面上输入时不激活
   historyBehavior = "enableSuggestions"; # 启用建议 enableAutoComplete

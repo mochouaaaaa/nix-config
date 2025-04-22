@@ -1,4 +1,8 @@
-{ self, pkgs, ... }:
+{
+  self,
+  pkgs,
+  ...
+}:
 {
   imports = self.mylib.scanPaths ./.;
 
@@ -19,6 +23,5 @@
     #     cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DUSE_WAYLAND_GRIM=ON" ]; # 启用 USE_WAYLAND_GRIM
     #   }))
     # ];
-
   ];
 }

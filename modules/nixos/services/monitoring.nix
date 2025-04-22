@@ -7,7 +7,10 @@
     port = 9100;
     # There're already a lot of collectors enabled by default
     # https://github.com/prometheus/node_exporter?tab=readme-ov-file#enabled-by-default
-    enabledCollectors = ["systemd" "logind"];
+    enabledCollectors = [
+      "systemd"
+      "logind"
+    ];
 
     # use either enabledCollectors or disabledCollectors
     # disabledCollectors = [];

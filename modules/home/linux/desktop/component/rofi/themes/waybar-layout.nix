@@ -2,11 +2,12 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.programs.rofi;
-in {
-  config = lib.mkIf (config.programs.waybar.enable
-    && cfg.enable) {
+in
+{
+  config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
     xdg.configFile = {
       "rofi/themes/waybar-layout.rasi".text = ''
         /* config - Launcher */

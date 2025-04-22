@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.virtual;
-in {
+in
+{
   config = lib.mkIf cfg.vmware.enable {
     environment.systemPackages = with pkgs; [
       linuxKernel.packages.linux_zen.vmware
@@ -17,7 +19,9 @@ in {
           enable = false;
           package = pkgs.vmware-workstation;
         };
-        guest = {enable = true;};
+        guest = {
+          enable = true;
+        };
       };
     };
   };

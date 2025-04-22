@@ -1,4 +1,8 @@
-{ self, pkgs, ... }:
+{
+  self,
+  pkgs,
+  ...
+}:
 {
   nix.package = pkgs.nixVersions.latest;
 
@@ -34,5 +38,4 @@
     ];
     builders-use-substitutes = true;
   };
-
 }

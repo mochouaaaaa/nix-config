@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
 
   resources-monitor = pkgs.stdenvNoCC.mkDerivation rec {
@@ -32,10 +33,11 @@
       runHook postInstall
     '';
 
-    passthru.updateScript = pkgs.nix-update-script {};
+    passthru.updateScript = pkgs.nix-update-script { };
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
-    home.packages = [resources-monitor];
+    home.packages = [ resources-monitor ];
   };
 }

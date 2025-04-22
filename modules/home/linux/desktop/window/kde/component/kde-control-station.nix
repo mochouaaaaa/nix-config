@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
 
   kde-control-station = pkgs.stdenvNoCC.mkDerivation rec {
@@ -35,10 +36,11 @@
       runHook postInstall
     '';
 
-    passthru.updateScript = pkgs.nix-update-script {};
+    passthru.updateScript = pkgs.nix-update-script { };
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
-    home.packages = [kde-control-station];
+    home.packages = [ kde-control-station ];
   };
 }

@@ -1,9 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.modules.packages.aerospace;
 in
 {
-
   options.modules.packages.aerospace = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -51,7 +54,6 @@ in
 
           # switch workspace
           cmd-tab = "workspace-back-and-forth";
-
         };
       };
     };

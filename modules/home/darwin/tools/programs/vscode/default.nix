@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
   programs.vscode = {
-
   };
 }

@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
   applet-window-title = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "applet-window-title";
@@ -16,7 +17,7 @@
       sha256 = "sha256-pFXVySorHq5EpgsBz01vZQ0sLAy2UrF4VADMjyz2YLs=";
     };
 
-    propagatedUserEnvPkgs = with pkgs.kdePackages; [kconfig];
+    propagatedUserEnvPkgs = with pkgs.kdePackages; [ kconfig ];
 
     dontWrapQtApps = true;
 
@@ -27,9 +28,10 @@
       runHook postInstall
     '';
 
-    passthru.updateScript = pkgs.nix-update-script {};
+    passthru.updateScript = pkgs.nix-update-script { };
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = [
       applet-window-title

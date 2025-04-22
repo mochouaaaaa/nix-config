@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     services.hypridle = {
       enable = true;

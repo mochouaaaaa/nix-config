@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
 
   thermal-monitor = pkgs.stdenvNoCC.mkDerivation rec {
@@ -27,10 +28,11 @@
       runHook postInstall
     '';
 
-    passthru.updateScript = pkgs.nix-update-script {};
+    passthru.updateScript = pkgs.nix-update-script { };
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
-    home.packages = [thermal-monitor];
+    home.packages = [ thermal-monitor ];
   };
 }

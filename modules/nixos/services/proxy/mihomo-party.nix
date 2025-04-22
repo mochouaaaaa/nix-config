@@ -9,7 +9,6 @@ let
   cfg = config.modules.network.proxy.mihomo-party;
 in
 {
-
   options.modules.network.proxy.mihomo-party = {
     enable = lib.mkOption {
       type = lib.types.bool;

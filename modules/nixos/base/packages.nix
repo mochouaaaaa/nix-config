@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
     "electron-32.3.3"
@@ -51,7 +50,6 @@
     # (tcl-8_5.overrideAttrs (oldAttrs: rec {
     #   configureFlags = oldAttrs.configureFlags ++ [ "ac_cv_header_stdc=yes" ];
     # }))
-
   ];
 
   # environment.variables = with pkgs; {

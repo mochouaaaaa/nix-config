@@ -8,7 +8,6 @@ let
   cfg = config.modules.packages;
 in
 {
-
   options.modules.packages = {
     bitwarden = {
       enable = lib.mkEnableOption "Bitwarden" // {
@@ -36,7 +35,6 @@ in
   config = {
     home.packages =
       [
-
       ]
       ++ lib.optionals (cfg.bitwarden.enable) cfg.bitwarden.package
       ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;

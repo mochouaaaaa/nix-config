@@ -17,7 +17,6 @@ in
   };
 
   config = lib.mkIf cfg.translate.enable {
-
     home.packages = with pkgs; [
       pot
       grimblast
@@ -65,6 +64,5 @@ in
         };
       }
     ];
-
   };
 }

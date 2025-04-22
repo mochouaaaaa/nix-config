@@ -48,6 +48,5 @@ in
       "--ozone-platform-hint=auto"
       "--password-store=gnome"
     ];
-
   };
 }

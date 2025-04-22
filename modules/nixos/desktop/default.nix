@@ -1,4 +1,8 @@
-{ self, pkgs, ... }:
+{
+  self,
+  pkgs,
+  ...
+}:
 {
   imports = self.mylib.scanPaths ./.;
 
@@ -7,5 +11,4 @@
   };
 
   programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
-
 }

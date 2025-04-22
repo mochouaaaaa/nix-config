@@ -64,6 +64,5 @@
     cmake
     opencc
     ccache
-
   ];
 }

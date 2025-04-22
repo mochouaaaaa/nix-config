@@ -4,6 +4,6 @@
   };
   sessionRestore = {
     restoreOpenApplicationsOnLogin = "onLastLogout"; # 登录时恢复上次打开的应用
-    excludeApplications = []; # 不要恢复的应用
+    excludeApplications = [ ]; # 不要恢复的应用
   };
 }

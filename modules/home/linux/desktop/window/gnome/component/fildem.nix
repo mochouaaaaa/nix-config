@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   # fildem = pkgs.stdenv.mkDerivation rec {
   fildem = pkgs.python312Packages.buildPythonPackage rec {
     pname = "fildem";
@@ -50,7 +51,8 @@
 
     doCheck = false;
   };
-in {
+in
+{
   # programs.gnome-shell.extensions = (config.programs.gnome-shell.extensions) ++ [fildem];
   # programs.gnome-shell.extensions = config.programs.gnome-shell.extensions ++ [{package= fildem; id="fildemGMenu@gonza.com";} ];
   name = fildem;

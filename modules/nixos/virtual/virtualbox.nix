@@ -2,11 +2,13 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.virtual;
-in {
+in
+{
   config = lib.mkIf cfg.virtualbox.enable {
-    users.extraGroups.vboxusers.members = ["user-with-access-to-virtualbox"];
+    users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
     virtualisation = {
       virtualbox = {

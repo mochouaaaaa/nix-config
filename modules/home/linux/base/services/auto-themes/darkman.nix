@@ -8,7 +8,6 @@ let
   cfg = config.modules.themes.auto;
 in
 {
-
   options.modules.themes.auto = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -18,7 +17,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     home.packages = with pkgs; [
       whitesur-icon-theme
       (whitesur-gtk-theme.override {
@@ -77,6 +75,5 @@ in
         '';
       };
     };
-
   };
 }

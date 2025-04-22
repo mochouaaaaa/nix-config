@@ -23,7 +23,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     modules.packages.kitty.extraConfig = [
       "include init.conf"
       # "shell ${config.programs.zsh.package}/bin/zsh --login --interactive"

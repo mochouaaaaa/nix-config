@@ -9,7 +9,6 @@ let
   cfg = config.modules.desktop.component.waybar;
 in
 {
-
   imports = [
     ./scripts
   ];

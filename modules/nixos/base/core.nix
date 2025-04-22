@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   boot.loader = {
     systemd-boot = {
       # we use Git for version control, so we don't need to keep too many generations.
@@ -12,7 +13,9 @@
 
   # for power management
   services = {
-    power-profiles-daemon = {enable = true;};
+    power-profiles-daemon = {
+      enable = true;
+    };
     upower.enable = true;
   };
 

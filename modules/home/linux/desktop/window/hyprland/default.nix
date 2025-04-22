@@ -29,7 +29,6 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-
       services.xremap.withWlroots = lib.mkForce true;
 
       # auto dark/light theme

@@ -6,16 +6,16 @@
     "_launch" = "Meta+Ctrl+E";
   };
   "services/org.kde.konsole.desktop" = {
-    "_launch" = [];
+    "_launch" = [ ];
   };
   "services/org.kde.kscreen.desktop" = {
     "ShowOSD" = "Display";
   };
   "services/org.kde.plasma-systemmonitor.desktop" = {
-    "_launch" = [];
+    "_launch" = [ ];
   };
   "services/org.kde.plasma.emojier.desktop" = {
-    "_launch" = [];
+    "_launch" = [ ];
   };
   # "services/org.kde.krunner.desktop" = {
   #   "_launch" = ["Search" "Meta+Space"];

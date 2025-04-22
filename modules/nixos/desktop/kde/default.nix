@@ -19,7 +19,6 @@ in
   };
 
   config = lib.mkIf cfgKde.enable {
-
     # modules.dm.sddm.enable = true;
     modules.dm.greetd.enable = true;
 

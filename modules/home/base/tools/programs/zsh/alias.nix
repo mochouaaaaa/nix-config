@@ -1,7 +1,6 @@
 {
   programs.zsh = {
     shellAliases = {
-
       ".." = "cd ..";
       "~" = "cd ~";
       "--" = "cd -";

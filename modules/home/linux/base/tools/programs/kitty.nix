@@ -1,4 +1,8 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.modules.packages.kitty;
 in
@@ -12,5 +16,4 @@ in
       ];
     };
   };
-
 }

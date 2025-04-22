@@ -1,5 +1,9 @@
 {
-  titlebarButtons.left = ["close" "minimize" "maximize"];
+  titlebarButtons.left = [
+    "close"
+    "minimize"
+    "maximize"
+  ];
   effects = {
     shakeCursor.enable = true;
     translucency.enable = true;
@@ -26,7 +30,12 @@
 
   virtualDesktops = {
     rows = 1;
-    names = ["桌面 1" "桌面 2" "桌面 3" "桌面 4"];
+    names = [
+      "桌面 1"
+      "桌面 2"
+      "桌面 3"
+      "桌面 4"
+    ];
     number = 4;
   };
 

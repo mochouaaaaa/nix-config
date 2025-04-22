@@ -1,4 +1,6 @@
 {
+  imports = [ ./flake-parts ];
+
   flake = {
     baseModules = import ./base;
     nixosModules = import ./nixos; # NixOS modules

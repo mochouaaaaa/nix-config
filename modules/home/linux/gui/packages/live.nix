@@ -45,7 +45,6 @@ in
   };
 
   config = {
-
     home.packages =
       with pkgs;
       [

@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
 
   plasma-darwer = pkgs.stdenvNoCC.mkDerivation rec {
@@ -15,12 +16,12 @@
       hash = "sha256-MY7LWu2nqOvznVD6NdFlIz1YF6YVFG0RkZqsPkRa6UU=";
     };
 
-    nativeBuildInputs = [pkgs.unzip];
+    nativeBuildInputs = [ pkgs.unzip ];
     unpackPhase = ''
       echo "Skippiong unpackPhase"
     '';
 
-    propagatedUserEnvPkgs = with pkgs.kdePackages; [kconfig];
+    propagatedUserEnvPkgs = with pkgs.kdePackages; [ kconfig ];
     dontWrapQtApps = true;
 
     installPhase = ''
@@ -35,8 +36,9 @@
       runHook postInstall
     '';
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
-    home.packages = [plasma-darwer];
+    home.packages = [ plasma-darwer ];
   };
 }

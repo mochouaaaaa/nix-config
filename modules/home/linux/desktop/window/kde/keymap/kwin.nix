@@ -8,7 +8,10 @@
   "Decrease Opacity" = "none";
   "Edit Tiles" = "none";
   "Expose" = "Ctrl+F9";
-  "ExposeAll" = ["Launch (C)" "Ctrl+F10"];
+  "ExposeAll" = [
+    "Launch (C)"
+    "Ctrl+F10"
+  ];
   "ExposeClass" = "Ctrl+F7";
   "ExposeClassCurrentDesktop" = "none";
   "Grid View" = "Meta+G";

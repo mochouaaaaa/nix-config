@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.modules.desktop.kde;
 
   kpple-menu = pkgs.stdenvNoCC.mkDerivation rec {
@@ -17,7 +18,7 @@
       sha256 = "sha256-TLLvjZdGdT/8zVpPGwnRofr1NZVDvBUIUpp/kwk3kR4=";
     };
 
-    propagatedUserEnvPkgs = with pkgs.kdePackages; [kconfig];
+    propagatedUserEnvPkgs = with pkgs.kdePackages; [ kconfig ];
 
     dontWrapQtApps = true;
 
@@ -28,9 +29,10 @@
       runHook postInstall
     '';
 
-    passthru.updateScript = pkgs.nix-update-script {};
+    passthru.updateScript = pkgs.nix-update-script { };
   };
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = [
       kpple-menu

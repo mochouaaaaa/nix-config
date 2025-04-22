@@ -89,5 +89,4 @@
     command = "nautilus";
     name = "文件管理器";
   };
-
 }

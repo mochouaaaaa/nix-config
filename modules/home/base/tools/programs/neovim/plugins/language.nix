@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   # programs.neovim.extraPackages = lib.mkBefore (with pkgs; [
   home.packages = with pkgs; [
@@ -59,6 +56,5 @@
 
     # css/js
     stylelint
-
   ];
 }

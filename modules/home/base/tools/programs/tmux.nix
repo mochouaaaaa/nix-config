@@ -1,4 +1,8 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 {
   programs.tmux = {
     enable = true;
@@ -31,7 +35,7 @@
       # set mouse off with prefix M
       bind M \
           set -g mouse off \;\
-          display 'Mouse: OFF'  
+          display 'Mouse: OFF'
 
       # Enable the new keyboard protocol for Tmux, and applying to the applications inside it on demand
       set -s extended-keys on
@@ -81,7 +85,7 @@
       bind-key -n M-w if -F "#{@pane-is-vim}" 'send-keys Escape "[119;9u]"' 'kill-pane'
       bind-key -n M-e if -F "#{@pane-is-vim}" 'send-keys Escape "[101;9u"'
       bind-key -n M-s if -F "#{@pane-is-vim}" 'send-keys Escape "[115;9u"'
-      bind-key -n M-f if -F "#{@pane-is-vim}" 'send-keys Escape "[102;9u"'  'display-panes -d 0' 
+      bind-key -n M-f if -F "#{@pane-is-vim}" 'send-keys Escape "[102;9u"'  'display-panes -d 0'
       bind-key -n M-S-f if -F "#{@pane-is-vim}" 'send-keys Escape "[102;10u"' 'send-keys Escape "[102;10u"'
       bind-key -n M-/ if -F "#{@pane-is-vim}" 'send-keys Escape "[47;9u"'
       bind-key -n M-r if -F "#{@pane-is-vim}" 'send-keys Escape "[114;9u"' 'send-keys "yazi" Enter'

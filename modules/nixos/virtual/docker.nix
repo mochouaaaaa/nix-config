@@ -9,7 +9,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-
     environment.systemPackages = [
       pkgs.podman-desktop
     ];

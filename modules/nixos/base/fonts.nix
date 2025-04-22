@@ -35,7 +35,6 @@ in
         dejavu_fonts
       ]
       ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
-
   };
 
   # https://wiki.archlinux.org/title/KMSCON

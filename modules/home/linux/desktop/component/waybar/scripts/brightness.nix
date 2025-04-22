@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.modules.desktop.component.waybar;
-
 in
 {
   config = lib.mkIf cfg.enable {
@@ -87,6 +86,5 @@ in
         esac
       '')
     ];
-
   };
 }

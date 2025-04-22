@@ -8,7 +8,10 @@
   users.defaultUserShell = pkgs.zsh;
 
   # fix for `sudo xxx` in kitty/wezterm and other modern terminal emulators
-  security.sudo.keepTerminfo = true;
+  security.sudo = {
+    keepTerminfo = true;
+    execWheelOnly = true;
+  };
 
   environment.variables = {
     # fix https://github.com/NixOS/nixpkgs/issues/238025
