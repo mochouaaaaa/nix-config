@@ -1,8 +1,19 @@
 {
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-  boot.kernelModules = ["kvm-amd" "vfio-pci" "ext4"];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "vfio-pci"
+    "ext4"
+  ];
   boot.extraModprobeConfig = "options kvm_amd nested=1"; # for amd cpu
-  boot.extraModulePackages = [];
+  boot.extraModulePackages = [ ];
 
   boot.loader = {
     grub = {

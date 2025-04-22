@@ -2,6 +2,10 @@
   inputs,
   lib,
   self,
+
+  pkgs-unstable,
+  pkgs-stable,
+
   ...
 }:
 let
@@ -11,21 +15,12 @@ let
     system:
     inputs
     // rec {
-      inherit self inputs;
-
-      # use unstable branch for some packages to get the latest updates
-      pkgs-unstable = import inputs.nixpkgs-unstable {
-        inherit
-          system
-          ; # refer the `system` parameter form outer scope recursively
-        # To use chrome, we need to allow the installation of non-free software
-        config.allowUnfree = true;
-      };
-      pkgs-stable = import inputs.nixpkgs-stable {
-        inherit system;
-        # To use chrome, we need to allow the installation of non-free software
-        config.allowUnfree = true;
-      };
+      inherit
+        self
+        inputs
+        pkgs-stable
+        pkgs-unstable
+        ;
       isNixos = builtins.pathExists "/etc/nixos";
       isLinux = nixpkgs.legacyPackages.${system}.stdenv.isLinux && !isNixos;
     };

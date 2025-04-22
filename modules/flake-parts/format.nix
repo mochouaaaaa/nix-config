@@ -5,6 +5,5 @@
       config = {
         formatter = pkgs.alejandra;
       };
-
     };
 }

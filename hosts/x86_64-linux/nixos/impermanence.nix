@@ -1,5 +1,6 @@
-{inputs, ...}: {
-  imports = [inputs.impermanence.nixosModules.impermanence];
+{ inputs, ... }:
+{
+  imports = [ inputs.impermanence.nixosModules.impermanence ];
   environment.persistence."/persistent" = {
     # 不让这些映射的 mount 出现在文件管理器的侧边栏中
     hideMounts = true;

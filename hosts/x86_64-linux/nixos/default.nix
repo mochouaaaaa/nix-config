@@ -1,6 +1,8 @@
-{...}: let
+{ ... }:
+let
   hostName = "nixos"; # Define your hostname.
-in {
+in
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix

@@ -15,6 +15,18 @@ flake-parts.lib.mkFlake { inherit inputs; } (
     pkgs = import inputs.nixpkgs {
       inherit (config) systems;
     };
+    pkgs-unstable = import inputs.nixpkgs-unstable {
+      inherit (config) systems;
+      # refer the `system` parameter form outer scope recursively
+      # To use chrome, we need to allow the installation of non-free software
+      config.allowUnfree = true;
+    };
+    pkgs-stable = import inputs.nixpkgs-stable {
+      inherit (config) systems;
+      # To use chrome, we need to allow the installation of non-free software
+      config.allowUnfree = true;
+    };
+
     nvfetcherSources = import ./_sources/generated.nix {
       inherit (pkgs)
         fetchurl
@@ -26,6 +38,9 @@ flake-parts.lib.mkFlake { inherit inputs; } (
   in
   {
     inherit systems;
+    _module.args = {
+      inherit pkgs-unstable pkgs-stable;
+    };
 
     imports = [
       ./modules
@@ -38,21 +53,5 @@ flake-parts.lib.mkFlake { inherit inputs; } (
       myvars = myvars;
       nvfetcherSources = nvfetcherSources;
     };
-
-    perSystem =
-      {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        lib,
-        ...
-      }:
-      rec {
-        config = {
-          formatter = pkgs.alejandra;
-        };
-      };
   }
 )
