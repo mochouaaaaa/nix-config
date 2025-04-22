@@ -85,10 +85,12 @@
         "*.orig"
 
         "#vscode"
-        ".vscode"
+        ".vscode/"
 
         ".idea"
 
+        "# direnv"
+        ".direnv/"
       ];
 
       extraConfig = {
