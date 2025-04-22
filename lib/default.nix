@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 lib.makeExtensible (self: {
   macosSystem = import ./macosSystem.nix;
   nixosSystem = import ./nixosSystem.nix;
@@ -25,5 +22,4 @@ lib.makeExtensible (self: {
         ) (builtins.readDir path)
       )
     );
-
 })

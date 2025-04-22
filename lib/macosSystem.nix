@@ -11,16 +11,17 @@
 }:
 let
   inherit (inputs) home-manager nix-darwin;
-in
-nix-darwin.lib.darwinSystem {
-  specialArgs = {
+  specialArgs' = specialArgs // {
     inherit
       system
-      specialArgs
       inputs
       self
       ;
   };
+
+in
+nix-darwin.lib.darwinSystem {
+  specialArgs = specialArgs';
 
   modules =
     darwin-modules

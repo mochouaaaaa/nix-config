@@ -11,15 +11,16 @@
 }:
 let
   inherit (inputs) nixpkgs home-manager nixos-generators;
-in
-nixpkgs.lib.nixosSystem {
-  specialArgs = specialArgs // {
+  specialArgs' = specialArgs // {
     inherit
       system
       inputs
       self
       ;
   };
+in
+nixpkgs.lib.nixosSystem {
+  specialArgs = specialArgs';
 
   modules =
     nixos-modules
@@ -31,7 +32,7 @@ nixpkgs.lib.nixosSystem {
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "home-manager.backup";
 
-        home-manager.extraSpecialArgs = specialArgs;
+        home-manager.extraSpecialArgs = specialArgs';
         home-manager.users."${self.myvars.username}".imports = home-modules;
       }
     ]);
