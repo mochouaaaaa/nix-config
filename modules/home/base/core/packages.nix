@@ -19,15 +19,8 @@
     # search for files by its content, replacement of grep
     (ripgrep.override { withPCRE2 = true; })
 
-    # A fast and polyglot tool for code searching, linting, rewriting at large scale
-    # supported languages: only some mainstream languages currently(do not support nix/nginx/yaml/toml/...)
-    ast-grep
-
     sad # CLI search and replace, just like sed, but with diff preview.
-    yq-go # yaml processor https://github.com/mikefarah/yq
-    just # a command runner like make, but simpler
     delta # A viewer for git and diff output
-    hyperfine # command-line benchmarking tool
     gping # ping, but with a graph(TUI)
     doggo # DNS client for humans
     duf # Disk Usage/Free Utility - a better 'df' alternative
@@ -47,20 +40,4 @@
     caddy # A webserver with automatic HTTPS via Let's Encrypt(replacement of nginx)
     croc # File transfer between computers securely and easily
   ];
-
-  programs = {
-    # Atuin replaces your existing shell history with a SQLite database,
-    # and records additional context for your commands.
-    # Additionally, it provides optional and fully encrypted
-    # synchronisation of your history between machines, via an Atuin server.
-    atuin = {
-      enable = false;
-      settings = {
-        style = "full";
-        enter_accept = false;
-      };
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-  };
 }

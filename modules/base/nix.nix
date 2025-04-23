@@ -21,8 +21,8 @@
     # substituers that will be considered before the official ones(https://cache.nixos.org)
     substituters = [
       # cache mirror located in China
-      "https://mirrors.cernet.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      # "https://mirrors.cernet.edu.cn/nix-channels/store"
+      # "https://mirrors.ustc.edu.cn/nix-channels/store"
 
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"

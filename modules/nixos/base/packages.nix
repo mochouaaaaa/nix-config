@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 {
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
@@ -44,9 +44,9 @@
     icu.dev
 
     #  export env
-    llvmPackages.libcxx
-    xz.dev
-    tcl-9_0
+    # pkgs-stable.llvmPackages.libcxx
+    # xz.dev
+    # tcl-9_0
     # (tcl-8_5.overrideAttrs (oldAttrs: rec {
     #   configureFlags = oldAttrs.configureFlags ++ [ "ac_cv_header_stdc=yes" ];
     # }))
