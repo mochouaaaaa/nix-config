@@ -30,7 +30,7 @@ in
 
     programs = {
       zsh = {
-        initExtra = lib.mkOrder 2400 ''
+        initContent = lib.mkOrder 2400 ''
           if [[ "$TERM_PROGRAM" == "kitty" ]]; then
              kitty +complete setup zsh | source /dev/stdin
              alias ssh="kitty +kitten ssh"

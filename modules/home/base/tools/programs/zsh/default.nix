@@ -22,7 +22,7 @@
       enable = true;
       package = pkgs.zsh-syntax-highlighting;
     };
-    initExtra = ''
+    initContent = ''
       source ${config.dotfiles}/zsh/init.zsh
 
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

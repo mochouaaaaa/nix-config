@@ -29,7 +29,7 @@
       enableZshIntegration = false;
       enableBashIntegration = false;
     };
-    zsh.initExtra = lib.optionalString (yazi.enable) ''
+    zsh.initContent = lib.optionalString (yazi.enable) ''
       _yazi(){
           if [ -n "$YAZI_LEVEL" ]; then
               exit

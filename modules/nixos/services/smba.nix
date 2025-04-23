@@ -5,7 +5,7 @@
 }:
 {
   services.samba = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     package = pkgs.sambaFull;
     settings = {

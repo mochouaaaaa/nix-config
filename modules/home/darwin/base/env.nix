@@ -4,7 +4,7 @@
     dirHashes = {
       projects = "/Volumes/Code";
     };
-    initExtra = ''
+    initContent = ''
       export GOPATH=/Volumes/Code/Projects/golang
       export GOBIN=$GOPATH/bin
     '';

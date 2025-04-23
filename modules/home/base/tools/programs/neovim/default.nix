@@ -71,7 +71,7 @@
       enableBashIntegration = true;
     };
 
-    zsh.initExtra = lib.optionalString (direnv.enable) ''
+    zsh.initContent = lib.optionalString (direnv.enable) ''
       if (( $+commands[direnv] )) &>/dev/null; then
           eval "$(direnv hook zsh)"
           nixify() {

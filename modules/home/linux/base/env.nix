@@ -3,7 +3,7 @@
     dirHashes = {
       projects = "$HOME/Code";
     };
-    initExtra = ''
+    initContent = ''
       export GOPATH=$HOME/Code/Projects/golang
       export GOBIN=$GOPATH/bin
     '';

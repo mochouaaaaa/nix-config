@@ -4,7 +4,7 @@
       enable = true;
       enableZshIntegration = true;
     };
-    zsh.initExtra = ''
+    zsh.initContent = ''
       alias j="z"
     '';
   };

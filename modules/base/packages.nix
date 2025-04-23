@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-stable,
   self,
   nixpkgs,
   lib,
@@ -15,7 +16,7 @@
 
   environment.variables.EDITOR = "nvim --clean";
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs-stable; [
     # fusuma # 手势触控板
     git # used by nix flakes
     git-lfs # used by huggingface models

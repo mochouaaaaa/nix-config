@@ -22,7 +22,7 @@ in
         enableBashIntegration = true;
         enableZshIntegration = true;
       };
-      zsh.initExtra = lib.mkOrder 2410 ''
+      zsh.initContent = lib.mkOrder 2410 ''
         if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
             alias ssh="wezterm ssh"
         fi
