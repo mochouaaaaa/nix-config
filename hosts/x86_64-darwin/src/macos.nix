@@ -23,7 +23,8 @@ let
 
       {
         modules.packages = {
-          ollama.enable = true;
+          ollama.enable = false;
+          firefox.enable = true;
           envs = {
             pyenv.enable = true;
             goenv.enable = true;

@@ -1,0 +1,5 @@
+{ lib, ... }:
+{
+  programs.firefox = {
+  };
+}

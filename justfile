@@ -54,7 +54,7 @@ switch:
 # repl test environment
 [macos]
 @repl:
-    nix repl -f .#macos
+    nix repl .
 
 
 #-------------------------------
