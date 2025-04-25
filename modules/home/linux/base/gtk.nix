@@ -23,14 +23,6 @@
     "*.dpi" = 150;
   };
 
-  # home.file = {
-  #   ".cache/switch-theme.dark".enable = lib.mkDefault false;
-  #   ".cache/switch-theme.light" = {
-  #     text = ''light'';
-  #     enable = lib.mkDefault true;
-  #   };
-  # };
-
   qt = lib.mkDefault {
     style.name = "adwaita";
     platformTheme.name = "gtk3";

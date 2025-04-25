@@ -47,6 +47,10 @@
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
     };
+    # firefox-addons = {
+    #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     # flatpak
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 

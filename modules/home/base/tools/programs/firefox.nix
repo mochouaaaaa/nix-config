@@ -1,7 +1,9 @@
 {
+  self,
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -23,28 +25,77 @@ in
       firefox = {
         enable = true;
         languagePacks = [ "en" ];
-        policies = {
-          ExtensionSettings =
-            with builtins;
-            let
-              extension = shortId: uuid: {
-                name = uuid;
-                value = {
-                  install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
-                  installation_mode = "normal_installed";
-                };
-              };
-            in
-            listToAttrs [
-              (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
-              (extension "immersive-translate" "{5efceaa7-f3a2-4e59-a54b-85319448e305}")
-              (extension "tampermonkey" "firefox@tampermonkey.net")
-              (extension "vimium" "{d7742d87-e61d-4b78-b8a1-b469842139fa}")
-              (extension "GitZip" "gitzip-firefox-addons@gitzip.org")
-              (extension "ublock-origin" "uBlock0@raymondhill.net")
-              (extension "imagus" "{00000f2a-7cde-4f20-83ed-434fcb420d71}")
-              (extension "BewlyBewly" "addon@bewlybewly.com")
-            ];
+        profiles = {
+          "${self.myvars.username}" = {
+            isDefault = true;
+            settings = {
+              "extensions.autoDisableScopes" = 0;
+
+              "browser.startup.homepage" = "about:home";
+              "browser.startup.page" = 3;
+
+              "intl.locale.requested" = "zh-CN";
+
+              # Disable some telemetry
+              "app.shield.optoutstudies.enabled" = false;
+              "browser.discovery.enabled" = false;
+              "browser.newtabpage.activity-stream.feeds.telemetry" = false;
+              "browser.newtabpage.activity-stream.telemetry" = false;
+              "browser.ping-centre.telemetry" = false;
+              "datareporting.healthreport.service.enabled" = false;
+              "datareporting.healthreport.uploadEnabled" = false;
+              "datareporting.policy.dataSubmissionEnabled" = false;
+              "datareporting.sessions.current.clean" = true;
+              "devtools.onboarding.telemetry.logged" = false;
+              "toolkit.telemetry.archive.enabled" = false;
+              "toolkit.telemetry.bhrPing.enabled" = false;
+              "toolkit.telemetry.enabled" = false;
+              "toolkit.telemetry.firstShutdownPing.enabled" = false;
+              "toolkit.telemetry.hybridContent.enabled" = false;
+              "toolkit.telemetry.newProfilePing.enabled" = false;
+              "toolkit.telemetry.prompted" = 2;
+              "toolkit.telemetry.rejected" = true;
+              "toolkit.telemetry.reportingpolicy.firstRun" = false;
+              "toolkit.telemetry.server" = "";
+              "toolkit.telemetry.shutdownPingSender.enabled" = false;
+              "toolkit.telemetry.unified" = false;
+              "toolkit.telemetry.unifiedIsOptIn" = false;
+              "toolkit.telemetry.updatePing.enabled" = false;
+
+              # UI
+              "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+              "browser.tabs.drawInTitlebar" = true;
+              "browser.uidensity" = 0;
+              "layers.acceleration.force-enabled" = true;
+              "mozilla.widget.use-argb-visuals" = true;
+              "widget.gtk.rounded-bottom-corners.enabled" = true;
+              "svg.context-properties.content.enabled" = true;
+            };
+            extensions = {
+              packages = with pkgs.nur.repos.rycee.firefox-addons; [
+                bitwarden
+                immersive-translate
+                tampermonkey
+                vimium
+                enhanced-github
+                ublock-origin
+                imagus
+                (pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon rec {
+                  pname = "BewlyBewly";
+                  version = "0.41.1";
+                  addonId = "addon@bewlybewly.com";
+                  url = "https://addons.mozilla.org/firefox/downloads/file/4444303/bewlybewly-${version}.xpi";
+                  sha256 = "sha256-mzKbUflAhY5uHVe0cTonqZ0rqQhHsAiX/JSveXHkVho=";
+                  meta = with lib; {
+                    homepage = "https://github.com/BewlyBewly/BewlyBewly";
+                    description = "BewlyBewly 主要专注页面的调整和优化，而不是完善功能和提升效率。";
+                    license = licenses.mit;
+                    platforms = platforms.all;
+                  };
+                })
+              ];
+            };
+          };
         };
       };
     };

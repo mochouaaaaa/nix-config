@@ -1,60 +1,62 @@
-{ pkgs, ... }:
+{ pkgs-unstable, ... }:
 {
-  # programs.neovim.extraPackages = lib.mkBefore (with pkgs; [
-  home.packages = with pkgs; [
-    # nix
-    nil
-    nixfmt-rfc-style
+  home.packages =
+    with pkgs-unstable;
+    [
+      # nix
+      nil
+      nixfmt-rfc-style
 
-    # shell
-    bash-language-server
-    shfmt
+      # shell
+      bash-language-server
+      shfmt
 
-    # lua
-    lua-language-server
-    stylua
-    luajitPackages.luacheck
+      # lua
+      lua-language-server
+      stylua
+      luajitPackages.luacheck
 
-    # hyprland
-    hyprls
+      # python
+      basedpyright
+      ruff
+      # pylyzer
 
-    # python
-    basedpyright
-    ruff
-    # pylyzer
+      # go
+      gopls
+      gotools
+      revive
+      goimports-reviser
 
-    # go
-    gopls
-    gotools
-    revive
-    goimports-reviser
+      # rust
+      rust-analyzer
+      rustfmt
 
-    # rust
-    rust-analyzer
-    rustfmt
+      # markdown
+      marksman
+      markdownlint-cli2
 
-    # markdown
-    marksman
-    markdownlint-cli2
+      # filetypes
+      yaml-language-server
+      prettierd
+      eslint_d
 
-    # filetypes
-    yaml-language-server
-    prettierd
-    eslint_d
+      # XML
+      # html-lsp
+      taplo # for TOML
 
-    # XML
-    # html-lsp
-    taplo # for TOML
+      # docker
+      dockerfile-language-server-nodejs
+      docker-compose-language-service
 
-    # docker
-    dockerfile-language-server-nodejs
-    docker-compose-language-service
+      # Misc
+      nodePackages.cspell
+      sqls
 
-    # Misc
-    nodePackages.cspell
-    sqls
-
-    # css/js
-    stylelint
-  ];
+      # css/js
+      stylelint
+    ]
+    ++ lib.optionals (pkgs-unstable.stdenv.isLinux) [
+      # hyprland
+      hyprls
+    ];
 }

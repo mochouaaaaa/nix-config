@@ -16,7 +16,7 @@ let
 
   initjetbrains = jetbrainsConfig cfg.enable;
 
-  jetbra = pkgs.stdenv.mkDerivation rec {
+  jetbra = pkgs.stdenv.mkDerivation {
     name = "jetbra";
     src = ./JetBrains;
 
