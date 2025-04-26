@@ -5,17 +5,16 @@
   config,
   ...
 }:
-let
-  cfg = config.modules.packages.google-chrome;
-in
 {
   programs = {
     # source code: https://github.com/nix-community/home-manager/blob/master/modules/programs/chromium.nix
     # google-chrome = {
     chromium = {
       package = pkgs.chromium;
-      enable = cfg.enable;
-      extensions = cfg.extensions;
+
+      # extensions = lib.mkAfter [
+      #   { id = "mmlopabfkoikhndekhcgabbhdkdejfhd"; }
+      # ];
 
       # https://wiki.archlinux.org/title/Chromium#Native_Wayland_support
       commandLineArgs = [

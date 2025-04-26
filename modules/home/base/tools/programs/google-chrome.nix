@@ -3,6 +3,9 @@
   config,
   ...
 }:
+let
+  cfg = config.modules.packages.google-chrome;
+in
 {
   options.modules.packages.google-chrome = {
     enable = lib.mkOption {
@@ -25,6 +28,13 @@
         { id = "pkgccpejnmalmdinmhkkfafefagiiiad"; } # 前端助手
       ];
       description = "List of Google Chrome extensions to install.";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.chromium = {
+      enable = true;
+      extensions = cfg.extensions;
     };
   };
 }
