@@ -9,9 +9,6 @@
     pavucontrol
     playerctl
     pulsemixer
-    imv # simple image viewer
-
-    #    nvtopPackages.full
 
     # video/audio tools
     libva-utils

@@ -5,9 +5,21 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
+let
+  cfg = config.modules.xdg-mime;
+in
 {
+
+  options.modules.xdg-mime = with lib; {
+    editors = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+    };
+  };
+
   home = {
     packages = with pkgs; [
       xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`
@@ -41,45 +53,14 @@
       # let `xdg-open` to open the url with the correct application.
       defaultApplications =
         let
-          terminal = [ "kitty.desktop" ];
-          browser = [ "firefox.desktop" ];
-          editor = [
-            "nvim.desktop"
-            "code.desktop"
-            "code-insiders.desktop"
-          ];
+          editor = cfg.editors;
           file-roller = [ "org.gnome.FileRoller.desktop" ];
-          font-manager = [ "com.github.FontManager.FontViewer.desktop" ];
         in
         {
-          "x-scheme-handler/ssh" = terminal;
-          "x-scheme-handler/telnet" = terminal;
-          "x-scheme-handler/x-man-page" = terminal;
-          "TerminalEmulator" = terminal;
 
-          "application/json" = browser;
-          "application/pdf" = browser; # TODO: pdf viewer
-
-          "text/html" = browser;
-          "text/xml" = browser;
           "text/plain" = editor;
-          "application/xml" = browser;
-          "application/xhtml+xml" = browser;
-          "application/xhtml_xml" = browser;
-          "application/rdf+xml" = browser;
-          "application/rss+xml" = browser;
-          "application/x-extension-htm" = browser;
-          "application/x-extension-html" = browser;
-          "application/x-extension-shtml" = browser;
-          "application/x-extension-xht" = browser;
-          "application/x-extension-xhtml" = browser;
           "application/x-wine-extension-ini" = editor;
 
-          # define default applications for some url schemes.
-          "x-scheme-handler/about" = browser; # open `about:` url with `browser`
-          "x-scheme-handler/ftp" = browser; # open `ftp:` url with `browser`
-          "x-scheme-handler/http" = browser;
-          "x-scheme-handler/https" = browser;
           # https://github.com/microsoft/vscode/issues/146408
           "x-scheme-handler/vscode" = [
             "code-url-handler.desktop"
@@ -87,16 +68,6 @@
           "x-scheme-handler/vscode-insiders" = [
             "code-insiders-url-handler.desktop"
           ]; # open `vscode-insiders://` url with `code-insiders-url-handler.desktop`
-          # all other unknown schemes will be opened by this default application.
-          # "x-scheme-handler/unknown" = editor;
-
-          "audio/*" = [ "mpv.desktop" ];
-          "video/*" = [ "mpv.desktop" ];
-          "image/*" = [ "imv-dir.desktop" ];
-          "image/gif" = [ "imv-dir.desktop" ];
-          "image/jpeg" = [ "imv-dir.desktop" ];
-          "image/png" = [ "imv-dir.desktop" ];
-          "image/webp" = [ "imv-dir.desktop" ];
 
           "application/bzip2" = file-roller;
           "application/gzip" = file-roller;
@@ -166,13 +137,6 @@
           "application/zip" = file-roller;
           "application/zstd" = file-roller;
 
-          "font/ttf" = font-manager;
-          "font/ttc" = font-manager;
-          "font/otf" = font-manager;
-          "font/sfnt" = font-manager;
-          "application/x-font-ttf" = font-manager;
-          "application/x-font-otf" = font-manager;
-          "application/vnd.ms-opentype" = font-manager;
         };
 
       associations.removed = {

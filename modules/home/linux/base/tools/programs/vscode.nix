@@ -33,5 +33,10 @@ in
         };
       };
     };
+
+    modules.xdg-mime.editors = lib.mkAfter [
+      "code.desktop"
+      "code-insiders.desktop"
+    ];
   };
 }

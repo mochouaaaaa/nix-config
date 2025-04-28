@@ -15,5 +15,16 @@ in
         "font_features Monaco Nerd Font Mono -liga -clig -calt"
       ];
     };
+
+    xdg.mimeApps.defaultApplications =
+      let
+        terminal = [ "kitty.desktop" ];
+      in
+      {
+        "x-scheme-handler/ssh" = terminal;
+        "x-scheme-handler/telnet" = terminal;
+        "x-scheme-handler/x-man-page" = terminal;
+        "TerminalEmulator" = terminal;
+      };
   };
 }
