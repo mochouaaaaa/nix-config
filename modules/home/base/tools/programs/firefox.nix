@@ -122,7 +122,7 @@ in
                   version = "0.41.1";
                   addonId = "addon@bewlybewly.com";
                   url = "https://addons.mozilla.org/firefox/downloads/file/4444303/bewlybewly-${version}.xpi";
-                  sha256 = "sha256-mzKbUflAhY5uHVe0cTonqZ0rqQhHsAiX/JSveXHkVho=";
+                  sha256 = "sha256-/Gh4EJYvUf5blurfof1MGBhCD+9QKXRwYtMk9eYieu8=";
                   meta = with lib; {
                     homepage = "https://github.com/BewlyBewly/BewlyBewly";
                     description = "BewlyBewly 主要专注页面的调整和优化，而不是完善功能和提升效率。";

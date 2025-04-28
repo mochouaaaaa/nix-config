@@ -21,6 +21,8 @@
     historyLimit = 3000;
     escapeTime = 100;
     extraConfig = ''
+      set-option -g default-command "''${SHELL} -l"
+
       bind r source-file ${config.home.homeDirectory}/config/tmux/tmux.conf; display-message "Config Reloaded."
 
       set -ga terminal-overrides ",xterm-256color:Tc:clipboard"
