@@ -14,8 +14,7 @@ in
     home.packages = with pkgs; [
       pkgs-stable.kdePackages.qt6gtk2
       hyprland-qt-support
-      # hyprpolkitagent
-      pantheon.pantheon-agent-polkit
+      hyprpolkitagent
 
       swaybg # the wallpaper
       # swaylock-effects

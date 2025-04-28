@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   config,
   lib,
@@ -32,6 +33,11 @@ in
     home = {
       packages = with pkgs; [
         uv
+
+        (pkgs.writeShellScriptBin "pyenv_install" ''
+          cd ${self}
+          nix develop #pyenv --command ${lib.getExe pkgs.zsh}
+        '')
       ];
 
       sessionVariables = lib.mkIf (!isNixos) {

@@ -43,7 +43,10 @@ in
     ];
 
     services = {
-      gnome.sushi.enable = true;
+      gnome = {
+        sushi.enable = true;
+        gnome-keyring.enable = true;
+      };
       xserver = {
         enable = true;
       };

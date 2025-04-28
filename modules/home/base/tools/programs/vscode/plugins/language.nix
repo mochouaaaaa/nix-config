@@ -14,6 +14,8 @@
               # base extensions
               formulahendry.code-runner
               ms-azuretools.vscode-docker
+              redhat.vscode-yaml
+              bungcip.better-toml
 
               # shell
               timonwong.shellcheck

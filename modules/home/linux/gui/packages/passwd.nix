@@ -27,7 +27,10 @@ in
       };
       package = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ pkgs.authenticator ];
+        default = [
+          pkgs.authenticator
+          pkgs.gnome-keyring
+        ];
       };
     };
   };
