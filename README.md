@@ -84,7 +84,11 @@ just switch
 
 <details>
 <summary>Gnome</summary>
-![]
+
+![桌面](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/nome.png)
+
+![apps](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/gnome-apps.png)
+
 </details>
 
 <details>

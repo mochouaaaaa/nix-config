@@ -34,7 +34,6 @@ in
 
     modules.packages.kitty.extraConfig = lib.mkAfter [
       "hide_window_decorations yes"
-      "background_opacity 1.0"
     ];
   };
 }

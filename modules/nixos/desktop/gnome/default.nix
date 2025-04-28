@@ -46,6 +46,12 @@ in
 
     environment.gnome.excludePackages = [
       pkgs.gnome-software
+      pkgs.gnome-console
+      pkgs.gnome-terminal
+      pkgs.gnome-weather
+      pkgs.gnome-contacts
+      pkgs.gnome-music
+      pkgs.gnome-calculator
     ];
 
     qt = {

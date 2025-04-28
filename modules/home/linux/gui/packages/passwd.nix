@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.modules.packages;
+  cfgDesktop = config.modules.desktop;
 in
 {
   options.modules.packages = {
@@ -23,7 +24,7 @@ in
     };
     authenticator = {
       enable = lib.mkEnableOption "Authenticator" // {
-        default = true;
+        default = cfgDesktop.gnome.enable && cfgDesktop.hyprland.enable;
       };
       package = lib.mkOption {
         type = lib.types.listOf lib.types.package;

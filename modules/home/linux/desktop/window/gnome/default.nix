@@ -28,8 +28,13 @@ in
   config = lib.mkIf cfg.enable {
     services.xremap.withGnome = lib.mkForce true;
 
+    modules.themes.auto.enable = true;
+
     home.sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
+      XMODIFIERS = "@im=fcitx";
+      QT_IM_MODULE = "fcitx";
+      GTK_IM_MODULE = "fcitx5";
     };
 
     xdg.configFile."autostart/albert.desktop".text = ''
@@ -41,11 +46,21 @@ in
       StartupNotify=false
     '';
 
-    dconf.settings = { } // keymaps // plugins-config // fonts.fontConfig;
+    dconf.settings =
+      {
+        "org/gnome/desktop/peripherals/keyboard" = {
+          delay = lib.gvariant.mkUint32 250;
+          repeat-interval = lib.gvariant.mkUint32 26;
+        };
+      }
+      // keymaps
+      // plugins-config
+      // fonts.fontConfig;
 
     programs.gnome-shell = {
       enable = true;
       extensions = extensions.extensions;
     };
+
   };
 }
