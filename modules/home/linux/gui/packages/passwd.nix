@@ -5,23 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.packages;
   cfgDesktop = config.modules.desktop;
+  cfg = config.modules.packages;
 in
 {
   options.modules.packages = {
-    bitwarden = {
-      enable = lib.mkEnableOption "Bitwarden" // {
-        default = true;
-      };
-      package = lib.mkOption {
-        type = lib.types.listOf lib.types.package;
-        default = [
-          pkgs.bitwarden-cli
-          pkgs.bitwarden-desktop
-        ];
-      };
-    };
     authenticator = {
       enable = lib.mkEnableOption "Authenticator" // {
         default = cfgDesktop.gnome.enable && cfgDesktop.hyprland.enable;
@@ -37,10 +25,7 @@ in
   };
 
   config = {
-    home.packages =
-      [
-      ]
-      ++ lib.optionals (cfg.bitwarden.enable) cfg.bitwarden.package
-      ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;
+    home.packages = [
+    ] ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;
   };
 }

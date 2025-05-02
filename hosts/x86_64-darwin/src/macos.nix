@@ -12,6 +12,13 @@ let
       ../macos
 
       self.darwinModules.base
+
+      {
+        modules.packages = {
+          openvpn.enable = true;
+          tunnelblick.enable = true;
+        };
+      }
     ];
     home-modules = [
       self.homeModules.base.home
@@ -25,6 +32,7 @@ let
         modules.packages = {
           ollama.enable = false;
           firefox.enable = false;
+          bitwarden.enable = false;
           envs = {
             pyenv.enable = true;
             goenv.enable = true;

@@ -23,6 +23,8 @@
 
     # archives
     gnutar
+    rar
+    unrar
     zip
     unzip
     ouch

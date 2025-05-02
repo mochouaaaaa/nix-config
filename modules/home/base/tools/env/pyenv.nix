@@ -36,7 +36,7 @@ in
 
         (pkgs.writeShellScriptBin "pyenv_install" ''
           cd ${self}
-          nix develop #pyenv --command ${lib.getExe pkgs.zsh}
+          nix develop #pyenv --command zsh
         '')
       ];
 

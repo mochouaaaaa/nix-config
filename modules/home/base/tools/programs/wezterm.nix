@@ -22,6 +22,12 @@ in
         enableBashIntegration = true;
         enableZshIntegration = true;
       };
+      tmux = {
+        extraConfig = lib.mkAfter ''
+          # Wezterm termianl Use 
+          set -g update-environment "IS_WEZTERM"
+        '';
+      };
       zsh.initContent = lib.mkOrder 2410 ''
         if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
             alias ssh="wezterm ssh"

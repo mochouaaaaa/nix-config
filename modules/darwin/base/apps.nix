@@ -9,7 +9,7 @@
   # homebrew need to be installed manually, see https://brew.sh
   # https://github.com/LnL7/nix-darwin/blob/master/modules/homebrew.nix
   homebrew = {
-    enable = false; # disable homebrew for fast deploy
+    enable = true; # disable homebrew for fast deploy
 
     onActivation = {
       autoUpdate = true; # Fetch the newest stable branch of Homebrew's git repo
@@ -23,15 +23,15 @@
     # otherwise Apple Store will refuse to install them.
     # For details, see https://github.com/mas-cli/mas
     masApps = {
-      Wechat = 836500024;
+      # Wechat = 836500024;
       # WeCom = 1189898970; # Wechat for Work
-      TecentMeeting = 1484048379;
+      # TecentMeeting = 1484048379;
     };
 
     taps = [
       "homebrew/cask-fonts"
-      "homebrew/services"
-      "homebrew/cask-versions"
+      # "homebrew/services"
+      # "homebrew/cask-versions"
 
       "hashicorp/tap"
       "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
@@ -46,11 +46,8 @@
 
     # `brew install --cask`
     casks = [
+      "openinterminal-lite"
       "squirrel" # input method for Chinese, rime-squirrel
-      # "firefox"
-      # "google-chrome"
-      # "visual-studio-code"
-      # "zed" # zed editor
       "aerospace" # an i3-like tiling window manager for macOS
     ];
   };

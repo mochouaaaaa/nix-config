@@ -5,6 +5,7 @@
       ignores = [
         ".git/"
         "*.bak"
+        ".backup/"
       ];
     };
     zsh.shellAliases = {

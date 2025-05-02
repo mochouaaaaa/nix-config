@@ -33,6 +33,7 @@
       extraPackages = [
         pkgs.imagemagick
         pkgs.sqlite
+        pkgs.libgit2
       ];
       withNodeJs = true;
       # These environment variables are needed to build and run binaries
