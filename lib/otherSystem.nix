@@ -21,6 +21,6 @@ let
 in
 home-manager.lib.homeManagerConfiguration {
   inherit pkgs;
-  modules = home-modules ++ [ ./nix.nix ];
+  modules = home-modules;
   extraSpecialArgs = specialArgs;
 }

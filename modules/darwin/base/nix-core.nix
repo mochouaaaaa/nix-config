@@ -20,7 +20,7 @@
   #   https://github.com/NixOS/nix/issues/7273
   # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
   nix.settings = {
-    sandbox = true;
+    sandbox = false;
     auto-optimise-store = false;
   };
 

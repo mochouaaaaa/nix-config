@@ -89,7 +89,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IPLstNXtKUcbqf8ao0g4ptVgSgub3fH4xk7xwpmNfuw=",
+            "sha256": "sha256-qTH+TCh3j0ljz4ZIRxCS93RJRYPYN+3RGuc9d7vXMik=",
             "type": "url",
             "url": "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram"
         },
