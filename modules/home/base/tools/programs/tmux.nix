@@ -8,7 +8,7 @@
     enable = true;
     prefix = "C-a";
     shortcut = "a";
-    terminal = "xterm-256color";
+    terminal = "tmux-256color";
     clock24 = true;
     aggressiveResize = true;
     baseIndex = 1;
@@ -81,7 +81,6 @@
       if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
           "bind-key -n 'C-\\' if -F \"#{@pane-is-vim}\" 'send-keys C-\\\\'  'select-pane -l'"
 
-      bind -r x kill-pane
       #: }}}
 
       #: Custom keys {{{
@@ -126,35 +125,24 @@
       {
         plugin = catppuccin;
         extraConfig = ''
-          set -g @catppuccin_flavour 'mocha'
-          set -g @catppuccin_status_default "on"
-          # set -g @catppuccin_status_background "default"
-          set -g @catppuccin_status_justify "centre"
-          set -g @catppuccin_window_left_separator ""
-          set -g @catppuccin_window_right_separator " "
-          set -g @catppuccin_window_middle_separator " | "
+          set -g @catppuccin_flavor "mocha"
+          set -g @catppuccin_status_background "#{@thm_bg}"
+          # set -g @catppuccin_status_background "none"
+          set -g @catppuccin_window_status_style "rounded"
 
-          set -g @catppuccin_window_number_position "right"
+          # Make the status line pretty and add some modules
+          set -g status-right-length 100
+          set -g status-left-length 100
+          set -g status-left ""
+          set -g status-right "#{E:@catppuccin_status_application} "
+          set -agF status-right "#{E:@catppuccin_status_cpu} "
+          set -ag status-right "#{E:@catppuccin_status_session} "
 
-          set -g @catppuccin_window_current_fill "all"
-          set -g @catppuccin_window_current_text "#{b:pane_current_path}"
-
-          set -g @catppuccin_status_modules_left "application session"
-          set -g @catppuccin_status_modules_right "date_time cpu battery"
-          set -g @catppuccin_status_left_separator  " "
+          set -g @catppuccin_status_left_separator  ""
+          set -g @catppuccin_status_connect_separator "no" # yes, no
           set -g @catppuccin_status_right_separator ""
-          set -g @catppuccin_status_fill "icon"
-          set -g @catppuccin_status_connect_separator "no"
 
-          set -g @catppuccin_date_time_text "%Y-%m-%d %H:%M"
-          set -g status-position bottom
-
-          set -g focus-events on
-          set -g status-style bg=default
-          set -g status-left-length 90
-          set -g status-right-length 90
-          set -g status-justify centre
-
+          set -g status-position top
         '';
       }
       sensible
@@ -167,14 +155,14 @@
           TMUX_FZF_OPTIONS="-p -w 90% -h 60% -m"
         '';
       }
-      # {
-      #   plugin = resurrect;
-      #   extraConfig = ''
-      #     set -g @resurrect-strategy-nvim 'session'
-      #     set -g @resurrect-capture-pane-contents 'on'
-      #   '';
-      # }
-      # continuum
+      {
+        plugin = resurrect;
+        extraConfig = ''
+          set -g @resurrect-strategy-nvim 'session'
+          set -g @resurrect-capture-pane-contents 'on'
+        '';
+      }
+      continuum
       fzf-tmux-url
     ];
   };

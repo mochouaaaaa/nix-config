@@ -33,16 +33,7 @@ in
     home = {
       packages = with pkgs; [
         uv
-
-        (pkgs.writeShellScriptBin "pyenv_install" ''
-          cd ${self}
-          nix develop #pyenv --command zsh
-        '')
       ];
-
-      sessionVariables = lib.mkIf (!isNixos) {
-        LD_LIBRARY_PATH = lib.mkForce ''$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$NIX_LD_LIBRARY_PATH'';
-      };
     };
 
     xdg.configFile = {
