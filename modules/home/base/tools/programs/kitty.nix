@@ -31,7 +31,7 @@ in
     programs = {
       zsh = {
         initContent = lib.mkOrder 2400 ''
-          if [[ "$TERM_PROGRAM" == "kitty" ]]; then
+          if [[ -n "$KITTY_WINDOW_ID" ]]; then
              kitty +complete setup zsh | source /dev/stdin
              alias ssh="kitty +kitten ssh"
 

@@ -29,7 +29,7 @@ in
         '';
       };
       zsh.initContent = lib.mkOrder 2410 ''
-        if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+        if [[ -n "$WEZTERM_EXECUTABLE" ]]; then
             alias ssh="wezterm ssh"
         fi
       '';

@@ -23,6 +23,7 @@
     # shell = ''''${SHELL} -l'';
     extraConfig = ''
       set-option -g default-command "''${SHELL} -l"
+      set-option -g display-message 0
 
       bind r source-file ${config.home.homeDirectory}/.config/tmux/tmux.conf; display-message "Config Reloaded."
 

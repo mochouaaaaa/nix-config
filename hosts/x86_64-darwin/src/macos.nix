@@ -30,6 +30,7 @@ let
 
       {
         modules.packages = {
+          wezterm.enable = true;
           ollama.enable = false;
           firefox.enable = false;
           bitwarden.enable = false;
