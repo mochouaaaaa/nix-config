@@ -172,6 +172,34 @@ in
               key = "ctrl+s";
               command = "-workbench.action.files.save";
             }
+            {
+              key = "${cfgKeymaps.Super}+a";
+              command = "notebook.cell.output.selectAll";
+              when = "notebookEditorFocused && notebookOutputFocused";
+            }
+            {
+              key = "ctrl+a";
+              command = "-notebook.cell.output.selectAll";
+              when = "notebookEditorFocused && notebookOutputFocused";
+            }
+            {
+              key = "${cfgKeymaps.Super}+a";
+              command = "editor.action.selectAll";
+            }
+            {
+              key = "ctrl+a";
+              command = "-editor.action.selectAll";
+            }
+            {
+              key = "${cfgKeymaps.Super}+a";
+              command = "list.selectAll";
+              when = "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused";
+            }
+            {
+              key = "ctrl+a";
+              command = "-list.selectAll";
+              when = "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused";
+            }
           ];
         };
         package = pkgs.vscode.override {
