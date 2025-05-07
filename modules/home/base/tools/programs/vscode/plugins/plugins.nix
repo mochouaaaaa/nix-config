@@ -23,6 +23,7 @@ in
               tamasfe.even-better-toml
 
               # theme
+              Vogadero.auto-theme
               vscode-icons-team.vscode-icons
               zhuangtongfa.material-theme
               # (buildVscodeMarketplaceExtension {
@@ -42,7 +43,6 @@ in
               foxundermoon.shell-format
 
               # C / C++
-              twxs.cmake
               ms-vscode.cmake-tools
 
               # nix

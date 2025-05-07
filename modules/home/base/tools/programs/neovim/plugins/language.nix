@@ -28,6 +28,7 @@
       goimports-reviser
 
       # rust
+      cargo
       rust-analyzer
       rustfmt
 

@@ -58,6 +58,34 @@ in
               key = "ctrl+cmd+h";
               command = "workbench.action.splitEditorLeft";
             }
+            {
+              key = "${cfg.Super}+j";
+              command = "selectNextSuggestion";
+              when = "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+            }
+            {
+              key = "ctrl+down";
+              command = "-selectNextSuggestion";
+              when = "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+            }
+            {
+              key = "${cfg.Super}+k";
+              command = "selectPrevSuggestion";
+              when = "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+            }
+            {
+              key = "ctrl+up";
+              command = "-selectPrevSuggestion";
+              when = "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+            }
+            {
+              key = "shift+${cfg.Super}+f";
+              command = "workbench.action.findInFiles";
+            }
+            {
+              key = "ctrl+shift+f";
+              command = "-workbench.action.findInFiles";
+            }
           ];
         };
       };

@@ -67,7 +67,7 @@ in
             "app_options/kitty":
               ascii_mode: true
               ascii_punct: true
-            "app_options/code frontend": # Visual Studio Code
+            "app_options/code": # Visual Studio Code
               ascii_mode: true
               ascii_punct: true # 中文状态输出英文标点(半角)
             "app_options/neovide":
