@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, self, ... }:
 {
   imports = [ ./plugins ];
 
@@ -7,9 +7,9 @@
       enable = true;
       # let vscode sync and update its configuration & extensions across devices, using github account.
       profiles = {
-        default = {
-          userSettings = { };
+        "${self.myvars.username}" = {
           extensions = with pkgs.vscode-extensions; [
+            ms-ceintl.vscode-language-pack-zh-hans
             usernamehw.errorlens
             eamodio.gitlens
             mhutchie.git-graph

@@ -24,17 +24,17 @@
       # "https://mirrors.cernet.edu.cn/nix-channels/store"
       # "https://mirrors.ustc.edu.cn/nix-channels/store"
 
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org"
-      "https://hyprland.cachix.org"
+      # "https://cache.nixos.org"
+      # "https://nix-community.cachix.org"
+      # "https://hyprland.cachix.org"
       # cuda-maintainer's cache server
       #"https://cuda-maintainers.cachix.org"
     ];
 
     trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X4YZlrzj6hEd27Jl8YclXXi6U10yW4X0zg="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      # "cache.nixos.org-1:6NCHdD59X4YZlrzj6hEd27Jl8YclXXi6U10yW4X0zg="
+      # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       #"cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
     builders-use-substitutes = true;

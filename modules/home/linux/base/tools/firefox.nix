@@ -23,7 +23,6 @@ let
       cp -rf ./src/Monterey $out/share/mozilla/firefox/firefox-themes/
       cp -rf ./src/common/* $out/share/mozilla/firefox/firefox-themes/Monterey/
 
-
       cp -rf ./src/customChrome.css $out/share/mozilla/firefox/firefox-themes/customChrome.css
       cp -rf ./src/userChrome-Monterey.css $out/share/mozilla/firefox/firefox-themes/userChrome.css
       cp -rf ./src/userContent-Monterey.css $out/share/mozilla/firefox/firefox-themes/userContent.css

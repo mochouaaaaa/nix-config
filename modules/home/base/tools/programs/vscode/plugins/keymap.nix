@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, self, ... }:
 let
   cfg = config.keymaps;
 in
@@ -7,43 +7,56 @@ in
     vscode = {
       # let vscode sync and update its configuration & extensions across devices, using github account.
       profiles = {
-        default = {
+        "${self.myvars.username}" = {
           keybindings = [
             {
-              key = "${cfg.Super}+j";
-              command = "workbench.action.focusBelowGroup";
-            }
-            {
-              key = "${cfg.Super}+k";
-              command = "workbench.action.focusAboveGroup";
-            }
-            {
-              key = "${cfg.Super}+h";
-              command = "workbench.action.focusLeftGroup";
+              key = "${cfg.Super}+e";
+              command = "workbench.action.toggleSidebarVisibility";
+              when = "editorTextFocus";
             }
             {
               key = "${cfg.Super}+l";
               command = "workbench.action.focusRightGroup";
             }
             {
+              key = "${cfg.Super}+k cmd+right";
+              command = "-workbench.action.focusRightGroup";
+            }
+            {
+              key = "${cfg.Super}+h";
+              command = "workbench.action.focusLeftGroup";
+            }
+            {
+              key = "${cfg.Super}+k cmd+left";
+              command = "-workbench.action.focusLeftGroup";
+            }
+
+            # Toggle Sidebar Visibility
+            {
               key = "${cfg.Super}+e";
               command = "workbench.action.toggleSidebarVisibility";
             }
             {
-              key = "ctrl+${cfg.Super}+l";
+              key = "${cfg.Super}+b";
+              command = "-workbench.action.toggleSidebarVisibility";
+            }
+
+            # Split Editors
+            {
+              key = "ctrl+cmd+l";
               command = "workbench.action.splitEditorRight";
             }
             {
-              key = "ctrl+${cfg.Super}+h";
-              command = "workbench.action.splitEditorLeft";
+              key = "ctrl+cmd+k";
+              command = "workbench.action.splitEditorUp";
             }
             {
-              key = "ctrl+${cfg.Super}+k";
+              key = "ctrl+cmd+j";
               command = "workbench.action.splitEditorDown";
             }
             {
-              key = "ctrl+${cfg.Super}+j";
-              command = "workbench.action.splitEditorUp";
+              key = "ctrl+cmd+h";
+              command = "workbench.action.splitEditorLeft";
             }
           ];
         };

@@ -1,21 +1,41 @@
 {
   pkgs,
   lib,
+  self,
   ...
 }:
+let
+  inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
+in
 {
   programs = {
     vscode = {
       profiles = {
-        default = {
+        "${self.myvars.username}" = {
           extensions = lib.mkAfter (
             with pkgs.vscode-extensions;
             [
               # base extensions
               formulahendry.code-runner
               ms-azuretools.vscode-docker
+              ms-vscode-remote.remote-containers
               redhat.vscode-yaml
-              bungcip.better-toml
+              tamasfe.even-better-toml
+
+              # theme
+              vscode-icons-team.vscode-icons
+              zhuangtongfa.material-theme
+              # (buildVscodeMarketplaceExtension {
+              #   mktplcRef = {
+              #     name = "One Dark Pro";
+              #     publisher = "binaryify";
+              #     version = ".19.0";
+              #     # hash = "";
+              #   };
+              #   meta = {
+              #     license = lib.licenses.mit;
+              #   };
+              # })
 
               # shell
               timonwong.shellcheck
