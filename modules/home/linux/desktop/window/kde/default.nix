@@ -23,7 +23,6 @@ in
 
   config = lib.mkIf cfg.enable {
     i18n.inputMethod = {
-      enabled = "fcitx5";
       fcitx5 = {
         fcitx5-with-addons = lib.mkForce pkgs.kdePackages.fcitx5-with-addons;
         addons = lib.mkBefore (with pkgs; [ kdePackages.fcitx5-configtool ]);

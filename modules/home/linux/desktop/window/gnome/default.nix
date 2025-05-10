@@ -34,7 +34,7 @@ in
       QT_QPA_PLATFORM = "wayland";
       XMODIFIERS = "@im=fcitx";
       QT_IM_MODULE = "fcitx";
-      GTK_IM_MODULE = "fcitx5";
+      # GTK_IM_MODULE = "fcitx5";
     };
 
     xdg.configFile."autostart/albert.desktop".text = ''

@@ -11,8 +11,8 @@
     gtk.enable = true;
     x11.enable = true;
     package = pkgs.capitaine-cursors-themed;
-    name = "Capitaine Cursors (Nord) - White";
-    size = 48;
+    name = "Capitaine Cursors (Nord)";
+    size = 32;
   };
 
   # set dpi for 4k monitor
@@ -29,15 +29,15 @@
     enable = true;
   };
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = lib.gvariant.mkString "prefer-light";
-      cursor-theme = lib.gvariant.mkString "Capitaine Cursors (Nord) - White";
-      gtk-theme = lib.gvariant.mkString "Adwaita-light";
-      # gtk-theme = lib.gvariant.mkString "WhiteSur-light";
-      icon-theme = lib.gvariant.mkString "WhiteSur-light";
-    };
-  };
+  # dconf.settings = {
+  #   "org/gnome/desktop/interface" = {
+  #     color-scheme = lib.gvariant.mkString "prefer-light";
+  #     cursor-theme = lib.gvariant.mkString "Capitaine Cursors (Nord) - White";
+  #     gtk-theme = lib.gvariant.mkString "Adwaita-light";
+  #     # gtk-theme = lib.gvariant.mkString "WhiteSur-light";
+  #     icon-theme = lib.gvariant.mkString "WhiteSur-light";
+  #   };
+  # };
 
   # gtk's theme settings, generate files:
   #   1. ~/.gtkrc-2.0
@@ -62,14 +62,14 @@
       '';
     };
 
-    theme = {
-      name = "WhiteSur-light";
-    };
-    iconTheme = {
-      name = "WhiteSur-light";
-    };
-    cursorTheme = {
-      name = "Capitaine Cursors (Nord) - White";
-    };
+    # theme = {
+    #   name = "WhiteSur-light";
+    # };
+    # iconTheme = {
+    #   name = "WhiteSur-light";
+    # };
+    # cursorTheme = {
+    #   name = "Capitaine Cursors (Nord) - White";
+    # };
   };
 }

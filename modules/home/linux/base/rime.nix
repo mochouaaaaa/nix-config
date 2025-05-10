@@ -30,7 +30,8 @@ in
 {
   config = {
     i18n.inputMethod = {
-      enabled = "fcitx5";
+      enable = true;
+      type = "fcitx5";
       fcitx5 = {
         # fcitx5-with-addons = pkgs.libsForQt5.fcitx5-with-addons;
         addons = with pkgs; [

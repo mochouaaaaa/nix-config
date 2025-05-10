@@ -18,5 +18,11 @@ in
         };
       };
     };
+
+    home.pointerCursor = {
+      hyprcursor = {
+        enable = true;
+      };
+    };
   };
 }
