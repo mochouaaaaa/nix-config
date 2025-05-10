@@ -22,7 +22,7 @@ in
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
       ${lib.optionalString isNixos ''"source": "${image}",''}
-      "type": "kitty-direct",
+      "type": "kitty-icat",
       "height": 18,
       "width": 36,
       "padding": {

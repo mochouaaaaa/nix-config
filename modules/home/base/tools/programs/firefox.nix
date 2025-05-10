@@ -24,7 +24,7 @@ in
     programs = {
       firefox = {
         enable = true;
-        languagePacks = [ "en" ];
+        languagePacks = [ "zh-CN" ];
         profiles = {
           "${self.myvars.username}" = {
             isDefault = true;

@@ -163,7 +163,13 @@
           set -g @resurrect-capture-pane-contents 'on'
         '';
       }
-      continuum
+      {
+        plugin = continuum;
+        extraConfig = ''
+          set -g @continuum-save-interval '10'
+          set -g @continuum-restore 'on'
+        '';
+      }
       fzf-tmux-url
     ];
   };
