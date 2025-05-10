@@ -25,6 +25,7 @@
       gopls
       gotools
       revive
+      delve
       goimports-reviser
 
       # rust
@@ -52,6 +53,27 @@
       # Misc
       nodePackages.cspell
       sqls
+
+      # js/ts
+      vscode-js-debug
+      typescript
+      (astro-language-server.overrideAttrs (oldAttrs: {
+        pnpmDeps = pnpm_9.fetchDeps {
+          inherit (oldAttrs)
+            pname
+            version
+            src
+            prePnpmInstall
+            ;
+          pnpmWorkspaces = oldAttrs.pnpmWorkspaces ++ [
+            "@astrojs/ts-plugin"
+            "@types/chai"
+            "astro-vscode"
+            "@astrojs/yaml2ts"
+          ];
+          hash = "sha256-8lvTVeBEaEVmVWvzzrZlqGZfr9TQ/pCkR8k0Z9GuvUc=";
+        };
+      }))
 
       # css/js
       stylelint

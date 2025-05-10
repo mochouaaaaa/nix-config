@@ -94,6 +94,7 @@
     # desktop components
     clipboard-sync.url = "github:dnut/clipboard-sync";
     waybar.url = "github:Alexays/Waybar/master";
+    ags.url = "github:aylur/ags";
 
     hyprlux = {
       url = "github:amadejkastelic/Hyprlux";

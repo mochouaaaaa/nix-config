@@ -58,6 +58,7 @@
       nvim-treesitter-parsers.scss
       nvim-treesitter-parsers.css
       nvim-treesitter-parsers.html
+      nvim-treesitter-parsers.astro
 
       # markdown
       nvim-treesitter-parsers.markdown

@@ -35,6 +35,7 @@
         pkgs.sqlite
         pkgs.libgit2
       ];
+      extraPython3Packages = ps: [ ps.debugpy ];
       withNodeJs = true;
       # These environment variables are needed to build and run binaries
       # with external package managers like mason.nvim.
