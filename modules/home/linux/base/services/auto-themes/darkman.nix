@@ -24,28 +24,54 @@ in
         nautilusStyle = "mojave";
         roundedMaxWindow = true;
       })
-      whitesur-cursors
+      # whitesur-cursors
+
+      (writeShellScriptBin "switch-gtk2-config" ''
+        theme=$1
+
+        if [ "$theme" = "light" ]; then
+          cursor="Capitaine Cursors (Nord) - White"
+        else
+          cursor="Capitaine Cursors (Nord)"
+        fi
+
+        cat > $HOME/.gtkrc-2.0 << EOF         
+        gtk-enable-animations=1
+        gtk-theme-name="WhiteSur-$theme"
+        gtk-primary-button-warps-slider=1
+        gtk-toolbar-style=0
+        gtk-menu-images=1
+        gtk-button-images=1
+        gtk-cursor-theme-size=48
+        gtk-sound-theme-name="ocean"
+        gtk-cursor-theme-name="$cursor"
+        gtk-icon-theme-name="WhiteSur-$theme"
+        gtk-font-name="Monaco Nerd Font Mono,  12"
+        EOF
+      '')
 
       (writeShellScriptBin "switch-theme" ''
 
         theme=$1
 
+        switch-gtk2-config $theme
+
         if [[ $theme == "light" ]]; then
-          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-light'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-light'"
+          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme'"
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-$theme'"
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-$theme'"
           # 对firefox无效
           # dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-light'"
           dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord) - White'"
-          dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-light'"
+          dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-$theme'"
 
         elif [[ $theme == "dark" ]]; then
-          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-dark'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-dark'"
+          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme'"
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-$theme'"
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-$theme'"
           # dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-dark'"
           dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord)'"
-          dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-dark'"
+          dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-$theme'"
 
         fi
 

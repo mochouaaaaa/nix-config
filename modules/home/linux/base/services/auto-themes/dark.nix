@@ -5,7 +5,7 @@ let
     gtk-cursor-theme-name=Capitaine Cursors (Nord)
     gtk-icon-theme-name=WhiteSur-dark
     gtk-theme-name=WhiteSur-dark
-
+    gtk-im-module=fcitx
   '';
 in
 {
