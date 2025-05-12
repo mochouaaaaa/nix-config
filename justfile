@@ -81,6 +81,7 @@ switch desktop="hyprland":
 [linux]
 [group('nixos desktop')]
 @hyprland:
+    dconf reset -f /org/gnome/
     nix flake update rofi-tools swww hyprlux waybar
     just switch
 

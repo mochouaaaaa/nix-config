@@ -26,10 +26,11 @@ in
     };
 
     dconf.settings = {
-      enable-preferences-entry = true;
-      skip-libhandy-app = true;
-      tweak-kitty-terminal = true;
+      "org/gnome/shell/extensions/rounded-window-corners-reborn" = {
+        enable-preferences-entry = true;
+        skip-libhandy-app = true;
+        tweak-kitty-terminal = true;
+      };
     };
-
   };
 }

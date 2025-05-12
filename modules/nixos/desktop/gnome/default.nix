@@ -20,7 +20,15 @@ in
     environment.systemPackages = with pkgs; [
       xorg.xev
       wev
+      gdm-settings
     ];
+
+    programs = {
+      nautilus-open-any-terminal = {
+        enable = true;
+        terminal = "kitty";
+      };
+    };
 
     modules.dm.gdm.enable = true;
 
