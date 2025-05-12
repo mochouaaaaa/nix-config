@@ -33,7 +33,7 @@ in
       enable = true;
       type = "fcitx5";
       fcitx5 = {
-        # fcitx5-with-addons = pkgs.libsForQt5.fcitx5-with-addons;
+        fcitx5-with-addons = pkgs.libsForQt5.fcitx5-with-addons;
         addons = with pkgs; [
           (fcitx5-rime.override {
             rimeDataPkgs = [

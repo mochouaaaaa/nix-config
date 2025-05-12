@@ -66,6 +66,9 @@ in
 
               # js
               bradlc.vscode-tailwindcss
+
+              # just
+              nefrob.vscode-just-syntax
             ]
           );
         };

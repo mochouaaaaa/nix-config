@@ -1,6 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
-  # fildem = pkgs.stdenv.mkDerivation rec {
   fildem = pkgs.python312Packages.buildPythonPackage rec {
     pname = "fildem";
 
@@ -53,8 +52,12 @@ let
   };
 in
 {
-  # programs.gnome-shell.extensions = (config.programs.gnome-shell.extensions) ++ [fildem];
-  # programs.gnome-shell.extensions = config.programs.gnome-shell.extensions ++ [{package= fildem; id="fildemGMenu@gonza.com";} ];
-  name = fildem;
-  id = "fildemGMenu@gonza.com";
+  # programs.gnome-shell = {
+  #   extensions = lib.mkAfter [
+  #     {
+  #       package = fildem;
+  #       id = "fildemGMenu@gonza.com";
+  #     }
+  #   ];
+  # };
 }

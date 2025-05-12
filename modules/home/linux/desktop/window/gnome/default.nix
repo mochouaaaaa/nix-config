@@ -7,14 +7,11 @@
 let
   cfg = config.modules.desktop.gnome;
 
-  keymaps = import ./config/keymaps.nix;
-  plugins-config = import ./config/plugins-config.nix { inherit lib; };
-  extensions = import ./config/plugins.nix { inherit pkgs lib; };
-  fonts = import ./config/fonts.nix { inherit pkgs; };
 in
 {
   imports = [
     ./config
+    ./component
   ];
 
   options.modules.desktop.gnome = {
@@ -34,32 +31,17 @@ in
       QT_QPA_PLATFORM = "wayland";
       XMODIFIERS = "@im=fcitx";
       QT_IM_MODULE = "fcitx";
-      # GTK_IM_MODULE = "fcitx5";
     };
 
-    xdg.configFile."autostart/albert.desktop".text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=Albert
-      Comment=Quick launcher with custom parameters
-      Exec=albert --platform xcb --platformtheme gnome
-      StartupNotify=false
-    '';
-
-    dconf.settings =
-      {
-        "org/gnome/desktop/peripherals/keyboard" = {
-          delay = lib.gvariant.mkUint32 250;
-          repeat-interval = lib.gvariant.mkUint32 26;
-        };
-      }
-      // keymaps
-      // plugins-config
-      // fonts.fontConfig;
+    dconf.settings = {
+      "org/gnome/desktop/peripherals/keyboard" = {
+        delay = lib.gvariant.mkUint32 250;
+        repeat-interval = lib.gvariant.mkUint32 26;
+      };
+    };
 
     programs.gnome-shell = {
       enable = true;
-      extensions = extensions.extensions;
     };
 
   };

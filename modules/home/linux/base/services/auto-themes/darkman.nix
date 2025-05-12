@@ -23,8 +23,8 @@ in
         altVariants = [ "all" ];
         nautilusStyle = "mojave";
         roundedMaxWindow = true;
+        # panelSize = "bigger";
       })
-      # whitesur-cursors
 
       (writeShellScriptBin "switch-gtk2-config" ''
         theme=$1
@@ -46,7 +46,7 @@ in
         gtk-sound-theme-name="ocean"
         gtk-cursor-theme-name="$cursor"
         gtk-icon-theme-name="WhiteSur-$theme"
-        gtk-font-name="Monaco Nerd Font Mono,  12"
+        gtk-font-name="Monaco Nerd Font Mono, 12"
         EOF
       '')
 
@@ -56,22 +56,20 @@ in
 
         switch-gtk2-config $theme
 
+        dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme'"
+        dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-$theme'"
+        dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-$theme'"
+
         if [[ $theme == "light" ]]; then
-          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-$theme'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-$theme'"
-          # 对firefox无效
-          # dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-light'"
+          # Adwaita-dark
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-Light'"
           dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord) - White'"
-          dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-$theme'"
+          dconf write /org/gnome/shell/extensions/user-theme/name "'WhiteSur-Light'"
 
         elif [[ $theme == "dark" ]]; then
-          dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-$theme'"
-          dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-$theme'"
-          # dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-dark'"
+          dconf write /org/gnome/desktop/interface/gtk-theme "'Whitesur-Dark'"
           dconf write /org/gnome/desktop/interface/cursor-theme "'Capitaine Cursors (Nord)'"
-          dconf write /org/gnome/desktop/interface/name-theme "'WhiteSur-$theme'"
+          dconf write /org/gnome/shell/extensions/user-theme/name "'WhiteSur-Dark'"
 
         fi
 

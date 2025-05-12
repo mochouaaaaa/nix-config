@@ -125,8 +125,25 @@ in
                   sha256 = "sha256-/Gh4EJYvUf5blurfof1MGBhCD+9QKXRwYtMk9eYieu8=";
                   meta = with lib; {
                     homepage = "https://github.com/BewlyBewly/BewlyBewly";
-                    description = "BewlyBewly 主要专注页面的调整和优化，而不是完善功能和提升效率。";
+                    description = "BewlyBewly is a browser extension for BiliBili that aims to enhance the user experience by redesigning the BiliBili UI. The design is inspired by YouTube, Vision OS, and iOS, resulting in a more visually appealing and user-friendly interface.Source Code: https://github.com/hakadao/BewlyBewly";
                     license = licenses.mit;
+                    mozPermissions = [
+                      "activeTab"
+                      "tabs"
+                      "<all_urls>"
+                      "*://bilibili.com"
+                      "*://hdslb.com"
+                      "*://www.bilibili.com"
+                      "*://search.bilibili.com"
+                      "*://t.bilibili.com"
+                      "*://space.bilibili.com"
+                      "*://message.bilibili.com"
+                      "*://member.bilibili.com"
+                      "*://account.bilibili.com"
+                      "*://www.hdslb.com"
+                      "*://passport.bilibili.com"
+                      "*://music.bilibili.com"
+                    ];
                     platforms = platforms.all;
                   };
                 })

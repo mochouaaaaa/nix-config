@@ -29,16 +29,6 @@
     enable = true;
   };
 
-  # dconf.settings = {
-  #   "org/gnome/desktop/interface" = {
-  #     color-scheme = lib.gvariant.mkString "prefer-light";
-  #     cursor-theme = lib.gvariant.mkString "Capitaine Cursors (Nord) - White";
-  #     gtk-theme = lib.gvariant.mkString "Adwaita-light";
-  #     # gtk-theme = lib.gvariant.mkString "WhiteSur-light";
-  #     icon-theme = lib.gvariant.mkString "WhiteSur-light";
-  #   };
-  # };
-
   # gtk's theme settings, generate files:
   #   1. ~/.gtkrc-2.0
   #   2. ~/.config/gtk-3.0/settings.ini

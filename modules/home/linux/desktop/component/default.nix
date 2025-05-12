@@ -11,6 +11,7 @@
     ./swaync
     ./waybar
     ./wlogout
+    ./ags
   ];
 
   config = {

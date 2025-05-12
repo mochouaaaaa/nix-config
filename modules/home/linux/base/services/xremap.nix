@@ -34,6 +34,7 @@ in
             name = "Global";
             remap = {
               "CapsLock" = "Esc";
+              "Esc" = "CapsLock";
             }; # globally remap CapsLock to Esc
           }
         ];

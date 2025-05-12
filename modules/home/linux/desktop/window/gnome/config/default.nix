@@ -1,6 +1,4 @@
+{ self, ... }:
 {
-  imports = [
-    ./xdg.nix
-    ./packages.nix
-  ];
+  imports = self.mylib.scanPaths ./.;
 }
