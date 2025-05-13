@@ -34,7 +34,7 @@ in
             { }
             // lib.mkIf isNixos {
               "nix.enableLanguageServer" = true;
-              "nix.serverPath" = "nil";
+              "nix.serverPath" = "nixd";
               "nix.serverSettings" = {
                 "nil" = {
                   # "diagnostics"= {
@@ -225,12 +225,22 @@ in
               command = "-workbench.action.findInFiles";
             }
             {
-              key = "c+x";
+              key = "${cfgKeymaps.Super}+x";
               command = "editor.action.clipboardCutAction";
             }
             {
               key = "ctrl+x";
               command = "-editor.action.clipboardCutAction";
+            }
+            {
+              key = "${cfgKeymaps.Super}+x";
+              command = "filesExplorer.cut";
+              when = "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus";
+            }
+            {
+              key = "ctrl+x";
+              command = "-filesExplorer.cut";
+              when = "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus";
             }
             {
               key = "${cfgKeymaps.Super}+v";

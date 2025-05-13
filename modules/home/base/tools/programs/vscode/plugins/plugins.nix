@@ -22,6 +22,8 @@ in
               redhat.vscode-yaml
               tamasfe.even-better-toml
 
+              asvetliakov.vscode-neovim
+
               # theme
               # Vogadero.auto-theme
               vscode-icons-team.vscode-icons
