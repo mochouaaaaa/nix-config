@@ -29,7 +29,7 @@ in
       default = false;
     };
   };
-  imports = self.mylib.scanPaths ./.;
+  imports = self.importModule'  ./.;
 
   config = lib.mkIf lazyZsh {
     programs.zsh.initExtraFirst = ''

@@ -8,7 +8,7 @@ let
   cfg = config.programs.rofi;
 in
 {
-  imports = self.mylib.scanPaths ./.;
+  imports = self.importModule'  ./.;
 
   config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
     xdg.configFile = {

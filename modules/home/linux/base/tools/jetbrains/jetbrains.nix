@@ -3,6 +3,7 @@
   pkgs,
   lib,
   config,
+  nvfetcherSources,
   ...
 }:
 let
@@ -47,7 +48,7 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default = (pkgs.jetbrains.pycharm-professional.override { vmopts = vmoptions; }).overrideAttrs {
-          src = self.nvfetcherSources.pycharm.src;
+          src = nvfetcherSources.pycharm.src;
         };
       };
     };
@@ -59,7 +60,7 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default = (pkgs.jetbrains.goland.override { vmopts = vmoptions; }).overrideAttrs {
-          src = self.nvfetcherSources.goland.src;
+          src = nvfetcherSources.goland.src;
         };
       };
     };
@@ -71,7 +72,7 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default = (pkgs.jetbrains.datagrip.override { vmopts = vmoptions; }).overrideAttrs {
-          src = self.nvfetcherSources.datagrip.src;
+          src = nvfetcherSources.datagrip.src;
         };
       };
     };
@@ -83,7 +84,7 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default = (pkgs.jetbrains.clion.override { vmopts = vmoptions; }).overrideAttrs {
-          src = self.nvfetcherSources.clion.src;
+          src = nvfetcherSources.clion.src;
         };
       };
     };

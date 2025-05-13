@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = self.mylib.scanPaths ./.;
+  imports = self.importModule'  ./.;
 
   options = {
     dotfiles = lib.mkOption {

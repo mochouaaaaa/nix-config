@@ -4,7 +4,7 @@
   ...
 }:
 {
-  imports = self.mylib.scanPaths ./. ++ [ ../desktop ];
+  imports = self.importModule'  ./. ++ [ ../desktop ];
 
   config = {
     keymaps.Super = lib.mkDefault "cmd";

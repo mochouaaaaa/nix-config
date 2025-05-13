@@ -49,6 +49,6 @@ let
 in
 {
   darwinConfigurations = {
-    macos = self.mylib.macosSystem systemArgs;
+    macos = getStstems.macosSystem systemArgs;
   };
 }

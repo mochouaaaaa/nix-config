@@ -11,6 +11,7 @@
     experimental-features = [
       "nix-command"
       "flakes"
+      "pipe-operators"
     ];
 
     # given the users in this list the right to specify additional substituters via:

@@ -1,9 +1,9 @@
 {
-  lib,
   self,
   inputs,
   system,
   genSpecialArgs,
+  getSystems,
   ...
 }@args:
 let
@@ -72,6 +72,9 @@ let
 in
 {
   nixosConfigurations = {
-    nixos = self.mylib.nixosSystem (modules // args);
+    nixos = builtins.trace ''
+      lib: ${if args.lib ? importModule' then "defined" else "not defined"}
+      ${if args.lib ? nvfetcherSources then "nvfetcherSources" else "no nvfetcherSources"}
+    '' getSystems.nixosSystem (modules // args);
   };
 }

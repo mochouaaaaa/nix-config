@@ -67,9 +67,14 @@ update:
     just _update
     nix flake update impermanence nixos-generators grub2-themes nix-flatpak xremap-flake clipboard-sync
 
+[linux]
+_reset_dconf:
+    dconf reset -f /org/gnome/
+
 # switch flake config
 [linux]
 switch desktop="hyprland":
+    just _reset_dconf
     HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild switch --flake .#nixos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 
 # repl test environment
@@ -81,7 +86,6 @@ switch desktop="hyprland":
 [linux]
 [group('nixos desktop')]
 @hyprland:
-    dconf reset -f /org/gnome/
     nix flake update rofi-tools swww hyprlux waybar
     just switch
 

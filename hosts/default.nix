@@ -6,6 +6,9 @@
   pkgs-unstable,
   pkgs-stable,
 
+  getSystems,
+  nvfetcherSources,
+
   ...
 }:
 let
@@ -20,6 +23,7 @@ let
         inputs
         pkgs-stable
         pkgs-unstable
+        nvfetcherSources
         ;
       isNixos = builtins.pathExists "/etc/nixos";
       isLinux = nixpkgs.legacyPackages.${system}.stdenv.isLinux && !isNixos;
@@ -30,6 +34,7 @@ let
       inputs
       lib
       genSpecialArgs
+      getSystems
       ;
   };
   nixosSystems = {

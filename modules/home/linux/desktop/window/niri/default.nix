@@ -9,7 +9,7 @@ let
   cfg = config.modules.desktop.niri;
 in
 {
-  imports = self.mylib.scanPaths ./.;
+  imports = self.importModule'  ./.;
 
   options.modules.desktop.niri = {
     enable = lib.mkOption {

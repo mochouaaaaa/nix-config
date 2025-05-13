@@ -3,6 +3,7 @@
   pkgs,
   lib,
   config,
+  nvfetcherSources,
   ...
 }:
 let
@@ -37,8 +38,8 @@ let
       "translator/max_homographs": 7
   '';
 
-  RimeLMDG = self.nvfetcherSources.rime-lmdg.src;
-  oh-my-rime = self.nvfetcherSources.oh-my-rime.src;
+  RimeLMDG = nvfetcherSources.rime-lmdg.src;
+  oh-my-rime = nvfetcherSources.oh-my-rime.src;
 
   cfg = config.modules.packages.rime;
 

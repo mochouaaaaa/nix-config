@@ -1,5 +1,5 @@
 { self, ... }:
 {
-  # imports = self.mylib.scanPaths ./.;
+  # imports = self.importModule'  ./.;
   imports = [ ./window ];
 }

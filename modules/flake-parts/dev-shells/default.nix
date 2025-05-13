@@ -13,7 +13,7 @@
     }:
     {
       devShells.default = pkgs.mkShell {
-        name = "nixos-config-shell";
+        name = "nix flake plugins";
         packages = with pkgs; [
           just
           nixd

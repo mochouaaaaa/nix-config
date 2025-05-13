@@ -1,6 +1,6 @@
-{ self, ... }:
+{ lib, self, ... }:
 {
-  imports = (self.mylib.scanPaths ./.) ++ [
+  imports = (self.importModule'  ./.) ++ [
     self.baseModules
     ../tools
   ];

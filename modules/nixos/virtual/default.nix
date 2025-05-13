@@ -23,7 +23,7 @@ in
     docker.enable = lib.mkEnableOption "Docker";
   };
 
-  imports = self.mylib.scanPaths ./.;
+  imports = self.importModule'  ./.;
 
   config = lib.mkIf hasModules {
     # For Intel:

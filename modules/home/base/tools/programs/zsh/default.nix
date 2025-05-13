@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = self.mylib.scanPaths ./.;
+  imports = self.importModule'  ./.;
 
   home.packages = with pkgs; [
     zinit

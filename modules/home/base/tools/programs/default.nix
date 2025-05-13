@@ -1,4 +1,4 @@
 { self, ... }:
 {
-  imports = self.mylib.scanPaths ./.;
+  imports = self.importModule'  ./.;
 }

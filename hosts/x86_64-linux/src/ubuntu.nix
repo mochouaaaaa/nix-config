@@ -4,6 +4,7 @@
   lib,
   system,
   genSpecialArgs,
+  getSystems,
   ...
 }@args:
 let
@@ -26,6 +27,6 @@ let
 in
 {
   homeConfigurations = {
-    ubuntu = self.mylib.otherSystem modules;
+    ubuntu = getSystems.otherSystem modules;
   };
 }
