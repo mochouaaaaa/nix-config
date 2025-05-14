@@ -22,7 +22,7 @@ in
               redhat.vscode-yaml
               tamasfe.even-better-toml
 
-              asvetliakov.vscode-neovim
+              # asvetliakov.vscode-neovim
 
               # theme
               # Vogadero.auto-theme

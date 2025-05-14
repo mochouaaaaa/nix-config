@@ -22,5 +22,7 @@ in
       just-perfection.enable = true;
       rounded-window-corners-reborn.enable = true;
     };
+
+    programs.firefox.enableGnomeExtensions = true;
   };
 }

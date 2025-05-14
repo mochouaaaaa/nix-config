@@ -25,19 +25,15 @@ in
   config = lib.mkIf cfg.enable {
     services.xremap.withGnome = lib.mkForce true;
 
-    modules.themes.auto.enable = true;
+    modules.themes.auto = {
+      enable = true;
+      gtkTheme.enable = true;
+    };
 
     home.sessionVariables = {
       QT_QPA_PLATFORM = "wayland";
       XMODIFIERS = "@im=fcitx";
       QT_IM_MODULE = "fcitx";
-    };
-
-    dconf.settings = {
-      "org/gnome/desktop/peripherals/keyboard" = {
-        delay = lib.gvariant.mkUint32 250;
-        repeat-interval = lib.gvariant.mkUint32 26;
-      };
     };
 
     programs.gnome-shell = {

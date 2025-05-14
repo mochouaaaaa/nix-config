@@ -26,6 +26,15 @@ in
     };
 
     dconf.settings = {
+      "org/gnome/shell" = {
+        favorite-apps = lib.gvariant.mkArray [
+          "firefox.desktop"
+          "org.gnome.Nautilus.desktop"
+          "kitty.desktop"
+          "io.github.kukuruzka165.materialgram.desktop"
+          "code.desktop"
+        ];
+      };
       "org/gnome/shell/extensions/dash-to-dock" = {
         apply-custom-theme = lib.gvariant.mkBoolean false;
         dock-position = lib.gvariant.mkString "BOTTOM";

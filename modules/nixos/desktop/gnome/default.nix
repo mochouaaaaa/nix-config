@@ -60,12 +60,8 @@ in
       pkgs.gnome-contacts
       pkgs.gnome-music
       pkgs.gnome-calculator
+      pkgs.gnome-maps
     ];
 
-    qt = {
-      enable = true;
-      platformTheme = "gnome";
-      style = lib.mkForce "adwaita";
-    };
   };
 }
