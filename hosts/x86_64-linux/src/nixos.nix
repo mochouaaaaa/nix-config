@@ -72,9 +72,6 @@ let
 in
 {
   nixosConfigurations = {
-    nixos = builtins.trace ''
-      lib: ${if args.lib ? importModule' then "defined" else "not defined"}
-      ${if args.lib ? nvfetcherSources then "nvfetcherSources" else "no nvfetcherSources"}
-    '' getSystems.nixosSystem (modules // args);
+    nixos = getSystems.nixosSystem (modules // args);
   };
 }

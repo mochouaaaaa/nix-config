@@ -16,7 +16,7 @@ in
 
   _module.args = {
     inherit (_pkgs)
-      pkgs
+      nixpkgs
       pkgs-unstable
       pkgs-stable
       nvfetcherSources
