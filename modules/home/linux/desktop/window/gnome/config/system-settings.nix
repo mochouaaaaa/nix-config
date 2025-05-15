@@ -17,8 +17,8 @@
       exec = "kitty";
     };
     "org/gnome/desktop/peripherals/keyboard" = {
-      delay = lib.gvariant.mkUint32 250;
-      repeat-interval = lib.gvariant.mkUint32 26;
+      delay = lib.gvariant.mkUint32 200;
+      repeat-interval = lib.gvariant.mkUint32 40;
     };
   };
 }

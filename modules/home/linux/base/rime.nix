@@ -34,17 +34,27 @@ in
       type = "fcitx5";
       fcitx5 = {
         fcitx5-with-addons = pkgs.libsForQt5.fcitx5-with-addons;
-        addons = with pkgs; [
-          (fcitx5-rime.override {
-            rimeDataPkgs = [
-              rime-data
-            ];
-          })
-          fcitx5-lua
-          fcitx5-chinese-addons
-        ];
+        addons =
+          with pkgs;
+          [
+            (fcitx5-rime.override {
+              rimeDataPkgs = [
+                rime-data
+              ];
+            })
+            fcitx5-lua
+            fcitx5-chinese-addons
+          ]
+          ++ lib.optionals (!cfgDesktop.kde.enable) [ fcitx5-gtk ];
         waylandFrontend = true;
       };
+    };
+
+    home.sessionVariables = {
+      QT_QPA_PLATFORM = "wayland";
+      XMODIFIERS = "@im=fcitx";
+      QT_IM_MODULE = "fcitx";
+      # GTK_IM_MODULE = "wayland";
     };
 
     modules.packages.rime.extraFiles = lib.mkBefore [

@@ -9,7 +9,7 @@ let
   cfg = config.modules.desktop.niri;
 in
 {
-  imports = self.importModule'  ./.;
+  imports = self.importModule' ./.;
 
   options.modules.desktop.niri = {
     enable = lib.mkOption {
@@ -23,7 +23,10 @@ in
     services.xremap.withWlroots = lib.mkForce true;
 
     # auto dark/light theme
-    modules.themes.auto.enable = true;
+    modules.themes.auto = {
+      enable = true;
+      gtkTheme.enable = true;
+    };
 
     modules.desktop = {
       component = {

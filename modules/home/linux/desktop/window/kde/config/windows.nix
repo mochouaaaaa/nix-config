@@ -1,3 +1,13 @@
+{ config, lib, ... }:
+let
+  cfg = config.modules.desktop.kde;
+in
 {
-  allowWindowsToRememberPositions = true;
+  config = lib.mkIf cfg.enable {
+    programs.plasma = {
+      windows = {
+        allowWindowsToRememberPositions = true;
+      };
+    };
+  };
 }

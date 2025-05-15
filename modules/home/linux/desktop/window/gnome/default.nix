@@ -30,12 +30,6 @@ in
       gtkTheme.enable = true;
     };
 
-    home.sessionVariables = {
-      QT_QPA_PLATFORM = "wayland";
-      XMODIFIERS = "@im=fcitx";
-      QT_IM_MODULE = "fcitx";
-    };
-
     programs.gnome-shell = {
       enable = true;
     };

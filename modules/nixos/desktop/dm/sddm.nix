@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   config,
   lib,
@@ -18,17 +19,28 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      (sddm-astronaut.override {
-        embeddedTheme = "Pixel sakura static";
-      })
+      whitesur-kde
     ];
 
     services = {
       displayManager = {
         sddm = {
           enable = true;
-          enableHidpi = true;
-          wayland.enable = true;
+          package = lib.mkForce pkgs.kdePackages.sddm;
+          settings = {
+            Autologin = {
+              User = "${self.myvars.username}";
+            };
+          };
+          theme = "WhiteSur-dark";
+          extraPackages = with pkgs; [
+            kdePackages.plasma-desktop
+            kdePackages.plasma-workspace
+            kdePackages.qtsvg
+          ];
+          wayland = {
+            enable = true;
+          };
         };
       };
     };

@@ -9,20 +9,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      whitesur-kde
-      whitesur-icon-theme
-      kdePackages.qtstyleplugin-kvantum
-      kdePackages.applet-window-buttons6
-      kdePackages.qtmultimedia
-      kdePackages.qttools
-      kdePackages.qtsvg
-      kde-rounded-corners
-    ];
-
-    modules.packages.vscode.commandLineArgs = lib.mkAfter [
-      "--password-store=kde"
-    ];
 
     services.kdeconnect = {
       enable = true;
@@ -58,6 +44,5 @@ in
       '';
     };
 
-    qt.style.name = "kvantum";
   };
 }

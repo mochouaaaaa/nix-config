@@ -1,4 +1,5 @@
 {
+  self,
   lib,
   pkgs,
   config,
@@ -8,10 +9,7 @@ let
   cfg = config.modules.desktop.kde;
 in
 {
-  imports = [
-    ./packages.nix
-    ./plasma.nix
-  ];
+  imports = self.importModule' ./.;
 
   options.modules.desktop.kde = {
     enable = lib.mkOption {
@@ -29,10 +27,18 @@ in
       };
     };
 
+    home.sessionVariables = {
+      IM_MODULE_CLASSNAME = "fcitx::QFcitxPlatformInputContext";
+    };
+
+    qt.style.name = "kvantum";
+
+    modules.themes.auto = {
+      enable = true;
+      kdeTheme.enable = true;
+    };
+
     services.xremap.withKDE = lib.mkForce true;
 
-    modules.packages.kitty.extraConfig = lib.mkAfter [
-      "hide_window_decorations yes"
-    ];
   };
 }

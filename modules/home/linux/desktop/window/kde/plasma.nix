@@ -6,45 +6,29 @@
 }:
 let
   cfg = config.modules.desktop.kde;
-
-  kwinKeymap = import ./keymap/kwin.nix;
-  ksmserver = import ./keymap/ksmserver.nix;
-  services = import ./keymap/app.nix;
-
-  panels = import ./config/panels.nix;
 in
 {
   imports = [
     inputs.plasma-manager.homeManagerModules.plasma-manager
-    ./component
   ];
 
   config = lib.mkIf cfg.enable {
     programs.plasma = {
       enable = true;
-
-      krunner = import ./config/krunner.nix { inherit lib; };
-      fonts = import ./config/fonts.nix { };
-      kwin = import ./config/kwin.nix;
-      powerdevil = import ./config/powerdevil.nix;
-      session = import ./config/session.nix;
-      spectacle = import ./config/spectacle.nix;
-      startup = import ./config/startup.nix;
-      windows = import ./config/windows.nix;
-      workspace = import ./config/workspace.nix;
-      panels = [ panels.MacOSXPanel ];
-
-      shortcuts = {
-        kwin = kwinKeymap;
-        ksmserver = ksmserver;
-        plasmashell = import ./keymap/plasmashell.nix;
-        # kaccess = {
-        #   "Toggle Screen Reader On and Off" = null;
-        # };
-      } // services;
-      configFile.kdeglobals.General = {
-        TerminalApplication = "kitty";
-        TerminalService = "kitty.desktop";
+      overrideConfig = true;
+      configFile = {
+        kdeglobals.General = {
+          TerminalApplication = "kitty";
+          TerminalService = "kitty.desktop";
+        };
+        kcminputrc.Mouse = {
+          X11LibInputXAccelProfileFlat = true;
+          cursorSize = 36;
+        };
+        kwinrc.Wayland."InputMethod" = {
+          value = "$HOME/.nix-profile/share/applications/fcitx5-wayland-launcher.desktop";
+          shellExpand = true;
+        };
       };
     };
   };

@@ -10,8 +10,10 @@
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
-    package = pkgs.capitaine-cursors-themed;
-    name = "Capitaine Cursors (Nord)";
+    # package = pkgs.capitaine-cursors-themed;
+    package = pkgs.whitesur-cursors;
+    # name = "Capitaine Cursors (Nord)";
+    name = "WhiteSur Cursors";
     size = 32;
   };
 

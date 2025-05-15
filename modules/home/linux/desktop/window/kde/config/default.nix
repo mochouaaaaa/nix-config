@@ -1,1 +1,7 @@
-{ }
+{
+  self,
+  ...
+}:
+{
+  imports = self.importModule' ./.;
+}

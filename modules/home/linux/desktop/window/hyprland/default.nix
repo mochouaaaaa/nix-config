@@ -32,7 +32,10 @@ in
       services.xremap.withWlroots = lib.mkForce true;
 
       # auto dark/light theme
-      modules.themes.auto.enable = true;
+      modules.themes.auto = {
+        enable = true;
+        gtkTheme.enable = true;
+      };
 
       modules.desktop.component = {
         waybar.enable = true;

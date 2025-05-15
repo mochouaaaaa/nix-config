@@ -9,10 +9,6 @@
     chromium = {
       package = pkgs.chromium;
 
-      # extensions = lib.mkAfter [
-      #   { id = "mmlopabfkoikhndekhcgabbhdkdejfhd"; }
-      # ];
-
       # https://wiki.archlinux.org/title/Chromium#Native_Wayland_support
       commandLineArgs = [
         # "--ozone-platform-hint=auto"
