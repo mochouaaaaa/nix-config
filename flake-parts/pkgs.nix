@@ -10,13 +10,13 @@ let
       config.allowUnfree = true;
     };
 
-  nixpkgs = mkPkgs inputs.nixpkgs;
+  pkgs = mkPkgs inputs.nixpkgs;
 
   pkgs-unstable = mkPkgs inputs.nixpkgs-unstable;
   pkgs-stable = mkPkgs inputs.nixpkgs-stable;
 
   nvfetcherSources = import ../_sources/generated.nix {
-    inherit (nixpkgs)
+    inherit (pkgs)
       fetchurl
       fetchgit
       fetchFromGitHub
@@ -27,9 +27,11 @@ let
 in
 {
   inherit
-    nixpkgs
+    pkgs
     pkgs-unstable
     pkgs-stable
     nvfetcherSources
     ;
+
+  perSystem._module.args = { inherit pkgs pkgs-unstable pkgs-stable; };
 }

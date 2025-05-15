@@ -10,13 +10,15 @@ let
 in
 {
 
+  imports = [ ./dev-shells ];
+
   flake = {
     importModule' = _imports.importModule';
   };
 
   _module.args = {
     inherit (_pkgs)
-      nixpkgs
+      pkgs
       pkgs-unstable
       pkgs-stable
       nvfetcherSources

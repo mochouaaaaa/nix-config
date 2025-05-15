@@ -1,5 +1,4 @@
 {
-  imports = [ ./flake-parts ];
 
   flake = {
     baseModules = import ./base;
