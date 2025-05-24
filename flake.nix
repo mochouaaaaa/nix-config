@@ -10,10 +10,12 @@
     extra-substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
+      "https://niri.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
     ];
   };
 
@@ -94,6 +96,7 @@
     # desktop components
     clipboard-sync.url = "github:dnut/clipboard-sync";
     waybar.url = "github:Alexays/Waybar/master";
+    # ashell.url = "github:MalpenZibo/ashell";
     ags.url = "github:aylur/ags";
 
     hyprlux = {
@@ -106,6 +109,12 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
+    };
+
+    # niri
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # kde

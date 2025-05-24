@@ -12,11 +12,13 @@
     inputs.nuenv.overlays.default
     inputs.nur.overlays.default
     inputs.nix-vscode-extensions.overlays.default
+    inputs.niri.overlays.niri
   ] ++ (import ../../overlays args);
 
   environment.variables.EDITOR = "nvim --clean";
 
   environment.systemPackages = with pkgs-stable; [
+
     # fusuma # 手势触控板
     git # used by nix flakes
     git-lfs # used by huggingface models

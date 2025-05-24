@@ -25,7 +25,7 @@ in
           terminal.vt = 1;
           default_session = {
             user = self.myvars.username;
-            command = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+            command = "${lib.getExe pkgs.greetd.tuigreet}";
           };
           initial_session = default_session // {
             command = "sh -c 'sleep 2; ${default_session.command} '";

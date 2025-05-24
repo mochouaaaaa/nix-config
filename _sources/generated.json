@@ -46,7 +46,7 @@
     },
     "oh-my-rime": {
         "cargoLocks": null,
-        "date": "2025-04-17",
+        "date": "2025-05-17",
         "extract": null,
         "name": "oh-my-rime",
         "passthru": null,
@@ -58,12 +58,12 @@
             "name": null,
             "owner": "Mintimate",
             "repo": "oh-my-rime",
-            "rev": "4463316f8efe8b6dcdad022a9d2b3f11b1bc83a7",
-            "sha256": "sha256-qITt1Ovrx47zmxDvUpQ2M57UWCmVoJePDxTVr1Xl9o8=",
+            "rev": "ea2c7e38430e7ef82c7d9524cb1af2086d27d20e",
+            "sha256": "sha256-eqk3v850p34wqSrLnnq+fJTb1Qz1rT/EtHC3WXu1Lzw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4463316f8efe8b6dcdad022a9d2b3f11b1bc83a7"
+        "version": "ea2c7e38430e7ef82c7d9524cb1af2086d27d20e"
     },
     "pycharm": {
         "cargoLocks": null,

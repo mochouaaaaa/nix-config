@@ -1,18 +1,10 @@
 {
+  self,
   lib,
-  config,
-  pkgs,
   ...
 }:
-let
-  cfg = config.modules.desktop.gnome;
-
-in
 {
-  imports = [
-    ./config
-    ./component
-  ];
+  imports = self.importModule' ./.;
 
   options.modules.desktop.gnome = {
     enable = lib.mkOption {
@@ -22,17 +14,4 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    services.xremap.withGnome = lib.mkForce true;
-
-    modules.themes.auto = {
-      enable = true;
-      gtkTheme.enable = true;
-    };
-
-    programs.gnome-shell = {
-      enable = true;
-    };
-
-  };
 }

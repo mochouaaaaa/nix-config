@@ -20,6 +20,7 @@ in
         "--ozone-platform=wayland"
         "--enable-features=UseOzonePlatform"
         "--enable-wayland-ime"
+        "--gtk-version=4"
       ];
       description = "Additional command line arguments to pass to the VSCode binary.";
     };

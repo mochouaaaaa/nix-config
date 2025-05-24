@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 let
@@ -9,8 +10,15 @@ let
 in
 {
   config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
+
+    services.swww = {
+      enable = true;
+      package = inputs.swww.packages.${pkgs.system}.swww;
+    };
+
     home.packages = with pkgs; [
       pywal16
+      swaybg
       (pkgs.writeShellScriptBin "select-wallpaper" ''
 
         # Wallpapers Path
@@ -106,6 +114,7 @@ in
           # Check the file and execute
           if [[ -n "''$selectedFile" ]]; then
             executeCommand "''${selectedFile}"
+            wal -i $HOME/.current_wallpaper --cols16
             return 0
           else
             echo "Image not found."
@@ -113,8 +122,6 @@ in
           fi
 
         }
-
-        wal -i $HOME/.current_wallpaper --cols16
 
         # Check if rofi is already running
         if pidof rofi > /dev/null; then

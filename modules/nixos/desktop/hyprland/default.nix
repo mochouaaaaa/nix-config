@@ -16,6 +16,7 @@ in
     };
   };
   config = lib.mkIf cfgHyprland.enable {
+
     modules.dm.greetd.enable = true;
 
     programs = {

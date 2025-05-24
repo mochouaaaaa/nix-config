@@ -154,6 +154,9 @@ in
           default = [ "gtk" ];
           # except for the secret portal, which is handled by gnome-keyring
           "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+          "org.freedesktop.impl.portal.Screenshot" = "gnome";
+          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
         };
       };
 

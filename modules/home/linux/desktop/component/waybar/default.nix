@@ -1,4 +1,5 @@
 {
+  self,
   lib,
   pkgs,
   inputs,
@@ -9,9 +10,7 @@ let
   cfg = config.modules.desktop.component.waybar;
 in
 {
-  imports = [
-    ./scripts
-  ];
+  imports = self.importModule' ./.;
 
   options.modules.desktop.component.waybar = {
     enable = lib.mkEnableOption "Waybar status bar" // {
@@ -26,29 +25,11 @@ in
 
     programs.waybar = {
       enable = true;
-      package = inputs.waybar.packages.${pkgs.system}.waybar;
+      package = pkgs.waybar_git;
       systemd = {
         enable = true;
-        target = "hyprland-session.target";
-      };
-      style = ./config/style.css;
-      settings = builtins.fromJSON (builtins.readFile ./config/config);
-    };
-    xdg.configFile = {
-      # "waybar/config" = {
-      #   source = ./config/config;
-      # };
-      "waybar/modules" = {
-        source = ./config/modules;
-      };
-      "waybar/colors" = {
-        source = ./config/colors;
-        recursive = true;
-      };
-      "waybar/themes" = {
-        source = ./config/themes;
-        recursive = true;
       };
     };
+
   };
 }

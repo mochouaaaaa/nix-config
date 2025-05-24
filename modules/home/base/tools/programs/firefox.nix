@@ -115,7 +115,7 @@ in
                 tampermonkey
                 vimium
                 enhanced-github
-                ublock-origin
+                # ublock-origin
                 imagus
                 (pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon rec {
                   pname = "BewlyBewly";

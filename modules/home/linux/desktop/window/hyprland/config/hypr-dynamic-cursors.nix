@@ -1,0 +1,77 @@
+{
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.modules.desktop.hyprland;
+in
+{
+  config = lib.mkIf cfg.enable {
+    wayland.windowManager.hyprland = {
+      extraConfig = ''
+        plugin:dynamic-cursors {
+
+          enable = true
+            shake {
+
+            # enables shake to find
+            enabled = true
+
+            # use nearest-neighbour (pixelated) scaling when shaking
+            # may look weird when effects are enabled
+            nearest = true
+
+            # controls how soon a shake is detected
+            # lower values mean sooner
+            threshold = 6.0
+
+            # magnification level immediately after shake start
+            base = 4.0
+            # magnification increase per second when continuing to shake
+            speed = 4.0
+            # how much the speed is influenced by the current shake intensitiy
+            influence = 0.0
+
+            # maximal magnification the cursor can reach
+            # values below 1 disable the limit (e.g. 0)
+            limit = 0.0
+
+            # time in millseconds the cursor will stay magnified after a shake has ended
+            timeout = 2000
+
+            # show cursor behaviour `tilt`, `rotate`, etc. while shaking
+            effects = false
+
+            # enable ipc events for shake
+            # see the `ipc` section below
+            ipc = false
+          }
+
+          hyprcursor {
+
+             # 当放大倍数超过纹理尺寸时，使用最近邻（像素化）缩放
+             # 即使未启用 hyprcursor 支持，此项也会生效
+             # 0 / false - 永不使用像素化缩放
+             # 1 / true  - 没有高分辨率图像时使用像素化
+             # 2       - 始终使用像素化缩放
+             nearest = true
+
+             # 启用专用的 hyprcursor 支持
+             enabled = true
+
+             # 加载放大形状的分辨率（像素）
+             # 警告：加载非常高分辨率的图像会花费很长时间，并可能影响内存消耗
+             # -1 表示使用 [正常光标大小] * [shake:base 选项]
+             resolution = -1
+
+             # 在放大客户端光标时使用的形状
+             # 参见形状规则的 shape-name 属性以获取可能的名称
+             # 指定 clientside 将使用实际形状，但会像素化
+             fallback = clientside
+          }
+        }
+      '';
+    };
+  };
+}

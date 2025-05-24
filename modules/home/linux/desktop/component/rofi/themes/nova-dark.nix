@@ -15,10 +15,10 @@ in
         configuration {
             modi:                       "drun,calc";
             show-icons:                 true;
-            display-calc:               "<U+F1EC> ";
-            display-drun:               "<U+F002> ";
+            display-calc:               "  ";
+            display-drun:               "  ";
             drun-display-format:        "{name}";
-            font:                        "JetBrains Mono Nerd Font 12";
+            font:                       "JetBrains Mono Nerd Font 12";
         }
 
         /* Config and colors ----------------------------------------------- */

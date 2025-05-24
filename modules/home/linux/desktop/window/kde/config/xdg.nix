@@ -12,7 +12,7 @@ in
     xdg.portal = {
       config = {
         kde = {
-          default = [ "kde" ] ++ (config.xdg.config.common.default or [ ]);
+          default = [ "kde" ] ++ [ config.xdg.portal.config.common.default ];
         };
       };
       extraPortals = lib.mkAfter [ pkgs.kdePackages.xdg-desktop-portal-kde ];

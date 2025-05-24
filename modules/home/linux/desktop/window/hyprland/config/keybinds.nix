@@ -1,0 +1,230 @@
+{
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.modules.desktop.hyprland;
+in
+{
+  config = lib.mkIf cfg.enable {
+    wayland.windowManager.hyprland = {
+      settings = {
+        "$mod" = "SUPER";
+        "$term" = "kitty";
+        "$files" = "nautilus";
+
+        # extraConfig = ''
+        #
+        #   $mainMod = SUPER
+        #   $term = kitty
+        #   $files = nautilus
+        #
+        #   bind = $mainMod CTRL, q, exec, Lock # Lock screen
+        #   bind = $mainMod, Q, killactive,
+        #   bind = CTRL ALT, return, fullscreen
+        #   bind = $mainMod CTRL, F, togglefloating,
+        #
+        #   bind = $mainMod CTRL, T, exec, $term # Launch terminal
+        #   bind = $mainMod CTRL, E, exec, $files # Launch file manager
+        #
+        #   bind = $mainMod ALT, R, exec, bash refresh # Refresh waybar, swaync, rofi
+        #
+        #   # bind = $mainMod SHIFT CTRL, I, exec, bash WallpaperSelect.sh # Select wallpaper to apply
+        #   bind = $mainMod ALT, O, exec, hyprctl setprop active opaque toggle #disable opacity to active window
+        #
+        #
+        #   # Master Layout
+        #   # bind = $mainMod CTRL, D, layoutmsg, removemaster
+        #   # bind = $mainMod, I, layoutmsg, addmaster
+        #   # bind = $mainMod, M, exec, hyprctl dispatch splitratio 0.3
+        #   # bind = $mainMod, P, pseudo, # dwindle
+        #   # bind = $mainMod CTRL, Return, layoutmsg, swapwithmaster
+        #
+        #
+        #   # group
+        #   bind = $mainMod, G, togglegroup
+        #   bind = $mainMod CTRL, tab, changegroupactive #change focus to another window
+        #
+        #
+        #   # Cycle windows if floating bring to top
+        #   bind = ALT, tab, cyclenext
+        #   bind = ALT, tab, bringactivetotop
+        #
+        #
+        #   # Special Keys / Hot Keys
+        #   bindel = , xf86audioraisevolume, exec, volume --inc #volume up
+        #   bindel = , xf86audiolowervolume, exec, volume --dec #volume down
+        #   bindl = , xf86AudioMicMute, exec, volume --toggle-mic #mute mic
+        #   bindl = , xf86audiomute, exec, volume --toggle
+        #   bindl = , xf86Sleep, exec, systemctl suspend # sleep button
+        #
+        #
+        #   # media controls using keyboards
+        #   bindl = , xf86AudioPlayPause, exec, media-ctrl --pause
+        #   bindl = , xf86AudioPause, exec, media-ctrl --pause
+        #   bindl = , xf86AudioPlay, exec, media-ctrl --pause
+        #   bindl = , xf86AudioNext, exec, media-ctrl --nxt
+        #   bindl = , xf86AudioPrev, exec, media-ctrl --prv
+        #   bindl = , xf86audiostop, exec, media-ctrl --stop
+        #
+        #
+        #   # screenshot with swappy (another screenshot tool)
+        #   bind = $mainMod CTRL, S, exec, screenshot --active
+        #   bind = $mainMod CTRL, A, exec, screenshot --area
+        #
+        #
+        #   # Resize windows
+        #   binde = CTRL SHIFT, left, resizeactive,-50 0
+        #   binde = CTRL SHIFT, right, resizeactive,50 0
+        #   binde = CTRL SHIFT, up, resizeactive,0 -50
+        #   binde = CTRL SHIFT, down, resizeactive,0 50
+        #
+        #   # Move focus with mainMod + arrow keys
+        #   bind = ALT, l, movefocus, l
+        #   bind = ALT, h, movefocus, r
+        #   bind = ALT, k, movefocus, u
+        #   bind = ALT, j, movefocus, d
+        #
+        #   # Workspaces related
+        #   bind = $mainMod, tab, workspace, m+1
+        #   bind = $mainMod SHIFT, tab, workspace, m-1
+        #
+        #   # Special workspace
+        #   bind = $mainMod SHIFT, U, movetoworkspace, special
+        #   bind = $mainMod, U, togglespecialworkspace,
+        #
+        #   # The following mappings use the key codes to better support various keyboard layouts
+        #   # 1 is code:10, 2 is code 11, etc
+        #   # Switch workspaces with mainMod + [0-9]
+        #   bind = $mainMod, code:10, workspace, 1
+        #   bind = $mainMod, code:11, workspace, 2
+        #   bind = $mainMod, code:12, workspace, 3
+        #   bind = $mainMod, code:13, workspace, 4
+        #   bind = $mainMod, code:14, workspace, 5
+        #   bind = $mainMod, code:15, workspace, 6
+        #   bind = $mainMod, code:16, workspace, 7
+        #   bind = $mainMod, code:17, workspace, 8
+        #   bind = $mainMod, code:18, workspace, 9
+        #   bind = $mainMod, code:19, workspace, 10
+        #
+        #   # Move active window and follow to workspace mainMod + SHIFT [0-9]
+        #   bind = $mainMod SHIFT, code:10, movetoworkspace, 1
+        #   bind = $mainMod SHIFT, code:11, movetoworkspace, 2
+        #   bind = $mainMod SHIFT, code:12, movetoworkspace, 3
+        #   bind = $mainMod SHIFT, code:13, movetoworkspace, 4
+        #   bind = $mainMod SHIFT, code:14, movetoworkspace, 5
+        #   bind = $mainMod SHIFT, code:15, movetoworkspace, 6
+        #   bind = $mainMod SHIFT, code:16, movetoworkspace, 7
+        #   bind = $mainMod SHIFT, code:17, movetoworkspace, 8
+        #   bind = $mainMod SHIFT, code:18, movetoworkspace, 9
+        #   bind = $mainMod SHIFT, code:19, movetoworkspace, 10
+        #
+        #   bindm = $mainMod, mouse:272, movewindow
+        #   bindm = $mainMod, mouse:273, resizewindow
+        #
+        # '';
+        bindel = [
+          ", xf86audioraisevolume, exec, volume --inc" # volume up
+          ", xf86audiolowervolume, exec, volume --dec" # volume down
+        ];
+        bindl = [
+          # Special Keys / Hot Keys
+          ", xf86AudioMicMute, exec, volume --toggle-mic #mute mic"
+          ", xf86audiomute, exec, volume --toggle"
+          ", xf86Sleep, exec, systemctl suspend" # sleep button
+
+          # media controls using keyboards
+          ", xf86AudioPlayPause, exec, media-ctrl --pause"
+          ", xf86AudioPause, exec, media-ctrl --pause"
+          ", xf86AudioPlay, exec, media-ctrl --pause"
+          ", xf86AudioNext, exec, media-ctrl --nxt"
+          ", xf86AudioPrev, exec, media-ctrl --prv"
+          ", xf86audiostop, exec, media-ctrl --stop"
+        ];
+        binde = [
+          # Resize windows
+          "CTRL SHIFT, left, resizeactive,-50 0"
+          "CTRL SHIFT, right, resizeactive,50 0"
+          "CTRL SHIFT, up, resizeactive,0 -50"
+          "CTRL SHIFT, down, resizeactive,0 50"
+        ];
+        bind = [
+          "$mod CTRL, q, exec, Lock" # Lock screen
+          "$mod, Q, killactive,"
+          "CTRL ALT, return, fullscreen"
+          "$mod CTRL, F, togglefloating,"
+
+          "$mod CTRL, T, exec, $term" # Launch terminal
+          "$mod CTRL, E, exec, nautilus" # Launch file manager
+
+          "$mod ALT, R, exec, bash refresh" # Refresh waybar, swaync, rofi
+
+          # "$mod SHIFT CTRL, I, exec, bash WallpaperSelect.sh" # Select wallpaper to apply
+          "$mod ALT, O, exec, hyprctl setprop active opaque toggle" # disable opacity to active window
+
+          # Master Layout
+          # $mod CTRL, D, layoutmsg, removemaster
+          # $mod, I, layoutmsg, addmaster
+          # $mod, M, exec, hyprctl dispatch splitratio 0.3
+          # $mod, P, pseudo, # dwindle
+          # $mod CTRL, Return, layoutmsg, swapwithmaster
+
+          # group
+          "$mod, G, togglegroup"
+          "$mod CTRL, tab, changegroupactive" # change focus to another window
+
+          # Cycle windows if floating bring to top
+          "ALT, tab, cyclenext"
+          "ALT, tab, bringactivetotop"
+
+          # screenshot with swappy (another screenshot tool)
+          "$mod CTRL, S, exec, screenshot --active"
+          "$mod CTRL, A, exec, screenshot --area"
+
+          # Move focus with mainMod + arrow keys
+          "ALT, l, movefocus, l"
+          "ALT, h, movefocus, r"
+          "ALT, k, movefocus, u"
+          "ALT, j, movefocus, d"
+
+          # Workspaces related
+          # "$mod, tab, workspace, m+1"
+          # "$mod SHIFT, tab, workspace, m-1"
+
+          # Special workspace
+          # "$mod SHIFT, U, movetoworkspace, special"
+          # "$mod, U, togglespecialworkspace"
+
+          # Switch workspaces with mainMod + [0-9]
+          # "$mod, code:10, workspace, 1"
+          # "$mod, code:11, workspace, 2"
+          # "$mod, code:12, workspace, 3"
+          # "$mod, code:13, workspace, 4"
+          # "$mod, code:14, workspace, 5"
+          # "$mod, code:15, workspace, 6"
+          # "$mod, code:16, workspace, 7"
+          # "$mod, code:17, workspace, 8"
+          # "$mod, code:18, workspace, 9"
+          # "$mod, code:19, workspace, 10"
+
+          # Move active window and follow to workspace mainMod + SHIFT [0-9]
+          # "$mod SHIFT, code:10, movetoworkspace, 1"
+          # "$mod SHIFT, code:11, movetoworkspace, 2"
+          # "$mod SHIFT, code:12, movetoworkspace, 3"
+          # "$mod SHIFT, code:13, movetoworkspace, 4"
+          # "$mod SHIFT, code:14, movetoworkspace, 5"
+          # "$mod SHIFT, code:15, movetoworkspace, 6"
+          # "$mod SHIFT, code:16, movetoworkspace, 7"
+          # "$mod SHIFT, code:17, movetoworkspace, 8"
+          # "$mod SHIFT, code:18, movetoworkspace, 9"
+          # "$mod SHIFT, code:19, movetoworkspace, 10"
+        ];
+        bindm = [
+          "$mod, mouse:272, movewindow"
+          "$mod, mouse:273, resizewindow"
+        ];
+      };
+    };
+  };
+}

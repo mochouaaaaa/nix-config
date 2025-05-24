@@ -35,7 +35,7 @@ in
         gtk-button-images=1
         gtk-cursor-theme-size=36
         gtk-sound-theme-name="ocean"
-        gtk-cursor-theme-name="$cursor"
+        gtk-cursor-theme-name="WhiteSur-cursors"
         gtk-icon-theme-name="WhiteSur-$theme"
         gtk-font-name="Monaco Nerd Font Mono, 12"
         EOF

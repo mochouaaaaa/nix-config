@@ -32,15 +32,15 @@
   };
   oh-my-rime = {
     pname = "oh-my-rime";
-    version = "4463316f8efe8b6dcdad022a9d2b3f11b1bc83a7";
+    version = "ea2c7e38430e7ef82c7d9524cb1af2086d27d20e";
     src = fetchFromGitHub {
       owner = "Mintimate";
       repo = "oh-my-rime";
-      rev = "4463316f8efe8b6dcdad022a9d2b3f11b1bc83a7";
+      rev = "ea2c7e38430e7ef82c7d9524cb1af2086d27d20e";
       fetchSubmodules = false;
-      sha256 = "sha256-qITt1Ovrx47zmxDvUpQ2M57UWCmVoJePDxTVr1Xl9o8=";
+      sha256 = "sha256-eqk3v850p34wqSrLnnq+fJTb1Qz1rT/EtHC3WXu1Lzw=";
     };
-    date = "2025-04-17";
+    date = "2025-05-17";
   };
   pycharm = {
     pname = "pycharm";
@@ -55,7 +55,7 @@
     version = "LTS";
     src = fetchurl {
       url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
-      sha256 = "sha256-BS88XSxj0xyEwKkn5lbNK6TW3ZQNsPlTFZMct68PuQo=";
+      sha256 = "sha256-53mF5VVxxlyJis/qu0iMBitl5n9Ws8iF5WlvhE79aDA=";
     };
   };
 }

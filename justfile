@@ -74,7 +74,7 @@ _reset_dconf:
 # switch flake config
 [linux]
 switch desktop="hyprland":
-    just _reset_dconf
+    # just _reset_dconf
     HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild switch --flake .#nixos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 
 # repl test environment

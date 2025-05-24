@@ -1,4 +1,5 @@
 {
+  self,
   config,
   lib,
   pkgs,
@@ -8,6 +9,8 @@ let
   cfgNiri = config.modules.desktop.niri;
 in
 {
+  imports = self.importModule' ./.;
+
   options.modules.desktop.niri = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -17,21 +20,22 @@ in
   };
 
   config = lib.mkIf cfgNiri.enable {
+
     modules.dm.greetd.enable = true;
-    modules.desktop = {
-      # hyprland.enable = lib.mkForce false;
-      # gnome.enable = lib.mkForce false;
-      # kde.enable = lib.mkForce false;
-    };
 
     services = {
+      gnome = {
+        sushi.enable = true;
+        gnome-keyring.enable = true;
+      };
+
       xserver = {
         enable = true;
       };
       greetd = {
         settings = {
           default_session = {
-            command = lib.mkForce "${lib.getExe config.programs.niri.package}";
+            # command = lib.mkForce "${lib.getExe' pkgs.niri "niri-session"}";
           };
         };
       };

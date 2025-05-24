@@ -12,7 +12,7 @@ in
     xdg.portal = {
       config = {
         gnome = {
-          default = [ "gnome" ] ++ (config.xdg.config.common.default or [ ]);
+          default = [ "gnome" ] ++ [ config.xdg.portal.config.common.default ];
         };
       };
       extraPortals = lib.mkBefore (with pkgs; [ xdg-desktop-portal-gnome ]);

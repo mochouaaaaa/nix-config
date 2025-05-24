@@ -17,7 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.swaylock = {
       enable = true;
-      package = pkgs.swaylock-effects;
+      package = pkgs.swaylock;
     };
 
     home.packages = with pkgs; [
@@ -37,12 +37,6 @@ in
             --inside-color 00000088 \
             --separator-color 00000000 \
             --fade-in 0.2 # --grace 2
-      '')
-      (writeShellScriptBin "Dpms" ''
-
-        if pgrep swaylock > /dev/null; then
-            hyprctl dispatch dpms off
-        fi
       '')
     ];
   };

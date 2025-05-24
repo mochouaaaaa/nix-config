@@ -4,7 +4,7 @@ let
 
   settings = ''
     [Settings]
-    # gtk-cursor-theme-name=Capitaine Cursors (Nord)
+    gtk-cursor-theme-name=WhiteSur-cursors
     gtk-icon-theme-name=WhiteSur-dark
     gtk-theme-name=WhiteSur-dark
   '';
