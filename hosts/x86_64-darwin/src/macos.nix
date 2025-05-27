@@ -4,6 +4,7 @@
   inputs,
   system,
   genSpecialArgs,
+  getSystems,
   ...
 }@args:
 let
@@ -49,6 +50,6 @@ let
 in
 {
   darwinConfigurations = {
-    macos = getStstems.macosSystem systemArgs;
+    macos = getSystems.macosSystem systemArgs;
   };
 }
