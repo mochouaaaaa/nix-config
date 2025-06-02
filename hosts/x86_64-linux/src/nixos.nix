@@ -11,9 +11,6 @@ let
     nixos-modules = [
       ../nixos
 
-      self.nixosModules.base
-      self.nixosModules.services
-      self.nixosModules.virtual
       {
         modules.network.proxy.clash.enable = true;
         modules.virtual = {
@@ -23,12 +20,8 @@ let
     ];
 
     home-modules = [
-      self.homeModules.base.home
-      self.homeModules.base.core
-      self.homeModules.base.tools
 
-      self.homeModules.linux.base
-      self.homeModules.linux.gui
+      self.homeModules.linux.modules
 
       {
         modules.packages = {

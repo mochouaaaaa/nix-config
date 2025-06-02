@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  pkgs-stable,
   self,
   ...
 }:
@@ -31,6 +30,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.firefox = {
+      # package = pkgs.firefox-unwrapped;
       profiles = {
         "${self.myvars.username}" = {
           isDefault = true;

@@ -1,5 +1,5 @@
 {
   base = import ./base;
-  darwin = import ./darwin;
-  linux = import ./linux;
+  darwin.modules = import ./darwin;
+  linux.modules = import ./linux;
 }

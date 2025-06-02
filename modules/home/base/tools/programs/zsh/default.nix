@@ -5,13 +5,9 @@
   ...
 }:
 {
-  imports = self.importModule'  ./.;
+  imports = self.importModule' ./.;
 
   home.packages = with pkgs; [
-    zinit
-    zoxide
-    dust
-    procs
     less
   ];
 

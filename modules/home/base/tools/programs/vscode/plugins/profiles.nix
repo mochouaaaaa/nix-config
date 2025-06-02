@@ -85,7 +85,7 @@
             ];
           };
           # debug
-          "debug.console.fontFamily" = "Monaco";
+          "debug.console.fontFamily" = "Monaco Nerd Font Mono";
           "debug.console.fontSize" = 15;
           "debug.console.historySuggestions" = false;
         };

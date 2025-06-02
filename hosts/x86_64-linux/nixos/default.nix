@@ -1,4 +1,4 @@
-{ ... }:
+{ self, ... }:
 let
   hostName = "nixos"; # Define your hostname.
 in
@@ -8,6 +8,10 @@ in
     ./hardware-configuration.nix
     ./boot.nix
     ./gpu.nix
+
+    self.nixosModules.base
+    self.nixosModules.services
+    self.nixosModules.virtual
   ];
 
   networking = {

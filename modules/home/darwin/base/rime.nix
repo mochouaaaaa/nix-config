@@ -67,6 +67,7 @@ in
         # source = RimeTheme;
         source = "${rime-data}/share/rime-data";
         recursive = true;
+        force = true;
       };
     };
   };

@@ -57,6 +57,14 @@
       # js/ts
       vscode-js-debug
       typescript
+
+      # css/js
+      stylelint
+    ]
+    ++ lib.optionals (pkgs-unstable.stdenv.isLinux) [
+      # hyprland
+      hyprls
+
       (astro-language-server.overrideAttrs (oldAttrs: {
         pnpmDeps = pnpm_9.fetchDeps {
           inherit (oldAttrs)
@@ -75,11 +83,5 @@
         };
       }))
 
-      # css/js
-      stylelint
-    ]
-    ++ lib.optionals (pkgs-unstable.stdenv.isLinux) [
-      # hyprland
-      hyprls
     ];
 }

@@ -9,12 +9,13 @@
 }@args:
 let
   home-modules = [
-    self.homeModules.base.home
-    self.homeModules.base.core
-    self.homeModules.base.tools
+    # self.homeModules.base.home
+    # self.homeModules.base.core
+    # self.homeModules.base.tools
 
-    self.homeModules.linux.base
-    self.homeModules.linux.gui
+    self.homeModules.linux.modules
+    # self.homeModules.linux.base
+    # self.homeModules.linux.gui
 
     {
       modules.desktop.gnome.enable = true;

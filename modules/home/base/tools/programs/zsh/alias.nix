@@ -1,4 +1,10 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    dust
+    procs
+  ];
+
   programs.zsh = {
     shellAliases = {
       ".." = "cd ..";
@@ -6,7 +12,7 @@
       "--" = "cd -";
 
       du = "dust";
-      ps = "procs";
+      # ps = "procs";
     };
     dirHashes = {
       desktop = "$HOME/Desktop";

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -20,6 +21,9 @@
 
         # enable hardware acceleration - vulkan api
         # "--enable-features=Vulkan"
+      ];
+      extensions = lib.mkAfter [
+        { id = "padekgcemlokbadohgkifijomclgjgif"; } # Proxy SwitchyOmega
       ];
     };
   };

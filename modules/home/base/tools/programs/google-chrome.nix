@@ -24,7 +24,6 @@ in
         { id = "bpoadfkcbjbfhfodiogcnhhhpibjhbnh"; } # 沉浸式翻译
         { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
         { id = "bbbiejemhfihiooipfcjmjmbfdmobobp"; } # BewlyBewly
-        { id = "padekgcemlokbadohgkifijomclgjgif"; } # Proxy SwitchyOmega
         { id = "pkgccpejnmalmdinmhkkfafefagiiiad"; } # 前端助手
       ];
       description = "List of Google Chrome extensions to install.";

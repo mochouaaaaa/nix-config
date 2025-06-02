@@ -15,9 +15,6 @@ in
       enable = true;
       package = pkgs.hyprland;
       xwayland.enable = true;
-      plugins = [
-        pkgs.hyprlandPlugins.hypr-dynamic-cursors
-      ];
       systemd = {
         enable = true;
         variables = [ "--all" ];

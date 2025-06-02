@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -9,6 +10,9 @@ in
 {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
+      plugins = [
+        pkgs.hyprlandPlugins.hypr-dynamic-cursors
+      ];
       extraConfig = ''
         plugin:dynamic-cursors {
 

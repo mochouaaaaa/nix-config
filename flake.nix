@@ -4,6 +4,11 @@
   outputs = inputs: import ./outputs.nix inputs;
   # the nixConfig here only affects the flake itself, not the system configuration!
   nixConfig = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+      "pipe-operators"
+    ];
     # for more information, see:
     #     https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
     # substituers will be appended to the default substituters when fetching packages
@@ -44,16 +49,12 @@
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
     };
-    # firefox-addons = {
-    #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     # flatpak
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     # home-manager, used for managing user configuration
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
