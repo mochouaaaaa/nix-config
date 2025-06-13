@@ -18,7 +18,7 @@ in
         };
         listener = [
           {
-            timeout = 30;
+            timeout = 600;
             on-timeout = "Dpms";
             on-resume = "hyprctl dispatch dpms on";
           }
@@ -27,7 +27,7 @@ in
             on-timeout = "Lock";
           }
           {
-            timeout = 1200;
+            timeout = 1800;
             on-timeout = "systemctl hibernate";
             on-resume = "hyprctl reload";
           }

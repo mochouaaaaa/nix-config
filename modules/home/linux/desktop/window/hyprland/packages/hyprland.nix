@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   config,
   lib,
   ...
@@ -27,6 +26,11 @@ in
         }
 
       '';
+    };
+
+    home.file.".wayland-session" = {
+      source = "${pkgs.hyprland}/bin/Hyprland";
+      executable = true;
     };
 
   };

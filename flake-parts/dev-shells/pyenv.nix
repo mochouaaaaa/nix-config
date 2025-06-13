@@ -32,9 +32,6 @@
             zlib
             pkgs-stable.tcl
             pkgs-stable.tk
-          ]
-          ++ lib.optionals (pkgs.stdenv.isDarwin) [
-            clang
             tcl-9_0
             (tk-9_0.overrideAttrs (oldAttrs: {
               postInstall =
@@ -48,10 +45,11 @@
                 '';
             }))
           ]
+          ++ lib.optionals (pkgs.stdenv.isDarwin) [
+            clang
+          ]
           ++ lib.optionals (pkgs.stdenv.isLinux) [
             bluez
-            pkgs-stable.tcl-9_0
-            pkgs-stable.tk-9_0
           ];
         env = {
           CPPFLAGS = lib.concatStringsSep " " (map (p: "-I${lib.getDev p}/include") buildInputs);

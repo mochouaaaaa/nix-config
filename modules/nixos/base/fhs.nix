@@ -18,7 +18,7 @@
           name = "fhs";
           targetPkgs = pkgs: (base.targetPkgs pkgs) ++ [ pkgs.pkg-config ];
           profile = "export FHS=1";
-          runScript = "bash";
+          runScript = "zsh";
           extraOutputsToInstall = [ "dev" ];
         }
       )
@@ -69,7 +69,20 @@
       pkgs-stable.tcl
       pkgs-stable.tk
       pkgs-stable.tcl-9_0
-      pkgs-stable.tk-9_0
+      (tk-9_0.overrideAttrs (oldAttrs: {
+        postInstall =
+          ''
+            ln -s $out/bin/wish* $out/bin/wish
+            cp ../{unix,generic}/*.h $out/include
+            ln -s $out/lib/libtcl9tk${tcl-9_0.release}${pkgs.stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}
+          ''
+          + lib.optionalString (pkgs.stdenv.hostPlatform.isDarwin) ''
+            cp ../macosx/*.h $out/include
+          '';
+      }))
+
+      glib
+
       systemd
     ];
   };
