@@ -51,16 +51,13 @@ in
                   };
                   "options" = {
                     "nixos" = {
-                      "expr" =
-                        "(builtins.getFlake \"${config.home.homeDirectory}/nix/flake\").nixosConfigurations.nixos.options";
+                      "expr" = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options";
                     };
                     "home-manager" = {
-                      "expr" =
-                        "(builtins.getFlake \"${config.home.homeDirectory}/nix/flake\").homeConfigurations.home-manager.options";
+                      "expr" = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.ubuntu.options";
                     };
                     "nix-darwin" = {
-                      "expr" =
-                        ''(builtins.getFlake \"''${workspaceFolder}${config.home.homeDirectory}/nix/flake\").darwinConfigurations.macos.options'';
+                      "expr" = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options";
                     };
                   };
                 };

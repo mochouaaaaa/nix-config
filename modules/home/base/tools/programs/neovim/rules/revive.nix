@@ -1,0 +1,86 @@
+{ pkgs, ... }:
+let
+  settingsFormat = pkgs.formats.toml { };
+in
+{
+  xdg.configFile."rules/revive.toml".source =
+    let
+      settings = {
+        ignoreGeneratedHeader = false;
+        severity = "warning";
+        confidence = 0.8;
+        errorCode = 0;
+        warningCode = 0;
+
+        # [rule.add-constant]
+        rule.argument-limit = {
+          arguments = [ 4 ];
+        };
+
+        rule.atomic = { };
+        # [rule.bare-return]
+        rule.blank-imports = { };
+        rule.bool-literal-in-expr = { };
+        rule.call-to-gc = { };
+        # [rule.confusing-naming]
+        rule.confusing-results = { };
+        rule.constant-logical-expr = { };
+        rule.context-as-argument = { };
+        rule.context-keys-type = { };
+        rule.deep-exit = { };
+        rule.defer = { };
+        # [rule.dot-imports]
+        rule.duplicated-imports = { };
+        rule.early-return = { };
+        rule.error-naming = { };
+        rule.error-return = { };
+        rule.error-strings = { };
+        rule.errorf = { };
+        # [rule.exported]
+        rule.flag-parameter = { };
+        rule.function-result-limit = {
+          arguments = [ 3 ];
+        };
+        rule.get-return = { };
+        rule.identical-branches = { };
+        rule.if-return = { };
+        rule.increment-decrement = { };
+        # [rule.indent-error-flow]
+        rule.import-shadowing = { };
+        rule.line-length-limit = {
+          arguments = [ 120 ];
+        };
+        rule.max-public-structs = {
+          arguments = [ 3 ];
+        };
+        rule.modifies-parameter = { };
+        rule.modifies-value-receiver = { };
+        # [rule.nested-structs]
+        # [rule.package-comments]
+        rule.range = { };
+        rule.range-val-in-closure = { };
+        rule.range-val-address = { };
+        rule.receiver-naming = { };
+        rule.redefines-builtin-id = { };
+        rule.string-of-int = { };
+        rule.struct-tag = { };
+        # [rule.string-format]
+        rule.superfluous-else = { };
+        rule.time-naming = { };
+        rule.var-naming = { };
+        rule.var-declaration = { };
+        rule.unconditional-recursion = { };
+        rule.unexported-naming = { };
+        rule.unexported-return = { };
+        # [rule.unhandled-error]
+        # arguments = ["fmt.Fprint", "fmt.Fprintf"]
+        rule.unnecessary-stmt = { };
+        rule.unreachable-code = { };
+        rule.unused-parameter = { };
+        rule.unused-receiver = { };
+        rule.waitgroup-by-value = { };
+
+      };
+    in
+    settingsFormat.generate "revive.toml" settings;
+}

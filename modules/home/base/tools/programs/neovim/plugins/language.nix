@@ -3,9 +3,6 @@
   home.packages =
     with pkgs-unstable;
     [
-      # nix
-      nil
-      nixfmt-rfc-style
 
       # shell
       bash-language-server
@@ -57,6 +54,9 @@
       # js/ts
       vscode-js-debug
       typescript
+
+      # yaml
+      actionlint
 
       # css/js
       stylelint

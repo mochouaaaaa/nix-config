@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  self,
   ...
 }:
 {
@@ -14,9 +15,7 @@
     python313Packages.pylatexenc
   ];
 
-  imports = [
-    ./plugins
-  ];
+  imports = self.importModule' ./.;
 
   programs = rec {
     neovim = {
@@ -70,11 +69,5 @@
     NVIM_IS_NIX = 1;
   };
 
-  xdg.configFile = {
-    "rules" = {
-      force = true;
-      recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/rules";
-    };
-  } // config.dotfileLink "nvim";
+  xdg.configFile = config.dotfileLink "nvim";
 }
