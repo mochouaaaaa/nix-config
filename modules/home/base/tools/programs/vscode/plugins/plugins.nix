@@ -6,6 +6,7 @@
 }:
 let
   inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
+
 in
 {
   programs = {
@@ -21,6 +22,17 @@ in
               ms-vscode-remote.remote-containers
               redhat.vscode-yaml
               tamasfe.even-better-toml
+
+              #ai
+              # FittenTech.Fitten-Code
+              (buildVscodeMarketplaceExtension {
+                mktplcRef = {
+                  name = "Fitten-Code";
+                  publisher = "FittenTech";
+                  version = "0.10.149";
+                  hash = "sha256-3TTpOn6t5gOqYf3TcXNzk57mHk2vaERvmBdHmkxQuXc=";
+                };
+              })
 
               # asvetliakov.vscode-neovim
 
