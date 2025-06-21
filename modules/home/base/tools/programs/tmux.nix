@@ -123,6 +123,19 @@
     '';
     plugins = with pkgs.tmuxPlugins; [
       {
+        plugin = mkTmuxPlugin rec {
+          pluginName = "tmux-nerd-font-window-name";
+          version = "v2.1.2";
+          src = pkgs.fetchFromGitHub {
+            owner = "joshmedeski";
+            repo = "tmux-nerd-font-window-name";
+            tag = "${version}";
+            hash = "sha256-bnlOAfdBv5Rg4z1hu1jtdx5oZ6kAZE40K4zqLxmyYQE=";
+          };
+          rtpFilePath = "tmux-nerd-font-window-name.tmux";
+        };
+      }
+      {
         plugin = catppuccin;
         extraConfig = ''
           set -g @catppuccin_flavor "mocha"
@@ -172,4 +185,36 @@
       fzf-tmux-url
     ];
   };
+
+  xdg.configFile."tmux/tmux-nerd-font-window-name.yml".source =
+    let
+      settingsFormat = pkgs.formats.yaml { };
+
+      settings = {
+        config = {
+          fallback-icon = "?"; # show when no definition is found
+          multi-pane-icon = ""; # show when window has multiple panes (blank by default)
+          show-name = false; # show the window name with the icon (defaults to false)
+          icon-position = "left"; # show the icon to the "left" or "right" of the window name (defaults to left)
+        };
+        icons = {
+          nvim = "";
+          vim = "";
+          bash = "";
+          htop = "󰓅";
+          nvtop = "";
+          root = "󰦣";
+          lazygit = "";
+          less = "";
+          yazi = "󰇥";
+          "python2.7" = "";
+          "python3.10" = "";
+          "python3.11" = "";
+          "python3.12" = "";
+          python3 = "";
+          python = "";
+        };
+      };
+    in
+    settingsFormat.generate "tmux-nerd-font-window-name.yml" settings;
 }

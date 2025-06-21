@@ -19,6 +19,8 @@
         buildInputs =
           with pkgs;
           [
+            bashInteractive
+
             bzip2
             expat
             libffi
@@ -30,8 +32,10 @@
             readline
             xz
             zlib
-            pkgs-stable.tcl
-            pkgs-stable.tk
+            # pkgs-stable.tcl
+            # pkgs-stable.tk
+            tcl
+            tk
             tcl-9_0
             (tk-9_0.overrideAttrs (oldAttrs: {
               postInstall =

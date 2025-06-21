@@ -16,24 +16,29 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs = {
-      wezterm = {
-        enable = true;
-        enableBashIntegration = true;
-        enableZshIntegration = true;
-      };
-      tmux = {
-        extraConfig = lib.mkAfter ''
-          # Wezterm termianl Use 
-          set -g update-environment "IS_WEZTERM"
+    programs =
+      let
+        warpper_shell = ''
+          if [[ -n "$WEZTERM_EXECUTABLE" ]]; then
+              alias ssh="wezterm ssh"
+          fi
         '';
+      in
+      {
+        wezterm = {
+          enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
+        };
+        tmux = {
+          extraConfig = lib.mkAfter ''
+            # Wezterm termianl Use 
+            set -g update-environment "IS_WEZTERM"
+          '';
+        };
+        zsh.initContent = lib.mkOrder 2410 warpper_shell;
+        bash.initExtra = lib.mkOrder 2410 warpper_shell;
       };
-      zsh.initContent = lib.mkOrder 2410 ''
-        if [[ -n "$WEZTERM_EXECUTABLE" ]]; then
-            alias ssh="wezterm ssh"
-        fi
-      '';
-    };
     xdg.configFile = config.dotfileLink "wezterm";
   };
 }

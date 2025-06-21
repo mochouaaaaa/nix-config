@@ -16,6 +16,10 @@ in
       ];
     };
 
+    xdg.configFile = {
+      "kitty/kitty.app.png".source = "${cfg.icon}/kitty-dark.png";
+    };
+
     xdg.mimeApps.defaultApplications =
       let
         terminal = [ "kitty.desktop" ];

@@ -5,24 +5,37 @@
     procs
   ];
 
-  programs.zsh = {
-    shellAliases = {
-      ".." = "cd ..";
-      "~" = "cd ~";
-      "--" = "cd -";
+  programs =
+    let
+      shellAliases = {
+        du = "dust";
+        # ps = "procs";
+      };
+      dirHashes = {
+        desktop = "$HOME/Desktop";
+        downloads = "$HOME/Downloads";
+        documents = "$HOME/Documents";
+        videos = "$HOME/Videos";
+        music = "$HOME/Music";
+        pictures = "$HOME/Pictures";
+        movies = "$HOME/Movies";
+        trash = "$HOME/.Trash";
+      };
 
-      du = "dust";
-      # ps = "procs";
+      bashDirAliases = builtins.mapAttrs (name: path: "cd ${path}") dirHashes;
+
+    in
+    {
+      zsh = {
+        shellAliases = shellAliases // {
+          ".." = "cd ..";
+          "~" = "cd ~";
+          "--" = "cd -";
+        };
+        dirHashes = dirHashes;
+      };
+      bash = {
+        shellAliases = shellAliases // bashDirAliases;
+      };
     };
-    dirHashes = {
-      desktop = "$HOME/Desktop";
-      downloads = "$HOME/Downloads";
-      documents = "$HOME/Documents";
-      videos = "$HOME/Videos";
-      music = "$HOME/Music";
-      pictures = "$HOME/Pictures";
-      movies = "$HOME/Movies";
-      trash = "$HOME/.Trash";
-    };
-  };
 }

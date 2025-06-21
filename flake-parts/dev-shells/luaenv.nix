@@ -19,6 +19,7 @@
         buildInputs =
           with pkgs;
           [
+            bashInteractive
             readline
           ]
           ++ lib.optionals (pkgs.stdenv.isDarwin) [

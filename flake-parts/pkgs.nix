@@ -26,12 +26,12 @@ let
 
 in
 {
-  inherit
-    pkgs
-    pkgs-unstable
-    pkgs-stable
-    nvfetcherSources
-    ;
-
-  perSystem._module.args = { inherit pkgs pkgs-unstable pkgs-stable; };
+  _module.args = {
+    inherit
+      pkgs
+      pkgs-unstable
+      pkgs-stable
+      nvfetcherSources
+      ;
+  };
 }
