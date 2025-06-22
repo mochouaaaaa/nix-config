@@ -34,18 +34,18 @@ in
       type = "fcitx5";
       fcitx5 = {
         fcitx5-with-addons = pkgs.libsForQt5.fcitx5-with-addons;
-        addons =
-          with pkgs;
-          [
-            (fcitx5-rime.override {
-              rimeDataPkgs = [
-                rime-data
-              ];
-            })
-            fcitx5-lua
-            fcitx5-chinese-addons
-          ]
-          ++ lib.optionals (!cfgDesktop.kde.enable) [ fcitx5-gtk ];
+        addons = with pkgs; [
+          (fcitx5-rime.override {
+            rimeDataPkgs = [
+              rime-data
+            ];
+          })
+          fcitx5-lua
+          fcitx5-gtk
+          fcitx5-mozc
+          fcitx5-chinese-addons
+        ];
+        # ++ lib.optionals (!cfgDesktop.kde.enable) [ fcitx5-gtk ];
         waylandFrontend = true;
       };
     };

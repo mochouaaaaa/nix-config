@@ -22,8 +22,6 @@ let
     patch:
       "menu/page_size": 9
       "key_binder/bindings":
-        - { when: has_menu, accept: Super_L+k, send: Page_Up } # 翻页
-        - { when: has_menu, accept: Super_L+j, send: Page_Down }
         - {accept: "Super+h", send: Down, when: composing}
         - {accept: "Super+l", send: Left, when: composing}
 
