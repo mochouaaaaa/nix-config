@@ -4,7 +4,7 @@
   ...
 }:
 {
-  programs.neovim.extraPackages = lib.mkBefore (
+  programs.nixvim.extraPackages = lib.mkBefore (
     with pkgs-unstable.vimPlugins;
     [
       nvim-treesitter-textobjects

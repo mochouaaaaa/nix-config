@@ -3,6 +3,7 @@
   lib,
   config,
   self,
+  inputs,
   ...
 }:
 {
@@ -15,12 +16,16 @@
     python313Packages.pylatexenc
   ];
 
-  imports = self.importModule' ./.;
+  imports = self.importModule' ./. ++ [ inputs.nixvim.homeModules.nixvim ];
 
   programs = rec {
-    neovim = {
+    nixvim = {
       enable = true;
-      extraLuaConfig = ''
+      defaultEditor = true;
+      globals = {
+        IS_NIX = true;
+      };
+      extraConfigLuaPre = ''
         -- bootstrap lazy.nvim, LazyVim and your plugins
         require("config.lazy")
       '';
@@ -41,32 +46,26 @@
       #
       # LD_LIBRARY_PATH is also needed to run the non-FHS binaries downloaded by mason.nvim.
       # it will be set by nix-ld, so we do not need to set it here again.
-      extraWrapperArgs = with pkgs; [
-        # LIBRARY_PATH is used by gcc before compilation to search directories
-        # containing static and shared libraries that need to be linked to your program.
-        "--suffix"
-        "LIBRARY_PATH"
-        ":"
-        "${lib.makeLibraryPath [
-          stdenv.cc.cc
-          zlib
-        ]}"
-
-        # PKG_CONFIG_PATH is used by pkg-config before compilation to search directories
-        # containing .pc files that describe the libraries that need to be linked to your program.
-        "--suffix"
-        "PKG_CONFIG_PATH"
-        ":"
-        "${lib.makeSearchPathOutput "dev" "lib/pkgconfig" [
-          stdenv.cc.cc
-          zlib
-        ]}"
-      ];
+      # extraWrapperArgs = with pkgs; [
+      #   "--suffix"
+      #   "LIBRARY_PATH"
+      #   ":"
+      #   "${lib.makeLibraryPath [
+      #     stdenv.cc.cc
+      #     zlib
+      #   ]}"
+      #
+      #   # PKG_CONFIG_PATH is used by pkg-config before compilation to search directories
+      #   # containing .pc files that describe the libraries that need to be linked to your program.
+      #   "--suffix"
+      #   "PKG_CONFIG_PATH"
+      #   ":"
+      #   "${lib.makeSearchPathOutput "dev" "lib/pkgconfig" [
+      #     stdenv.cc.cc
+      #     zlib
+      #   ]}"
+      # ];
     };
-  };
-
-  home.sessionVariables = {
-    NVIM_IS_NIX = 1;
   };
 
   xdg.configFile = config.dotfileLink "nvim";

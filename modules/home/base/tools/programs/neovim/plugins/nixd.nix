@@ -22,7 +22,7 @@ in
     nixfmt-rfc-style
   ];
 
-  programs.neovim.extraLuaConfig = lib.mkOrder 9999 ''
+  programs.nixvim.extraConfigLuaPost = ''
     local nvim_lsp = require("lspconfig")
     nvim_lsp.nixd.setup({
        cmd = { "nixd" },
