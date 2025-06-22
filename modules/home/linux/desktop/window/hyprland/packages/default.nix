@@ -39,8 +39,8 @@ in
 
       # audio
       alsa-utils # provides amixer/alsamixer/...
-      mpd # for playing system sounds
-      mpc-cli # command-line mpd client
+      pkgs-stable.mpd # for playing system sounds
+      pkgs-stable.mpc-cli # command-line mpd client
       ncmpcpp # a mpd client with a UI
       networkmanagerapplet # provide GUI app: nm-connection-editor
     ];

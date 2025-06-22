@@ -39,7 +39,8 @@ in
       };
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.nur.repos.linyinfeng.wemeet;
+        # default = pkgs.nur.repos.linyinfeng.wemeet;
+        default = pkgs.wemeet;
       };
     };
     dingding = {

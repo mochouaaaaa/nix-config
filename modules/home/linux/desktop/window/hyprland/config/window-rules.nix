@@ -41,6 +41,7 @@ in
           "float, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
           "float, class:(VirtualBox)"
           "float, class:firefox,title:(我的足迹)"
+          "float, class:firefox,title:画中画"
           "float, class:Bitwarden,title:Bitwarden"
           "float, class:(xfce4-appfinder)"
           "float, class:kitty,title:yazi"
