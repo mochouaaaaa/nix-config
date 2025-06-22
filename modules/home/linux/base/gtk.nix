@@ -49,31 +49,5 @@ in
   home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
   gtk = {
     enable = false;
-
-    # gtk2 = {
-    #   extraConfig = ''
-    #     gtk-im-module=fcitx;
-    #   '';
-    # };
-    # gtk3 = {
-    #   extraConfig = ''
-    #     gtk-im-module=fcitx;
-    #   '';
-    # };
-    # gtk4 = {
-    #   extraConfig = ''
-    #     gtk-im-module=fcitx;
-    #   '';
-    # };
-
-    # theme = {
-    #   name = "WhiteSur-light";
-    # };
-    # iconTheme = {
-    #   name = "WhiteSur-light";
-    # };
-    # cursorTheme = {
-    #   name = "Capitaine Cursors (Nord) - White";
-    # };
   };
 }

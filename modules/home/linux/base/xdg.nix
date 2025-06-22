@@ -145,9 +145,9 @@ in
         };
       };
     };
+
     xdg.portal = {
       enable = true;
-
       config = {
         common = {
           # Use xdg-desktop-portal-gtk for every portal interface...

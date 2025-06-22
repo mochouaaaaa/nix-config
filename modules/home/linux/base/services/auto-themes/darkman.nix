@@ -26,10 +26,12 @@ in
       ]
       ++ lib.optionals (cfgDesktop.kde.enable) [ whitesur-kde ]
       ++ lib.optionals (!cfgDesktop.kde.enable) [
+        libadwaita
         (whitesur-gtk-theme.override {
           altVariants = [ "all" ];
           nautilusStyle = "mojave";
           roundedMaxWindow = true;
+          darkerColor = true;
         })
       ];
 
