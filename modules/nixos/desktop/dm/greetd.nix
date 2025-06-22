@@ -18,18 +18,39 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    programs.regreet = {
+      enable = true;
+      settings = {
+        GTK = {
+          application_prefer_dark_theme = true;
+        };
+        background = {
+          path = "/home/${self.myvars.username}/.current_wallpaper";
+        };
+        widget.clock = {
+          format = "%a %H:%M";
+          resolution = "500ms";
+          timezone = "Asia/Shanghai";
+          label_width = 150;
+        };
+      };
+      cageArgs = [
+        # "-s"
+        "-m"
+        "last"
+      ];
+    };
+
     services = {
       greetd = {
-        enable = true;
         settings = rec {
           terminal.vt = 1;
           default_session = {
             user = self.myvars.username;
-            command = "${lib.getExe pkgs.greetd.tuigreet}";
           };
-          initial_session = default_session // {
-            command = "sh -c 'sleep 2; ${default_session.command} '";
-          };
+          # initial_session = default_session;
+          # // {command = "sh -c 'sleep 2; ${default_session.command} '";};
         };
       };
     };

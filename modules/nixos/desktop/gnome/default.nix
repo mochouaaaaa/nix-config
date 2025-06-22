@@ -47,10 +47,10 @@ in
       udisks2.enable = true;
       xserver = {
         enable = true;
-        desktopManager = {
-          gnome.enable = true;
-        };
         xkb.layout = "us";
+      };
+      desktopManager = {
+        gnome.enable = true;
       };
       gnome = {
         sushi.enable = true;

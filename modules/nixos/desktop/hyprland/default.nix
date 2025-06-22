@@ -16,6 +16,7 @@ in
       description = "Enable Hyprland desktop environment.";
     };
   };
+
   config = lib.mkIf cfgHyprland.enable {
 
     modules.dm.greetd.enable = true;
@@ -27,22 +28,20 @@ in
         # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       };
 
-      regreet = {
-        enable = true;
-      };
-
       nautilus-open-any-terminal = {
         enable = true;
         terminal = "kitty";
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      cage
+    environment = {
+      systemPackages = with pkgs; [
+        turtle # nautilus plugin
+        nautilus
+      ];
+    };
 
-      turtle # nautilus plugin
-      nautilus
-    ];
+    programs.ssh.startAgent = lib.mkForce false;
 
     services = {
       gnome = {
@@ -56,8 +55,8 @@ in
         settings = {
           default_session = {
             user = self.myvars.username;
-            #command = lib.mkForce "cage -s -mlast ${lib.getExe config.programs.regreet.package}";
             # command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
+            # command = lib.mkForce "${pkgs.dbus}/bin/dbus-run-session $HOME/.wayland-session";
             command = lib.mkForce "$HOME/.wayland-session";
           };
         };

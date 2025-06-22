@@ -35,7 +35,7 @@ in
       greetd = {
         settings = {
           default_session = {
-            # command = lib.mkForce "${lib.getExe' pkgs.niri "niri-session"}";
+            command = lib.mkForce "${lib.getExe' pkgs.niri "niri-session"}";
           };
         };
       };
