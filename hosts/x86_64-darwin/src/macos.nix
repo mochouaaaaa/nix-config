@@ -33,7 +33,7 @@ let
         modules.packages = {
           wezterm.enable = true;
           ollama.enable = false;
-          firefox.enable = false;
+          firefox.enable = true;
           bitwarden.enable = false;
           envs = {
             pyenv.enable = true;
