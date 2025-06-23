@@ -4,6 +4,15 @@
 
 [nix installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#determinate-nix-installer)
 
+```bash
+
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+
+# darwin
+sudo nix run nix-darwin/master#darwin-rebuild -- switch
+
+```
+
 ## 目录结构
 
 <details>
