@@ -37,5 +37,6 @@ in
     makeFonts # 常规, 窗口标题栏等
     maple-mono.NF # 等宽
     inter # 小号字体,工具栏,菜单
+    font-awesome
   ];
 }
