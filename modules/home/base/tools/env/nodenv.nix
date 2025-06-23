@@ -9,7 +9,7 @@ let
 
   nodenv-build = pkgs.fetchgit {
     url = "https://github.com/nodenv/node-build.git";
-    hash = "sha256-jBk6U0F69mcAVYQDn7uxhc0Y+3i60ACD8K4pskewVXQ=";
+    hash = "sha256-6XLihfYINcuNylrwlp1LvDBZyRpSXD0O1rspfz5Xu40=";
   };
   nodenv-vars = pkgs.fetchgit {
     url = "https://github.com/nodenv/nodenv-vars.git";
@@ -17,7 +17,7 @@ let
   };
   nodenv-aliases = pkgs.fetchgit {
     url = "https://github.com/nodenv/nodenv-aliases.git";
-    hash = "sha256-OxjEgY7tz8c2d9gm7Dle36EeEBPx2QS0bDctAExRcyA=";
+    hash = "sha256-BjrgZG6crv+IDnbq4Tj9YWt9s+rCzeXO7XBS6XfAlSA=";
   };
 in
 {

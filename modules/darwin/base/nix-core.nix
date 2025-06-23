@@ -24,10 +24,14 @@
     auto-optimise-store = false;
   };
 
-  nix.gc = {
-    automatic = lib.mkDefault true;
-    interval = [ { Weekday = 7; } ];
-    options = lib.mkDefault "--delete-older-than 7d";
+  # use determanded nix-installer
+  nix = {
+    enable = false;
+    gc = {
+      # automatic = lib.mkDefault true;
+      # interval = [ { Weekday = 7; } ];
+      # options = lib.mkDefault "--delete-older-than 7d";
+    };
   };
 
   system = {

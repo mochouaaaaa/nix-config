@@ -12,7 +12,7 @@ let
 
   pyenv-virtualenv = pkgs.fetchgit {
     url = "https://github.com/pyenv/pyenv-virtualenv.git";
-    hash = "sha256-enINH1AWCVAnBR9M/uQ7eCDfNzgYgBUVV7N/ZCf3CVI=";
+    hash = "sha256-vrVjXP7IWLnXsgaVTZjbbU6FjU7k/WDcwK6F3NS8ZWg=";
   };
   pyenv-virtualenvwrapper = pkgs.fetchgit {
     url = "https://github.com/pyenv/pyenv-virtualenvwrapper.git";
