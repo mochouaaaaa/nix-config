@@ -32,7 +32,6 @@
       "users"
       "networkmanager"
       "wheel"
-      "docker"
       "wireshark"
       "adbusers"
       "libvirtd"
