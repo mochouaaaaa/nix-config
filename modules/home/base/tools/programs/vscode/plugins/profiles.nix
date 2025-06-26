@@ -19,13 +19,9 @@
           "workbench.colorTheme" = "One Dark Pro";
           # "workbench.preferredDarkColorTheme" = "One Dark Pro";
           # "workbench.preferredLightColorTheme" = "One Dark Pro";
-          "autoTheme.mode" = "auto";
-          "autoTheme.dayTheme" = "Default Light+";
-          "autoTheme.nightTheme" = "One Dark Pro";
-          "autoTheme.manualLocation" = {
-            "lat" = 39.9042;
-            "lng" = 116.4074;
-          };
+          "window.autoDetectColorScheme" = true;
+          "workbench.preferredLightColorTheme" = "Default Light+";
+          "workbench.preferredDarkColorTheme" = "One Dark Pro";
 
           # // ctrl+滚轮调整字体大小
           "editor.mouseWheelZoom" = false;

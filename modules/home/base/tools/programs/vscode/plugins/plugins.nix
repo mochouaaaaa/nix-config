@@ -40,17 +40,17 @@ in
               # Vogadero.auto-theme
               vscode-icons-team.vscode-icons
               zhuangtongfa.material-theme
-              (buildVscodeMarketplaceExtension {
-                mktplcRef = {
-                  name = "auto-theme";
-                  publisher = "Vogadero";
-                  version = "0.1.0";
-                  hash = "sha256-e5ySgUdHpkekYcZbtjFrzws/foaerKed0nNEVBEx0Ic=";
-                };
-                meta = {
-                  license = lib.licenses.mit;
-                };
-              })
+              # (buildVscodeMarketplaceExtension {
+              #   mktplcRef = {
+              #     name = "auto-theme";
+              #     publisher = "Vogadero";
+              #     version = "0.1.0";
+              #     hash = "sha256-e5ySgUdHpkekYcZbtjFrzws/foaerKed0nNEVBEx0Ic=";
+              #   };
+              #   meta = {
+              #     license = lib.licenses.mit;
+              #   };
+              # })
 
               # shell
               timonwong.shellcheck
