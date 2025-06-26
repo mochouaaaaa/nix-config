@@ -21,12 +21,6 @@ let
       mkdir -p $out/share/mozilla/firefox/firefox-themes
 
       cp -rf chrome $out/share/mozilla/firefox/firefox-themes
-      # cp custom/compact-tabs.css $out/share/mozilla/firefox/firefox-themes/chrome/WhiteSur/custom
-      # cp custom/hideextension.css $out/share/mozilla/firefox/firefox-themes/chrome/WhiteSur/custom
-      # cp custom/singletabhidden.css $out/share/mozilla/firefox/firefox-themes/chrome/WhiteSur/custom
-      # cp custom/standard-urlbar.css $out/share/mozilla/firefox/firefox-themes/chrome/WhiteSur/custom
-      # cp custom/tabs-swapclose.css $out/share/mozilla/firefox/firefox-themes/chrome/WhiteSur/custom
-      # cp custom/windows-swapclose.css $out/share/mozilla/firefox/firefox-themes/chrome/WhiteSur/custom
     '';
   };
 

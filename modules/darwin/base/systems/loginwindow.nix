@@ -6,5 +6,6 @@
         SHOWFULLNAME = true; # show full name in login window
       };
     };
+    startup.chime = false;
   };
 }

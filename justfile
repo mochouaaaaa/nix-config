@@ -49,7 +49,7 @@ update:
 # switch flake config
 [macos]
 switch:
-    darwin-rebuild switch --flake .#macos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+    sudo darwin-rebuild switch --flake .#macos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 
 # repl test environment
 [macos]

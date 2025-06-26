@@ -16,9 +16,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.aerospace = {
+
+    services.aerospace = {
       enable = true;
-      userSettings = {
+      settings = {
         start-at-login = true;
         mode.main.binding = {
           cmd-left = "focus left";

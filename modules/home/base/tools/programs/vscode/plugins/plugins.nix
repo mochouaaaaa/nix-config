@@ -58,6 +58,7 @@ in
 
               # C / C++
               ms-vscode.cmake-tools
+              ms-vscode.cpptools-extension-pack
 
               # nix
               jnoortheen.nix-ide

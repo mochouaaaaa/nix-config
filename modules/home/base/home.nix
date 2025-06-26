@@ -9,6 +9,9 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
+
+    enableNixpkgsReleaseCheck = false;
+
     inherit (self.myvars) username;
 
     # This value determines the Home Manager release that your

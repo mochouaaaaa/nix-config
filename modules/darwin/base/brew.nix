@@ -32,9 +32,7 @@
       # "homebrew/cask-fonts"
       # "homebrew/services"
       # "homebrew/cask-versions"
-
       "hashicorp/tap"
-      "nikitabobko/tap" # aerospace - an i3-like tiling window manager for macOS
       "FelixKratz/formulae" # janky borders - highlight active window borders
     ];
 
@@ -47,8 +45,10 @@
     # `brew install --cask`
     casks = [
       "openinterminal-lite"
-      "squirrel" # input method for Chinese, rime-squirrel
-      "aerospace" # an i3-like tiling window manager for macOS
+      "squirrel-app" # input method for Chinese, rime-squirrel
+      "appcleaner"
+      "neteasemusic"
+      "adguard"
     ];
   };
 }

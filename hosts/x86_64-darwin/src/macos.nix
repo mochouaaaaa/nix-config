@@ -16,18 +16,15 @@ let
         modules.packages = {
           openvpn.enable = true;
           tunnelblick.enable = true;
+          aerospace.enable = false;
+          database-suite.enable = true;
         };
       }
 
     ];
     home-modules = [
-      # self.homeModules.base.home
-      # self.homeModules.base.core
-      # self.homeModules.base.tools
 
       self.homeModules.darwin.modules
-      # self.homeModules.darwin.base
-      # self.homeModules.darwin.tools
 
       {
         modules.packages = {
