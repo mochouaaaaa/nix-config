@@ -14,8 +14,15 @@ in
         config = {
           hyprland = {
             default = [ "hyprland" ] ++ [ config.xdg.portal.config.common.default ];
+            "org.freedesktop.impl.portal.Screenshot" = "hyprland";
+            "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+            "org.freedesktop.impl.portal.GlobalShortcuts" = "hyprland";
+            "org.freedesktop.impl.portal.Settings" = "gtk";
           };
         };
+        extraPortals = lib.mkAfter [
+          pkgs.xdg-desktop-portal-gtk
+        ];
       };
     };
 

@@ -7,7 +7,7 @@ let
   cfg = config.programs.rofi;
 in
 {
-  config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
+  config = lib.mkIf (cfg.enable) {
     xdg.configFile = {
       "rofi/themes/nova-dark.rasi".text = ''
         /* config - Launcher */

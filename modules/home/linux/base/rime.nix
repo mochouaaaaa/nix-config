@@ -42,7 +42,6 @@ in
           })
           fcitx5-lua
           fcitx5-gtk
-          fcitx5-mozc
           fcitx5-chinese-addons
         ];
         # ++ lib.optionals (!cfgDesktop.kde.enable) [ fcitx5-gtk ];
@@ -56,6 +55,10 @@ in
       QT_IM_MODULE = "fcitx";
       # GTK_IM_MODULE = "wayland";
     };
+
+    home.packages = with pkgs; [
+      glib
+    ];
 
     modules.packages.rime.extraFiles = lib.mkBefore [
       {

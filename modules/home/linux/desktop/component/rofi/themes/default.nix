@@ -8,9 +8,9 @@ let
   cfg = config.programs.rofi;
 in
 {
-  imports = self.importModule'  ./.;
+  imports = self.importModule' ./.;
 
-  config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
+  config = lib.mkIf (cfg.enable) {
     xdg.configFile = {
       "rofi/themes/default.rasi".text = ''
         @import "~/.cache/wal/colors-rofi-dark.rasi"

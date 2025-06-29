@@ -9,7 +9,7 @@ let
   cfg = config.programs.rofi;
 in
 {
-  config = lib.mkIf (config.programs.waybar.enable && cfg.enable) {
+  config = lib.mkIf (cfg.enable) {
 
     services.swww = {
       enable = true;

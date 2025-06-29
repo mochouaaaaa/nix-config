@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 let
@@ -19,7 +18,16 @@ in
   config = lib.mkIf cfg.enable {
 
     home.packages = with pkgs; [
-      ashell
+      libappindicator-gtk3
     ];
+
+    programs.ashell = {
+      enable = true;
+      package = pkgs.ashell;
+      systemd = {
+        enable = true;
+        target = "hyprland-session.target";
+      };
+    };
   };
 }
