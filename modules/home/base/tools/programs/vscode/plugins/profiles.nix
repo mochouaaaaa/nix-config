@@ -1,10 +1,56 @@
-{ self, ... }:
+{ self, pkgs, ... }:
+let
+  homeExpr =
+    if pkgs.stdenv.isLinux then
+      "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options.home-manager.users.type.getSubOptions []"
+    else if pkgs.stdenv.isDarwin then
+      "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options.home-manager.users.type.getSubOptions []"
+    else
+      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.ubuntu.options";
+
+in
 {
+
   programs = {
     vscode.profiles = {
       "${self.myvars.username}" = {
         userSettings = {
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd";
+          "nix.serverSettings" = {
+            "nil" = {
+              # "diagnostics"= {
+              #  "ignored"= ["unused_binding"; "unused_with"];
+              # };
+              "formatting" = {
+                "command" = [ "nixfmt" ];
+              };
+            };
+            "nixd" = {
+              "formatting" = {
+                "command" = [ "nixfmt" ];
+              };
+              "options" = {
+                "nixos" = {
+                  "expr" = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options";
+                };
+                "home-manager" = {
+                  "expr" = "${homeExpr}";
+                };
+                "nix-darwin" = {
+                  "expr" = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options";
+                };
+              };
+            };
+          };
           "[nix]"."editor.tabSize" = 4;
+          "nix.hiddenLanguageServerErrors" = [
+            "textDocument/definition"
+          ];
+
+          # ================= 插件配置
+          "fittencode.languagePreference.displayPreference" = "zh-cn";
+          "fittencode.languagePreference.commentPreference" = "zh-cn";
 
           "files.watcherExclude" = {
             "**/.git/objects/**" = true;

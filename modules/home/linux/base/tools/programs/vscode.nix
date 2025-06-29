@@ -31,38 +31,6 @@ in
       vscode = {
         # let vscode sync and update its configuration & extensions across devices; using github account.
         profiles."${self.myvars.username}" = {
-          userSettings =
-            { }
-            // lib.mkIf isNixos {
-              "nix.enableLanguageServer" = true;
-              "nix.serverPath" = "nixd";
-              "nix.serverSettings" = {
-                "nil" = {
-                  # "diagnostics"= {
-                  #  "ignored"= ["unused_binding"; "unused_with"];
-                  # };
-                  "formatting" = {
-                    "command" = [ "nixfmt" ];
-                  };
-                };
-                "nixd" = {
-                  "formatting" = {
-                    "command" = [ "nixfmt" ];
-                  };
-                  "options" = {
-                    "nixos" = {
-                      "expr" = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options";
-                    };
-                    "home-manager" = {
-                      "expr" = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.ubuntu.options";
-                    };
-                    "nix-darwin" = {
-                      "expr" = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options";
-                    };
-                  };
-                };
-              };
-            };
           keybindings = lib.mkAfter [
             {
               key = "${cfgKeymaps.Super}+f";
