@@ -108,6 +108,49 @@ in
               "widget.gtk.rounded-bottom-corners.enabled" = true;
               "svg.context-properties.content.enabled" = true;
             };
+            search = {
+              default = "google";
+              force = true;
+              engines = {
+                "nix-packages" = {
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/packages";
+                      params = [
+                        {
+                          name = "type";
+                          value = "packages";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  definedAliases = [ "@np" ];
+                };
+                "nixpkgs-prs" = {
+                  urls = [ { template = "https://nixpk.gs/pr-tracker.html?pr={searchTerms}"; } ];
+                  icon = "https://nixos.org/favicon.png";
+                  updateInterval = 24 * 60 * 60 * 1000; # every day
+                  definedAliases = [ "@npr" ];
+                };
+
+                "nixos-wiki" = {
+                  urls = [ { template = "https://wiki.nixos.org/index.php?search={searchTerms}"; } ];
+                  icon = "https://wiki.nixos.org/favicon.png";
+                  updateInterval = 24 * 60 * 60 * 1000; # every day
+                  definedAliases = [ "@nw" ];
+                };
+                "bing".metaData.hidden = true;
+                "duckduckgo".metaData.hidden = true;
+                "amazonnl".metaData.hidden = true;
+                "ebay".metaData.hidden = true;
+                "google".metaData.alias = "@g";
+              };
+            };
             extensions = {
               packages = with pkgs.nur.repos.rycee.firefox-addons; [
                 bitwarden
