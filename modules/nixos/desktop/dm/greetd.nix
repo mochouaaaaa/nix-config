@@ -1,6 +1,5 @@
 {
   self,
-  pkgs,
   config,
   lib,
   ...
@@ -44,7 +43,7 @@ in
 
     services = {
       greetd = {
-        settings = rec {
+        settings = {
           terminal.vt = 1;
           default_session = {
             user = self.myvars.username;

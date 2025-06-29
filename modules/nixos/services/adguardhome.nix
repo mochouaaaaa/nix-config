@@ -1,9 +1,19 @@
 { lib, ... }:
 {
 
-  services.resolved.enable = lib.mkForce false;
-  networking.useHostResolvConf = lib.mkForce true;
+  services = {
+    resolved = {
+      enable = lib.mkForce false;
+      dnssec = "false";
+    };
+  };
   systemd.services.systemd-resolved.enable = lib.mkForce false;
+  networking = {
+    useHostResolvConf = lib.mkForce true;
+    dhcpcd.extraConfig = ''
+      static domain_name_servers=127.0.0.1
+    '';
+  };
 
   services.adguardhome = {
     enable = true;
