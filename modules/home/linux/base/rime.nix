@@ -42,6 +42,7 @@ in
           })
           fcitx5-lua
           fcitx5-gtk
+          kdePackages.fcitx5-qt
           fcitx5-chinese-addons
         ];
         # ++ lib.optionals (!cfgDesktop.kde.enable) [ fcitx5-gtk ];

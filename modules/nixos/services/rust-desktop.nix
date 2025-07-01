@@ -4,9 +4,9 @@
 }:
 {
 
-  # environment.systemPackages = [
-  #   pkgs.rustdesk
-  # ];
+  environment.systemPackages = [
+    pkgs.rustdesk-flutter
+  ];
   #
   # users = {
   #   users.rustdesk = {
@@ -31,8 +31,8 @@
   services.rustdesk-server = {
     enable = false;
     openFirewall = true;
-    relay.enable = false;
-    signal.enable = false;
-    signal.relayHosts = [ ];
+    relay.enable = true;
+    signal.enable = true;
+    signal.relayHosts = [ "rs-ny.rustdesk.com:21116" ];
   };
 }
