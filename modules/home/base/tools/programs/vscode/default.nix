@@ -1,6 +1,6 @@
 { pkgs, self, ... }:
 {
-  imports = [ self.importModule' ./. ];
+  imports = self.importModule' ./.;
 
   programs = {
     vscode = {

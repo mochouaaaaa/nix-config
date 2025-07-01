@@ -18,6 +18,7 @@ let
           tunnelblick.enable = true;
           aerospace.enable = false;
           database-suite.enable = true;
+          rustdesk.enable = true;
         };
       }
 
