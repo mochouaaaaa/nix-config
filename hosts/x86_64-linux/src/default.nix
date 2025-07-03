@@ -1,4 +1,4 @@
 {
   nixos = import ./nixos.nix;
-  ubuntu = import ./ubuntu.nix;
+  home-manager = import ./home-manager.nix;
 }

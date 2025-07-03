@@ -65,7 +65,7 @@ just switch
 <summary>Linux Build</summary>
 
 ```bash
-just ubuntu
+just home
 ```
 
 </details>

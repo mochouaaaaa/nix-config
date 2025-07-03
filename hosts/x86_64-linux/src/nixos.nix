@@ -12,9 +12,15 @@ let
       ../nixos
 
       {
-        modules.network.proxy.clash.enable = true;
-        modules.virtual = {
-          docker.enable = true;
+        modules = {
+          network.proxy.clash.enable = true;
+          virtual = {
+            docker.enable = true;
+          };
+
+          packages = {
+            database-suite.enable = true;
+          };
         };
       }
     ];

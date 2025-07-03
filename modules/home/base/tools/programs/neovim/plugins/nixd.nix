@@ -12,7 +12,7 @@ let
     else if pkgs.stdenv.isDarwin then
       "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options.home-manager.users.type.getSubOptions []"
     else
-      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.ubuntu.options";
+      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.home.options";
 in
 {
   home.packages = with pkgs-unstable; [

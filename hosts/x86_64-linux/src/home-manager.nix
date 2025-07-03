@@ -28,6 +28,6 @@ let
 in
 {
   homeConfigurations = {
-    ubuntu = getSystems.otherSystem modules;
+    home = getSystems.otherSystem modules;
   };
 }

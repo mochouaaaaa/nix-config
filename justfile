@@ -108,9 +108,9 @@ switch desktop="hyprland":
 @niri:
     just switch niri
 
-# home-manager ubuntu gnome environment
+# home-manager home environment
 [linux]
 [group('home-manager')]
-ubuntu:
-    home-manager switch --flake .#ubuntu --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+home:
+    home-manager switch --flake .#home-manager --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 

@@ -22,7 +22,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     gnumake
-    # nautilus
+    nautilus
+    ntfs3g
     xarchiver
   ];
 
