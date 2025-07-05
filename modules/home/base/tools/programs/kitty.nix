@@ -14,6 +14,13 @@ let
     rev = "main";
     hash = "sha256-f+uiesvd0Vdoef6X2kqmbd+4CX2TXdkUGwZdzaKg5bY=";
   };
+
+  kitty-themes = pkgs.fetchFromGitHub {
+    owner = "kovidgoyal";
+    repo = "kitty-themes";
+    rev = "master";
+    sha256 = "sha256-VqrG5yXjX/y7gjzBZqX9Ih6NPVGqQX0Pk3gxqkXbV0s=";
+  };
 in
 {
   options.modules.packages.kitty = {
@@ -108,6 +115,11 @@ in
       };
     };
 
-    xdg.configFile = config.dotfileLink "kitty";
+    xdg.configFile = config.dotfileLink "kitty" // {
+      "kitty/themes" = {
+        enabler = true;
+        source = "${kitty-themes}/themes";
+      };
+    };
   };
 }

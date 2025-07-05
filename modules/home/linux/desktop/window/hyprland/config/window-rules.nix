@@ -84,7 +84,8 @@ in
           "opacity 0.8 0.6, class:^(pcmanfm-qt)$"
           "opacity 0.8 0.7, class:^(gedit|org.gnome.TextEditor|mousepad)$"
           "opacity 0.9 0.8, class:^(deluge)$"
-          "opacity 0.8 0.7, class:^(Alacritty|kitty|kitty-dropterm)$" # Terminals
+          "opacity 0.75 0.75, class:^(Alacritty|kitty|kitty-dropterm)$" # Terminals
+          "opacity 0.75 0.75, class:^(jetbrains-pycharm)$"
           "opacity 0.9 0.7, class:^(VSCodium|codium-url-handler)$"
           "opacity 0.9 0.8, class:^(nwg-look|qt5ct|qt6ct|[Yy]ad)$"
           "opacity 0.9 0.8, title:(Kvantum Manager)"
