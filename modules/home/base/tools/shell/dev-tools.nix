@@ -17,7 +17,6 @@
 
   home.packages = with pkgs; [
     clipboard-jh
-    tree-sitter
 
     # db related
     pkgs-unstable.mycli

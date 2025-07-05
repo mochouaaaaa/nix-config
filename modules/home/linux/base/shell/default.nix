@@ -9,6 +9,9 @@ let
   cache = config.xdg.cacheHome;
 in
 rec {
+
+  imports = self.importModule' ./.;
+
   home.homeDirectory = "/home/${self.myvars.username}";
 
   # environment variables that always set at login
