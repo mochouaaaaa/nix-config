@@ -117,7 +117,7 @@ in
 
     xdg.configFile = config.dotfileLink "kitty" // {
       "kitty/themes" = {
-        enabler = true;
+        enable = true;
         source = "${kitty-themes}/themes";
       };
     };

@@ -1,5 +1,4 @@
 { self, ... }:
 {
-  # imports = self.importModule'  ./.;
-  imports = [ ./window ];
+  imports = self.importModule' ./.;
 }
