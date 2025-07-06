@@ -1,8 +1,39 @@
 { pkgs, ... }:
 {
+
+  xdg.configFile =
+    let
+      catppuccinTheme = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "bat";
+        rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
+        sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
+      };
+    in
+    {
+      "bat/themes" = {
+        recursive = true;
+        source = "${catppuccinTheme}/themes";
+      };
+    };
+
   programs = {
-    zsh.shellAliases = {
-      cat = "bat -p --style=plain";
+    zsh = {
+      shellAliases = {
+        cat = "bat -p --style=plain";
+      };
+      initContent = ''
+        alias bathelp="bat --plain --language=help";
+
+        help() {
+            "$@" --help 2>&1 | bathelp
+        }
+        alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+        alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+        BAT_THEME_DARK="Catppuccin Mocha"
+        BAT_THEME_LIGHT="Catppuccin Latte"
+      '';
     };
     bat = {
       enable = true;
@@ -13,23 +44,7 @@
         batgrep
         batwatch
       ];
-      themes = {
-        catppuccin-mocha =
-          let
-            catppuccinMochaTheme = pkgs.fetchFromGitHub {
-              owner = "catppuccin";
-              repo = "bat";
-              rev = "699f60fc8ec434574ca7451b444b880430319941";
-              sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
-            };
-          in
-          {
-            src = catppuccinMochaTheme + "/themes";
-            file = "Catppuccin Mocha.tmTheme";
-          };
-      };
       config = {
-        theme = "catppuccin-mocha";
         pager = "less -FRX";
       };
       syntaxes = {

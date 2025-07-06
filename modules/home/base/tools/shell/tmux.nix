@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -6,6 +7,18 @@
 {
   programs.tmux = {
     enable = true;
+    package = pkgs.tmux.overrideAttrs (
+      finalAttrs: prevAttrs: {
+        pname = "tmux-master";
+        version = "unstable-master";
+        src = pkgs.fetchFromGitHub {
+          owner = "tmux";
+          repo = "tmux";
+          rev = "7e439539377e272f37d18bb10dbff374b87acee6";
+          hash = "sha256-YY9CJ2Z6hjC4kGjRswlps4hya5Lk/ksM9luJHW8Cags=";
+        };
+      }
+    );
     prefix = "C-a";
     shortcut = "a";
     terminal = "tmux-256color";
@@ -137,26 +150,76 @@
       }
       {
         plugin = catppuccin;
-        extraConfig = ''
-          set -g @catppuccin_flavor "mocha"
-          set -g @catppuccin_status_background "#{@thm_bg}"
-          # set -g @catppuccin_status_background "none"
-          set -g @catppuccin_window_status_style "rounded"
+        extraConfig =
+          let
 
-          # Make the status line pretty and add some modules
-          set -g status-right-length 100
-          set -g status-left-length 100
-          set -g status-left ""
-          set -g status-right "#{E:@catppuccin_status_application} "
-          set -agF status-right "#{E:@catppuccin_status_cpu} "
-          set -ag status-right "#{E:@catppuccin_status_session} "
+            catppuccinPath = "${catppuccin}/share/tmux-plugins/catppuccin";
+            status_dir = "${catppuccin}/status";
+            status_utils = "${catppuccin}/utils";
 
-          set -g @catppuccin_status_left_separator  ""
-          set -g @catppuccin_status_connect_separator "no" # yes, no
-          set -g @catppuccin_status_right_separator ""
+            reset = pkgs.writeShellScriptBin "reset" ''
 
-          set -g status-position top
-        '';
+              set -euo pipefail
+
+              ${lib.getExe pkgs.ripgrep} -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' ${catppuccinPath}/**/*.conf | uniq | xargs -n1 -P0 tmux set -Ugq
+
+
+              modules=()
+
+              for filepath in "${status_dir}"/*.conf; do
+                  [ -e "$filepath" ] || continue
+                  filename="$(basename "$filepath" .conf)"
+                  modules+=("$filename")
+              done
+
+              for module in "''${modules[@]}"; do
+              conf_file="${status_dir}/''${module}.conf"
+
+              rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "$conf_file" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
+              rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "${status_utils}" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
+              done
+            '';
+
+            # https://github.com/catppuccin/tmux/issues/426
+            run = "tmux run-shell ${catppuccinPath}/catppuccin.tmux";
+
+            dark = pkgs.writeShellScriptBin "dark" ''
+              tmux run-shell ${lib.getExe reset}
+              tmux set -g @catppuccin_flavor 'mocha'
+              ${run}
+            '';
+
+            light = pkgs.writeShellScriptBin "light" ''
+              tmux run-shell ${lib.getExe reset}
+              tmux set -g @catppuccin_flavor 'latte'
+              ${run}
+            '';
+          in
+          ''
+            set-hook -g client-light-theme 'run-shell ${lib.getExe light}'
+            set-hook -g client-dark-theme 'run-shell ${lib.getExe dark}'
+
+            set -g @catppuccin_window_status_style "custom"
+            set -g @catppuccin_window_left_separator "#[bg=default,fg=#{@thm_surface_0}]#[bg=#{@thm_surface_0},fg=#{@thm_fg}]"
+            set -g @catppuccin_window_right_separator "#[bg=default,fg=#{@thm_surface_0}]"
+            set -g @catppuccin_window_current_left_separator "#[bg=default,fg=#{@thm_mauve}]#[bg=#{@thm_mauve},fg=#{@thm_bg}]"
+            set -g @catppuccin_window_current_middle_separator "#[fg=#{@thm_mauve}]█"
+            set -g @catppuccin_window_current_right_separator "#[bg=default,fg=#{@thm_surface_1}]"
+            set -g @catppuccin_status_background "none"
+
+            # Make the status line pretty and add some modules
+            set -g status-right-length 100
+            set -g status-left-length 100
+            set -g status-left ""
+            set -g status-right "#{E:@catppuccin_status_application} "
+            set -agF status-right "#{E:@catppuccin_status_cpu} "
+            set -ag status-right "#{E:@catppuccin_status_session} "
+
+            # set -g status-right " %H:%M %d-%b-%y [#{client_theme}]"
+
+            set -g status-position top
+
+          '';
       }
       sensible
       battery
@@ -178,7 +241,7 @@
       {
         plugin = continuum;
         extraConfig = ''
-          set -g @continuum-save-interval '10'
+          set -g @continuum-save-interval '5'
           set -g @continuum-restore 'on'
         '';
       }
