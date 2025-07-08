@@ -1,5 +1,4 @@
 {
-  self,
   pkgs,
   config,
   lib,
@@ -9,7 +8,7 @@ let
   cfg = config.modules.desktop.kde;
 in
 {
-  imports = self.importModule' ./.;
+  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfg.enable {
 

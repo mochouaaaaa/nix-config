@@ -1,4 +1,4 @@
-{ self, ... }:
+{ lib, ... }:
 {
   imports = [ ./jetbrains.nix ];
 }

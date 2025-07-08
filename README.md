@@ -3,6 +3,7 @@
 ## Install
 
 [nix installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#determinate-nix-installer)
+sh <(curl -L https://nixos.org/nix/install)
 
 ```bash
 

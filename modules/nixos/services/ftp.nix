@@ -1,6 +1,5 @@
 {
-  lib,
-  self,
+  myvars,
   ...
 }:
 {
@@ -10,7 +9,7 @@
     localUsers = true;
     localRoot = "/";
     userlistEnable = true;
-    userlist = [ self.myvars.username ];
+    userlist = [ myvars.username ];
     chrootlocalUser = true;
     allowWriteableChroot = true;
     extraConfig = ''

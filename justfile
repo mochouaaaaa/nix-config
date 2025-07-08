@@ -42,14 +42,19 @@ _update:
 
 # flake update
 [macos]
-update:
+@update:
     just _update
     nix flake update nix-darwin nixpkgs-darwin 
 
-# switch flake config
+# switch nix-darwin config
 [macos]
-switch:
+@switch:
     sudo darwin-rebuild switch --flake .#macos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+
+# switch home-manager config
+[macos]
+@home-darwin:
+    home-manager switch --flake .#mochou@darwin --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 
 # repl test environment
 [macos]
@@ -85,32 +90,56 @@ switch desktop="hyprland":
 # switch hyprland desktop environment
 [linux]
 [group('nixos desktop')]
-@hyprland:
+@nixos-hyprland:
     nix flake update rofi-tools swww hyprlux waybar
     just switch
 
 # switch kde desktop environment
 [linux]
 [group('nixos desktop')]
-@kde:
+@nixos-kde:
     nix flake update plasma-manager
     just switch kde
 
 # switch gnome desktop environment
 [linux]
 [group('nixos desktop')]
-@gnome:
+@nixos-gnome:
     just switch gnome
 
 # switch niri desktop environment
 [linux]
 [group('nixos desktop')]
-@niri:
+@nixos-niri:
     just switch niri
 
-# home-manager home environment
+# replace `name` with your home-manager configuration name
 [linux]
 [group('home-manager')]
-home:
-    home-manager switch --flake .#home-manager --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+@home name: 
+    home-manager switch --flake .#{{ name }} --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+
+# switch hyprland desktop environment
+[linux]
+[group('home-manager')]
+@home-hyprland:
+    DESKTOP=hyprland home-manager switch --flake .#mochou@nixos --impure
+
+# switch kde desktop environment
+[linux]
+[group('home-manager')]
+@home-kde:
+    DESKTOP=kde home-manager switch --flake .#mochou@nixos --impure 
+
+# switch gnome desktop environment
+[linux]
+[group('home-manager')]
+@home-gnome:
+    DESKTOP=gnome home-manager switch --flake .#mochou@nixos --impure
+
+# switch nir desktop environment
+[linux]
+[group('home-manager')]
+@home-niri:
+    DESKTOP=niri home-manager switch --flake .#mochou@nixos --impure
 

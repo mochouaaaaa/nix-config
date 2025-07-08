@@ -1,5 +1,4 @@
 {
-  self,
   lib,
   pkgs,
   config,
@@ -10,7 +9,7 @@ let
   cfg = config.modules.desktop.niri;
 in
 {
-  imports = self.importModule' ./. ++ [ inputs.niri.homeModules.niri ];
+  imports = lib.importModule' ./. ++ [ inputs.niri.homeModules.niri ];
 
   options.modules.desktop.niri = {
     enable = lib.mkOption {

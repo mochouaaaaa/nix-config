@@ -22,8 +22,6 @@ in
       systemd = {
         target = lib.mkForce "hyprland-session.target";
       };
-
     };
-
   };
 }

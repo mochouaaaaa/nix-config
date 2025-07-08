@@ -32,6 +32,5 @@ in
       source = "${pkgs.hyprland}/bin/Hyprland";
       executable = true;
     };
-
   };
 }

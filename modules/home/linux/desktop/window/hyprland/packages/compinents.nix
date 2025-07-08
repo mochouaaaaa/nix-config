@@ -10,8 +10,8 @@ in
   config = lib.mkIf cfg.enable {
 
     modules.desktop.component = {
-      ashell.enable = true;
-      waybar.enable = false;
+      ashell.enable = false;
+      waybar.enable = true;
       rofi.enable = true;
       wlogout.enable = true;
       swaync.enable = true;

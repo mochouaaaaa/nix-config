@@ -2,19 +2,19 @@
   config,
   lib,
   pkgs,
-  self,
+  myvars,
   ...
 }:
 let
   cfg = config.modules.packages.database-suite;
 
-  user = "${self.myvars.username}";
+  user = "${myvars.username}";
 in
 {
   options.modules.packages.database-suite = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Whether to enable databases packages.";
     };
   };

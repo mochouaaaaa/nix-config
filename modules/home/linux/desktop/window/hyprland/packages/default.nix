@@ -1,5 +1,4 @@
 {
-  self,
   config,
   lib,
   pkgs,
@@ -11,7 +10,7 @@ let
   cfg = config.modules.desktop.hyprland;
 in
 {
-  imports = self.importModule' ./.;
+  imports = lib.importModule' ./.;
   config = lib.mkIf cfg.enable {
 
     home.packages = with pkgs; [

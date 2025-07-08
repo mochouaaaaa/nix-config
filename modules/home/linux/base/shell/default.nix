@@ -1,6 +1,7 @@
 {
-  self,
+  lib,
   config,
+  myvars,
   ...
 }:
 let
@@ -10,9 +11,9 @@ let
 in
 rec {
 
-  imports = self.importModule' ./.;
+  imports = lib.importModule' ./.;
 
-  home.homeDirectory = "/home/${self.myvars.username}";
+  home.homeDirectory = "/home/${myvars.username}";
 
   # environment variables that always set at login
   home.sessionVariables = {

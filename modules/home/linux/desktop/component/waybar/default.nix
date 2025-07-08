@@ -10,7 +10,7 @@ let
   cfg = config.modules.desktop.component.waybar;
 in
 {
-  imports = self.importModule' ./.;
+  imports = lib.importModule' ./.;
 
   options.modules.desktop.component.waybar = {
     enable = lib.mkEnableOption "Waybar status bar" // {

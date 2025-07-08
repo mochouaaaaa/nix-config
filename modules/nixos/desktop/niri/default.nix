@@ -9,7 +9,7 @@ let
   cfgNiri = config.modules.desktop.niri;
 in
 {
-  imports = self.importModule' ./.;
+  imports = lib.importModule' ./.;
 
   options.modules.desktop.niri = {
     enable = lib.mkOption {

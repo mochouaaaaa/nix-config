@@ -55,7 +55,7 @@
     version = "LTS";
     src = fetchurl {
       url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
-      sha256 = "sha256-0z9O9YQ/yZa6+fQ6GBHXrVR1bl4oBS2koYOKbxLX2kM=";
+      sha256 = "sha256-vWK2SyIRzgyKPz+qeBh5IZPcgY5zhXYX38yIt5LsUW4=";
     };
   };
 }

@@ -16,10 +16,10 @@
         name = "nix flake plugins";
         packages = with pkgs; [
           bashInteractive
+          home-manager
           just
           nixd
           nvfetcher
-          home-manager
         ];
         shellHook = ''
           echo -e "\033[1;32m==> Welcome to Nix-Config ✅\033[0m"

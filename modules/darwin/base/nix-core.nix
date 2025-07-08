@@ -13,29 +13,11 @@
   #
   ###################################################################################
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Disable auto-optimise-store because of this issue:
   #   https://github.com/NixOS/nix/issues/7273
   # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
-  nix.settings = {
-    sandbox = true;
-    auto-optimise-store = false;
-  };
-
-  # use determanded nix-installer
-  nix = {
-    enable = false;
-    gc = {
-      # automatic = lib.mkDefault true;
-      # interval = [ { Weekday = 7; } ];
-      # options = lib.mkDefault "--delete-older-than 7d";
-    };
-  };
 
   system = {
-    stateVersion = 5;
     tools = {
       darwin-option.enable = true;
       darwin-rebuild.enable = true;

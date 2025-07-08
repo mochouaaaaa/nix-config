@@ -1,8 +1,8 @@
 {
-  self,
   pkgs,
   config,
   lib,
+  myvars,
   ...
 }:
 let
@@ -29,7 +29,7 @@ in
           package = lib.mkForce pkgs.kdePackages.sddm;
           settings = {
             Autologin = {
-              User = "${self.myvars.username}";
+              User = "${myvars.username}";
             };
           };
           theme = "WhiteSur-dark";

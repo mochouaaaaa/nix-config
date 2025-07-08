@@ -8,7 +8,7 @@ let
   cfg = config.programs.rofi;
 in
 {
-  imports = self.importModule' ./.;
+  imports = lib.importModule' ./.;
 
   config = lib.mkIf (cfg.enable) {
     xdg.configFile = {

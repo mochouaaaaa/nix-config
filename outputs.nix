@@ -1,21 +1,25 @@
 inputs@{ flake-parts, ... }:
-flake-parts.lib.mkFlake { inherit inputs; } (
-  let
-    systems = import inputs.systems;
-  in
-  {
-    inherit systems;
+flake-parts.lib.mkFlake { inherit inputs; } {
+  systems = import inputs.systems;
 
-    debug = true;
+  imports = [
+    ./flake-parts
 
-    imports = [
-      ./flake-parts
-      ./modules
-      ./hosts
-    ];
+    ./hosts
+    ./modules
 
-    flake = {
-      myvars = import ./vars;
+    ./overlays
+  ];
+
+  perSystem =
+    {
+      lib,
+      pkgs,
+      system,
+      ...
+    }:
+    {
+
+      packages = import ./packages { inherit pkgs; };
     };
-  }
-)
+}

@@ -1,8 +1,6 @@
 { lib, self, ... }:
 {
-  imports = self.importModule' ./. ++ [
-    self.baseModules
-
+  imports = lib.importModule' ./. ++ [
     ../desktop
   ];
 }

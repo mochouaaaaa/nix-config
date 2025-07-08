@@ -1,6 +1,6 @@
 {
-  self,
   pkgs,
+  myvars,
   ...
 }:
 {
@@ -20,15 +20,15 @@
         # "hosts allow" = "192.168.1.0/24"; # 替换为你的网段
       };
       "Share" = {
-        "path" = "/home/${self.myvars.username}/Share";
+        "path" = "/home/${myvars.username}/Share";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "yes";
         "create mask" = "0644";
         "directory mask" = "0755";
         # sudo smbpasswd -a mochou   # set password
-        "force user" = "${self.myvars.username}";
-        "force group" = "${self.myvars.username}";
+        "force user" = "${myvars.username}";
+        "force group" = "${myvars.username}";
       };
     };
   };

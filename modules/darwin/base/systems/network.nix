@@ -1,11 +1,8 @@
-let
-  hostname = "macos";
-in
 {
-  system.defaults.smb.NetBIOSName = hostname;
+  # system.defaults.smb.NetBIOSName = hostname;
 
   networking = {
-    hostName = hostname;
+    # hostName = hostname;
     computerName = "mochou’s MacBook Pro";
     knownNetworkServices = [
       "Wi-Fi"

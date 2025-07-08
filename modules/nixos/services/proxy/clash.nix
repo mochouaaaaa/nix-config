@@ -10,7 +10,7 @@ in
   options.modules.network.proxy.clash = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Whether to enable Clash proxy.";
     };
   };

@@ -17,13 +17,29 @@ let
 in
 {
   options.modules.virtual = {
-    virtualbox.enable = lib.mkEnableOption "VirtualBox";
-    vmware.enable = lib.mkEnableOption "VMware";
-    qemu.enable = lib.mkEnableOption "QEMU";
-    docker.enable = lib.mkEnableOption "Docker";
+    virtualbox.enable = lib.mkOption {
+      type = lib.types.bool;
+      description = "Whether to enable VirtualBox support.";
+      default = true;
+    };
+    vmware.enable = lib.mkOption {
+      type = lib.types.bool;
+      description = "Whether to enable VMware support.";
+      default = true;
+    };
+    qemu.enable = lib.mkOption {
+      type = lib.types.bool;
+      description = "Whether to enable QEMU support.";
+      default = true;
+    };
+    docker.enable = lib.mkOption {
+      type = lib.types.bool;
+      description = "Whether to enable Docker support.";
+      default = true;
+    };
   };
 
-  imports = self.importModule'  ./.;
+  imports = lib.importModule' ./.;
 
   config = lib.mkIf hasModules {
     # For Intel:

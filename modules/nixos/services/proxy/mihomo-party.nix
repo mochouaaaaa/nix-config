@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  self,
+  myvars,
   ...
 }:
 let
@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.${self.myvars.username}.packages = lib.mkAfter [ pkgs.mihomo-party ];
+    users.users.${myvars.username}.packages = lib.mkAfter [ pkgs.mihomo-party ];
     security.wrappers.mihomo-party = {
       owner = "root";
       group = "root";

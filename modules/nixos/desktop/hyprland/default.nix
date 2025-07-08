@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  self,
+  myvars,
   ...
 }:
 let
@@ -54,7 +54,7 @@ in
       greetd = {
         settings = {
           default_session = {
-            user = self.myvars.username;
+            user = myvars.username;
             # command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
             # command = lib.mkForce "${pkgs.dbus}/bin/dbus-run-session $HOME/.wayland-session";
             command = lib.mkForce "$HOME/.wayland-session";

@@ -1,10 +1,10 @@
 {
-  self,
+  lib,
   pkgs,
   ...
 }:
 {
-  imports = self.importModule'  ./.;
+  imports = lib.importModule' ./.;
 
   home.packages = with pkgs; [
     # Automatically trims your branches whose tracking remote refs are merged or gone
@@ -12,7 +12,7 @@
     git-trim
     gitleaks
 
-    # ++ lib.optionals self.myvars.packages.flameshot [
+    # ++ lib.optionals myvars.packages.flameshot [
     #   (flameshot.overrideAttrs (oldAttrs: rec {
     #     name = "flameshot-with-grim"; # 修改包名，避免冲突
     #     enableWlrSupport = true;

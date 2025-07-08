@@ -1,7 +1,7 @@
 {
-  self,
   config,
   lib,
+  myvars,
   ...
 }:
 let
@@ -25,7 +25,7 @@ in
           application_prefer_dark_theme = true;
         };
         background = {
-          path = "/home/${self.myvars.username}/.current_wallpaper";
+          path = "/home/${myvars.username}/.current_wallpaper";
         };
         widget.clock = {
           format = "%a %H:%M";
@@ -46,7 +46,7 @@ in
         settings = {
           terminal.vt = 1;
           default_session = {
-            user = self.myvars.username;
+            user = myvars.username;
           };
           # initial_session = default_session;
           # // {command = "sh -c 'sleep 2; ${default_session.command} '";};

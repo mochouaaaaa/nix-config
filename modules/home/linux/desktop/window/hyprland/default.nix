@@ -1,10 +1,9 @@
 {
-  self,
   lib,
   ...
 }:
 {
-  imports = self.importModule' ./. ++ [
+  imports = lib.importModule' ./. ++ [
     ../../component
   ];
 

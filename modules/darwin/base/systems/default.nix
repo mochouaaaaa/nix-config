@@ -1,6 +1,6 @@
-{ self, ... }:
+{ lib, myvars, ... }:
 {
-  imports = self.importModule' ./.;
+  imports = lib.importModule' ./.;
 
   # Add ability to used TouchID for sudo authentication
   security.pam.services = {
@@ -24,7 +24,7 @@
     #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     # '';
 
-    primaryUser = "${self.myvars.username}";
+    primaryUser = "${myvars.username}";
 
     defaults = {
       menuExtraClock.Show24Hour = true; # show 24 hour clock
