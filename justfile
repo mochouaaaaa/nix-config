@@ -49,7 +49,7 @@ _update:
 # switch nix-darwin config
 [macos]
 @switch:
-    sudo darwin-rebuild switch --flake .#macos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+    sudo darwin-rebuild switch --flake .#darwin --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
 
 # switch home-manager config
 [macos]

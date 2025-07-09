@@ -15,6 +15,25 @@
     rev = inputs.nixpkgs.rev;
   };
 
+  channel.enable = false;
+  gc =
+    {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    }
+    // lib.mkIf (pkgs.stdenv.isLinux) {
+      dates = "weekly";
+    }
+    // lib.mkIf (pkgs.stdenv.isDarwin) {
+      interval = [
+        {
+          Hour = 3;
+          Minute = 15;
+          Weekday = 7;
+        }
+      ];
+    };
+
   settings = lib.mkMerge [
 
     {
