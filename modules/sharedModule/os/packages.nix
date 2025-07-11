@@ -6,7 +6,7 @@
   lib,
   inputs,
   ...
-}@args:
+}:
 {
 
   environment.variables.EDITOR = "nvim --clean";

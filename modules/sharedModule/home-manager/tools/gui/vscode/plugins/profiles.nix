@@ -1,12 +1,24 @@
-{ pkgs, myvars, ... }:
+{
+  lib,
+  pkgs,
+  myvars,
+  isNixDarwin,
+  nixDarwinSystemName,
+  isNixos,
+  nixosSystemName,
+  nixd-name,
+  ...
+}:
 let
+  sysHostName = __elemAt (lib.strings.split "@" nixd-name) 2;
+
   homeExpr =
-    if pkgs.stdenv.isLinux then
-      "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options.home-manager.users.type.getSubOptions []"
-    else if pkgs.stdenv.isDarwin then
-      "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options.home-manager.users.type.getSubOptions []"
+    if isNixos then
+      "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${nixosSystemName}.options.home-manager.users.type.getSubOptions []"
+    else if isNixDarwin then
+      "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.${nixDarwinSystemName}.options.home-manager.users.type.getSubOptions []"
     else
-      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.home.options";
+      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.\"${nixd-name}\".options";
 
 in
 {
@@ -30,15 +42,28 @@ in
               "formatting" = {
                 "command" = [ "nixfmt" ];
               };
+              "pkgs" = {
+                "expr" = "import <nixpkgs> { }";
+              };
+              "pkgs-stable" = {
+                "expr" = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-stable {}";
+              };
+              "pkgs-unstable" = {
+                "expr" = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable {}";
+              };
               "options" = {
                 "nixos" = {
-                  "expr" = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options";
+                  "expr" = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${
+                    if nixosSystemName != "" then nixosSystemName else sysHostName
+                  }.options";
                 };
                 "home-manager" = {
                   "expr" = "${homeExpr}";
                 };
                 "nix-darwin" = {
-                  "expr" = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options";
+                  "expr" = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.${
+                    if nixDarwinSystemName != "" then nixDarwinSystemName else sysHostName
+                  }.options";
                 };
               };
             };

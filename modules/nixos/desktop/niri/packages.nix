@@ -20,6 +20,7 @@ in
     ];
 
     programs = {
+      ssh.startAgent = lib.mkForce false;
       nautilus-open-any-terminal = {
         enable = true;
         terminal = "kitty";

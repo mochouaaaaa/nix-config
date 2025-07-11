@@ -1,7 +1,7 @@
 {
   lib,
+  pkgs,
   config,
-  isLinux,
   myvars,
   ...
 }:
@@ -41,7 +41,7 @@
     };
   };
 
-  config = lib.mkIf isLinux {
+  config = lib.mkIf pkgs.stdenv.isLinux {
     targets.genericLinux.enable = true;
   };
 }

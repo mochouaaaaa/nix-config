@@ -2,51 +2,78 @@
   lib,
   pkgs,
   pkgs-unstable,
-  isLinux,
+  isNixDarwin,
+  nixDarwinSystemName,
+  isNixos,
+  nixosSystemName,
+  nixd-name,
   ...
 }:
 let
-  homeExpr =
-    if pkgs.stdenv.isLinux then
-      "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options.home-manager.users.type.getSubOptions []"
-    else if pkgs.stdenv.isDarwin then
-      "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options.home-manager.users.type.getSubOptions []"
-    else
-      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.home.options";
+  sysHostName = __elemAt (lib.strings.split "@" nixd-name) 2;
 in
 {
   home.packages = with pkgs-unstable; [
-    # nix
-    # nil
     nixd
     nixfmt-rfc-style
   ];
 
-  programs.nixvim.extraConfigLuaPost = ''
-    local nvim_lsp = require("lspconfig")
-    nvim_lsp.nixd.setup({
+  programs.nixvim = {
+    globals = {
+      is_darwin = isNixDarwin;
+      is_nixos = isNixos;
+    };
+    extraConfigLuaPost = ''
+      local nixd_lsp_config = function()
+          local opts = {}
+          local nixd_name = "${nixd-name}"
+
+          if vim.g.is_darwin then
+              opts.nix_darwin = {
+                  expr = '(builtins.getFlake (builtins.toString ./.)).darwinConfigurations."${
+                    if nixDarwinSystemName != "" then nixDarwinSystemName else sysHostName
+                  }".options'
+              }
+          end
+
+          if vim.g.is_nixos then
+              opts.nixos = {
+                  expr = '(builtins.getFlake (builtins.toString ./.)).nixosConfigurations."${
+                    if nixosSystemName != "" then nixosSystemName else sysHostName
+                  }".options'
+              }
+          end
+
+          if nixd_name ~= "" then
+              opts.home_manager = {
+                  expr = '(builtins.getFlake (builtins.toString ./.)).homeConfigurations."${nixd-name}".options'
+              }
+          end
+
+          return opts
+      end
+
+      local nvim_lsp = require("lspconfig")
+      nvim_lsp.nixd.setup({
        cmd = { "nixd" },
        settings = {
           nixd = {
-             nixpkgs = {
+             pkgs = {
                 expr = "import <nixpkgs> { }",
+             },
+             ["pkgs-stable"] = {
+                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-stable {}",
+             },
+             ["pkgs-unstable"] = {
+                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable {}",
              },
              formatting = {
                 command = { "nixfmt" },
              },
-             options = {
-                nixos = {
-                   expr = '(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.nixos.options',
-                },
-                home_manager = {
-                   expr = "${homeExpr}",
-                },
-                nix_darwin = {
-                   expr = '(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.macos.options',
-                },
-             },
+             options = nixd_lsp_config(),
           },
        },
-    })
-  '';
+      })
+    '';
+  };
 }

@@ -18,12 +18,23 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.${myvars.username}.packages = lib.mkAfter [ pkgs.mihomo-party ];
+
+    environment = {
+      systemPackages = with pkgs; [
+        mihomo-party-wrapper
+        (makeAutostartItem {
+          name = "mihomo-party";
+          package = pkgs.mihomo-party-wrapper;
+        })
+      ];
+    };
+
     security.wrappers.mihomo-party = {
       owner = "root";
       group = "root";
-      capabilities = "cap_net_bind_service,cap_net_admin=+ep";
-      source = "${lib.getExe pkgs.mihomo-party}";
+      capabilities = "cap_net_bind_service,cap_net_raw,cap_net_admin=+ep";
+      source = "${lib.getExe pkgs.mihomo-party-wrapper}";
     };
+
   };
 }
