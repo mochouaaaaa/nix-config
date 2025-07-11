@@ -41,7 +41,7 @@ let
           apply = userValue: default ++ userValue;
         };
 
-        homeDisables = lib.mkOption {
+        homeModules = lib.mkOption {
           type = types.listOf types.attrs;
           default = [ ];
           description = "List of home-manager modules to disable.";
@@ -63,27 +63,51 @@ let
 
       config._nixos = withSystem "${config.system}" (
         ctx:
-        inputs.nixpkgs.lib.nixosSystem {
+        let
+          inherit (inputs) home-manager nixos-generators;
 
-          specialArgs = ctx.extraModuleArgs // {
-            inherit (ctx) lib;
-          };
+          specialArgs =
+            ctx.extraModuleArgs
+            // {
+              inherit (ctx) lib;
+            }
+            // {
+              isNixos = true;
+              nixosSystemName = name;
+            };
+
+        in
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
 
           modules =
-            config.modules
+            [ nixos-generators.nixosModules.all-formats ]
+            ++ config.modules
             ++ [
               # Shared configuration across all NixOS machines
               self.sharedModules.os
             ]
-            ++ config.homeDisables
             ++ config.nixosDisables
+            ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "home-manager.backup";
+
+                home-manager.extraSpecialArgs = specialArgs;
+                home-manager.users."${name}".imports = config.homeModules;
+              }
+            ])
             ++ [
               (
                 { pkgs, ... }:
                 {
                   inherit (ctx)
                     nix
+                    nixpkgs
                     ;
+                  _module.args = ctx.extraModuleArgs;
                   networking.hostName = name;
 
                   system = {

@@ -39,11 +39,7 @@ let
         modules = lib.mkOption rec {
           type = types.listOf types.unspecified;
           description = "List of home-manager modules to include in the configuration.";
-          default = [
-            {
-              # nixpkgs.config.;
-            }
-          ];
+          default = [ ];
           apply = userValue: default ++ userValue;
 
         };
@@ -74,6 +70,7 @@ let
             config = {
               allowUnfree = true;
               allowBroken = true;
+              allowUnsupportedSystem = true;
               permittedInsecurePackages = [
                 "openssl-1.1.1w"
                 "ventoy-1.1.05"
@@ -81,9 +78,19 @@ let
             };
           };
 
-          extraSpecialArgs = ctx.extraModuleArgs // {
-            inherit (ctx) lib;
-          };
+          extraSpecialArgs =
+            ctx.extraModuleArgs
+            // {
+              inherit (ctx) lib;
+            }
+            // {
+              nixd-name = name;
+              # 以下参数是给nixos/nix-darwin 分开使用home-manager时参数兼容
+              isNixDarwin = false;
+              isNixos = false;
+              nixDarwinSystemName = "";
+              nixosSystemName = "";
+            };
 
           modules =
             config.modules

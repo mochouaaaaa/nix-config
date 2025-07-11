@@ -42,7 +42,7 @@ let
 
         };
 
-        homeDisables = lib.mkOption {
+        homeModules = lib.mkOption {
           type = types.listOf types.attrs;
           default = [ ];
           description = "List of home-manager modules to disable.";
@@ -63,26 +63,49 @@ let
 
       config._darwin = withSystem config.system (
         ctx:
-        inputs.nix-darwin.lib.darwinSystem {
-          specialArgs = ctx.extraModuleArgs // {
-            inherit (ctx) lib;
-          };
+        let
+          inherit (inputs) nix-darwin home-manager;
 
+          specialArgs =
+            ctx.extraModuleArgs
+            // {
+              inherit (ctx) lib;
+            }
+            // {
+              isNixDarwin = true;
+              nix-darwinSystemName = name;
+            };
+
+        in
+        inputs.nix-darwin.lib.darwinSystem {
+
+          inherit specialArgs;
           inherit inputs;
           inherit (ctx) system;
 
           modules =
-            config.modules
+            nix-darwin
+            ++ config.modules
             ++ config.darwinDisables
-            ++ config.homeDisables
             ++ [
               self.sharedModules.os
             ]
+            ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
+              home-manager.darwinModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "home-manager.backup";
+
+                home-manager.extraSpecialArgs = specialArgs;
+                home-manager.users."${name}".imports = config.homeModules;
+              }
+            ])
             ++ [
               (
                 { pkgs, ... }:
                 {
-                  inherit (ctx) nix;
+                  inherit (ctx) nix nixpkgs;
                   networking.hostName = name;
                   system.defaults.smb.NetBIOSName = name;
                   system.stateVersion = config.stateVersion;

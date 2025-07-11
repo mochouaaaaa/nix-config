@@ -25,8 +25,7 @@
       ...
     }:
     let
-      customPkgs = import ./packages.nix { inherit inputs system; };
-      isNixos = builtins.pathExists "/etc/nixos";
+      customPkgs = import ./packages.nix { inherit inputs system lib; };
       myvars = import ../config.nix;
     in
     {
@@ -43,13 +42,23 @@
             ;
         };
 
+        # nixpkgs configuration (not the flake input)
+        nixpkgs = {
+          config = lib.mkForce {
+            allowBroken = true;
+            allowUnfree = true;
+            tarball-ttl = 0;
+
+            # Experimental options, disable if you don't know what you are doing!
+            contentAddressedByDefault = false;
+          };
+
+          hostPlatform = system;
+        };
+
         # Extra arguments passed to the module system for nix-darwin, NixOS, and home-manager
         extraModuleArgs =
           {
-            inherit isNixos;
-            isLinux = pkgs.stdenv.isLinux && !isNixos;
-          }
-          // {
             inherit
               self'
               inputs'
@@ -60,7 +69,6 @@
           }
           // {
             inherit (customPkgs)
-              nixpkgs
               pkgs-unstable
               pkgs-stable
               nvfetcherSources

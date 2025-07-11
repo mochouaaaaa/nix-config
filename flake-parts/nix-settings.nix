@@ -23,15 +23,6 @@
     }
     // lib.mkIf (pkgs.stdenv.isLinux) {
       dates = "weekly";
-    }
-    // lib.mkIf (pkgs.stdenv.isDarwin) {
-      interval = [
-        {
-          Hour = 3;
-          Minute = 15;
-          Weekday = 7;
-        }
-      ];
     };
 
   settings = lib.mkMerge [
@@ -40,7 +31,6 @@
       keep-outputs = true;
       keep-derivations = true;
       keep-going = true;
-      # lazy-trees = true;
       builders-use-substitutes = true;
       allow-unsafe-native-code-during-evaluation = true;
       accept-flake-config = true;
