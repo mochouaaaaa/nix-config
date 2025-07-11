@@ -54,7 +54,7 @@ _update:
 # switch home-manager config
 [macos]
 @home-darwin:
-    home-manager switch --flake .#mochou@darwin --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+    home-manager switch --flake .#mochou@darwin --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store" -b backup
 
 # repl test environment
 [macos]
@@ -123,23 +123,23 @@ switch desktop="hyprland":
 [linux]
 [group('home-manager')]
 @home-hyprland:
-    DESKTOP=hyprland home-manager switch --flake .#mochou@nixos --impure
+    DESKTOP=hyprland home-manager switch --flake .#mochou@nixos --impure -b backup
 
 # switch kde desktop environment
 [linux]
 [group('home-manager')]
 @home-kde:
-    DESKTOP=kde home-manager switch --flake .#mochou@nixos --impure 
+    DESKTOP=kde home-manager switch --flake .#mochou@nixos --impure -b backup
 
 # switch gnome desktop environment
 [linux]
 [group('home-manager')]
 @home-gnome:
-    DESKTOP=gnome home-manager switch --flake .#mochou@nixos --impure
+    DESKTOP=gnome home-manager switch --flake .#mochou@nixos --impure -b backup
 
 # switch nir desktop environment
 [linux]
 [group('home-manager')]
 @home-niri:
-    DESKTOP=niri home-manager switch --flake .#mochou@nixos --impure
+    DESKTOP=niri home-manager switch --flake .#mochou@nixos --impure -b backup
 

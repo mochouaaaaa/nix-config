@@ -19,7 +19,6 @@ flake-parts.lib.mkFlake { inherit inputs; } {
       ...
     }:
     {
-
       packages = import ./packages { inherit pkgs; };
     };
 }
