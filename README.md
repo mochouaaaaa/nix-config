@@ -2,15 +2,18 @@
 
 ## Install
 
-[nix installer](https://github.com/DeterminateSystems/nix-installer?tab=readme-ov-file#determinate-nix-installer)
-sh <(curl -L https://nixos.org/nix/install)
-
 ```bash
 
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+# curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+# or
+
+sh <(curl -L https://nixos.org/nix/install)
+```
 
 # darwin
-sudo nix run nix-darwin/master#darwin-rebuild -- switch
+
+```base
+nix profile install github:LnL7/nix-darwin
 
 ```
 
@@ -19,34 +22,46 @@ sudo nix run nix-darwin/master#darwin-rebuild -- switch
 <details>
     <summary>目录结构</summary>
 
-```txt
-.
-├── README.md
+```text
+
+├── config.nix
 ├── flake.lock
-├── flake.nix                 // flake 源
-├── hosts
+├── flake.nix
+├── flake-parts
+│   ├── darwin.nix               # nix-darwin
 │   ├── default.nix
-│   ├── x86_64-darwin         // darwin x86_64架构
-│   └── x86_64-linux          // linux x86_64架构,包含nixos和非nixos系统
-├── lib
-│   ├── attrs.nix
+│   ├── dev-shells               # shell环境
+│   ├── home-manager.nix         # home-manager
+│   ├── imports.nix              # import
+│   ├── nixos.nix                # nixos
+│   ├── nix-settings.nix         # nix-settings
+│   └── packages.nix             # nixpkgs
+├── hosts         # 主机配置文件
+│   ├── darwin.nix   # darwin主机配置入口文件
 │   ├── default.nix
-│   ├── macosSystem.nix       // darwin 配置入口
-│   ├── nix.nix
-│   ├── nixosSystem.nix       // nixos 配置入口
-│   └── otherSystem.nix       // 非Nixos 配置入口
-├── modules
-│   ├── base.nix
-│   ├── darwin                // darwin 系统配置
+│   ├── nixos    # nixos主机配置文件
+│   └── nixos.nix   # nixos主机配置入口文件
+├── justfile      # 启动脚本
+├── modules       # 模块
+│   ├── darwin       # darwin模块
 │   ├── default.nix
-│   ├── home                  // home-manager 配置
-│   └── nixos                 // nixos 系统配置
+│   ├── home         # home-manager模块
+│   ├── nixos         # nixos模块
+│   └── sharedModule  # 共享模块
+├── nvfetcher.toml
 ├── outputs.nix
-├── templates
+├── overlays      # overlays
+│   ├── darwin.nix
 │   ├── default.nix
-│   └── flake-parts
-└── vars                      // 全局变量
-    └── default.nix
+│   ├── home-manager.nix
+│   ├── nixos.nix
+│   └── pkgs
+├── packages      # custom build pkgs
+│   └── default.nix
+├── README.md
+└── _sources     # pin pkgs
+    ├── generated.json
+    └── generated.nix
 ```
 
 </details>
@@ -57,7 +72,11 @@ sudo nix run nix-darwin/master#darwin-rebuild -- switch
 <summary>Macos Build</summary>
 
 ```bash
+# nix-darwin
 just switch
+
+# home-manager
+just home-darwin
 ```
 
 </details>
@@ -66,7 +85,10 @@ just switch
 <summary>Linux Build</summary>
 
 ```bash
-just home
+# nixos
+just nixos-hyprland # or nixos-gnome, nixos-kde, nixos-niri
+
+
 ```
 
 </details>
@@ -75,35 +97,12 @@ just home
 <summary>Nixos Build</summary>
 
 ```bash
-# desktop default `hyprlan`, `gnome`, `kde`, `niri`
-just switch
+# nixos
+just nixos-hyprland # or nixos-gnome, nixos-kde, nixos-niri
+
+# home-manager
+just home-hyprland # or home-gnome, home-kde, home-niri
+
 ```
 
-</details>
-
-## Image
-
-<details>
-<summary>Hyprland</summary>
-
-![桌面](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/quanping.png)
-
-![截图剪切板](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/jietu.png)
-
-</details>
-
-<details>
-<summary>Gnome</summary>
-
-![桌面](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/desktop.png)
-
-![apps](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/app.png)
-
-![panel](https://raw.githubusercontent.com/mochouaaaaa/issus_assert/master/panel.png)
-
-</details>
-
-<details>
-<summary>KDE</summary>
-![]
 </details>
