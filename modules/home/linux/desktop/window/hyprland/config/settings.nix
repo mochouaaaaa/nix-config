@@ -24,9 +24,9 @@ in
         };
 
         general = {
-          border_size = 2;
-          gaps_in = 6;
-          gaps_out = 8;
+          border_size = 1;
+          gaps_in = 3;
+          gaps_out = 4;
 
           resize_on_border = true;
 

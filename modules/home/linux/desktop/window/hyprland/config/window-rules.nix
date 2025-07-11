@@ -168,7 +168,7 @@ in
           "blur, class:^(swww)$"
 
           # blur waybar
-          "blur, waybar"
+          # "blur, waybar"
 
           # blur swaync
           "blur, swaync-control-center"

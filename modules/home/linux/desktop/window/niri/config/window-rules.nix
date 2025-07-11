@@ -33,6 +33,10 @@ in
               app-id = "^(org.gnome.Nautilus|nm-connection-editor)$";
             }
             {
+              app-id = "pot";
+              title = "Translate";
+            }
+            {
               app-id = "firefox";
               title = "Picture-in-Picture";
             }
@@ -70,9 +74,9 @@ in
         {
           opacity = 0.85;
           excludes = [
-            {
-              app-id = "^kitty$";
-            }
+            # {
+            #   app-id = "^fcitx5$";
+            # }
           ];
         }
         {
@@ -104,12 +108,12 @@ in
         }
         {
           # obs
-          matches = [
-            {
-              app-id = "^(org.keepassxc.KeePassXC|org.gnome.World.Secrets|Bitwarden).*$";
-            }
-          ];
-          block-out-from = "screencast";
+          # matches = [
+          #   {
+          #     app-id = "^(org.keepassxc.KeePassXC|org.gnome.World.Secrets|Bitwarden).*$";
+          #   }
+          # ];
+          # block-out-from = "screencast";
         }
       ];
 

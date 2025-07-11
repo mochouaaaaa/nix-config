@@ -23,10 +23,4 @@
     text = "Suspend";
     keybind = "d";
   }
-  {
-    label = "lock";
-    action = "hyprlock";
-    text = "Lock Screen";
-    keybind = "k";
-  }
 ]

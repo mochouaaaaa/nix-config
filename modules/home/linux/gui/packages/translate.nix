@@ -45,8 +45,23 @@ in
       tesseract
     ];
 
+    systemd.user.services.pot = {
+      Unit = {
+        Description = "Pot translation daemon";
+        After = [ "network.target" ];
+      };
+      Service = {
+        ExecStart = "${lib.getExe pkgs.pot}";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
+
     xdg.configFile = {
       "autostart/pot-app.desktop" = {
+        enable = false;
         text = ''
           [Desktop Entry]
           Type=Application

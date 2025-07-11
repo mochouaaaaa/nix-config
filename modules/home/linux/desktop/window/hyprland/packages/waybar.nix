@@ -12,9 +12,10 @@ in
   config = lib.mkIf cfg.enable {
 
     programs'.waybar'.settings = {
-      modules-left = lib.mkAfter [ "hyprland/window" ];
-      modules-center = lib.mkAfter [
+      modules-left = [
         "hyprland/workspaces#icon"
+      ];
+      modules-center = [
       ];
     };
 

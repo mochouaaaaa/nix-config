@@ -31,8 +31,8 @@ in
           "ActiveWindowScreenShot" = "none";
           "FullScreenScreenShot" = "none";
           "RecordRegion" = "none";
-          "RectangularRegionScreenShot" = "Meta+Ctrl+A";
-          "WindowUnderCursorScreenShot" = "Meta+Ctrl+S";
+          # "RectangularRegionScreenShot" = "Meta+Ctrl+A";
+          # "WindowUnderCursorScreenShot" = "Meta+Ctrl+S";
           "_launch" = "none";
         };
       };

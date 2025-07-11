@@ -10,9 +10,10 @@ in
   config = lib.mkIf cfg.enable {
 
     programs'.waybar'.settings = {
-      modules-left = lib.mkAfter [ "niri/window" ];
-      modules-center = lib.mkAfter [
+      modules-left = [
         "niri/workspaces#icon"
+      ];
+      modules-center = [
       ];
     };
 

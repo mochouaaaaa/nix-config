@@ -18,10 +18,18 @@
         nixosDisables = [
           {
             modules = {
+              network.proxy.mihomo-party.enable = true;
               virtual = {
                 virtualbox.enable = false;
                 vmware.enable = false;
                 qemu.enable = false;
+              };
+              packages = {
+                steam = {
+                  enable = true;
+                  monitor = "DP-1";
+                  bg = 892387259;
+                };
               };
             };
           }

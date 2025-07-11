@@ -18,7 +18,7 @@ in
           # environment-variables
           "CLUTTER_BACKEND,wayland"
           "SDL_VIDEODRIVER,wayland"
-          "GDK_BACKEND,wayland,x11,*"
+          # "GDK_BACKEND,wayland,x11,*"
           "QT_AUTO_SCREEN_SCALE_FACTOR,1"
           "QT_QPA_PLATFORM,wayland;xcb"
           "GDK_DPI_SCALE,1"

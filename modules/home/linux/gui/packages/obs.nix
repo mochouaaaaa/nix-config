@@ -44,7 +44,6 @@
           obs-vkcapture
           obs-gstreamer
           obs-3d-effect
-          input-overlay
           obs-multi-rtmp
           obs-source-clone
           obs-shaderfilter
