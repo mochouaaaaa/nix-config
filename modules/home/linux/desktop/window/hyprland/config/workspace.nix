@@ -18,6 +18,9 @@ in
           "$mod, 4, workspace, name:tencent"
           "$mod, 5, workspace, name:steam"
           "$mod, 6, workspace, name:obs"
+          "$mod CTRL, 1, togglespecialworkspace, music"
+          "$mod CTRL, 2, togglespecialworkspace, tg"
+          "$mod CTRL, 3, togglespecialworkspace, wechat"
 
           # Move active window and follow to workspace mainMod + SHIFT [1-5]
           "$mod SHIFT, 1, movetoworkspace, name:code"
@@ -46,6 +49,8 @@ in
           "workspace name:tencent, class:^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$"
           "workspace name:tencent, class:^([Ff]erdium)$"
           "workspace name:tencent, class:^([Ww]hatsapp-for-linux)$"
+          "workspace special:music, class:^(Spotify)$"
+          "workspace special:tg, class:io.github.kukuruzka165.materialgram"
         ];
         exec-once = [
           "hyprctl dispatch workspace name:code"
