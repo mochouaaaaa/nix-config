@@ -49,12 +49,12 @@ _update:
 # switch nix-darwin config
 [macos]
 @switch:
-    sudo darwin-rebuild switch --flake .#darwin --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+    sudo darwin-rebuild switch --flake .#darwin --impure
 
 # switch home-manager config
 [macos]
 @home-darwin:
-    home-manager switch --flake .#mochou@darwin --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store" -b backup
+    home-manager switch --flake .#mochou@darwin --impure -b backup
 
 # repl test environment
 [macos]
@@ -80,7 +80,7 @@ _reset_dconf:
 [linux]
 switch desktop="hyprland":
     # just _reset_dconf
-    HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild switch --flake .#nixos --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+    HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild switch --flake .#nixos --impure
 
 # repl test environment
 [linux]
@@ -117,7 +117,7 @@ switch desktop="hyprland":
 [linux]
 [group('home-manager')]
 @home name: 
-    home-manager switch --flake .#{{ name }} --impure --option substituters "https://mirrors.cernet.edu.cn/nix-channels/store"
+    home-manager switch --flake .#{{ name }} --impure
 
 # switch hyprland desktop environment
 [linux]

@@ -13,8 +13,6 @@ rec {
 
   imports = lib.importModule' ./.;
 
-  home.homeDirectory = "/home/${myvars.username}";
-
   # environment variables that always set at login
   home.sessionVariables = {
     # clean up ~

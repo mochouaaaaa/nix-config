@@ -1,23 +1,32 @@
-{ inputs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
+  home.packages = with pkgs; [
+    flatpak-wrapper
+  ];
+
   services = {
     flatpak = {
       enable = true;
-      remotes = [
+      remotes = lib.mkOptionDefault [
         {
           name = "flathub";
           location = "https://flathub.org/repo/flathub.flatpakrepo";
         }
       ];
+      uninstallUnmanaged = false;
       update.auto = {
-        # enable = true;
-        # onCalendar = "weekly";
+        enable = false;
       };
-      # packages = ["io.github.flattool.Warehouse" "org.virt_manager.virt-manager"];
+      packages = [ "io.github.flattool.Warehouse" ];
     };
   };
 }
