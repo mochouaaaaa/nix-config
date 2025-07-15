@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.waybar;
+  cfg = config.programs.waybar;
   cfg-settings = config.programs'.waybar'.settings;
 in
 {
@@ -19,7 +19,9 @@ in
     };
     modules-center = lib.mkOption rec {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [
+        "custom/music"
+      ];
       description = "List of modules to be displayed in the center of the bar.";
       apply = userValue: default ++ userValue;
 
@@ -38,11 +40,8 @@ in
           margin-left = 10;
           margin-right = 10;
           margin-top = 2;
-          modules-left = [
-          ] ++ cfg-settings.modules-left;
-          modules-center = [
-            "custom/music"
-          ] ++ cfg-settings.modules-center;
+          modules-left = cfg-settings.modules-left;
+          modules-center = cfg-settings.modules-center;
           modules-right = [
             "battery"
             "tray"

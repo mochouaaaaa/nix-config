@@ -169,7 +169,7 @@ in
       };
     };
 
-    modules.shortcuts.global = lib.mkAfter [
+    modules.shortcuts.global = [
       {
         "ALT-a" = {
           launch = [

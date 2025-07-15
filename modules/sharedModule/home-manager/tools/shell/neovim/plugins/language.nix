@@ -21,7 +21,8 @@
       # go
       gopls
       gotools
-      revive
+      gofumpt
+      # revive
       delve
       goimports-reviser
 

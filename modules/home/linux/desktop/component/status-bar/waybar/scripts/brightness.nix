@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.waybar;
+  cfg = config.programs.waybar;
 in
 {
   config = lib.mkIf cfg.enable {

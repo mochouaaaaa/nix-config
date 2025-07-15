@@ -4,6 +4,28 @@
   outputs = inputs: import ./outputs.nix inputs;
   # the nixConfig here only affects the flake itself, not the system configuration!
 
+  # the nixConfig here only affects the flake itself, not the system configuration!
+  # for more information, see:
+  #     https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
+  nixConfig = {
+    trusted-substituters = [
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
+      "https://nix-mirror.freetls.fastly.net?priority=11"
+      "https://cache.nixos.org?priority=12"
+      "https://nix-community.cachix.org?priority=13"
+      "https://niri.cachix.org"
+      "https://walker-git.cachix.org"
+    ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+    ];
+  };
+
   inputs = {
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -20,6 +42,9 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # global themes
+    catppuccin.url = "github:catppuccin/nix";
 
     # for macos
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -94,6 +119,8 @@
     };
 
     swww.url = "github:LGFae/swww";
+    # walker.url = "github:abenz1267/walker";
+    walker.url = "path:./walker";
     rofi-tools = {
       url = "github:szaffarano/rofi-tools";
       inputs = {

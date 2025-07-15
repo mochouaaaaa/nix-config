@@ -10,6 +10,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+
     home.packages = with pkgs; [
       inputs.rofi-tools.packages.${pkgs.system}.rofi-cliphist
       (writeShellScriptBin "clip-manager" ''

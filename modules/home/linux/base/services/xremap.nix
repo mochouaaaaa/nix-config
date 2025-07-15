@@ -13,10 +13,11 @@ in
   ];
 
   options.modules.shortcuts = {
-    global = lib.mkOption {
+    global = lib.mkOption rec {
       type = lib.types.listOf lib.types.attrs;
-      default = [ { } ];
+      default = [ ];
       description = "Global shortcuts.";
+      apply = userValue: default ++ userValue;
     };
   };
 

@@ -5,18 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.rofi;
+  cfg = config.modules.desktop.component.launcher.rofi;
 
   keymaps =
     [
       {
-        "SUPER-SPACE" = {
-          launch = [
-            "bash"
-            "-c"
-            "rofi -show drun"
-          ];
-        };
         "SUPER-P" = {
           launch = [
             "bash"
@@ -40,13 +33,8 @@ in
     ./themes
   ];
 
-  options.modules.desktop.component.rofi = {
-    enable = lib.mkEnableOption "Rofi" // {
-      default = false;
-    };
-  };
-
   config = lib.mkIf cfg.enable {
+
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
@@ -65,6 +53,7 @@ in
       };
     };
 
-    modules.shortcuts.global = lib.mkAfter keymaps;
+    modules.desktop.component.launcher._commands = "rofi -show drun";
+    modules.shortcuts.global = keymaps;
   };
 }

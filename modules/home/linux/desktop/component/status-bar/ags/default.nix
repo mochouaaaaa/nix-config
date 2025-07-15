@@ -6,18 +6,10 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.ags;
+  cfg = config.modules.desktop.component.status-bar.ags;
 in
 {
   imports = [ inputs.ags.homeManagerModules.default ];
-
-  options.modules.desktop.component.ags = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Whether to enable AGS (Adventure Game Studio) component.";
-    };
-  };
 
   config = lib.mkIf cfg.enable {
 

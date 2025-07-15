@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.waybar;
+  cfg = config.programs.waybar;
 in
 {
 

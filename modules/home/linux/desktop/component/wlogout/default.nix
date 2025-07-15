@@ -8,6 +8,7 @@ let
   cfg = config.modules.desktop.component.wlogout;
 in
 {
+
   options.modules.desktop.component.wlogout = {
     enable = lib.mkEnableOption "wlogout" // {
       default = false;

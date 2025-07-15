@@ -12,8 +12,12 @@ in
 
     modules.desktop = {
       component = {
-        waybar.enable = true;
-        rofi.enable = true;
+        launcher = {
+          rofi.enable = true;
+        };
+        status-bar = {
+          waybar.enable = true;
+        };
         wlogout.enable = true;
         swaync.enable = true;
         swaylock.enable = true;

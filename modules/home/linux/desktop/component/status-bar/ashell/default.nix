@@ -5,15 +5,9 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.ashell;
+  cfg = config.modules.desktop.component.status-bar.ashell;
 in
 {
-
-  options.modules.desktop.component.ashell = {
-    enable = lib.mkEnableOption "Ashell" // {
-      default = false;
-    };
-  };
 
   config = lib.mkIf cfg.enable {
 

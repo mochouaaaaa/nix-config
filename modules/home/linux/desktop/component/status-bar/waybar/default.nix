@@ -7,16 +7,10 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.waybar;
+  cfg = config.modules.desktop.component.status-bar.waybar;
 in
 {
   imports = lib.importModule' ./.;
-
-  options.modules.desktop.component.waybar = {
-    enable = lib.mkEnableOption "Waybar status bar" // {
-      default = false;
-    };
-  };
 
   config = lib.mkIf cfg.enable {
 

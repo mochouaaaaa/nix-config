@@ -17,7 +17,7 @@
     };
     zsh = rec {
       enable = true;
-      enableCompletion = false;
+      enableCompletion = true;
       syntaxHighlighting = {
         enable = true;
         package = pkgs.zsh-syntax-highlighting;
