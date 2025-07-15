@@ -109,6 +109,15 @@ let
                 }:
                 {
 
+                  nix =
+                    (removeAttrs ctx.nix [
+                      "channel"
+                      "gc"
+                    ])
+                    // {
+                      package = pkgs.nix;
+                    };
+
                   home = {
                     username = __elemAt (lib.strings.split "@" name) 0;
                     enableNixpkgsReleaseCheck = false;

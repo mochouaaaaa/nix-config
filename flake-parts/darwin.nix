@@ -77,15 +77,14 @@ let
             };
 
         in
-        inputs.nix-darwin.lib.darwinSystem {
+        nix-darwin.lib.darwinSystem {
 
           inherit specialArgs;
           inherit inputs;
           inherit (ctx) system;
 
           modules =
-            nix-darwin
-            ++ config.modules
+            config.modules
             ++ config.darwinDisables
             ++ [
               self.sharedModules.os
