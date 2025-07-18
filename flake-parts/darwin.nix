@@ -32,6 +32,8 @@ let
           type = types.listOf types.unspecified;
           description = "List of nix-darwin modules to include in the configuration.";
           default = [
+            self.sharedModules.os
+
             {
               nixpkgs.overlays = [
                 self.overlays.darwin
@@ -66,10 +68,15 @@ let
         let
           inherit (inputs) nix-darwin home-manager;
 
+          splitName = __elemAt (lib.strings.split "@" name);
+          hostname = splitName 2; # nixos
+          username = splitName 0; # mochou
+
           specialArgs =
             ctx.extraModuleArgs
             // {
               inherit (ctx) lib;
+              inherit hostname username;
             }
             // {
               isNixDarwin = true;
@@ -86,9 +93,7 @@ let
           modules =
             config.modules
             ++ config.darwinDisables
-            ++ [
-              self.sharedModules.os
-            ]
+
             ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
               home-manager.darwinModules.home-manager
               {
@@ -96,17 +101,24 @@ let
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "home-manager.backup";
 
-                home-manager.extraSpecialArgs = specialArgs;
-                home-manager.users."${name}".imports = config.homeModules;
+                home-manager.extraSpecialArgs = specialArgs // {
+                  isNixos = false;
+                  nixosSystemName = "";
+                  isNixDarwin = true;
+                  nixDarwinSystemName = name;
+                  homeManagerName = name;
+                };
+                home-manager.users."${username}".imports = config.homeModules;
               }
             ])
+
             ++ [
               (
                 { pkgs, ... }:
                 {
                   inherit (ctx) nix nixpkgs;
-                  networking.hostName = name;
-                  system.defaults.smb.NetBIOSName = name;
+                  networking.hostName = hostname;
+                  system.defaults.smb.NetBIOSName = hostname;
                   system.stateVersion = config.stateVersion;
                 }
               )

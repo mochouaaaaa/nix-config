@@ -39,7 +39,9 @@ let
         modules = lib.mkOption rec {
           type = types.listOf types.unspecified;
           description = "List of home-manager modules to include in the configuration.";
-          default = [ ];
+          default = [
+            self.sharedModules.home-manager
+          ];
           apply = userValue: default ++ userValue;
 
         };
@@ -84,7 +86,7 @@ let
               inherit (ctx) lib;
             }
             // {
-              nixd-name = name;
+              homeManagerName = name;
               # 以下参数是给nixos/nix-darwin 分开使用home-manager时参数兼容
               isNixDarwin = false;
               isNixos = false;
@@ -96,10 +98,6 @@ let
             config.modules
             ++ config.homeDisables
             ++ [
-
-              # Shared configuration across all users
-              self.sharedModules.home-manager
-
               (
                 {
                   config,

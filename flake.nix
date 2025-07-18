@@ -119,8 +119,8 @@
     };
 
     swww.url = "github:LGFae/swww";
-    # walker.url = "github:abenz1267/walker";
-    walker.url = "path:./walker";
+    walker.url = "github:abenz1267/walker";
+    # walker.url = "path:./walker";
     rofi-tools = {
       url = "github:szaffarano/rofi-tools";
       inputs = {

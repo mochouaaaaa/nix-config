@@ -32,6 +32,8 @@ let
           type = types.listOf types.unspecified;
           description = "List of NixOS modules to include in the configuration.";
           default = [
+            self.sharedModules.os
+
             {
               nixpkgs.overlays = [
                 self.overlays.nixos
@@ -41,16 +43,14 @@ let
           apply = userValue: default ++ userValue;
         };
 
-        homeModules = lib.mkOption {
-          type = types.listOf types.attrs;
-          default = [ ];
+        homeModules = lib.mkOption rec {
+          type = types.listOf types.unspecified;
+          default = [
+            self.sharedModules.home-manager
+          ];
           description = "List of home-manager modules to disable.";
-        };
+          apply = userValue: default ++ userValue;
 
-        nixosDisables = lib.mkOption {
-          type = types.listOf types.attrs;
-          default = [ ];
-          description = "List of NixOS modules to disable.";
         };
 
         _nixos = lib.mkOption {
@@ -66,15 +66,14 @@ let
         let
           inherit (inputs) home-manager nixos-generators;
 
-          specialArgs =
-            ctx.extraModuleArgs
-            // {
-              inherit (ctx) lib;
-            }
-            // {
-              isNixos = true;
-              nixosSystemName = name;
-            };
+          splitName = __elemAt (lib.strings.split "@" name);
+          hostname = splitName 2; # nixos
+          username = splitName 0; # mochou
+
+          specialArgs = ctx.extraModuleArgs // {
+            inherit (ctx) lib;
+            inherit hostname username;
+          };
 
         in
         inputs.nixpkgs.lib.nixosSystem {
@@ -83,22 +82,28 @@ let
           modules =
             [ nixos-generators.nixosModules.all-formats ]
             ++ config.modules
-            ++ [
-              # Shared configuration across all NixOS machines
-              self.sharedModules.os
-            ]
-            ++ config.nixosDisables
+
             ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
               home-manager.nixosModules.home-manager
               {
+                nixpkgs = {
+                  overlays = lib.mkAfter [ self.overlays.home-manager ];
+                };
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "home-manager.backup";
 
-                home-manager.extraSpecialArgs = specialArgs;
-                home-manager.users."${name}".imports = config.homeModules;
+                home-manager.extraSpecialArgs = specialArgs // {
+                  isNixos = true;
+                  nixosSystemName = name;
+                  isNixDarwin = false;
+                  nixDarwinSystemName = "";
+                  homeManagerName = name;
+                };
+                home-manager.users."${username}".imports = config.homeModules;
               }
             ])
+
             ++ [
               (
                 { pkgs, ... }:
@@ -108,7 +113,7 @@ let
                     nixpkgs
                     ;
                   _module.args = ctx.extraModuleArgs;
-                  networking.hostName = name;
+                  networking.hostName = hostname;
 
                   system = {
                     stateVersion = config.stateVersion;
@@ -117,7 +122,6 @@ let
 
                   environment = {
                     enableAllTerminfo = false;
-                    # systemPackages = ctx.basePackagesFor pkgs;
                   };
                 }
               )

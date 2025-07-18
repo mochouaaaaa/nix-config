@@ -3,7 +3,7 @@
 
   flake-parts = {
     darwinConfigurations = {
-      darwin = {
+      "mochou@darwin" = {
         system = "x86_64-darwin";
         stateVersion = 5;
 
