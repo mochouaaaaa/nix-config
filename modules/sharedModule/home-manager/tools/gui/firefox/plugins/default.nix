@@ -1,11 +1,11 @@
-{ lib, myvars, ... }:
+{ lib, username, ... }:
 {
   imports = lib.importModule' ./.;
 
   programs = {
     firefox = {
       profiles = {
-        "${myvars.username}" = {
+        "${username}" = {
           extensions = {
             force = true;
           };

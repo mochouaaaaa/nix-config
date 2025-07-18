@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -13,7 +12,8 @@ in
     modules.desktop = {
       component = {
         launcher = {
-          rofi.enable = true;
+          rofi.enable = false;
+          fuzzel.enable = true;
         };
         status-bar = {
           waybar.enable = true;

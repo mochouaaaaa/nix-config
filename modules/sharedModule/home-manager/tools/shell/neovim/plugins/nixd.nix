@@ -6,12 +6,9 @@
   nixDarwinSystemName,
   isNixos,
   nixosSystemName,
-  nixd-name,
+  homeManagerName,
   ...
 }:
-let
-  sysHostName = __elemAt (lib.strings.split "@" nixd-name) 2;
-in
 {
   home.packages = with pkgs-unstable; [
     nixd
@@ -26,29 +23,22 @@ in
     extraConfigLuaPost = ''
       local nixd_lsp_config = function()
           local opts = {}
-          local nixd_name = "${nixd-name}"
 
           if vim.g.is_darwin then
               opts.nix_darwin = {
-                  expr = '(builtins.getFlake (builtins.toString ./.)).darwinConfigurations."${
-                    if nixDarwinSystemName != "" then nixDarwinSystemName else sysHostName
-                  }".options'
+                  expr = '(builtins.getFlake (builtins.toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options'
               }
           end
 
           if vim.g.is_nixos then
               opts.nixos = {
-                  expr = '(builtins.getFlake (builtins.toString ./.)).nixosConfigurations."${
-                    if nixosSystemName != "" then nixosSystemName else sysHostName
-                  }".options'
+                  expr = '(builtins.getFlake (builtins.toString ./.)).nixosConfigurations."${nixosSystemName}".options'
               }
           end
 
-          if nixd_name ~= "" then
-              opts.home_manager = {
-                  expr = '(builtins.getFlake (builtins.toString ./.)).homeConfigurations."${nixd-name}".options'
-              }
-          end
+            opts.home_manager = {
+                expr = '(builtins.getFlake (builtins.toString ./.)).homeConfigurations."${homeManagerName}".options'
+            }
 
           return opts
       end

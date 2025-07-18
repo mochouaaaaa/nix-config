@@ -1,4 +1,4 @@
-{ lib, myvars, ... }:
+{ lib, username, ... }:
 {
   imports = lib.importModule' ./.;
 
@@ -24,7 +24,7 @@
     #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     # '';
 
-    primaryUser = "${myvars.username}";
+    primaryUser = "${username}";
 
     defaults = {
       menuExtraClock.Show24Hour = true; # show 24 hour clock

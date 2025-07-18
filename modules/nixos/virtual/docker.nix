@@ -2,7 +2,7 @@
   pkgs,
   config,
   lib,
-  myvars,
+  username,
   ...
 }:
 let
@@ -15,7 +15,7 @@ in
       pkgs.podman-desktop
     ];
 
-    users.users."${myvars.username}" = {
+    users.users."${username}" = {
       extraGroups = lib.mkAfter [
         "docker"
         "podman"

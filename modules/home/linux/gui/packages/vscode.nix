@@ -4,7 +4,7 @@
   pkgs,
   config,
   isNixos,
-  myvars,
+  username,
   ...
 }:
 let
@@ -31,7 +31,7 @@ in
     programs = {
       vscode = {
         # let vscode sync and update its configuration & extensions across devices; using github account.
-        profiles."${myvars.username}" = {
+        profiles."${username}" = {
           keybindings = lib.mkAfter [
             {
               key = "${cfgKeymaps.Super}+f";

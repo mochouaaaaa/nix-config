@@ -19,8 +19,9 @@ in
   };
 
   config = lib.mkIf cfgKde.enable {
-    # modules.dm.sddm.enable = true;
-    modules.dm.greetd.enable = true;
+    modules.dm.sddm.enable = false;
+    modules.dm.gdm.enable = true;
+    # modules.dm.greetd.enable = true;
 
     services = {
       xserver = {

@@ -49,7 +49,7 @@ _update:
 # switch nix-darwin config
 [macos]
 @switch:
-    sudo darwin-rebuild switch --flake .#darwin --impure
+    sudo darwin-rebuild switch --flake .#mocho@darwin --impure
 
 # switch home-manager config
 [macos]
@@ -79,13 +79,12 @@ _reset_dconf:
 # switch flake config
 [linux]
 switch desktop="hyprland":
-    # just _reset_dconf
-    HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild switch --flake .#nixos --impure
+    NIXPKGS_ALLOW_INSECURE=1 HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild switch --flake .#mochou@nixos --impure
 
 # repl test environment
 [linux]
 @repl desktop="hyprland":
-    HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild repl --flake .#nixos --impure
+    HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild repl --flake .#mochou@nixos --impure
 
 # switch hyprland desktop environment
 [linux]

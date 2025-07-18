@@ -1,16 +1,15 @@
 {
   lib,
   pkgs,
-  myvars,
+  username,
   isNixDarwin,
   nixDarwinSystemName,
   isNixos,
   nixosSystemName,
-  nixd-name,
+  homeManagerName,
   ...
 }:
 let
-  sysHostName = __elemAt (lib.strings.split "@" nixd-name) 2;
 
   homeExpr =
     if isNixos then
@@ -18,14 +17,14 @@ let
     else if isNixDarwin then
       "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.${nixDarwinSystemName}.options.home-manager.users.type.getSubOptions []"
     else
-      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.\"${nixd-name}\".options";
+      "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.\"${homeManagerName}\".options";
 
 in
 {
 
   programs = {
     vscode.profiles = {
-      "${myvars.username}" = {
+      "${username}" = {
         userSettings = {
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "nixd";
@@ -53,17 +52,15 @@ in
               };
               "options" = {
                 "nixos" = {
-                  "expr" = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${
-                    if nixosSystemName != "" then nixosSystemName else sysHostName
-                  }.options";
+                  "expr" =
+                    "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${nixDarwinSystemName}.options";
                 };
                 "home-manager" = {
                   "expr" = "${homeExpr}";
                 };
                 "nix-darwin" = {
-                  "expr" = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.${
-                    if nixDarwinSystemName != "" then nixDarwinSystemName else sysHostName
-                  }.options";
+                  "expr" =
+                    "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.${nixosSystemName}.options";
                 };
               };
             };

@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  myvars,
+  username,
   ...
 }:
 let
@@ -12,7 +12,7 @@ in
   programs = {
     vscode = {
       profiles = {
-        "${myvars.username}" = {
+        "${username}" = {
           extensions = lib.mkAfter (
             with pkgs.vscode-extensions;
             [

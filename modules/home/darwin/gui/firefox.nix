@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  myvars,
+  username,
   ...
 }:
 let
@@ -30,14 +30,14 @@ in
   config = lib.mkIf cfg.enable {
 
     home.file = {
-      "Library/Application Support/Firefox/Profiles/${myvars.username}/chrome".source =
+      "Library/Application Support/Firefox/Profiles/${username}/chrome".source =
         "${themes}/share/mozilla/firefox/firefox-themes/chrome";
     };
 
     programs.firefox = {
       # package = pkgs.firefox-unwrapped;
       profiles = {
-        "${myvars.username}" = {
+        "${username}" = {
           isDefault = true;
           settings = {
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

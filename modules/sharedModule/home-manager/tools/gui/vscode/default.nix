@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  myvars,
+  username,
   ...
 }:
 {
@@ -12,7 +12,7 @@
       enable = true;
       # let vscode sync and update its configuration & extensions across devices, using github account.
       profiles = {
-        "${myvars.username}" = {
+        "${username}" = {
           extensions = with pkgs.vscode-extensions; [
             ms-ceintl.vscode-language-pack-zh-hans
             usernamehw.errorlens

@@ -1,9 +1,9 @@
-{ pkgs, myvars, ... }:
+{ pkgs, username, ... }:
 {
 
-  users.users.${myvars.username} = {
+  users.users.${username} = {
     shell = pkgs.zsh;
-    description = "${myvars.username}. up up up!";
+    description = "${username}. up up up!";
   };
 
   # Default shell

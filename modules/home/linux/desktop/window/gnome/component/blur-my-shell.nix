@@ -12,7 +12,7 @@ in
   options.modules.desktop.gnome.shell.packages.blur-my-shell = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Whether to enable blur-my-shell extension.";
     };
   };

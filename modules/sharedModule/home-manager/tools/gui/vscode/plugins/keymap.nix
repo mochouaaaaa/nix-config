@@ -1,4 +1,4 @@
-{ config, myvars, ... }:
+{ config, username, ... }:
 let
   cfg = config.keymaps;
 in
@@ -7,7 +7,7 @@ in
     vscode = {
       # let vscode sync and update its configuration & extensions across devices, using github account.
       profiles = {
-        "${myvars.username}" = {
+        "${username}" = {
           keybindings = [
             {
               key = "${cfg.Super}+e";

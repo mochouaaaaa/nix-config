@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  myvars,
+  username,
   ...
 }:
 let
@@ -27,6 +27,25 @@ in
           package = pkgs.mihomo-party-wrapper;
         })
       ];
+    };
+
+    systemd.user.services.pot = {
+      enable = true;
+      description = "mihomo daemon";
+      wantedBy = [ "graphical-session.target" ];
+      unitConfig = {
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      serviceConfig = {
+        ExecStart = "${lib.getExe pkgs.mihomo-party-wrapper}";
+        Restart = "on-failure";
+      };
+      environment = {
+        XDG_SESSION_TYPE = "wayland";
+        GDK_BACKEND = "wayland";
+        DISPLAY = ":0";
+      };
     };
 
     security.wrappers.mihomo-party = {

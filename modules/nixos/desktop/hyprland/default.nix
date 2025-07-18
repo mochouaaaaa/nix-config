@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  myvars,
+  username,
   ...
 }:
 let
@@ -19,7 +19,8 @@ in
 
   config = lib.mkIf cfgHyprland.enable {
 
-    modules.dm.greetd.enable = true;
+    # modules.dm.greetd.enable = true;
+    modules.dm.gdm.enable = true;
 
     programs = {
       hyprland = {
@@ -54,7 +55,7 @@ in
       greetd = {
         settings = {
           default_session = {
-            user = myvars.username;
+            user = username;
             # command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
             # command = lib.mkForce "${pkgs.dbus}/bin/dbus-run-session $HOME/.wayland-session";
             command = lib.mkForce "$HOME/.wayland-session";

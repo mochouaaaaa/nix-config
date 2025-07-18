@@ -40,7 +40,7 @@ in
         gtk-toolbar-style=0
         gtk-menu-images=1
         gtk-button-images=1
-        gtk-cursor-theme-size=24
+        gtk-cursor-theme-size=36
         gtk-sound-theme-name="ocean"
         gtk-cursor-theme-name="WhiteSur-cursors"
         gtk-icon-theme-name="WhiteSur-$theme"
@@ -55,7 +55,7 @@ in
         switch-gtk2-config $theme_mode
 
         dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_mode'"
-        dconf write /org/gnome/desktop/interface/cursor-size 24
+        dconf write /org/gnome/desktop/interface/cursor-size 36
         dconf write /org/gnome/desktop/interface/cursor-theme "'WhiteSur-cursors'"
         dconf write /org/gnome/desktop/interface/font-antialiasing "'grayscale'"
         dconf write /org/gnome/desktop/interface/font-hinting "'slight'"

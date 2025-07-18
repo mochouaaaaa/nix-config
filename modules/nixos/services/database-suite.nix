@@ -2,13 +2,13 @@
   config,
   lib,
   pkgs,
-  myvars,
+  username,
   ...
 }:
 let
   cfg = config.modules.packages.database-suite;
 
-  user = "${myvars.username}";
+  user = "${username}";
 in
 {
   options.modules.packages.database-suite = {

@@ -1,13 +1,13 @@
 {
   pkgs,
-  myvars,
+  username,
   ...
 }:
 {
   programs = {
     firefox = {
       profiles = {
-        "${myvars.username}" = {
+        "${username}" = {
           extensions = {
             packages = with pkgs.nur.repos.rycee.firefox-addons; [
               tampermonkey

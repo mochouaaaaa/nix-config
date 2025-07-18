@@ -13,7 +13,7 @@ let
     gtk-icon-theme-name=WhiteSur-dark
     gtk-font-name=Monaco Nerd Font 12
     gtk-cursor-theme-name=WhiteSur-cursors
-    gtk-cursor-theme-size=24
+    gtk-cursor-theme-size=36
     gtk-button-images=0
     gtk-menu-images=0
     gtk-enable-event-sounds=0

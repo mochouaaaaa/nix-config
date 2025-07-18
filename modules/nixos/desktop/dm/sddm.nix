@@ -2,7 +2,7 @@
   pkgs,
   config,
   lib,
-  myvars,
+  username,
   ...
 }:
 let
@@ -24,15 +24,14 @@ in
 
     services = {
       displayManager = {
+        autoLogin = {
+          enable = true;
+          user = username;
+        };
         sddm = {
           enable = true;
           package = lib.mkForce pkgs.kdePackages.sddm;
-          settings = {
-            Autologin = {
-              User = "${myvars.username}";
-            };
-          };
-          theme = "WhiteSur-dark";
+          # theme = "WhiteSur-dark";
           extraPackages = with pkgs; [
             kdePackages.plasma-desktop
             kdePackages.plasma-workspace

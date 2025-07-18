@@ -12,7 +12,7 @@ in
   options.modules.desktop.gnome.shell.packages.burn-my-windows = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Whether to enable the Burn My Windows extension in GNOME Shell.";
     };
   };

@@ -3,6 +3,7 @@
   lib,
   pkgs,
   myvars,
+  username,
   ...
 }:
 {
@@ -113,7 +114,7 @@
       enable = true;
       lfs.enable = true;
 
-      userName = myvars.username;
+      userName = username;
       userEmail = myvars.useremail;
 
       ignores = [
@@ -191,7 +192,7 @@
 
         # replace https with ssh
         url = {
-          "ssh://git@github.com/${myvars.username}" = {
+          "ssh://git@github.com/${username}" = {
             insteadOf = "https://github.com/mochouaaaaa";
           };
         };

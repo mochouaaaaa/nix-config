@@ -1895,11 +1895,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1752124910,
-        "narHash": "sha256-J2EJJFZg2hPjMLT9nm7PPVOiu3rE6SwLvUYVgP7uyEY=",
+        "lastModified": 1752328102,
+        "narHash": "sha256-TuZn2GjYdwqzHaPVEwqF7g0jOHOzdKduMvdRMluuUEs=",
         "owner": "szaffarano",
         "repo": "rofi-tools",
-        "rev": "59228c856a594c172c4e2a71e2bcffd46c63cdb3",
+        "rev": "7ec5f05c4c9f68ff32497e8a5c36b4bd9a5b1ce6",
         "type": "github"
       },
       "original": {
@@ -2245,14 +2245,18 @@
         "systems": "systems_9"
       },
       "locked": {
-        "path": "./walker",
-        "type": "path"
+        "lastModified": 1752599873,
+        "narHash": "sha256-YOmWsT1oxpCCXq20OW9cOU48Z1X+nypqmXqr0+KKXCA=",
+        "owner": "abenz1267",
+        "repo": "walker",
+        "rev": "821735a6a2f4284cd71995e4a1b3911f3caa4b21",
+        "type": "github"
       },
       "original": {
-        "path": "./walker",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "abenz1267",
+        "repo": "walker",
+        "type": "github"
+      }
     },
     "waybar": {
       "inputs": {
@@ -2260,11 +2264,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1751660490,
-        "narHash": "sha256-GusU4/Odv1osGDeYkJskJ3Jj213Wyo8XacMA+r21ImE=",
+        "lastModified": 1752390446,
+        "narHash": "sha256-OcVcNM7Jt1E1/5HfPEXAodeJ4z8rvsR+1eY5OUYCt1I=",
         "owner": "Alexays",
         "repo": "Waybar",
-        "rev": "cae5f9a56f88bdd4306860b22740a33e7957e5bc",
+        "rev": "94777921d96c2657c37c7d83a18f13968df486de",
         "type": "github"
       },
       "original": {

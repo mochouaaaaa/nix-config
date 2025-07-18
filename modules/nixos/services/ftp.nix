@@ -1,5 +1,5 @@
 {
-  myvars,
+  username,
   ...
 }:
 {
@@ -9,7 +9,7 @@
     localUsers = true;
     localRoot = "/";
     userlistEnable = true;
-    userlist = [ myvars.username ];
+    userlist = [ username ];
     chrootlocalUser = true;
     allowWriteableChroot = true;
     extraConfig = ''

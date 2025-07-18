@@ -3,7 +3,7 @@
   config,
   lib,
   pkgs,
-  myvars,
+  username,
   ...
 }:
 let
@@ -37,7 +37,7 @@ in
   config = lib.mkIf cfg.enable {
 
     home.file = {
-      ".mozilla/firefox/${myvars.username}/chrome".source =
+      ".mozilla/firefox/${username}/chrome".source =
         "${themes}/share/mozilla/firefox/firefox-themes";
     };
 

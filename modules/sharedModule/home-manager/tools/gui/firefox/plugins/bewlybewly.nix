@@ -1,14 +1,14 @@
 {
   pkgs,
   lib,
-  myvars,
+  username,
   ...
 }:
 {
   programs = {
     firefox = {
       profiles = {
-        "${myvars.username}" = {
+        "${username}" = {
           extensions = {
             settings = {
               "addon@bewlybewly.com".settings = {

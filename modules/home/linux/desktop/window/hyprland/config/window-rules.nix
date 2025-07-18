@@ -32,6 +32,7 @@ in
           "idleinhibit fullscreen, fullscreen:1"
 
           # windowrule  - float
+          "float, class:chromium-browser, title:(雀魂麻将 - Chromium)"
           "float, class:(pot|.pot-wrapped), title:(Translate|Translator|OCR|PopClip|Screenshot Translate)" # Translation window floating
           "float, class:(flameshot), title:(flameshot-pin)"
           "float, class:(org.telegram.desktop), title:(Media viewer)"

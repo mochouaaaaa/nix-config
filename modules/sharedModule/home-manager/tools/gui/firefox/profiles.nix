@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  myvars,
+  username,
   ...
 }:
 let
@@ -27,7 +27,7 @@ in
         languagePacks = [ "zh-cn" ];
         nativeMessagingHosts = [ ];
         profiles = {
-          "${myvars.username}" = {
+          "${username}" = {
             isDefault = true;
             settings = {
               "extensions.autodisablescopes" = 0;
