@@ -25,6 +25,7 @@ in
       firefox = {
         enable = true;
         languagePacks = [ "zh-cn" ];
+        nativeMessagingHosts = [ ];
         profiles = {
           "${myvars.username}" = {
             isDefault = true;
@@ -35,6 +36,7 @@ in
               "browser.startup.page" = 3;
 
               "intl.locale.requested" = "zh-cn";
+              "general.useragent.locale" = "zh-CN";
 
               # disable irritating first-run stuff
               "browser.disableresetprompt" = true;
