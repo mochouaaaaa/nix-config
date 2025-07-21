@@ -13,7 +13,6 @@ in
   config = lib.mkIf cfgNiri.enable {
 
     environment.systemPackages = with pkgs; [
-      cage
 
       turtle # nautilus plugin
       nautilus

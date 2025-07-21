@@ -19,7 +19,7 @@ in
   config = lib.mkIf cfg.enable {
 
     programs.regreet = {
-      enable = true;
+      enable = false;
       settings = {
         GTK = {
           application_prefer_dark_theme = true;
@@ -43,12 +43,13 @@ in
 
     services = {
       greetd = {
-        settings = {
+        enable = !config.programs.regreet.enable;
+        settings = rec {
           terminal.vt = 1;
           default_session = {
             user = username;
           };
-          # initial_session = default_session;
+          initial_session = default_session;
           # // {command = "sh -c 'sleep 2; ${default_session.command} '";};
         };
       };

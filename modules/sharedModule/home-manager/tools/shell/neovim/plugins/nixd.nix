@@ -43,8 +43,7 @@
           return opts
       end
 
-      local nvim_lsp = require("lspconfig")
-      nvim_lsp.nixd.setup({
+      vim.lsp.config("nixd", {
        cmd = { "nixd" },
        settings = {
           nixd = {
@@ -64,6 +63,7 @@
           },
        },
       })
+      vim.lsp.enable("nixd")
     '';
   };
 }

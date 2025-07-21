@@ -18,8 +18,8 @@ in
             command = pkgs.lib.strings.splitString " " s;
           })
           [
-            # "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-            # "dbus-update-activation-environment --systemd --all"
+            "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+            "dbus-update-activation-environment --systemd --all"
 
             "swww-daemon --format xrgb"
             "nm-applet --indicator &"

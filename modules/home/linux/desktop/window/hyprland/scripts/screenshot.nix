@@ -47,7 +47,7 @@ in
             capture_area
             ;;
         --active)
-            capture_active_window
+            capture_with_swappy
             ;;
         *)
             echo -e "Available Options: --win --area --active --swappy"

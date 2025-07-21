@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -22,13 +23,13 @@ in
   config = lib.mkIf cfgNiri.enable {
 
     modules.dm.greetd.enable = true;
+    # modules.dm.gdm.enable = true;
 
     services = {
       gnome = {
         sushi.enable = true;
         gnome-keyring.enable = true;
       };
-
       xserver = {
         enable = true;
       };

@@ -48,7 +48,7 @@ in
       enable = true;
       # https://github.com/ValveSoftware/gamescope
       # enables features such as resolution upscaling and stretched aspect ratios (such as 4:3)
-      gamescopeSession.enable = true;
+      gamescopeSession.enable = false;
 
       # fix gamescope inside steam
       package = pkgs.steam.override {
