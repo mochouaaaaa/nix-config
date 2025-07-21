@@ -24,6 +24,10 @@
       inputs.nuenv.overlays.default
       (import ./pkgs/flatpak-wrapper.nix)
       (import ./pkgs/obsidian-wrapper.nix)
+      (import ./pkgs/jetbrains/pycharm.nix)
+      (import ./pkgs/jetbrains/goland.nix)
+      (import ./pkgs/jetbrains/clion.nix)
+      (import ./pkgs/jetbrains/datagrip.nix)
     ];
   in
   composed final prev

@@ -1,0 +1,381 @@
+{{define "/index.html"}}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <link href="static/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/index.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/checkenv.css" rel="stylesheet" type="text/css" />
+    <script src="static/js/handler.js"></script>
+    <script src="static/js/languages.js"></script>
+    <title>{{.title}}</title>
+  </head>
+  <body class="body-adaptive page-color-lilac-purple wt-primary-map">
+    <div id="ide-page">
+      <div id="mask"></div>
+      <div id="form">
+        <div class="form">
+          <div class="title">Licensee Information</div>
+          <div class="subtitle">Please enter licensee information</div>
+          <div class="input-container ic1">
+            <input
+              id="licenseeName"
+              class="input"
+              type="text"
+              placeholder=" "
+              value="{{.licenseeName}}"
+            />
+            <div class="cut"></div>
+            <label for="licenseeName" class="placeholder">licenseeName</label>
+          </div>
+          <div class="input-container ic2">
+            <input
+              id="assigneeName"
+              class="input"
+              type="text"
+              placeholder=" "
+              value="{{.assigneeName}}"
+            />
+            <div class="cut"></div>
+            <label for="assigneeName" class="placeholder">assigneeName</label>
+          </div>
+          <div class="input-container ic2">
+            <input
+              id="expiryDate"
+              class="input"
+              type="text"
+              placeholder=""
+              value="{{.expiryDate}}"
+            />
+            <div class="cut cut-short"></div>
+            <label for="expiryDate" class="placeholder">expiryDate</label>
+          </div>
+          <button class="submit" onclick="submitLicenseInfo(this)">
+            submit
+          </button>
+        </div>
+      </div>
+
+      <div id="mask-info"></div>
+      <div id="form-info">
+        <div class="form-content">
+          <div class="title">Instructions for use</div>
+          <strong
+            >"Before activation, you need to modify the vmoptions parameter and
+            restart the software"</strong
+          >
+          <p>
+            Open the software and press <strong>"Ctrl+Shift+A"</strong>，enter
+            <strong>"Edit Custom VM Options"</strong> And return
+          </p>
+          Or open the software and click <strong>"Settings"</strong> Click
+          <strong>"Edit Custom VM Options"</strong>
+          <p>Or manually open the ".vmoptions" file, such as:</p>
+          <pre
+            class="code-block"
+          ><code>- windows: "%APPDATA%\JetBrains\GoLand2025.1\goland64.exe.vmoptions" 
+- macOS: "~/Library/Application Support/JetBrains/GoLand2025.1/goland.vmoptions"
+- Linux: "~/.config/JetBrains/GoLand2025.1/goland64.vmoptions"
+</code></pre>
+          <p>
+            ".vmoptions" Add the following content to the file,<strong
+              >Save and restart the software</strong
+            >Then fill in the activation code:
+          </p>
+          <pre
+            class="code-block"
+          ><code>--add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
+--add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
+-javaagent:{{.jaNetfilter}}=jetbrains<button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+</code></pre>
+          <button class="submit" onclick="closeInfo()">close</button>
+        </div>
+      </div>
+      <section class="wt-section find-ide-section background-black">
+        <header class="search-container" style="margin-bottom: 20px; gap: 10px">
+          <input
+            type="text"
+            id="search-box"
+            class="search-input"
+            placeholder="Search for IDE or plugin..."
+            oninput="filterCards()"
+          />
+          <button
+            class="jetbra-button lang-icon"
+            onclick="toggleLanguage()"
+          ></button>
+          <style>
+            .lang-icon {
+              position: relative;
+              background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z'/%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 24px;
+            }
+          </style>
+          <button
+            class="jetbra-button settings-icon"
+            onclick="showLicenseForm()"
+          ></button>
+          <style>
+            .settings-icon {
+              position: relative;
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z'%3E%3C/path%3E%3Ccircle cx='12' cy='12' r='3'%3E%3C/circle%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 24px;
+            }
+          </style>
+          <button class="jetbra-button info-icon" onclick="showInfo()"></button>
+          <style>
+            .info-icon {
+              position: relative;
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'%3E%3C/path%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'%3E%3C/line%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: 24px;
+            }
+          </style>
+        </header>
+
+        <!-- Environmental monitoring frame -->
+        {{if or .checkenv.HasVars (not .checkenv.EnglishPath)}}
+        <div class="checkenv-backdrop"></div>
+        <div class="checkenv-container">
+          <div class="warning">
+            {{if not .checkenv.EnglishPath}}
+            <h1>❌Error Path</h1>
+            <p>Activation may fail if the installation path includes non-English characters. Please use a directory with only English letters.</p>
+            <p>The current path: {{.checkenv.Path}}</p>
+            {{end}} {{if .checkenv.HasVars}}
+            <h1>🚨 *_VM_OPTIONS Environment Variables Detected</h1>
+            <p>1.These environment variables are typically used to specify the path to a custom <code>.vmoptions</code> file for the IDE. They were not created by this tool or by IntelliJ IDEA itself, but were likely added by a previous activation script you used.</p>
+            <p>2.These variables may interfere with the IDE’s normal operation or cause activation to fail.</p>
+            <b>3.Normally you don't need to delete the variables, the tool will work fine. If activation fails, follow the instructions to remove the variables.</b>
+            <p>4.If you still have the uninstallation script from that activation method, please run it to remove these variables.</p>
+            <p>5.If the script is unavailable, you can remove them manually as shown below.</p>
+            <div class="variables-container">
+              {{range $key, $val := .checkenv.Variables}}
+              <div class="variable"><strong>{{$key}}</strong> = {{$val}}</div>
+              {{end}}
+            </div>
+            <h1>How to clean up *_VM_OPTIONS environment variables</h1>
+            <li><strong>Windows:</strong> Press <kbd>Win + R</kbd>, open <b>PowerShell</b>, and run the following:</li>
+            <p><strong>View environment variables:</strong></p>
+            <div class="variable">
+              Get-ChildItem Env: |findstr vm
+              <button class="copy-button" onclick="copyToClipboard(this)"> Copy </button>
+            </div>
+            <p><strong>Remove environment variables:</strong></p>
+            <div class="variable">
+              irm http://127.0.0.1:8123/static/uninstall-scripts/clean_vm_options.ps1 | iex
+              <button class="copy-button" onclick="copyToClipboard(this)"> Copy </button>
+            </div>
+
+            <p>If PowerShell is not available, download and run the following script:</p>
+              <a href="http://127.0.0.1:8123/static/uninstall-scripts/uninstall.vbs" download>uninstall.vbs</a>
+            </p>
+            <li><strong>Linux or macOS:</strong> Open the terminal and paste the following:</li>
+            <p><strong>View environment variables:</strong></p>
+            <div class="variable">
+              env |grep -i vm
+              <button class="copy-button" onclick="copyToClipboard(this)"> Copy </button>
+            </div>           
+            <p><strong>Remove environment variables:</strong></p>
+            <div class="variable">
+              curl -fsSL http://127.0.0.1:8123/static/uninstall-scripts/uninstall.sh | bash
+              <button class="copy-button" onclick="copyToClipboard(this)"> Copy </button>
+            </div>
+
+            <p><b>Important:</b> Close your terminal and IDE before retrying — environment variables may be cached.</p>
+            <p><b>Note for Linux/macOS:</b> The script covers common paths but may not be exhaustive. Please manually check and adjust as needed.</p>
+
+            {{end}}
+
+            <button class="closecheckenv" onclick="closecheckenv(this)">
+              close
+            </button>
+          </div>
+        </div>
+        {{end}}
+
+        <div class="wt-container wt-offset-top-96">
+          <div class="wt-offset-top-48">
+            <h2
+              class="_rs-h2_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_auto_19db458_1 wt-offset-top-96"
+            >
+              Choose the IDE
+            </h2>
+            <div
+              class="wt-row wt-row_size_m ide-products-section jb-offset-top-16 jb-offset-top-sm-48"
+              id="ide-products-section"
+            >
+              {{range .apps}}
+              <a
+                data-type="ides"
+                data-product="{{.Name}}"
+                data-product-codes="{{.Code}}"
+                onclick="clickCard(this)"
+                class="card wt-col-4 wt-col-md-6 wt-col-sm-12 wt-offset-top-32 ides-languages-product-card"
+              >
+                <div
+                  class="wt-row wt-row_size_m ides-languages-product-card__wrap"
+                >
+                  <div class="ribbon-wrapper {{ if eq .CrackStatus "Cracked" }}ribbon-wrapper{{ else }} hidden{{ end }}">
+                    <div class="ribbon" onclick="uncrackAgent(event, this)">Cracked</div>
+                  </div>
+                  <div class="wt-col-inline">
+                    <div class="wt-row wt-row_size_m wt-row_nowrap">
+                      <div
+                        class="wt-col-inline ides-languages-product-card__icon"
+                      >
+                        <div
+                          class="icon"
+                          role="img"
+                          style="background-image: url('{{.Icon}}')"
+                        ></div>
+                      </div>
+                      <div class="wt-col-inline">
+                        <div
+                          class="wt-row wt-row_size_s wt-row_align-items_center"
+                        >
+                          <div class="wt-col-inline">
+                            <h3
+                              class="_rs-h3_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_auto_19db458_1"
+                            >
+                              {{.Name}} {{if .IsFree}}
+                              <span
+                                data-test="tag"
+                                class="_main_1i6xjbl_31 _sizeXs_1i6xjbl_18 _alignIconLeft_1i6xjbl_7 _main_imuztz_1 wt-col-inline wt-col_align-self_end main-developers-ide-card__tag"
+                                style="
+                                  color: rgb(255, 255, 255);
+                                  background-color: rgb(107, 87, 255);
+                                "
+                                >Free for non-commercial use</span
+                              >
+                              {{end}}
+                            </h3>
+                          </div>
+                        </div>
+
+                        <p
+                          class="_rs-text-2_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_hard_19db458_1 wt-offset-top-8"
+                        >
+                          {{.Describe}}
+                        </p>
+                        <p class="license-key">Click to generate a license</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wt-col-12 wt-col_align-self_end">
+                    <div
+                      class="wt-row wt-row_size_xs ides-languages-product-card__language-tags wt-offset-top-16 wt-display-sm-none"
+                    >
+                      {{range .Tags}}
+                      <div class="wt-col-inline">
+                        <div
+                          class="_rs-text-3_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_hard_19db458_1 wt-offset-top-8"
+                        >
+                          {{.}}
+                        </div>
+                      </div>
+                      {{end}}
+                    </div>
+                  </div>
+                </div></a
+              >
+              {{end}}
+            </div>
+          </div>
+        </div>
+        <div class="wt-container wt-offset-top-96">
+          <div class="wt-offset-top-48">
+            <h2
+              class="_rs-h2_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_auto_19db458_1 wt-offset-top-96"
+            >
+              Choose the Plugins
+            </h2>
+            <div
+              class="wt-row wt-row_size_m ide-products-section jb-offset-top-16 jb-offset-top-sm-48"
+              id="plugins-products-section"
+            >
+              {{range .plugins}}
+              <a
+                data-type="plugins"
+                data-product="{{.Name}}"
+                data-product-codes="{{.Code}}"
+                onclick="clickCard(this)"
+                class="card wt-col-4 wt-col-md-6 wt-col-sm-12 wt-offset-top-32 ides-languages-product-card"
+                ><div
+                  class="wt-row wt-row_size_m ides-languages-product-card__wrap"
+                >
+                  <div class="wt-col-inline">
+                    <div class="wt-row wt-row_size_m wt-row_nowrap">
+                      <div
+                        class="wt-col-inline ides-languages-product-card__icon"
+                      >
+                        <div
+                          class="icon"
+                          role="img"
+                          style="background-image: url('{{.Icon}}')"
+                        ></div>
+                      </div>
+                      <div class="wt-col-inline">
+                        <div
+                          class="wt-row wt-row_size_s wt-row_align-items_center"
+                        >
+                          <div class="wt-col-inline">
+                            <h3
+                              class="_rs-h3_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_auto_19db458_1"
+                            >
+                              {{.Name}} {{if .IsFree}}
+                              <span
+                                data-test="tag"
+                                class="_main_1i6xjbl_31 _sizeXs_1i6xjbl_18 _alignIconLeft_1i6xjbl_7 _main_imuztz_1 wt-col-inline wt-col_align-self_end main-developers-ide-card__tag"
+                                style="
+                                  color: rgb(255, 255, 255);
+                                  background-color: rgb(107, 87, 255);
+                                "
+                                >Free for non-commercial use</span
+                              >
+                              {{end}}
+                            </h3>
+                          </div>
+                        </div>
+
+                        <p
+                          class="_rs-text-2_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_hard_19db458_1 wt-offset-top-8"
+                        >
+                          {{.Describe}}
+                        </p>
+                        <p class="license-key">Click to generate a license</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wt-col-12 wt-col_align-self_end">
+                    <div
+                      class="wt-row wt-row_size_xs ides-languages-product-card__language-tags wt-offset-top-16 wt-display-sm-none"
+                    >
+                      {{range .Tags}}
+                      <div class="wt-col-inline">
+                        <div
+                          class="_rs-text-3_19db458_1 _rs-typography_theme_dark_19db458_1 _rs-text_hardness_hard_19db458_1 wt-offset-top-8"
+                        >
+                          {{.}}
+                        </div>
+                      </div>
+                      {{end}}
+                    </div>
+                  </div>
+                </div></a
+              >
+              {{end}}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+{{end}}

@@ -8,5 +8,6 @@
     hoppscotch
 
     materialgram
+    tiny-rdm
   ];
 }
