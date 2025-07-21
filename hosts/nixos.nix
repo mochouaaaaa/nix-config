@@ -64,6 +64,7 @@
                 pycharm.enable = true;
                 goland.enable = true;
                 datagrip.enable = true;
+                clion.enable = true;
               };
               envs = {
                 pyenv.enable = true;

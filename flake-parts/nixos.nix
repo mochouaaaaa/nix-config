@@ -71,6 +71,7 @@ let
           username = splitName 0; # mochou
 
           specialArgs = ctx.extraModuleArgs // {
+            inherit self;
             inherit (ctx) lib;
             inherit hostname username;
           };

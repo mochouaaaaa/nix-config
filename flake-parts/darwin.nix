@@ -87,7 +87,7 @@ let
         nix-darwin.lib.darwinSystem {
 
           inherit specialArgs;
-          inherit inputs;
+          inherit inputs self;
           inherit (ctx) system;
 
           modules =
