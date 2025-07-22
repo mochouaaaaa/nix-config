@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
     insomnia # REST client
@@ -8,6 +8,7 @@
     hoppscotch
 
     materialgram
+  ] ++ lib.optionals (pkgs.stdenv.isLinux) [
     tiny-rdm
   ];
 }

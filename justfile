@@ -49,7 +49,7 @@ _update:
 # switch nix-darwin config
 [macos]
 @switch:
-    sudo darwin-rebuild switch --flake .#mocho@darwin --impure
+    NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 sudo -E darwin-rebuild switch --flake .#mochou@darwin --impure
 
 # switch home-manager config
 [macos]

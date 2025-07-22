@@ -44,16 +44,14 @@ let
 
         };
 
-        homeModules = lib.mkOption {
-          type = types.listOf types.attrs;
-          default = [ ];
+        homeModules = lib.mkOption rec {
+          type = types.listOf types.unspecified;
+         default = [
+            self.homeModules.darwin.modules
+            self.sharedModules.home-manager
+          ];
           description = "List of home-manager modules to disable.";
-        };
-
-        darwinDisables = lib.mkOption {
-          type = types.listOf types.attrs;
-          default = [ ];
-          description = "List of NixOS modules to disable.";
+          apply = userValue: default ++ userValue;
         };
 
         _darwin = lib.mkOption {
@@ -75,6 +73,7 @@ let
           specialArgs =
             ctx.extraModuleArgs
             // {
+              inherit self inputs;
               inherit (ctx) lib;
               inherit hostname username;
             }
@@ -87,16 +86,17 @@ let
         nix-darwin.lib.darwinSystem {
 
           inherit specialArgs;
-          inherit inputs self;
           inherit (ctx) system;
 
           modules =
             config.modules
-            ++ config.darwinDisables
 
             ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
               home-manager.darwinModules.home-manager
               {
+                nixpkgs = {
+                  overlays = lib.mkAfter [ self.overlays.home-manager ];
+                };
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "home-manager.backup";
