@@ -5,21 +5,26 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    # db
-    duckdb
+  home.packages =
+    with pkgs;
+    [
+      # db
+      duckdb
 
-    # pdf
-    zathura
-    evince
+      # pdf
+      zathura
+      evince
 
-    # markdown
-    glow
+      # markdown
+      glow
 
-    # image
-    chafa
-    ueberzugpp
-  ];
+      # image
+      chafa
+      ueberzugpp
+    ]
+    ++ lib.optionals (pkgs.stdenv.isLinux) [
+      gedit
+    ];
 
   programs =
     let
@@ -45,16 +50,14 @@
         enableZshIntegration = false;
         enableBashIntegration = false;
       };
-      zsh.initContent =
-        lib.optionalString (yazi.enable) warpper_shell
-        + ''
-          if [[ -n "$YAZI_ID" ]]; then
-              function _yazi_cd() {
-                  ya pub dds-cd --str "$PWD"
-              }
-              add-zsh-hook zshexit _yazi_cd
-          fi
-        '';
+      zsh.initContent = lib.optionalString (yazi.enable) warpper_shell + ''
+        if [[ -n "$YAZI_ID" ]]; then
+            function _yazi_cd() {
+                ya pub dds-cd --str "$PWD"
+            }
+            add-zsh-hook zshexit _yazi_cd
+        fi
+      '';
       bash.initExtra = warpper_shell;
     };
 

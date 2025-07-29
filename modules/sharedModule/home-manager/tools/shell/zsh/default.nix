@@ -25,9 +25,9 @@
       initContent = ''
         source ${config.dotfiles}/zsh/init.zsh
 
-        source $HOME/${dotDir}/.p10k.zsh 
+        source ${dotDir}/.p10k.zsh 
       '';
-      dotDir = ".config/env/zsh";
+      dotDir = "${config.xdg.configHome}/env/zsh";
       autosuggestion = {
         enable = true;
       };
@@ -44,6 +44,8 @@
         expireDuplicatesFirst = true;
         ignorePatterns = [
           "rm *"
+          "rm -rf *"
+          "rm -rf /.*"
           "pkill *"
         ];
       };

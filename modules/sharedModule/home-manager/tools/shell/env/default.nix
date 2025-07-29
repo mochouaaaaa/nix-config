@@ -29,10 +29,10 @@ in
       default = false;
     };
   };
-  imports = lib.importModule'  ./.;
+  imports = lib.importModule' ./.;
 
   config = lib.mkIf lazyZsh {
-    programs.zsh.initExtraFirst = ''
+    programs.zsh.initContent = ''
       _lazyload_add_command() {
           eval "$1() {
               unfunction $1;

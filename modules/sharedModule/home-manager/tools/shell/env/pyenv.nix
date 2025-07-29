@@ -63,7 +63,7 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = lib.mkOrder 2100 ''
+    programs.zsh.initContent = lib.mkOrder 2100 ''
       export PYENV_ROOT="$HOME/.config/env/pyenv"
       export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 

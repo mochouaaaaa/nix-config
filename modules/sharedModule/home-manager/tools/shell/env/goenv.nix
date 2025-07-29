@@ -44,7 +44,7 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = lib.mkOrder 2050 ''
+    programs.zsh.initContent = lib.mkOrder 2050 ''
       export GOPROXY=https://goproxy.cn,direct
       export GOSUMDB=sum.golang.google.cn
       export GOENV_DISABLE_GOPATH=1

@@ -1,7 +1,10 @@
 { pkgs, ... }:
 {
+
   programs.mpv = {
-    scripts = [ pkgs.mpvScripts.mpris ];
+    scripts = [
+      pkgs.mpvScripts.mpris
+    ];
   };
   xdg.mimeApps.defaultApplications = {
     "audio/*" = [ "mpv.desktop" ];

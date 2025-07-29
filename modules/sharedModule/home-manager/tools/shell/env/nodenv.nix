@@ -46,7 +46,7 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = lib.mkOrder 2150 ''
+    programs.zsh.initContent = lib.mkOrder 2150 ''
       export NODENV_ROOT="$HOME/.config/env/nodenv"
       export PATH="$NODENV_ROOT/bin:$NODENV_ROOT/shims:$PATH"
 

@@ -36,6 +36,7 @@
       markdownlint-cli2
 
       # filetypes
+      vscode-json-languageserver
       yaml-language-server
       prettierd
       eslint_d
@@ -67,21 +68,21 @@
       hyprls
 
       (astro-language-server.overrideAttrs (oldAttrs: {
-        pnpmDeps = pnpm_9.fetchDeps {
-          inherit (oldAttrs)
-            pname
-            version
-            src
-            prePnpmInstall
-            ;
-          pnpmWorkspaces = oldAttrs.pnpmWorkspaces ++ [
-            "@astrojs/ts-plugin"
-            "@types/chai"
-            "astro-vscode"
-            "@astrojs/yaml2ts"
-          ];
-          hash = "sha256-8lvTVeBEaEVmVWvzzrZlqGZfr9TQ/pCkR8k0Z9GuvUc=";
-        };
+        # pnpmDeps = pnpm_9.fetchDeps {
+        #   inherit (oldAttrs)
+        #     pname
+        #     version
+        #     src
+        #     prePnpmInstall
+        #     ;
+        #   pnpmWorkspaces = oldAttrs.pnpmWorkspaces ++ [
+        #     "@astrojs/ts-plugin"
+        #     "@types/chai"
+        #     "astro-vscode"
+        #     "@astrojs/yaml2ts"
+        #   ];
+        #   hash = "sha256-8lvTVeBEaEVmVWvzzrZlqGZfr9TQ/pCkR8k0Z9GuvUc=";
+        # };
       }))
 
     ];

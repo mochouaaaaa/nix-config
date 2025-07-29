@@ -48,7 +48,7 @@
        settings = {
           nixd = {
              pkgs = {
-                expr = "import <nixpkgs> { }",
+                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable {}",
              },
              ["pkgs-stable"] = {
                 expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-stable {}",

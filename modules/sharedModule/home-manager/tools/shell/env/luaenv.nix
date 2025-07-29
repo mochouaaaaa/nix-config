@@ -39,7 +39,7 @@ in
         force = true;
       };
     };
-    programs.zsh.initExtra = lib.mkOrder 2200 ''
+    programs.zsh.initContent = lib.mkOrder 2200 ''
       export LUAENV_ROOT="$HOME/.config/env/luaenv"
       export PATH="$LUAENV_ROOT/bin:$LUAENV_ROOT/shims:$PATH"
 
