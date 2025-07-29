@@ -46,7 +46,7 @@ let
 
         homeModules = lib.mkOption rec {
           type = types.listOf types.unspecified;
-         default = [
+          default = [
             self.homeModules.darwin.modules
             self.sharedModules.home-manager
           ];
@@ -103,7 +103,7 @@ let
 
                 home-manager.extraSpecialArgs = specialArgs // {
                   isNixos = false;
-                  nixosSystemName = "";
+                  nixosSystemName = "${username}@nixos";
                   isNixDarwin = true;
                   nixDarwinSystemName = name;
                   homeManagerName = name;

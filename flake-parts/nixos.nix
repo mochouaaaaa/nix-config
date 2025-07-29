@@ -80,53 +80,54 @@ let
         inputs.nixpkgs.lib.nixosSystem {
           inherit specialArgs;
 
-          modules =
-            [ nixos-generators.nixosModules.all-formats ]
-            ++ config.modules
+          modules = [
+            nixos-generators.nixosModules.all-formats
+          ]
+          ++ config.modules
 
-            ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
-              home-manager.nixosModules.home-manager
+          ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs = {
+                overlays = lib.mkAfter [ self.overlays.home-manager ];
+              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "home-manager.backup";
+
+              home-manager.extraSpecialArgs = specialArgs // {
+                isNixos = true;
+                nixosSystemName = name;
+                isNixDarwin = false;
+                nixDarwinSystemName = "${username}@darwin";
+                homeManagerName = name;
+              };
+              home-manager.users."${username}".imports = config.homeModules;
+            }
+          ])
+
+          ++ [
+            (
+              { pkgs, ... }:
               {
-                nixpkgs = {
-                  overlays = lib.mkAfter [ self.overlays.home-manager ];
-                };
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "home-manager.backup";
+                inherit (ctx)
+                  nix
+                  nixpkgs
+                  ;
+                _module.args = ctx.extraModuleArgs;
+                networking.hostName = hostname;
 
-                home-manager.extraSpecialArgs = specialArgs // {
-                  isNixos = true;
-                  nixosSystemName = name;
-                  isNixDarwin = false;
-                  nixDarwinSystemName = "";
-                  homeManagerName = name;
+                system = {
+                  stateVersion = config.stateVersion;
+                  rebuild.enableNg = true;
                 };
-                home-manager.users."${username}".imports = config.homeModules;
+
+                environment = {
+                  enableAllTerminfo = false;
+                };
               }
-            ])
-
-            ++ [
-              (
-                { pkgs, ... }:
-                {
-                  inherit (ctx)
-                    nix
-                    nixpkgs
-                    ;
-                  _module.args = ctx.extraModuleArgs;
-                  networking.hostName = hostname;
-
-                  system = {
-                    stateVersion = config.stateVersion;
-                    rebuild.enableNg = true;
-                  };
-
-                  environment = {
-                    enableAllTerminfo = false;
-                  };
-                }
-              )
-            ];
+            )
+          ];
         }
       );
     };

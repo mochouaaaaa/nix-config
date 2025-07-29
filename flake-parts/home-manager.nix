@@ -81,11 +81,18 @@ let
           };
 
           extraSpecialArgs =
+            let
+              splitName = __elemAt (lib.strings.split "@" name);
+              hostname = splitName 2;
+              username = splitName 0;
+            in
             ctx.extraModuleArgs
             // {
+              inherit self;
               inherit (ctx) lib;
             }
             // {
+              inherit hostname username;
               homeManagerName = name;
               # 以下参数是给nixos/nix-darwin 分开使用home-manager时参数兼容
               isNixDarwin = false;
