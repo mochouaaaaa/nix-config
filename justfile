@@ -112,17 +112,12 @@ switch desktop="hyprland":
 @nixos-niri:
     just switch niri
 
-# replace `name` with your home-manager configuration name
-[linux]
-[group('home-manager')]
-@home name: 
-    home-manager switch --flake .#{{ name }} --impure
 
 # switch hyprland desktop environment
 [linux]
 [group('home-manager')]
 @home-hyprland:
-    DESKTOP=hyprland home-manager switch --flake .#mochou@nixos --impure -b backup
+    NIXPKGS_ALLOW_INSECURE=1 DESKTOP=hyprland home-manager switch --flake .#mochou@nixos --impure -b backup
 
 # switch kde desktop environment
 [linux]

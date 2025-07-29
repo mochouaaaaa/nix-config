@@ -38,6 +38,7 @@ func cors() gin.HandlerFunc {
 func init() {
 	binPath := os.Getenv("XDG_CONFIG_HOME")
 	binDir := filepath.Dir(binPath)
+	log.Printf("XDG_CONFIG_HOME: %s", binDir)
 	resourceDir := filepath.Join(binDir, ".jetbra-free")
 
 	var err error
@@ -69,7 +70,6 @@ func main() {
 	r.Use(cors())
 
 	binDir := os.Getenv("XDG_CONFIG_HOME")
-	fmt.Println(binDir)
 	binDir = filepath.Dir(binDir)
 	r.Static("/static", filepath.Join(binDir, ".jetbra-free", "static"))
 

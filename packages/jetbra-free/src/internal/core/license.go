@@ -20,6 +20,7 @@ import (
 
 func LicenseInit() {
 	log.Printf("Start LicenseInit...")
+	log.Printf("keyPath: %s", keyPath)
 	// load private key and certificate
 	privateKeyPEM, err := os.ReadFile(keyPath)
 	if err != nil {

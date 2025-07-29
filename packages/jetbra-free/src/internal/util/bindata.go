@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -11,6 +12,7 @@ func ExtractAssets(outputDir string) error {
 	for _, name := range AssetNames() {
 		destPath := filepath.Join(outputDir, name)
 
+		log.Printf("Extracting %s to %s", name, destPath)
 		if strings.Contains(name, "/ja-netfilter/") {
 			if _, err := os.Stat(destPath); err == nil {
 				continue
