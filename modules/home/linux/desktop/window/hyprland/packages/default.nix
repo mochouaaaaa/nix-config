@@ -19,7 +19,6 @@ in
       hyprpolkitagent
 
       swaybg # the wallpaper
-      # swaylock-effects
       wl-clipboard # copying and pasting
       hyprpicker # color picker
       envsubst
@@ -40,8 +39,8 @@ in
       alsa-utils # provides amixer/alsamixer/...
       pkgs-stable.mpd # for playing system sounds
       pkgs-stable.mpc-cli # command-line mpd client
-      ncmpcpp # a mpd client with a UI
-      networkmanagerapplet # provide GUI app: nm-connection-editor
+      pkgs-stable.ncmpcpp # a mpd client with a UI
+      pkgs-stable.networkmanagerapplet # provide GUI app: nm-connection-editor
     ];
 
   };

@@ -431,9 +431,20 @@ in
       };
     };
 
-    modules.xdg-mime.editors = lib.mkAfter [
-      "code.desktop"
-      "code-insiders.desktop"
-    ];
+    modules.xdg-mime = {
+      editors = [
+        "code.desktop"
+        "code-insiders.desktop"
+      ];
+      defaultApplications = {
+        # https://github.com/microsoft/vscode/issues/146408
+        "x-scheme-handler/vscode" = [
+          "code-url-handler.desktop"
+        ]; # open `vscode://` url with `code-url-handler.desktop`
+        "x-scheme-handler/vscode-insiders" = [
+          "code-insiders-url-handler.desktop"
+        ]; # open `vscode-insiders://` url with `code-insiders-url-handler.desktop`
+      };
+    };
   };
 }

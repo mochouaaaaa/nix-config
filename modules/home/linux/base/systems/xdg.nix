@@ -14,9 +14,14 @@ in
 {
 
   options.modules.xdg-mime = with lib; {
-    editors = mkOption {
+    editors = mkOption rec {
       type = types.listOf types.str;
       default = [ ];
+      apply = userValue: default ++ userValue;
+    };
+    defaultApplications = mkOption rec {
+      type = types.attrsOf (types.listOf types.str);
+      default = { };
     };
   };
 
@@ -58,17 +63,10 @@ in
             file-roller = [ "org.gnome.FileRoller.desktop" ];
           in
           {
+            "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
 
             "text/plain" = editor;
             "application/x-wine-extension-ini" = editor;
-
-            # https://github.com/microsoft/vscode/issues/146408
-            "x-scheme-handler/vscode" = [
-              "code-url-handler.desktop"
-            ]; # open `vscode://` url with `code-url-handler.desktop`
-            "x-scheme-handler/vscode-insiders" = [
-              "code-insiders-url-handler.desktop"
-            ]; # open `vscode-insiders://` url with `code-insiders-url-handler.desktop`
 
             "application/bzip2" = file-roller;
             "application/gzip" = file-roller;
@@ -138,7 +136,8 @@ in
             "application/zip" = file-roller;
             "application/zstd" = file-roller;
 
-          };
+          }
+          // cfg.defaultApplications;
 
         associations.removed = {
           # ......

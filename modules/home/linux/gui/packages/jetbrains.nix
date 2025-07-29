@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  username,
   nvfetcherSources,
   ...
 }:
@@ -28,7 +29,8 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default = (
-          pkgs.pycharm.overrideAttrs {
+          pkgs.pycharm {
+            inherit username;
             src = nvfetcherSources.pycharm.src;
           }
         );
@@ -41,9 +43,12 @@ in
       };
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.goland.overrideAttrs {
-          src = nvfetcherSources.goland.src;
-        };
+        default = (
+          pkgs.goland {
+            inherit username;
+            src = nvfetcherSources.goland.src;
+          }
+        );
       };
     };
     datagrip = {
@@ -53,9 +58,12 @@ in
       };
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.datagrip.overrideAttrs {
-          src = nvfetcherSources.datagrip.src;
-        };
+        default = (
+          pkgs.datagrip {
+            inherit username;
+            src = nvfetcherSources.datagrip.src;
+          }
+        );
       };
     };
     clion = {
@@ -65,28 +73,30 @@ in
       };
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.clion.overrideAttrs {
-          src = nvfetcherSources.clion.src;
-        };
+        default = (
+          pkgs.clion {
+            inherit username;
+            src = nvfetcherSources.clion.src;
+          }
+        );
       };
     };
   };
 
   config = {
-    home.packages =
-      [
-      ]
-      ++ (lib.optionals (initjetbrains.pycharm) [
-        cfg.pycharm.package
-      ])
-      ++ (lib.optionals (initjetbrains.goland) [
-        cfg.goland.package
-      ])
-      ++ (lib.optionals (initjetbrains.datagrip) [
-        cfg.datagrip.package
-      ])
-      ++ (lib.optionals (initjetbrains.clion) [
-        cfg.clion.package
-      ]);
+    home.packages = [
+    ]
+    ++ (lib.optionals (initjetbrains.pycharm) [
+      cfg.pycharm.package
+    ])
+    ++ (lib.optionals (initjetbrains.goland) [
+      cfg.goland.package
+    ])
+    ++ (lib.optionals (initjetbrains.datagrip) [
+      cfg.datagrip.package
+    ])
+    ++ (lib.optionals (initjetbrains.clion) [
+      cfg.clion.package
+    ]);
   };
 }

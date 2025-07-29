@@ -11,6 +11,8 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         exec-once = [
+          "hyprctl setcursor WhiteSur-cursors 36"
+
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
 

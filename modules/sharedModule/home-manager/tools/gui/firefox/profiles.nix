@@ -24,7 +24,7 @@ in
     programs = {
       firefox = {
         enable = true;
-        languagePacks = [ "zh-cn" ];
+        languagePacks = [ "zh-CN" ];
         nativeMessagingHosts = [ ];
         profiles = {
           "${username}" = {
@@ -35,7 +35,8 @@ in
               "browser.startup.homepage" = "about:home";
               "browser.startup.page" = 3;
 
-              "intl.locale.requested" = "zh-cn";
+              "intl.locale.requested" = "zh-CN";
+              "intl.multilingual.enabled" = true;
               "general.useragent.locale" = "zh-CN";
 
               # disable irritating first-run stuff
