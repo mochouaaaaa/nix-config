@@ -57,6 +57,8 @@ in
         #pulseaudio,
         /* #pulseaudio.microphone, */
         #custom-lock,
+        #custom-hyprlock,
+        #custom-swaylock,
         #custom-power {
           background-color: @surface0;
           padding: 0.3rem 1rem;
@@ -109,7 +111,9 @@ in
           border-radius: 1rem;
         }
 
-        #custom-lock {
+        #custom-lock, 
+        #custom-hyprlock, 
+        #custom-swaylock {
           border-radius: 1rem 0px 0px 1rem;
           color: @lavender;
         }

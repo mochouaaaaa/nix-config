@@ -7,7 +7,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages.jetbrains;
+  cfg = config.modules'.packages.jetbrains;
   jetbrainsConfig = enable: {
     pycharm = enable && cfg.pycharm.enable;
     goland = enable && cfg.goland.enable;
@@ -19,7 +19,7 @@ let
 
 in
 {
-  options.modules.packages.jetbrains = {
+  options.modules'.packages.jetbrains = {
     enable = lib.mkEnableOption "JetBrains IDEs";
     pycharm = {
       enable = lib.mkOption {

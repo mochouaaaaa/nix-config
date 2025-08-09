@@ -2,31 +2,25 @@
   lib,
   config,
   pkgs,
+  inputs,
   username,
   ...
 }:
 let
-  cfgHyprland = config.modules.desktop.hyprland;
+  cfgHyprland = config.modules'.desktop.hyprland;
 in
 {
-  options.modules.desktop.hyprland = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = builtins.getEnv "DESKTOP" == "hyprland";
-      description = "Enable Hyprland desktop environment.";
-    };
-  };
+  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfgHyprland.enable {
 
-    # modules.dm.greetd.enable = true;
-    modules.dm.gdm.enable = true;
+    modules.dm.greetd.enable = true;
 
     programs = {
       hyprland = {
         enable = true;
-        # withUWSM = true;
-        # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
       };
 
       nautilus-open-any-terminal = {
@@ -56,8 +50,6 @@ in
         settings = {
           default_session = {
             user = username;
-            # command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
-            # command = lib.mkForce "${pkgs.dbus}/bin/dbus-run-session $HOME/.wayland-session";
             command = lib.mkForce "$HOME/.wayland-session";
           };
         };

@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.rounded-window-corners-reborn;
+  cfg = config.modules'.desktop.gnome.shell.packages.rounded-window-corners-reborn;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.rounded-window-corners-reborn = {
+  options.modules'.desktop.gnome.shell.packages.rounded-window-corners-reborn = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

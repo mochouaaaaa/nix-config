@@ -5,27 +5,26 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.launcher.rofi;
+  cfg = config.modules'.desktop.component.launcher.rofi;
 
-  keymaps =
-    [
-      {
-        "SUPER-P" = {
-          launch = [
-            "bash"
-            "-c"
-            "rofi-cliphist -f $HOME/.config/rofi/rofi-cliphist.toml"
-          ];
-        };
-      }
-    ]
-    ++ lib.optionals (config.programs.waybar.enable) [
-      {
-        "SUPER-CTRL-SHIFT-I" = {
-          launch = [ "select-wallpaper" ];
-        };
-      }
-    ];
+  keymaps = [
+    {
+      "SUPER-P" = {
+        launch = [
+          "bash"
+          "-c"
+          "rofi-cliphist -f $HOME/.config/rofi/rofi-cliphist.toml"
+        ];
+      };
+    }
+  ]
+  ++ lib.optionals (config.programs.waybar.enable) [
+    {
+      "SUPER-CTRL-SHIFT-I" = {
+        launch = [ "select-wallpaper" ];
+      };
+    }
+  ];
 in
 {
   imports = [
@@ -53,7 +52,7 @@ in
       };
     };
 
-    modules.desktop.component.launcher._commands = "rofi -show drun";
-    modules.shortcuts.global = keymaps;
+    modules'.desktop.component.launcher._commands = "rofi -show drun";
+    modules'.shortcuts.global = keymaps;
   };
 }

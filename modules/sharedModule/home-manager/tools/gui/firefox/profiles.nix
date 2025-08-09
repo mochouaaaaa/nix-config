@@ -6,18 +6,9 @@
   ...
 }:
 let
-  cfg = config.modules.packages.firefox;
+  cfg = config.modules'.packages.firefox;
 in
 {
-  options = {
-    modules.packages.firefox = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Whether to enable the firefox package.";
-      };
-    };
-  };
 
   # about:debugging#/runtime/this-firefox
   config = lib.mkIf cfg.enable {
@@ -103,6 +94,7 @@ in
               "toolkit.telemetry.updateping.enabled" = false;
 
               # ui
+              "ui.key.textcontrol.prefer_native_key_bindings_over_builtin_shortcut" = false;
               "toolkit.legacyuserprofilecustomizations.stylesheets" = true;
               "browser.tabs.drawintitlebar" = true;
               "browser.uidensity" = 0;

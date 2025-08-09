@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.virtual;
+  cfg = config.modules'.virtual;
   importModules =
     [ ]
     ++ lib.optionals (cfg.docker.enable) [ ./docker.nix ]
@@ -16,7 +16,7 @@ let
   hasModules = lib.lists.length importModules > 0;
 in
 {
-  options.modules.virtual = {
+  options.modules'.virtual = {
     virtualbox.enable = lib.mkOption {
       type = lib.types.bool;
       description = "Whether to enable VirtualBox support.";

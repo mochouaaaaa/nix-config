@@ -14,6 +14,9 @@
   programs = {
     bash = {
       enable = true;
+      package = pkgs.bashInteractive.override {
+        readline = pkgs.readline;
+      };
     };
     zsh = rec {
       enable = true;
@@ -23,7 +26,7 @@
         package = pkgs.zsh-syntax-highlighting;
       };
       initContent = ''
-        source ${config.dotfiles}/zsh/init.zsh
+        source ${config.modules'.dotfiles}/zsh/init.zsh
 
         source ${dotDir}/.p10k.zsh 
       '';
@@ -56,7 +59,7 @@
     "zsh" = {
       force = true;
       recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/zsh";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.modules'.dotfiles}/zsh";
     };
   };
 }

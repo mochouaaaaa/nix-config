@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.kde;
+  cfg = config.modules'.desktop.kde;
 
   thermal-monitor = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "thermal-monitor";

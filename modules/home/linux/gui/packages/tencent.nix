@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages.tencent;
+  cfg = config.modules'.packages.tencent;
 in
 {
-  options.modules.packages.tencent = {
+  options.modules'.packages.tencent = {
     qq = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -28,7 +28,7 @@ in
       };
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.nixpaks.wechat-uos;
+#        default = pkgs.nixpaks.wechat-uos;
       };
     };
     wemeet = {
@@ -71,7 +71,7 @@ in
     home.packages =
       [ pkgs.element-desktop ]
       ++ lib.optionals cfg.qq.enable [ cfg.qq.package ]
-      ++ lib.optionals cfg.wechat.enable [ cfg.wechat.package ]
+#      ++ lib.optionals cfg.wechat.enable [ cfg.wechat.package ]
       ++ lib.optionals cfg.wemeet.enable [ cfg.wemeet.package ]
       ++ lib.optionals cfg.dingding.enable [ cfg.dingding.package ]
       ++ lib.optionals cfg.feishu.enable [ cfg.feishu.package ];

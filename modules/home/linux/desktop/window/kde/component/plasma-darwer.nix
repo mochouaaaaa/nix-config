@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.kde;
+  cfg = config.modules'.desktop.kde;
 
   plasma-darwer = pkgs.stdenvNoCC.mkDerivation rec {
     name = "plasma-darwer";

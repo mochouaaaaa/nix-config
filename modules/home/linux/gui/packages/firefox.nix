@@ -1,5 +1,4 @@
 {
-  self,
   config,
   lib,
   pkgs,
@@ -7,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages.firefox;
+  cfg = config.modules'.packages.firefox;
 
   themes = pkgs.stdenv.mkDerivation {
     name = "firefox-themes";
@@ -37,8 +36,17 @@ in
   config = lib.mkIf cfg.enable {
 
     home.file = {
-      ".mozilla/firefox/${username}/chrome".source =
-        "${themes}/share/mozilla/firefox/firefox-themes";
+      ".mozilla/firefox/${username}/chrome".source = "${themes}/share/mozilla/firefox/firefox-themes";
+    };
+
+    programs.firefox = {
+      profiles = {
+        "${username}" = {
+          settings = {
+            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          };
+        };
+      };
     };
 
     xdg.mimeApps.defaultApplications =

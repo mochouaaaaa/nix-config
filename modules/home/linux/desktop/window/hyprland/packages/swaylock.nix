@@ -5,8 +5,8 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
-  cfg-lock = config.modules.desktop.component.swaylock;
+  cfg = config.modules'.desktop.hyprland;
+  cfg-lock = config.modules'.desktop.component.swaylock;
 in
 {
 

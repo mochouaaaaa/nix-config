@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.themes.auto.gtkTheme;
+  cfg = config.modules'.themes.auto.gtkTheme;
 in
 {
 
-  options.modules.themes.auto = {
+  options.modules'.themes.auto = {
     gtkTheme = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -26,11 +26,9 @@ in
       (writeShellScriptBin "switch-gtk2-config" ''
         theme=$1
 
-        # gtk_theme_name="Adwaita-light"
         gtk_theme_name="WhiteSur-Light"
         if [ "$theme" = "dark" ]; then
           gtk_theme_name="WhiteSur-Dark"
-          # gtk_theme_name="Adwaita-dark"
         fi
 
         cat > $HOME/.gtkrc-2.0 << EOF         
@@ -40,9 +38,9 @@ in
         gtk-toolbar-style=0
         gtk-menu-images=1
         gtk-button-images=1
-        gtk-cursor-theme-size=36
+        gtk-cursor-theme-size=${builtins.toString config.home.pointerCursor.size}
         gtk-sound-theme-name="ocean"
-        gtk-cursor-theme-name="WhiteSur-cursors"
+        gtk-cursor-theme-name="${config.home.pointerCursor.name}"
         gtk-icon-theme-name="WhiteSur-$theme"
         gtk-font-name="Monaco Nerd Font Mono, 12"
         EOF
@@ -55,14 +53,15 @@ in
         switch-gtk2-config $theme_mode
 
         dconf write /org/gnome/desktop/interface/color-scheme "'prefer-$theme_mode'"
-        dconf write /org/gnome/desktop/interface/cursor-size 36
-        dconf write /org/gnome/desktop/interface/cursor-theme "'WhiteSur-cursors'"
+        dconf write /org/gnome/desktop/interface/cursor-size ${builtins.toString config.home.pointerCursor.size}
+        dconf write /org/gnome/desktop/interface/cursor-theme "'${config.home.pointerCursor.name}'"
         dconf write /org/gnome/desktop/interface/font-antialiasing "'grayscale'"
         dconf write /org/gnome/desktop/interface/font-hinting "'slight'"
         dconf write /org/gnome/desktop/interface/font-name "'Monaco Nerd Font Mono 12'"
         dconf write /org/gnome/desktop/interface/font-rgba "'rgb'"
         dconf write /org/gnome/desktop/interface/icon-theme "'WhiteSur-$theme_mode'"
         dconf write /org/gnome/desktop/interface/text-scaling-factor 1.0
+        dconf write /org/gnome/desktop/interface/gtk-key-theme "'Default'"
 
         rm -rf $HOME/.config/gtk-4.0/gtk-dark.css
         rm -rf $HOME/.config/gtk-4.0/gtk.css

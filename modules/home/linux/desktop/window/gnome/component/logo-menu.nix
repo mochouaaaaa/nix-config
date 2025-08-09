@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.logo-menu;
+  cfg = config.modules'.desktop.gnome.shell.packages.logo-menu;
 in
 {
-  options.modules.desktop.gnome.shell.packages.logo-menu = {
+  options.modules'.desktop.gnome.shell.packages.logo-menu = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

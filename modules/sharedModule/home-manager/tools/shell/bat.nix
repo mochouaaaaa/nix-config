@@ -17,11 +17,12 @@
       };
     };
 
+  home.shellAliases = {
+    cat = "bat -p --style=plain";
+  };
+
   programs = {
     zsh = {
-      shellAliases = {
-        cat = "bat -p --style=plain";
-      };
       initContent = ''
         alias bathelp="bat --plain --language=help";
 

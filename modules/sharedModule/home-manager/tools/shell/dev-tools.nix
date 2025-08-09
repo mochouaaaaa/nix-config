@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-unstable,
   ...
 }:
 {
@@ -19,16 +18,16 @@
     clipboard-jh
 
     # db related
-    pkgs-unstable.mycli
-    pkgs-unstable.pgcli
+    pkgs.mycli
+    pkgs.pgcli
     mongosh
     sqlite
 
     # ai related
-    pkgs-unstable.python312Packages.huggingface-hub # huggingface-cli
+    pkgs.python312Packages.huggingface-hub # huggingface-cli
 
     # misc
-    pkgs-unstable.devbox
+    pkgs.devbox
     bfg-repo-cleaner # remove large files from git history
     protobuf # protocol buffer compiler
 

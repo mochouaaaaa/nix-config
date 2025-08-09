@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome;
+  cfg = config.modules'.desktop.gnome;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -19,7 +19,7 @@ in
       dconf-editor
     ];
 
-    modules.desktop.gnome.shell.packages = {
+    modules'.desktop.gnome.shell.packages = {
       appindicator.enable = true;
       auto-move-windows.enable = true;
       unite.enable = true;

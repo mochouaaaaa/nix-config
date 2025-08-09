@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {

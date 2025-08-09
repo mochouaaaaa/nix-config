@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.kde;
+  cfg = config.modules'.desktop.kde;
 in
 {
   config = lib.mkIf cfg.enable {

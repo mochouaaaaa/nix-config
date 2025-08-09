@@ -8,8 +8,9 @@
         ".backup/"
       ];
     };
-    zsh.shellAliases = {
-      find = "fd";
-    };
+  };
+
+  home.shellAliases = {
+    find = "fd";
   };
 }

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   imports = [

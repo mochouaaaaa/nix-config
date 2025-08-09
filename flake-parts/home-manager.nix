@@ -46,12 +46,6 @@ let
 
         };
 
-        homeDisables = lib.mkOption {
-          type = types.listOf types.attrs;
-          default = [ ];
-          description = "List of home-manager modules to disable.";
-        };
-
         _home = lib.mkOption {
           type = types.unspecified;
           readOnly = true;
@@ -61,35 +55,40 @@ let
 
       config._home = withSystem config.system (
         ctx:
+        let
+          overlays = [ self.overlays.home-manager ];
+          custom_config = {
+            allowUnfree = true;
+            allowBroken = true;
+            allowUnsupportedSystem = true;
+            permittedInsecurePackages = [
+              "openssl-1.1.1w"
+              "ventoy-1.1.05"
+            ];
+          };
+
+          splitName = __elemAt (lib.strings.split "@" name);
+          hostname = splitName 2;
+          username = splitName 0;
+
+        in
         inputs.home-manager.lib.homeManagerConfiguration {
 
-          pkgs = import inputs.nixpkgs {
-            inherit (ctx) system;
-            overlays = [
-              self.overlays.home-manager
-            ];
-
-            config = {
-              allowUnfree = true;
-              allowBroken = true;
-              allowUnsupportedSystem = true;
-              permittedInsecurePackages = [
-                "openssl-1.1.1w"
-                "ventoy-1.1.05"
-              ];
-            };
+          pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs-unstable {
+            inherit overlays custom_config;
           };
 
           extraSpecialArgs =
             let
-              splitName = __elemAt (lib.strings.split "@" name);
-              hostname = splitName 2;
-              username = splitName 0;
+              pkgs-stable = ctx.extraPackages.mkPkgs inputs.nixpkgs-stable {
+                inherit overlays custom_config;
+              };
             in
             ctx.extraModuleArgs
             // {
               inherit self;
               inherit (ctx) lib;
+              inherit pkgs-stable;
             }
             // {
               inherit hostname username;
@@ -101,41 +100,38 @@ let
               nixosSystemName = "";
             };
 
-          modules =
-            config.modules
-            ++ config.homeDisables
-            ++ [
-              (
-                {
-                  config,
-                  lib,
-                  pkgs,
-                  ...
-                }:
-                {
+          modules = config.modules ++ [
+            (
+              {
+                config,
+                lib,
+                pkgs,
+                ...
+              }:
+              {
 
-                  nix =
-                    (removeAttrs ctx.nix [
-                      "channel"
-                      "gc"
-                    ])
-                    // {
-                      package = pkgs.nix;
-                    };
-
-                  home = {
-                    username = __elemAt (lib.strings.split "@" name) 0;
-                    enableNixpkgsReleaseCheck = false;
-                    inherit (opts.config) stateVersion;
-
-                    homeDirectory = lib.mkMerge [
-                      (lib.mkIf pkgs.stdenv.isDarwin "/Users/${config.home.username}")
-                      (lib.mkIf pkgs.stdenv.isLinux "/home/${config.home.username}")
-                    ];
+                nix =
+                  (removeAttrs ctx.nix [
+                    "channel"
+                    "gc"
+                  ])
+                  // {
+                    package = pkgs.nix;
                   };
-                }
-              )
-            ];
+
+                home = {
+                  username = username;
+                  enableNixpkgsReleaseCheck = false;
+                  inherit (opts.config) stateVersion;
+
+                  homeDirectory = lib.mkMerge [
+                    (lib.mkIf pkgs.stdenv.isDarwin "/Users/${config.home.username}")
+                    (lib.mkIf pkgs.stdenv.isLinux "/home/${config.home.username}")
+                  ];
+                };
+              }
+            )
+          ];
         }
       );
     };

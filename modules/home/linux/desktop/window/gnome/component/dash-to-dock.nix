@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.dash-to-dock;
+  cfg = config.modules'.desktop.gnome.shell.packages.dash-to-dock;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.dash-to-dock = {
+  options.modules'.desktop.gnome.shell.packages.dash-to-dock = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

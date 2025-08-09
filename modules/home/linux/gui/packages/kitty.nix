@@ -4,11 +4,12 @@
   ...
 }:
 let
-  cfg = config.modules.packages.kitty;
+  cfg = config.modules'.packages.kitty;
 in
 {
   config = lib.mkIf cfg.enable {
-    modules.packages.kitty = {
+
+    modules'.packages.kitty = {
       extraConfig = lib.mkAfter [
         "adjust_line_height 100%"
         "adjust_column_width 100%"

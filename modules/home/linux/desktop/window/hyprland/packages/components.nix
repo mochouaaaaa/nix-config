@@ -4,12 +4,12 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
 
-    modules.desktop.component = {
+    modules'.desktop.component = {
       launcher = {
         rofi.enable = false;
         fuzzel.enable = true;

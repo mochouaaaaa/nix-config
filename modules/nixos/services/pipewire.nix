@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, ... }:
 {
   #============================= Audio(PipeWire) =======================
 
@@ -96,7 +96,7 @@
       KERNEL=="uinput", MODE="0660", GROUP="uinput"
     '';
 
-    udev.packages = with pkgs-stable; [
+    udev.packages = with pkgs; [
       platformio # udev rules for platformio
       openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
       android-udev-rules # required by adb

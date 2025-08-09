@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.themes.auto;
-  cfgDesktop = config.modules.desktop;
+  cfg = config.modules'.themes.auto;
+  cfgDesktop = config.modules'.desktop;
 in
 {
-  options.modules.themes.auto = {
+  options.modules'.themes.auto = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -49,7 +49,7 @@ in
           default_session = {
             user = username;
           };
-          initial_session = default_session;
+          #  initial_session = default_session;
           # // {command = "sh -c 'sleep 2; ${default_session.command} '";};
         };
       };

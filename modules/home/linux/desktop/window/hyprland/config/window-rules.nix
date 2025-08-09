@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -76,6 +76,7 @@ in
           "opacity 0.9 0.6, class:^([Rr]ofi)$"
           "opacity 0.9 0.7, class:^(Brave-browser(-beta|-dev)?)$"
           "opacity 0.9 0.7, class:^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$"
+          "opacity 0.9 0.7, class:^(chromium-browser)$"
           "opacity 0.9 0.7, class:^(zen-alpha)$" # zen browser
           "opacity 0.9 0.6, class:^([Tt]horium-browser)$"
           "opacity 0.9 0.8, class:^([Mm]icrosoft-edge(-stable|-beta|-dev|-unstable)?)$"
@@ -85,7 +86,7 @@ in
           "opacity 0.8 0.6, class:^(pcmanfm-qt)$"
           "opacity 0.8 0.7, class:^(gedit|org.gnome.TextEditor|mousepad)$"
           "opacity 0.9 0.8, class:^(deluge)$"
-          "opacity 0.75 0.75, class:^(Alacritty|kitty|kitty-dropterm)$" # Terminals
+          "opacity 0.75 0.75, class:^(Alacritty|kitty|kitty-dropterm|neovide)$" # Terminals
           "opacity 0.75 0.75, class:^(jetbrains-pycharm)$"
           "opacity 0.9 0.7, class:^(VSCodium|codium-url-handler)$"
           "opacity 0.9 0.8, class:^(nwg-look|qt5ct|qt6ct|[Yy]ad)$"
@@ -145,12 +146,11 @@ in
           "opacity 0.0 override, class:^(xwaylandvideobridge)$"
           "noanim, class:^(xwaylandvideobridge)$"
           "noinitialfocus, class:^(xwaylandvideobridge)$"
+          "noinitialfocus,xwayland:1"
           "maxsize 1 1, class:^(xwaylandvideobridge)$"
           "noblur, class:^(xwaylandvideobridge)$"
           "nofocus, class:^(xwaylandvideobridge)$"
 
-          # neovide
-          "opacity 0.8 0.8, class:^(neovide)$"
           "unset, class:^(ueberzugpp.*)$"
 
           # wiliwili

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.modules.virtual.docker;
+  cfg = config.modules'.virtual.docker;
 in
 {
   config = lib.mkIf cfg.enable {

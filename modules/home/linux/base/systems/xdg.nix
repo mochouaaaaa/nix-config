@@ -9,11 +9,11 @@
   ...
 }:
 let
-  cfg = config.modules.xdg-mime;
+  cfg = config.modules'.xdg-mime;
 in
 {
 
-  options.modules.xdg-mime = with lib; {
+  options.modules'.xdg-mime = with lib; {
     editors = mkOption rec {
       type = types.listOf types.str;
       default = [ ];
@@ -146,11 +146,14 @@ in
     };
 
     xdg.portal = {
-      enable = true;
+      enable = lib.mkDefault true;
       config = {
         common = {
           # Use xdg-desktop-portal-gtk for every portal interface...
-          default = [ "gtk" ];
+          default = [
+            "gtk"
+            "gnome"
+          ];
           # except for the secret portal, which is handled by gnome-keyring
           "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
           "org.freedesktop.impl.portal.ScreenCast" = "gnome";

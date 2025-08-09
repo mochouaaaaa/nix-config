@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.swaylock;
+  cfg = config.modules'.desktop.component.swaylock;
 in
 {
-  options.modules.desktop.component.swaylock = {
+  options.modules'.desktop.component.swaylock = {
     enable = lib.mkEnableOption "swaylock" // {
       default = false;
     };
@@ -17,7 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.swaylock = {
       enable = true;
-      package = pkgs.swaylock;
+      package = pkgs.swaylock-effects;
     };
 
     home.packages = with pkgs; [

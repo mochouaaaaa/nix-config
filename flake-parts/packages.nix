@@ -8,21 +8,29 @@ let
 
   mkPkgs =
     nixpkgsInput:
+    {
+      overlays ? [ ],
+      custom_config ? { },
+      ...
+    }:
     import nixpkgsInput {
       inherit system;
 
       hostPlatform = system;
 
-      config = lib.mkForce {
-        allowUnfree = true;
-        config.allowBroken = true;
-        tarball-ttl = 0;
-      };
-
+      config =
+        lib.mkForce {
+          allowUnfree = true;
+          config.allowBroken = true;
+          tarball-ttl = 0;
+        }
+        // custom_config;
+      inherit overlays;
     };
 
-  pkgs-unstable = mkPkgs inputs.nixpkgs-unstable;
-  pkgs-stable = mkPkgs inputs.nixpkgs-stable;
+  pkgs-unstable = mkPkgs inputs.nixpkgs-unstable { };
+  pkgs-stable = mkPkgs inputs.nixpkgs-stable { };
+  pkgs-os = mkPkgs inputs.nixpkgs-os { };
 
   nvfetcherSources = import ../_sources/generated.nix {
     inherit (pkgs-stable)
@@ -38,8 +46,10 @@ in
   # "Flake parts does not yet come with an endorsed module that initializes the pkgs argument.""
   # So we must do this manually; https://flake.parts/overlays#consuming-an-overlay
   inherit
+    mkPkgs
     pkgs-unstable
     pkgs-stable
+    pkgs-os
     nvfetcherSources
     ;
 }

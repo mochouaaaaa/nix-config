@@ -24,9 +24,20 @@ in
       ];
       description = "List of modules to be displayed in the center of the bar.";
       apply = userValue: default ++ userValue;
-
     };
+    modules-right = lib.mkOption rec {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "battery"
+        "tray"
 
+        "pulseaudio"
+        "pulseaudio#microphone"
+        "clock"
+      ];
+      description = "List of modules to be displayed on the right side of the bar.";
+      apply = userValue: default ++ userValue;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -42,17 +53,8 @@ in
           margin-top = 2;
           modules-left = cfg-settings.modules-left;
           modules-center = cfg-settings.modules-center;
-          modules-right = [
-            "battery"
-            "tray"
-
-            "pulseaudio"
-            "pulseaudio#microphone"
-            "clock"
-
-            "custom/lock"
+          modules-right = cfg-settings.modules-right ++ [
             "custom/power"
-
           ];
           "hyprland/workspaces#icon" = {
             "disable-scroll" = true;
@@ -71,8 +73,6 @@ in
               # // "8"= " ";
               # // "9"= "";
               # // "10"= "10";
-              "focused" = "";
-              "default" = "";
             };
           };
 
@@ -85,8 +85,6 @@ in
               "tencent" = " ";
               "steam" = " ";
               "obs" = " ";
-              "focused" = "";
-              "default" = "";
             };
           };
 
@@ -138,10 +136,10 @@ in
             "format" = "{format_source}";
             "format-source" = "  {volume}%";
             "format-source-muted" = "";
-            "on-click-right" = "volume --toggle-mic";
+            "on-click-right" = "volumectl -m -u toggle-mute";
             "on-click" = "pavucontrol -t 4";
-            "on-scroll-up" = "volume --mic-inc";
-            "on-scroll-down" = "volume --mic-dec";
+            "on-scroll-up" = "volumectl -m -u up";
+            "on-scroll-down" = "volumectl -m -u down";
             "tooltip-format" = "{source_desc} | {source_volume}%";
             "scroll-step" = 1;
           };
@@ -166,22 +164,26 @@ in
               "ignored-sinks" = [ "Easy Effects Sink" ];
             };
             # "scroll-step"= 5.0;
-            "on-click-right" = "volume --toggle";
+            "on-click-right" = "volumectl toggle-mute";
             "on-click" = "pavucontrol -t 3";
-            "on-scroll-up" = "volume --inc";
-            "on-scroll-down" = "volume --dec";
+            "on-scroll-up" = "volumectl up";
+            "on-scroll-down" = "volumectl down";
             "tooltip-format" = "{icon} {desc} | {volume}%";
             "smooth-scrolling-threshold" = 1;
           };
 
-          "custom/lock" = {
+          "custom/hyprlock" = {
             tooltip = false;
             on-click = "sh -c '(sleep 0.5s; hyprlock)' & disown";
             format = "";
           };
+          "custom/swaylock" = {
+            on-click = "sh -c 'Lock' % disown";
+            format = "";
+          };
           "custom/power" = {
             icon-size = 20;
-            on-click = "wlogout -C $HOME/.config/wlogout/nova.css -l $HOME/.config/wlogout/layout -b 4 -B 400 -T 400";
+            on-click = "wlogout -C $HOME/.config/wlogout/style.css -l $HOME/.config/wlogout/layout -b 4 -B 400 -T 400";
             tooltip = false;
             format = "⏻ ";
           };

@@ -5,9 +5,8 @@
   ...
 }:
 let
-  cfgDesktop = config.modules.desktop;
 
-  rime-data = config.modules.packages.rime.data-package;
+  rime-data = config.modules'.packages.rime.data-package;
 
   fictx5-themes = pkgs.stdenv.mkDerivation {
     name = "fcitx5-themes-candlelight";
@@ -45,7 +44,6 @@ in
           kdePackages.fcitx5-qt
           fcitx5-chinese-addons
         ];
-        # ++ lib.optionals (!cfgDesktop.kde.enable) [ fcitx5-gtk ];
         waylandFrontend = true;
       };
     };
@@ -61,7 +59,7 @@ in
       glib
     ];
 
-    modules.packages.rime.extraFiles = lib.mkBefore [
+    modules'.packages.rime.extraFiles = [
       {
         name = "fcitx5.custom.yaml";
         data = ''
@@ -103,14 +101,6 @@ in
             "app_options/jetbrains-datagrip":
               ascii_mode: true
               ascii_punct: true
-            ${lib.optionalString (cfgDesktop.kde.enable) ''
-              "app_options/org.kde.krunner.desktop":
-                  ascii_mode: true
-                  ascii_punct: true
-              "app_options/org.kde.plasmashell":
-                  ascii_mode: true
-                  ascii_punct: true
-            ''}
         '';
       }
     ];

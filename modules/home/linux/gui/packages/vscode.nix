@@ -8,24 +8,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages.vscode;
-  cfgKeymaps = config.keymaps;
+  cfg = config.modules'.packages.vscode;
+  cfgKeymaps = config.modules'.keymaps;
 in
 {
-  options.modules.packages.vscode = {
-    commandLineArgs = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [
-        "--locale=zh-cn"
-        "--no-sandbox"
-        "--ozone-platform=wayland"
-        "--enable-features=UseOzonePlatform"
-        "--enable-wayland-ime"
-        "--gtk-version=4"
-      ];
-      description = "Additional command line arguments to pass to the VSCode binary.";
-    };
-  };
 
   config = {
     programs = {
@@ -431,7 +417,7 @@ in
       };
     };
 
-    modules.xdg-mime = {
+    modules'.xdg-mime = {
       editors = [
         "code.desktop"
         "code-insiders.desktop"

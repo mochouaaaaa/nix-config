@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages.steam;
+  cfg = config.modules'.packages.steam;
 in
 {
-  options.modules.packages.steam = with lib; {
+  options.modules'.packages.steam = with lib; {
     enable = mkOption {
       type = types.bool;
       default = false;

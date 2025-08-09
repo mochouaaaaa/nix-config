@@ -5,10 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
+
     xdg = {
       portal = {
         config = {
@@ -22,14 +23,10 @@ in
         };
         extraPortals = lib.mkAfter [
           pkgs.xdg-desktop-portal-gtk
+          pkgs.xdg-desktop-portal-gnome
         ];
       };
     };
 
-    home.pointerCursor = {
-      hyprcursor = {
-        enable = true;
-      };
-    };
   };
 }

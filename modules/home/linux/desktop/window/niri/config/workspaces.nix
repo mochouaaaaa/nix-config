@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
 
-  cfg = config.modules.desktop.niri;
+  cfg = config.modules'.desktop.niri;
   browser = "^(firefox|chrome|chromium|brave|vivaldi|opera|safari|edge|zen).*";
 in
 {

@@ -59,6 +59,19 @@ in
               # C / C++
               ms-vscode.cmake-tools
               ms-vscode.cpptools-extension-pack
+              # TheQtCompany.qt-qml
+
+              (buildVscodeMarketplaceExtension {
+                mktplcRef = {
+                  name = "qt-qml";
+                  publisher = "TheQtCompany";
+                  version = "1.7.0";
+                  hash = "sha256-QjfvZIcE4LcJU93YiYN/zykEluHtR7zVOwYiPL0k+cQ=";
+                };
+                meta = {
+                  license = lib.licenses.gpl3Plus;
+                };
+              })
 
               # nix
               jnoortheen.nix-ide

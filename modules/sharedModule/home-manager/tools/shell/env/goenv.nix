@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages.envs.goenv;
+  cfg = config.modules'.packages.envs.goenv;
 
   goenv = pkgs.stdenv.mkDerivation rec {
     name = "goenv";

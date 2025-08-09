@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages.envs;
+  cfg = config.modules'.packages.envs;
 
   pyenvEnable = cfg.pyenv.enable;
   goenvEnable = cfg.goenv.enable;
@@ -15,7 +15,7 @@ let
   lazyZsh = pyenvEnable || goenvEnable || nodenvEnable || luaenvEnable;
 in
 {
-  options.modules.packages.envs = {
+  options.modules'.packages.envs = {
     pyenv.enable = lib.mkEnableOption "pyenv" // {
       default = false;
     };

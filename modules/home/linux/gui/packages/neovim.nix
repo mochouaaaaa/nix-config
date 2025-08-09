@@ -1,6 +1,6 @@
 { lib, pkgs-unstable, ... }:
 {
-  modules.xdg-mime.editors = lib.mkAfter [
+  modules'.xdg-mime.editors = lib.mkAfter [
     "nvim.desktop"
   ];
 }

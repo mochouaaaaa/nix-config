@@ -1,6 +1,6 @@
 { pkgs, self, ... }:
 {
   home.packages = [
-    self.packages.${pkgs.system}.jetbra-free
+#    self.packages.${pkgs.system}.jetbra-free
   ];
 }

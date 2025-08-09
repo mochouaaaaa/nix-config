@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages;
+  cfg = config.modules'.packages;
 in
 {
-  options.modules.packages = with lib; {
+  options.modules'.packages = with lib; {
     openvpn = {
       enable = mkOption {
         type = types.bool;

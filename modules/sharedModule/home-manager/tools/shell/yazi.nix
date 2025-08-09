@@ -65,7 +65,7 @@
     "yazi" = {
       force = true;
       recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/yazi";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.modules'.dotfiles}/yazi";
     };
   };
 }

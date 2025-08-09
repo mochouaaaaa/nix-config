@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages;
+  cfg = config.modules'.packages;
 
   rapid = pkgs.stdenv.mkDerivation rec {
     pname = "pot-rapid-plugin";
@@ -30,7 +30,7 @@ let
 
 in
 {
-  options.modules.packages = {
+  options.modules'.packages = {
     translate.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -169,7 +169,7 @@ in
       };
     };
 
-    modules.shortcuts.global = [
+    modules'.shortcuts.global = [
       {
         "ALT-a" = {
           launch = [

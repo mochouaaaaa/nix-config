@@ -6,6 +6,9 @@
   ...
 }:
 {
+
+  imports = lib.importModule' ./. ++ [ inputs.nixvim.homeModules.nixvim ];
+
   home.packages = with pkgs; [
     wl-clipboard
     # tectonic-unwrapped
@@ -14,8 +17,6 @@
     icu
     python313Packages.pylatexenc
   ];
-
-  imports = lib.importModule' ./. ++ [ inputs.nixvim.homeModules.nixvim ];
 
   programs = rec {
     nixvim = {
@@ -30,8 +31,8 @@
       '';
       extraLuaPackages = ps: [
         ps.magick
-        pkgs.luajitPackages.luarocks
-        pkgs.luajitPackages.luacheck
+        ps.luarocks
+        ps.luacheck
       ];
       extraPackages = [
         pkgs.imagemagick
@@ -46,5 +47,5 @@
     };
   };
 
-  xdg.configFile = config.dotfileLink "nvim";
+  xdg.configFile = config.modules'.dotfileLink "nvim";
 }

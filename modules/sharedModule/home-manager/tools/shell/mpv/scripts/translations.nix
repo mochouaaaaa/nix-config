@@ -11,9 +11,9 @@ let
   };
 in
 {
-  config = lib.mkIf config.programs.mpv.enable {
-    xdg.configFile."mpv/script-opts/modernz-locale.json" = {
-      source = translations;
-    };
-  };
+#  config = lib.mkIf config.programs.mpv.enable {
+#    xdg.configFile."mpv/script-opts/modernz-locale.json" = {
+#      source = translations;
+#    };
+#  };
 }

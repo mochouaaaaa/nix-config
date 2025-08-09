@@ -12,11 +12,14 @@ let
     sha256 = "sha256-J3UezOQMDdxpflGax0rGBF/XMiKqdqZXuX4KMVGTxFk=";
   };
 
-  cfg = config.modules.packages.btop;
+  cfg = config.modules'.packages.btop;
 in
 {
-  options.modules.packages.btop = {
-    enable = lib.mkEnableOption "btop";
+  options.modules'.packages.btop = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {

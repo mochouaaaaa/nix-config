@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   programs =
     let
@@ -40,7 +40,16 @@
         enableBashIntegration = true;
       };
 
-      zsh.initContent = lib.optionalString (direnv.enable) direnv_shell_warpper;
+      zsh = {
+        initContent = lib.optionalString (direnv.enable) direnv_shell_warpper;
+        plugins = [
+          {
+            name = "just";
+            src = pkgs.just;
+            file = "share/zsh/site-functions/_just";
+          }
+        ];
+      };
       bash.initExtra = direnv_shell_warpper;
     };
 }

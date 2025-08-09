@@ -1,11 +1,11 @@
 {
   lib,
-  pkgs-unstable,
+  pkgs,
   ...
 }:
 {
   programs.nixvim.extraPackages = lib.mkBefore (
-    with pkgs-unstable.vimPlugins;
+    with pkgs.vimPlugins;
     [
       nvim-treesitter-textobjects
       nvim-treesitter-parsers.regex

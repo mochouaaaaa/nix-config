@@ -14,8 +14,10 @@
     {
       devShells.default = pkgs.mkShell {
         name = "nix flake plugins";
+
         packages = with pkgs; [
           bashInteractive
+
           home-manager
           just
           nixd

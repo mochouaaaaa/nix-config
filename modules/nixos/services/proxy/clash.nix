@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -22,8 +23,8 @@ in
     programs.clash-verge = {
       enable = true;
       autoStart = true;
-      serviceMode = true;
-      tunMode = true;
+      # serviceMode = true;
+      # tunMode = true;
     };
   };
 }

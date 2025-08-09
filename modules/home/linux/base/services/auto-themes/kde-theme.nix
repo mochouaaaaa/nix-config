@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.themes.auto.kdeTheme;
+  cfg = config.modules'.themes.auto.kdeTheme;
 in
 {
 
-  options.modules.themes.auto = {
+  options.modules'.themes.auto = {
     kdeTheme = {
       enable = lib.mkOption {
         type = lib.types.bool;

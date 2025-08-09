@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules.virtual;
+  cfg = config.modules'.virtual;
 in
 {
   config = lib.mkIf cfg.virtualbox.enable {

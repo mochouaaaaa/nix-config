@@ -5,15 +5,16 @@
   ...
 }:
 let
-  cfg = config.modules.themes.auto.gtkTheme;
+  cfg = config.modules'.themes.auto.gtkTheme;
 
   settings = ''
     [Settings]
+    gtk-key-theme-name=Default
     gtk-theme-name=WhiteSur-Light
     gtk-icon-theme-name=WhiteSur-light
     gtk-font-name=Monaco Nerd Font 12
-    gtk-cursor-theme-name=WhiteSur-cursors
-    gtk-cursor-theme-size=36
+    gtk-cursor-theme-name=${config.home.pointerCursor.name}
+    gtk-cursor-theme-size=${builtins.toString config.home.pointerCursor.size}
     gtk-button-images=0
     gtk-menu-images=0
     gtk-enable-event-sounds=0

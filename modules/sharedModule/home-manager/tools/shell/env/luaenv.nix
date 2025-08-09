@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages.envs.luaenv;
+  cfg = config.modules'.packages.envs.luaenv;
 
   luaenv = pkgs.fetchgit {
     url = "https://github.com/cehoffman/luaenv.git";
@@ -13,7 +13,7 @@ let
   };
   lua-build = pkgs.fetchgit {
     url = "https://github.com/cehoffman/lua-build.git";
-    hash = "sha256-3vrh2Rb5u4oFuVVCpQgoPtMJ93pwSbG3IZ7/qz4TRGY=";
+    hash = "sha256-bDe3GZs3As0zRbsppDTGRv4EJwVfzHI1JM5zIYiLIpc=";
   };
   luaenv-luarocks = pkgs.fetchgit {
     url = "https://github.com/xpol/luaenv-luarocks.git";

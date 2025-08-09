@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.settingscenter;
+  cfg = config.modules'.desktop.gnome.shell.packages.settingscenter;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.settingscenter = {
+  options.modules'.desktop.gnome.shell.packages.settingscenter = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.auto-move-windows;
+  cfg = config.modules'.desktop.gnome.shell.packages.auto-move-windows;
 in
 {
-  options.modules.desktop.gnome.shell.packages.auto-move-windows = {
+  options.modules'.desktop.gnome.shell.packages.auto-move-windows = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

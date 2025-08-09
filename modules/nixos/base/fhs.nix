@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  pkgs-stable,
   ...
 }:
 {
@@ -66,27 +65,25 @@
       libsodium
       util-linux
       xz
-      pkgs-stable.tcl
-      pkgs-stable.tk
-      pkgs-stable.tcl-9_0
-      (tk-9_0.overrideAttrs (oldAttrs: {
-        postInstall =
-          ''
-            ln -s $out/bin/wish* $out/bin/wish
-            cp ../{unix,generic}/*.h $out/include
-            ln -s $out/lib/libtcl9tk${tcl-9_0.release}${pkgs.stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}
-          ''
-          + lib.optionalString (pkgs.stdenv.hostPlatform.isDarwin) ''
-            cp ../macosx/*.h $out/include
-          '';
-      }))
+      tcl
+      tk
+      tcl-9_0
+      # (tk-9_0.overrideAttrs (oldAttrs: {
+      #   postInstall = ''
+      #     ln -s $out/bin/wish* $out/bin/wish
+      #     cp ../{unix,generic}/*.h $out/include
+      #     ln -s $out/lib/libtcl9tk${tcl-9_0.release}${pkgs.stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}
+      #   ''
+      #   + lib.optionalString (pkgs.stdenv.hostPlatform.isDarwin) ''
+      #     cp ../macosx/*.h $out/include
+      #   '';
+      # }))
 
       glib
-
       systemd
     ];
   };
   environment.variables = {
-    LD_LIBRARY_PATH = lib.mkForce ''$NIX_LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH'';
+    # LD_LIBRARY_PATH = lib.mkForce ''$NIX_LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH'';
   };
 }

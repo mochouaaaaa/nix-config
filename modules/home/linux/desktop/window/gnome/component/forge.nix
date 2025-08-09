@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.forge;
+  cfg = config.modules'.desktop.gnome.shell.packages.forge;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.forge = {
+  options.modules'.desktop.gnome.shell.packages.forge = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

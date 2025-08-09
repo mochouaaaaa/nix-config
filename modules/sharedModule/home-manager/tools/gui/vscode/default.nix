@@ -7,25 +7,45 @@
 {
   imports = lib.importModule' ./.;
 
-  programs = {
-    vscode = {
-      enable = true;
-      # let vscode sync and update its configuration & extensions across devices, using github account.
-      profiles = {
-        "${username}" = {
-          extensions = with pkgs.vscode-extensions; [
-            ms-ceintl.vscode-language-pack-zh-hans
-            usernamehw.errorlens
-            eamodio.gitlens
-            mhutchie.git-graph
-            vspacecode.whichkey
+  options.modules'.packages.vscode = with lib; {
+    commandLineArgs = mkOption rec {
+      type = types.listOf types.str;
+      default = [
+        "--locale=zh-cn"
+        "--no-sandbox"
+        "--ozone-platform=wayland"
+        "--enable-features=UseOzonePlatform"
+        "--enable-wayland-ime"
+        "--gtk-version=4"
+      ];
+      description = "Additional command line arguments to pass to the VSCode binary.";
+      apply = userValue: default ++ userValue;
+    };
+  };
 
-            ms-vscode-remote.remote-ssh
-            ms-vscode-remote.remote-ssh-edit
-            ms-vscode-remote.vscode-remote-extensionpack
-          ];
+  config = {
+
+    programs = {
+      vscode = {
+        enable = true;
+        # let vscode sync and update its configuration & extensions across devices, using github account.
+        profiles = {
+          "${username}" = {
+            extensions = with pkgs.vscode-extensions; [
+              ms-ceintl.vscode-language-pack-zh-hans
+              usernamehw.errorlens
+              eamodio.gitlens
+              mhutchie.git-graph
+              vspacecode.whichkey
+
+              ms-vscode-remote.remote-ssh
+              ms-vscode-remote.remote-ssh-edit
+              ms-vscode-remote.vscode-remote-extensionpack
+            ];
+          };
         };
       };
     };
+
   };
 }

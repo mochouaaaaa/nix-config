@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.blur-my-shell;
+  cfg = config.modules'.desktop.gnome.shell.packages.blur-my-shell;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.blur-my-shell = {
+  options.modules'.desktop.gnome.shell.packages.blur-my-shell = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

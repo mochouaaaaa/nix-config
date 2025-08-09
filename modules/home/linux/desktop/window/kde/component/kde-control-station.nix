@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.kde;
+  cfg = config.modules'.desktop.kde;
 
   kde-control-station = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "kde-control-station";

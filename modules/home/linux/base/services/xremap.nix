@@ -5,14 +5,14 @@
   ...
 }:
 let
-  cfg = config.modules.shortcuts;
+  cfg = config.modules'.shortcuts;
 in
 {
   imports = [
     inputs.xremap-flake.homeManagerModules.default
   ];
 
-  options.modules.shortcuts = {
+  options.modules'.shortcuts = {
     global = lib.mkOption rec {
       type = lib.types.listOf lib.types.attrs;
       default = [ ];

@@ -12,7 +12,7 @@ let
   inherit (lib) types;
 
   darwinOpts =
-    { config, name, ... }:
+    opts@{ config, name, ... }:
     {
       options = {
         system = lib.mkOption {
@@ -78,8 +78,7 @@ let
               inherit hostname username;
             }
             // {
-              isNixDarwin = true;
-              nix-darwinSystemName = name;
+              pkgs-unstable = ctx.extraPackages.pkgs-unstable;
             };
 
         in
@@ -94,21 +93,35 @@ let
             ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
               home-manager.darwinModules.home-manager
               {
-                nixpkgs = {
-                  overlays = lib.mkAfter [ self.overlays.home-manager ];
-                };
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "home-manager.backup";
 
                 home-manager.extraSpecialArgs = specialArgs // {
+                  pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs-unstable {
+                    overlays = [ self.overlays.home-manager ];
+                  };
+                  pkgs-stable = ctx.extraPackages.pkgs-stable;
                   isNixos = false;
                   nixosSystemName = "${username}@nixos";
                   isNixDarwin = true;
                   nixDarwinSystemName = name;
                   homeManagerName = name;
                 };
-                home-manager.users."${username}".imports = config.homeModules;
+                home-manager.users."${username}" = {
+                  imports = config.homeModules;
+                  nix = (
+                    removeAttrs ctx.nix [
+                      "channel"
+                      "gc"
+                    ]
+                  );
+                  home = {
+                    enableNixpkgsReleaseCheck = false;
+                    inherit username;
+                    inherit (opts.config) stateVersion;
+                  };
+                };
               }
             ])
 

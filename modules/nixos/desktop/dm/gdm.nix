@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   ...
 }:
 let
@@ -17,7 +18,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services = {
-      displayManager.gdm = {
+      xserver.displayManager.gdm = {
         enable = true;
         wayland = true;
         autoLogin.delay = 0;

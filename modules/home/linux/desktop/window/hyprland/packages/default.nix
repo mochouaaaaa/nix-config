@@ -3,14 +3,14 @@
   lib,
   pkgs,
   pkgs-stable,
-  pkgs-unstable,
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   imports = lib.importModule' ./.;
+
   config = lib.mkIf cfg.enable {
 
     home.packages = with pkgs; [
@@ -23,14 +23,15 @@ in
       hyprpicker # color picker
       envsubst
 
-      pkgs-unstable.hyprshot # screen shot
+      hyprshot # screen shot
       grimblast
+      slurp
       gimp
+      grim
       # wf-recorder # screen recording
 
       wallust
       cliphist
-      wttrbar
       parallel
 
       yad # a fork of zenity, for creating dialogs

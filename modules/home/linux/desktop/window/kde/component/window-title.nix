@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.kde;
+  cfg = config.modules'.desktop.kde;
   applet-window-title = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "applet-window-title";
     version = "v0.9.0";

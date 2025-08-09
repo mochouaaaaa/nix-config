@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.modules.desktop.component.launcher.fuzzel;
+  cfg = config.modules'.desktop.component.launcher.fuzzel;
 in
 {
 
@@ -10,7 +10,7 @@ in
       enable = true;
     };
 
-    modules.desktop.component.launcher._commands = "fuzzel";
+    modules'.desktop.component.launcher._commands = "fuzzel";
 
   };
 }

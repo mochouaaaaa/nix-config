@@ -7,7 +7,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.status-bar.waybar;
+  cfg = config.modules'.desktop.component.status-bar.waybar;
 in
 {
   imports = lib.importModule' ./.;

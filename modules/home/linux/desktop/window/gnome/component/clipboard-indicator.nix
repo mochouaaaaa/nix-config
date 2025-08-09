@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.clipboard-indicator;
+  cfg = config.modules'.desktop.gnome.shell.packages.clipboard-indicator;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.clipboard-indicator = {
+  options.modules'.desktop.gnome.shell.packages.clipboard-indicator = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

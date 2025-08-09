@@ -5,19 +5,19 @@
   ...
 }:
 let
-  cfg = config.modules.packages.envs.nodenv;
+  cfg = config.modules'.packages.envs.nodenv;
 
   nodenv-build = pkgs.fetchgit {
     url = "https://github.com/nodenv/node-build.git";
-    hash = "sha256-EC0LLd+QVIL5j1efZV1SzzF4YGk8yyy0aqbfTcbCcLE=";
+    hash = "sha256-k1aynAeuClO3CWzTW/CbjRq4bLtF/FDTDkHruEIkzvI=";
   };
   nodenv-vars = pkgs.fetchgit {
     url = "https://github.com/nodenv/nodenv-vars.git";
-    hash = "sha256-o9lc21DmRvhDKPX14Fpo2tg8csNy+qvDJZPGd4pe3VM=";
+    hash = "sha256-tIlc0HzvKZKsdngRnqeFkdTw30H9RPjdT7hrgI5KJ+Q=";
   };
   nodenv-aliases = pkgs.fetchgit {
     url = "https://github.com/nodenv/nodenv-aliases.git";
-    hash = "sha256-BjrgZG6crv+IDnbq4Tj9YWt9s+rCzeXO7XBS6XfAlSA=";
+    hash = "sha256-TlaEY9yeq9wc74y5yoIJ3svdOOoDen/ixY4rvs/qBck=";
   };
 in
 {

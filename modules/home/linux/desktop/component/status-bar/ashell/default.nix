@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.status-bar.ashell;
+  cfg = config.modules'.desktop.component.status-bar.ashell;
 in
 {
 

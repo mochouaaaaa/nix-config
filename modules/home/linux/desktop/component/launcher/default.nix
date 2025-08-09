@@ -1,11 +1,11 @@
 { config, lib, ... }:
 let
-  cfg = config.modules.desktop.component.launcher;
+  cfg = config.modules'.desktop.component.launcher;
 in
 {
   imports = lib.importModule' ./.;
 
-  options.modules.desktop.component.launcher = with lib; {
+  options.modules'.desktop.component.launcher = with lib; {
     fuzzel = {
       enable = mkOption {
         type = types.bool;
@@ -36,7 +36,7 @@ in
   config = lib.mkIf (cfg.fuzzel.enable || cfg.rofi.enable || cfg.walker.enable) {
 
     # set keymap
-    modules.shortcuts.global = [
+    modules'.shortcuts.global = [
       {
         "SUPER-SPACE" = {
           launch = [

@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.modules.desktop.component.status-bar;
+  cfg = config.modules'.desktop.component.status-bar;
 in
 {
 
-  options.modules.desktop.component.status-bar = {
+  options.modules'.desktop.component.status-bar = {
     waybar = {
       enable = lib.mkOption {
         type = lib.types.bool;

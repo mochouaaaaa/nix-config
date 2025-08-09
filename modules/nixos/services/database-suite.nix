@@ -6,15 +6,15 @@
   ...
 }:
 let
-  cfg = config.modules.packages.database-suite;
+  cfg = config.modules'.packages.database-suite;
 
   user = "${username}";
 in
 {
-  options.modules.packages.database-suite = {
+  options.modules'.packages.database-suite = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Whether to enable databases packages.";
     };
   };

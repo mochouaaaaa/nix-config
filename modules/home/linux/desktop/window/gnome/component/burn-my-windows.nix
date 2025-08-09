@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.burn-my-windows;
+  cfg = config.modules'.desktop.gnome.shell.packages.burn-my-windows;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.burn-my-windows = {
+  options.modules'.desktop.gnome.shell.packages.burn-my-windows = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

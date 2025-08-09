@@ -1,18 +1,18 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
-  pkgs-stable,
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       plugins = [
-        pkgs-stable.hyprlandPlugins.hypr-dynamic-cursors
+        inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
       ];
       extraConfig = ''
         plugin:dynamic-cursors {

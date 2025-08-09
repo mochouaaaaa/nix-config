@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages.ollama;
+  cfg = config.modules'.packages.ollama;
 in
 {
-  options.modules.packages.ollama = {
+  options.modules'.packages.ollama = {
     enable = lib.mkEnableOption "ollama";
   };
 

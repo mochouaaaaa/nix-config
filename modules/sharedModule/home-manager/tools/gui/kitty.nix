@@ -2,11 +2,17 @@
   lib,
   pkgs,
   config,
-  pkgs-unstable,
   ...
 }:
 let
-  cfg = config.modules.packages.kitty;
+  cfg = config.modules'.packages.kitty;
+
+  kitty-themes = pkgs.fetchFromGitHub {
+    owner = "kovidgoyal";
+    repo = "kitty-themes";
+    rev = "master";
+    sha256 = "sha256-aPKFL/1p86ANc4bqKNzyeKmLjYpriYG8EIvVDhFcdEE=";
+  };
 
   kitty-icon = pkgs.fetchFromGitHub {
     owner = "DinkDonk";
@@ -15,33 +21,29 @@ let
     hash = "sha256-f+uiesvd0Vdoef6X2kqmbd+4CX2TXdkUGwZdzaKg5bY=";
   };
 
-  kitty-themes = pkgs.fetchFromGitHub {
-    owner = "kovidgoyal";
-    repo = "kitty-themes";
-    rev = "master";
-    sha256 = "sha256-VqrG5yXjX/y7gjzBZqX9Ih6NPVGqQX0Pk3gxqkXbV0s=";
-  };
 in
 {
-  options.modules.packages.kitty = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
+
+  options.modules'.packages.kitty = with lib; {
+    enable = mkOption {
+      type = types.bool;
       default = true;
       description = "Whether to enable kitty.";
     };
-    extraConfig = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+    extraConfig = mkOption rec {
+      type = types.listOf types.str;
       default = [ ];
       description = "Extra configuration lines for kitty.conf.";
+      apply = userValue: default ++ userValue;
     };
-    icon = lib.mkOption {
-      type = lib.types.path;
+    icon = mkOption {
+      type = types.path;
       default = kitty-icon;
     };
   };
 
   config = lib.mkIf cfg.enable {
-    modules.packages.kitty.extraConfig = [
+    modules'.packages.kitty.extraConfig = [
       "include init.conf"
       # "shell ${config.programs.zsh.package}/bin/zsh --login --interactive"
     ];
@@ -83,7 +85,7 @@ in
       '';
       kitty = {
         enable = true;
-        package = pkgs-unstable.kitty;
+        package = pkgs.kitty;
         font = {
           name = "Monaco Nerd Font Mono";
           size = 16;
@@ -115,7 +117,7 @@ in
       };
     };
 
-    xdg.configFile = config.dotfileLink "kitty" // {
+    xdg.configFile = config.modules'.dotfileLink "kitty" // {
       "kitty/themes" = {
         enable = true;
         source = "${kitty-themes}/themes";

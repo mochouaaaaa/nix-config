@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfgNiri = config.modules.desktop.niri;
+  cfgNiri = config.modules'.desktop.niri;
 in
 {
 

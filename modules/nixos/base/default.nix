@@ -1,4 +1,4 @@
-{ lib, self, ... }:
+{ lib, inputs, ... }:
 {
   imports = lib.importModule' ./. ++ [
     ../desktop

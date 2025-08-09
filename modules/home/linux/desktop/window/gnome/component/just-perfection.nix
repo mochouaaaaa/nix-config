@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.just-perfection;
+  cfg = config.modules'.desktop.gnome.shell.packages.just-perfection;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.just-perfection = {
+  options.modules'.desktop.gnome.shell.packages.just-perfection = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

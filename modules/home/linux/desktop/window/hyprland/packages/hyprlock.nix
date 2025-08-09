@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
-  cfg_lock = config.modules.desktop.component.hyprlock;
+  cfg = config.modules'.desktop.hyprland;
+  cfg_lock = config.modules'.desktop.component.hyprlock;
 in
 {
-  options.modules.desktop.component.hyprlock = {
+  options.modules'.desktop.component.hyprlock = {
     enable = lib.mkEnableOption "Waybar status bar" // {
       default = false;
     };

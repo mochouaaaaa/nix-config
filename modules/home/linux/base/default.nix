@@ -1,12 +1,13 @@
 {
-  self,
   lib,
   ...
 }:
 {
   imports = lib.importModule' ./.;
 
-  config = {
-    keymaps.Super = lib.mkDefault "cmd";
+  config.modules' = {
+    keymaps = {
+      Super = lib.mkDefault "cmd";
+    };
   };
 }

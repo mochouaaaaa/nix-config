@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.modules.desktop.kde;
+  cfg = config.modules'.desktop.kde;
   fontConfig = {
     family = "Monaco Nerd Font Mono";
     pointSize = 12;

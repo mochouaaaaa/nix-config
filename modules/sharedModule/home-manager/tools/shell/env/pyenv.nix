@@ -8,7 +8,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages.envs.pyenv;
+  cfg = config.modules'.packages.envs.pyenv;
 
   pyenv-virtualenv = pkgs.fetchgit {
     url = "https://github.com/pyenv/pyenv-virtualenv.git";
@@ -30,10 +30,8 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    home = {
-      packages = with pkgs; [
-        uv
-      ];
+    programs.uv = {
+      enable = true;
     };
 
     xdg.configFile = {

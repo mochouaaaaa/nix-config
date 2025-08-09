@@ -56,24 +56,30 @@
           hostPlatform = system;
         };
 
+        extraPackages = {
+          inherit (customPkgs)
+            mkPkgs
+            pkgs-unstable
+            pkgs-stable
+            pkgs-os
+            ;
+        };
+
         # Extra arguments passed to the module system for nix-darwin, NixOS, and home-manager
-        extraModuleArgs =
-          {
-            inherit
-              self'
-              inputs'
-              inputs
-              system
-              myvars
-              ;
-          }
-          // {
-            inherit (customPkgs)
-              pkgs-unstable
-              pkgs-stable
-              nvfetcherSources
-              ;
-          };
+        extraModuleArgs = {
+          inherit
+            self'
+            inputs'
+            inputs
+            system
+            myvars
+            ;
+        }
+        // {
+          inherit (customPkgs)
+            nvfetcherSources
+            ;
+        };
 
       };
     };

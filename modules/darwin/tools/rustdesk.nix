@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages;
+  cfg = config.modules'.packages;
 in
 {
-  options.modules.packages = with lib; {
+  options.modules'.packages = with lib; {
     rustdesk = {
       enable = mkOption {
         type = types.bool;

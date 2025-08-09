@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.modules.packages.firefox;
+  cfg = config.modules'.packages.firefox;
 
   themes = pkgs.stdenv.mkDerivation {
     name = "firefox-themes";

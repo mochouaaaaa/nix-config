@@ -1,7 +1,7 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   home.packages =
-    with pkgs-unstable;
+    with pkgs;
     [
 
       # shell
@@ -63,7 +63,7 @@
       # css/js
       stylelint
     ]
-    ++ lib.optionals (pkgs-unstable.stdenv.isLinux) [
+    ++ lib.optionals (pkgs.stdenv.isLinux) [
       # hyprland
       hyprls
 

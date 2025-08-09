@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  pkgs-unstable,
   isNixDarwin,
   nixDarwinSystemName,
   isNixos,
@@ -10,7 +9,7 @@
   ...
 }:
 {
-  home.packages = with pkgs-unstable; [
+  home.packages = with pkgs; [
     nixd
     nixfmt-rfc-style
   ];

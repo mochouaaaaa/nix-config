@@ -4,12 +4,12 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.niri;
+  cfg = config.modules'.desktop.niri;
 in
 {
   config = lib.mkIf cfg.enable {
 
-    modules.desktop = {
+    modules'.desktop = {
       component = {
         launcher = {
           rofi.enable = false;

@@ -5,40 +5,29 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      satty
+
       (writeShellScriptBin "screenshot" ''
 
-        iDIR="$HOME/.config/swaync/icons"
-        notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ''${iDIR}/screenshot.png"
-
-        # Function: Notify and handle sound
-        notify_view() {
-            local msg=$1
-            local success=$2
-            if [[ "$success" -eq 1 ]]; then
-                ''${notify_cmd_shot} "$msg"
-                sounds --screenshot
-            fi
-        }
-
+        file_name="Screenshot.png"
+        file_path=$HOME/Pictures/Screenshots/
         # Function: Capture selected area
         capture_area() {
-            grimblast --freeze copy area
-            if [[ $? -eq 0 ]]; then
-                notify_view "Screenshot copied to clipboard" 1
-            fi
+            grimblast --freeze save area /tmp/$file_name
+            satty --filename /tmp/$file_name
+            rm /tmp/$file_name
         }
 
         # Function: Capture with swappy
         capture_with_swappy() {
-            grimblast --freeze copysave active $HOME/Pictures/Screenshots/screenshot.png
-            if [[ $? -eq 0 ]]; then
-                notify_view "Screenshot save to file" 1
-            fi
+            grimblast --freeze save active /tmp/$file_name
+            satty --filename /tmp/$file_name 
+            rm /tmp/$file_name
         }
 
         # Screenshot options
@@ -57,5 +46,72 @@ in
         exit 0
       '')
     ];
+
+    xdg.configFile = {
+      "satty/config.toml" = {
+        text = ''
+          [general]
+          # Start Satty in fullscreen mode
+          fullscreen = true
+          # Exit directly after copy/save action
+          early-exit = true
+          # Draw corners of rectangles round if the value is greater than 0 (0 disables rounded corners)
+          corner-roundness = 12
+          # Select the tool on startup [possible values: pointer, crop, line, arrow, rectangle, text, marker, blur, brush]
+          initial-tool = "brush"
+          # Configure the command to be called on copy, for example `wl-copy`
+          copy-command = "wl-copy"
+          # Increase or decrease the size of the annotations
+          annotation-size-factor = 2
+          # Filename to use for saving action. Omit to disable saving to file. Might contain format specifiers: https://docs.rs/chrono/latest/chrono/format/strftime/index.html
+          output-filename = "${config.home.homeDirectory}/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"
+          # After copying the screenshot, save it to a file as well
+          save-after-copy = false
+          # Hide toolbars by default
+          default-hide-toolbars = false
+          # Experimental: whether window focus shows/hides toolbars. This does not affect initial state of toolbars, see default-hide-toolbars.
+          # focus-toggles-toolbars = false
+          # Fill shapes by default
+          # default-fill-shapes = false
+          # The primary highlighter to use, the other is accessible by holding CTRL at the start of a highlight [possible values: block, freehand]
+          primary-highlighter = "block"
+          # Disable notifications
+          disable-notifications = false
+          # Actions to trigger on right click (order is important)
+          # [possible values: save-to-clipboard, save-to-file, exit]
+          actions-on-right-click = []
+          # Actions to trigger on Enter key (order is important)
+          # [possible values: save-to-clipboard, save-to-file, exit]
+          actions-on-enter = ["save-to-clipboard"]
+          # Actions to trigger on Escape key (order is important)
+          # [possible values: save-to-clipboard, save-to-file, exit]
+          actions-on-escape = ["exit"]
+          # Action to perform when the Enter key is pressed [possible values: save-to-clipboard, save-to-file]
+          # Deprecated: use actions-on-enter instead
+          action-on-enter = "save-to-clipboard"
+          # Right click to copy
+          # Deprecated: use actions-on-right-click instead
+          right-click-copy = false
+          # request no window decoration. Please note that the compositor has the final say in this. At this point. requires xdg-decoration-unstable-v1.
+          no-window-decoration = true
+          # experimental feature: adjust history size for brush input smooting (0: disabled, default: 0, try e.g. 5 or 10)
+          brush-smooth-history-size = 10
+
+          # Font to use for text annotations
+          [font]
+          family = "Monaco Nerd Font"
+          style = "Bold"
+
+          # Custom colours for the colour palette
+          [color-palette]
+          # These will be shown in the toolbar for quick selection
+          palette = ["#00ffff", "#a52a2a", "#dc143c", "#ff1493", "#ffd700", "#008000"]
+
+          # These will be available in the color picker as presets
+          # Leave empty to use GTK's default
+          custom = ["#00ffff", "#a52a2a", "#dc143c", "#ff1493", "#ffd700", "#008000"]
+        '';
+      };
+    };
   };
 }

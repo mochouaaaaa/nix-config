@@ -1,53 +1,30 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
 let
-  cfgKde = config.modules.desktop.kde;
+  cfgKde = config.modules'.desktop.kde;
 in
 {
-  options.modules.desktop = {
-    kde = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = builtins.getEnv "DESKTOP" == "kde";
-        description = "Enable KDE desktop environment.";
-      };
-    };
-  };
+
+  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfgKde.enable {
-    modules.dm.sddm.enable = false;
-    modules.dm.gdm.enable = true;
-    # modules.dm.greetd.enable = true;
 
     services = {
-      xserver = {
-        enable = true;
-      };
-      greetd = {
-        settings = {
-          default_session = {
-            command = lib.mkForce "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-          };
+      displayManager = {
+        sddm = {
+          enable = true;
+          wayland.enable = true;
         };
       };
       desktopManager = {
         plasma6.enable = true;
       };
-      fwupd = {
-        enable = true;
-      };
     };
 
     programs.xwayland.enable = true;
-
-    qt = {
-      platformTheme = "kde";
-      style = "kvantum";
-    };
     i18n.inputMethod.fcitx5.plasma6Support = true;
   };
 }

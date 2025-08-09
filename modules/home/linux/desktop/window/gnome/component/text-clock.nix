@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.text-clock;
+  cfg = config.modules'.desktop.gnome.shell.packages.text-clock;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.text-clock = {
+  options.modules'.desktop.gnome.shell.packages.text-clock = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

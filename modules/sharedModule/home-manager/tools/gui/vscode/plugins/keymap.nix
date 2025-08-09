@@ -1,6 +1,6 @@
 { config, username, ... }:
 let
-  cfg = config.keymaps;
+  cfg = config.modules'.keymaps;
 in
 {
   programs = {

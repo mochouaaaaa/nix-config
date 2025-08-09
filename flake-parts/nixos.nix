@@ -70,14 +70,19 @@ let
           hostname = splitName 2; # nixos
           username = splitName 0; # mochou
 
-          specialArgs = ctx.extraModuleArgs // {
-            inherit self;
-            inherit (ctx) lib;
-            inherit hostname username;
-          };
+          specialArgs =
+            ctx.extraModuleArgs
+            // {
+              inherit self;
+              inherit (ctx) lib;
+              inherit hostname username;
+            }
+            // {
+              pkgs-unstable = ctx.extraPackages.pkgs-unstable;
+            };
 
         in
-        inputs.nixpkgs.lib.nixosSystem {
+        inputs.nixpkgs-os.lib.nixosSystem {
           inherit specialArgs;
 
           modules = [
@@ -88,21 +93,38 @@ let
           ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
             home-manager.nixosModules.home-manager
             {
-              nixpkgs = {
-                overlays = lib.mkAfter [ self.overlays.home-manager ];
-              };
               home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
+              home-manager.useUserPackages = false;
               home-manager.backupFileExtension = "home-manager.backup";
 
               home-manager.extraSpecialArgs = specialArgs // {
+
+                pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs-unstable {
+                  overlays = [ self.overlays.home-manager ];
+                };
+                pkgs-stable = ctx.extraPackages.pkgs-stable;
+
                 isNixos = true;
                 nixosSystemName = name;
                 isNixDarwin = false;
                 nixDarwinSystemName = "${username}@darwin";
                 homeManagerName = name;
               };
-              home-manager.users."${username}".imports = config.homeModules;
+              home-manager.users."${username}" = {
+                imports = config.homeModules;
+                nix = (
+                  removeAttrs ctx.nix [
+                    "channel"
+                    "gc"
+                  ]
+                );
+
+                home = {
+                  enableNixpkgsReleaseCheck = false;
+                  inherit username;
+                  inherit (opts.config) stateVersion;
+                };
+              };
             }
           ])
 

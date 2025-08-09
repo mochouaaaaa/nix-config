@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.hyprland;
+  cfg = config.modules'.desktop.hyprland;
 in
 {
 
@@ -16,6 +16,9 @@ in
         "hyprland/workspaces#icon"
       ];
       modules-center = [
+      ];
+      modules-right = [
+        "custom/hyprlock"
       ];
     };
 

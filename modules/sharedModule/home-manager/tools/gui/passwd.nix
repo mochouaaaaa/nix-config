@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages;
+  cfg = config.modules'.packages;
 in
 {
-  options.modules.packages = {
+  options.modules'.packages = {
     bitwarden = {
       enable = lib.mkOption {
         type = lib.types.bool;

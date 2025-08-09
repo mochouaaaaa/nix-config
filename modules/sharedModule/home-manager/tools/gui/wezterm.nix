@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.modules.packages.wezterm;
+  cfg = config.modules'.packages.wezterm;
 in
 {
-  options.modules.packages.wezterm = {
+  options.modules'.packages.wezterm = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -39,6 +39,6 @@ in
         zsh.initContent = lib.mkOrder 2410 warpper_shell;
         bash.initExtra = lib.mkOrder 2410 warpper_shell;
       };
-    xdg.configFile = config.dotfileLink "wezterm";
+    xdg.configFile = config.modules'.dotfileLink "wezterm";
   };
 }

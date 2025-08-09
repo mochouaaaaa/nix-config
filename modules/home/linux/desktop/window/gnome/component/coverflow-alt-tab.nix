@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.coverflow-alt-tab;
+  cfg = config.modules'.desktop.gnome.shell.packages.coverflow-alt-tab;
 in
 {
 
-  options.modules.desktop.gnome.shell.packages.coverflow-alt-tab = {
+  options.modules'.desktop.gnome.shell.packages.coverflow-alt-tab = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

@@ -16,14 +16,13 @@
   };
 
   channel.enable = false;
-  gc =
-    {
-      automatic = true;
-      options = "--delete-older-than 7d";
-    }
-    // lib.mkIf (pkgs.stdenv.isLinux) {
-      dates = "weekly";
-    };
+  gc = {
+    automatic = true;
+    options = "--delete-older-than 7d";
+  }
+  // lib.mkIf (pkgs.stdenv.isLinux) {
+    dates = "weekly";
+  };
 
   settings = lib.mkMerge [
 
@@ -52,6 +51,7 @@
         "https://cache.nixos.org?priority=12"
         "https://nix-community.cachix.org?priority=13"
         "https://niri.cachix.org"
+        "https://hyprland.cachix.org"
       ];
 
       trusted-public-keys = [
@@ -59,6 +59,7 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
 
       max-jobs = "auto";

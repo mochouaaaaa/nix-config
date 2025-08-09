@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.wlogout;
+  cfg = config.modules'.desktop.component.wlogout;
 in
 {
 
-  options.modules.desktop.component.wlogout = {
+  options.modules'.desktop.component.wlogout = {
     enable = lib.mkEnableOption "wlogout" // {
       default = false;
     };

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.kde;
+  cfg = config.modules'.desktop.kde;
 in
 {
   imports = [
@@ -15,6 +15,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.plasma = {
       enable = true;
+      immutableByDefault = true;
       overrideConfig = true;
       configFile = {
         kdeglobals.General = {
@@ -23,10 +24,10 @@ in
         };
         kcminputrc.Mouse = {
           X11LibInputXAccelProfileFlat = true;
-          cursorSize = 36;
+          cursorSize = config.home.pointerCursor.size;
         };
         kwinrc.Wayland."InputMethod" = {
-          value = "$HOME/.nix-profile/share/applications/fcitx5-wayland-launcher.desktop";
+          value = "$HOME/.local/state/nix/profile/share/applications/fcitx5-wayland-launcher.desktop";
           shellExpand = true;
         };
       };

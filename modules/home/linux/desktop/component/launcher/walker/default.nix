@@ -5,14 +5,14 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.component.launcher.walker;
+  cfg = config.modules'.desktop.component.launcher.walker;
 in
 {
   imports = [ inputs.walker.homeManagerModules.default ];
 
   config = lib.mkIf cfg.enable {
 
-    modules.desktop.component.launcher._commands = "walker";
+    modules'.desktop.component.launcher._commands = "walker";
 
     programs.walker = {
       enable = true;

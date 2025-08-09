@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.desktop.gnome.shell.packages.appindicator;
+  cfg = config.modules'.desktop.gnome.shell.packages.appindicator;
 in
 {
-  options.modules.desktop.gnome.shell.packages.appindicator = {
+  options.modules'.desktop.gnome.shell.packages.appindicator = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
