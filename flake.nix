@@ -15,6 +15,7 @@
       "https://nix-community.cachix.org?priority=13"
       "https://niri.cachix.org"
       "https://walker-git.cachix.org"
+      "https://hyprland.cachix.org"
     ];
 
     trusted-public-keys = [
@@ -23,6 +24,7 @@
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 
@@ -31,6 +33,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-os.url = "github:nixos/nixpkgs/nixos-25.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     lix-module = {
@@ -54,7 +57,6 @@
     };
 
     # for linux
-    impermanence.url = "github:nix-community/impermanence";
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
     };
@@ -74,6 +76,9 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    preservation = {
+      url = "github:nix-community/preservation";
     };
 
     # generate iso/qcow2/docker/... image from nixos configuration
@@ -114,10 +119,6 @@
     # ashell.url = "github:MalpenZibo/ashell";
     ags.url = "github:aylur/ags";
 
-    hyprlux = {
-      url = "github:amadejkastelic/Hyprlux";
-    };
-
     swww.url = "github:LGFae/swww";
     walker.url = "github:abenz1267/walker";
     # walker.url = "path:./walker";
@@ -128,11 +129,38 @@
       };
     };
 
+    # hyprland
+    hyprutils.url = "github:hyprwm/hyprutils?ref=v0.8.2";
+    hyprland = {
+      url = "github:hyprwm/Hyprland?ref=v0.50.0";
+      inputs.hyprutils.follows = "hyprutils";
+    };
+    hyprlux = {
+      url = "github:amadejkastelic/Hyprlux";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hypr-dynamic-cursors = {
+      url = "github:VirtCode/hypr-dynamic-cursors";
+      inputs.hyprland.follows = "hyprland"; # to make sure that the plugin is built for the correct version of hyprland
+    };
+
     # niri
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    xwayland-satellite = {
+      url = "github:Supreeeme/xwayland-satellite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    astal-shell.url = "github:knoopx/ags";
 
     # kde
     plasma-manager = {

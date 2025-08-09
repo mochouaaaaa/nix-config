@@ -9,6 +9,6 @@
   in
   composed next prev
   // {
-    # xx = xx;
+    clash-verge = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.clash-verge;
   }
 )

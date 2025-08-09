@@ -84,13 +84,13 @@ switch desktop="hyprland":
 # repl test environment
 [linux]
 @repl desktop="hyprland":
-    HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild repl --flake .#mochou@nixos --impure
+    NIXPKGS_ALLOW_INSECURE=1 HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild repl --flake .#mochou@nixos --impure
 
 # switch hyprland desktop environment
 [linux]
 [group('nixos desktop')]
 @nixos-hyprland:
-    nix flake update rofi-tools swww hyprlux waybar
+    nix flake update hypr-dynamic-cursors hyprland-plugins rofi-tools swww hyprlux waybar
     just switch
 
 # switch kde desktop environment
@@ -110,30 +110,36 @@ switch desktop="hyprland":
 [linux]
 [group('nixos desktop')]
 @nixos-niri:
+    nix flake update niri
     just switch niri
 
+[linux]
+[group('home-manager')]
+@home-repl desktop="hyprland":
+    NIXPKGS_ALLOW_INSECURE=1 DESKTOP={{ desktop }} nix repl .
 
 # switch hyprland desktop environment
 [linux]
 [group('home-manager')]
 @home-hyprland:
+    # nix flake update rofi-tools swww hyprlux waybar
     NIXPKGS_ALLOW_INSECURE=1 DESKTOP=hyprland home-manager switch --flake .#mochou@nixos --impure -b backup
 
 # switch kde desktop environment
 [linux]
 [group('home-manager')]
 @home-kde:
-    DESKTOP=kde home-manager switch --flake .#mochou@nixos --impure -b backup
+    NIXPKGS_ALLOW_INSECURE=1  DESKTOP=kde home-manager switch --flake .#mochou@nixos --impure -b backup
 
 # switch gnome desktop environment
 [linux]
 [group('home-manager')]
 @home-gnome:
-    DESKTOP=gnome home-manager switch --flake .#mochou@nixos --impure -b backup
+    NIXPKGS_ALLOW_INSECURE=1 DESKTOP=gnome home-manager switch --flake .#mochou@nixos --impure -b backup
 
 # switch nir desktop environment
 [linux]
 [group('home-manager')]
 @home-niri:
-    DESKTOP=niri home-manager switch --flake .#mochou@nixos --impure -b backup
+    NIXPKGS_ALLOW_INSECURE=1 DESKTOP=niri home-manager switch --flake .#mochou@nixos --impure -b backup
 
