@@ -1,14 +1,15 @@
 { inputs, ... }:
 
 (
-  next: prev:
+  final: prev:
   let
     composed = inputs.nixpkgs.lib.composeManyExtensions [
-      (import ./pkgs/mihomo-party-wrapper.nix)
+      # (import ./pkgs/mihomo-party-wrapper.nix)
     ];
   in
-  composed next prev
+  composed final prev
   // {
     clash-verge = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.clash-verge;
+    mihomo-party = prev.callPackage ./pkgs/mihomo-party.nix { };
   }
 )

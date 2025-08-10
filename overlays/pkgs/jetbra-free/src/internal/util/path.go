@@ -3,7 +3,6 @@ package util
 import (
 	"log"
 	"os"
-	"path/filepath"
 )
 
 func GetBinDir() string {
@@ -13,5 +12,5 @@ func GetBinDir() string {
 	// }
 	exePath := os.Getenv("XDG_CONFIG_HOME")
 	log.Printf("exePath: %s", exePath)
-	return filepath.Dir(exePath)
+	return exePath
 }

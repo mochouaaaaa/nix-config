@@ -10,15 +10,4 @@ flake-parts.lib.mkFlake { inherit inputs; } {
 
     ./overlays
   ];
-
-  perSystem =
-    {
-      lib,
-      pkgs,
-      system,
-      ...
-    }:
-    {
-      packages = import ./packages { inherit pkgs; };
-    };
 }

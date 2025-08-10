@@ -76,6 +76,11 @@ update:
 _reset_dconf:
     dconf reset -f /org/gnome/
 
+# build nixos boot
+[linux]
+boot desktop="hyprland":
+    NIXPKGS_ALLOW_INSECURE=1 HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild boot --flake .#mochou@nixos --impure
+
 # switch flake config
 [linux]
 switch desktop="hyprland":

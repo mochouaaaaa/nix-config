@@ -34,11 +34,12 @@
   in
   composed final prev
   // {
-#    nixpaks = {
-#      wechat-uos = wrapper prev ./pkgs/wechat-uos.nix;
-#    };
+    #    nixpaks = {
+    #      wechat-uos = wrapper prev ./pkgs/wechat-uos.nix;
+    #    };
   }
   // {
+    jetbra-free = prev.callPackage ./pkgs/jetbra-free { };
     waybar_git = inputs.waybar.packages.${final.pkgs.system}.waybar;
     xwayland-satellite = inputs.xwayland-satellite.packages.${final.pkgs.system}.default;
   }
