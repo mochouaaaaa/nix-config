@@ -1,4 +1,23 @@
 { self, inputs, ... }:
+let
+  homeModules = [
+    self.homeModules.darwin.modules
+    {
+      modules'.packages = {
+        wezterm.enable = true;
+        ollama.enable = false;
+        firefox.enable = true;
+        bitwarden.enable = false;
+        envs = {
+          pyenv.enable = true;
+          goenv.enable = true;
+          nodenv.enable = true;
+          luaenv.enable = true;
+        };
+      };
+    }
+  ];
+in
 {
 
   flake-parts = {
@@ -10,8 +29,8 @@
         modules = [
 
           self.darwinModules.base
-           {
-            modules.packages = {
+          {
+            modules'.packages = {
               openvpn.enable = true;
               tunnelblick.enable = true;
               aerospace.enable = false;
@@ -21,23 +40,7 @@
           }
 
         ];
-        homeModules = [
-          self.homeModules.darwin.modules
-           {
-            modules.packages = {
-              wezterm.enable = true;
-              ollama.enable = false;
-              firefox.enable = true;
-              bitwarden.enable = false;
-              envs = {
-                pyenv.enable = true;
-                goenv.enable = true;
-                nodenv.enable = true;
-                luaenv.enable = true;
-              };
-            };
-          }
-        ];
+        homeModules = homeModules;
       };
     };
 
@@ -45,25 +48,7 @@
       "mochou@darwin" = {
         system = "x86_64-darwin";
         stateVersion = "24.11";
-        modules = [
-          self.homeModules.darwin.modules
-        ];
-        homeDisables = [
-          {
-            modules.packages = {
-              wezterm.enable = true;
-              ollama.enable = false;
-              firefox.enable = true;
-              bitwarden.enable = false;
-              envs = {
-                pyenv.enable = true;
-                goenv.enable = true;
-                nodenv.enable = true;
-                luaenv.enable = true;
-              };
-            };
-          }
-        ];
+        modules = homeModules;
       };
     };
   };

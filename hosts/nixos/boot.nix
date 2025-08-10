@@ -1,41 +1,63 @@
+{ pkgs, lib, ... }:
 {
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci"
-    "ahci"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-  ];
-  boot.kernelModules = [
-    "kvm-amd"
-    "vfio-pci"
-    "ext4"
-  ];
-  boot.extraModprobeConfig = "options kvm_amd nested=1"; # for amd cpu
-  boot.extraModulePackages = [ ];
+  boot = {
 
-  boot.loader = {
-    grub = {
-      enable = true;
-      device = "nodev";
-      efiSupport = true;
-      extraEntries = ''
-        menuentry "Windows" {
-                    search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi
-                    chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
-                }
-        menuentry "Ubuntu24.10" {
-                    insmod part_gpt
-                    insmod fat
-                    search --no-floppy --fs-uuid --set=root C14D-581B
-                    chainloader /EFI/ubuntu/shimx64.efi
-                }
-      '';
+    # tmp.cleanOnBoot = true;
+
+    initrd = {
+      systemd.emergencyAccess = true;
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+      ];
     };
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
+
+    kernelPackages = pkgs.linuxPackages_latest;
+
+    kernelModules = [
+      "kvm-amd"
+      "vfio-pci"
+      "ext4"
+    ];
+    extraModprobeConfig = "options kvm_amd nested=1"; # for amd cpu
+    extraModulePackages = [ ];
+    supportedFilesystems = lib.mkForce [
+      "ext4"
+      "btrfs"
+      "xfs"
+      "ntfs"
+      "fat"
+      "vfat"
+      "exfat"
+    ];
+
+    loader = {
+      systemd-boot.enable = false;
+      grub = {
+        enable = true;
+        device = lib.mkDefault "nodev";
+        efiSupport = lib.mkDefault true;
+        extraEntries = ''
+          menuentry "Windows" {
+                      search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi
+                      chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
+                  }
+          menuentry "Ubuntu24.10" {
+                      insmod part_gpt
+                      insmod fat
+                      search --no-floppy --fs-uuid --set=root C14D-581B
+                      chainloader /EFI/ubuntu/shimx64.efi
+                  }
+        '';
+      };
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
     };
   };
 }

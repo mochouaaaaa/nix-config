@@ -4,19 +4,20 @@
   ...
 }:
 {
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = lib.mkAfter [ "amdgpu" ];
 
   services.xserver = {
     enable = lib.mkDefault true;
     videoDrivers = [ "amdgpu" ];
   };
 
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      rocmPackages.clr.icd
-      # amdgpu-firmware
-    ];
+  hardware = {
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd
+      ];
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -25,6 +26,6 @@
   ];
 
   systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+    "L+ /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 }
