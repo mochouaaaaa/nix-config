@@ -24,13 +24,9 @@ in
     systemd.user.services.avizo = {
       Unit = {
         Description = "Avizo Server (OSD HUD for volume/brightness)";
-        After = [
-        ]
-        ++ lib.optionals cfgDesktop.hyprland.enable [
-          "hyprland-session.target"
-        ]
-        ++ lib.optionals cfgDesktop.niri.enable [
-          "niri.service"
+        After = lib.mkMerge [
+          (lib.mkIf cfgDesktop.hyprland.enable [ "hyprland-session.target" ])
+          (lib.mkIf cfgDesktop.niri.enable [ "niri.service" ])
         ];
       };
       Service = {
@@ -38,12 +34,10 @@ in
         Restart = "on-failure";
       };
       Install = {
-        WantedBy =
-          [ ]
-          ++ lib.optionals cfgDesktop.hyprland.enable [ "hyprland-session.target" ]
-          ++ lib.optionals cfgDesktop.niri.enable [
-            "niri.service"
-          ];
+        WantedBy = lib.mkMerge [
+          (lib.mkIf cfgDesktop.hyprland.enable [ "hyprland-session.target" ])
+          (lib.mkIf cfgDesktop.niri.enable [ "niri.service" ])
+        ];
       };
     };
 

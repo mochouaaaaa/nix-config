@@ -7,23 +7,25 @@
 let
   cfg = config.modules'.desktop.component.launcher.rofi;
 
-  keymaps = [
-    {
-      "SUPER-P" = {
-        launch = [
-          "bash"
-          "-c"
-          "rofi-cliphist -f $HOME/.config/rofi/rofi-cliphist.toml"
-        ];
-      };
-    }
-  ]
-  ++ lib.optionals (config.programs.waybar.enable) [
-    {
-      "SUPER-CTRL-SHIFT-I" = {
-        launch = [ "select-wallpaper" ];
-      };
-    }
+  keymaps = lib.mkMerge [
+    [
+      {
+        "SUPER-P" = {
+          launch = [
+            "bash"
+            "-c"
+            "rofi-cliphist -f $HOME/.config/rofi/rofi-cliphist.toml"
+          ];
+        };
+      }
+    ]
+    (lib.mkIf config.programs.waybar.enable [
+      {
+        "SUPER-CTRL-SHIFT-I" = {
+          launch = [ "select-wallpaper" ];
+        };
+      }
+    ])
   ];
 in
 {

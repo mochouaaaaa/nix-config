@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -11,6 +12,8 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         exec-once = [
+          "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
+
           "hyprctl setcursor ${config.home.pointerCursor.name} ${builtins.toString config.home.pointerCursor.size}"
 
           "wl-paste --type text --watch cliphist store"
@@ -19,8 +22,7 @@ in
           "nm-applet --indicator &"
 
           "swww-daemon --format xrgb"
-
-          "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          "${lib.getExe pkgs.pywal16} -i $HOME/.current_wallpaper"
         ];
       };
     };

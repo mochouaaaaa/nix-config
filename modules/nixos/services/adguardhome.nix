@@ -22,7 +22,7 @@
       users = [
         {
           name = "mochou";
-          password = "$2a$10$19Wa96mbnFAokAhfWwfUzuO7T8ebR2RdSjFS0ftPCqCZ5lFGb.yf2";
+          password = "$2a$10$19Wa96mbnFAokAhfWwfUzuO7T8ebR2RdSjFS0ftPCqCZ5lFGb.yf2"; # password
         }
       ];
       auth_attempts = 5;

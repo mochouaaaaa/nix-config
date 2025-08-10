@@ -84,19 +84,11 @@ in
   };
 
   config = {
-    home.packages = [
-    ]
-    ++ (lib.optionals (initjetbrains.pycharm) [
-      cfg.pycharm.package
-    ])
-    ++ (lib.optionals (initjetbrains.goland) [
-      cfg.goland.package
-    ])
-    ++ (lib.optionals (initjetbrains.datagrip) [
-      cfg.datagrip.package
-    ])
-    ++ (lib.optionals (initjetbrains.clion) [
-      cfg.clion.package
-    ]);
+    home.packages = lib.mkMerge [
+      (lib.mkIf initjetbrains.pycharm [ cfg.pycharm.package ])
+      (lib.mkIf initjetbrains.goland [ cfg.goland.package ])
+      (lib.mkIf initjetbrains.datagrip [ cfg.datagrip.package ])
+      (lib.mkIf initjetbrains.clion [ cfg.clion.package ])
+    ];
   };
 }

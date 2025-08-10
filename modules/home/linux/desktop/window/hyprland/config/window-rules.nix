@@ -153,9 +153,6 @@ in
 
           "unset, class:^(ueberzugpp.*)$"
 
-          # wiliwili
-          "float, title:wiliwili"
-
         ];
         layerrule = [
           #neovide

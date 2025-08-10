@@ -20,10 +20,10 @@ in
 
     environment = {
       systemPackages = with pkgs; [
-        mihomo-party-wrapper
+        mihomo-party
         (makeAutostartItem {
           name = "mihomo-party";
-          package = pkgs.mihomo-party-wrapper;
+          package = pkgs.mihomo-party;
         })
       ];
     };
@@ -32,7 +32,7 @@ in
       owner = "root";
       group = "root";
       capabilities = "cap_net_bind_service,cap_net_raw,cap_net_admin=+ep";
-      source = "${lib.getExe pkgs.mihomo-party-wrapper}";
+      source = "${lib.getExe pkgs.mihomo-party}";
     };
 
   };

@@ -6,12 +6,12 @@
 }:
 let
   cfg = config.modules'.virtual;
-  importModules =
-    [ ]
-    ++ lib.optionals (cfg.docker.enable) [ ./docker.nix ]
-    ++ lib.optionals (cfg.qemu.enable) [ ./qemu.nix ]
-    ++ lib.optionals (cfg.virtualbox.enable) [ ./virtualbox.nix ]
-    ++ lib.optionals (cfg.vmware.enable) [ ./vmware.nix ];
+  importModules = [
+    (lib.mkIf cfg.docker.enable ./docker.nix)
+    (lib.mkIf cfg.qemu.enable ./qemu.nix)
+    (lib.mkIf cfg.virtualbox.enable ./virtualbox.nix)
+    (lib.mkIf cfg.vmware.enable ./vmware.nix)
+  ];
 
   hasModules = lib.lists.length importModules > 0;
 in
@@ -48,7 +48,7 @@ in
       options kvm_intel emulate_invalid_guest_state=0
       options kvm ignore_msrs=1
     */
-    boot.kernelModules = [ "vfio-pci" ];
+    boot.kernelModules = lib.mkAfter [ "vfio-pci" ];
     services.spice-vdagentd.enable = true;
   };
 }

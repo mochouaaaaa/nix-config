@@ -25,7 +25,6 @@ in
   };
 
   config = {
-    home.packages = [
-    ] ++ lib.optionals (cfg.bitwarden.enable) cfg.bitwarden.package;
+    home.packages = lib.optionals (cfg.bitwarden.enable) cfg.bitwarden.package;
   };
 }

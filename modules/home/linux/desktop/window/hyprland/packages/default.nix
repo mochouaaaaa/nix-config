@@ -16,7 +16,6 @@ in
     home.packages = with pkgs; [
       pkgs-stable.kdePackages.qt6gtk2
       hyprland-qt-support
-      hyprpolkitagent
 
       swaybg # the wallpaper
       wl-clipboard # copying and pasting

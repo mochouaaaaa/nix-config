@@ -48,31 +48,18 @@ in
     systemd.user.services.pot = {
       Unit = {
         Description = "Pot translation daemon";
-        After = [ "network.target" ];
+        After = [ "graphical-session-pre.target" ];
       };
       Service = {
         ExecStart = "${lib.getExe pkgs.pot}";
         Restart = "on-failure";
       };
       Install = {
-        WantedBy = [ "default.target" ];
+        WantedBy = [ "graphical-session.target" ];
       };
     };
 
     xdg.configFile = {
-      "autostart/pot-app.desktop" = {
-        enable = false;
-        text = ''
-          [Desktop Entry]
-          Type=Application
-          Version=1.0
-          Name=pot
-          Comment=potstartup script
-          Exec=${pkgs.pot}/bin/pot
-          StartupNotify=false
-          Terminal=false
-        '';
-      };
       "com.pot-app.desktop/plugins/recognize/plugin.com.pot-app.rapid" = {
         enable = false;
         executable = true;
