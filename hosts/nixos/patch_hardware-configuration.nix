@@ -17,13 +17,6 @@
     ];
   };
 
-  fileSystems."/home" = {
-    options = [
-      "subvol=home"
-      "compress-force=zstd"
-    ];
-  };
-
   fileSystems."/persistent" = {
     neededForBoot = true;
     fsType = "btrfs";

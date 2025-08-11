@@ -203,8 +203,8 @@ in
             # ======================================
             # custom packages
             # ======================================
-            ".config/yazi"
-            ".config/kitty"
+            ".cache/wal"
+            ".current_wallpaper"
             ".config/pot-app.desktop"
             ".config/wiliwiil"
 
