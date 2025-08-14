@@ -50,7 +50,7 @@ in
         settings = {
           default_session = {
             user = username;
-            command = lib.mkForce "$HOME/.wayland-session";
+            command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
           };
         };
       };
