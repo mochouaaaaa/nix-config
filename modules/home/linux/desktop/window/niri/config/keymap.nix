@@ -14,8 +14,6 @@ in
     programs.niri.settings.binds =
       with config.lib.niri.actions;
       let
-        set-volume = spawn "volumectl";
-        brillo = spawn "${lib.getExe pkgs.brillo}" "-q" "-u" "300000";
         playerctl = spawn "${lib.getExe pkgs.playerctl}";
       in
       {
@@ -24,8 +22,6 @@ in
 
         "Mod+Ctrl+e".action = spawn "nautilus";
         "Ctrl+Alt+Return".action = fullscreen-window;
-
-        "Mod+Ctrl+q".action = spawn "Lock";
 
         "Mod+Ctrl+a".action = screenshot;
         "Mod+Ctrl+Print".action.screenshot-screen.write-to-disk = true;
@@ -46,19 +42,10 @@ in
         # "Mod+Shift+down".action = move-window-down;
         # "Mod+Shift+up".action = move-window-up;
 
-        "XF86AudioMute".action = spawn "volumectl" "toggle-mute";
-        "XF86AudioMicMute".action = spawn "volumectl" "-m -u -d toggle-mute";
-
         "XF86AudioPlay".action = playerctl "play-pause";
         "XF86AudioStop".action = playerctl "pause";
         "XF86AudioPrev".action = playerctl "previous";
         "XF86AudioNext".action = playerctl "next";
-
-        "XF86AudioRaiseVolume".action = set-volume "up";
-        "XF86AudioLowerVolume".action = set-volume "down";
-
-        "XF86MonBrightnessUp".action = brillo "-A" "5";
-        "XF86MonBrightnessDown".action = brillo "-U" "5";
       };
 
   };
