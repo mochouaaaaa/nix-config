@@ -66,7 +66,7 @@
 
       trusted-users = [
         "root"
-        "mochou"
+        "*"
       ];
 
     }
