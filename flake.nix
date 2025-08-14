@@ -37,7 +37,7 @@
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.1.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -116,8 +116,6 @@
     # desktop components
     clipboard-sync.url = "github:dnut/clipboard-sync";
     waybar.url = "github:Alexays/Waybar/master";
-    # ashell.url = "github:MalpenZibo/ashell";
-    ags.url = "github:aylur/ags";
 
     swww.url = "github:LGFae/swww";
     walker.url = "github:abenz1267/walker";
@@ -160,7 +158,10 @@
       url = "github:Supreeeme/xwayland-satellite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    astal-shell.url = "github:knoopx/ags";
+    DankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # kde
     plasma-manager = {
