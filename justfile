@@ -1,5 +1,11 @@
 
 set shell := ["bash", "-cu"]
+NH_HOSTNAME := "$USER@$(hostname)"
+NH_BUILD_ARGS := "-- --impure"
+NH_OS_FLAKE := "$(pwd)"
+NH_HOME_FLAKE := "$(pwd)"
+NH_DARWIN_FLAKE := "$(pwd)"
+PRE_ARGS := "NIXPKGS_ALLOW_INSECURE=1"
 
 
 default:
@@ -49,12 +55,14 @@ _update:
 # switch nix-darwin config
 [macos]
 @switch:
-    NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 sudo -E darwin-rebuild switch --flake .#mochou@darwin --impure
+    # NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 sudo -E darwin-rebuild switch --flake .#mochou@darwin --impure
+    {{ PRE_ARGS }} nh darwin switch {{ NH_DARWIN_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 
 # switch home-manager config
 [macos]
 @home-darwin:
-    home-manager switch --flake .#mochou@darwin --impure -b backup
+    # home-manager switch --flake .#mochou@darwin --impure -b backup
+    {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 
 # repl test environment
 [macos]
@@ -79,12 +87,12 @@ _reset_dconf:
 # build nixos boot
 [linux]
 boot desktop="hyprland":
-    NIXPKGS_ALLOW_INSECURE=1 HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild boot --flake .#mochou@nixos --impure
+    DESKTOP={{ desktop }} {{ PRE_ARGS }} nh os boot {{ NH_OS_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 
 # switch flake config
 [linux]
 switch desktop="hyprland":
-    NIXPKGS_ALLOW_INSECURE=1 HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild switch --flake .#mochou@nixos --impure
+    DESKTOP={{ desktop }} {{ PRE_ARGS }} nh os switch {{ NH_OS_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 
 # repl test environment
 [linux]
@@ -128,23 +136,26 @@ switch desktop="hyprland":
 [group('home-manager')]
 @home-hyprland:
     # nix flake update rofi-tools swww hyprlux waybar
-    NIXPKGS_ALLOW_INSECURE=1 DESKTOP=hyprland home-manager switch --flake .#mochou@nixos --impure -b backup
+    DESKTOP=hyprland {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
+
 
 # switch kde desktop environment
 [linux]
 [group('home-manager')]
 @home-kde:
-    NIXPKGS_ALLOW_INSECURE=1  DESKTOP=kde home-manager switch --flake .#mochou@nixos --impure -b backup
+    DESKTOP=kde {{ PRE_ARGS }} nh home switch{{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
 
 # switch gnome desktop environment
 [linux]
 [group('home-manager')]
-@home-gnome:
-    NIXPKGS_ALLOW_INSECURE=1 DESKTOP=gnome home-manager switch --flake .#mochou@nixos --impure -b backup
+home-gnome:
+     DESKTOP=gnome {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
+
 
 # switch nir desktop environment
 [linux]
 [group('home-manager')]
 @home-niri:
-    NIXPKGS_ALLOW_INSECURE=1 DESKTOP=niri home-manager switch --flake .#mochou@nixos --impure -b backup
+    DESKTOP=niri {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
+
 
