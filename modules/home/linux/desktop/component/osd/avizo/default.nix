@@ -8,7 +8,7 @@ let
   cfgDesktop = config.modules'.desktop;
 in
 {
-  config = lib.mkIf (cfgDesktop.hyprland.enable || cfgDesktop.niri.enable) {
+  config = lib.mkIf (cfgDesktop.hyprland.enable) {
 
     home.packages = with pkgs; [
       avizo
@@ -26,7 +26,6 @@ in
         Description = "Avizo Server (OSD HUD for volume/brightness)";
         After = lib.mkMerge [
           (lib.mkIf cfgDesktop.hyprland.enable [ "hyprland-session.target" ])
-          (lib.mkIf cfgDesktop.niri.enable [ "niri.service" ])
         ];
       };
       Service = {
@@ -36,7 +35,6 @@ in
       Install = {
         WantedBy = lib.mkMerge [
           (lib.mkIf cfgDesktop.hyprland.enable [ "hyprland-session.target" ])
-          (lib.mkIf cfgDesktop.niri.enable [ "niri.service" ])
         ];
       };
     };

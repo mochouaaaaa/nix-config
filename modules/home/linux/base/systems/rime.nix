@@ -116,17 +116,12 @@ in
         force = true;
         text = ''
           [Groups/0]
-          # Group Name
           Name=Other
-          # Layout
           Default Layout=us
-          # Default Input Method
           DefaultIM=rime
 
           [Groups/0/Items/0]
-          # Name
           Name=rime
-          # Layout
           Layout=
 
           [GroupOrder]
