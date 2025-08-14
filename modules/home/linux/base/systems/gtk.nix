@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }:
@@ -32,12 +31,6 @@ in
     "Xft.dpi" = 150;
     # or set a generic dpi
     "*.dpi" = 150;
-  };
-
-  qt = lib.mkDefault {
-    style.name = "adwaita";
-    platformTheme.name = "gtk3";
-    enable = true;
   };
 
   # gtk's theme settings, generate files:
