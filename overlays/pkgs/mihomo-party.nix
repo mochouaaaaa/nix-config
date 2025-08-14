@@ -17,7 +17,7 @@
 
 stdenv.mkDerivation rec {
   pname = "mihomo-party";
-  version = "1.8.3";
+  version = "1.8.4";
 
   src =
     let
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     fetchurl {
       url = "https://github.com/mihomo-party-org/mihomo-party/releases/download/v${version}/mihomo-party-linux-${version}-${arch}.deb";
       hash = selectSystem {
-        x86_64-linux = "sha256-3x6xueQS81IWutY0BH52wRdb8Fh2kTQF7QgwZACE6kk=";
+        x86_64-linux = "sha256-bbKW4kz1v+yF0ZsH9Ew+c780LCdyJUi8tIiHV09An8s=";
         aarch64-linux = "sha256-3x6xueQS81IWutY0BH52wRdb8Fh2kTQF7QgwZACE6kk=";
       };
     };
@@ -62,11 +62,11 @@ stdenv.mkDerivation rec {
       --replace-fail "/opt/mihomo-party/mihomo-party" "mihomo-party"
     ln -s $out/opt/mihomo-party/mihomo-party $out/bin/mihomo-party
 
-    wrapProgram $out/bin/mihomo-party \
-       --set ELECTRON_OZONE_PLATFORM_HINT auto \
-       --set NIXOS_OZONE_WL 1 \
-       --set GTK_IM_MODULE "" \
-       --add-flags "--enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime --use-gl=swiftshader --disable-gpu"
+    #  wrapProgram $out/bin/mihomo-party \
+    #     --set ELECTRON_OZONE_PLATFORM_HINT auto \
+    #     --set NIXOS_OZONE_WL 1 \
+    #     --set GTK_IM_MODULE "" \
+    #     --add-flags "--enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime --use-gl=swiftshader --disable-gpu"
 
     runHook postInstall
   '';
