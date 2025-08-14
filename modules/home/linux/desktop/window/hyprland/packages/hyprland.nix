@@ -37,14 +37,14 @@ in
       };
     };
 
-    home.file.".wayland-session" = {
-      # source = "${wayland.windowManager.hyprland.package}/bin/Hyprland";
-      text = ''
-        ${lib.getExe pkgs.bash} -e
-        unset LD_LIBRARY_PATH
-         exec -a "$0" ${wayland.windowManager.hyprland.package}/bin/Hyprland "$@"
-      '';
-      executable = true;
-    };
+    # home.file.".wayland-session" = {
+    # source = "${wayland.windowManager.hyprland.package}/bin/Hyprland";
+    #   text = ''
+    #     ${lib.getExe pkgs.bash} -e
+    #     unset LD_LIBRARY_PATH
+    #      exec -a "$0" ${wayland.windowManager.hyprland.package}/bin/Hyprland "$@"
+    #   '';
+    #   executable = true;
+    # };
   };
 }
