@@ -5,6 +5,7 @@
   ...
 }:
 let
+  cfgGnome = config.modules'.desktop.gnome;
   cfg = config.modules'.desktop.gnome.shell.packages.just-perfection;
 in
 {
@@ -16,7 +17,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfgGnome.enable && cfg.enable) {
     programs.gnome-shell = {
       extensions = lib.mkAfter [
         { package = pkgs.gnomeExtensions.just-perfection; }

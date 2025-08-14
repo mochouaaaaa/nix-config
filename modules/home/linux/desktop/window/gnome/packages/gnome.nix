@@ -10,8 +10,13 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    programs.gnome-shell = {
-      enable = true;
+    programs = {
+      gnome.monitors = {
+        enable = true;
+      };
+      gnome-shell = {
+        enable = true;
+      };
     };
 
     home.packages = with pkgs; [
