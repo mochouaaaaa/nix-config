@@ -83,12 +83,16 @@ in
             "Documents"
             "Videos"
 
+            ".icons"
+
             # ======================================
             # Work / dotfiles
             # ======================================
             "Code"
             "nix"
             ".config/dotfile"
+            ".config/env"
+            ".local/share/direnv"
             "tmp"
 
             # ======================================
@@ -110,6 +114,7 @@ in
             ".local/nvim/catppuccin"
             ".wakatime"
             ".config/github-copilot"
+            ".config/kitty"
 
             # jetbrains
             ".config/JetBrains"
@@ -191,6 +196,9 @@ in
             # ======================================
             # Misc
             # ======================================
+            # background
+            ".config/swww"
+            ".cache/wal"
             # Clash Verge Rev
             ".local/share/io.github.clash-verge-rev.clash-verge-rev"
             ".local/share/clash-verge"
@@ -203,11 +211,15 @@ in
             # ======================================
             # custom packages
             # ======================================
-            ".cache/wal"
-            ".current_wallpaper"
+            ".config/obs-studio"
             ".config/pot-app.desktop"
-            ".config/wiliwiil"
+            ".config/wiliwili"
 
+          ];
+          files = [
+            ".zsh_history"
+
+            ".current_wallpaper"
           ];
         };
       };

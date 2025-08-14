@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -27,11 +26,6 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/5c33a7a0-f3e6-4454-a129-46c5f277b430";
-    fsType = "btrfs";
-  };
-
-  fileSystems."/home" = {
     device = "/dev/disk/by-uuid/5c33a7a0-f3e6-4454-a129-46c5f277b430";
     fsType = "btrfs";
   };
