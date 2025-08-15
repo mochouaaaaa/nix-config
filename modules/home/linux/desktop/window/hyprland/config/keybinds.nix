@@ -15,23 +15,25 @@ in
         "$files" = "nautilus";
 
         bindel = [
-          ", xf86audioraisevolume, exec, volumectl up" # volume up
-          ", xf86audiolowervolume, exec, volumectl down" # volume down
+          ", XF86Audioraisevolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+          ", XF86Audiolowervolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+
         ];
 
         bindl = [
           # Special Keys / Hot Keys
-          ", xf86AudioMicMute, exec, volumectl -m -u toggle-mute"
-          ", xf86audiomute, exec, volumectl toggle-mute"
-          ", xf86Sleep, exec, systemctl suspend" # sleep button
+          #     ", xf86AudioMicMute, exec, volumectl -m -u toggle-mute"
+          #     ", xf86audiomute, exec, volumectl toggle-mute"
+          #     ", xf86Sleep, exec, systemctl suspend" # sleep button
+          ", XF86audiomute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
-          # media controls using keyboards
-          ", xf86AudioPlayPause, exec, media-ctrl --pause"
-          ", xf86AudioPause, exec, media-ctrl --pause"
-          ", xf86AudioPlay, exec, media-ctrl --pause"
-          ", xf86AudioNext, exec, media-ctrl --nxt"
-          ", xf86AudioPrev, exec, media-ctrl --prv"
-          ", xf86audiostop, exec, media-ctrl --stop"
+          #     # media controls using keyboards
+          #     ", xf86AudioPlayPause, exec, media-ctrl --pause"
+          #     ", xf86AudioPause, exec, media-ctrl --pause"
+          #     ", xf86AudioPlay, exec, media-ctrl --pause"
+          #     ", xf86AudioNext, exec, media-ctrl --nxt"
+          #     ", xf86AudioPrev, exec, media-ctrl --prv"
+          #     ", xf86audiostop, exec, media-ctrl --stop"
         ];
 
         binde = [
@@ -43,7 +45,7 @@ in
         ];
 
         bind = [
-          "$mod CTRL, q, exec, Lock" # Lock screen
+          # "$mod CTRL, q, exec, Lock" # Lock screen
           "$mod, Q, killactive,"
           "CTRL ALT, return, fullscreen"
           "$mod CTRL, F, togglefloating,"
@@ -51,7 +53,7 @@ in
           "$mod CTRL, T, exec, $term" # Launch terminal
           "$mod CTRL, E, exec, nautilus" # Launch file manager
 
-          "$mod ALT, R, exec, bash refresh" # Refresh waybar, swaync, rofi
+          # "$mod ALT, R, exec, bash refresh" # Refresh waybar, swaync, rofi
 
           # "$mod SHIFT CTRL, I, exec, bash WallpaperSelect.sh" # Select wallpaper to apply
           "$mod ALT, O, exec, hyprctl setprop active opaque toggle" # disable opacity to active window
@@ -72,8 +74,8 @@ in
           "ALT, tab, bringactivetotop"
 
           # screenshot with swappy (another screenshot tool)
-          "$mod CTRL, S, exec, screenshot --active"
-          "$mod CTRL, A, exec, screenshot --area"
+          # "$mod CTRL, S, exec, screenshot --active"
+          # "$mod CTRL, A, exec, screenshot --area"
 
           # Move focus with mainMod + arrow keys
           "ALT, l, movefocus, l"

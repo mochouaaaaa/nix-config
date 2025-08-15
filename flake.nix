@@ -148,6 +148,14 @@
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland"; # to make sure that the plugin is built for the correct version of hyprland
     };
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    caelestia-cli = {
+      url = "github:caelestia-dots/cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # niri
     niri = {

@@ -112,6 +112,98 @@
         "type": "github"
       }
     },
+    "caelestia-cli": {
+      "inputs": {
+        "caelestia-shell": "caelestia-shell",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1755137282,
+        "narHash": "sha256-BnbDuysTxBTUkAkL4eSK1tR+AWBQ1V2NxeVaHASSFIo=",
+        "owner": "caelestia-dots",
+        "repo": "cli",
+        "rev": "c3631cd35b4ac4a11edc146e54e511553acfe7e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "caelestia-dots",
+        "repo": "cli",
+        "type": "github"
+      }
+    },
+    "caelestia-cli_2": {
+      "inputs": {
+        "caelestia-shell": [
+          "caelestia-shell"
+        ],
+        "nixpkgs": [
+          "caelestia-shell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754708376,
+        "narHash": "sha256-RtOqlQ8i4EFCtPJYT6hX39EEO7sjGzSbO3tKIto/Yw4=",
+        "owner": "caelestia-dots",
+        "repo": "cli",
+        "rev": "9489f0d4f629bfd8751ff55784a9587d54eb40f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "caelestia-dots",
+        "repo": "cli",
+        "type": "github"
+      }
+    },
+    "caelestia-shell": {
+      "inputs": {
+        "caelestia-cli": [
+          "caelestia-cli"
+        ],
+        "nixpkgs": [
+          "caelestia-cli",
+          "nixpkgs"
+        ],
+        "quickshell": "quickshell_2"
+      },
+      "locked": {
+        "lastModified": 1755156273,
+        "narHash": "sha256-HcOzH4BAbnnlTpknLy2GsPE9ScMNzk7qKrdHuHrXEjk=",
+        "owner": "caelestia-dots",
+        "repo": "shell",
+        "rev": "3e21e627e0da08bc6bb78b9e505c418977bfc007",
+        "type": "github"
+      },
+      "original": {
+        "owner": "caelestia-dots",
+        "repo": "shell",
+        "type": "github"
+      }
+    },
+    "caelestia-shell_2": {
+      "inputs": {
+        "caelestia-cli": "caelestia-cli_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "quickshell": "quickshell_3"
+      },
+      "locked": {
+        "lastModified": 1755156273,
+        "narHash": "sha256-HcOzH4BAbnnlTpknLy2GsPE9ScMNzk7qKrdHuHrXEjk=",
+        "owner": "caelestia-dots",
+        "repo": "shell",
+        "rev": "3e21e627e0da08bc6bb78b9e505c418977bfc007",
+        "type": "github"
+      },
+      "original": {
+        "owner": "caelestia-dots",
+        "repo": "shell",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -2437,6 +2529,49 @@
         "url": "https://git.outfoxxed.me/quickshell/quickshell"
       }
     },
+    "quickshell_2": {
+      "inputs": {
+        "nixpkgs": [
+          "caelestia-cli",
+          "caelestia-shell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753595452,
+        "narHash": "sha256-vqkSDvh7hWhPvNjMjEDV4KbSCv2jyl2Arh73ZXe274k=",
+        "ref": "refs/heads/master",
+        "rev": "a5431dd02dc23d9ef1680e67777fed00fe5f7cda",
+        "revCount": 665,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      }
+    },
+    "quickshell_3": {
+      "inputs": {
+        "nixpkgs": [
+          "caelestia-shell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753595452,
+        "narHash": "sha256-vqkSDvh7hWhPvNjMjEDV4KbSCv2jyl2Arh73ZXe274k=",
+        "ref": "refs/heads/master",
+        "rev": "a5431dd02dc23d9ef1680e67777fed00fe5f7cda",
+        "revCount": 665,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      }
+    },
     "rofi-tools": {
       "inputs": {
         "flake-utils": "flake-utils_5",
@@ -2464,6 +2599,8 @@
       "inputs": {
         "DankMaterialShell": "DankMaterialShell",
         "Hyprspace": "Hyprspace",
+        "caelestia-cli": "caelestia-cli",
+        "caelestia-shell": "caelestia-shell_2",
         "catppuccin": "catppuccin",
         "clipboard-sync": "clipboard-sync",
         "disko": "disko",
