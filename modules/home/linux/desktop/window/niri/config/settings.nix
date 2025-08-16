@@ -23,8 +23,11 @@ in
 
         workspace-auto-back-and-forth = true;
       };
+      layout = {
+      };
       cursor = {
-        size = 36;
+        theme = config.home.pointerCursor.name;
+        size = config.home.pointerCursor.size;
       };
 
       animations.window-resize.custom-shader = ''

@@ -26,11 +26,11 @@ in
 
             "nm-applet --indicator &"
 
-            "wl-paste --type text --watch cliphist store"
-            "wl-paste --type image --watch cliphist store"
-            "${swww}/bin/swww-daemon --format xrgb"
-            "${swww}/bin/swww img $HOME/.current_wallpaper"
-            "${lib.getExe pkgs.pywal16} -i $HOME/.current_wallpaper"
+            #  "wl-paste --type text --watch cliphist store"
+            #  "wl-paste --type image --watch cliphist store"
+            # "${swww}/bin/swww-daemon --format xrgb"
+            # "${swww}/bin/swww img $HOME/.current_wallpaper"
+            # "${lib.getExe pkgs.pywal16} -i $HOME/.current_wallpaper"
           ];
     };
   };

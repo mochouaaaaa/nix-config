@@ -128,34 +128,34 @@ switch desktop="hyprland":
 
 [linux]
 [group('home-manager')]
-@home-repl desktop="hyprland":
+home-repl desktop="hyprland":
     NIXPKGS_ALLOW_INSECURE=1 DESKTOP={{ desktop }} nix repl .
 
 # switch hyprland desktop environment
 [linux]
 [group('home-manager')]
-@home-hyprland:
+home-hyprland:
     # nix flake update rofi-tools swww hyprlux waybar
-    DESKTOP=hyprland {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
+    DESKTOP=hyprland {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -b backup {{ NH_BUILD_ARGS }}
 
 
 # switch kde desktop environment
 [linux]
 [group('home-manager')]
-@home-kde:
-    DESKTOP=kde {{ PRE_ARGS }} nh home switch{{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
+home-kde:
+    DESKTOP=kde {{ PRE_ARGS }} nh home switch{{ NH_HOME_FLAKE }} -b backup {{ NH_BUILD_ARGS }}
 
 # switch gnome desktop environment
 [linux]
 [group('home-manager')]
 home-gnome:
-     DESKTOP=gnome {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
+     DESKTOP=gnome {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -b backup {{ NH_BUILD_ARGS }}
 
 
 # switch nir desktop environment
 [linux]
 [group('home-manager')]
-@home-niri:
-    DESKTOP=niri {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} {{ NH_BUILD_ARGS }}
+home-niri:
+    DESKTOP=niri {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -b backup {{ NH_BUILD_ARGS }}
 
 

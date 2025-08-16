@@ -72,20 +72,19 @@ in
           open-floating = true;
         }
         {
-          opacity = 0.85;
-          excludes = [
-            # {
-            #   app-id = "^fcitx5$";
-            # }
-          ];
-        }
-        {
           matches = [
             {
               app-id = "^mpv$";
             }
           ];
           variable-refresh-rate = true;
+        }
+        {
+          opacity = 0.85;
+          matches = [
+            { app-id = "^(chromium-browser|firefox)$"; }
+            { app-id = "^io.github.kukuruzka165.materialgram$"; }
+          ];
         }
         {
           matches = [
@@ -108,12 +107,12 @@ in
         }
         {
           # obs
-          # matches = [
-          #   {
-          #     app-id = "^(org.keepassxc.KeePassXC|org.gnome.World.Secrets|Bitwarden).*$";
-          #   }
-          # ];
-          # block-out-from = "screencast";
+          matches = [
+            {
+              app-id = "^(org.keepassxc.KeePassXC|org.gnome.World.Secrets|Bitwarden).*$";
+            }
+          ];
+          block-out-from = "screencast";
         }
       ];
 

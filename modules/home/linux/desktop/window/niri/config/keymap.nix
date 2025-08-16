@@ -17,7 +17,10 @@ in
         playerctl = spawn "${lib.getExe pkgs.playerctl}";
       in
       {
-        "Mod+Ctrl+t".action.spawn = "kitty";
+        "Mod+Ctrl+t" = {
+          cooldown-ms = 1000;
+          action.spawn = "kitty";
+        };
         "Mod+q".action = close-window;
 
         "Mod+Ctrl+e".action = spawn "nautilus";
@@ -36,8 +39,8 @@ in
 
         "Alt+h".action = focus-column-left;
         "Alt+l".action = focus-column-right;
-        "Alt+j".action = focus-window-down;
-        "Alt+k".action = focus-window-up;
+        "Alt+j".action = focus-workspace-down;
+        "Alt+k".action = focus-workspace-up;
 
         # "Mod+Shift+down".action = move-window-down;
         # "Mod+Shift+up".action = move-window-up;
