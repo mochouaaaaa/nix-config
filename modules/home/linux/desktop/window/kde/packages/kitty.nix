@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -10,7 +9,7 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.packages.kitty.extraConfig = lib.mkAfter [
+    modules'.packages.terminal.kitty.extraConfig = lib.mkAfter [
       # "hide_window_decorations yes"
     ];
 

@@ -25,7 +25,6 @@ in
     services = {
       udisks2.enable = true;
       xserver = {
-        enable = true;
         xkb.layout = "us";
       };
       xserver.desktopManager = {

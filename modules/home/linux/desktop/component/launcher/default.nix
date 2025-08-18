@@ -20,20 +20,13 @@ in
         description = "Whether to enable rofi component.";
       };
     };
-    walker = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Whether to enable walker component.";
-      };
-    };
     _commands = mkOption {
       type = types.str;
       description = "Commands to execute when the launcher is launched.";
     };
   };
 
-  config = lib.mkIf (cfg.fuzzel.enable || cfg.rofi.enable || cfg.walker.enable) {
+  config = lib.mkIf (cfg.fuzzel.enable || cfg.rofi.enable) {
 
     # set keymap
     modules'.shortcuts.global = [

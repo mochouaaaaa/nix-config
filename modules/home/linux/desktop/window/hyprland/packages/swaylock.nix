@@ -7,10 +7,11 @@
 let
   cfg = config.modules'.desktop.hyprland;
   cfg-lock = config.modules'.desktop.component.swaylock;
+  cfgQuick = config.modules'.desktop.hyprland.caelestia;
 in
 {
 
-  config = lib.mkIf (cfg.enable && cfg-lock.enable) {
+  config = lib.mkIf (cfg.enable && cfg-lock.enable && !cfgQuick.enable) {
 
     home.packages = with pkgs; [
 

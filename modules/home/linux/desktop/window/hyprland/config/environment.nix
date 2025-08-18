@@ -18,9 +18,11 @@ in
           "# Toolkit Backend"
           "GDK_BACKEND,wayland,x11,*"
           "CLUTTER_BACKEND,wayland"
+          "QT_QPA_PLATFORM,wayland;xcb"
+          "SDL_VIDEODRIVER,wayland"
+          "ELECTRON_OZONE_PLATFORM_HINT,wayland"
 
           # environment-variables
-          # "SDL_VIDEODRIVER,wayland"
           "GDK_DPI_SCALE,1"
 
           # # XDG Desktop Portal
@@ -29,7 +31,6 @@ in
           "XDG_SESSION_DESKTOP,Hyprland"
 
           "# QT"
-          "QT_QPA_PLATFORM,wayland;xcb"
           # "QT_QPA_PLATFORMTHEME,qt6ct"
           # "QT_QPA_PLATFORMTHEME,qt5ct"
           "QT_QPA_PLATFORMTHEME,gtk3"
@@ -51,7 +52,6 @@ in
 
           "# Ozone"
           "OZONE_PLATFORM,wayland"
-          "ELECTRON_OZONE_PLATFORM_HINT,wayland"
 
           "# KVM"
           "WLR_RENDERER_ALLOW_SOFTWARE, 1"

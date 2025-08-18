@@ -6,13 +6,14 @@
 }:
 let
   cfg = config.modules'.desktop.hyprland;
+  cfgQuick = config.modules'.desktop.hyprland.caelestia;
 in
 {
   imports = [
     inputs.hyprlux.homeManagerModules.default
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && !cfgQuick.enable) {
     programs.hyprlux = {
       enable = false;
 

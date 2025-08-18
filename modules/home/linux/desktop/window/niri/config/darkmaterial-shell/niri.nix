@@ -11,20 +11,6 @@ in
   config = lib.mkIf cfg.enable {
 
     programs.niri.settings = {
-      spawn-at-startup = [
-        {
-          command = [
-            "qs"
-            "-c"
-            "DankMaterialShell"
-            "ipc"
-            "call"
-            "wallpaper"
-            "set"
-            "$HOME/.current_wallpaper"
-          ];
-        }
-      ];
       binds = with config.lib.niri.actions; {
         "Mod+Ctrl+q".action = spawn "qs" "-c" "DankMaterialShell" "ipc" "call" "lock" "lock";
         "Mod+Space".action = spawn "qs" "-c" "DankMaterialShell" "ipc" "call" "spotlight" "toggle";

@@ -5,9 +5,10 @@
 }:
 let
   cfg = config.modules'.desktop.hyprland;
+  cfgQuick = config.modules'.desktop.hyprland.caelestia;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && !cfgQuick.enable) {
     services.hypridle = {
       enable = true;
       settings = {

@@ -16,7 +16,7 @@ in
 
     programs.dankMaterialShell = {
       enable = true;
-      enableSpawn = true;
+      enableSpawn = false;
       enableSystemd = true;
     };
 

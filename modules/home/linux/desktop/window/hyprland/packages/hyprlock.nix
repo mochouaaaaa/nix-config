@@ -7,6 +7,7 @@
 let
   cfg = config.modules'.desktop.hyprland;
   cfg_lock = config.modules'.desktop.component.hyprlock;
+  cfgQuick = config.modules'.desktop.hyprland.caelestia;
 in
 {
   options.modules'.desktop.component.hyprlock = {
@@ -15,7 +16,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable || cfg_lock.enable) {
+  config = lib.mkIf ((cfg.enable || cfg_lock.enable) && !cfgQuick.enable) {
     home.packages = with pkgs; [
       (writeShellScriptBin "Lock" ''
         hyprlock

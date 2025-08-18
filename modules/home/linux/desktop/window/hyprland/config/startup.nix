@@ -2,13 +2,12 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
   cfg = config.modules'.desktop.hyprland;
 
-  swww = inputs.swww.packages.${pkgs.system}.swww;
+  # swww = inputs.swww.packages.${pkgs.system}.swww;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -24,9 +23,9 @@ in
 
           "nm-applet --indicator &"
 
-          "${swww}/bin/swww-daemon --format xrgb"
-          "${swww}/bin/swww img $HOME/.current_wallpaper"
-          "${lib.getExe pkgs.pywal16} -i $HOME/.current_wallpaper"
+          #"${swww}/bin/swww-daemon --format xrgb"
+          #"${swww}/bin/swww img $HOME/.current_wallpaper"
+          #"${lib.getExe pkgs.pywal16} -i $HOME/.current_wallpaper"
         ];
       };
     };

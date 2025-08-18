@@ -43,9 +43,6 @@ in
         sushi.enable = true;
         gnome-keyring.enable = true;
       };
-      xserver = {
-        enable = true;
-      };
       greetd = {
         settings = {
           default_session = {
