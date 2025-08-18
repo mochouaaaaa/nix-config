@@ -25,9 +25,6 @@ in
   config = lib.mkIf cfg.enable {
 
     programs = {
-      zsh.shellAliases = {
-        # top = "btop";
-      };
       btop = {
         enable = true;
         package = pkgs.btop;

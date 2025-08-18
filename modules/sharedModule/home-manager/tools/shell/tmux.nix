@@ -5,6 +5,13 @@
   ...
 }:
 {
+  home.packages = [
+    pkgs.yq
+    (pkgs.writeShellScriptBin "tmux_attch" ''
+      tmux attach-session -t main 2>/dev/null || tmux new-session -s main
+    '')
+  ];
+
   programs.tmux = {
     enable = true;
     package = pkgs.tmux.overrideAttrs (
@@ -173,10 +180,10 @@
               done
 
               for module in "''${modules[@]}"; do
-              conf_file="${status_dir}/''${module}.conf"
+                    conf_file="${status_dir}/''${module}.conf"
 
-              rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "$conf_file" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
-              rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "${status_utils}" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
+                    rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "$conf_file" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
+                    rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "${status_utils}" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
               done
             '';
 
@@ -196,9 +203,6 @@
             '';
           in
           ''
-            set-hook -g client-light-theme 'run-shell ${lib.getExe light}'
-            set-hook -g client-dark-theme 'run-shell ${lib.getExe dark}'
-
             set -g @catppuccin_window_status_style "custom"
             set -g @catppuccin_window_left_separator "#[bg=default,fg=#{@thm_surface_0}]#[bg=#{@thm_surface_0},fg=#{@thm_fg}]"
             set -g @catppuccin_window_right_separator "#[bg=default,fg=#{@thm_surface_0}]"
@@ -218,6 +222,8 @@
             # set -g status-right " %H:%M %d-%b-%y [#{client_theme}]"
 
             set -g status-position top
+            set-hook -g client-light-theme 'run-shell ${lib.getExe light}'
+            set-hook -g client-dark-theme 'run-shell ${lib.getExe dark}'
 
           '';
       }
