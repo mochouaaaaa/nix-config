@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.kitty;
+  cfg = config.modules'.packages.terminal.kitty;
 in
 {
   config = lib.mkIf cfg.enable {

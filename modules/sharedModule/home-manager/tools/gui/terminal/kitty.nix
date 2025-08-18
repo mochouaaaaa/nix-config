@@ -5,45 +5,12 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.kitty;
-
-  kitty-themes = pkgs.fetchFromGitHub {
-    owner = "kovidgoyal";
-    repo = "kitty-themes";
-    rev = "master";
-    sha256 = "sha256-aPKFL/1p86ANc4bqKNzyeKmLjYpriYG8EIvVDhFcdEE=";
-  };
-
-  kitty-icon = pkgs.fetchFromGitHub {
-    owner = "DinkDonk";
-    repo = "kitty-icon";
-    rev = "main";
-    hash = "sha256-f+uiesvd0Vdoef6X2kqmbd+4CX2TXdkUGwZdzaKg5bY=";
-  };
-
+  cfg = config.modules'.packages.terminal.kitty;
 in
 {
 
-  options.modules'.packages.kitty = with lib; {
-    enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Whether to enable kitty.";
-    };
-    extraConfig = mkOption rec {
-      type = types.listOf types.str;
-      default = [ ];
-      description = "Extra configuration lines for kitty.conf.";
-      apply = userValue: default ++ userValue;
-    };
-    icon = mkOption {
-      type = types.path;
-      default = kitty-icon;
-    };
-  };
-
   config = lib.mkIf cfg.enable {
-    modules'.packages.kitty.extraConfig = [
+    modules'.packages.terminal.kitty.extraConfig = [
       "include init.conf"
       # "shell ${config.programs.zsh.package}/bin/zsh --login --interactive"
     ];
@@ -117,11 +84,6 @@ in
       };
     };
 
-    xdg.configFile = config.modules'.dotfileLink "kitty" // {
-      "kitty/themes" = {
-        enable = true;
-        source = "${kitty-themes}/themes";
-      };
-    };
+    xdg.configFile = config.modules'.dotfileLink "kitty";
   };
 }

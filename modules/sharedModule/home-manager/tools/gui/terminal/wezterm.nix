@@ -4,16 +4,9 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.wezterm;
+  cfg = config.modules'.packages.terminal.wezterm;
 in
 {
-  options.modules'.packages.wezterm = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Whether to enable wezterm.";
-    };
-  };
 
   config = lib.mkIf cfg.enable {
     programs =
