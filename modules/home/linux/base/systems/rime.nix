@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }:
@@ -52,58 +51,43 @@ in
       QT_QPA_PLATFORM = "wayland";
       XMODIFIERS = "@im=fcitx";
       QT_IM_MODULE = "fcitx";
-      # GTK_IM_MODULE = "wayland";
     };
 
     home.packages = with pkgs; [
       glib
     ];
 
-    modules'.packages.rime.extraFiles = [
+    modules'.packages.rime.fcitx5CustomYaml =
+      let
+        ascii = {
+          ascii_mode = true;
+          ascii_punct = true;
+        };
+      in
       {
-        name = "fcitx5.custom.yaml";
-        data = ''
-          patch:
-            "menu/page_size": 9
-            "style/candidate_list_layout": linear
-            "style/translucency": true
+        patch = {
+          "menu/page_size" = 9;
+          "style/candidate_list_layout" = "linear";
+          "style/translucency" = true;
 
-            schema_list:
-              - schema: rime_mint # 薄荷拼音
-              - schema: rime_mint_flypy # 薄荷拼音-小鹤混输方案
+          schema_list = [
+            { schema = "rime_mint"; }
+            { schema = "rime_mint_flypy"; }
+          ];
 
-            # dbus-send --print-reply=literal --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.DebugInfo
-            # 特定App默认中/英文输入
-            "app_options/org.wezfurlong.wezterm":
-              ascii_mode: true
-              ascii_punct: true
-            "app_options/kitty":
-              ascii_mode: true
-              ascii_punct: true
-            "app_options/code": # Visual Studio Code
-              ascii_mode: true
-              ascii_punct: true # 中文状态输出英文标点(半角)
-            "app_options/neovide":
-              ascii_mode: true
-              ascii_punct: true
-            "app_options/firefox": # postman
-              ascii_mode: true
-              ascii_punct: true
-            "app_options/jetbrains.intellij": # idea
-              ascii_mode: true
-              ascii_punct: true
-            "app_options/jetbrains-pycharm":
-              ascii_mode: true
-              ascii_punct: true
-            "app_options/jetbrains-goland":
-              ascii_mode: true
-              ascii_punct: true
-            "app_options/jetbrains-datagrip":
-              ascii_mode: true
-              ascii_punct: true
-        '';
-      }
-    ];
+          "app_options/org.wezfurlong.wezterm" = ascii;
+          "app_options/kitty" = ascii;
+          "app_options/foot" = ascii;
+          "app_options/code" = ascii;
+          "app_options/neovide" = ascii;
+          "app_options/firefox" = ascii;
+          "app_options/jetbrains.intellij" = ascii;
+          "app_options/jetbrains-pycharm" = ascii;
+          "app_options/jetbrains-goland" = ascii;
+          "app_options/jetbrains-datagrip" = ascii;
+        };
+      };
+
     xdg.dataFile = {
       "fcitx5/themes" = {
         source = "${fictx5-themes}/share/fcitx5/themes";
