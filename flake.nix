@@ -14,7 +14,6 @@
       "https://cache.nixos.org?priority=12"
       "https://nix-community.cachix.org?priority=13"
       "https://niri.cachix.org"
-      "https://walker-git.cachix.org"
       "https://hyprland.cachix.org"
     ];
 
@@ -23,7 +22,6 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
@@ -117,20 +115,10 @@
     clipboard-sync.url = "github:dnut/clipboard-sync";
     waybar.url = "github:Alexays/Waybar/master";
 
-    swww.url = "github:LGFae/swww";
-    walker.url = "github:abenz1267/walker";
-    # walker.url = "path:./walker";
-    rofi-tools = {
-      url = "github:szaffarano/rofi-tools";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     # hyprland
     hyprutils.url = "github:hyprwm/hyprutils?ref=v0.8.2";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.50.0";
+      url = "github:hyprwm/Hyprland?ref=v0.50.1";
       inputs.hyprutils.follows = "hyprutils";
     };
     hyprlux = {

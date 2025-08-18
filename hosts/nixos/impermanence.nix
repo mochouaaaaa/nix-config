@@ -7,6 +7,7 @@
 }:
 let
   isTmpfsRoot = (config.fileSystems."/".fsType or "") == "tmpfs";
+  cfgDesktop = config.modules'.desktop;
 in
 
 {
@@ -93,6 +94,7 @@ in
             ".config/dotfile"
             ".config/env"
             ".local/share/direnv"
+            ".tmux"
             "tmp"
 
             # ======================================
@@ -196,9 +198,6 @@ in
             # ======================================
             # Misc
             # ======================================
-            # background
-            ".config/swww"
-            ".cache/wal"
             # Clash Verge Rev
             ".local/share/io.github.clash-verge-rev.clash-verge-rev"
             ".local/share/clash-verge"
@@ -215,7 +214,21 @@ in
             ".config/pot-app.desktop"
             ".config/wiliwili"
 
+            # spotify
+            ".config/spicetify"
+            ".config/spotify"
+            ".cache/spotify"
+
+          ]
+          ++ lib.optionals (cfgDesktop.hyprland.enable) [
+            ".local/state/caelestia"
+            ".config/caelestia"
+          ]
+          ++ lib.optionals (cfgDesktop.niri.enable) [
+            ".local/state/DankMaterialShell"
+            ".cache/DankMaterialShell"
           ];
+
           files = [
             ".zsh_history"
 

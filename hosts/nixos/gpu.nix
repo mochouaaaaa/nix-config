@@ -7,7 +7,6 @@
   boot.initrd.kernelModules = lib.mkAfter [ "amdgpu" ];
 
   services.xserver = {
-    enable = lib.mkDefault true;
     videoDrivers = [ "amdgpu" ];
   };
 

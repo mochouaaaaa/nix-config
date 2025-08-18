@@ -103,7 +103,7 @@ switch desktop="hyprland":
 [linux]
 [group('nixos desktop')]
 @nixos-hyprland:
-    nix flake update hypr-dynamic-cursors hyprland-plugins rofi-tools swww hyprlux waybar
+    nix flake update hypr-dynamic-cursors hyprland-plugins hyprlux waybar
     just switch
 
 # switch kde desktop environment
@@ -123,7 +123,7 @@ switch desktop="hyprland":
 [linux]
 [group('nixos desktop')]
 @nixos-niri:
-    nix flake update niri
+    # nix flake update niri
     just switch niri
 
 [linux]

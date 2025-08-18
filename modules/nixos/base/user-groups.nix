@@ -7,7 +7,7 @@
 {
   # Don't allow mutation of users outside the config.
   users.mutableUsers = false;
-
+  hardware.enableAllFirmware = true;
   hardware.uinput.enable = true;
   users.groups = {
     "${username}" = { };
@@ -39,6 +39,7 @@
       "input"
       "uinput"
       "video"
+      "plugdev"
     ];
   };
 

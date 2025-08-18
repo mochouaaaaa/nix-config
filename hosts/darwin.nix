@@ -4,7 +4,10 @@ let
     self.homeModules.darwin.modules
     {
       modules'.packages = {
-        wezterm.enable = true;
+        terminal = {
+          wezterm.enable = true;
+        };
+
         ollama.enable = false;
         firefox.enable = true;
         bitwarden.enable = false;

@@ -14,6 +14,7 @@ let
           # feishu.enable = false;
         };
 
+        obsidian.enable = true;
         live = {
           simple-live-app.enable = true;
           wiliwili.enable = true;
@@ -24,8 +25,11 @@ let
         bitwarden.enable = true;
         authenticator.enable = true;
 
-        kitty.enable = true;
-        wezterm.enable = true;
+        terminal = {
+          kitty.enable = true;
+          wezterm.enable = true;
+        };
+
         jetbrains = {
           enable = true;
           pycharm.enable = true;

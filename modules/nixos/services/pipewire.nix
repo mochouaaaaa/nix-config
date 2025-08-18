@@ -8,6 +8,8 @@
     bluetuith
     pamixer
     pulseaudio # provides `pactl`, which is required by some apps(e.g. sonic-pi)
+    libinput
+    bluez
   ];
 
   # PipeWire is a new low-level multimedia framework.
@@ -66,12 +68,20 @@
     };
   };
 
+  services.touchegg = {
+    enable = true;
+  };
   #============================= Bluetooth =============================
   #  systemctl --user daemon-reload
   # systemctl --user restart pulseaudio
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    input = {
+      General = {
+        UserspaceHID = true;
+      };
+    };
     settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";

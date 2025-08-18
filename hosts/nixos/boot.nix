@@ -22,10 +22,15 @@
       "kvm-amd"
       "vfio-pci"
       "ext4"
+      "uhid"
+      "hidp"
+      "hid_apple"
+      "hid_magicmouse"
+      "hid_multitouch"
     ];
     extraModprobeConfig = "options kvm_amd nested=1"; # for amd cpu
     extraModulePackages = [ ];
-    supportedFilesystems = lib.mkForce [
+    supportedFilesystems = [
       "ext4"
       "btrfs"
       "xfs"
