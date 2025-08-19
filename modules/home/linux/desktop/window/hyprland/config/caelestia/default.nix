@@ -50,9 +50,35 @@ in
           ", XF86AudioPrev, global, caelestia:mediaPrev"
           ", XF86AudioStop, global, caelestia:mediaStop"
         ];
-        exec-once = [
-          "caelestia-shell -d"
+      };
+    };
+
+    home.sessionVariables = {
+      CAELESTIA_BD_PATH = "${caelestia-shell}/bin";
+    };
+
+    systemd.user.services.caelestia = {
+      Unit = {
+        Description = "Caelestia Shell Service";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        Type = "exec";
+        ExecStart = "${caelestia-shell}/bin/caelestia-shell";
+        Restart = "on-failure";
+        RestartSec = "5s";
+        TimeoutStopSec = "5s";
+        Environment = [
+          "QT_QPA_PLATFORM=wayland"
         ];
+
+        Slice = "session.slice";
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
       };
     };
 

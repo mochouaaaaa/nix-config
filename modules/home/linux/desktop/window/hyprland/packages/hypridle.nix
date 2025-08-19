@@ -5,19 +5,18 @@
 }:
 let
   cfg = config.modules'.desktop.hyprland;
-  cfgQuick = config.modules'.desktop.hyprland.caelestia;
 in
 {
-  config = lib.mkIf (cfg.enable && !cfgQuick.enable) {
+  config = lib.mkIf (cfg.enable) {
     services.hypridle = {
       enable = true;
       settings = {
         general = {
-          lock_cmd = "hyprlock";
+          lock_cmd = lib.mkDefault "hyprlock";
           before_sleep_cmd = "loginctl lock-session";
           after_sleep_cmd = "hyprctl dispatch dpms on";
         };
-        listener = [
+        listener = lib.mkDefault [
           {
             timeout = 600;
             on-timeout = "Dpms";
