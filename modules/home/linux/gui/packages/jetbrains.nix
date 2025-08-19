@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  username,
   nvfetcherSources,
   ...
 }:
@@ -16,6 +15,7 @@ let
   };
 
   initjetbrains = jetbrainsConfig cfg.enable;
+  dataPath = "${config.xdg.configHome}";
 
 in
 {
@@ -30,7 +30,7 @@ in
         type = lib.types.package;
         default = (
           pkgs.pycharm {
-            inherit username;
+            inherit dataPath;
             src = nvfetcherSources.pycharm.src;
           }
         );
@@ -45,7 +45,7 @@ in
         type = lib.types.package;
         default = (
           pkgs.goland {
-            inherit username;
+            inherit dataPath;
             src = nvfetcherSources.goland.src;
           }
         );
@@ -60,7 +60,7 @@ in
         type = lib.types.package;
         default = (
           pkgs.datagrip {
-            inherit username;
+            inherit dataPath;
             src = nvfetcherSources.datagrip.src;
           }
         );
@@ -75,7 +75,7 @@ in
         type = lib.types.package;
         default = (
           pkgs.clion {
-            inherit username;
+            inherit dataPath;
             src = nvfetcherSources.clion.src;
           }
         );

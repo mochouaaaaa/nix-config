@@ -1,18 +1,14 @@
-self: super:
-let
-
-in
-{
+self: super: {
   goland =
     {
-      username ? null,
+      dataPath ? null,
       src ? null,
       ...
     }:
     let
       vmopts =
         let
-          vmoptsData = if username != null then (import ./vmopts.nix { inherit username; }).data else null;
+          vmoptsData = if dataPath != null then (import ./vmopts.nix { inherit dataPath; }).data else null;
         in
         vmoptsData;
 

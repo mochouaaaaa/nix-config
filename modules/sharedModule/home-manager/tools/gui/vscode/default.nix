@@ -28,7 +28,7 @@
     programs = {
       vscode = {
         enable = true;
-        # let vscode sync and update its configuration & extensions across devices, using github account.
+        mutableExtensionsDir = false;
         profiles = {
           "${username}" = {
             extensions = with pkgs.vscode-extensions; [
