@@ -19,17 +19,16 @@ in
         listener = lib.mkDefault [
           {
             timeout = 600;
-            on-timeout = "Dpms";
+            on-timeout = "loginctl lock-session";
+          }
+          {
+            timeout = 180;
+            on-timeout = "lockscreen-dpms";
             on-resume = "hyprctl dispatch dpms on";
           }
           {
-            timeout = 600;
-            on-timeout = "Lock";
-          }
-          {
             timeout = 1800;
-            on-timeout = "systemctl hibernate";
-            on-resume = "hyprctl reload";
+            on-timeout = "systemctl suspend-then-hibernate || loginctl suspend";
           }
         ];
       };

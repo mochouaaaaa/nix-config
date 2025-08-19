@@ -9,6 +9,8 @@ in
 {
   config = lib.mkIf cfg.enable {
 
+    modules'.desktop.hyprland.caelestia.enable = true;
+
     #  modules'.desktop.component = {
     #    launcher = {
     #      rofi.enable = false;

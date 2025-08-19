@@ -18,17 +18,22 @@ in
 
   config = lib.mkIf ((cfg.enable || cfg_lock.enable) && !cfgQuick.enable) {
     home.packages = with pkgs; [
-      (writeShellScriptBin "Lock" ''
-        hyprlock
-      '')
 
-      (writeShellScriptBin "Dpms" ''
+      (writeShellScriptBin "lockscreen-dpms" ''
 
         if pgrep hyprlock > /dev/null; then
             hyprctl dispatch dpms off
         fi
       '')
     ];
+
+    wayland.windowManager.hyprland = {
+      settings = {
+        bind = [
+          "$mod CTRL, q, exec, hyprlock"
+        ];
+      };
+    };
 
     programs.hyprlock = {
       enable = true;

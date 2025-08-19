@@ -28,8 +28,6 @@ in
       caelestia-shell
     ];
 
-    modules'.desktop.hyprland.caelestia.enable = true;
-
     wayland.windowManager.hyprland = {
       settings = {
         bind = [
