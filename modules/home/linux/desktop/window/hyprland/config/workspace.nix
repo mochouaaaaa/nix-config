@@ -49,8 +49,17 @@ in
           "workspace name:tencent, class:^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$"
           "workspace name:tencent, class:^([Ff]erdium)$"
           "workspace name:tencent, class:^([Ww]hatsapp-for-linux)$"
-          "workspace special:music, class:^(Spotify)$"
           "workspace special:tg, class:io.github.kukuruzka165.materialgram"
+
+          # Special workspaces
+          "workspace special:music, class:feishin|Spotify|Supersonic"
+          "workspace special:music, initialTitle:Spotify( Free)?" # Spotify wayland, it has no class for some reason
+          "workspace special:wechat, class:discord|equibop|vesktop|whatsapp"
+          "workspace special:todo, class:Todoist"
+        ];
+        workspace = [
+          "w[tv1]s[false], gapsout:$singleWindowGapsOut"
+          "f[1]s[false], gapsout:$singleWindowGapsOut"
         ];
         exec-once = [
           "hyprctl dispatch workspace name:code"

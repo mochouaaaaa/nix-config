@@ -80,7 +80,7 @@ in
           $singleWindowGapsOut = 20
 
           # Window styling
-          $windowOpacity = 0.95
+          $windowOpacity = 0.85
           $windowRounding = 10
 
           $windowBorderSize = 3

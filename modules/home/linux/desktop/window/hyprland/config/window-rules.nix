@@ -11,53 +11,78 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         windowrule = [
+          "opacity $windowOpacity override, fullscreen:0"
+
+          "opaque, class:foot|equibop|org\.quickshell|imv|swappy" # They use native transparency or we want them opaque
+          "center 1, floating:1, xwayland:0" # Center all floating windows (not xwayland cause popups)
+
+          # Float
+          "float, class:guifetch" # FlafyDev/guifetch
+          "float, class:yad"
+          "float, class:zenity"
+          "float, class:wev"
+          "float, class:org\.gnome\.FileRoller"
+          "float, class:file-roller" # WHY IS THERE TWOOOOOOOOOOOOOOOO
+          "float, class:blueman-manager"
+          "float, class:com\.github\.GradienceTeam\.Gradience"
+          "float, class:feh"
+          "float, class:imv"
+          "float, class:system-config-printer"
+          "float, class:org\.quickshell"
+
+          # Float, resize and center
+          "float, class:foot, title:nmtui"
+          "size 60% 70%, class:foot, title:nmtui"
+          "center 1, class:foot, title:nmtui"
+          "float, class:org\.gnome\.Settings"
+          "size 70% 80%, class:org\.gnome\.Settings"
+          "center 1, class:org\.gnome\.Settings"
+          "float, class:org\.pulseaudio\.pavucontrol|yad-icon-browser"
+          "size 60% 70%, class:org\.pulseaudio\.pavucontrol|yad-icon-browser"
+          "center 1, class:org\.pulseaudio\.pavucontrol|yad-icon-browser"
+          "float, class:nwg-look"
+          "size 50% 60%, class:nwg-look"
+          "center 1, class:nwg-look"
 
           # windowrule Position
-          "center,class:^(pavucontrol|pavucontrol-qt|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)"
           "center,class:^([Ww]hatsapp-for-linux)$"
           "center,class:^([Ff]erdium)$"
+
+          # flameshot
           "move 0 0,title:^(flameshot)"
           "pin, class:^(flameshot)$"
           "suppressevent fullscreen,title:^(flameshot)"
+          "float, class:(flameshot), title:(flameshot-pin)"
 
+          # filemanager
           "center, class:([Tt]hunar), title:^([Tt]hunar)$, size: 1200,1300"
           "center, class:([Tt]hunar), title:(Confirm to replace files)"
-          "center, title:^(ROG Control)$"
-          "center, title:^(Keybindings)$"
-          "move 72% 7%,title:^(Picture-in-Picture)$"
+          "float, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
+          "float, class:([Tt]hunar), title:(File Operation Progress)"
+          "float, class:([Tt]hunar), title:(Confirm to replace files)"
 
-          # windowrule v2 to avoid idle for fullscreen apps
-          # windowrule = idleinhibit fullscreen, class:^(*)$
-          # windowrule = idleinhibit fullscreen, title:^(*)$
-          "idleinhibit fullscreen, fullscreen:1"
-
-          # windowrule  - float
           "float, class:chromium-browser, title:(雀魂麻将 - Chromium)"
           "float, class:(pot|.pot-wrapped), title:(Translate|Translator|OCR|PopClip|Screenshot Translate)" # Translation window floating
-          "float, class:(flameshot), title:(flameshot-pin)"
           "float, class:(org.telegram.desktop), title:(Media viewer)"
           "float, title:overskride"
           "float, title:QQ"
           "float, title:图片查看器"
-          "float, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
+
           "float, class:(VirtualBox)"
           "float, class:firefox,title:(我的足迹)"
           "float, class:firefox,title:画中画"
           "float, class:Bitwarden,title:Bitwarden"
           "float, class:(xfce4-appfinder)"
-          "float, class:kitty,title:yazi"
+          "float, class:kitty, title:yazi"
           "float, class:^(gnome-)"
           "float, class:^(org.kde.polkit-kde-authentication-agent-1)$"
           "float, class:([Zz]oom|onedriver|onedriver-launcher)$"
-          "float, class:([Tt]hunar), title:(File Operation Progress)"
-          "float, class:([Tt]hunar), title:(Confirm to replace files)"
+
           "float, class:(xdg-desktop-portal-gtk)"
           "float, class:(org.gnome.Calculator), title:(Calculator)"
           "float, class:(codium|codium-url-handler|VSCodium), title:(Add Folder to Workspace)"
           "float, class:^([Rr]ofi)$"
           "float, class:^(eog|org.gnome.Loupe)$" # image viewer
-          "float, class:^(pavucontrol|pavucontrol-qt|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"
-          "float, class:^(nwg-look|qt5ct|qt6ct)$"
           "float, class:^(mpv|com.github.rafostar.Clapper)$"
           "float, class:^(nm-applet|nm-connection-editor|blueman-manager)$"
           "float, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$" # system monitor
@@ -69,47 +94,7 @@ in
           "float, title:(Kvantum Manager)"
           "float, class:^([Qq]alculate-gtk)$"
           "float, class:^([Ff]erdium)$"
-          "float, title:^(Picture-in-Picture)$"
-          "float, title:^(ROG Control)$"
 
-          # windowrule v2 - opacity #enable as desired
-          "opacity 0.9 0.6, class:^([Rr]ofi)$"
-          "opacity 0.9 0.7, class:^(Brave-browser(-beta|-dev)?)$"
-          "opacity 0.9 0.7, class:^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$"
-          "opacity 0.9 0.7, class:^(chromium-browser)$"
-          "opacity 0.9 0.7, class:^(zen-alpha)$" # zen browser
-          "opacity 0.9 0.6, class:^([Tt]horium-browser)$"
-          "opacity 0.9 0.8, class:^([Mm]icrosoft-edge(-stable|-beta|-dev|-unstable)?)$"
-          "opacity 0.9 0.8, class:^(google-chrome(-beta|-dev|-unstable)?)$"
-          "opacity 0.94 0.86, class:^(chrome-.+-Default)$" # Chrome PWAs
-          "opacity 0.9 0.8, class:^([Tt]hunar|org.gnome.Nautilus)$"
-          "opacity 0.8 0.6, class:^(pcmanfm-qt)$"
-          "opacity 0.8 0.7, class:^(gedit|org.gnome.TextEditor|mousepad)$"
-          "opacity 0.9 0.8, class:^(deluge)$"
-          "opacity 0.75 0.75, class:^(Alacritty|kitty|kitty-dropterm|neovide)$" # Terminals
-          "opacity 0.75 0.75, class:^(jetbrains-pycharm)$"
-          "opacity 0.9 0.7, class:^(VSCodium|codium-url-handler)$"
-          "opacity 0.9 0.8, class:^(nwg-look|qt5ct|qt6ct|[Yy]ad)$"
-          "opacity 0.9 0.8, title:(Kvantum Manager)"
-          "opacity 0.9 0.7, class:^(com.obsproject.Studio)$"
-          "opacity 0.9 0.7, class:^([Aa]udacious)$"
-          "opacity 0.9 0.8, class:^(VSCode|code-url-handler)$"
-          "opacity 0.9 0.8, class:^(jetbrains-.+)$" # JetBrains IDEs
-          "opacity 0.94 0.86, class:^([Dd]iscord|[Vv]esktop)$"
-          "opacity 0.9 0.8, class:^(org.telegram.desktop|io.github.tdesktop_x64.TDesktop)$"
-          "opacity 0.9 0.8, class:^(im.riot.Riot)$ # Element matrix client"
-          "opacity 0.94 0.86, class:^(gnome-disks|evince|wihotspot(-gui)?|org.gnome.baobab)$"
-          "opacity 0.9 0.8, class:^(file-roller|org.gnome.FileRoller)$" # archive manager
-          "opacity 0.8 0.7, class:^(app.drey.Warp)$" # Warp file transfer
-          "opacity 0.9 0.8, class:^(seahorse)$" # gnome-keyring gui
-          "opacity 0.82 0.75, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
-          "opacity 0.9 0.8, class:^(xdg-desktop-portal-gtk)$" # gnome-keyring gui
-          "opacity 0.9 0.7, class:^([Ww]hatsapp-for-linux)$"
-          "opacity 0.9 0.7, class:^([Ff]erdium)$"
-          "opacity 0.95 0.75, title:^(Picture-in-Picture)$"
-
-          # windowrule v2 - size
-          "size 50% 60%, class:^(pavucontrol|pavucontrol-qt|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)"
           "size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
           "size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
           "size 60% 70%, title:(Kvantum Manager)"
@@ -118,40 +103,50 @@ in
           "size 60% 70%, class:^(file-roller|org.gnome.FileRoller)$"
           "size 60% 70%, class:^([Ww]hatsapp-for-linux)$"
           "size 60% 70%, class:^([Ff]erdium)$"
-          "size 25% 25%, title:^(Picture-in-Picture)$"
-          "size 60% 70%, title:^(ROG Control)$"
-          #size 25% 25%, title:^(Firefox)$
           "size 60% 70%, class:Bitwarden, title:Bitwarden"
-
-          # windowrule v2 - pinning
-          "pin,title:^(Picture-in-Picture)$"
-          # pin,title:^(Firefox)$"
-
-          #windowrule = bordercolor rgb(EE4B55) rgb(880808), fullscreen:1"
-          #windowrule = bordercolor rgb(282737) rgb(1E1D2D), floating:1
-          #windowrule = opacity 0.8 0.8, pinned:1"
-
-          # LAYER RULES
-          #layerrule = unset,class:^([Rr]ofi)$
-          #layerrule = blur,class:^([Rr]ofi)$
-          #layerrule = ignorezero, <rofi>
-          #layerrule = ignorezero, overview
-          #layerrule = blur, overview
-
-          # plugnis
-          "plugin:chromakey,fullscreen:0"
-          # chromakey_background = 7,8,17
 
           # screen sharing
           "opacity 0.0 override, class:^(xwaylandvideobridge)$"
           "noanim, class:^(xwaylandvideobridge)$"
           "noinitialfocus, class:^(xwaylandvideobridge)$"
-          "noinitialfocus,xwayland:1"
+          "noinitialfocus, xwayland:1"
           "maxsize 1 1, class:^(xwaylandvideobridge)$"
           "noblur, class:^(xwaylandvideobridge)$"
           "nofocus, class:^(xwaylandvideobridge)$"
 
           "unset, class:^(ueberzugpp.*)$"
+
+          # Dialogs
+          "float, title:(Select|Open)( a)? (File|Folder)(s)?"
+          "float, title:File (Operation|Upload)( Progress)?"
+          "float, title:.* Properties"
+          "float, title:Export Image as PNG"
+          "float, title:GIMP Crash Debug"
+          "float, title:Save As"
+          "float, title:Library"
+
+          # Picture in picture (resize and move done via script)
+          "move 100%-w-2% 100%-w-3%, title:Picture(-| )in(-| )[Pp]icture" # Initial move so window doesn't shoot across the screen from the center
+          "keepaspectratio, title:Picture(-| )in(-| )[Pp]icture"
+          "float, title:Picture(-| )in(-| )[Pp]icture"
+          "pin, title:Picture(-| )in(-| )[Pp]icture"
+
+          # Steam
+          "rounding 10, title:, class:steam"
+          "float, title:Friends List, class:steam"
+          "immediate, class:steam_app_[0-9]+" # Allow tearing for steam games
+          "idleinhibit always, class:steam_app_[0-9]+" # Always idle inhibit when playing a steam game
+
+          # ATLauncher console
+          "float, class:com-atlauncher-App, title:ATLauncher Console"
+
+          # Autodesk Fusion 360
+          "noblur, title:Fusion360|(Marking Menu), class:fusion360\.exe"
+
+          # Ugh xwayland popups
+          "nodim, xwayland:1, title:win[0-9]+"
+          "noshadow, xwayland:1, title:win[0-9]+"
+          "rounding 10, xwayland:1, title:win[0-9]+"
 
         ];
         layerrule = [
@@ -182,6 +177,23 @@ in
 
           # wezterm
           "blur, class:org.wezfurlong.wezterm"
+
+          # ######## Layer rules ########
+          "animation fade, hyprpicker" # Colour picker out animation
+          "animation fade, logout_dialog" # wlogout
+          "animation fade, selection" # slurp
+          "animation fade, wayfreeze"
+
+          # Fuzzel
+          "animation popin 80%, launcher"
+          "blur, launcher"
+
+          # Shell
+          "noanim, caelestia-(border-exclusion|area-picker)"
+          "animation fade, caelestia-(drawers|background)"
+
+          "blur, caelestia-drawers"
+          "ignorealpha 0.57, caelestia-drawers"
         ];
       };
     };
