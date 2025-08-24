@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
@@ -13,6 +14,10 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
+
+    home.packages = [
+      inputs.dgop.packages.${pkgs.system}.dgop
+    ];
 
     programs.dankMaterialShell = {
       enable = true;

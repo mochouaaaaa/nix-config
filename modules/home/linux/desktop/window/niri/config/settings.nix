@@ -19,6 +19,11 @@ in
 
         };
 
+        touchpad = {
+          tap = true;
+          accel-speed = 0.2;
+        };
+
         mod-key = "Super";
 
         workspace-auto-back-and-forth = true;

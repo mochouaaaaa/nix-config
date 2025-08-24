@@ -26,8 +26,8 @@ in
           use24HourClock = true;
           useFahrenheit = false;
           nightModeEnabled = false;
-          weatherLocation = "New York; NY";
-          weatherCoordinates = "40.7128;-74.0060";
+          weatherLocation = "Beijing; China";
+          weatherCoordinates = "39.9042;116.4074";
           useAutoLocation = true;
           weatherEnabled = true;
           showLauncherButton = true;
@@ -76,9 +76,11 @@ in
             };
           };
           clockCompactMode = false;
-          clockDateFormat = "ddd d";
-          lockDateFormat = "dddd; MMMM d";
-          mediaSize = 1;
+          focusedWindowCompactMode = false;
+          runningAppsCompactMode = true;
+          clockDateFormat = "yyyy年MM月dd日 ";
+          lockDateFormat = "yyyy年MM月dd日 ";
+          mediaSize = 2;
           topBarLeftWidgets = [
             "launcherButton"
             "workspaceSwitcher"
