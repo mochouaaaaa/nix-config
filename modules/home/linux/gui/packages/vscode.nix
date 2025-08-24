@@ -1,9 +1,7 @@
 {
-  self,
   lib,
   pkgs,
   config,
-  isNixos,
   username,
   ...
 }:
@@ -12,6 +10,20 @@ let
   cfgKeymaps = config.modules'.keymaps;
 in
 {
+
+  options.modules'.packages.vscode = with lib; {
+    commandLineArgs = mkOption rec {
+      type = types.listOf types.str;
+      default = [
+        "--no-sandbox"
+        "--ozone-platform=wayland"
+        "--enable-features=UseOzonePlatform"
+        "--enable-wayland-ime"
+      ];
+      description = "Additional command line arguments to pass to the VSCode binary.";
+      apply = userValue: default ++ userValue;
+    };
+  };
 
   config = {
     programs = {

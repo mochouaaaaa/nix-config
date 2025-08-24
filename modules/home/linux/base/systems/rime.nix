@@ -65,6 +65,7 @@ in
         };
       in
       {
+        # dbus-send --print-reply=literal --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.DebugInfo
         patch = {
           "menu/page_size" = 9;
           "style/candidate_list_layout" = "linear";
@@ -85,6 +86,7 @@ in
           "app_options/jetbrains-pycharm" = ascii;
           "app_options/jetbrains-goland" = ascii;
           "app_options/jetbrains-datagrip" = ascii;
+          "app_options/.albert-wrapped" = ascii;
         };
       };
 

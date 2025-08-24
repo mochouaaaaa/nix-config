@@ -20,6 +20,42 @@ in
         default = false;
         description = "Enable GTK theme.";
       };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = (
+          pkgs.colloid-gtk-theme.override {
+            tweaks = [ "black" ];
+          }
+        );
+        description = "GTK theme package.";
+      };
+      icon = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = "Colloid";
+          description = "Name of GTK icon theme.";
+        };
+        package = lib.mkOption {
+          type = lib.types.package;
+          default = pkgs.colloid-icon-theme;
+          description = "Icon theme package.";
+        };
+      };
+      name = lib.mkOption {
+        type = lib.types.str;
+        default = "Colloid";
+        description = "Name of GTK theme.";
+      };
+      dark = lib.mkOption {
+        type = lib.types.str;
+        default = "Dark";
+        description = "Name of GTK dark theme.";
+      };
+      light = lib.mkOption {
+        type = lib.types.str;
+        default = "Light";
+        description = "Name of GTK light theme.";
+      };
     };
 
   };

@@ -12,20 +12,18 @@ in
   config = lib.mkIf cfg.enable {
 
     home.packages = with pkgs; [
-      colloid-icon-theme
-      (colloid-gtk-theme.override {
-        tweaks = [ "black" ];
-      })
+      cfg.package
+      cfg.icon.package
 
       (writeShellScriptBin "switch-gtk2-config" ''
         # 第一个参数：模式 (Dark 或 Light)
-        mode=''${1:-Light}  # 如果没有提供 mode 参数，默认是 Light
+        mode=''${1:-${cfg.light}}  # 如果没有提供 mode 参数，默认是 Light
 
         # 第二个参数：主题名称
-        theme=''${2:-Colloid}  # 如果没有提供 theme 参数，默认是 Colloid
+        theme=''${2:-${cfg.name}}  # 如果没有提供 theme 参数，默认是 Colloid
 
         # 第三个参数：图标主题名称
-        icon_theme=''${3:-Colloid}  # 如果没有提供 icon_theme 参数，默认是 Colloid
+        icon_theme=''${3:-${cfg.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
 
         # 默认主题是 Colloid
         gtk_theme_name="$theme-$mode"
@@ -47,9 +45,9 @@ in
       '')
 
       (writeShellScriptBin "switch-gtk3and4-config" ''
-        mode=''${1:-Light}  # 如果没有提供 mode 参数，默认是 Light
-        theme=''${2:-Colloid}  # 如果没有提供 theme 参数，默认是 Colloid
-        icon_theme=''${3:-Colloid}  # 如果没有提供 icon_theme 参数，默认是 Colloid
+        mode=''${1:-${cfg.light}}  # 如果没有提供 mode 参数，默认是 Light
+        theme=''${2:-${cfg.name}}  # 如果没有提供 theme 参数，默认是 Colloid
+        icon_theme=''${3:-${cfg.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
 
         # 默认主题是 Colloid
         gtk_theme_name="$theme-$mode"
@@ -95,9 +93,9 @@ in
       '')
 
       (writeShellScriptBin "switch-theme" ''
-        mode=''${1:-Light}  # 如果没有提供 mode 参数，默认是 Light
-        theme=''${2:-Colloid}  # 如果没有提供 theme 参数，默认是 Colloid
-        icon_theme=''${3:-Colloid}  # 如果没有提供 icon_theme 参数，默认是 Colloid
+        mode=''${1:-${cfg.light}}  # 如果没有提供 mode 参数，默认是 Light
+        theme=''${2:-${cfg.name}}  # 如果没有提供 theme 参数，默认是 Colloid
+        icon_theme=''${3:-${cfg.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
 
         # 默认主题是 Colloid
         gtk_theme_name="$theme-$mode"
@@ -117,6 +115,8 @@ in
         dconf write /org/gnome/desktop/interface/gtk-key-theme "'Default'"
         dconf write /org/gnome/desktop/interface/icon-theme "'$gtk_icon_theme'"
         dconf write /org/gnome/desktop/interface/gtk-theme "'$gtk_theme_name'"
+        dconf write /org/gnome/shell/extensions/user-theme/name "'$gtk_theme_name'"
+
 
         # notify-send --app-name="darkman" --urgency=low --icon=$HOME/.config/swaync/icons/switch_''${mode}.png "switching to ''${mode} mode"
 

@@ -7,7 +7,6 @@
 {
   config = {
     home.packages = with pkgs; [
-      screenkey
       # creative
       blender # 3d modeling
       # gimp      # image editing, I prefer using figma in browser instead of this one

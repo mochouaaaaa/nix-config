@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.gnome.shell.packages.unite;
+  cfg = config.modules'.desktop.gnome;
 in
 
 {
