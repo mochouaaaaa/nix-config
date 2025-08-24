@@ -9,7 +9,7 @@
   themeVariants ? [ ], # default: blue
   colorVariants ? [ ], # default: all
   sizeVariants ? [ ], # default: standard
-  tweaks ? [ ],
+  tweaks ? [ "float" ],
 }:
 
 let

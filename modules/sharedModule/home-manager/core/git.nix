@@ -126,6 +126,7 @@
         "._*"
 
         "# Files that might appear in the root of a volume"
+        ".Trash-1000"
         ".DocumentRevisions-V100"
         ".fseventsd"
         ".Spotlight-V100"

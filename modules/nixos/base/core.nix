@@ -1,14 +1,32 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
-  boot.loader = {
-    systemd-boot = {
-      # we use Git for version control, so we don't need to keep too many generations.
-      configurationLimit = lib.mkDefault 10;
-      # pick the highest resolution for systemd-boot's console.
-      consoleMode = lib.mkDefault "max";
-    };
 
-    timeout = lib.mkDefault 10; # wait for x seconds to select the boot entry
+  environment.systemPackages = with pkgs; [
+    ddcutil
+  ];
+
+  boot = {
+
+    kernelModules = [
+      "i2c-dev" # 显示器亮度
+      "uhid" # 让用户态创建虚拟 HID 设备
+      "hidp" # 蓝牙 HID 协议
+      "hid_apple" # Apple 键盘/触控设备特殊功能支持
+      "hid_magicmouse" # Magic Mouse 专属驱动
+      "hid_multitouch" # 通用多点触控驱动
+      "snd_aloop" # 声卡循环回路
+    ];
+
+    loader = {
+      systemd-boot = {
+        # we use Git for version control, so we don't need to keep too many generations.
+        configurationLimit = lib.mkDefault 10;
+        # pick the highest resolution for systemd-boot's console.
+        consoleMode = lib.mkDefault "max";
+      };
+
+      timeout = lib.mkDefault 10; # wait for x seconds to select the boot entry
+    };
   };
 
   # for power management

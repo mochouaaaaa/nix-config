@@ -62,11 +62,11 @@ stdenv.mkDerivation rec {
       --replace-fail "/opt/mihomo-party/mihomo-party" "mihomo-party"
     ln -s $out/opt/mihomo-party/mihomo-party $out/bin/mihomo-party
 
-    #  wrapProgram $out/bin/mihomo-party \
-    #     --set ELECTRON_OZONE_PLATFORM_HINT auto \
-    #     --set NIXOS_OZONE_WL 1 \
-    #     --set GTK_IM_MODULE "" \
-    #     --add-flags "--enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime --use-gl=swiftshader --disable-gpu"
+      wrapProgram $out/bin/mihomo-party \
+         --set ELECTRON_OZONE_PLATFORM_HINT auto \
+         --set NIXOS_OZONE_WL 1 \
+         --set GTK_IM_MODULE "fcitx" \
+         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime --use-gl=swiftshader --disable-gpu"
 
     runHook postInstall
   '';

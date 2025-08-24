@@ -8,8 +8,6 @@
     bluetuith
     pamixer
     pulseaudio # provides `pactl`, which is required by some apps(e.g. sonic-pi)
-    libinput
-    bluez
   ];
 
   # PipeWire is a new low-level multimedia framework.
@@ -31,19 +29,6 @@
     # airplay
     # opens UDP ports 6001-6002
     raopOpenFirewall = true;
-    extraConfig.pipewire = {
-      "10-airplay" = {
-        "context.modules" = [
-          {
-            name = "libpipewire-module-raop-discover";
-            # increase the buffer size if you get dropouts/glitches
-            # args = {
-            #   "raop.latency.ms" = 500;
-            # };
-          }
-        ];
-      };
-    };
   };
   # rtkit is optional but recommended
   security.rtkit.enable = true;
@@ -84,8 +69,11 @@
     };
     settings = {
       General = {
+        AutoEnable = true;
         Enable = "Source,Sink,Media,Socket";
         Experimental = true;
+        DiscoverableTimeout = 0;
+        PairableTimeout = 0;
       };
       LE = {
         MinConnectionInterval = 16;

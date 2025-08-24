@@ -27,6 +27,7 @@ in
 
         # render section for hyprland >= v0.42.0
         render = {
+          cm_auto_hdr = 1; # 0.50
           # explicit_sync = 0
           # explicit_sync_kms = 2
           # direct_scanout = false
@@ -55,7 +56,7 @@ in
 
           # Touchpad
           $touchpadDisableTyping = true
-          $touchpadScrollFactor = 0.3
+          $touchpadScrollFactor = 0.2
           $workSpaceSwipeFingers = 4
 
           # Blur

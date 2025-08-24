@@ -3,18 +3,20 @@
   config,
   lib,
   inputs,
+  isNixos,
   ...
 }:
 let
   cfg = config.modules'.desktop.hyprland;
 in
 {
-  config = lib.mkIf cfg.enable rec {
+  config = lib.mkIf cfg.enable {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+      package = if isNixos then null else inputs.hyprland.packages.${pkgs.system}.hyprland;
+      portalPackage =
+        if isNixos then null else inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
       systemd = {
         enable = true;

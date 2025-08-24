@@ -2,16 +2,16 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
   cfg = config.modules'.desktop.hyprland;
-
-  caelestia-shell = inputs.caelestia-shell.packages."x86_64-linux".default;
-  caelestia-cli = inputs.caelestia-cli.packages."x86_64-linux".default;
 in
 {
-  imports = lib.importModule' ./.;
+  imports = lib.importModule' ./. ++ [
+    inputs.caelestia-shell.homeManagerModules.default
+  ];
 
   options.modules'.desktop.hyprland.caelestia = {
     enable = lib.mkOption {
@@ -23,10 +23,12 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    home.packages = [
-      caelestia-cli
-      caelestia-shell
-    ];
+    programs.caelestia = {
+      enable = true;
+      cli = {
+        enable = true;
+      };
+    };
 
     wayland.windowManager.hyprland = {
       settings = {
@@ -48,35 +50,6 @@ in
           ", XF86AudioPrev, global, caelestia:mediaPrev"
           ", XF86AudioStop, global, caelestia:mediaStop"
         ];
-      };
-    };
-
-    home.sessionVariables = {
-      CAELESTIA_BD_PATH = "${caelestia-shell}/bin";
-    };
-
-    systemd.user.services.caelestia = {
-      Unit = {
-        Description = "Caelestia Shell Service";
-        After = [ "graphical-session.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        Type = "exec";
-        ExecStart = "${caelestia-shell}/bin/caelestia-shell";
-        Restart = "on-failure";
-        RestartSec = "5s";
-        TimeoutStopSec = "5s";
-        Environment = [
-          "QT_QPA_PLATFORM=wayland"
-        ];
-
-        Slice = "session.slice";
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
       };
     };
 

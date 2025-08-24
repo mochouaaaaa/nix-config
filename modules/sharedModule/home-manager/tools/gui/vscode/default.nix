@@ -7,22 +7,6 @@
 {
   imports = lib.importModule' ./.;
 
-  options.modules'.packages.vscode = with lib; {
-    commandLineArgs = mkOption rec {
-      type = types.listOf types.str;
-      default = [
-        "--locale=zh-cn"
-        "--no-sandbox"
-        "--ozone-platform=wayland"
-        "--enable-features=UseOzonePlatform"
-        "--enable-wayland-ime"
-        "--gtk-version=4"
-      ];
-      description = "Additional command line arguments to pass to the VSCode binary.";
-      apply = userValue: default ++ userValue;
-    };
-  };
-
   config = {
 
     programs = {

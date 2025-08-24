@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  username,
   ...
 }:
 let
@@ -20,10 +21,12 @@ in
         gnome-keyring.enable = true;
       };
       greetd = {
-        settings = {
+        settings = rec {
           default_session = {
+            user = username;
             command = lib.mkForce "${lib.getExe' pkgs.niri "niri-session"}";
           };
+          initial_session = default_session;
         };
       };
     };

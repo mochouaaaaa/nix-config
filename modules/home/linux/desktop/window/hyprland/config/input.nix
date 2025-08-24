@@ -27,10 +27,11 @@ in
           float_switch_override_focus = false;
 
           touchpad = {
-            clickfinger_behavior = false;
+            clickfinger_behavior = true; # 两指右键
             middle_button_emulation = true;
             tap-to-click = true;
             drag_lock = false;
+            drag_3fg = 1; # 三指拖动 0.50
             natural_scroll = true;
             disable_while_typing = "$touchpadDisableTyping";
             scroll_factor = "$touchpadScrollFactor";
@@ -58,7 +59,7 @@ in
         gestures = {
           workspace_swipe = true;
           workspace_swipe_distance = 700;
-          workspace_swipe_fingers = "$workSpaceSwipeFingers";
+          workspace_swipe_fingers = "$workSpaceSwipeFingers"; # 4
           workspace_swipe_cancel_ratio = 0.15;
           workspace_swipe_min_speed_to_force = 5;
           workspace_swipe_direction_lock = true;

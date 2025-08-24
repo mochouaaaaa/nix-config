@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  inputs,
+  username,
   ...
 }:
 let
@@ -22,6 +22,12 @@ in
         enable = true;
         wayland = true;
         autoLogin.delay = 0;
+        settings = {
+          daemon = {
+            AutomaticLoginEnable = true;
+            AutomaticLogin = "${username}";
+          };
+        };
       };
     };
   };

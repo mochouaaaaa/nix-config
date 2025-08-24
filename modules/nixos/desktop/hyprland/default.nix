@@ -44,11 +44,12 @@ in
         gnome-keyring.enable = true;
       };
       greetd = {
-        settings = {
+        settings = rec {
           default_session = {
             user = username;
             command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
           };
+          initial_session = default_session;
         };
       };
     };
