@@ -7,10 +7,26 @@
 }:
 let
   isTmpfsRoot = (config.fileSystems."/".fsType or "") == "tmpfs";
-  cfgDesktop = config.modules'.desktop;
+  cfgPersistent = config.modules'.persistent;
 in
 
 {
+
+  options.modules'.persistent = with lib; {
+    osDirectories = mkOption rec {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "List of directories to preserve across reboots.";
+      apply = userValue: default ++ userValue;
+    };
+    hmDirectories = mkOption rec {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "List of directories to preserve across reboots for Home Manager Profiles.";
+      apply = userValue: default ++ userValue;
+    };
+  };
+
   imports = [
     inputs.preservation.nixosModules.default
   ];
@@ -41,7 +57,6 @@ in
           }
 
           # containers
-          "/var/lib/docker"
           "/var/lib/cni"
           "/var/lib/containers"
 
@@ -59,7 +74,8 @@ in
           "/var/lib/bluetooth"
           "/var/lib/NetworkManager"
           "/var/lib/iwd"
-        ];
+        ]
+        ++ cfgPersistent.osDirectories;
 
         files = [
           {
@@ -218,16 +234,8 @@ in
             ".config/spicetify"
             ".config/spotify"
             ".cache/spotify"
-
           ]
-          ++ lib.optionals (cfgDesktop.hyprland.enable) [
-            ".local/state/caelestia"
-            ".config/caelestia"
-          ]
-          ++ lib.optionals (cfgDesktop.niri.enable) [
-            ".local/state/DankMaterialShell"
-            ".cache/DankMaterialShell"
-          ];
+          ++ cfgPersistent.hmDirectories;
 
           files = [
             ".zsh_history"
