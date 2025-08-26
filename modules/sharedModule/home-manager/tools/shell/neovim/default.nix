@@ -10,15 +10,13 @@
   imports = lib.importModule' ./. ++ [ inputs.nixvim.homeModules.nixvim ];
 
   home.packages = with pkgs; [
-    wl-clipboard
-    # tectonic-unwrapped
     ghostscript
     multimarkdown
     icu
     python313Packages.pylatexenc
   ];
 
-  programs = rec {
+  programs = {
     nixvim = {
       enable = true;
       defaultEditor = true;
