@@ -34,18 +34,12 @@
     nixpkgs-os.url = "github:nixos/nixpkgs/nixos-25.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # agenix.url = "github:ryantm/agenix";
 
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # global themes
-    catppuccin.url = "github:catppuccin/nix";
 
     # for macos
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
