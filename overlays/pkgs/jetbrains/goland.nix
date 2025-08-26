@@ -14,6 +14,7 @@ self: super: {
 
       goland = super.jetbrains.goland.override {
         inherit vmopts;
+        forceWayland = true;
         jdk = super.openjdk21;
       };
 

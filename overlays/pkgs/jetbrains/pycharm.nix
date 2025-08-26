@@ -14,6 +14,7 @@ self: super: {
 
       pycharm-professional = super.jetbrains.pycharm-professional.override {
         inherit vmopts;
+        forceWayland = true;
         jdk = super.openjdk21;
       };
 
