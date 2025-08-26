@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -11,17 +10,15 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+
+    services.network-manager-applet.enable = true;
+    modules'.desktop.services.cliphist.enable = true;
+    modules'.desktop.services.polkitagent.enable = true;
+
     wayland.windowManager.hyprland = {
       settings = {
         exec-once = [
-          "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
-
           "hyprctl setcursor ${config.home.pointerCursor.name} ${builtins.toString config.home.pointerCursor.size}"
-
-          "wl-paste --type text --watch cliphist store"
-          "wl-paste --type image --watch cliphist store"
-
-          "nm-applet --indicator &"
 
           #"${swww}/bin/swww-daemon --format xrgb"
           #"${swww}/bin/swww img $HOME/.current_wallpaper"

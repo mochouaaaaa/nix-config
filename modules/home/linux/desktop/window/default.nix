@@ -36,6 +36,13 @@
       };
     };
 
+    sway = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = builtins.getEnv "DESKTOP" == "sway";
+        description = "Enable Sway window manager";
+      };
+    };
   };
 
 }
