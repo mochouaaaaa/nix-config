@@ -12,10 +12,6 @@
       };
     };
     pki = {
-      # certificates = [
-      #   # "/home/mochou/Code/Projects/python/MahjongCopilot/mitm_config/mitmproxy-ca-cert.cer"
-      #   "/home/mochou/Code/Projects/python/MahjongCopilot/mitm_config/mitmproxy-ca-cert.pem"
-      # ];
       certificates = [
         ''
           -----BEGIN CERTIFICATE-----

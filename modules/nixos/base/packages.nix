@@ -1,13 +1,6 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, ... }:
 {
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
-    "electron-32.3.3"
-    "ventoy-1.1.05"
-  ];
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     # system call monitoring
     coreutils
@@ -43,51 +36,7 @@
     parted
 
     icu.dev
-
-    #  export env
-    # pkgs-stable.llvmPackages.libcxx
-    # xz.dev
-    # tcl-9_0
-    # (tcl-8_5.overrideAttrs (oldAttrs: rec {
-    #   configureFlags = oldAttrs.configureFlags ++ [ "ac_cv_header_stdc=yes" ];
-    # }))
   ];
-
-  # environment.variables = with pkgs; {
-  #   XDG_TERMINAL = "${kitty}/bin/kitty '$@'";
-  #
-  #   SQLITE_CLIB_PATH = "${sqlite.out}/lib/libsqlite3.so.0";
-  #
-  #   PKG_CONFIG_PATH = lib.concatStringsSep ":" [
-  #     "${readline.dev}/lib/pkgconfig"
-  #     "${ncurses.dev}/lib/pkgconfig"
-  #     "${libedit.dev}/lib/pkgconfig"
-  #   ];
-  #
-  #   LDFLAGS = pkgs.lib.makeLibraryPath [
-  #     zlib
-  #     xz
-  #     sqlite
-  #     tcl-9_0
-  #     tk-9_0
-  #     readline
-  #     libffi
-  #     bzip2
-  #     ncurses
-  #     libedit
-  #     openssl
-  #   ];
-  #
-  #   TCL_LIBRARY = "${tcl-9_0}/lib/tcl${tcl.version}";
-  #   TK_LIBRARY = "${tk-9_0}/lib/tk${tk.version}";
-  #
-  #   CPPFLAGS =
-  #     "-I${pkgs.zlib.dev}/include -I${pkgs.ncurses.dev}/include  -I${pkgs.tk-9_0.dev}/include -I${pkgs.xz.dev}/include -I${pkgs.sqlite.dev}/include -I${pkgs.tk-9_0.dev}/include -I${pkgs.libffi.dev}/include -I${pkgs.readline.dev}/include -I${pkgs.bzip2.dev}/include -I${pkgs.openssl.dev}/include";
-  #   CXXFLAGS =
-  #     "-I${pkgs.zlib.dev}/include -I${pkgs.ncurses.dev}/include -I${pkgs.xz.dev}/include -I${pkgs.sqlite.dev}/include -I${pkgs.tk-9_0.dev}/include -I${pkgs.readline.dev}/include -I${pkgs.bzip2.dev}/include -I${pkgs.openssl.dev}/include";
-  #   CFLAGS = "-I${pkgs.openssl.dev}/include";
-  #   CONFIGURE_OPTS = "-with-openssl=${pkgs.openssl.dev}";
-  # };
 
   # BCC - Tools for BPF-based Linux IO analysis, networking, monitoring, and more
   # https://github.com/iovisor/bcc

@@ -1,11 +1,6 @@
 { pkgs, ... }:
 {
 
-  fonts = {
-    enableDefaultPackages = false;
-    fontDir.enable = true;
-  };
-
   # https://wiki.archlinux.org/title/KMSCON
   services.kmscon = {
     # Use kmscon as the virtual console instead of gettys.

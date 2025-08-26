@@ -1,11 +1,7 @@
 { lib, ... }:
 {
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = lib.mkDefault false;
 
-  #   programs.ssh = myvars.networking.ssh;
+  networking.firewall.enable = lib.mkDefault false;
 
   # Enable the OpenSSH daemon.
   services.openssh = {
@@ -21,5 +17,5 @@
 
   # Add terminfo database of all known terminals to the system profile.
   # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/config/terminfo.nix
-  # environment.enableAllTerminfo = true;
+  environment.enableAllTerminfo = true;
 }

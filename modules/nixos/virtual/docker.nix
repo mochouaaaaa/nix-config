@@ -57,5 +57,10 @@ in
         storageDriver = "btrfs";
       };
     };
+
+    modules'.persistent.osDirectories = [
+      "/var/lib/docker"
+    ];
+
   };
 }
