@@ -9,10 +9,6 @@
 
     in
     {
-      home.shellAliases = {
-        projects = "cd /Volumes/Code";
-      };
-
       zsh = {
         initContent = goenv;
         envExtra = ''
@@ -25,4 +21,9 @@
         initExtra = goenv;
       };
     };
+
+  home.shellAliases = {
+    projects = "cd /Volumes/Code";
+  };
+
 }

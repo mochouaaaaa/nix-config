@@ -7,17 +7,17 @@
 let
   cfg = config.modules'.packages.envs.nodenv;
 
-  nodenv-build = pkgs.fetchgit {
-    url = "https://github.com/nodenv/node-build.git";
-    hash = "sha256-k1aynAeuClO3CWzTW/CbjRq4bLtF/FDTDkHruEIkzvI=";
+  nodenv-build = pkgs.fetchFromGitHub {
+    owner = "nodenv";
+    repo = "node-build";
+    rev = "v5.4.9";
+    hash = "sha256-/smT+44qrgMpzeCOO8erMhYDpA0rkCRFiRnQjUy35BM=";
   };
-  nodenv-vars = pkgs.fetchgit {
-    url = "https://github.com/nodenv/nodenv-vars.git";
-    hash = "sha256-tIlc0HzvKZKsdngRnqeFkdTw30H9RPjdT7hrgI5KJ+Q=";
-  };
-  nodenv-aliases = pkgs.fetchgit {
-    url = "https://github.com/nodenv/nodenv-aliases.git";
-    hash = "sha256-TlaEY9yeq9wc74y5yoIJ3svdOOoDen/ixY4rvs/qBck=";
+  nodenv-aliases = pkgs.fetchFromGitHub {
+    owner = "nodenv";
+    repo = "nodenv-aliases";
+    rev = "v2.1.1";
+    hash = "sha256-Zaze/cAlBe1CTNRNiC4sbKteBBySh7MZphpHC8mo2E4=";
   };
 in
 {
@@ -32,11 +32,6 @@ in
       };
       "env/nodenv/plugins/node-build" = {
         source = nodenv-build;
-        recursive = true;
-        force = true;
-      };
-      "env/nodenv/plugins/nodoenv-vars" = {
-        source = nodenv-vars;
         recursive = true;
         force = true;
       };

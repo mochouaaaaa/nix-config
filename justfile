@@ -54,13 +54,13 @@ _update:
 
 # switch nix-darwin config
 [macos]
-@switch:
+switch:
     # NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 sudo -E darwin-rebuild switch --flake .#mochou@darwin --impure
     {{ PRE_ARGS }} nh darwin switch {{ NH_DARWIN_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 
 # switch home-manager config
 [macos]
-@home-darwin:
+home-darwin:
     # home-manager switch --flake .#mochou@darwin --impure -b backup
     {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 

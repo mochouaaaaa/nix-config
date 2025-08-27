@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
   programs.mpv = {
-    package = pkgs.mpv-unwrapped;
+    # package = pkgs.mpv-unwrapped;
   };
 }

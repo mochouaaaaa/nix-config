@@ -119,7 +119,8 @@ let
                   home = {
                     enableNixpkgsReleaseCheck = false;
                     inherit username;
-                    inherit (opts.config) stateVersion;
+                    stateVersion = "24.11";
+                    # inherit (opts.config) stateVersion;
                   };
                 };
               }
