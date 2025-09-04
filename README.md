@@ -22,7 +22,7 @@ nix profile install github:LnL7/nix-darwin
 <details>
     <summary>目录结构</summary>
 
-```text
+```bash
 
 ├── config.nix
 ├── flake.lock

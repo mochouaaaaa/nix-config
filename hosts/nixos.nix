@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ self, ... }:
 let
   homeModules = [
     self.homeModules.linux.modules
@@ -70,6 +70,7 @@ in
                 qemu.enable = false;
               };
               packages = {
+                database-suite.enable = true;
                 steam = {
                   enable = false;
                   monitor = "DP-1";

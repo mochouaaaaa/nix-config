@@ -16,8 +16,8 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "mihomo-party";
-  version = "1.8.4";
+  pname = "clash-party";
+  version = "1.8.6";
 
   src =
     let
@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
       };
     in
     fetchurl {
-      url = "https://github.com/mihomo-party-org/mihomo-party/releases/download/v${version}/mihomo-party-linux-${version}-${arch}.deb";
+      url = "https://github.com/mihomo-party-org/${pname}/releases/download/v${version}/${pname}-linux-${version}-${arch}.deb";
       hash = selectSystem {
-        x86_64-linux = "sha256-bbKW4kz1v+yF0ZsH9Ew+c780LCdyJUi8tIiHV09An8s=";
+        x86_64-linux = "sha256-nLX8c1Y71bTgDm0ebKJs4lWN0CrxWfq/NocPaE1NGXw=";
         aarch64-linux = "sha256-3x6xueQS81IWutY0BH52wRdb8Fh2kTQF7QgwZACE6kk=";
       };
     };
