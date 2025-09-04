@@ -62,7 +62,7 @@ switch:
 [macos]
 home-darwin:
     # home-manager switch --flake .#mochou@darwin --impure -b backup
-    {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
+    {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -c {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 
 # repl test environment
 [macos]
@@ -103,7 +103,7 @@ switch desktop="hyprland":
 [linux]
 [group('nixos desktop')]
 @nixos-hyprland:
-    nix flake update hypr-dynamic-cursors hyprland-plugins hyprlux waybar
+    # nix flake update hypr-dynamic-cursors hyprland-plugins hyprlux waybar
     just switch
 
 # switch kde desktop environment
