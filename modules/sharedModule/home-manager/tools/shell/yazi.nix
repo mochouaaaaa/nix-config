@@ -49,6 +49,7 @@
         # package = inputs.yazi.packages.${pkgs.system}.default;
         enableZshIntegration = false;
         enableBashIntegration = false;
+        enableFishIntegration = false;
       };
       zsh.initContent = lib.optionalString (yazi.enable) warpper_shell + ''
         if [[ -n "$YAZI_ID" ]]; then

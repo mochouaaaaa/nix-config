@@ -123,11 +123,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1755361059,
-        "narHash": "sha256-cmLq7Vrui0MNqe+wn6VLhIcv2GMWka+9nahx9QVzPM8=",
+        "lastModified": 1755952278,
+        "narHash": "sha256-Y4F8sFJ3P3MExSuwDAnccfG1RxU4VdoW9yDRtDqG8qA=",
         "owner": "caelestia-dots",
         "repo": "cli",
-        "rev": "63e213283008d95832443a717e23cead25f0a7d6",
+        "rev": "db1e0da5bbd259f1218b4ae54d0327b0c4a46f78",
         "type": "github"
       },
       "original": {
@@ -145,11 +145,11 @@
         "quickshell": "quickshell_2"
       },
       "locked": {
-        "lastModified": 1755955237,
-        "narHash": "sha256-oFEBV/4LWTl9N/qYCYwFy8bEI8EJCM/1u/ikOxY5v4Q=",
+        "lastModified": 1756529142,
+        "narHash": "sha256-1EZitb1vJ5JhlVR8v9wTdaTTFMe3onn3ZczzkXwJjF0=",
         "owner": "caelestia-dots",
         "repo": "shell",
-        "rev": "760f7c2001b84b724ccf4f5a2741bef35ef7bb6c",
+        "rev": "d22576ee8273c0537116e69a3134af62db5589f1",
         "type": "github"
       },
       "original": {
@@ -262,6 +262,23 @@
         "owner": "nix-community",
         "ref": "v1.6.1",
         "repo": "disko",
+        "type": "github"
+      }
+    },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1756899501,
+        "narHash": "sha256-+r8kqiZ4AvwhN6Hoc2L5u8+Z0k72GQ7uX7KFAnYrrHI=",
+        "owner": "mochouaaaaa",
+        "repo": "dotfile",
+        "rev": "fc0b999d8d1c35f1d512862e166958c6318f79b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mochouaaaaa",
+        "ref": "nvim-fzf",
+        "repo": "dotfile",
         "type": "github"
       }
     },
@@ -2328,6 +2345,7 @@
         "clipboard-sync": "clipboard-sync",
         "dgop": "dgop",
         "disko": "disko",
+        "dotfiles": "dotfiles",
         "flake-parts": "flake-parts",
         "grub2-themes": "grub2-themes",
         "home-manager": "home-manager",

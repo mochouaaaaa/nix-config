@@ -44,26 +44,36 @@ in
         force = true;
       };
     };
-    programs.zsh.initContent = lib.mkOrder 2050 ''
-      export GOPROXY=https://goproxy.cn,direct
-      export GOSUMDB=sum.golang.google.cn
-      export GOENV_DISABLE_GOPATH=1
 
-      export GOENV_ROOT="$HOME/.config/env/goenv"
-      export PATH="$GOENV_ROOT/bin:$GOENV_ROOT/shims:$PATH"
+    home.sessionVariables = {
+      GOPROXY = "https://goproxy.cn,direct";
+      GOSUMDB = "sum.golang.google.cn";
+      GOENV_DISABLE_GOPATH = 1;
+    };
 
-      if (( $+commands[goenv] )) &>/dev/null; then
-          _sukka_lazyload_command_goenv() {
-              eval "$(goenv init -)"
-          }
+    programs = {
+      go = rec {
+        enable = true;
+        goPath = "${config.home.homeDirectory}/Code/Projects/golang";
+        goBin = "${goPath}/bin";
+      };
+      zsh.initContent = lib.mkOrder 2050 ''
+        export GOENV_ROOT="$HOME/.config/env/goenv"
+        export PATH="$GOENV_ROOT/bin:$GOENV_ROOT/shims:$PATH"
 
-          _sukka_lazyload_completion_goenv() {
-              source "$GOENV_ROOT/completions/goenv.zsh"
-          }
+        if (( $+commands[goenv] )) &>/dev/null; then
+            _sukka_lazyload_command_goenv() {
+                eval "$(goenv init -)"
+            }
 
-          _lazyload_add_command goenv
-          _lazyload_add_completion goenv
-      fi
-    '';
+            _sukka_lazyload_completion_goenv() {
+                source "$GOENV_ROOT/completions/goenv.zsh"
+            }
+
+            _lazyload_add_command goenv
+            _lazyload_add_completion goenv
+        fi
+      '';
+    };
   };
 }

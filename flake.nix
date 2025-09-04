@@ -61,6 +61,10 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dotfiles = {
+      url = "github:mochouaaaaa/dotfile/nvim-fzf";
+      flake = false;
+    };
 
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";

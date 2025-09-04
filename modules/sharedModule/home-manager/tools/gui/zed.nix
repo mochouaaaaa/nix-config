@@ -2,17 +2,19 @@
 {
   programs = {
     zed-editor = {
-      enable = false;
+      enable = true;
       extensions = [
         "nix"
         "python"
+        "basedpyright"
+        "golangci-lint"
       ];
       extraPackages = with pkgs; [
         nixd
       ];
       userSettings = {
         base_keymap = "JetBrains";
-        vim_mode = true;
+        vim_mode = false;
         autosave = "after_delay";
 
         ui_font_size = 16;
@@ -34,10 +36,13 @@
             cmd-j = "focus-down-panel";
             cmd-k = "focus-up-panel";
             cmd-l = "focus-right-panel";
-            cmd-w = "pane::close";
-            cmd-e = "project_panel::toggle";
+            cmd-w = "pane::CloseActiveItem";
+            cmd-e = "workspace::ToggleLeftDock";
             cmd-f = "file_finder::Toggle";
             cmd-shitf-f = "pane::deploy_search";
+            cmd-ctrl-j = "pane::SplitHorizontal";
+            cmd-ctrl-l = "pane::SplitVertical";
+            "cmd-/" = "workspace::ToggleBottomDock";
           };
         }
       ];

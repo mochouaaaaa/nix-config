@@ -1,18 +1,17 @@
 {
-  self,
   pkgs,
   config,
   lib,
-  pkgs-stable,
-  isNixos,
   ...
 }:
 let
   cfg = config.modules'.packages.envs.pyenv;
 
-  pyenv-virtualenv = pkgs.fetchgit {
-    url = "https://github.com/pyenv/pyenv-virtualenv.git";
-    hash = "sha256-vrVjXP7IWLnXsgaVTZjbbU6FjU7k/WDcwK6F3NS8ZWg=";
+  pyenv-virtualenv = pkgs.fetchFromGitHub {
+    owner = "pyenv";
+    repo = "pyenv-virtualenv";
+    rev = "v1.2.4";
+    hash = "sha256-NgtowwE1T5NoiYiL18vdpYumVuPSWoDCOyP2//d+uHk=";
   };
   pyenv-virtualenvwrapper = pkgs.fetchgit {
     url = "https://github.com/pyenv/pyenv-virtualenvwrapper.git";

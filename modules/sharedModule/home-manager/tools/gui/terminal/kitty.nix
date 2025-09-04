@@ -62,6 +62,7 @@ in
         shellIntegration = {
           enableZshIntegration = true;
           enableBashIntegration = true;
+          enableFishIntegration = true;
         };
       };
       git = {

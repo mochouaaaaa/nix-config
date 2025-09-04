@@ -38,6 +38,7 @@
 
         enableZshIntegration = true;
         enableBashIntegration = true;
+        enableFishIntegration = true;
       };
 
       zsh = {

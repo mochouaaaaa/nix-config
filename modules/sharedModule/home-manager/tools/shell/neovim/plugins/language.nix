@@ -50,7 +50,7 @@
       docker-compose-language-service
 
       # Misc
-      nodePackages.cspell
+      # nodePackages.cspell
       sqls
 
       # js/ts

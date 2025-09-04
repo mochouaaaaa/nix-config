@@ -2,6 +2,7 @@
   lib,
   config,
   myvars,
+  inputs,
   ...
 }:
 {
@@ -11,7 +12,11 @@
     dotfiles = mkOption {
       type = types.path;
       apply = toString;
-      default = "${config.home.homeDirectory}/.config/${myvars.dotfilePath}";
+      default =
+        let
+          localPath = "${config.home.homeDirectory}/.config/${myvars.dotfilePath}";
+        in
+        if builtins.pathExists localPath then localPath else inputs.dotfiles;
     };
 
     dotfileLink = mkOption {

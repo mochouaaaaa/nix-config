@@ -17,8 +17,14 @@
       };
     };
 
-  home.shellAliases = {
-    cat = "bat -p --style=plain";
+  home = {
+    shellAliases = {
+      cat = "bat -p --style=plain";
+    };
+    sessionVariables = {
+      BAT_THEME_DARK = "Catppuccin Mocha";
+      BAT_THEME_LIGHT = "Catppuccin Latte";
+    };
   };
 
   programs = {
@@ -31,9 +37,6 @@
         }
         alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
         alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-
-        BAT_THEME_DARK="Catppuccin Mocha"
-        BAT_THEME_LIGHT="Catppuccin Latte"
       '';
     };
     bat = {

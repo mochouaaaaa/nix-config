@@ -29,6 +29,8 @@
         source ${config.modules'.dotfiles}/zsh/init.zsh
 
         source ${dotDir}/.p10k.zsh 
+
+        export PATH="$HOME/.local/bin:$PATH"
       '';
       dotDir = "${config.xdg.configHome}/env/zsh";
       autosuggestion = {
