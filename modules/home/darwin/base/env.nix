@@ -1,10 +1,9 @@
 {
-  home.shellAliases = {
-    projects = "cd /Volumes/Code";
-  };
-
-  programs = {
-    go = rec {
+  home = {
+    shellAliases = {
+      projects = "cd /Volumes/Code";
+    };
+    sessionVariables = rec {
       goPath = "/Volumes/Code/Projects/golang";
       goBin = "${goPath}/bin";
     };
