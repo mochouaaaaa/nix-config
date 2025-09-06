@@ -121,6 +121,7 @@ let
                     inherit username;
                     stateVersion = "24.11";
                     # inherit (opts.config) stateVersion;
+                    homeDirectory = "/Users/${username}";
                   };
                 };
               }

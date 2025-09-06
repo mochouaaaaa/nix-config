@@ -123,6 +123,7 @@ let
                   enableNixpkgsReleaseCheck = false;
                   inherit username;
                   inherit (opts.config) stateVersion;
+                  homeDirectory = "/home/${username}";
                 };
               };
             }
