@@ -52,10 +52,8 @@ in
     };
 
     programs = {
-      go = rec {
+      go = {
         enable = true;
-        goPath = "${config.home.homeDirectory}/Code/Projects/golang";
-        goBin = "${goPath}/bin";
       };
       zsh.initContent = lib.mkOrder 2050 ''
         export GOENV_ROOT="$HOME/.config/env/goenv"
