@@ -83,9 +83,14 @@ in
           "app_options/neovide" = ascii;
           "app_options/firefox" = ascii;
           "app_options/intellij-wrapped" = ascii;
+          "app_options/jetbrains-intellij" = ascii;
           "app_options/pycharm-wrapped" = ascii;
+          "app_options/jetbrains-pycharm" = ascii;
           "app_options/goland-wrapped" = ascii;
+          "app_options/jetbrains-goland" = ascii;
+          "app_options/webstorm-wrapped" = ascii;
           "app_options/datagrip-wrapped" = ascii;
+          "app_options/jetbrains-datagrip" = ascii;
           "app_options/.albert-wrapped" = ascii;
         };
       };
