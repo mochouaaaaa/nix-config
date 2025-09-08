@@ -4,8 +4,8 @@
       projects = "cd /Volumes/Code";
     };
     sessionVariables = rec {
-      goPath = "/Volumes/Code/Projects/golang";
-      goBin = "${goPath}/bin";
+      GOPATH = "/Volumes/Code/Projects/golang";
+      GOBIN = "${GOPATH}/bin";
     };
   };
 

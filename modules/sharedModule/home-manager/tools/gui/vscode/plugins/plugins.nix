@@ -22,6 +22,7 @@ in
               ms-vscode-remote.remote-containers
               redhat.vscode-yaml
               tamasfe.even-better-toml
+              k--kato.intellij-idea-keybindings
 
               #ai
               # FittenTech.Fitten-Code

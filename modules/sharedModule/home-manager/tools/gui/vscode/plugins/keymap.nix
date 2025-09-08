@@ -1,4 +1,9 @@
-{ config, username, ... }:
+{
+  config,
+  username,
+  pkgs,
+  ...
+}:
 let
   cfg = config.modules'.keymaps;
 in
@@ -8,6 +13,24 @@ in
       # let vscode sync and update its configuration & extensions across devices, using github account.
       profiles = {
         "${username}" = {
+          userSettings = {
+            "intellij-idea-keybindings.useCamelHumpsWords" = true;
+          };
+          extensions =
+            let
+              inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
+            in
+            [
+              (buildVscodeMarketplaceExtension {
+                mktplcRef = {
+                  name = "intellij-idea-classic-macos-keybindings";
+                  publisher = "PM123123123123";
+                  version = "3.0.0";
+                  hash = "sha256-WHbUl3js9jXNxa1Zn0jydB2uAcXdoca9kVkPGu5OxjY=";
+                };
+              })
+            ];
+
           keybindings = [
             {
               key = "${cfg.Super}+e";
