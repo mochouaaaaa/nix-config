@@ -137,7 +137,7 @@ in
             # jetbrains
             ".config/JetBrains"
             ".config/.jetbra-free"
-            "cache/JetBrains"
+            ".cache/JetBrains"
 
             # vscode
             ".vscode"
