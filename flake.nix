@@ -114,10 +114,9 @@
     waybar.url = "github:Alexays/Waybar/master";
 
     # hyprland
-    hyprutils.url = "github:hyprwm/hyprutils?ref=v0.8.2";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.50.1";
-      inputs.hyprutils.follows = "hyprutils";
+      url = "github:hyprwm/Hyprland?ref=v0.51.0";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hyprlux = {
       url = "github:amadejkastelic/Hyprlux";
@@ -133,19 +132,16 @@
     hypr-dynamic-cursors = {
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland"; # to make sure that the plugin is built for the correct version of hyprland
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland"; # IMPORTANT
     };
     caelestia-shell = {
-      url = "github:caelestia-dots/shell";
+      url = "github:caelestia-dots/shell?ref=v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # caelestia-cli = {
-    #   url = "github:caelestia-dots/cli";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
 
     # niri
     niri = {

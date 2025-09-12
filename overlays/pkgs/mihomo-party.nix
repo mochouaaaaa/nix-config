@@ -17,7 +17,7 @@
 
 stdenv.mkDerivation rec {
   pname = "clash-party";
-  version = "1.8.6";
+  version = "1.8.7";
 
   src =
     let
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     fetchurl {
       url = "https://github.com/mihomo-party-org/${pname}/releases/download/v${version}/${pname}-linux-${version}-${arch}.deb";
       hash = selectSystem {
-        x86_64-linux = "sha256-nLX8c1Y71bTgDm0ebKJs4lWN0CrxWfq/NocPaE1NGXw=";
+        x86_64-linux = "sha256-a7GBs7IKMFfDBAleFljPYQLsjgqkjpTyW+WtLaa+L8M=";
         aarch64-linux = "sha256-3x6xueQS81IWutY0BH52wRdb8Fh2kTQF7QgwZACE6kk=";
       };
     };

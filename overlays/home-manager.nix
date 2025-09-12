@@ -22,7 +22,7 @@
       inputs.nix-vscode-extensions.overlays.default
       inputs.niri.overlays.niri
       inputs.nuenv.overlays.default
-      inputs.hyprutils.overlays.default
+      # inputs.hyprutils.overlays.default
       (import ./pkgs/flatpak-wrapper.nix)
       (import ./pkgs/obsidian-wrapper.nix)
       (import ./pkgs/tiny-rdm-wrapper.nix)
