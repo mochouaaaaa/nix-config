@@ -12,7 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       plugins = [
-        inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
+        # inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
         # inputs.hyprgrass.packages.${pkgs.system}.default
         # inputs.hyprgrass.packages.${pkgs.system}.hyprgrass-pulse
         # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
@@ -22,11 +22,6 @@ in
             autoDrag = false
             exitOnClick = true
             switchOnDrop = true
-        }
-
-        plugin:gestures {
-            workspace_swipe = true
-            workspace_swipe_cancel_ratio = 0.15
         }
 
         plugin:touch_gestures {
