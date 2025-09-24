@@ -54,8 +54,10 @@
       sqls
 
       # js/ts
-      vscode-js-debug
+      vtsls
       typescript
+      vscode-js-debug
+      vue-language-server
 
       # yaml
       actionlint
@@ -66,6 +68,7 @@
     ++ lib.optionals (pkgs.stdenv.isLinux) [
       # hyprland
       hyprls
+      kdePackages.qtdeclarative
 
       (astro-language-server.overrideAttrs (oldAttrs: {
         # pnpmDeps = pnpm_9.fetchDeps {
