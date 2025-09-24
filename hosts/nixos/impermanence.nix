@@ -235,6 +235,7 @@ in
             ".config/spicetify"
             ".config/spotify"
             ".cache/spotify"
+            ".config/SPlayer"
           ]
           ++ cfgPersistent.hmDirectories;
 

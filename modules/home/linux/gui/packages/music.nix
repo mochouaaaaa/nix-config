@@ -4,6 +4,7 @@
     spotify
     spicetify-cli
     lx-music-desktop
+    splayer
   ];
 
   xdg.configFile = {
