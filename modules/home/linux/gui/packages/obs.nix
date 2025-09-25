@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-unstable,
   pkgs-stable,
   ...
 }:
@@ -33,6 +32,7 @@
         enable = true;
         package = pkgs-stable.obs-studio;
         plugins = with pkgs-stable.obs-studio-plugins; [
+          input-overlay
           # screen capture
           wlrobs
           obs-ndi
