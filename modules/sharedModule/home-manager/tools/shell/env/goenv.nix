@@ -46,9 +46,12 @@ in
     };
 
     home.sessionVariables = {
+      GOBIN = "$GOPATH/bin";
       GOPROXY = "https://goproxy.cn,direct";
       GOSUMDB = "sum.golang.google.cn";
       GOENV_DISABLE_GOPATH = 1;
+      GOENV = "$GOPATH/env";
+      GOTELEMETRYDIR = "$GOPATH/telemetry";
     };
 
     programs = {

@@ -7,16 +7,10 @@
         projects = "$HOME/Code";
       };
     };
-    # go = rec {
-    #   goPath = "Code/Projects/golang";
-    #   goBin = "${goPath}/bin";
-    # };
-
   };
 
-  home.sessionVariables = rec {
+  home.sessionVariables = {
     GOPATH = "${config.home.homeDirectory}/Code/Projects/golang";
-    GOBIN = "${GOPATH}/bin";
   };
 
 }

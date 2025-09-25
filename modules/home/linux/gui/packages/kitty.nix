@@ -14,6 +14,7 @@ in
         "adjust_line_height 100%"
         "adjust_column_width 100%"
         "font_features Monaco Nerd Font Mono -liga -clig -calt"
+        "mouse_map        ctrl+left click ungrabbed mouse_handle_click link"
       ];
     };
 

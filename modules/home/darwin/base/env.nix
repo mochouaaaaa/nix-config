@@ -3,9 +3,8 @@
     shellAliases = {
       projects = "cd /Volumes/Code";
     };
-    sessionVariables = rec {
+    sessionVariables = {
       GOPATH = "/Volumes/Code/Projects/golang";
-      GOBIN = "${GOPATH}/bin";
     };
   };
 

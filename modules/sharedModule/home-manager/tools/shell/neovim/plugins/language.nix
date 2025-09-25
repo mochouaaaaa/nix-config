@@ -46,7 +46,7 @@
       taplo # for TOML
 
       # docker
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       docker-compose-language-service
 
       # Misc
