@@ -36,7 +36,7 @@
       markdownlint-cli2
 
       # filetypes
-      vscode-json-languageserver
+      # vscode-json-languageserver
       yaml-language-server
       prettierd
       eslint_d
@@ -56,8 +56,11 @@
       # js/ts
       vtsls
       typescript
+      emmet-ls
       vscode-js-debug
       vue-language-server
+      # vscode-css-languageserver
+      vscode-langservers-extracted
 
       # yaml
       actionlint
