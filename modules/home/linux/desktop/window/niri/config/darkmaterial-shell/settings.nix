@@ -51,27 +51,27 @@ in
           showWorkspacePadding = true;
           workspaceNameIcons = {
             code = {
-              type = "text";
+              type = "1";
               value = "󰨞";
             };
             browser = {
-              type = "text";
+              type = "2";
               value = " ";
             };
             docs = {
-              type = "text";
+              type = "3";
               value = " ";
             };
             obs = {
-              type = "text";
+              type = "4";
               value = " ";
             };
             tencent = {
-              type = "text";
+              type = "5";
               value = " ";
             };
             steam = {
-              type = "text";
+              type = "6";
               value = " ";
             };
           };
@@ -93,6 +93,10 @@ in
           ];
           topBarRightWidgets = [
             "systemTray"
+            {
+              "id" = "network_speed_monitor";
+              "enabled" = true;
+            }
             "clipboard"
             "cpuUsage"
             "memUsage"

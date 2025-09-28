@@ -2,7 +2,6 @@
   lib,
   config,
   inputs,
-  pkgs,
   ...
 }:
 let
@@ -14,10 +13,6 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-
-    home.packages = [
-      inputs.dgop.packages.${pkgs.system}.dgop
-    ];
 
     programs.dankMaterialShell = {
       enable = true;
@@ -37,15 +32,15 @@ in
       lightModeScripts = {
         gtk-theme = ''
           niri msg action do-screen-transition
-          qs -c DankMaterialShell ipc call theme light
-          switch-theme Light
+          dms ipc call theme toggle
+          # switch-theme Light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
           niri msg action do-screen-transition
-          qs -c DankMaterialShell ipc call theme dark
-          switch-theme Dark
+          dms ipc call theme toggle
+          # switch-theme Dark
         '';
       };
     };

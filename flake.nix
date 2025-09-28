@@ -139,7 +139,7 @@
       inputs.hyprland.follows = "hyprland"; # IMPORTANT
     };
     caelestia-shell = {
-      url = "github:caelestia-dots/shell?ref=v1.2.0";
+      url = "github:caelestia-dots/shell?ref=v1.3.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -154,10 +154,6 @@
     };
     DankMaterialShell = {
       url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dgop = {
-      url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

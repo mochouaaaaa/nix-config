@@ -147,16 +147,16 @@
         "quickshell": "quickshell_2"
       },
       "locked": {
-        "lastModified": 1757645662,
-        "narHash": "sha256-NlcqsY5s4ViIyDHXgMFHl+0LquDiFg4ZJupRJ+QHk3w=",
+        "lastModified": 1758789012,
+        "narHash": "sha256-v3M/RTNDhbPZWX73dA4SJWIGDrFUELUXzx7VUbV3ilc=",
         "owner": "caelestia-dots",
         "repo": "shell",
-        "rev": "2bd7089310ae9d2eba9428e5d617f0d4d50e94ae",
+        "rev": "423ca87181d4d9ff06714cd30d81feb246a88c7a",
         "type": "github"
       },
       "original": {
         "owner": "caelestia-dots",
-        "ref": "v1.2.0",
+        "ref": "v1.3.2",
         "repo": "shell",
         "type": "github"
       }
@@ -240,26 +240,6 @@
         "owner": "AvengeMedia",
         "repo": "dgop",
         "rev": "a65a02ddf8bade9c109d055e644e4bd851183bd5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "dgop",
-        "type": "github"
-      }
-    },
-    "dgop_2": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1757362540,
-        "narHash": "sha256-SrQO2Ir3E0+NcFLhlHm++9nmTVgzTkhQrgUFFEU12D4=",
-        "owner": "AvengeMedia",
-        "repo": "dgop",
-        "rev": "bc5ca7c43d0bec18e771a761e3cc8f53bdd12202",
         "type": "github"
       },
       "original": {
@@ -2106,11 +2086,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753286016,
-        "narHash": "sha256-666P8unLwboqMB2H9mmIPyOuEO/5po2zCSj6YA5OW0c=",
+        "lastModified": 1759056279,
+        "narHash": "sha256-H6RP3NWg9/Um+H6ej20lb/4iFMOuJu+BMknwKdjAo48=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "19cb19d35b547a0d5b111a539b4874fbba62e034",
+        "rev": "89347f05f5fc99daba28f114dd2aea42ddfc7416",
         "type": "github"
       },
       "original": {
@@ -2347,7 +2327,6 @@
         "Hyprspace": "Hyprspace",
         "caelestia-shell": "caelestia-shell",
         "clipboard-sync": "clipboard-sync",
-        "dgop": "dgop_2",
         "disko": "disko",
         "dotfiles": "dotfiles",
         "flake-parts": "flake-parts",
