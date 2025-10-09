@@ -37,6 +37,17 @@ in
           reportMissingTypeStubs = false;
         };
 
+        tool.uv = {
+          # ✅ 自动创建 `.venv`（不会污染全局环境）
+          package-installation = "isolated";
+          # ✅ 启用本地缓存构建，提升依赖安装速度
+          cache-builds = true;
+        };
+
+        tool.uv.venv = {
+          in-poject = true;
+        };
+
         tool.ruff = {
           # Same as Black
           line-length = 120;
@@ -94,6 +105,17 @@ in
           # enabled.
           docstring-code-line-length = "dynamic";
         };
+
+        tool.pyright = {
+          venvPath = ".";
+          venv = ".venv";
+        };
+
+        tool.pytest.ini_options = {
+          pythonpath = [ "." ];
+          DJANGO_SETTINGS_MODULE = "django_ninjia.settings";
+        };
+
       };
     in
     settingsFormat.generate "pyproject.toml" settings;
