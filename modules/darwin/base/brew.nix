@@ -40,6 +40,9 @@
       # `brew install`
       "wget" # download tool
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
+      "openssl"
+      "readline"
+      "zlib"
     ];
 
     # `brew install --cask`

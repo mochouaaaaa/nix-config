@@ -4,6 +4,10 @@
   ...
 }:
 {
+  home.packages = with pkgs; [
+    tree-sitter
+  ];
+
   programs.nixvim.extraPackages = lib.mkBefore (
     with pkgs.vimPlugins;
     [

@@ -84,6 +84,7 @@ in
 
               # python
               ms-python.python
+              ms-python.vscode-pylance
               # pylyzer.pylyzer
               ms-python.pylint
               ms-python.debugpy
