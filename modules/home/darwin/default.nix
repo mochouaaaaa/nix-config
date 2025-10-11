@@ -1,4 +1,6 @@
-{ lib, ... }:
+{ lib, self, ... }:
 {
-  imports = lib.importModule' ./.;
+  imports = lib.importModule' ./. ++ [
+    self.homeModules.base
+  ];
 }

@@ -2,9 +2,11 @@
 let
   homeModules = [
     self.homeModules.darwin.modules
+
     {
       modules'.packages = {
         terminal = {
+          kitty.enable = true;
           wezterm.enable = true;
         };
 

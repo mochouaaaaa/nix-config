@@ -1,7 +1,5 @@
 {
   config,
-  lib,
-  pkgs,
   ...
 }:
 let
@@ -47,7 +45,6 @@ in
 
     home.file = {
       "Library/Rime" = {
-        # source = RimeTheme;
         source = "${rime-data}/share/rime-data";
         recursive = true;
         force = true;

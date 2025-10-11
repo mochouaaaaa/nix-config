@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.modules'.desktop;
 in
@@ -56,7 +61,12 @@ in
 
   config = {
     programs.desktop.enable = lib.mkIf (
-      cfg.gnome.enable || cfg.hyprland.enable || cfg.kde.enable || cfg.niri.enable || cfg.sway.enable
+      pkgs.stdenv.isDarwin
+      || cfg.gnome.enable
+      || cfg.hyprland.enable
+      || cfg.kde.enable
+      || cfg.niri.enable
+      || cfg.sway.enable
     ) true;
   };
 
