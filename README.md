@@ -10,7 +10,7 @@
 sh <(curl -L https://nixos.org/nix/install)
 ```
 
-# darwin
+# Darwin
 
 ```base
 nix profile install github:LnL7/nix-darwin
@@ -103,6 +103,16 @@ just nixos-hyprland # or nixos-gnome, nixos-kde, nixos-niri
 # home-manager
 just home-hyprland # or home-gnome, home-kde, home-niri
 
+```
+
+</details>
+
+<details>
+<summary>Wsl Build</summary>
+
+```bash
+nix develop .#defailt
+just swl
 ```
 
 </details>
