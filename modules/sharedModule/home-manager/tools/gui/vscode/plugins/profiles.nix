@@ -26,6 +26,7 @@ in
     vscode.profiles = {
       "${username}" = {
         userSettings = {
+          "[nix]"."editor.tabSize" = 4;
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "nixd";
           "nix.serverSettings" = {
@@ -65,7 +66,6 @@ in
               };
             };
           };
-          "[nix]"."editor.tabSize" = 4;
           "nix.hiddenLanguageServerErrors" = [
             "textDocument/definition"
           ];
