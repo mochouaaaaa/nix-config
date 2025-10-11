@@ -38,7 +38,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.translate.enable {
+  config = lib.mkIf (cfg.translate.enable && config.programs.desktop.enable) {
     home.packages = with pkgs; [
       pot
       grimblast

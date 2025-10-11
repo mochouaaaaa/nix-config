@@ -9,7 +9,7 @@ let
 in
 {
 
-  config = lib.mkIf (cfg.enable && !config.programs.wsl.enable) {
+  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
     modules'.packages.terminal.kitty.extraConfig = [
       "include init.conf"
       # "shell ${config.programs.zsh.package}/bin/zsh --login --interactive"

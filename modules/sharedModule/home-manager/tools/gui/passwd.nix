@@ -25,6 +25,8 @@ in
   };
 
   config = {
-    home.packages = lib.optionals (cfg.bitwarden.enable && !config.programs.wsl.enable) cfg.bitwarden.package;
+    home.packages = lib.optionals (
+      cfg.bitwarden.enable && config.programs.desktop.enable
+    ) cfg.bitwarden.package;
   };
 }

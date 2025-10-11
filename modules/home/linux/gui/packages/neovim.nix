@@ -1,6 +1,11 @@
-{ lib, pkgs-unstable, ... }:
+{ lib, config, ... }:
 {
-  modules'.xdg-mime.editors = lib.mkAfter [
-    "nvim.desktop"
-  ];
+
+  config = lib.mkIf (config.programs.nixvim.enable && config.programs.desktop.enable) {
+
+    modules'.xdg-mime.editors = lib.mkAfter [
+      "nvim.desktop"
+    ];
+
+  };
 }

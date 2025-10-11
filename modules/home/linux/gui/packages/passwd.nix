@@ -24,8 +24,9 @@ in
     };
   };
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
     home.packages = [
-    ] ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;
+    ]
+    ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;
   };
 }

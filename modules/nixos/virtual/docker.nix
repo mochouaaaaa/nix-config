@@ -11,7 +11,7 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    environment.systemPackages = [
+    environment.systemPackages = lib.optionals (config.programs.desktop.enable) [
       pkgs.podman-desktop
     ];
 
@@ -23,7 +23,7 @@ in
     };
 
     virtualisation = {
-      podman = {
+      podman = lib.mkIf (config.programs.desktop.enable) {
         enable = true;
         autoPrune.enable = true;
         dockerSocket.enable = true;

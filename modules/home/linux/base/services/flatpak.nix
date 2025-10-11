@@ -10,7 +10,7 @@
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
 
     home.packages = with pkgs; [
       flatpak-wrapper

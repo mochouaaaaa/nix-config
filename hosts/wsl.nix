@@ -6,6 +6,7 @@
 let
   homeModules = [
     self.homeModules.wsl.modules
+
     {
       programs.wsl.enable = true;
 
@@ -30,13 +31,6 @@ let
         terminal = {
           kitty.enable = false;
           wezterm.enable = false;
-        };
-
-        jetbrains = {
-          enable = false;
-          pycharm.enable = false;
-          goland.enable = false;
-          datagrip.enable = false;
         };
 
         envs = {
@@ -80,9 +74,9 @@ in
               wsl.startMenuLaunchers = true;
               wsl.usbip.enable = true;
 
+              programs.wsl.enable = true;
+
               environment.systemPackages = with pkgs; [
-                wget
-                git
 
                 docker
                 docker-compose
@@ -103,7 +97,7 @@ in
               users.groups.docker.members = [
                 config.wsl.defaultUser
               ];
-              services.resolved.enable = lib.mkForce false;
+
               programs.nix-ld.enable = lib.mkForce true;
             }
           )

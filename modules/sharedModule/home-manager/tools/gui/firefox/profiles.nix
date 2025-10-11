@@ -11,7 +11,7 @@ in
 {
 
   # about:debugging#/runtime/this-firefox
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
     programs = {
       firefox = {
         enable = true;

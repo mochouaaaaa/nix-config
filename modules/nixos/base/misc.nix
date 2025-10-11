@@ -1,8 +1,12 @@
 {
+  lib,
   config,
   pkgs,
   ...
 }:
+let
+  isWsl = config.programs.wsl.enable;
+in
 {
   # set user's default shell system-wide
   users.defaultUserShell = pkgs.zsh;
@@ -20,14 +24,16 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    gnumake
-    nautilus
-    ntfs3g
-    xarchiver
-  ];
+  environment.systemPackages =
+    with pkgs;
+    lib.optionals (!isWsl) [
+      gnumake
+      nautilus
+      ntfs3g
+      xarchiver
+    ];
 
-  services = {
+  services = lib.mkIf (!isWsl) {
     resolved.enable = true; # DNS resolver
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
@@ -39,6 +45,6 @@
     # Use `ssh-add` to add a key to the agent.
     ssh.startAgent = true;
     # dconf is a low-level configuration system.
-    dconf.enable = true;
+    dconf.enable = !isWsl;
   };
 }

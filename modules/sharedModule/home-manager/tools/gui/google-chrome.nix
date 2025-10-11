@@ -10,7 +10,7 @@ in
   options.modules'.packages.google-chrome = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = (false && !config.programs.wsl);
+      default = false;
       description = "Whether to enable Google Chrome.";
     };
     extensions = lib.mkOption {
@@ -30,7 +30,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
     programs.chromium = {
       enable = true;
       extensions = cfg.extensions;

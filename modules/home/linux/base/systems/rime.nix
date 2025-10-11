@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -26,7 +27,7 @@ let
   };
 in
 {
-  config = {
+  config = lib.mkIf (config.programs.desktop.enable) {
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";

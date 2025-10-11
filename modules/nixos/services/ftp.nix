@@ -1,9 +1,11 @@
 {
+  lib,
+  config,
   username,
   ...
 }:
 {
-  services.vsftpd = {
+  services.vsftpd = lib.mkIf (!config.programs.wsl.enable) {
     enable = true;
     writeEnable = true;
     localUsers = true;

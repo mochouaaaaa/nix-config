@@ -25,7 +25,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf (config.programs.desktop.enable) {
     home = {
       packages = with pkgs; [
         xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`

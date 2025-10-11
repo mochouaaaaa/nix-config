@@ -8,9 +8,9 @@
 {
   imports = lib.importModule' ./.;
 
-  config = {
+  config = lib.mkIf (config.programs.desktop.enable) {
 
-    programs = lib.mkIf (!config.programs.wsl.enable) {
+    programs = {
       vscode = {
         enable = true;
         mutableExtensionsDir = false;

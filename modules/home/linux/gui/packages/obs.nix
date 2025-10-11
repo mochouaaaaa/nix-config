@@ -7,7 +7,7 @@
 }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
     home.packages = with pkgs; [
       # creative
       blender # 3d modeling

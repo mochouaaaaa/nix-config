@@ -9,7 +9,7 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    services.xremap.withWlroots = lib.mkForce true;
+    services.xremap.withNiri = lib.mkForce true;
 
   };
 }

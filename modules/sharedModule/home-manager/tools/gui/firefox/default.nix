@@ -6,7 +6,7 @@
     packages.firefox = with lib; {
       enable = mkOption {
         type = types.bool;
-        default = (false && !config.programs.wsl.enable);
+        default = config.programs.desktop.enable;
         description = "Whether to enable the firefox package.";
       };
     };

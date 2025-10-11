@@ -8,7 +8,7 @@ let
   cfg = config.modules'.virtual;
 in
 {
-  config = lib.mkIf cfg.qemu.enable {
+  config = lib.mkIf (cfg.qemu.enable && config.programs.desktop.enable) {
     environment.systemPackages = with pkgs; [
       virt-viewer
       libvirt

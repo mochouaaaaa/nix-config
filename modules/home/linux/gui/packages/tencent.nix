@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.modules'.packages.tencent;
+  isdekstop = config.programs.desktop.enable;
 in
 {
   options.modules'.packages.tencent = {
@@ -70,11 +71,11 @@ in
   config = {
     home.packages = lib.mkMerge [
       ([ pkgs.element-desktop ])
-      (lib.mkIf cfg.qq.enable [ cfg.qq.package ])
+      (lib.mkIf (cfg.qq.enable && isdekstop) [ cfg.qq.package ])
       # (lib.mkIf cfg.wechat.enable [ cfg.wechat.package ])
-      (lib.mkIf cfg.wemeet.enable [ cfg.wemeet.package ])
-      (lib.mkIf cfg.dingding.enable [ cfg.dingding.package ])
-      (lib.mkIf cfg.feishu.enable [ cfg.feishu.package ])
+      (lib.mkIf (cfg.wemeet.enable && isdekstop) [ cfg.wemeet.package ])
+      (lib.mkIf (cfg.dingding.enable && isdekstop) [ cfg.dingding.package ])
+      (lib.mkIf (cfg.feishu.enable && isdekstop) [ cfg.feishu.package ])
     ];
   };
 }

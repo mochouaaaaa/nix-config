@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
 
     programs = {
       imv = {

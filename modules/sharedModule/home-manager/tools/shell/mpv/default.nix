@@ -8,7 +8,7 @@
 
   imports = lib.importModule' ./.;
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
 
     programs.mpv = {
       enable = true;

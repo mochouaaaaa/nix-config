@@ -1,10 +1,12 @@
 {
   pkgs,
+  lib,
+  config,
   username,
   ...
 }:
 {
-  config = {
+  config = lib.mkIf (!config.programs.wsl.enable) {
 
     services.samba = {
       enable = false;

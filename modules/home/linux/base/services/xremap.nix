@@ -21,14 +21,17 @@ in
     };
   };
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
     services.xremap = {
       enable = true;
+      # serviceMode = "user";
       watch = true;
       # debug = true;
       withWlroots = false;
       withKDE = false;
       withGnome = false;
+      withNiri = false;
+      withHypr = false;
       config = {
         modmap = [
           {
@@ -40,11 +43,6 @@ in
           }
         ];
         keymap = [
-          {
-            name = "Shortcuts";
-            exact_match = true;
-            remap = lib.mkMerge (cfg.global);
-          }
           {
             name = "Replace Super/Command With Ctrl";
             exact_match = true;
@@ -60,6 +58,13 @@ in
               "SUPER-f" = "C-f";
               "SUPER-r" = "C-r";
             };
+          }
+        ]
+        ++ (lib.optionals ((lib.lists.length cfg.global) > 0)) [
+          {
+            name = "Shortcuts";
+            exact_match = true;
+            remap = lib.mkMerge (cfg.global);
           }
         ];
       };

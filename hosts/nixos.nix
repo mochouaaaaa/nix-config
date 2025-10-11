@@ -5,6 +5,10 @@ let
 
     {
       modules'.packages = {
+        firefox.enable = true;
+        google-chrome.enable = true;
+
+        translate.enable = true;
         # tencent enable default use true
         tencent = {
           # qq.enable = false;

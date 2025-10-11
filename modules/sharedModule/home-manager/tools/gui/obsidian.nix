@@ -17,7 +17,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && !config.programs.wsl.enable) {
+  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
 
     programs.obsidian = {
       enable = true;

@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
 
     programs.neovide = {
       enable = true;

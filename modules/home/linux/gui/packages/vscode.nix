@@ -24,7 +24,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf (config.programs.vscode.enable && config.programs.desktop.enable) {
     programs = {
       vscode = {
         # let vscode sync and update its configuration & extensions across devices; using github account.

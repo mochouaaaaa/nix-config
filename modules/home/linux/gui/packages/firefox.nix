@@ -33,7 +33,7 @@ let
 
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
 
     home.file = {
       ".mozilla/firefox/${username}/chrome".source = "${themes}/share/mozilla/firefox/firefox-themes";

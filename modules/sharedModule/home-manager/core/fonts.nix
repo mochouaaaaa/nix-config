@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   MonacoNerdFont = pkgs.fetchzip {
     url = "https://github.com/thep0y/monaco-nerd-font/releases/download/v0.2.1/MonacoNerdFont.zip";
@@ -29,14 +34,18 @@ let
   };
 in
 {
-  # 兼容nix且nixos也可以使用
-  fonts.fontconfig.enable = true;
 
-  home.packages = with pkgs; [
-    fontconfig
-    makeFonts # 常规, 窗口标题栏等
-    maple-mono.NF # 等宽
-    inter # 小号字体,工具栏,菜单
-    font-awesome
-  ];
+  config = lib.mkIf (!config.programs.wsl.enable) {
+
+    # 兼容nix且nixos也可以使用
+    fonts.fontconfig.enable = true;
+
+    home.packages = with pkgs; [
+      fontconfig
+      makeFonts # 常规, 窗口标题栏等
+      maple-mono.NF # 等宽
+      inter # 小号字体,工具栏,菜单
+      font-awesome
+    ];
+  };
 }

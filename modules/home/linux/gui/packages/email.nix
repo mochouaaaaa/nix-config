@@ -1,13 +1,12 @@
 {
   lib,
-  pkgs,
   username,
   config,
   ...
 }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
 
     programs.thunderbird = {
       enable = true;

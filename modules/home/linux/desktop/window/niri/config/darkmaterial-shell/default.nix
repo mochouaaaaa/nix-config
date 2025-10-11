@@ -34,14 +34,14 @@ in
         gtk-theme = ''
           niri msg action do-screen-transition
           dms ipc call theme toggle
-          # switch-theme Light
+          switch-theme Light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
           niri msg action do-screen-transition
           dms ipc call theme toggle
-          # switch-theme Dark
+          switch-theme Dark
         '';
       };
     };

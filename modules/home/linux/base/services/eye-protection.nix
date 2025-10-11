@@ -1,12 +1,11 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (config.programs.desktop.enable) {
 
     # Adjust the color temperature(& brightness) of your screen according to
     # your surroundings. This may help your eyes hurt less if you are
