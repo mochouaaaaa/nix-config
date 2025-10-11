@@ -9,14 +9,15 @@ let
 in
 {
   imports = lib.importModule' ./. ++ [
-    inputs.DankMaterialShell.homeModules.dankMaterialShell
+    inputs.DankMaterialShell.homeModules.dankMaterialShell.default
+    inputs.DankMaterialShell.homeModules.dankMaterialShell.niri
   ];
 
   config = lib.mkIf cfg.enable {
 
     programs.dankMaterialShell = {
       enable = true;
-      enableSpawn = false;
+      # enableSpawn = false;
       enableSystemd = true;
     };
 

@@ -12,18 +12,6 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    home.packages = [
-      pkgs.xwayland-satellite
-    ];
-
-    programs.niri.settings = {
-      spawn-at-startup = [
-        # { command = [ "${lib.getExe pkgs.xwayland-satellite}" ]; }
-        # { command = [ "${pkgs.xdg-desktop-portal-gtk}/libexec/xdg-desktop-portal-gtk" ]; }
-        # { command = [ "${pkgs.xdg-desktop-portal-gnome}/libexec/xdg-desktop-portal-gnome" ]; }
-      ];
-    };
-
     # Ref: https://github.com/hallettj/home.nix/blob/main/home-manager/features/niri/default.nix
     services.blueman-applet.enable = true;
     services.network-manager-applet.enable = true;

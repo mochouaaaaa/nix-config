@@ -10,18 +10,18 @@ in
     programs.niri.settings = {
 
       workspaces = {
-        "code" = { };
-        "browser" = { };
-        "docs" = { };
-        "tencent" = { };
-        "steam" = { };
-        "obs" = { };
+        "1" = { };
+        "2" = { };
+        "3" = { };
+        "4" = { };
+        "5" = { };
+        # "6" = { };
       };
 
       window-rules = [
         {
           matches = [ { app-id = "^(code|wezterm|jetbrains-pycharm|jetbrains-goland).*"; } ];
-          open-on-workspace = "code";
+          open-on-workspace = "1";
         }
         {
           matches = [
@@ -29,7 +29,7 @@ in
               app-id = browser;
             }
           ];
-          open-on-workspace = "browser";
+          open-on-workspace = "2";
         }
         {
           matches = [
@@ -37,7 +37,7 @@ in
               app-id = "^(com.obsproject.Studio).*";
             }
           ];
-          open-on-workspace = "obs";
+          open-on-workspace = "4";
         }
         {
           matches = [
@@ -45,24 +45,24 @@ in
               app-id = "^(io.github.kukuruzka165.materialgram|QQ|wechat|com.alibabainc.dingtalk|wemeetapp|Bytedance-feishu).*";
             }
           ];
-          open-on-workspace = "tencent";
+          open-on-workspace = "4";
         }
       ];
 
       binds = {
-        "Mod+1".action.focus-workspace = "code";
-        "Mod+2".action.focus-workspace = "browser";
-        "Mod+3".action.focus-workspace = "docs";
-        "Mod+4".action.focus-workspace = "tencent";
-        "Mod+5".action.focus-workspace = "steam";
-        "Mod+6".action.focus-workspace = "obs";
+        "Mod+1".action.focus-workspace = "1";
+        "Mod+2".action.focus-workspace = "2";
+        "Mod+3".action.focus-workspace = "3";
+        "Mod+4".action.focus-workspace = "4";
+        "Mod+5".action.focus-workspace = "5";
+        # "Mod+6".action.focus-workspace = "6";
 
-        "Mod+Shift+1".action.move-window-to-workspace = "code";
-        "Mod+Shift+2".action.move-window-to-workspace = "browser";
-        "Mod+Shift+3".action.move-window-to-workspace = "docs";
-        "Mod+Shift+4".action.move-window-to-workspace = "tencent";
-        "Mod+Shift+5".action.move-window-to-workspace = "steam";
-        "Mod+Shift+6".action.move-window-to-workspace = "obs";
+        "Mod+Shift+1".action.move-window-to-workspace = "1";
+        "Mod+Shift+2".action.move-window-to-workspace = "2";
+        "Mod+Shift+3".action.move-window-to-workspace = "3";
+        "Mod+Shift+4".action.move-window-to-workspace = "4";
+        "Mod+Shift+5".action.move-window-to-workspace = "5";
+        # "Mod+Shift+6".action.move-window-to-workspace = "6";
       };
     };
   };
