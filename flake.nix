@@ -48,6 +48,12 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
+    # for wsl
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # for linux
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";

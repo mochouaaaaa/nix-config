@@ -1,10 +1,13 @@
 {
+  lib,
   pkgs,
   pkgs-stable,
+  config,
   ...
 }:
 {
-  config = {
+
+  config = lib.mkIf (!config.programs.wsl.enable) {
     home.packages = with pkgs; [
       # creative
       blender # 3d modeling
@@ -60,4 +63,5 @@
       };
     };
   };
+
 }

@@ -1,17 +1,26 @@
-{ pkgs, lib, ... }:
 {
-  home.packages =
-    with pkgs;
-    [
-      insomnia # REST client
-      wireshark # network analyzer
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
 
-      # api client
-      hoppscotch
+  config = lib.mkIf (!config.programs.wsl.enable) {
 
-      materialgram
-    ]
-    ++ lib.optionals (pkgs.stdenv.isLinux) [
-#      tiny-rdm-wrapper
-    ];
+    home.packages =
+      with pkgs;
+      [
+        insomnia # REST client
+        wireshark # network analyzer
+
+        # api client
+        hoppscotch
+
+        materialgram
+      ]
+      ++ lib.optionals (pkgs.stdenv.isLinux) [
+        #      tiny-rdm-wrapper
+      ];
+  };
 }

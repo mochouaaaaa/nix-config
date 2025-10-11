@@ -10,7 +10,7 @@ in
   options.modules'.packages.google-chrome = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = (false && !config.programs.wsl);
       description = "Whether to enable Google Chrome.";
     };
     extensions = lib.mkOption {

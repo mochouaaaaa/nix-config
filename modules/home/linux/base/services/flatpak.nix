@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  config,
   ...
 }:
 {
@@ -9,24 +10,28 @@
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
-  home.packages = with pkgs; [
-    flatpak-wrapper
-  ];
+  config = lib.mkIf (!config.programs.wsl.enable) {
 
-  services = {
-    flatpak = {
-      enable = true;
-      remotes = lib.mkOptionDefault [
-        {
-          name = "flathub";
-          location = "https://flathub.org/repo/flathub.flatpakrepo";
-        }
-      ];
-      uninstallUnmanaged = false;
-      update.auto = {
-        enable = false;
+    home.packages = with pkgs; [
+      flatpak-wrapper
+    ];
+
+    services = {
+      flatpak = {
+        enable = true;
+        remotes = lib.mkOptionDefault [
+          {
+            name = "flathub";
+            location = "https://flathub.org/repo/flathub.flatpakrepo";
+          }
+        ];
+        uninstallUnmanaged = false;
+        update.auto = {
+          enable = false;
+        };
+        packages = [ "io.github.flattool.Warehouse" ];
       };
-      packages = [ "io.github.flattool.Warehouse" ];
     };
+
   };
 }

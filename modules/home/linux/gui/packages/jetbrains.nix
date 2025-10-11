@@ -14,7 +14,7 @@ let
     clion = enable && cfg.clion.enable;
   };
 
-  initjetbrains = jetbrainsConfig cfg.enable;
+  initjetbrains = jetbrainsConfig (cfg.enable && !config.programs.wsl.enable);
   dataPath = "${config.xdg.configHome}";
 
 in

@@ -12,7 +12,7 @@ in
     qq = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = false;
         description = "Whether to enable Tencent QQ.";
       };
       package = lib.mkOption {
@@ -23,7 +23,7 @@ in
     wechat = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = false;
         description = "Whether to enable WeChat.";
       };
       package = lib.mkOption {
@@ -34,7 +34,7 @@ in
     wemeet = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = false;
         description = "Whether to enable WeMeet.";
       };
       package = lib.mkOption {
@@ -46,7 +46,7 @@ in
     dingding = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = false;
         description = "Whether to enable DingDing.";
       };
       package = lib.mkOption {
@@ -57,7 +57,7 @@ in
     feishu = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = false;
         description = "Whether to enable Feishu.";
       };
       package = lib.mkOption {

@@ -1,6 +1,4 @@
-{ lib, inputs, ... }:
+{ lib, ... }:
 {
-  imports = lib.importModule' ./. ++ [
-    ../desktop
-  ];
+  imports = lib.importModule' ./.;
 }

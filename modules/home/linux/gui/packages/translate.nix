@@ -33,7 +33,7 @@ in
   options.modules'.packages = {
     translate.enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Whether to enable translate.";
     };
   };

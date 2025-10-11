@@ -60,6 +60,7 @@ in
           self.nixosModules.base
           self.nixosModules.services
           self.nixosModules.virtual
+          self.nixosModules.desktop
 
           {
             modules' = {

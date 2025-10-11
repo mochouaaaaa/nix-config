@@ -12,7 +12,7 @@ in
     bitwarden = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = false;
       };
       package = lib.mkOption {
         type = lib.types.listOf lib.types.package;
@@ -25,6 +25,6 @@ in
   };
 
   config = {
-    home.packages = lib.optionals (cfg.bitwarden.enable) cfg.bitwarden.package;
+    home.packages = lib.optionals (cfg.bitwarden.enable && !config.programs.wsl.enable) cfg.bitwarden.package;
   };
 }

@@ -1,11 +1,21 @@
-{ pkgs, ... }:
 {
-  programs.nh = {
-    enable = true;
-    clean = {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
+
+  config = lib.mkIf (!config.programs.wsl.enable) {
+
+    programs.nh = rec {
       enable = true;
-      dates = "weekly";
-      extraArgs = "--keep 5 --keep-since 3d";
+      clean = {
+        enable = enable;
+        dates = "weekly";
+        extraArgs = "--keep 5 --keep-since 3d";
+      };
     };
+
   };
 }

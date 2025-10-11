@@ -20,22 +20,22 @@ in
     virtualbox.enable = lib.mkOption {
       type = lib.types.bool;
       description = "Whether to enable VirtualBox support.";
-      default = true;
+      default = false;
     };
     vmware.enable = lib.mkOption {
       type = lib.types.bool;
       description = "Whether to enable VMware support.";
-      default = true;
+      default = false;
     };
     qemu.enable = lib.mkOption {
       type = lib.types.bool;
       description = "Whether to enable QEMU support.";
-      default = true;
+      default = false;
     };
     docker.enable = lib.mkOption {
       type = lib.types.bool;
       description = "Whether to enable Docker support.";
-      default = true;
+      default = false;
     };
   };
 

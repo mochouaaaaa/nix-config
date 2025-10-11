@@ -7,7 +7,7 @@ NH_HOME_FLAKE := "$(pwd)"
 NH_DARWIN_FLAKE := "$(pwd)"
 PRE_ARGS := "NIXPKGS_ALLOW_INSECURE=1"
 
-
+# help
 default:
     @just --list
     
@@ -83,6 +83,13 @@ update:
 [linux]
 _reset_dconf:
     dconf reset -f /org/gnome/
+
+# Wsl switch config
+[linux]
+@wsl:
+    if [[ -n "/proc/sys/fs/binfmt_misc/WSLInterop" ]]; then
+    NIXPKGS_ALLOW_INSECURE=1 sudo -E nixos-rebuild switch --flake .#mochou@wsl --impure
+    fi
 
 # build nixos boot
 [linux]

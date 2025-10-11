@@ -1,21 +1,31 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    # GUI apps
-    # e-book viewer(.epub/.mobi/...)
-    # do not support .pdf
-    foliate
-  ];
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
 
-  programs.joplin-desktop = {
-    enable = false;
-    general.editor = null;
+  config = lib.mkIf (!config.programs.wsl.enable) {
 
-    sync = {
-      # one of "undefined", "disabled", "5m", "10m", "30m", "1h", "12h", "1d"
-      interval = null;
-      # one of "undefined", "none", "file-system", "onedrive", "nextcloud", "webdav", "dropbox", "s3", "joplin-server", "joplin-cloud"
-      target = null;
+    home.packages = with pkgs; [
+      # GUI apps
+      # e-book viewer(.epub/.mobi/...)
+      # do not support .pdf
+      foliate
+    ];
+
+    programs.joplin-desktop = {
+      enable = false;
+      general.editor = null;
+
+      sync = {
+        # one of "undefined", "disabled", "5m", "10m", "30m", "1h", "12h", "1d"
+        interval = null;
+        # one of "undefined", "none", "file-system", "onedrive", "nextcloud", "webdav", "dropbox", "s3", "joplin-server", "joplin-cloud"
+        target = null;
+      };
     };
+
   };
 }

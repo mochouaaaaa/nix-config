@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.modules'.packages.live;
+  isWsl = config.programs.wsl.enable;
 in
 {
   options.modules'.packages.live = {
@@ -58,8 +59,8 @@ in
       [
         kooha # 录制屏幕 GIF图
       ]
-      ++ lib.optionals cfg.wiliwili.enable [ cfg.wiliwili.package ]
-      ++ lib.optionals cfg.hypontix.enable [ cfg.hypontix.package ]
-      ++ lib.optionals cfg.simple-live-app.enable [ cfg.simple-live-app.package ];
+      ++ lib.optionals (cfg.wiliwili.enable && !isWsl) [ cfg.wiliwili.package ]
+      ++ lib.optionals (cfg.hypontix.enable && !isWsl) [ cfg.hypontix.package ]
+      ++ lib.optionals (cfg.simple-live-app.enable && !isWsl) [ cfg.simple-live-app.package ];
   };
 }

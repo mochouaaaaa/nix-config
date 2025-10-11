@@ -9,7 +9,7 @@ let
 in
 {
 
-  config = lib.mkIf (cfg.enable && pkgs.stdenv.isLinux) {
+  config = lib.mkIf (cfg.enable && pkgs.stdenv.isLinux && !config.programs.wsl.enable) {
     programs.foot = {
       enable = true;
       server.enable = true;

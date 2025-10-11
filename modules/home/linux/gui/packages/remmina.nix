@@ -1,13 +1,23 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    freerdp
-  ];
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
 
-  services.remmina = {
-    enable = true;
-    systemdService = {
-      enable = false;
+  config = lib.mkIf (!config.programs.wsl.enable) {
+
+    home.packages = with pkgs; [
+      freerdp
+    ];
+
+    services.remmina = {
+      enable = true;
+      systemdService = {
+        enable = false;
+      };
     };
+
   };
 }

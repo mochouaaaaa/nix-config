@@ -24,7 +24,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf (!config.programs.wsl.enable) {
     home.packages = [
     ] ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;
   };

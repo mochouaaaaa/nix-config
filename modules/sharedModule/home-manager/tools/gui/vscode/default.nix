@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   username,
   ...
 }:
@@ -9,7 +10,7 @@
 
   config = {
 
-    programs = {
+    programs = lib.mkIf (!config.programs.wsl.enable) {
       vscode = {
         enable = true;
         mutableExtensionsDir = false;

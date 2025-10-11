@@ -1,66 +1,76 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    spotify
-    spicetify-cli
-    lx-music-desktop
-    splayer
-  ];
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
 
-  xdg.configFile = {
-    "spicetify/Themes/caelestia/user.css" = {
-      text = ''
-        /* Background buttons, main play/pause button and progress bar */
-        .encore-bright-accent-set,
-        .encore-inverted-light-set,
-        .x-progressBar-fillColor {
-            background-color: var(--spice-button-active) !important;
-        }
+  config = lib.mkIf (!config.programs.wsl.enable) {
 
-        /* Left sidebar search button */
-        .x-filterBox-expandButton {
-            border-radius: 1000px !important;
-        }
+    home.packages = with pkgs; [
+      spotify
+      spicetify-cli
+      lx-music-desktop
+      splayer
+    ];
 
-        /* Queue and recently played right sidebar buttons */
-        .encore-text-body-small-bold {
-            border-radius: 10px !important;
-        }
+    xdg.configFile = {
+      "spicetify/Themes/caelestia/user.css" = {
+        text = ''
+          /* Background buttons, main play/pause button and progress bar */
+          .encore-bright-accent-set,
+          .encore-inverted-light-set,
+          .x-progressBar-fillColor {
+              background-color: var(--spice-button-active) !important;
+          }
 
-        /* Hover animations for buttons, tracklist and context menu */
-        button,
-        .main-trackList-trackListRow,
-        .main-contextMenu-menuItemButton {
-            transition: color 200ms cubic-bezier(0, 0.55, 0.45, 1), background-color 200ms cubic-bezier(0, 0.55, 0.45, 1) !important;
-        }
+          /* Left sidebar search button */
+          .x-filterBox-expandButton {
+              border-radius: 1000px !important;
+          }
 
-        /* Search bar and dropdown */
-        .main-topBar-searchBar,
-        #recent-searches-dropdown > div {
-            background-color: var(--spice-main-elevated) !important;
-        }
+          /* Queue and recently played right sidebar buttons */
+          .encore-text-body-small-bold {
+              border-radius: 10px !important;
+          }
 
-        /* Hide the main header on the home page */
-        .main-home-homeHeader {
-          display: none !important;
-        }
+          /* Hover animations for buttons, tracklist and context menu */
+          button,
+          .main-trackList-trackListRow,
+          .main-contextMenu-menuItemButton {
+              transition: color 200ms cubic-bezier(0, 0.55, 0.45, 1), background-color 200ms cubic-bezier(0, 0.55, 0.45, 1) !important;
+          }
 
-        /* Remove any decorative pseudo-elements inside the home header */
-        .search-searchCategory-contentArea::before,
-        .search-searchCategory-contentArea::after {
-          display: none !important;
-          content: none !important;
-        }
+          /* Search bar and dropdown */
+          .main-topBar-searchBar,
+          #recent-searches-dropdown > div {
+              background-color: var(--spice-main-elevated) !important;
+          }
 
-        /* Hide the gradient background bar that appears between the playlist/album header and the song list */
-        .main-actionBarBackground-background {
-          display: none !important;
-        }
+          /* Hide the main header on the home page */
+          .main-home-homeHeader {
+            display: none !important;
+          }
 
-        .main-view-container__scroll-node-child div[style*="--background-base"]:not([style*="--background-base-min-contrast"]) {
-          display: none !important;
-        }
-      '';
+          /* Remove any decorative pseudo-elements inside the home header */
+          .search-searchCategory-contentArea::before,
+          .search-searchCategory-contentArea::after {
+            display: none !important;
+            content: none !important;
+          }
+
+          /* Hide the gradient background bar that appears between the playlist/album header and the song list */
+          .main-actionBarBackground-background {
+            display: none !important;
+          }
+
+          .main-view-container__scroll-node-child div[style*="--background-base"]:not([style*="--background-base-min-contrast"]) {
+            display: none !important;
+          }
+        '';
+      };
     };
+
   };
 }

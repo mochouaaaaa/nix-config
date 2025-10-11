@@ -9,13 +9,13 @@ let
 
   goenv = pkgs.stdenv.mkDerivation rec {
     name = "goenv";
-    version = "2.2.23";
+    version = "2.2.22";
 
     src = pkgs.fetchFromGitHub {
       owner = "go-nv";
       repo = "goenv";
       tag = "${version}";
-      hash = "sha256-cu8u4bVBUV/RbN40RIX3Lf4axxi72y5zi3BvC2jVNnc=";
+      hash = "sha256-cNPf7pRnhTxW5Px8YjJFYhp/Z8WhJPB43Reu+ixWKEQ=";
     };
 
     phases = [ "installPhase" ];

@@ -8,7 +8,7 @@ let
 in
 {
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && !config.programs.wsl.enable) {
     programs =
       let
         warpper_shell = ''

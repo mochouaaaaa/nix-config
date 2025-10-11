@@ -21,7 +21,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf (!config.programs.wsl.enable) {
     services.xremap = {
       enable = true;
       watch = true;
