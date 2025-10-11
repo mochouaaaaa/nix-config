@@ -47,7 +47,6 @@ let
         homeModules = lib.mkOption rec {
           type = types.listOf types.unspecified;
           default = [
-            self.homeModules.darwin.modules
             self.sharedModules.home-manager
           ];
           description = "List of home-manager modules to disable.";
