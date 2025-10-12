@@ -68,7 +68,7 @@ in
 
           {
             modules' = {
-              network.proxy.mihomo-party.enable = true;
+              network.proxy.clash-party.enable = true;
               virtual = {
                 virtualbox.enable = false;
                 vmware.enable = false;

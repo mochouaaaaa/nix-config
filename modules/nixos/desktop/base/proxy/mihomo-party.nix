@@ -5,14 +5,14 @@
   ...
 }:
 let
-  cfg = config.modules'.network.proxy.mihomo-party;
+  cfg = config.modules'.network.proxy.clash-party;
 in
 {
-  options.modules'.network.proxy.mihomo-party = {
+  options.modules'.network.proxy.clash-party = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Whether to enable mihomo-party proxy.";
+      description = "Whether to enable clash-party proxy.";
     };
   };
 
@@ -20,19 +20,19 @@ in
 
     environment = {
       systemPackages = with pkgs; [
-        mihomo-party
+        clash-party
         (makeAutostartItem {
           name = "mihomo-party";
-          package = pkgs.mihomo-party;
+          package = pkgs.clash-party;
         })
       ];
     };
 
-    security.wrappers.mihomo-party = {
+    security.wrappers.clash-party = {
       owner = "root";
       group = "root";
       capabilities = "cap_net_bind_service,cap_net_raw,cap_net_admin=+ep";
-      source = "${lib.getExe pkgs.mihomo-party}";
+      source = "${lib.getExe pkgs.clash-party}";
     };
 
   };
