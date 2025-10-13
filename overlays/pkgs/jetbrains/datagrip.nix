@@ -15,7 +15,7 @@ self: super: {
       datagrip = super.jetbrains.datagrip.override {
         inherit vmopts;
         forceWayland = true;
-        jdk = super.openjdk21;
+        # jdk = super.openjdk21;
       };
 
     in

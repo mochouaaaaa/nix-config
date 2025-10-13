@@ -15,7 +15,7 @@ self: super: {
       clion = super.jetbrains.clion.override {
         inherit vmopts;
         forceWayland = true;
-        jdk = super.openjdk21;
+        # jdk = super.openjdk21;
       };
     in
     if src != null then
