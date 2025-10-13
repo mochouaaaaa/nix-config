@@ -16,8 +16,7 @@ in
       appLauncher = {
         backgroundOpacity = 1;
         enableClipboardHistory = true;
-        pinnedExecs = [
-        ];
+        pinnedExecs = [ ];
         position = "center";
         sortByMostUsed = true;
         terminalCommand = "kitty -e";
@@ -127,7 +126,7 @@ in
         animationDisabled = false;
         animationSpeed = 1;
         avatarImage = "${config.home.homeDirectory}/.face";
-        dimDesktop = true;
+        dimDesktop = false;
         forceBlackScreenCorners = false;
         radiusRatio = 0.2;
         screenRadiusRatio = 1;
