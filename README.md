@@ -17,6 +17,10 @@ nix profile install github:LnL7/nix-darwin
 
 ```
 
+## Screenshot
+
+![Hyprland](./asset/hyprland.png)
+
 ## 目录结构
 
 <details>
