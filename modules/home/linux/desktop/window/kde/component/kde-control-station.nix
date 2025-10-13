@@ -15,7 +15,7 @@ let
       owner = "EliverLara";
       repo = "kde-control-station";
       rev = "plasma6";
-      sha256 = "sha256-rm3DO56rCtB/1Ubpb+3/kLA6xYlsyk7CoETzFGncvcw=";
+      sha256 = "sha256-DDCDvALvn3IGRUc+CNrKyYI3tjqtBaqhaDtiLVt4s7c=";
     };
 
     propagatedUserEnvPkgs = with pkgs.kdePackages; [
