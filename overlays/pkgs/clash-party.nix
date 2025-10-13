@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Another Mihomo GUI";
-    homepage = "https://github.com/mihomo-party-org/mihomo-party";
+    homepage = "https://github.com/mihomo-party-org/clash-party";
     mainProgram = "mihomo-party";
     platforms = [
       "aarch64-linux"
