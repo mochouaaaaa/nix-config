@@ -64,6 +64,7 @@ in
               }
               { app-id = "^(pavucontrol|pavucontrol-qt|com.saivert.pwvucontrol)$"; }
               { app-id = "io.github.fsobolev.Cavalier"; }
+              { app-id = "org.gnome.Loupe"; }
               { app-id = "dialog"; }
               { app-id = "task_dialog"; }
               { app-id = "popup"; }
