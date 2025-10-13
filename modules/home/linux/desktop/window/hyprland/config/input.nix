@@ -33,8 +33,8 @@ in
             drag_lock = false;
             drag_3fg = 1; # 三指拖动 0.50
             natural_scroll = true;
-            disable_while_typing = "$touchpadDisableTyping";
-            scroll_factor = "$touchpadScrollFactor";
+            disable_while_typing = true;
+            scroll_factor = 1.15;
           };
 
           # below for devices with touchdevice ie. touchscreen

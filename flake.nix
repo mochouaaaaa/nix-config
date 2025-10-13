@@ -119,9 +119,23 @@
     clipboard-sync.url = "github:dnut/clipboard-sync";
     waybar.url = "github:Alexays/Waybar/master";
 
+    # desktop-shell
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell?ref=v1.3.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell?ref=v2.17.3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    DankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell?ref=v0.1.18";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.51.0";
+      url = "github:hyprwm/Hyprland?ref=v0.51.1";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     hyprlux = {
@@ -144,10 +158,6 @@
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland"; # IMPORTANT
     };
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell?ref=v1.3.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # niri
     niri = {
@@ -156,10 +166,6 @@
     };
     xwayland-satellite = {
       url = "github:Supreeeme/xwayland-satellite";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    DankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v0.1.10";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

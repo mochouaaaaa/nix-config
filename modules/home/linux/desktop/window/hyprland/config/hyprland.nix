@@ -11,10 +11,6 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         exec = "cp =: ==no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
-        source = [
-          "${config.xdg.configHome}/hypr/scheme/current.conf"
-          "${config.xdg.configHome}/hypr/variables.conf"
-        ];
 
         #opengl {
         #  nvidia_anti_flicker = true
@@ -48,48 +44,5 @@ in
       };
     };
 
-    xdg.configFile = {
-      "hypr/variables.conf" = {
-        text = ''
-          # ### Hyprland ###
-          # Apps
-
-          # Touchpad
-          $touchpadDisableTyping = true
-          $touchpadScrollFactor = 0.2
-          $workSpaceSwipeFingers = 4
-
-          # Blur
-          $blurEnabled = true
-          $blurSpecialWs = false
-          $blurPopups = true
-          $blurInputMethods = true
-          $blurSize = 8
-          $blurPasses = 2
-          $blurXray = false
-
-          # Shadow
-          $shadowEnabled = true
-          $shadowRange = 20
-          $shadowRenderPower = 3
-          $shadowColour = rgba($surfaced4)
-
-          # Gaps
-          $workspaceGaps = 20
-          $windowGapsIn = 3
-          $windowGapsOut = 6
-          $singleWindowGapsOut = 20
-
-          # Window styling
-          $windowOpacity = 0.85
-          $windowRounding = 10
-
-          $windowBorderSize = 3
-          $activeWindowBorderColour = rgba($primarye6)
-          $inactiveWindowBorderColour = rgba($onSurfaceVariant11)
-
-        '';
-      };
-    };
   };
 }

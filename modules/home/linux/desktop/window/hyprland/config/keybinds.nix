@@ -17,23 +17,10 @@ in
         bindel = [
           ", XF86Audioraisevolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
           ", XF86Audiolowervolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-
         ];
 
         bindl = [
-          # Special Keys / Hot Keys
-          #     ", xf86AudioMicMute, exec, volumectl -m -u toggle-mute"
-          #     ", xf86audiomute, exec, volumectl toggle-mute"
-          #     ", xf86Sleep, exec, systemctl suspend" # sleep button
           ", XF86audiomute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-
-          #     # media controls using keyboards
-          #     ", xf86AudioPlayPause, exec, media-ctrl --pause"
-          #     ", xf86AudioPause, exec, media-ctrl --pause"
-          #     ", xf86AudioPlay, exec, media-ctrl --pause"
-          #     ", xf86AudioNext, exec, media-ctrl --nxt"
-          #     ", xf86AudioPrev, exec, media-ctrl --prv"
-          #     ", xf86audiostop, exec, media-ctrl --stop"
         ];
 
         binde = [

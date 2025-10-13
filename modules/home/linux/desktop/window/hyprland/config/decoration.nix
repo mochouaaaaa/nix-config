@@ -12,7 +12,7 @@ in
       settings = {
 
         decoration = {
-          rounding = "$windowRounding";
+          rounding = 7;
 
           blur = {
             enabled = true;
@@ -24,10 +24,10 @@ in
             popups = true;
           };
           shadow = {
-            enabled = "$shadowEnabled";
-            range = "$shadowRange";
-            render_power = "$shadowRenderPower";
-            color = "$shadowColour";
+            enabled = true;
+            range = 30;
+            render_power = 3;
+            color = "rgba(00000040)";
           };
         };
 

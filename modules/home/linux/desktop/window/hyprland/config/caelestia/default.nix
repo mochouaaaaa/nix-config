@@ -1,34 +1,16 @@
 {
   lib,
   config,
-  inputs,
-  pkgs,
   ...
 }:
 let
   cfg = config.modules'.desktop.hyprland;
+  cfgCaelestia = config.modules'.desktop.shell.caelestia;
 in
 {
-  imports = lib.importModule' ./. ++ [
-    inputs.caelestia-shell.homeManagerModules.default
-  ];
+  imports = lib.importModule' ./.;
 
-  options.modules'.desktop.hyprland.caelestia = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable caelestia integration";
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
-
-    programs.caelestia = {
-      enable = true;
-      cli = {
-        enable = true;
-      };
-    };
+  config = lib.mkIf (cfg.enable && cfgCaelestia.enable) {
 
     wayland.windowManager.hyprland = {
       settings = {
@@ -50,26 +32,6 @@ in
           ", XF86AudioPrev, global, caelestia:mediaPrev"
           ", XF86AudioStop, global, caelestia:mediaStop"
         ];
-      };
-    };
-
-    modules'.themes.auto = {
-      enable = true;
-      gtkTheme.enable = true;
-    };
-
-    services.darkman = {
-      lightModeScripts = {
-        gtk-theme = ''
-          caelestia scheme set -f latte  -n catppuccin -m light
-          switch-theme Light
-        '';
-      };
-      darkModeScripts = {
-        gtk-theme = ''
-          caelestia scheme set -f mocha -n catppuccin -m dark
-          switch-theme Dark
-        '';
       };
     };
 

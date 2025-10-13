@@ -9,22 +9,8 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.desktop.hyprland.caelestia.enable = true;
-
-    #  modules'.desktop.component = {
-    #    launcher = {
-    #      rofi.enable = false;
-    #      fuzzel.enable = true;
-    #      walker.enable = false;
-    #    };
-    #    status-bar = {
-    #      ashell.enable = false;
-    #      waybar.enable = true;
-    #    };
-    #    wlogout.enable = true;
-    #    swaync.enable = true;
-    #    swaylock.enable = false;
-    #  };
+    modules'.desktop.shell.caelestia.enable = false;
+    modules'.desktop.shell.noctalia.enable = true;
 
   };
 }

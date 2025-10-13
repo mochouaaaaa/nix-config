@@ -16,14 +16,13 @@ in
 
           allow_tearing = false; # Allows `immediate` window rule to work
 
-          gaps_workspaces = "$workspaceGaps";
-          gaps_in = "$windowGapsIn";
-          gaps_out = "$windowGapsOut";
-          border_size = "$windowBorderSize";
+          gaps_workspaces = 8;
+          gaps_in = 9;
+          gaps_out = 9;
+          border_size = 2;
 
-          "col.active_border" = "$activeWindowBorderColour";
-          "col.inactive_border" = "$inactiveWindowBorderColour";
-
+          "col.active_border" = "rgba(ffffff59)";
+          "col.inactive_border" = "rgba(255,255,255,0.15)";
         };
 
         dwindle = {

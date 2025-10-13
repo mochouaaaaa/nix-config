@@ -41,8 +41,7 @@ in
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
 
-          background_color = "rgb($surfaceContainer)";
-
+          background_color = "rgba(f5f5f5cc)";
         };
 
       };

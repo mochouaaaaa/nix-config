@@ -10,7 +10,17 @@ in
 {
   config = lib.mkIf cfg.enable {
 
+    home.packages = [ pkgs.loupe ];
+
     xdg = {
+      mimeApps = {
+        defaultApplications = {
+          "image/png" = [ "org.gnome.Loupe.desktop" ];
+          "image/jpeg" = [ "org.gnome.Loupe.desktop" ];
+          "image/webp" = [ "org.gnome.Loupe.desktop" ];
+          "image/gif" = [ "org.gnome.Loupe.desktop" ];
+        };
+      };
       portal = {
         config = {
           hyprland = {

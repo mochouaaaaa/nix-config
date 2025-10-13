@@ -7,7 +7,8 @@
 let
   cfg = config.modules'.desktop.hyprland;
   cfg_lock = config.modules'.desktop.component.hyprlock;
-  cfgQuick = config.modules'.desktop.hyprland.caelestia;
+  cfgQuick = config.modules'.desktop.shell.caelestia;
+  cfgNoctalia = config.modules'.desktop.shell.noctalia;
 in
 {
   options.modules'.desktop.component.hyprlock = {
@@ -16,7 +17,7 @@ in
     };
   };
 
-  config = lib.mkIf ((cfg.enable || cfg_lock.enable) && !cfgQuick.enable) {
+  config = lib.mkIf ((cfg.enable || cfg_lock.enable) && !cfgQuick.enable && !cfgNoctalia.enable) {
     home.packages = with pkgs; [
 
       (writeShellScriptBin "lockscreen-dpms" ''

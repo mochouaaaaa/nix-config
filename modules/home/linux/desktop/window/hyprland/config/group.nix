@@ -12,10 +12,10 @@ in
       settings = {
         group = {
 
-          "col.border_active" = "$activeWindowBorderColour";
-          "col.border_inactive" = "$inactiveWindowBorderColour";
-          "col.border_locked_active" = "$activeWindowBorderColour";
-          "col.border_locked_inactive" = "$inactiveWindowBorderColour";
+          "col.border_active" = "rgba(255,255,255,0.35)";
+          "col.border_inactive" = "rgba(255,255,255,0.15)";
+          "col.border_locked_active" = "rgba(255,255,255,0.35)";
+          "col.border_locked_inactive" = "rgba(255,255,255,0.15)";
 
           groupbar = {
             font_family = "JetBrains Mono NF";
@@ -28,11 +28,11 @@ in
             gaps_in = 3;
             gaps_out = 3;
 
-            text_color = "rgb($onPrimary)";
-            "col.active" = "rgba($primaryd4)";
-            "col.inactive" = "rgba($outlined4)";
-            "col.locked_active" = "rgba($primaryd4)";
-            "col.locked_inactive" = "rgba($secondaryd4)";
+            text_color = "rgb(ffffff)";
+            "col.active" = "rgba(007aff59)";
+            "col.inactive" = "rgba(007aff26)";
+            "col.locked_active" = "rgba(007aff40)";
+            "col.locked_inactive" = "rgba(007aff15)";
           };
 
         };

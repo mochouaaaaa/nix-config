@@ -13,7 +13,7 @@ in
         windowrule = [
           "opacity $windowOpacity override, fullscreen:0"
 
-          "opaque, class:foot|equibop|org\.quickshell|imv|swappy" # They use native transparency or we want them opaque
+          "opaque, class:foot|equibop|imv|swappy" # They use native transparency or we want them opaque
           "center 1, floating:1, xwayland:0" # Center all floating windows (not xwayland cause popups)
 
           # Float
@@ -28,7 +28,6 @@ in
           "float, class:feh"
           "float, class:imv"
           "float, class:system-config-printer"
-          "float, class:org\.quickshell"
 
           # Float, resize and center
           "float, class:foot, title:nmtui"

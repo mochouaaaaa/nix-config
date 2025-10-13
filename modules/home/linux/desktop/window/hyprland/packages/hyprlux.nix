@@ -6,16 +6,17 @@
 }:
 let
   cfg = config.modules'.desktop.hyprland;
-  cfgQuick = config.modules'.desktop.hyprland.caelestia;
+  cfgQuick = config.modules'.desktop.shell.caelestia;
+  cfgNoctalia = config.modules'.desktop.shell.noctalia;
 in
 {
   imports = [
     inputs.hyprlux.homeManagerModules.default
   ];
 
-  config = lib.mkIf (cfg.enable && !cfgQuick.enable) {
+  config = lib.mkIf (cfg.enable && !cfgQuick.enable && !cfgNoctalia.enable) {
     programs.hyprlux = {
-      enable = false;
+      enable = true;
 
       systemd = {
         enable = true;

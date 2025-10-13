@@ -58,8 +58,8 @@ in
           "workspace special:todo, class:Todoist"
         ];
         workspace = [
-          "w[tv1]s[false], gapsout:$singleWindowGapsOut"
-          "f[1]s[false], gapsout:$singleWindowGapsOut"
+          "w[tv1]s[false], gapsout:4"
+          "f[1]s[false], gapsout:4"
         ];
       };
     };
