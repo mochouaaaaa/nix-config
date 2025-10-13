@@ -28,12 +28,13 @@ in
 
     dconf.settings = {
       "org/gnome/shell/extensions/clipboard-indicator" = {
-        enable-keybindings = lib.gvariant.mkBoolean false;
+        enable-keybindings = lib.gvariant.mkBoolean true;
         cache-size = lib.gvariant.mkInt32 10;
         history-size = lib.gvariant.mkInt32 100;
         notify-on-copy = lib.gvariant.mkBoolean false;
         paste-on-select = lib.gvariant.mkBoolean true;
         pinned-on-bottom = lib.gvariant.mkBoolean true;
+        toggle-menu = lib.gvariant.mkArray [ "<Super>p" ];
       };
     };
   };
