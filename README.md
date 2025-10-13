@@ -17,9 +17,29 @@ nix profile install github:LnL7/nix-darwin
 
 ```
 
+## Components
+
+|                             | NixOS(Wayland)                                                    |
+| --------------------------- | ----------------------------------------------------------------- |
+| **Window Manager**          | [Hyprland][Hyprland] / [Niri][Niri] / [Kde][Kde] / [Gnome][Gnome] |
+| **Terminal Emulator**       | [Kitty][Kitty]/[Wezterm][Weztemr]                                 |
+| **network management tool** | [NetworkManager][NetworkManager]                                  |
+| **Input method framework**  | [Fcitx5][Fcitx5] + [rime][rime] + [WanxiangGRAM][WanxiangGRAM]    |
+| **System resource monitor** | [Btop][Btop]                                                      |
+| **File Manager**            | [Yazi][Yazi] + [nautilus][nautilus]                               |
+| **Shell**                   | [Zsh][Zsh] + [p10k][p10k]                                         |
+| **Media Player**            | [mpv][mpv]                                                        |
+| **Text Editor**             | [Neovim][Neovim]                                                  |
+| **Fonts**                   | [Nerd fonts][Nerd fonts]                                          |
+| **Image Viewer**            | [imv][imv] + [loupe][loupe]                                       |
+| **Screenshot Software**     | [grimblast][grimblast]                                            |
+| **Screen Recording**        | [OBS][OBS] + [Kooha][Kooha]                                       |
+
 ## Screenshot
 
 ![Hyprland](./asset/hyprland.png)
+
+## ![Niri](./asset/niri.png)
 
 ## 目录结构
 
