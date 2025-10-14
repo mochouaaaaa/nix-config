@@ -133,8 +133,23 @@ in
         showScreenCorners = false;
       };
       hooks = {
-        darkModeChange = "";
-        enabled = false;
+        darkModeChange =
+          let
+            hook_theme = pkgs.writeShellScriptBin "hook_theme" ''
+              mode=$1
+
+              if [ "$mode" = "true" ]; then
+                switch-theme Dark
+                vicinae vicinae://theme/set/vicinae-dark
+              else
+                switch-theme Light
+                vicinae vicinae://theme/set/vicinae-light
+              fi
+            '';
+
+          in
+          "${lib.getExe hook_theme} $1";
+        enabled = true;
         wallpaperChange = "";
       };
       location = {
@@ -149,7 +164,7 @@ in
       nightLight = {
         autoSchedule = true;
         dayTemp = "6500";
-        enabled = false;
+        enabled = true;
         forced = false;
         manualSunrise = "06:30";
         manualSunset = "18:30";

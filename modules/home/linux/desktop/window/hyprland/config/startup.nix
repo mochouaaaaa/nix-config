@@ -13,7 +13,6 @@ in
 
     services.network-manager-applet.enable = true;
     modules'.desktop.services.cliphist.enable = true;
-    modules'.desktop.services.polkitagent.enable = true;
 
     wayland.windowManager.hyprland = {
       settings = {
