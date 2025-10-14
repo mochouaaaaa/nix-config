@@ -16,6 +16,10 @@ in
           "opaque, class:foot|equibop|imv|swappy" # They use native transparency or we want them opaque
           "center 1, floating:1, xwayland:0" # Center all floating windows (not xwayland cause popups)
 
+          # opacity
+          "opacity 0.78, class:^(firefox|chromium-browser)$"
+          "opacity 0.78, class:^(io.github.kukuruzka165.materialgram)$"
+
           # Float
           "float, class:guifetch" # FlafyDev/guifetch
           "float, class:yad"

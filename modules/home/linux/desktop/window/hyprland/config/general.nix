@@ -17,8 +17,8 @@ in
           allow_tearing = false; # Allows `immediate` window rule to work
 
           gaps_workspaces = 8;
-          gaps_in = 9;
-          gaps_out = 9;
+          gaps_in = 3;
+          gaps_out = 3;
           border_size = 2;
 
           "col.active_border" = "rgba(ffffff59)";
