@@ -15,12 +15,12 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         bind = [
-          "$mod,Space,global,caelestia:launcher"
+          # "$mod,Space,global,caelestia:launcher"
           "$mod CTRL, q, global, caelestia:lock"
 
           "$mod CTRL, S, exec, caelestia screenshot -r -f"
           "$mod CTRL, A, exec, caelestia screenshot --region -f"
-          "$mod, P, exec, caelestia clipboard"
+          # "$mod, P, exec, caelestia clipboard"
         ];
         bindl = [
           ", XF86MonBrightnessUp, global, caelestia:brightnessUp"

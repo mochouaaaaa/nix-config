@@ -151,11 +151,12 @@ in
             maxShown = 8;
             maxWallpapers = 9;
             useFuzzy = {
-              apps = true;
-              actions = true;
-              schemes = true;
+              # 当使用launcher的时候需要开启这个
+              apps = false;
+              actions = false;
+              schemes = false;
               variants = false;
-              wallpapers = true;
+              wallpapers = false;
             };
           };
 

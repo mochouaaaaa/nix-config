@@ -83,6 +83,7 @@ in
           "app_options/code" = ascii;
           "app_options/neovide" = ascii;
           "app_options/firefox" = ascii;
+          "app_options/.vicinae-wrapped" = ascii;
           "app_options/intellij-wrapped" = ascii;
           "app_options/jetbrains-intellij" = ascii;
           "app_options/pycharm-wrapped" = ascii;

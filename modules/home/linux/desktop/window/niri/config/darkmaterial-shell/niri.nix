@@ -13,11 +13,11 @@ in
     programs.niri.settings = {
       binds = with config.lib.niri.actions; {
         "Mod+Ctrl+q".action = spawn "dms" "ipc" "call" "lock" "lock";
-        "Mod+Space".action = spawn "dms" "ipc" "call" "spotlight" "toggle";
-        "Mod+P" = {
-          hotkey-overlay.title = "Clipboard Manager";
-          action = spawn "dms" "ipc" "call" "clipboard" "toggle";
-        };
+        # "Mod+Space".action = spawn "dms" "ipc" "call" "spotlight" "toggle";
+        # "Mod+P" = {
+        #   hotkey-overlay.title = "Clipboard Manager";
+        #   action = spawn "dms" "ipc" "call" "clipboard" "toggle";
+        # };
         "Mod+M" = {
           hotkey-overlay.title = "Task Manager";
           action.spawn = [

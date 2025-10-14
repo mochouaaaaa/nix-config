@@ -20,12 +20,14 @@ in
         gtk-theme = ''
           noctalia-shell ipc call darkMode setLight
           switch-theme Light
+          vicinae vicinae://theme/set/vicinae-light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
           noctalia-shell ipc call darkMode setDark
           switch-theme Dark
+          vicinae vicinae://theme/set/vicinae-dark
         '';
       };
     };

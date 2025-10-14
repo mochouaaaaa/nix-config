@@ -32,7 +32,7 @@ in
       };
       bar = {
         backgroundOpacity = 1;
-        density = "default";
+        density = "comfortable";
         floating = false;
         marginHorizontal = 0.25;
         marginVertical = 0.25;

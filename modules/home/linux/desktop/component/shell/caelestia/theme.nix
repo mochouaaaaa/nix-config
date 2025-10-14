@@ -20,12 +20,14 @@ in
         gtk-theme = ''
           caelestia scheme set -f latte  -n catppuccin -m light
           switch-theme Light
+          vicinae vicinae://theme/set/vicinae-light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
           caelestia scheme set -f mocha -n catppuccin -m dark
           switch-theme Dark
+          vicinae vicinae://theme/set/vicinae-dark
         '';
       };
     };

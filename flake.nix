@@ -117,7 +117,7 @@
 
     # desktop components
     clipboard-sync.url = "github:dnut/clipboard-sync";
-    waybar.url = "github:Alexays/Waybar/master";
+    vicinae.url = "github:vicinaehq/vicinae?ref=v0.14.5";
 
     # desktop-shell
     caelestia-shell = {

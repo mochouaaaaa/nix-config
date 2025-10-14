@@ -12,7 +12,7 @@ let
 in
 {
   options.modules'.desktop.component.hyprlock = {
-    enable = lib.mkEnableOption "Waybar status bar" // {
+    enable = lib.mkEnableOption "hyprlan hyprlock component" // {
       default = false;
     };
   };

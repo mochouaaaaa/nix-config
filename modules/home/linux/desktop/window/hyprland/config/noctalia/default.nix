@@ -14,13 +14,19 @@ in
 
     wayland.windowManager.hyprland = {
       settings = {
+        layerrule = [
+          "blur,vicinae"
+          "ignorealpha 0, vicinae"
+        ];
         bind = [
-          "$mod,Space, exec, noctalia-shell ipc call launcher toggle"
+          # "$mod,Space, exec, noctalia-shell ipc call launcher toggle"
+          # "$mod,Space, exec, vicinae toggle"
           "$mod CTRL, q, exec, noctalia-shell ipc call lockScreen toggle"
 
           "$mod CTRL, S, exec, grimblast --freeze copysave active"
           "$mod CTRL, A, exec, grimblast --freeze copysave area"
-          "$mod, P, exec, noctalia-shell ipc call launcher clipboard"
+          # "$mod, P, exec, noctalia-shell ipc call launcher clipboard"
+          # "$mod, P, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
           "$mod, comma, exec, noctalia-shell ipc call settings toggle"
 
         ];

@@ -1,4 +1,5 @@
 { lib, ... }:
 {
-  imports = lib.importModule' ./.;
+  # imports = lib.importModule' ./.;
+  imports = [ ./vicinae.nix ];
 }

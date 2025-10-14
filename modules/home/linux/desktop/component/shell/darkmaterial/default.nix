@@ -42,6 +42,7 @@ in
           niri msg action do-screen-transition
           dms ipc call theme toggle
           switch-theme Light
+          vicinae vicinae://theme/set/vicinae-light
         '';
       };
       darkModeScripts = {
@@ -49,6 +50,7 @@ in
           niri msg action do-screen-transition
           dms ipc call theme toggle
           switch-theme Dark
+          vicinae vicinae://theme/set/vicinae-dark
         '';
       };
     };

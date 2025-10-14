@@ -82,7 +82,7 @@ in
           lockDateFormat = "yyyy年MM月dd日 ";
           mediaSize = 2;
           topBarLeftWidgets = [
-            "launcherButton"
+            # "launcherButton"
             "workspaceSwitcher"
             "focusedWindow"
           ];

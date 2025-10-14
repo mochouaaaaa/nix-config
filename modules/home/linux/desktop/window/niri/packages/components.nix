@@ -9,7 +9,8 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.desktop.shell.dankMaterialShell.enable = true;
+    modules'.desktop.shell.dankMaterialShell.enable = false;
+    modules'.desktop.shell.noctalia.enable = true;
 
   };
 }

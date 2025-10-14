@@ -13,7 +13,7 @@ in
   options.modules'.desktop.gnome.shell.packages.clipboard-indicator = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Whether to enable clipboard-indicator.";
     };
   };

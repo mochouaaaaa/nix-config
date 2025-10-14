@@ -15,5 +15,20 @@ in
       gtkTheme.enable = true;
     };
 
+    services.darkman = {
+      lightModeScripts = {
+        gtk-theme = ''
+          switch-theme Light
+          vicinae vicinae://theme/set/vicinae-light
+        '';
+      };
+      darkModeScripts = {
+        gtk-theme = ''
+          switch-theme Dark
+          vicinae vicinae://theme/set/vicinae-dark
+        '';
+      };
+    };
+
   };
 }

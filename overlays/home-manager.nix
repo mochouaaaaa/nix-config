@@ -22,6 +22,7 @@
       inputs.nix-vscode-extensions.overlays.default
       inputs.niri.overlays.niri
       inputs.nuenv.overlays.default
+      inputs.vicinae.overlays.default
       # inputs.hyprutils.overlays.default
       (import ./pkgs/flatpak-wrapper.nix)
       (import ./pkgs/obsidian-wrapper.nix)
@@ -40,7 +41,7 @@
   }
   // {
     jetbra-free = prev.callPackage ./pkgs/jetbra-free { };
-    waybar_git = inputs.waybar.packages.${final.pkgs.system}.waybar;
+    # waybar_git = inputs.waybar.packages.${final.pkgs.system}.waybar;
     xwayland-satellite = inputs.xwayland-satellite.packages.${final.pkgs.system}.default;
     colloid-gtk-theme = prev.callPackage ./pkgs/themes/colloid-gtk-theme.nix { };
   }
