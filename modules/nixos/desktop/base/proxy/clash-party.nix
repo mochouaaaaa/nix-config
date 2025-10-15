@@ -22,7 +22,7 @@ in
       systemPackages = with pkgs; [
         clash-party
         (makeAutostartItem {
-          name = "mihomo-party";
+          name = "clash-party";
           package = pkgs.clash-party;
         })
       ];

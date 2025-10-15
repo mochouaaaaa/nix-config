@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp -r opt $out/opt
     cp -r usr/share $out/share
-    substituteInPlace $out/share/applications/mihomo-party.desktop \
+    mv $out/share/applications/mihomo-party.desktop $out/share/applications/clash-party.desktop
+    substituteInPlace $out/share/applications/clash-party.desktop \
       --replace-fail "/opt/mihomo-party/mihomo-party" "mihomo-party"
     ln -s $out/opt/mihomo-party/mihomo-party $out/bin/mihomo-party
 
