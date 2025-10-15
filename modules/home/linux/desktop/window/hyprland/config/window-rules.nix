@@ -153,8 +153,6 @@ in
 
         ];
         layerrule = [
-          #neovide
-          "blur, class:^(neovide)$"
 
           # blur
           # rofi

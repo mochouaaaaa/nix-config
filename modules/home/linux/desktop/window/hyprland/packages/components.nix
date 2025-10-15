@@ -11,6 +11,7 @@ in
 
     modules'.desktop.shell.caelestia.enable = false;
     modules'.desktop.shell.noctalia.enable = true;
+    modules'.desktop.services.vicinae.enable = true;
 
   };
 }

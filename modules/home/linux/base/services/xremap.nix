@@ -46,7 +46,10 @@ in
           {
             name = "Replace Super/Command With Ctrl";
             exact_match = true;
-            application.not = [ "kitty" ];
+            application.not = [
+              "kitty"
+              "code"
+            ];
             remap = {
               "SUPER-c" = "C-c";
               "SUPER-v" = "C-v";

@@ -20,6 +20,26 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    modules'.shortcuts.global = [
+      {
+        "SUPER-SPACE" = {
+          launch = [
+            "bash"
+            "-c"
+            "vicinae toggle"
+          ];
+        };
+        "SUPER-p" = {
+          launch = [
+            "bash"
+            "-c"
+            "vicinae vicinae://extensions/vicinae/clipboard/history"
+          ];
+        };
+      }
+    ];
+
     services.vicinae = {
       enable = true;
       settings = {

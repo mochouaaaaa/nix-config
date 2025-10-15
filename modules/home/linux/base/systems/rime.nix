@@ -77,6 +77,7 @@ in
             { schema = "rime_mint_flypy"; }
           ];
 
+          "app_options/gcr-prompter" = ascii;
           "app_options/org.wezfurlong.wezterm" = ascii;
           "app_options/kitty" = ascii;
           "app_options/foot" = ascii;

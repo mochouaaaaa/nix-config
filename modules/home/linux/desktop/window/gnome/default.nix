@@ -4,5 +4,4 @@
 }:
 {
   imports = lib.importModule' ./.;
-
 }
