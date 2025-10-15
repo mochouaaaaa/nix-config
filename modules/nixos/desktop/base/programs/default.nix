@@ -1,7 +1,13 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   overpkgs = pkgs.wshowkeys.overrideAttrs (finalAttrs: {
-    pname = "wshowkeys-last";
+    pname = "wshowkeys";
+    version = "last";
 
     src = pkgs.fetchFromGitHub {
       owner = "ammgws";
@@ -14,24 +20,34 @@ in
 {
   imports = lib.importModule' ./.;
 
-  programs.wshowkeys = rec {
-    enable = true;
-    package = overpkgs;
-  };
-
   environment.systemPackages =
     let
+      wshowkeysBin = "${config.security.wrapperDir}/wshowkeys";
+      toggleScript = pkgs.writeShellScriptBin "toggle-wshowkeys" ''
+        if pgrep -x "wshowkeys" > /dev/null; then
+          pkill -x "wshowkeys"
+        else
+          ${wshowkeysBin} -a bottom -a right &
+        fi
+      '';
       wshowkeysDesktop = pkgs.makeDesktopItem {
         name = "wshowkeys";
         desktopName = "WShowKeys";
         comment = "Show input keys on screen";
-        exec = "${lib.getExe overpkgs} -a bottom -a right";
-        # icon = "input-keyboard"; # 可以放图标名称或绝对路径
+        exec = "${lib.getExe toggleScript}";
         categories = [ "Utility" ];
-        terminal = false; # 如果命令需要在终端执行改成 true
+        terminal = false;
       };
     in
     [
       wshowkeysDesktop
     ];
+
+  security.wrappers.wshowkeys = {
+    setuid = true;
+    owner = "root";
+    group = "root";
+    source = lib.getExe overpkgs;
+  };
+
 }

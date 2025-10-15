@@ -33,6 +33,12 @@ in
       systemPackages = with pkgs; [
         turtle # nautilus plugin
         nautilus
+        (pkgs.writeShellApplication {
+          name = "launch-hyprland";
+          text = ''
+            systemd-cat --identifier hyprland Hyprland
+          '';
+        })
       ];
     };
 
@@ -47,7 +53,8 @@ in
         settings = rec {
           default_session = {
             user = username;
-            command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
+            # command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
+            command = lib.mkForce "systemd-cat --identifier hyprland Hyprland";
           };
           initial_session = default_session;
         };

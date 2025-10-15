@@ -30,7 +30,6 @@ in
       gnumake
       nautilus
       ntfs3g
-      xarchiver
     ];
 
   services = lib.mkIf (!isWsl) {
