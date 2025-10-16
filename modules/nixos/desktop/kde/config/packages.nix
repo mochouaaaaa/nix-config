@@ -16,6 +16,8 @@ in
       plasma-browser-integration
       konsole
       oxygen
+      krunner
+      kwallet
     ];
 
   };

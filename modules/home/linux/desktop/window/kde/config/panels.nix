@@ -151,12 +151,20 @@ in
                   DialogWidth = 720;
                 };
                 Appearance = {
+                  animations = true;
+                  brightness_widget_flat = true;
+                  brightness_widget_thin = true;
                   icon = "adjustlevels";
                   darkGlobalTheme = "com.github.vinceliuice.WhiteSur-dark";
                   layout = 1;
                   lightGlobalTheme = "com.github.vinceliuice.WhiteSur-alt";
                   lightTheme = "WhiteSurAlt";
                   preferChangeGlobalTheme = true;
+                  showPercentage = true;
+                  transparency = true;
+                  transparencyLevel = 43;
+                  volume_widget_flat = true;
+                  volume_widget_thin = true;
                 };
               };
             }

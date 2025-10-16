@@ -16,10 +16,6 @@ in
     modules.dm.greetd.enable = true;
 
     services = {
-      gnome = {
-        sushi.enable = true;
-        gnome-keyring.enable = true;
-      };
       greetd = {
         settings = rec {
           default_session = {

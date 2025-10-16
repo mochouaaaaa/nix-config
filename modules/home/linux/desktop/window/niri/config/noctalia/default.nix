@@ -25,6 +25,16 @@ in
         # "Mod+P".action = spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard";
         "Mod+Ctrl+q".action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "toggle";
       };
+      layer-rules = [
+        {
+          matches = [
+            {
+              namespace = "^quickshell-overview$";
+            }
+          ];
+          place-within-backdrop = true;
+        }
+      ];
     };
   };
 }

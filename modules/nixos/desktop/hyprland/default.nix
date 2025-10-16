@@ -45,10 +45,6 @@ in
     programs.ssh.startAgent = lib.mkForce false;
 
     services = {
-      gnome = {
-        sushi.enable = true;
-        gnome-keyring.enable = true;
-      };
       greetd = {
         settings = rec {
           default_session = {

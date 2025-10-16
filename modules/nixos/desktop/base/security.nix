@@ -1,5 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 {
+  services = {
+    gnome = {
+      sushi.enable = true;
+      gnome-keyring.enable = true;
+    };
+  };
   security = {
     polkit = {
       enable = true;
@@ -9,6 +15,9 @@
         greetd.enableGnomeKeyring = true;
         swaylock = { };
         hyprlock = { };
+        "${username}" = {
+          kwallet.enable = false;
+        };
       };
     };
     pki = {

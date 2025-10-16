@@ -31,8 +31,6 @@ in
         gnome.enable = true;
       };
       gnome = {
-        sushi.enable = true;
-        gnome-keyring.enable = true;
         gnome-browser-connector.enable = true;
       };
       udev.packages = lib.mkAfter [ pkgs.gnome-settings-daemon ];
