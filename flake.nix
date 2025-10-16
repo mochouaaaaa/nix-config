@@ -125,7 +125,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v2.17.3";
+      url = "github:noctalia-dev/noctalia-shell?ref=v2.18.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     DankMaterialShell = {

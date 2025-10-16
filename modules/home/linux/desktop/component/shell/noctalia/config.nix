@@ -86,7 +86,7 @@ in
         generateTemplatesForPredefined = true;
         matugenSchemeType = "scheme-fruit-salad";
         predefinedScheme = "Catppuccin";
-        useWallpaperColors = false;
+        useWallpaperColors = true;
       };
       controlCenter = {
         position = "close_to_bar_button";
@@ -126,9 +126,11 @@ in
         animationDisabled = false;
         animationSpeed = 1;
         avatarImage = "${config.home.homeDirectory}/.face";
+        compactLockScreen = false;
         dimDesktop = false;
         forceBlackScreenCorners = false;
         radiusRatio = 0.2;
+        scaleRatio = 1;
         screenRadiusRatio = 1;
         showScreenCorners = false;
       };
@@ -219,12 +221,12 @@ in
         qt = false;
       };
       ui = {
-        fontDefault = "Roboto";
+        fontDefault = "Monaco Nerd Font";
         fontDefaultScale = 1;
-        fontFixed = "DejaVu Sans Mono";
+        fontFixed = "Monaco Nerd Font Mono";
         fontFixedScale = 1;
         idleInhibitorEnabled = false;
-        monitorsScaling = [ ];
+        # monitorsScaling = [ ];
         tooltipsEnabled = true;
       };
       wallpaper = {
@@ -238,10 +240,10 @@ in
           {
             directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
             name = "DP-1";
-            wallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/Night_City.png";
+            wallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png";
           }
         ];
-        randomEnabled = true;
+        randomEnabled = false;
         randomIntervalSec = 300;
         setWallpaperOnAllMonitors = true;
         transitionDuration = 1500;

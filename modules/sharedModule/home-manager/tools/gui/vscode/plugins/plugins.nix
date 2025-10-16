@@ -60,7 +60,6 @@ in
               # C / C++
               ms-vscode.cmake-tools
               ms-vscode.cpptools-extension-pack
-              # TheQtCompany.qt-qml
 
               (buildVscodeMarketplaceExtension {
                 mktplcRef = {

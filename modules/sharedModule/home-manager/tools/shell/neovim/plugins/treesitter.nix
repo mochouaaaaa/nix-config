@@ -37,6 +37,7 @@
       nvim-treesitter-parsers.cpp
       nvim-treesitter-parsers.cmake
       nvim-treesitter-parsers.swift
+      nvim-treesitter-parsers.qmljs
 
       # lua
       nvim-treesitter-parsers.lua
