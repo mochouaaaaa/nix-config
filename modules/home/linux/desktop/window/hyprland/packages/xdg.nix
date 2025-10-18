@@ -21,10 +21,13 @@ in
             "org.freedesktop.impl.portal.Settings" = "gtk";
           };
         };
-        extraPortals = lib.mkAfter [
-          pkgs.xdg-desktop-portal-gtk
-          pkgs.xdg-desktop-portal-gnome
-        ];
+        extraPortals = lib.mkAfter (
+          with pkgs;
+          [
+            xdg-desktop-portal-gtk
+            xdg-desktop-portal-gnome
+          ]
+        );
       };
     };
 

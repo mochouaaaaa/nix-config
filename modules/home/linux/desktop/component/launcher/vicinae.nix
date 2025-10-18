@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -54,6 +55,17 @@ in
         rootSearch = {
           searchFiles = true;
         };
+        extensions = [
+          # (pkgs.mkVicinaeExtension {
+          #   inherit pkgs;
+          #   name = "github";
+          #   src = pkgs.fetchFromGitHub{
+          #           owner = "raycast";
+          #           repo = "extensions";
+          #
+          #       };
+          # })
+        ];
         theme = {
           name = "vicinae-dark";
         };

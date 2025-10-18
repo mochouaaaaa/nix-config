@@ -13,6 +13,11 @@ in
           theme = "WhiteSur Cursors"; # 光标主题
           size = 36;
         }; # 光标
+        lookAndFeel = "com.github.vinceliuice.WhiteSur-dark";
+        windowDecorations = {
+          library = "org.kde.kwin.aurorae"; # 窗口装饰
+          theme = "__aurorae__svg__WhiteSur-dark";
+        };
       };
     };
   };

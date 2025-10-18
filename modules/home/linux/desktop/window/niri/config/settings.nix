@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
 
   cfg = config.modules'.desktop.niri;
@@ -7,6 +12,10 @@ in
   config = lib.mkIf cfg.enable {
 
     programs.niri.settings = {
+      xwayland-satellite = {
+        enable = true;
+        path = lib.getExe pkgs.xwayland-satellite;
+      };
       input = {
         keyboard = {
 

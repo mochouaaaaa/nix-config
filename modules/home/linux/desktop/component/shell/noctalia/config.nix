@@ -31,14 +31,14 @@ in
         volumeStep = 5;
       };
       bar = {
-        backgroundOpacity = 1;
+        backgroundOpacity = 0.3;
         density = "comfortable";
         floating = false;
         marginHorizontal = 0.25;
         marginVertical = 0.25;
         monitors = [ ];
         position = "top";
-        showCapsule = false;
+        showCapsule = true;
         widgets = {
           center = [
           ];
@@ -52,6 +52,7 @@ in
           right = [
             {
               blacklist = [
+                "nm-applet"
               ];
               id = "Tray";
             }
@@ -63,7 +64,7 @@ in
             }
             {
               customIconPath = "";
-              icon = "noctalia";
+              icon = "ease-in-out-control-points-filled";
               id = "ControlCenter";
               useDistroLogo = false;
             }
@@ -124,15 +125,15 @@ in
       };
       general = {
         animationDisabled = false;
-        animationSpeed = 1;
+        animationSpeed = 0.97;
         avatarImage = "${config.home.homeDirectory}/.face";
         compactLockScreen = false;
         dimDesktop = false;
         forceBlackScreenCorners = false;
-        radiusRatio = 0.2;
+        radiusRatio = 0.94;
         scaleRatio = 1;
-        screenRadiusRatio = 1;
-        showScreenCorners = false;
+        screenRadiusRatio = 0.5;
+        showScreenCorners = true;
       };
       hooks = {
         darkModeChange =

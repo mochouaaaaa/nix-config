@@ -30,6 +30,7 @@ in
           value = "$HOME/.local/state/nix/profile/share/applications/fcitx5-wayland-launcher.desktop";
           shellExpand = true;
         };
+        kwinrc."org.kde.kdecoration2".ButtonsOnRight = "";
       };
     };
   };

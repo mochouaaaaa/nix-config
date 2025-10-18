@@ -74,7 +74,7 @@ in
           "float, class:(VirtualBox)"
           "float, class:firefox,title:(我的足迹)"
           "float, class:firefox,title:画中画"
-          "float, class:Bitwarden,title:Bitwarden"
+
           "float, class:(xfce4-appfinder)"
           "float, class:kitty, title:yazi"
           "float, class:^(gnome-)"
@@ -106,7 +106,6 @@ in
           "size 60% 70%, class:^(file-roller|org.gnome.FileRoller)$"
           "size 60% 70%, class:^([Ww]hatsapp-for-linux)$"
           "size 60% 70%, class:^([Ff]erdium)$"
-          "size 60% 70%, class:Bitwarden, title:Bitwarden"
 
           # screen sharing
           "opacity 0.0 override, class:^(xwaylandvideobridge)$"
@@ -151,8 +150,24 @@ in
           "noshadow, xwayland:1, title:win[0-9]+"
           "rounding 10, xwayland:1, title:win[0-9]+"
 
+          # Bitwarden
+          "float, class:Bitwarden,title:Bitwarden"
+          "size 60% 70%, class:Bitwarden, title:Bitwarden"
+          "noscreenshare, class:Bitwarden, title:Bitwarden"
+
+          "float, class:com-group_finity-mascot-Main"
+          "noblur, class:com-group_finity-mascot-Main"
+          "nofocus, class:com-group_finity-mascot-Main"
+          "noshadow, class:com-group_finity-mascot-Main"
+          "noborder, class:com-group_finity-mascot-Main"
+
         ];
         layerrule = [
+
+          # vicinae
+          "blur, vicinae"
+          "blurpopups, vicinae"
+          "ignorealpha 0, vicinae"
 
           # blur
           # rofi

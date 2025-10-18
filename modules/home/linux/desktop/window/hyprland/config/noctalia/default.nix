@@ -15,8 +15,8 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         layerrule = [
-          "blur,vicinae"
-          "ignorealpha 0, vicinae"
+          "blur, noctalia-bar"
+          "ignorezero, noctalia-bar"
         ];
         bind = [
           # "$mod,Space, exec, noctalia-shell ipc call launcher toggle"
