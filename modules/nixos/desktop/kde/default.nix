@@ -24,6 +24,14 @@ in
       };
     };
 
+    security.pam.services = {
+      login.kwallet.enable = lib.mkForce false;
+      kde = {
+        enableGnomeKeyring = true;
+        kwallet.enable = lib.mkForce false;
+      };
+    };
+
     programs.xwayland.enable = true;
     i18n.inputMethod.fcitx5.plasma6Support = true;
   };

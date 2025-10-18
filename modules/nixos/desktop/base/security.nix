@@ -12,11 +12,15 @@
     };
     pam = {
       services = {
+        sddm.enableGnomeKeyring = true;
+        sddm-greeter.enableGnomeKeyring = true;
+        sddm-autologin.enableGnomeKeyring = true;
         greetd.enableGnomeKeyring = true;
         swaylock = { };
         hyprlock = { };
         "${username}" = {
           kwallet.enable = false;
+          enableGnomeKeyring = true;
         };
       };
     };
