@@ -215,6 +215,8 @@ in
             # ======================================
             # Misc
             # ======================================
+            # services
+            ".cache/cliphist"
             # Clash Verge Rev
             ".local/share/io.github.clash-verge-rev.clash-verge-rev"
             ".local/share/clash-verge"
@@ -228,7 +230,6 @@ in
             # custom packages
             # ======================================
             ".config/obs-studio"
-            ".config/pot-app.desktop"
             ".config/wiliwili"
 
             # spotify
