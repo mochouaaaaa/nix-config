@@ -38,14 +38,18 @@ in
   config = lib.mkIf (!config.programs.wsl.enable) {
 
     # 兼容nix且nixos也可以使用
-    fonts.fontconfig.enable = true;
+    fonts.fontconfig.enable = pkgs.stdenv.isLinux;
 
-    home.packages = with pkgs; [
-      fontconfig
-      makeFonts # 常规, 窗口标题栏等
-      maple-mono.NF # 等宽
-      inter # 小号字体,工具栏,菜单
-      font-awesome
-    ];
+    home.packages =
+      with pkgs;
+      [
+        makeFonts # 常规, 窗口标题栏等
+        maple-mono.NF # 等宽
+        inter # 小号字体,工具栏,菜单
+        font-awesome
+      ]
+      ++ lib.optionals (pkgs.stdenv.isLinux) [
+        fontconfig
+      ];
   };
 }

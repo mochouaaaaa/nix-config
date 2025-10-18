@@ -38,9 +38,7 @@ in
         };
 
         tool.uv = {
-          # ✅ 自动创建 `.venv`（不会污染全局环境）
           package-installation = "isolated";
-          # ✅ 启用本地缓存构建，提升依赖安装速度
           cache-builds = true;
         };
 
