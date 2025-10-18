@@ -116,7 +116,6 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     # desktop components
-    clipboard-sync.url = "github:dnut/clipboard-sync";
     vicinae.url = "github:vicinaehq/vicinae?ref=v0.14.5";
 
     # desktop-shell
@@ -125,7 +124,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v2.18.0";
+      url = "github:noctalia-dev/noctalia-shell?ref=v2.18.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     DankMaterialShell = {
