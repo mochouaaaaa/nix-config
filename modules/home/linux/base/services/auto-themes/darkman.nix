@@ -72,6 +72,7 @@ in
         lat = 39.9042;
         lng = 116.4074;
         usegeoclue = true;
+        portal = true;
       };
     };
   };
