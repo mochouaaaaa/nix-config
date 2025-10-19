@@ -55,43 +55,56 @@ https://github.com/nix-community/NixOS-WSL
     <summary>目录结构</summary>
 
 ```bash
-
+.
+├── asset
 ├── config.nix
 ├── flake.lock
 ├── flake.nix
 ├── flake-parts
-│   ├── darwin.nix               # nix-darwin
+│   ├── darwin.nix                  # nix-darwin
 │   ├── default.nix
-│   ├── dev-shells               # shell环境
-│   ├── home-manager.nix         # home-manager
-│   ├── imports.nix              # import
-│   ├── nixos.nix                # nixos
-│   ├── nix-settings.nix         # nix-settings
-│   └── packages.nix             # nixpkgs
-├── hosts         # 主机配置文件
-│   ├── darwin.nix   # darwin主机配置入口文件
+│   ├── dev-shells                  # dev-shells
+│   ├── home-manager.nix            # home-manager
+│   ├── imports.nix                 # imports
+│   ├── nixos.nix                   # nixos
+│   ├── nix-settings.nix            # nix settings
+│   └── packages.nix                # nixpkgs
+├── hosts
+│   ├── darwin.nix                  # darwin 系统配置入口
 │   ├── default.nix
-│   ├── nixos    # nixos主机配置文件
-│   └── nixos.nix   # nixos主机配置入口文件
-├── justfile      # 启动脚本
-├── modules       # 模块
-│   ├── darwin       # darwin模块
+│   ├── nixos                       # nixos 主机配置,每个主机都不一样
+│   ├── nixos.nix                   # nixos 系统配置入口
+│   └── wsl.nix                     # wsl 配置入口
+├── justfile                        # 一键部署脚本
+├── modules
+│   ├── darwin                      # darwin 系统配置
 │   ├── default.nix
-│   ├── home         # home-manager模块
-│   ├── nixos         # nixos模块
-│   └── sharedModule  # 共享模块
-├── nvfetcher.toml
+│   ├── home                        # home-manager 配置
+│   │   ├── base
+│   │   ├── darwin                  # home-manager darwin 配置
+│   │   ├── default.nix
+│   │   ├── linux                   # home-manager linux 配置
+│   │   └── wsl                     # home-manager wsl 配置
+│   ├── nixos                       # nixos 系统配置
+│   │   ├── base
+│   │   ├── default.nix
+│   │   ├── desktop                 # nixos 桌面配置
+│   │   ├── services                # nixos 服务相关配置
+│   │   └── virtual                 # nixos 虚拟机配置
+│   └── sharedModule                # darwin/linux 共享模块
+│       ├── default.nix
+│       ├── home-manager            # home-manager 共享模块不区分darwin/linux
+│       └── os                      # os 共享模块不区分darwin/linux
+├── nvfetcher.toml                  # 部分包pin版本
 ├── outputs.nix
-├── overlays      # overlays
-│   ├── darwin.nix
+├── overlays                        # nixpkgs overlays
+│   ├── darwin.nix                  # darwin overlays
 │   ├── default.nix
-│   ├── home-manager.nix
-│   ├── nixos.nix
+│   ├── home-manager.nix            # home-manager overlays
+│   ├── nixos.nix                   # nixos overlays
 │   └── pkgs
-├── packages      # custom build pkgs
-│   └── default.nix
 ├── README.md
-└── _sources     # pin pkgs
+└── _sources
     ├── generated.json
     └── generated.nix
 ```
@@ -117,8 +130,8 @@ just home-darwin
 <summary>Linux Build</summary>
 
 ```bash
-# nixos
-just nixos-hyprland # or nixos-gnome, nixos-kde, nixos-niri
+# linux
+just home-hyprland # or home-gnome, home-kde, home-niri
 
 
 ```
