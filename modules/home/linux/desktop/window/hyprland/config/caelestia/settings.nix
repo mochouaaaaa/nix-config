@@ -17,50 +17,50 @@ in
           "${config.xdg.configHome}/hypr/variables.conf"
         ];
 
-        inputs = {
+        input = {
           touchpad = {
-            disable_while_typing = "$touchpadDisableTyping";
-            scroll_factor = "$touchpadScrollFactor";
+            disable_while_typing = lib.mkForce "$touchpadDisableTyping";
+            scroll_factor = lib.mkForce "$touchpadScrollFactor";
           };
         };
 
         misc = {
-          background_color = "rgb($surfaceContainer)";
+          background_color = lib.mkForce "rgb($surfaceContainer)";
         };
 
         general = {
-          border_size = "$windowBorderSize";
+          border_size = lib.mkForce "$windowBorderSize";
 
-          gaps_workspaces = "$workspaceGaps";
-          gaps_in = "$windowGapsIn";
-          gaps_out = "$windowGapsOut";
-          "col.active_border" = "$activeWindowBorderColour";
-          "col.inactive_border" = "$inactiveWindowBorderColour";
+          gaps_workspaces = lib.mkForce "$workspaceGaps";
+          gaps_in = lib.mkForce "$windowGapsIn";
+          gaps_out = lib.mkForce "$windowGapsOut";
+          "col.active_border" = lib.mkForce "$activeWindowBorderColour";
+          "col.inactive_border" = lib.mkForce "$inactiveWindowBorderColour";
         };
 
         decoration = {
-          rounding = "$windowRounding";
+          rounding = lib.mkForce "$windowRounding";
           shadow = {
-            enabled = "$shadowEnabled";
-            range = "$shadowRange";
-            render_power = "$shadowRenderPower";
-            color = "$shadowColour";
+            enabled = lib.mkForce "$shadowEnabled";
+            range = lib.mkForce "$shadowRange";
+            render_power = lib.mkForce "$shadowRenderPower";
+            color = lib.mkForce "$shadowColour";
           };
         };
 
         group = {
 
-          "col.border_active" = "$activeWindowBorderColour";
-          "col.border_inactive" = "$inactiveWindowBorderColour";
-          "col.border_locked_active" = "$activeWindowBorderColour";
-          "col.border_locked_inactive" = "$inactiveWindowBorderColour";
+          "col.border_active" = lib.mkForce "$activeWindowBorderColour";
+          "col.border_inactive" = lib.mkForce "$inactiveWindowBorderColour";
+          "col.border_locked_active" = lib.mkForce "$activeWindowBorderColour";
+          "col.border_locked_inactive" = lib.mkForce "$inactiveWindowBorderColour";
 
           groupbar = {
-            text_color = "rgb($onPrimary)";
-            "col.active" = "rgba($primaryd4)";
-            "col.inactive" = "rgba($outlined4)";
-            "col.locked_active" = "rgba($primaryd4)";
-            "col.locked_inactive" = "rgba($secondaryd4)";
+            text_color = lib.mkForce "rgb($onPrimary)";
+            "col.active" = lib.mkForce "rgba($primaryd4)";
+            "col.inactive" = lib.mkForce "rgba($outlined4)";
+            "col.locked_active" = lib.mkForce "rgba($primaryd4)";
+            "col.locked_inactive" = lib.mkForce "rgba($secondaryd4)";
           };
         };
 
@@ -72,6 +72,15 @@ in
         windowrule = [
           "opaque, class:org\.quickshell" # They use native transparency or we want them opaque
           "float, class:org\.quickshell"
+        ];
+
+        layerrule = [
+          # Shell
+          "noanim, caelestia-(border-exclusion|area-picker)"
+          "animation fade, caelestia-(drawers|background)"
+
+          "blur, caelestia-drawers"
+          "ignorealpha 0.57, caelestia-drawers"
         ];
 
       };

@@ -1,12 +1,17 @@
 {
   lib,
   config,
+  inputs,
   ...
 }:
 let
   cfg = config.programs.dankMaterialShell;
 in
 {
+
+  imports = [
+    inputs.DankMaterialShell.homeModules.dankMaterialShell.niri
+  ];
 
   config = lib.mkIf cfg.enable {
 

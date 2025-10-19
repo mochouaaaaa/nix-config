@@ -10,7 +10,6 @@ in
 {
   imports = lib.importModule' ./. ++ [
     inputs.DankMaterialShell.homeModules.dankMaterialShell.default
-    inputs.DankMaterialShell.homeModules.dankMaterialShell.niri
   ];
 
   options.modules'.desktop.shell.dankMaterialShell = {
@@ -28,32 +27,6 @@ in
       enableSystemd = true;
     };
 
-    # auto dark/light theme
-    modules'.themes.auto = {
-      enable = true;
-      gtkTheme = {
-        enable = true;
-      };
-    };
-
-    services.darkman = {
-      lightModeScripts = {
-        gtk-theme = ''
-          niri msg action do-screen-transition
-          dms ipc call theme toggle
-          switch-theme Light
-          vicinae vicinae://theme/set/vicinae-light
-        '';
-      };
-      darkModeScripts = {
-        gtk-theme = ''
-          niri msg action do-screen-transition
-          dms ipc call theme toggle
-          switch-theme Dark
-          vicinae vicinae://theme/set/vicinae-dark
-        '';
-      };
-    };
   };
 
 }

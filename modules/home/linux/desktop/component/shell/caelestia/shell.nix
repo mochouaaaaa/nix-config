@@ -50,6 +50,28 @@ in
               terminal = [ "kitty" ];
               audio = [ "pavucontrol" ];
             };
+            idle = {
+              lockBeforeSleep = true;
+              inhibitWhenAudio = true;
+              timeouts = [
+                {
+                  timeout = 600;
+                  idleAction = "lock";
+                }
+                {
+                  timeout = 555;
+                  idleAction = "dpms off";
+                  returnAction = "dpms on";
+                }
+                {
+                  timeout = 1800;
+                  idleAction = [
+                    "systemctl"
+                    "suspend-then-hibernate"
+                  ];
+                }
+              ];
+            };
           };
 
           background = {
@@ -57,6 +79,12 @@ in
               enabled = true;
             };
             enabled = true;
+            visualiser = {
+              enabled = true;
+              autoHide = true;
+              rounding = 1;
+              spacing = 1;
+            };
           };
 
           bar = {
@@ -98,12 +126,13 @@ in
                 id = "power";
                 enabled = true;
               }
-              {
-                id = "idleInhibitor";
-                enabled = true;
-              }
             ];
-            persistent = false;
+            persistent = true;
+            scrollActions = {
+              brightness = true;
+              workspaces = true;
+              volume = true;
+            };
             showOnHover = true;
             status = {
               showAudio = true;
@@ -152,11 +181,11 @@ in
             maxWallpapers = 9;
             useFuzzy = {
               # 当使用launcher的时候需要开启这个
-              apps = false;
-              actions = false;
-              schemes = false;
-              variants = false;
-              wallpapers = false;
+              apps = true;
+              actions = true;
+              schemes = true;
+              variants = true;
+              wallpapers = true;
             };
           };
 
@@ -173,6 +202,8 @@ in
           };
 
           osd = {
+            enableBrightness = true;
+            enableMicrophone = true;
             hideDelay = 2000;
           };
 

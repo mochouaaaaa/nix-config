@@ -7,7 +7,7 @@ let
   cfg = config.modules'.desktop.hyprland;
 in
 {
-  config = lib.mkIf (cfg.enable) {
+  config = lib.mkIf (cfg.enable && !config.modules'.desktop.shell.caelestia.enable) {
     services.hypridle = {
       enable = true;
       settings = {

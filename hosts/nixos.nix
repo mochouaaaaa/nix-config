@@ -8,7 +8,7 @@ let
         firefox.enable = true;
         google-chrome.enable = true;
 
-        translate.enable = true;
+        translate.enable = false;
         # tencent enable default use true
         tencent = {
           # qq.enable = false;

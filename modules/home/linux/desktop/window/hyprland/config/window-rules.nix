@@ -203,13 +203,6 @@ in
           # Fuzzel
           "animation popin 80%, launcher"
           "blur, launcher"
-
-          # Shell
-          "noanim, caelestia-(border-exclusion|area-picker)"
-          "animation fade, caelestia-(drawers|background)"
-
-          "blur, caelestia-drawers"
-          "ignorealpha 0.57, caelestia-drawers"
         ];
       };
     };
