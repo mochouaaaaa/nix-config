@@ -10,11 +10,17 @@
 sh <(curl -L https://nixos.org/nix/install)
 ```
 
-# Darwin
+### Darwin
 
 ```base
 nix profile install github:LnL7/nix-darwin
 
+```
+
+### Wsl
+
+```bash
+https://github.com/nix-community/NixOS-WSL
 ```
 
 ## Components
