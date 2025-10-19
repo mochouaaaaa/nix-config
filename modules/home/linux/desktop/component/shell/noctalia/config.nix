@@ -83,10 +83,11 @@ in
         brightnessStep = 5;
       };
       colorSchemes = {
-        darkMode = true;
+        darkMode = false;
         generateTemplatesForPredefined = true;
         matugenSchemeType = "scheme-fruit-salad";
         predefinedScheme = "Catppuccin";
+        schedulingMode = "location";
         useWallpaperColors = true;
       };
       controlCenter = {
@@ -211,15 +212,15 @@ in
         discord_lightcord = false;
         discord_vesktop = false;
         discord_webcord = false;
-        enableUserTemplates = false;
+        enableUserTemplates = true;
         foot = false;
         fuzzel = false;
         ghostty = false;
-        gtk = false;
-        kcolorscheme = false;
+        gtk = true;
+        kcolorscheme = true;
         kitty = false;
         pywalfox = false;
-        qt = false;
+        qt = true;
       };
       ui = {
         fontDefault = "Monaco Nerd Font";
