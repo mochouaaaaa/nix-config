@@ -116,7 +116,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     # desktop components
-    vicinae.url = "github:vicinaehq/vicinae?ref=v0.14.5";
+    vicinae.url = "github:vicinaehq/vicinae?ref=v0.15.0";
 
     # desktop-shell
     caelestia-shell = {
@@ -129,7 +129,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     DankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v0.1.18";
+      url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

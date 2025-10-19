@@ -182,10 +182,10 @@ in
           dankBarAutoHide = false;
           dankBarOpenOnOverview = false;
           dankBarVisible = true;
-          dankBarSpacing = 4;
+          dankBarSpacing = 3;
           dankBarBottomGap = 0;
           dankBarInnerPadding = 4;
-          dankBarSquareCorners = true;
+          dankBarSquareCorners = false;
           dankBarNoBackground = false;
           dankBarGothCornersEnabled = false;
           dankBarBorderEnabled = false;
