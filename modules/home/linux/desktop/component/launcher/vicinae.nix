@@ -43,6 +43,7 @@ in
 
     services.vicinae = {
       enable = true;
+      package = pkgs.vicinae;
       settings = {
         closeOnFocusLoss = true;
         faviconService = "twenty";
