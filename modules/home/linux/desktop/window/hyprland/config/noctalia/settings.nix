@@ -21,8 +21,8 @@ in
         ];
         bind = [
           "$mod CTRL, q, exec, noctalia-shell ipc call lockScreen toggle"
-          "$mod CTRL, S, exec, grimblast --freeze copysave active"
-          "$mod CTRL, A, exec, grimblast --freeze copysave area"
+          "$mod CTRL, S, exec, grimblast -n -o -e 5000 --freeze copysave active"
+          "$mod CTRL, A, exec, grimblast -n -o -e 5000 --freeze copysave area"
           "$mod, comma, exec, noctalia-shell ipc call settings toggle"
         ]
         ++ lib.optionals (!cfgLauncher.enable) [
