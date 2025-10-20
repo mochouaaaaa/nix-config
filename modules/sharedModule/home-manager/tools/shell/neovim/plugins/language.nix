@@ -66,7 +66,7 @@
       vscode-langservers-extracted
 
       # yaml
-      actionlint
+      # actionlint
 
       # css/js
       stylelint

@@ -3,6 +3,7 @@
   config,
   pkgs,
   username,
+  pkgs-stable,
   ...
 }:
 let
@@ -35,7 +36,7 @@ in
     };
 
     programs.firefox = {
-      # package = pkgs.firefox-unwrapped;
+      package = pkgs-stable.firefox-bin;
       profiles = {
         "${username}" = {
           isDefault = true;
