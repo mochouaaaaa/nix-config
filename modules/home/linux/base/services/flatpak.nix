@@ -29,7 +29,10 @@
         update.auto = {
           enable = false;
         };
-        packages = [ "io.github.flattool.Warehouse" ];
+        packages = [
+          "io.github.flattool.Warehouse"
+          "com.pot_app.pot"
+        ];
       };
     };
 
