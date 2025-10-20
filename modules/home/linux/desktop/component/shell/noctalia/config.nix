@@ -31,7 +31,7 @@ in
         volumeStep = 5;
       };
       bar = {
-        backgroundOpacity = 0.3;
+        backgroundOpacity = 0.6;
         density = "comfortable";
         floating = false;
         marginHorizontal = 0.25;

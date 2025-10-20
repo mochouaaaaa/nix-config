@@ -1,20 +1,43 @@
 {
   lib,
   config,
-  inputs,
   ...
 }:
 let
   cfg = config.modules'.desktop.shell.caelestia;
+  cfgLauncher = config.modules'.desktop.services.vicinae;
 in
 {
 
   config = lib.mkIf cfg.enable {
+
+    modules'.desktop.services.vicinae.enable = lib.mkForce false;
+
     wayland.windowManager.hyprland = {
       settings = {
         source = [
           "${config.xdg.configHome}/hypr/scheme/current.conf"
           "${config.xdg.configHome}/hypr/variables.conf"
+        ];
+
+        bind = [
+          "$mod CTRL, q, global, caelestia:lock"
+          "$mod CTRL, S, exec, caelestia screenshot -r -f"
+          "$mod CTRL, A, exec, caelestia screenshot --region -f"
+        ]
+        ++ lib.optionals (!cfgLauncher.enable) [
+          "$mod, Space,global, caelestia:launcher"
+          "$mod, P, exec, caelestia clipboard"
+        ];
+        bindl = [
+          ", XF86MonBrightnessUp, global, caelestia:brightnessUp"
+          ", XF86MonBrightnessDown, global, caelestia:brightnessDown"
+
+          ", XF86AudioPlay, global, caelestia:mediaToggle"
+          ", XF86AudioPause, global, caelestia:mediaToggle"
+          ", XF86AudioNext, global, caelestia:mediaNext"
+          ", XF86AudioPrev, global, caelestia:mediaPrev"
+          ", XF86AudioStop, global, caelestia:mediaStop"
         ];
 
         input = {

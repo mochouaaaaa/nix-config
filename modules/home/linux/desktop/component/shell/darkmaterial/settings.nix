@@ -131,12 +131,13 @@ in
             "weather"
           ];
           dankBarRightWidgets = [
-            "systemTray"
-            "clipboard"
-            "cpuUsage"
-            "memUsage"
-            "notificationButton"
-            "controlCenterButton"
+            { id = "systemTray"; }
+            { id = "network_speed_monitor"; }
+            { id = "cpuUsage"; }
+            { id = "memUsage"; }
+            { id = "clipboard"; }
+            { id = "notificationButton"; }
+            { id = "controlCenterButton"; }
           ];
           appLauncherViewMode = "list";
           spotlightModalViewMode = "list";

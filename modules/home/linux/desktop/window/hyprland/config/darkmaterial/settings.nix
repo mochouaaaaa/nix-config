@@ -1,17 +1,23 @@
 { lib, config, ... }:
 let
   cfg = config.programs.dankMaterialShell;
+  cfgLauncher = config.modules'.desktop.services.vicinae;
 in
 {
 
   config = lib.mkIf (cfg.enable) {
+
+    modules'.desktop.services.vicinae.enable = lib.mkForce false;
+
     wayland.windowManager.hyprland = {
       settings = {
         bind = [
-          "$mod, Space, exec, dms ipc call spotlight toggle"
-          "$mod, P, exec, dms ipc call clipboard toggle"
           "$mod, comma, exec, dms ipc call settings toggle"
           "$mod CTRL, q, exec, dms ipc call lock lock"
+        ]
+        ++ lib.optionals (!cfgLauncher.enable) [
+          "$mod, Space, exec, dms ipc call spotlight toggle"
+          "$mod, P, exec, dms ipc call clipboard toggle"
         ];
         bindl = [
           ", XF86AudioRaiseVolume, exec, dms ipc call audio increment 3"
