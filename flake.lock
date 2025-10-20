@@ -2680,16 +2680,16 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1760837044,
-        "narHash": "sha256-Qr9T9z+iAnzwEuxTOBorXi13YapJTTccqkcPWLYFhLs=",
+        "lastModified": 1760904584,
+        "narHash": "sha256-OhElA2oXPtXvE4L4wStV02DKhbNKwrGD9DH9LNUFUsE=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "5e07e606e9b967ef289c6fd40c31b57e67c80070",
+        "rev": "eb765957bf1594b4ea198e3aacd0b16e54494a80",
         "type": "github"
       },
       "original": {
         "owner": "vicinaehq",
-        "ref": "v0.15.0",
+        "ref": "v0.15.1",
         "repo": "vicinae",
         "type": "github"
       }
