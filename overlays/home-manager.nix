@@ -23,8 +23,7 @@
       inputs.niri.overlays.niri
       inputs.nuenv.overlays.default
       inputs.vicinae.overlays.default
-      # inputs.hyprutils.overlays.default
-      (import ./pkgs/flatpak-wrapper.nix)
+      (import ./pkgs/vicinae-wrapper.nix)
       (import ./pkgs/obsidian-wrapper.nix)
       (import ./pkgs/tiny-rdm-wrapper.nix)
       (import ./pkgs/jetbrains/pycharm.nix)

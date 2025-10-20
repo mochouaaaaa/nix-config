@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  pkgs-stable,
   ...
 }:
 let
@@ -40,24 +41,28 @@ in
 
   config = lib.mkIf (cfg.translate.enable && config.programs.desktop.enable) {
     home.packages = with pkgs; [
-      pot
+      # pkgs-stable.pot
       grimblast
       tesseract
     ];
 
-    systemd.user.services.pot = {
-      Unit = {
-        Description = "Pot translation daemon";
-        After = [ "graphical-session-pre.target" ];
-      };
-      Service = {
-        ExecStart = "${lib.getExe pkgs.pot}";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
+    services.flatpak.packages = [
+      "com.pot_app.pot"
+    ];
+
+    # systemd.user.services.pot = {
+    #   Unit = {
+    #     Description = "Pot translation daemon";
+    #     After = [ "graphical-session-pre.target" ];
+    #   };
+    #   Service = {
+    #     ExecStart = "${lib.getExe pkgs-stable.pot}";
+    #     Restart = "on-failure";
+    #   };
+    #   Install = {
+    #     WantedBy = [ "graphical-session.target" ];
+    #   };
+    # };
 
     xdg.configFile = {
       "com.pot-app.desktop/plugins/recognize/plugin.com.pot-app.rapid" = {
