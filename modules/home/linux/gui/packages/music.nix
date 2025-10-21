@@ -11,8 +11,34 @@
     home.packages = with pkgs; [
       spotify
       spicetify-cli
-      lx-music-desktop
+      # lx-music-desktop
       splayer
+      # (splayer.overrideAttrs (oldAttrs: rec {
+      #   version = "3.0.0-beta.3";
+      #
+      #   src = fetchFromGitHub {
+      #     owner = "imsyy";
+      #     repo = "SPlayer";
+      #     tag = "v${version}";
+      #     fetchSubmodules = false;
+      #     hash = "sha256-bfxIIp8Ma52SEhlQirxnqKwG2ivpEOlCZGoQ2rQldYQ=";
+      #   };
+      #
+      #   pnpmDeps = oldAttrs.pnpm.fetchDeps {
+      #     inherit (oldAttrs) pname;
+      #     inherit version src;
+      #     fetcherVersion = 2;
+      #     hash = "sha256-tHz4RtXnoFbSXqV84e6FxHLRHeDyR5sCmVPL0vRNIY8=";
+      #   };
+      #
+      #   buildPhase = ''
+      #     runHook preBuild
+      #
+      #     pnpm build
+      #
+      #     runHook postBuild
+      #   '';
+      # }))
     ];
 
     xdg.configFile = {

@@ -64,6 +64,8 @@ in
           "float, class:([Tt]hunar), title:(File Operation Progress)"
           "float, class:([Tt]hunar), title:(Confirm to replace files)"
 
+          "float, class:SPlayer, title:SPlayer"
+          "float, class:mihomo-party, title:Clash Party"
           "float, class:chromium-browser, title:(雀魂麻将 - Chromium)"
           "float, class:(pot|.pot-wrapped), title:(Translate|Translator|OCR|PopClip|Screenshot Translate|Config)" # Translation window floating
           "float, class:(org.telegram.desktop), title:(Media viewer)"

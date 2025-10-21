@@ -43,6 +43,7 @@ in
           fcitx5-gtk
           kdePackages.fcitx5-qt
           fcitx5-chinese-addons
+          librime-octagram
         ];
         waylandFrontend = true;
       };
