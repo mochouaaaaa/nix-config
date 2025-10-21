@@ -25,6 +25,24 @@ in
   };
 
   config = lib.mkIf (config.programs.vscode.enable && config.programs.desktop.enable) {
+
+    services.xremap = {
+      config = {
+
+        modmap = [
+          # {
+          #   name = "VSCode";
+          #   application.only = [
+          #     "code"
+          #   ];
+          #   remap = {
+          #     "SUPER_L" = "Ctrl_L";
+          #   };
+          # }
+        ];
+      };
+    };
+
     programs = {
       vscode = {
         # let vscode sync and update its configuration & extensions across devices; using github account.

@@ -72,7 +72,7 @@ in
         };
         window = {
           csd = true;
-          opacity = 0.95;
+          opacity = 0.78;
           rounding = 10;
         };
       };
