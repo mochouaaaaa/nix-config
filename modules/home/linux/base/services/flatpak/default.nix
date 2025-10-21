@@ -17,7 +17,7 @@
         nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
         postFixup = (oldAttrs.postFixup or "") + ''
           wrapProgram $out/bin/flatpak \
-            --prefix XDG_DATA_DIRS : /var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
+            --prefix XDG_DATA_DIRS : /var/lib/flatpak/exports/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share
         '';
       }))
 

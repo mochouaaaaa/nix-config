@@ -8,6 +8,8 @@
 let
   cfg = config.modules'.packages;
 
+  pot = pkgs-stable.pot;
+
   rapid = pkgs.stdenv.mkDerivation rec {
     pname = "pot-rapid-plugin";
     version = "2.0.2";
@@ -41,121 +43,109 @@ in
 
   config = lib.mkIf (cfg.translate.enable && config.programs.desktop.enable) {
     home.packages = with pkgs; [
-      # pkgs-stable.pot
+      pot
       grimblast
       tesseract
     ];
 
-    services.flatpak.packages = [
-      "com.pot_app.pot"
-    ];
+    # services.flatpak.packages = [
+    #   "com.pot_app.pot"
+    # ];
 
-    # systemd.user.services.pot = {
-    #   Unit = {
-    #     Description = "Pot translation daemon";
-    #     After = [ "graphical-session-pre.target" ];
-    #   };
-    #   Service = {
-    #     ExecStart = "${lib.getExe pkgs-stable.pot}";
-    #     Restart = "on-failure";
-    #   };
-    #   Install = {
-    #     WantedBy = [ "graphical-session.target" ];
-    #   };
-    # };
-
-    xdg.configFile = {
-      "com.pot-app.desktop/plugins/recognize/plugin.com.pot-app.rapid" = {
-        enable = false;
-        executable = true;
-        source = "${rapid}/share/pot/plugins/rapid";
+    systemd.user.services.pot = {
+      Unit = {
+        Description = "Pot translation daemon";
+        After = [ "graphical-session-pre.target" ];
       };
-      "com.pot-app.desktop/config.json" = {
+      Service = {
+        ExecStart = "${lib.getExe pot}";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
+
+    home.file = {
+      # "com.pot-app.desktop/plugins/recognize/plugin.com.pot-app.rapid" = {
+      #   enable = false;
+      #   executable = true;
+      #   source = "${rapid}/share/pot/plugins/rapid";
+      # };
+      ".var/app/com.pot_app.pot/config/com.pot-app.desktop/config.json" = {
         enable = false;
         text = ''
           {
-              "check_update": true,
-              "plugin.com.pot-app.rapid@apm65hrx1p": {},
-              "lingva": {
-                  "enable": false
-              },
-              "app_language": "zh_cn",
-              "hotkey_selection_translate": "",
-              "collection_service_list": [],
-              "hotkey_ocr_translate": "Alt+S",
-              "proxy_port": "",
-              "translate_window_position": "mouse",
-              "app_fallback_font": "default",
-              "recognize_window_width": 800,
-              "recognize_hide_window": false,
-              "tts_service_list": [
-                  "lingva_tts"
-              ],
-              "bing": {},
-              "app_font_size": 16,
-              "recognize_delete_newline": false,
-              "recognize_window_height": 400,
-              "hide_source": false,
-              "incremental_translate": false,
-              "hotkey_input_translate": "Alt+A",
-              "recognize_service_list": [
-                  "plugin.com.pot-app.rapid@26e54uzymfu"
-              ],
-              "webdav_username": "",
-              "proxy_host": "",
-              "dev_mode": false,
-              "recognize_auto_copy": false,
-              "translate_target_language": "zh_cn",
-              "app_theme": "system",
-              "dynamic_translate": false,
-              "translate_auto_copy": "disable",
-              "translate_detect_engine": "baidu",
-              "google": {
-                  "enable": false
-              },
-              "clipboard_monitor": false,
-              "translate_always_on_top": false,
-              "recognize_close_on_blur": true,
-              "transparent": true,
-              "proxy_password": "",
-              "yandex": {
-                  "enable": false
-              },
-              "hotkey_ocr_recognize": "Alt+D",
-              "translate_second_language": "en",
-              "translate_window_height": 420,
-              "translate_hide_window": false,
-              "translate_remember_window_size": false,
-              "aliyun_access_token": "",
-              "plugin.com.pot-app.rapid@26e54uzymfu": {},
-              "proxy_username": "",
-              "webdav_url": "",
-              "lingva_tts": {},
-              "webdav_password": "",
-              "translate_source_language": "auto",
-              "ecdict": {
-                  "enable": false
-              },
-              "no_proxy": "localhost,127.0.0.1",
-              "translate_close_on_blur": true,
-              "history_disable": false,
-              "translate_delete_newline": false,
-              "server_port": 60828,
-              "app_font": "default",
-              "translate_remember_language": false,
-              "translate_window_width": 350,
-              "hide_language": false,
-              "proxy_enable": false,
-              "recognize_language": "auto",
-              "backup_type": "webdav",
-              "tray_click_event": "config",
-              "translate_service_list": [
-                  "bing",
-                  "lingva",
-                  "yandex",
-                  "google",
-                  "ecdict"
-              ]
+            "webdav_password": "",
+            "recognize_close_on_blur": false,
+            "tesseract": {},
+            "translate_window_position": "mouse",
+            "translate_window_height": 420,
+            "translate_service_list": [
+              "deepl",
+              "bing",
+              "lingva",
+              "yandex",
+              "google",
+              "ecdict"
+            ],
+            "translate_source_language": "auto",
+            "recognize_auto_copy": false,
+            "translate_detect_engine": "tencent",
+            "server_port": 60827,
+            "backup_type": "webdav",
+            "check_update": true,
+            "app_font_size": 16,
+            "hide_source": false,
+            "recognize_service_list": ["tesseract", "system"],
+            "webdav_username": "",
+            "proxy_username": "",
+            "proxy_password": "",
+            "deepl": {},
+            "hotkey_selection_translate": "",
+            "translate_close_on_blur": true,
+            "dev_mode": false,
+            "tray_click_event": "config",
+            "hotkey_ocr_translate": "",
+            "aliyun_access_token": "",
+            "translate_hide_window": false,
+            "app_fallback_font": "default",
+            "proxy_host": "127.0.0.1",
+            "recognize_delete_newline": false,
+            "clipboard_monitor": false,
+            "translate_always_on_top": true,
+            "hide_language": false,
+            "tts_service_list": ["lingva_tts"],
+            "incremental_translate": false,
+            "translate_target_language": "zh_cn",
+            "collection_service_list": [],
+            "system": {},
+            "lingva_tts": {},
+            "history_disable": false,
+            "translate_second_language": "en",
+            "lingva": {},
+            "recognize_language": "auto",
+            "translate_remember_language": false,
+            "proxy_enable": false,
+            "transparent": true,
+            "translate_window_width": 350,
+            "bing": {},
+            "ecdict": {},
+            "google": {},
+            "translate_delete_newline": false,
+            "webdav_url": "",
+            "hotkey_input_translate": "",
+            "proxy_port": 7890,
+            "app_theme": "system",
+            "translate_remember_window_size": false,
+            "hotkey_ocr_recognize": "",
+            "app_font": "default",
+            "app_language": "zh_cn",
+            "recognize_hide_window": false,
+            "yandex": {},
+            "dynamic_translate": false,
+            "translate_auto_copy": "disable",
+            "no_proxy": "localhost"
           }
         '';
       };

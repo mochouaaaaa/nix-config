@@ -65,7 +65,7 @@ in
           "float, class:([Tt]hunar), title:(Confirm to replace files)"
 
           "float, class:chromium-browser, title:(雀魂麻将 - Chromium)"
-          "float, class:(pot|.pot-wrapped), title:(Translate|Translator|OCR|PopClip|Screenshot Translate)" # Translation window floating
+          "float, class:(pot|.pot-wrapped), title:(Translate|Translator|OCR|PopClip|Screenshot Translate|Config)" # Translation window floating
           "float, class:(org.telegram.desktop), title:(Media viewer)"
           "float, title:overskride"
           "float, title:QQ"
