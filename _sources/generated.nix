@@ -36,9 +36,9 @@
     src = fetchFromGitHub {
       owner = "Mintimate";
       repo = "oh-my-rime";
-      rev = "bfac9c1d04fc0e2900ca8facbd538138f70604a1";
+      rev = "96b2620c387366065fb00cb1227937a43bf9a341";
       fetchSubmodules = false;
-      sha256 = "sha256-2NoWGyvz3fOa3JyOYdfUNvAmHz4X9jE8kQKWxLdLuD4=";
+      sha256 = "sha256-+s5GdncoMJo2W+yTnthMoASvHuXhkrcFaCAjLqdlxAE=";
     };
     date = "2025-05-20";
   };

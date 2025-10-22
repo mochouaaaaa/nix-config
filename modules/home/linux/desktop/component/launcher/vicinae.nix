@@ -85,7 +85,7 @@ in
       in
       {
         initVicinae = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          rm -rf ${config.home.homeDirectory}/.config/vicinae/vicinae.json
+          rm -rf ${config.home.homeDirectory}/.config/vicinae/vicinae*
           cat ${data} > ${config.home.homeDirectory}/.config/vicinae/vicinae.json
         '';
       };
