@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, username, ... }:
 {
 
   services = {
@@ -21,7 +21,7 @@
     settings = {
       users = [
         {
-          name = "mochou";
+          name = "${username}";
           password = "$2a$10$19Wa96mbnFAokAhfWwfUzuO7T8ebR2RdSjFS0ftPCqCZ5lFGb.yf2"; # password
         }
       ];

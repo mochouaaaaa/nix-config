@@ -28,7 +28,7 @@ in
 
     dconf.settings = {
       "org/gnome/shell/extensions/burn-my-windows" = {
-        active-profile = "/home/mochou/.config/burn-my-windows/profiles/1742968467993684.conf";
+        active-profile = "${config.home.homeDirectory}/.config/burn-my-windows/profiles/1742968467993684.conf";
         last-extension-version = 46;
         last-prefs-version = 46;
         prefs-open-count = 12;

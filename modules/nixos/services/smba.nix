@@ -30,7 +30,7 @@
           "guest ok" = "yes";
           "create mask" = "0644";
           "directory mask" = "0755";
-          # sudo smbpasswd -a mochou   # set password
+          # sudo smbpasswd -a ${username}    # set password
           "force user" = "${username}";
           "force group" = "${username}";
         };
