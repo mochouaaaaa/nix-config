@@ -12,6 +12,7 @@ in
   config = lib.mkIf (cfg.enable && cfgNoctalia.enable) {
 
     modules'.desktop.services.vicinae.enable = lib.mkForce true;
+    modules'.desktop.hypridle.lock_cmd = "noctalia-shell ipc call lockScreen lock";
 
     wayland.windowManager.hyprland = {
       settings = {
@@ -20,7 +21,7 @@ in
           "ignorezero, noctalia-bar"
         ];
         bind = [
-          "$mod CTRL, q, exec, noctalia-shell ipc call lockScreen toggle"
+          "$mod CTRL, q, exec, noctalia-shell ipc call lockScreen lock"
           "$mod CTRL, S, exec, grimblast -n -o -e 5000 --freeze copysave active"
           "$mod CTRL, A, exec, grimblast -n -o -e 5000 --freeze copysave area"
           "$mod, comma, exec, noctalia-shell ipc call settings toggle"

@@ -85,6 +85,8 @@ in
       colorSchemes = {
         darkMode = false;
         generateTemplatesForPredefined = true;
+        manualSunrise = "06:30";
+        manualSunset = "18:30";
         matugenSchemeType = "scheme-fruit-salad";
         predefinedScheme = "Catppuccin";
         schedulingMode = "location";
@@ -131,6 +133,7 @@ in
         compactLockScreen = false;
         dimDesktop = false;
         forceBlackScreenCorners = false;
+        lockOnSuspend = true;
         radiusRatio = 0.94;
         scaleRatio = 1;
         screenRadiusRatio = 0.5;
@@ -158,9 +161,11 @@ in
       };
       location = {
         name = "Beijing; China";
+        showCalendarEvents = true;
         showWeekNumberInCalendar = true;
         use12hourFormat = false;
         useFahrenheit = false;
+        weatherEnabled = true;
       };
       network = {
         wifiEnabled = true;
@@ -175,22 +180,21 @@ in
         nightTemp = "4000";
       };
       notifications = {
-        alwaysOnTop = true;
         criticalUrgencyDuration = 15;
         doNotDisturb = false;
-        lastSeenTs = 0;
         location = "top_right";
         lowUrgencyDuration = 3;
         monitors = [ ];
         normalUrgencyDuration = 8;
+        overlayLayer = true;
         respectExpireTimeout = true;
       };
       osd = {
-        alwaysOnTop = true;
-        autoHideMs = 2000;
         enabled = true;
+        autoHideMs = 3000;
         location = "top_right";
         monitors = [ ];
+        overlayLayer = true;
       };
       screenRecorder = {
         audioCodec = "opus";
@@ -203,7 +207,7 @@ in
         videoCodec = "h264";
         videoSource = "portal";
       };
-      settingsVersion = 15;
+      settingsVersion = 16;
       templates = {
         discord = false;
         discord_armcord = false;
@@ -221,14 +225,14 @@ in
         kitty = false;
         pywalfox = false;
         qt = false;
+        vicinae = true;
       };
       ui = {
         fontDefault = "Monaco Nerd Font";
         fontDefaultScale = 1;
         fontFixed = "Monaco Nerd Font Mono";
         fontFixedScale = 1;
-        idleInhibitorEnabled = false;
-        # monitorsScaling = [ ];
+        panelsOverlayLayer = true;
         tooltipsEnabled = true;
       };
       wallpaper = {

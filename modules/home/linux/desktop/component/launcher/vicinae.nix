@@ -56,19 +56,19 @@ in
         rootSearch = {
           searchFiles = true;
         };
-        extensions = [
-          # (pkgs.mkVicinaeExtension {
-          #   inherit pkgs;
-          #   name = "github";
-          #   src = pkgs.fetchFromGitHub{
-          #           owner = "raycast";
-          #           repo = "extensions";
-          #
-          #       };
-          # })
-        ];
+        # extensions = [
+        # (pkgs.mkVicinaeExtension {
+        #   inherit pkgs;
+        #   name = "github";
+        #   src = pkgs.fetchFromGitHub{
+        #           owner = "raycast";
+        #           repo = "extensions";
+        #
+        #       };
+        # })
+        # ];
         theme = {
-          name = "vicinae-dark";
+          name = "matugen";
         };
         window = {
           csd = true;
@@ -77,6 +77,19 @@ in
         };
       };
     };
+
+    home.activation =
+      let
+        json = pkgs.formats.json { };
+        data = json.generate "vicinae.json" config.services.vicinae.settings;
+      in
+      {
+        initVicinae = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          rm -rf ${config.home.homeDirectory}/.config/vicinae/vicinae.json
+          cat ${data} > ${config.home.homeDirectory}/.config/vicinae/vicinae.json
+        '';
+      };
+
   };
 
 }

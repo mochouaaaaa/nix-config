@@ -1,29 +1,53 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
   cfg = config.modules'.desktop.hyprland;
+  cfgHypridle = config.modules'.desktop.hypridle;
 in
 {
-  config = lib.mkIf (cfg.enable && !config.modules'.desktop.shell.caelestia.enable) {
+
+  options.modules'.desktop.hypridle = {
+    lock_cmd = lib.mkOption {
+      type = lib.types.str;
+      default = "hyprlock";
+      description = "Command to lock the screen.";
+    };
+  };
+
+  config = lib.mkIf (cfg.enable && !config.modules'.desktop.shell.dankMaterialShell.enable) {
     services.hypridle = {
       enable = true;
       settings = {
         general = {
-          lock_cmd = lib.mkDefault "hyprlock";
+          lock_cmd = cfgHypridle.lock_cmd;
           before_sleep_cmd = "loginctl lock-session";
           after_sleep_cmd = "hyprctl dispatch dpms on";
         };
         listener = lib.mkDefault [
           {
             timeout = 600;
-            on-timeout = "loginctl lock-session";
+            on-timeout = cfgHypridle.lock_cmd;
           }
           {
             timeout = 180;
-            on-timeout = "lockscreen-dpms";
+            on-timeout =
+              let
+                lock = pkgs.writeShellScriptBin "lockscreen-dpms" ''
+                  LOCKED=$(loginctl show-session "$XDG_SESSION_ID" -p LockedHint | cut -d= -f2)
+                  if [ "$LOCKED" = "yes" ]; then
+                      echo "🔒 已锁屏，允许息屏"
+                      hyprctl dispatch dpms on
+                  else
+                      echo "🖥 未锁屏，不息屏"
+                  fi
+                '';
+
+              in
+              "${lib.getExe lock}";
             on-resume = "hyprctl dispatch dpms on";
           }
           {
