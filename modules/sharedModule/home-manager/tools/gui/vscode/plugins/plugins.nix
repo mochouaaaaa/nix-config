@@ -13,93 +13,90 @@ in
     vscode = {
       profiles = {
         "${username}" = {
-          extensions = lib.mkAfter (
-            with pkgs.vscode-extensions;
-            [
-              # base extensions
-              formulahendry.code-runner
-              ms-azuretools.vscode-docker
-              ms-vscode-remote.remote-containers
-              redhat.vscode-yaml
-              tamasfe.even-better-toml
-              k--kato.intellij-idea-keybindings
+          extensions = with pkgs.vscode-extensions; [
+            # base extensions
+            formulahendry.code-runner
+            ms-azuretools.vscode-docker
+            ms-vscode-remote.remote-containers
+            redhat.vscode-yaml
+            tamasfe.even-better-toml
+            k--kato.intellij-idea-keybindings
 
-              #ai
-              # FittenTech.Fitten-Code
-              (buildVscodeMarketplaceExtension {
-                mktplcRef = {
-                  name = "Fitten-Code";
-                  publisher = "FittenTech";
-                  version = "0.10.149";
-                  hash = "sha256-3TTpOn6t5gOqYf3TcXNzk57mHk2vaERvmBdHmkxQuXc=";
-                };
-              })
+            #ai
+            # FittenTech.Fitten-Code
+            (buildVscodeMarketplaceExtension {
+              mktplcRef = {
+                name = "Fitten-Code";
+                publisher = "FittenTech";
+                version = "0.10.149";
+                hash = "sha256-3TTpOn6t5gOqYf3TcXNzk57mHk2vaERvmBdHmkxQuXc=";
+              };
+            })
 
-              # asvetliakov.vscode-neovim
+            # asvetliakov.vscode-neovim
 
-              # theme
-              # Vogadero.auto-theme
-              vscode-icons-team.vscode-icons
-              zhuangtongfa.material-theme
-              # (buildVscodeMarketplaceExtension {
-              #   mktplcRef = {
-              #     name = "auto-theme";
-              #     publisher = "Vogadero";
-              #     version = "0.1.0";
-              #     hash = "sha256-e5ySgUdHpkekYcZbtjFrzws/foaerKed0nNEVBEx0Ic=";
-              #   };
-              #   meta = {
-              #     license = lib.licenses.mit;
-              #   };
-              # })
+            # theme
+            # Vogadero.auto-theme
+            vscode-icons-team.vscode-icons
+            zhuangtongfa.material-theme
+            # (buildVscodeMarketplaceExtension {
+            #   mktplcRef = {
+            #     name = "auto-theme";
+            #     publisher = "Vogadero";
+            #     version = "0.1.0";
+            #     hash = "sha256-e5ySgUdHpkekYcZbtjFrzws/foaerKed0nNEVBEx0Ic=";
+            #   };
+            #   meta = {
+            #     license = lib.licenses.mit;
+            #   };
+            # })
 
-              # shell
-              timonwong.shellcheck
-              foxundermoon.shell-format
+            # shell
+            timonwong.shellcheck
+            foxundermoon.shell-format
 
-              # C / C++
-              ms-vscode.cmake-tools
-              ms-vscode.cpptools-extension-pack
+            # C / C++
+            ms-vscode.cmake-tools
+            ms-vscode.cpptools-extension-pack
 
-              (buildVscodeMarketplaceExtension {
-                mktplcRef = {
-                  name = "qt-qml";
-                  publisher = "TheQtCompany";
-                  version = "1.7.0";
-                  hash = "sha256-QjfvZIcE4LcJU93YiYN/zykEluHtR7zVOwYiPL0k+cQ=";
-                };
-                meta = {
-                  license = lib.licenses.gpl3Plus;
-                };
-              })
+            (buildVscodeMarketplaceExtension {
+              mktplcRef = {
+                name = "qt-qml";
+                publisher = "TheQtCompany";
+                version = "1.7.0";
+                hash = "sha256-QjfvZIcE4LcJU93YiYN/zykEluHtR7zVOwYiPL0k+cQ=";
+              };
+              meta = {
+                license = lib.licenses.gpl3Plus;
+              };
+            })
 
-              # nix
-              jnoortheen.nix-ide
-              bbenoist.nix
-              brettm12345.nixfmt-vscode
+            # nix
+            jnoortheen.nix-ide
+            bbenoist.nix
+            brettm12345.nixfmt-vscode
 
-              # lua
-              sumneko.lua
+            # lua
+            sumneko.lua
 
-              # python
-              ms-python.python
-              ms-python.vscode-pylance
-              # pylyzer.pylyzer
-              ms-python.pylint
-              ms-python.debugpy
-              ms-python.vscode-pylance
-              batisteo.vscode-django
+            # python
+            ms-python.python
+            ms-python.vscode-pylance
+            # pylyzer.pylyzer
+            ms-python.pylint
+            ms-python.debugpy
+            ms-python.vscode-pylance
+            batisteo.vscode-django
 
-              # golang
-              golang.go
+            # golang
+            golang.go
 
-              # js
-              bradlc.vscode-tailwindcss
+            # js
+            bradlc.vscode-tailwindcss
 
-              # just
-              nefrob.vscode-just-syntax
-            ]
-          );
+            # just
+            nefrob.vscode-just-syntax
+          ];
         };
       };
     };

@@ -18,6 +18,6 @@ in
   };
 
   config = lib.mkIf cfg.rustdesk.enable {
-    homebrew.casks = lib.mkAfter [ "rustdesk" ];
+    homebrew.casks = [ "rustdesk" ];
   };
 }

@@ -20,7 +20,7 @@ in
   config = lib.mkIf (cfgGnome.enable && cfg.enable) {
 
     programs.gnome-shell = {
-      extensions = lib.mkAfter [
+      extensions = [
         { package = pkgs.gnomeExtensions.logo-menu; }
       ];
     };

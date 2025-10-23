@@ -61,11 +61,13 @@ in
           "center, class:([Tt]hunar), title:^([Tt]hunar)$, size: 1200,1300"
           "center, class:([Tt]hunar), title:(Confirm to replace files)"
           "float, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
+          "size 1145 672, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
           "float, class:([Tt]hunar), title:(File Operation Progress)"
           "float, class:([Tt]hunar), title:(Confirm to replace files)"
 
           "float, class:SPlayer, title:SPlayer"
           "float, class:mihomo-party, title:Clash Party"
+          "size 1250 1050, class:mihomo-party, title:Clash Party"
           "float, class:chromium-browser, title:(雀魂麻将 - Chromium)"
           "float, class:(pot|.pot-wrapped), title:(Translate|Translator|OCR|PopClip|Screenshot Translate|Config)" # Translation window floating
           "float, class:(org.telegram.desktop), title:(Media viewer)"

@@ -33,7 +33,7 @@ in
       gnome = {
         gnome-browser-connector.enable = true;
       };
-      udev.packages = lib.mkAfter [ pkgs.gnome-settings-daemon ];
+      udev.packages = [ pkgs.gnome-settings-daemon ];
     };
 
   };

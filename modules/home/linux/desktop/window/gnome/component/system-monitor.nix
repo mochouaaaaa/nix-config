@@ -11,7 +11,7 @@ in
   config = lib.mkIf cfgGnome.enable {
 
     programs.gnome-shell = {
-      extensions = lib.mkAfter [
+      extensions = [
         { package = pkgs.gnomeExtensions.system-monitor; }
       ];
     };

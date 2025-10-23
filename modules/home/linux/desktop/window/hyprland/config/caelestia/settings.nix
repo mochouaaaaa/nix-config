@@ -15,6 +15,8 @@ in
 
     wayland.windowManager.hyprland = {
       settings = {
+        exec = "cp =: ==no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
+
         source = [
           "${config.xdg.configHome}/hypr/scheme/current.conf"
           "${config.xdg.configHome}/hypr/variables.conf"

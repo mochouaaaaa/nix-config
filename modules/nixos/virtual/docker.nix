@@ -16,7 +16,7 @@ in
     ];
 
     users.users."${username}" = {
-      extraGroups = lib.mkAfter [
+      extraGroups = [
         "docker"
         "podman"
       ];

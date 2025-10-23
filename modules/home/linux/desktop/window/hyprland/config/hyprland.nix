@@ -10,7 +10,6 @@ in
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       settings = {
-        exec = "cp =: ==no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
 
         #opengl {
         #  nvidia_anti_flicker = true

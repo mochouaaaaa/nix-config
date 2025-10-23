@@ -14,7 +14,7 @@
       apply = toString;
       default =
         let
-          localPath = "${config.home.homeDirectory}/.config/${myvars.dotfilePath}";
+          localPath = "${config.xdg.configHome}/${myvars.dotfilePath}";
         in
         if builtins.pathExists localPath then localPath else inputs.dotfiles;
     };

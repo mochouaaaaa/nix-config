@@ -1,13 +1,13 @@
 { lib, ... }:
 {
   homebrew = {
-    taps = lib.mkAfter [
+    taps = [
       # "iina/homebrew-mpv-iina"
     ];
-    casks = lib.mkAfter [
+    casks = [
       "iina+"
     ];
-    brews = lib.mkAfter [
+    brews = [
       # "iina/mpv-iina/mpv-iina"
     ];
   };

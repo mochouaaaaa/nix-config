@@ -24,11 +24,11 @@ in
   };
 
   config = {
-    homebrew.casks = lib.mkAfter (
-      lib.optionals cfg.openvpn.enable [ "openvpn-connect" ]
+    homebrew.casks =
+      [ ]
+      ++ lib.optionals cfg.openvpn.enable [ "openvpn-connect" ]
       ++ lib.optionals cfg.tunnelblick.enable [
         "tunnelblick"
-      ]
-    );
+      ];
   };
 }

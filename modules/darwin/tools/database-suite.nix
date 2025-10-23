@@ -24,7 +24,7 @@ in
 
     # mariadb
     # SET PASSWORD FOR 'root'@'localhost' = PASSWORD('P@ssw0rd');
-    homebrew.brews = lib.mkAfter [
+    homebrew.brews = [
       {
         name = "mariadb";
         link = true;

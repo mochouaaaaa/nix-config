@@ -15,7 +15,7 @@ in
           default = [ "kde" ] ++ [ config.xdg.portal.config.common.default ];
         };
       };
-      extraPortals = lib.mkAfter [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
     };
   };
 }

@@ -53,7 +53,7 @@ let
 in
 {
   # programs.gnome-shell = {
-  #   extensions = lib.mkAfter [
+  #   extensions =  [
   #     {
   #       package = fildem;
   #       id = "fildemGMenu@gonza.com";

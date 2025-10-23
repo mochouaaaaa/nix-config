@@ -9,6 +9,8 @@ in
     modules'.persistent.hmDirectories = [
       ".local/state/DankMaterialShell"
       ".cache/DankMaterialShell"
+      ".cache/noctalia"
+      ".config/noctalia"
     ];
 
   };

@@ -55,10 +55,6 @@ in
       QT_IM_MODULE = "fcitx";
     };
 
-    home.packages = with pkgs; [
-      glib
-    ];
-
     modules'.packages.rime.fcitx5CustomYaml =
       let
         ascii = {

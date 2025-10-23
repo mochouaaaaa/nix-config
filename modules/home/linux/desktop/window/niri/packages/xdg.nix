@@ -17,13 +17,10 @@ in
             default = [ "niri" ] ++ [ config.xdg.portal.config.common.default ];
           };
         };
-        extraPortals = lib.mkAfter (
-          with pkgs;
-          [
-            xdg-desktop-portal-gtk
-            xdg-desktop-portal-gnome
-          ]
-        );
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-gtk
+          xdg-desktop-portal-gnome
+        ];
         configPackages = [ pkgs.niri ];
       };
     };

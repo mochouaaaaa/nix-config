@@ -14,7 +14,7 @@ in
       # source code: https://github.com/nix-community/home-manager/blob/master/modules/programs/chromium.nix
       # google-chrome = {
       chromium = {
-        commandLineArgs = lib.mkAfter [ "--wayland-text-input-version=1" ];
+        commandLineArgs = [ "--wayland-text-input-version=1" ];
         nativeMessagingHosts = [
           pkgs.kdePackages.plasma-browser-integration
         ];

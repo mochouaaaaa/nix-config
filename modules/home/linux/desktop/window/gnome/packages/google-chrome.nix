@@ -10,7 +10,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.chromium = {
-      commandLineArgs = lib.mkAfter [ "--gtk-version=4" ];
+      commandLineArgs = [ "--gtk-version=4" ];
     };
   };
 }

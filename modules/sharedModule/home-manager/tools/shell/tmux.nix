@@ -44,7 +44,7 @@
     extraConfig = ''
       set-option -g default-command "''${SHELL} -l"
 
-      bind r source-file ${config.home.homeDirectory}/.config/tmux/tmux.conf; display-message "Config Reloaded."
+      bind r source-file ${config.xdg.configHome}/tmux/tmux.conf; display-message "Config Reloaded."
 
       set -ga terminal-overrides ",xterm-256color:Tc:clipboard"
       # Wezterm termianl Use

@@ -21,14 +21,14 @@ in
   config = lib.mkIf (cfgGnome.enable && cfg.enable) {
 
     programs.gnome-shell = {
-      extensions = lib.mkAfter [
+      extensions = [
         { package = pkgs.gnomeExtensions.burn-my-windows; }
       ];
     };
 
     dconf.settings = {
       "org/gnome/shell/extensions/burn-my-windows" = {
-        active-profile = "${config.home.homeDirectory}/.config/burn-my-windows/profiles/1742968467993684.conf";
+        active-profile = "${config.xdg.configHome}/burn-my-windows/profiles/1742968467993684.conf";
         last-extension-version = 46;
         last-prefs-version = 46;
         prefs-open-count = 12;

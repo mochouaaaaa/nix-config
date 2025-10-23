@@ -11,7 +11,7 @@ in
 
     services = {
       flatpak = {
-        packages = lib.mkAfter [ "org.gnome.Extensions" ];
+        packages = [ "org.gnome.Extensions" ];
       };
     };
 

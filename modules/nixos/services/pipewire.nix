@@ -97,7 +97,6 @@
 
     services = {
       printing.enable = true; # Enable CUPS to print documents.
-      geoclue2.enable = true; # Enable geolocation services.
 
       udev.extraRules = ''
         KERNEL=="uinput", MODE="0660", GROUP="uinput"

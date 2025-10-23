@@ -9,7 +9,7 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.packages.vscode.commandLineArgs = lib.mkAfter [
+    modules'.packages.vscode.commandLineArgs = [
       "--gtk-version=4"
       "--ozone-platform-hint=auto"
       "--password-store=gnome-libsecret"

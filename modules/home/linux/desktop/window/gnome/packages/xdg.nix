@@ -15,13 +15,10 @@ in
           default = [ "gnome" ] ++ [ config.xdg.portal.config.common.default ];
         };
       };
-      extraPortals = lib.mkBefore (
-        with pkgs;
-        [
-          xdg-desktop-portal-gtk
-          xdg-desktop-portal-gnome
-        ]
-      );
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+      ];
     };
   };
 }
