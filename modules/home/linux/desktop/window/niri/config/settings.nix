@@ -11,54 +11,56 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    programs.niri.settings = {
-      xwayland-satellite = {
-        enable = true;
-        path = lib.getExe pkgs.xwayland-satellite;
-      };
-      input = {
-        keyboard = {
+    programs.niri = {
+      settings = {
+        xwayland-satellite = {
+          enable = true;
+          path = lib.getExe pkgs.xwayland-satellite;
+        };
+        input = {
+          keyboard = {
 
-          xkb = {
-            layout = "us";
+            xkb = {
+              layout = "us";
+            };
+
+            repeat-delay = 200;
+            repeat-rate = 40;
+
           };
 
-          repeat-delay = 200;
-          repeat-rate = 40;
+          touchpad = {
+            tap = true;
+            accel-speed = 0.2;
+          };
 
+          mod-key = "Super";
+
+          workspace-auto-back-and-forth = true;
+        };
+        layout = {
+          gaps = 6;
+          struts = {
+            left = 5;
+            right = 5;
+            top = 2;
+            bottom = 2;
+          };
+          focus-ring = {
+            width = 2;
+          };
+          always-center-single-column = true;
+        };
+        cursor = {
+          theme = config.home.pointerCursor.name;
+          size = config.home.pointerCursor.size;
         };
 
-        touchpad = {
-          tap = true;
-          accel-speed = 0.2;
+        prefer-no-csd = true;
+        hotkey-overlay.skip-at-startup = true;
+        clipboard = {
+          disable-primary = true;
         };
-
-        mod-key = "Super";
-
-        workspace-auto-back-and-forth = true;
-      };
-      layout = {
-        gaps = 6;
-        struts = {
-          left = 5;
-          right = 5;
-          top = 2;
-          bottom = 2;
-        };
-        focus-ring = {
-          width = 2;
-        };
-        always-center-single-column = true;
-      };
-      cursor = {
-        theme = config.home.pointerCursor.name;
-        size = config.home.pointerCursor.size;
-      };
-
-      prefer-no-csd = true;
-      hotkey-overlay.skip-at-startup = true;
-      clipboard = {
-        disable-primary = true;
       };
     };
 

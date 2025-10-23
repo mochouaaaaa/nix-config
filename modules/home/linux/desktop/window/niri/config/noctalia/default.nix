@@ -10,6 +10,12 @@ in
 
   config = lib.mkIf cfg.enable {
 
+    programs.noctalia-shell.settings = {
+      general = {
+        showScreenCorners = false;
+      };
+    };
+
     programs.niri.settings = {
       binds = with config.lib.niri.actions; {
         # "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
