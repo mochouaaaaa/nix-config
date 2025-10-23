@@ -116,7 +116,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     # desktop components
-    vicinae.url = "github:vicinaehq/vicinae?ref=v0.15.1";
+    vicinae.url = "github:vicinaehq/vicinae?ref=v0.15.2";
 
     # desktop-shell
     caelestia-shell = {
