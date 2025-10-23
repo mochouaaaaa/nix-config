@@ -147,10 +147,8 @@ in
 
               if [ "$mode" = "true" ]; then
                 switch-theme Dark
-                vicinae vicinae://theme/set/vicinae-dark
               else
                 switch-theme Light
-                vicinae vicinae://theme/set/vicinae-light
               fi
             '';
 
@@ -172,12 +170,12 @@ in
       };
       nightLight = {
         autoSchedule = true;
-        dayTemp = "6500";
+        dayTemp = "5800";
         enabled = true;
         forced = false;
         manualSunrise = "06:30";
         manualSunset = "18:30";
-        nightTemp = "4000";
+        nightTemp = "3300";
       };
       notifications = {
         criticalUrgencyDuration = 15;

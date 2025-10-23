@@ -78,6 +78,10 @@ in
       };
     };
 
+    xdg.configFile = {
+      "vicinae/vicinae.json".enable = false;
+    };
+
     home.activation =
       let
         json = pkgs.formats.json { };
@@ -85,8 +89,7 @@ in
       in
       {
         initVicinae = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          rm -rf ${config.home.homeDirectory}/.config/vicinae/vicinae*
-          cat ${data} > ${config.home.homeDirectory}/.config/vicinae/vicinae.json
+          cat ${data} > ${config.xdg.configHome}/vicinae/vicinae.json
         '';
       };
 

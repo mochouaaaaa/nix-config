@@ -27,7 +27,6 @@ in
     home.packages = [ inputs.noctalia.packages.${pkgs.system}.default ];
 
     services.cliphist.enable = lib.mkForce false;
-    services.darkman.enable = lib.mkForce false;
 
     systemd.user.services = {
       noctalia-shell = {

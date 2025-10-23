@@ -12,7 +12,10 @@ in
 
     modules'.themes.auto = {
       enable = true;
-      gtkTheme.enable = true;
+      gtkTheme = {
+        enable = true;
+        shellTheme = "caelestia scheme set -f latte  -n catppuccin -m light";
+      };
     };
 
     services.darkman = {

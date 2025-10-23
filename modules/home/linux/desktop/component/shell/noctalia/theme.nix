@@ -1,6 +1,8 @@
 {
   lib,
+  pkgs,
   config,
+  inputs,
   ...
 }:
 let
@@ -10,23 +12,15 @@ in
 
   config = lib.mkIf (cfg.enable) {
 
+    services.darkman.enable = lib.mkForce false;
+
     modules'.themes.auto = {
       enable = true;
-      gtkTheme.enable = true;
-    };
-
-    services.darkman = {
-      lightModeScripts = {
-        gtk-theme = ''
-          noctalia-shell ipc call darkMode setLight
-          # vicinae vicinae://theme/set/vicinae-light
-        '';
-      };
-      darkModeScripts = {
-        gtk-theme = ''
-          noctalia-shell ipc call darkMode setDark
-          # vicinae vicinae://theme/set/vicinae-dark
-        '';
+      gtkTheme = {
+        enable = true;
+        shellTheme = "${
+          lib.getExe inputs.noctalia.packages.${pkgs.system}.default
+        } ipc call darkMode setLight";
       };
     };
 

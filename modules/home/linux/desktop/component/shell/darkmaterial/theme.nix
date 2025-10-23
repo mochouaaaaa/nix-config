@@ -12,7 +12,10 @@ in
 
     modules'.themes.auto = {
       enable = true;
-      gtkTheme.enable = true;
+      gtkTheme = {
+        enable = true;
+        shellTheme = "dms ipc call theme light";
+      };
     };
 
     services.darkman = {

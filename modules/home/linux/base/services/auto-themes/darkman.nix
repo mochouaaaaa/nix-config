@@ -29,6 +29,11 @@ in
         );
         description = "GTK theme package.";
       };
+      shellTheme = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+        description = "window shell theme.";
+      };
       icon = {
         name = lib.mkOption {
           type = lib.types.str;
