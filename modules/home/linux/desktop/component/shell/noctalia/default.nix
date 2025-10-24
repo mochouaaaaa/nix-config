@@ -44,6 +44,7 @@ in
           RestartSec = "5s";
           TimeoutStartSec = "5s";
           Environment = [
+            "QT_QPA_PLATFORMTHEME=gtk3"
             "QT_QPA_PLATFORM=wayland"
             "NOCTALIA_SETTINGS_FALLBACK=%h/.config/noctalia/gui-settings.json"
           ];

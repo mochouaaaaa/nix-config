@@ -10,6 +10,7 @@ let
 
 in
 {
+
   config = lib.mkIf (cfg.enable) {
 
     programs.noctalia-shell.settings = {
@@ -56,6 +57,7 @@ in
               ];
               id = "Tray";
             }
+            { id = "ScreenRecorder"; }
             {
               id = "WiFi";
             }
@@ -137,7 +139,7 @@ in
         radiusRatio = 0.94;
         scaleRatio = 1;
         screenRadiusRatio = 0.5;
-        showScreenCorners = true;
+        showScreenCorners = false;
       };
       hooks = {
         darkModeChange =
@@ -170,7 +172,7 @@ in
       };
       nightLight = {
         autoSchedule = true;
-        dayTemp = "5800";
+        dayTemp = "5500";
         enabled = true;
         forced = false;
         manualSunrise = "06:30";

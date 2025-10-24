@@ -43,10 +43,11 @@ in
 
     services.vicinae = {
       enable = true;
+      autoStart = true;
       package = pkgs.vicinae;
       settings = {
         closeOnFocusLoss = true;
-        faviconService = "twenty";
+        faviconService = "google";
         font = {
           size = 12;
         };
@@ -56,17 +57,6 @@ in
         rootSearch = {
           searchFiles = true;
         };
-        # extensions = [
-        # (pkgs.mkVicinaeExtension {
-        #   inherit pkgs;
-        #   name = "github";
-        #   src = pkgs.fetchFromGitHub{
-        #           owner = "raycast";
-        #           repo = "extensions";
-        #
-        #       };
-        # })
-        # ];
         theme = {
           name = "matugen";
         };
@@ -89,6 +79,7 @@ in
       in
       {
         initVicinae = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          rm -rf ${config.xdg.configHome}/vicinae/vicinae.*
           cat ${data} > ${config.xdg.configHome}/vicinae/vicinae.json
         '';
       };
