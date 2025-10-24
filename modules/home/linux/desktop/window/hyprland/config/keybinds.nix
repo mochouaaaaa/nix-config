@@ -6,8 +6,65 @@
 }:
 let
   cfg = config.modules'.desktop.hyprland;
+  cfgSettings = config.wayland.windowManager.hyprland.custom_settings;
 in
 {
+
+  options.wayland.windowManager.hyprland = {
+    custom_settings = {
+      media = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default =
+          let
+            playerctl = "${lib.getExe pkgs.playerctl}";
+          in
+          [
+            ", XF86AudioPlay, exec, ${playerctl} play-pause"
+            ", XF86AudioStop, exec, ${playerctl} pause"
+            ", XF86AudioPrev, exec, ${playerctl} previous"
+            ", XF86AudioNext, exec, ${playerctl} next"
+            ", XF86audioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ];
+      };
+      brightness = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [
+        ];
+      };
+      volume = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [
+          ", XF86Audioraisevolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+          ", XF86Audiolowervolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ];
+      };
+      shell-settings = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      lock = lib.mkOption {
+        type = lib.types.str;
+        default = "hyprlock";
+      };
+      clipboard = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      launcher = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      screenshot = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [
+          "$mod CTRL, S, exec, grimblast -n -o -e 5000 --freeze copysave active"
+          "$mod CTRL, A, exec, grimblast -n -o -e 5000 --freeze copysave area"
+        ];
+      };
+    };
+
+  };
+
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
 
@@ -16,14 +73,9 @@ in
         "$term" = "kitty";
         "$files" = "nautilus";
 
-        bindel = [
-          ", XF86Audioraisevolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-          ", XF86Audiolowervolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ];
+        bindel = cfgSettings.brightness ++ cfgSettings.volume;
 
-        bindl = [
-          ", XF86audiomute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ];
+        bindl = cfgSettings.media;
 
         binde = [
           # Resize windows
@@ -57,13 +109,6 @@ in
             # "$mod SHIFT CTRL, I, exec, bash WallpaperSelect.sh" # Select wallpaper to apply
             "$mod ALT, O, exec, hyprctl setprop active opaque toggle" # disable opacity to active window
 
-            # Master Layout
-            # $mod CTRL, D, layoutmsg, removemaster
-            # $mod, I, layoutmsg, addmaster
-            # $mod, M, exec, hyprctl dispatch splitratio 0.3
-            # $mod, P, pseudo, # dwindle
-            # $mod CTRL, Return, layoutmsg, swapwithmaster
-
             # group
             "$mod, G, togglegroup"
             "$mod CTRL, tab, changegroupactive" # change focus to another window
@@ -81,8 +126,12 @@ in
             "ALT, h, movefocus, r"
             "ALT, k, movefocus, u"
             "ALT, j, movefocus, d"
-
-          ];
+          ]
+          ++ cfgSettings.screenshot
+          ++ lib.optional (cfgSettings.clipboard != "") cfgSettings.clipboard
+          ++ lib.optional (cfgSettings.launcher != "") cfgSettings.launcher
+          ++ lib.optional (cfgSettings.lock != "") cfgSettings.lock
+          ++ lib.optional (cfgSettings.shell-settings != "") cfgSettings.shell-settings;
         bindm = [
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"

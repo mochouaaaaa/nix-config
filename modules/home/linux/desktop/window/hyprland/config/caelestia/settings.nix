@@ -5,7 +5,6 @@
 }:
 let
   cfg = config.modules'.desktop.shell.caelestia;
-  cfgLauncher = config.modules'.desktop.services.vicinae;
 in
 {
 
@@ -14,32 +13,32 @@ in
     modules'.desktop.services.vicinae.enable = lib.mkForce false;
 
     wayland.windowManager.hyprland = {
+      custom_settings = {
+        media = [
+          ", XF86AudioPlay, global, caelestia:mediaToggle"
+          ", XF86AudioPause, global, caelestia:mediaToggle"
+          ", XF86AudioNext, global, caelestia:mediaNext"
+          ", XF86AudioPrev, global, caelestia:mediaPrev"
+          ", XF86AudioStop, global, caelestia:mediaStop"
+        ];
+        brightness = [
+          ", XF86MonBrightnessUp, global, caelestia:brightnessUp"
+          ", XF86MonBrightnessDown, global, caelestia:brightnessDown"
+        ];
+        clipboard = "$mod, P, exec, caelestia clipboard";
+        launcher = "$mod, Space, global, caelestia:launcher";
+        lock = "$mod CTRL, q, global, caelestia:lock";
+        screenshot = [
+          "$mod CTRL, S, exec, caelestia screenshot -r -f"
+          "$mod CTRL, A, exec, caelestia screenshot --region -f"
+        ];
+      };
       settings = {
         exec = "cp =: ==no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
 
         source = [
           "${config.xdg.configHome}/hypr/scheme/current.conf"
           "${config.xdg.configHome}/hypr/variables.conf"
-        ];
-
-        bind = [
-          "$mod CTRL, q, global, caelestia:lock"
-          "$mod CTRL, S, exec, caelestia screenshot -r -f"
-          "$mod CTRL, A, exec, caelestia screenshot --region -f"
-        ]
-        ++ lib.optionals (!cfgLauncher.enable) [
-          "$mod, Space,global, caelestia:launcher"
-          "$mod, P, exec, caelestia clipboard"
-        ];
-        bindl = [
-          ", XF86MonBrightnessUp, global, caelestia:brightnessUp"
-          ", XF86MonBrightnessDown, global, caelestia:brightnessDown"
-
-          ", XF86AudioPlay, global, caelestia:mediaToggle"
-          ", XF86AudioPause, global, caelestia:mediaToggle"
-          ", XF86AudioNext, global, caelestia:mediaNext"
-          ", XF86AudioPrev, global, caelestia:mediaPrev"
-          ", XF86AudioStop, global, caelestia:mediaStop"
         ];
 
         input = {

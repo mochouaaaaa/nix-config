@@ -170,8 +170,9 @@ in
 
           # vicinae
           "blur, vicinae"
-          "blurpopups, vicinae"
+          # "blurpopups, vicinae"
           "ignorealpha 0, vicinae"
+          "noanim, vicinae"
 
           # blur
           # rofi

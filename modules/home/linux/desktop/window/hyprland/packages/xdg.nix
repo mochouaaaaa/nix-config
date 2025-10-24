@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -24,6 +25,7 @@ in
         extraPortals = with pkgs; [
           xdg-desktop-portal-gtk
           xdg-desktop-portal-gnome
+          inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
         ];
       };
     };
