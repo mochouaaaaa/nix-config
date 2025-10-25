@@ -60,10 +60,10 @@ stdenv.mkDerivation rec {
     cp -r usr/share $out/share
     mv $out/share/applications/mihomo-party.desktop $out/share/applications/clash-party.desktop
     substituteInPlace $out/share/applications/clash-party.desktop \
-      --replace-fail "/opt/mihomo-party/mihomo-party" "mihomo-party"
-    ln -s $out/opt/mihomo-party/mihomo-party $out/bin/mihomo-party
+      --replace-fail "/opt/mihomo-party/mihomo-party" "clash-party"
+    ln -s $out/opt/mihomo-party/mihomo-party $out/bin/clash-party
 
-      wrapProgram $out/bin/mihomo-party \
+      wrapProgram $out/bin/clash-party \
          --set ELECTRON_OZONE_PLATFORM_HINT auto \
          --set NIXOS_OZONE_WL 1 \
          --set GTK_IM_MODULE "fcitx" \
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Another Mihomo GUI";
     homepage = "https://github.com/mihomo-party-org/clash-party";
-    mainProgram = "mihomo-party";
+    mainProgram = "clash-party";
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

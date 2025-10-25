@@ -79,6 +79,9 @@
       #   '';
       # }))
 
+      dbus
+      dbus-glib
+      glib
       systemd
     ];
   };
