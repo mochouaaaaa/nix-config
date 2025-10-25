@@ -210,7 +210,7 @@ in
             ".local/share/containers"
 
             ".local/share/flatpak"
-            ".var"
+            ".var/app"
 
             # ======================================
             # Misc
@@ -242,8 +242,6 @@ in
 
           files = [
             ".zsh_history"
-
-            ".current_wallpaper"
           ];
         };
       };
