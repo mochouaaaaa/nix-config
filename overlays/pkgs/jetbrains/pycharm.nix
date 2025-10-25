@@ -1,24 +1,17 @@
 self: super: {
   pycharm =
     {
-      dataPath ? null,
       src ? null,
       ...
     }:
     let
-      vmopts =
-        let
-          vmoptsData = if dataPath != null then (import ./vmopts.nix { inherit dataPath; }).data else null;
-        in
-        vmoptsData;
 
       pycharm-professional = super.jetbrains.pycharm-professional.override {
-        inherit vmopts;
-        forceWayland = true;
-        # jdk = super.openjdk21;
+        # jdk = super.jetbrains.jdk;
       };
 
     in
+
     if src != null then
       pycharm-professional.overrideAttrs (oldAttrs: {
         inherit src;

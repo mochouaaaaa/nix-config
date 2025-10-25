@@ -15,7 +15,7 @@ let
   };
 
   initjetbrains = jetbrainsConfig (cfg.enable && config.programs.desktop.enable);
-  dataPath = "${config.xdg.configHome}";
+  vmoptsPath = "${config.xdg.configHome}/JetBrains/vmopts.vmoptions";
 
 in
 {
@@ -30,7 +30,6 @@ in
         type = lib.types.package;
         default = (
           pkgs.pycharm {
-            inherit dataPath;
             src = nvfetcherSources.pycharm.src;
           }
         );
@@ -45,7 +44,6 @@ in
         type = lib.types.package;
         default = (
           pkgs.goland {
-            inherit dataPath;
             src = nvfetcherSources.goland.src;
           }
         );
@@ -60,7 +58,6 @@ in
         type = lib.types.package;
         default = (
           pkgs.datagrip {
-            inherit dataPath;
             src = nvfetcherSources.datagrip.src;
           }
         );
@@ -75,7 +72,6 @@ in
         type = lib.types.package;
         default = (
           pkgs.clion {
-            inherit dataPath;
             src = nvfetcherSources.clion.src;
           }
         );
@@ -83,12 +79,49 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
+
+    programs.java.enable = true;
+
+    home = {
+
+      sessionVariables = {
+        PYCHARM_VM_OPTIONS = vmoptsPath;
+        GOLAND_VM_OPTIONS = vmoptsPath;
+        DATAGRIP_VM_OPTIONS = vmoptsPath;
+        CLION_VM_OPTIONS = vmoptsPath;
+      };
+
+      activation = {
+        initVmoptions =
+          let
+            vmOptionsContent = ''
+              --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
+              --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
+
+              -Dawt.toolkit.name=WLToolkit
+              -javaagent:${config.xdg.configHome}/.jetbra-free/static/ja-netfilter/ja-netfilter.jar=jetbrains
+            '';
+          in
+          lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            if [ -f "${vmoptsPath}" ]; then
+              echo "存在"         
+            else
+              echo "${vmOptionsContent}" > "${vmoptsPath}"
+            fi
+          '';
+
+      };
+
+    };
+
     home.packages = lib.mkMerge [
       (lib.mkIf initjetbrains.pycharm [ cfg.pycharm.package ])
       (lib.mkIf initjetbrains.goland [ cfg.goland.package ])
       (lib.mkIf initjetbrains.datagrip [ cfg.datagrip.package ])
       (lib.mkIf initjetbrains.clion [ cfg.clion.package ])
     ];
+
   };
+
 }

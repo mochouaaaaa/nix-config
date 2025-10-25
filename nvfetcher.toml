@@ -9,17 +9,17 @@ src.manual = "LTS"
 fetch.url = "https://github.com/amzxyz/RIME-LMDG/releases/download/$ver/wanxiang-lts-zh-hans.gram"
 
 [pycharm]
-src.manual = "2025.1"
+src.manual = "2025.2.3"
 fetch.url = "https://download.jetbrains.com/python/pycharm-professional-$ver.tar.gz"
 
 [goland]
-src.manual = "2025.1"
+src.manual = "2025.2.3"
 fetch.url = "https://download.jetbrains.com/go/goland-$ver.tar.gz"
 
 [datagrip]
-src.manual = "2025.1"
+src.manual = "2025.2.4"
 fetch.url = "https://download.jetbrains.com/datagrip/datagrip-$ver.tar.gz"
 
 [clion]
-src.manual = "2025.1"
+src.manual = "2025.2.3"
 fetch.url = "https://download.jetbrains.com/cpp/CLion-$ver.tar.gz"

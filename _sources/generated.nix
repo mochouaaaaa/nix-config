@@ -8,26 +8,26 @@
 {
   clion = {
     pname = "clion";
-    version = "2025.1";
+    version = "2025.2.3";
     src = fetchurl {
-      url = "https://download.jetbrains.com/cpp/CLion-2025.1.tar.gz";
-      sha256 = "sha256-LR6NG4Y5wpBFFhVnvD/IzfvZyP5UnS2pLSXp2adcQI0=";
+      url = "https://download.jetbrains.com/cpp/CLion-2025.2.3.tar.gz";
+      sha256 = "364502648a5f1480bd06a00ee410968d224f96b263c78f5148614063f7bc3961";
     };
   };
   datagrip = {
     pname = "datagrip";
-    version = "2025.1";
+    version = "2025.2.4";
     src = fetchurl {
-      url = "https://download.jetbrains.com/datagrip/datagrip-2025.1.tar.gz";
-      sha256 = "sha256-1kuzACdPJQnd6aPHPrZvRdGBWL9GyeYdPfxgLej4O10=";
+      url = "https://download.jetbrains.com/datagrip/datagrip-2025.2.4.tar.gz";
+      sha256 = "37d0af4ec30b94c71d3507fe35b3b0bdd389903db7e2f1a8ed73353b22718476";
     };
   };
   goland = {
     pname = "goland";
-    version = "2025.1";
+    version = "2025.2.3";
     src = fetchurl {
-      url = "https://download.jetbrains.com/go/goland-2025.1.tar.gz";
-      sha256 = "sha256-zCJhf5viM6E2RNZT8gy6KbBSlby1u3esliHuVEeuNJo=";
+      url = "https://download.jetbrains.com/go/goland-2025.2.3.tar.gz";
+      sha256 = "06d9e18cc840e5bc68db6802ed90cfd5c8629d8c434e51aee6e4a93dad56b3e1";
     };
   };
   oh-my-rime = {
@@ -44,10 +44,10 @@
   };
   pycharm = {
     pname = "pycharm";
-    version = "2025.1";
+    version = "2025.2.3";
     src = fetchurl {
-      url = "https://download.jetbrains.com/python/pycharm-professional-2025.1.tar.gz";
-      sha256 = "sha256-EoKQfxNKcm4Xu3/oy3CI5AaqT7+dkQ3vA2M1cvOmL4w=";
+      url = "https://download.jetbrains.com/python/pycharm-professional-2025.2.3.tar.gz";
+      sha256 = "58f6165ea8ace65e708c607bec49d20d46b8d5908045ae31703353a184e59a05";
     };
   };
   rime-lmdg = {
