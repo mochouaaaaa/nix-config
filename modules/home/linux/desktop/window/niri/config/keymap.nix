@@ -26,7 +26,7 @@ in
         "Mod+Ctrl+e".action = spawn "nautilus";
         "Ctrl+Alt+Return".action = fullscreen-window;
 
-        "Mod+Ctrl+a".action = screenshot;
+        "Mod+Ctrl+a".action.screenshot.show-pointer = true;
         "Mod+Ctrl+Print".action.screenshot-screen.write-to-disk = true;
         "Mod+Ctrl+s".action.screenshot-window.write-to-disk = true;
 

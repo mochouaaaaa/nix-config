@@ -114,6 +114,15 @@ in
           {
             matches = [
               {
+                app-id = "^(org.gnome.Nautilus)$";
+              }
+            ];
+            min-width = 1145;
+            min-height = 672;
+          }
+          {
+            matches = [
+              {
                 app-id = "steam";
                 title = "^notificationtoasts_\d+_desktop$";
               }

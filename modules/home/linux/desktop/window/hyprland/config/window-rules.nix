@@ -165,6 +165,9 @@ in
           "noshadow, class:com-group_finity-mascot-Main"
           "noborder, class:com-group_finity-mascot-Main"
 
+          "# This not gonna take the focus to the window that appears when hovering over some of the parts of the IntelliJ Products"
+          "noinitialfocus,class:^(.*jetbrains.*)$,title:^(win[0-9]+)$"
+
         ];
         layerrule = [
 

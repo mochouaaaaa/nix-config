@@ -7,6 +7,8 @@
 let
   cfg = config.modules'.themes.auto.gtkTheme;
 
+  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
+
   switch-gtk2-config = pkgs.writeShellScriptBin "switch-gtk2-config" ''
     # 第一个参数：模式 (Dark 或 Light)
     mode=''${1:-${cfg.light}}  # 如果没有提供 mode 参数，默认是 Light

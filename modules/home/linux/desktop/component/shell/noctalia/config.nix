@@ -7,9 +7,17 @@
 }:
 let
   cfg = config.modules'.desktop.shell.noctalia;
-
+  cfgNoctalia-shell = config.programs.noctalia-shell;
 in
 {
+
+  options.programs.noctalia-shell = {
+    showScreenCorners = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to show screen corners in Noctalia shell.";
+    };
+  };
 
   config = lib.mkIf (cfg.enable) {
 
@@ -139,7 +147,7 @@ in
         radiusRatio = 0.94;
         scaleRatio = 1;
         screenRadiusRatio = 0.5;
-        showScreenCorners = false;
+        showScreenCorners = cfgNoctalia-shell.showScreenCorners;
       };
       hooks = {
         darkModeChange =
