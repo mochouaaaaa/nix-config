@@ -5,26 +5,21 @@
   ...
 }:
 {
-  home.packages =
-    with pkgs;
-    [
-      # db
-      duckdb
+  home.packages = with pkgs; [
+    # db
+    duckdb
 
-      # pdf
-      zathura
-      evince
+    # pdf
+    zathura
+    evince
 
-      # markdown
-      glow
+    # markdown
+    glow
 
-      # image
-      chafa
-      ueberzugpp
-    ]
-    ++ lib.optionals (pkgs.stdenv.isLinux) [
-      gedit
-    ];
+    # image
+    chafa
+    ueberzugpp
+  ];
 
   programs =
     let

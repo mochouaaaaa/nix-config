@@ -15,20 +15,34 @@ in
       with config.lib.niri.actions;
       let
         playerctl = spawn "${lib.getExe pkgs.playerctl}";
+        allow-inhibiting = false;
       in
       {
         "Mod+Ctrl+t" = {
+          inherit allow-inhibiting;
           cooldown-ms = 1000;
           action.spawn = "kitty";
         };
         "Mod+q".action = close-window;
 
-        "Mod+Ctrl+e".action = spawn "nautilus";
+        "Mod+Ctrl+e" = {
+          inherit allow-inhibiting;
+          action = spawn "nautilus";
+        };
         "Ctrl+Alt+Return".action = fullscreen-window;
 
-        "Mod+Ctrl+a".action.screenshot.show-pointer = true;
-        "Mod+Ctrl+Print".action.screenshot-screen.write-to-disk = true;
-        "Mod+Ctrl+s".action.screenshot-window.write-to-disk = true;
+        "Mod+Ctrl+a" = {
+          inherit allow-inhibiting;
+          action.screenshot.show-pointer = true;
+        };
+        "Mod+Ctrl+Print" = {
+          inherit allow-inhibiting;
+          action.screenshot-screen.write-to-disk = true;
+        };
+        "Mod+Ctrl+s" = {
+          inherit allow-inhibiting;
+          action.screenshot-window.write-to-disk = true;
+        };
 
         "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
 
@@ -45,10 +59,22 @@ in
         # "Mod+Shift+down".action = move-window-down;
         # "Mod+Shift+up".action = move-window-up;
 
-        "XF86AudioPlay".action = playerctl "play-pause";
-        "XF86AudioStop".action = playerctl "pause";
-        "XF86AudioPrev".action = playerctl "previous";
-        "XF86AudioNext".action = playerctl "next";
+        "XF86AudioPlay" = {
+          inherit allow-inhibiting;
+          action = playerctl "play-pause";
+        };
+        "XF86AudioStop" = {
+          inherit allow-inhibiting;
+          action = playerctl "pause";
+        };
+        "XF86AudioPrev" = {
+          inherit allow-inhibiting;
+          action = playerctl "previous";
+        };
+        "XF86AudioNext" = {
+          inherit allow-inhibiting;
+          action = playerctl "next";
+        };
       };
 
   };

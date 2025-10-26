@@ -42,7 +42,7 @@ in
         {
           matches = [
             {
-              app-id = "^(io.github.kukuruzka165.materialgram|QQ|wechat|com.alibabainc.dingtalk|wemeetapp|Bytedance-feishu).*";
+              app-id = "^(QQ|wechat|com.alibabainc.dingtalk|wemeetapp|Bytedance-feishu).*";
             }
           ];
           open-on-workspace = "4";

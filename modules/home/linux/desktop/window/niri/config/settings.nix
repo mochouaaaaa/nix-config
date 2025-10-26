@@ -56,11 +56,25 @@ in
           size = config.home.pointerCursor.size;
         };
 
+        overview = {
+          zoom = 0.5;
+          backdrop-color = "#262626";
+          workspace-shadow = {
+            softness = 40;
+            spread = 10;
+            offset = {
+              x = 0;
+              y = 10;
+            };
+          };
+        };
+
         prefer-no-csd = true;
         hotkey-overlay.skip-at-startup = true;
         clipboard = {
           disable-primary = true;
         };
+
       };
     };
 
