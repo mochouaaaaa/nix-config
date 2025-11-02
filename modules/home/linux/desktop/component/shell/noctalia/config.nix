@@ -129,6 +129,7 @@ in
         };
       };
       dock = {
+        enabled = false;
         backgroundOpacity = 1;
         displayMode = "always_visible";
         floatingRatio = 1;
@@ -259,6 +260,7 @@ in
         ];
         randomEnabled = false;
         randomIntervalSec = 300;
+        recursiveSearch = true;
         setWallpaperOnAllMonitors = true;
         transitionDuration = 1500;
         transitionEdgeSmoothness = 0.05;

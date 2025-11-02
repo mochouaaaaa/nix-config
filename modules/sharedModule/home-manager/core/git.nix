@@ -114,9 +114,6 @@
       enable = true;
       lfs.enable = true;
 
-      userName = username;
-      userEmail = myvars.useremail;
-
       ignores = [
         "# General"
         ".AppleDouble"
@@ -182,7 +179,13 @@
         ".direnv/"
       ];
 
-      extraConfig = {
+      settings = {
+
+        user = {
+          name = username;
+          email = myvars.useremail;
+        };
+
         init.defaultBranch = "main";
         trim.bases = "develop,master,main"; # for git-trim
         push.autoSetupRemote = true;
@@ -199,17 +202,19 @@
         };
       };
 
-      # A syntax-highlighting pager in Rust(2019 ~ Now)
-      delta = {
-        enable = true;
-        options = {
-          diff-so-fancy = true;
-          line-numbers = true;
-          true-color = "always";
-          # features => named groups of settings, used to keep related settings organized
-          # features = "";
-        };
+    };
+
+    # A syntax-highlighting pager in Rust(2019 ~ Now)
+    delta = {
+      enable = true;
+      options = {
+        diff-so-fancy = true;
+        line-numbers = true;
+        true-color = "always";
+        # features => named groups of settings, used to keep related settings organized
+        # features = "";
       };
     };
+
   };
 }

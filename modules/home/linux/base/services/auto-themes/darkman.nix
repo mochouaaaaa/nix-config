@@ -42,7 +42,21 @@ in
         };
         package = lib.mkOption {
           type = lib.types.package;
-          default = pkgs.colloid-icon-theme;
+          # default = pkgs.colloid-icon-theme;
+          default = pkgs.colloid-icon-theme.overrideAttrs (oldAttrs: {
+            version = "2025-07-19";
+            src = pkgs.fetchFromGitHub {
+              owner = "vinceliuice";
+              repo = "colloid-icon-theme";
+              tag = "2025-07-19";
+              hash = "sha256-CzFEMY3oJE3sHdIMQQi9qizG8jKo72gR8FlVK0w0p74=";
+            };
+            dontWrapQtApps = true;
+            propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ pkgs.kdePackages.breeze ];
+            postInstall = (oldAttrs.postInstall or "") + ''
+              rm -f $out/share/icons/Colloid-Light/apps/scalable/io.github.vinegarhq.Vinegar.studio.svg
+            '';
+          });
           description = "Icon theme package.";
         };
       };

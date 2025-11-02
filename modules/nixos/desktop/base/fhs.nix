@@ -48,41 +48,28 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      zlib.dev
-      zstd
       readline
-      stdenv.cc.cc
-      curl
       ncurses
-      openssl
       libffi
       sqlite
-      attr
-      libssh
-      bzip2
-      libxml2
-      acl
-      libsodium
-      util-linux
-      xz
+
       tcl
       tk
       tcl-9_0
-      # (tk-9_0.overrideAttrs (oldAttrs: {
-      #   postInstall = ''
-      #     ln -s $out/bin/wish* $out/bin/wish
-      #     cp ../{unix,generic}/*.h $out/include
-      #     ln -s $out/lib/libtcl9tk${tcl-9_0.release}${pkgs.stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}
-      #   ''
-      #   + lib.optionalString (pkgs.stdenv.hostPlatform.isDarwin) ''
-      #     cp ../macosx/*.h $out/include
-      #   '';
-      # }))
+      (tk-9_0.overrideAttrs (oldAttrs: {
+        postInstall = ''
+          ln -s $out/bin/wish* $out/bin/wish
+          cp ../{unix,generic}/*.h $out/include
+          ln -s $out/lib/libtcl9tk${tcl-9_0.release}${pkgs.stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}
+        ''
+        + lib.optionalString (pkgs.stdenv.hostPlatform.isDarwin) ''
+          cp ../macosx/*.h $out/include
+        '';
+      }))
 
       dbus
       dbus-glib
       glib
-      systemd
     ];
   };
   environment.variables = {
