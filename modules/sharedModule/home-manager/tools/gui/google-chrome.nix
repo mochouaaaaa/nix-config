@@ -25,6 +25,7 @@ in
         { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
         { id = "bbbiejemhfihiooipfcjmjmbfdmobobp"; } # BewlyBewly
         { id = "pkgccpejnmalmdinmhkkfafefagiiiad"; } # 前端助手
+        { id = "lcbjdhceifofjlpecfpeimnnphbcjgnc"; } # xBrowserSync
       ];
       description = "List of Google Chrome extensions to install.";
     };

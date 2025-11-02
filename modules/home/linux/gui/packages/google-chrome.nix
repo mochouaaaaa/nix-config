@@ -17,6 +17,7 @@
         "--enable-features=UseOzonePlatform"
         "--enable-wayland-ime"
 
+        "--password-store=gnome-libsecret"
         "--lang=zh-CN"
 
         # enable hardware acceleration - vulkan api

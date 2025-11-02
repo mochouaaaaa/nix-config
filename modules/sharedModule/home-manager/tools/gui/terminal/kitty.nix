@@ -66,7 +66,7 @@ in
         };
       };
       git = {
-        extraConfig = {
+        settings = {
           diff = {
             tool = "kitty";
             guitool = "kitty.gui";

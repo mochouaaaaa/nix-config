@@ -29,6 +29,15 @@ in
 {
   config = lib.mkIf cfg.enable {
 
+    home.packages = [
+      pkgs.python312Packages.playwright
+    ];
+
+    home.sessionVariables = {
+      PLAYWRIGHT_BROWSERS_PATH = "${builtins.toString pkgs.playwright-driver.browsers}";
+      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = 1;
+    };
+
     programs.uv = {
       enable = true;
       settings = {

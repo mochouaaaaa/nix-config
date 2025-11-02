@@ -37,6 +37,26 @@
       # airplay
       # opens UDP ports 6001-6002
       raopOpenFirewall = true;
+
+      # Disable X11 bell module, which plays a sound on urgency hint
+      # (my prompt includes an urgency hint, so I want no sounds).
+      extraConfig = {
+        pipewire = {
+          "99-silent-bell.conf" = {
+            "context.properties" = {
+              "module.x11.bell" = false;
+            };
+          };
+          "10-airplay" = {
+            "context.modules" = [
+              {
+                name = "libpipewire-module-raop-discover";
+              }
+            ];
+          };
+        };
+      };
+
     };
     # rtkit is optional but recommended
     security.rtkit.enable = true;
