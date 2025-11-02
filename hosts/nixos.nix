@@ -78,7 +78,7 @@ in
               packages = {
                 database-suite.enable = true;
                 steam = {
-                  enable = false;
+                  enable = true;
                   monitor = "DP-1";
                   bg = 892387259;
                 };

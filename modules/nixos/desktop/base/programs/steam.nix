@@ -50,6 +50,12 @@ in
       # enables features such as resolution upscaling and stretched aspect ratios (such as 4:3)
       gamescopeSession.enable = false;
 
+      fontPackages = [ pkgs.wqy_zenhei ];
+
+      protontricks = {
+        enable = true;
+      };
+
       # fix gamescope inside steam
       package = pkgs.steam.override {
         extraPkgs =
@@ -88,13 +94,13 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      linux-wallpaperengine
-    ];
+    # environment.systemPackages = with pkgs; [
+    #   linux-wallpaperengine
+    # ];
 
     systemd.user.services = {
       linux-wallpaperengine = {
-        enable = true;
+        enable = false;
         description = "Wallpaper engine daemon";
         wantedBy = [ "graphical-session.target" ];
         unitConfig = {
@@ -113,10 +119,6 @@ in
         };
       };
     };
-
-    fonts.packages = with pkgs; [
-      wqy_zenhei # Need by steam for Chinese
-    ];
 
   };
 }

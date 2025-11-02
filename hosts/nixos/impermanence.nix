@@ -59,9 +59,8 @@ in
           # containers
           "/var/lib/cni"
           "/var/lib/containers"
-
-          # other data
           "/var/lib/flatpak"
+          ".var"
 
           # virtualisation
           "/var/lib/libvirt"
@@ -136,8 +135,8 @@ in
 
             # jetbrains
             ".config/JetBrains"
+            ".local/share/JetBrains"
             ".config/.jetbra-free"
-            ".cache/JetBrains"
 
             # vscode
             ".vscode"
@@ -158,6 +157,7 @@ in
             ".local/share/rustup"
             ".local/share/uv"
             ".cache/uv"
+            ".local/bin"
 
             # ======================================
             # Security
