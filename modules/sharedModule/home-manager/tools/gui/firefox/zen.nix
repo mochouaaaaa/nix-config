@@ -2,11 +2,13 @@
   config,
   lib,
   pkgs,
+  username,
   inputs,
   ...
 }:
 let
   cfg = config.modules'.packages.firefox;
+  firefoxConfig = config.programs.firefox.profiles."${username}";
 in
 {
 
@@ -18,7 +20,7 @@ in
   config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
 
     home.file = {
-      ".zen/default/zen-keyboard-shortcuts.json".text = builtins.readFile ./zen-shortcuts.json;
+      ".zen/${username}/zen-keyboard-shortcuts.json".source = ./zen-shortcuts.json;
     };
 
     programs = {
@@ -90,100 +92,22 @@ in
               "trackmenot@mrl.nyu.edu" = "trackmenot";
               "{861a3982-bb3b-49c6-bc17-4f50de104da1}" = "custom-user-agent-revived";
               "sponsorBlocker@ajay.app" = "sponsorblock";
-            };
-            Preferences = mkLockedAttrs {
-              "browser.aboutConfig.showWarning" = false;
-              "browser.tabs.warnOnClose" = false;
-              "media.videocontrols.picture-in-picture.video-toggle.enabled" = true;
-              # Disable swipe gestures (Browser:BackOrBackDuplicate, Browser:ForwardOrForwardDuplicate)
-              "browser.gesture.swipe.left" = "";
-              "browser.gesture.swipe.right" = "";
-              "browser.tabs.hoverPreview.enabled" = true;
-              "browser.newtabpage.activity-stream.feeds.topsites" = false;
-              "browser.topsites.contile.enabled" = false;
-
-              "privacy.resistFingerprinting" = true;
-              "privacy.firstparty.isolate" = true;
-              "network.cookie.cookieBehavior" = 5;
-              "dom.battery.enabled" = false;
-
-              "gfx.webrender.all" = true;
-              "network.http.http3.enabled" = true;
-              "network.socket.ip_addr_any.disabled" = true; # disallow bind to 0.0.0.0
-
-              "browser.startup.homepage" = "about:home";
-              "browser.startup.page" = 3;
-
-              "intl.locale.requested" = "zh-CN";
-              "intl.multilingual.enabled" = true;
-              "general.useragent.locale" = "zh-CN";
-
-              "browser.disableresetprompt" = true;
-              "browser.download.panel.shown" = true;
-              "browser.feeds.showfirstrunui" = false;
-              "browser.messaging-system.whatsnewpanel.enabled" = false;
-              "browser.rights.3.shown" = true;
-              "browser.shell.checkdefaultbrowser" = false;
-              "browser.shell.defaultbrowsercheckcount" = 1;
-              "browser.startup.homepage_override.mstone" = "ignore";
-              "browser.uitour.enabled" = false;
-              "startup.homepage_override_url" = "";
-              "trailhead.firstrun.didseeaboutwelcome" = true;
-              "browser.bookmarks.restore_default_bookmarks" = false;
-              "browser.bookmarks.addedimportbutton" = true;
-
-              # don't ask for download dir
-              "browser.download.usedownloaddir" = false;
-
-              # disable crappy home activity stream page
-              # "browser.newtabpage.activity-stream.feeds.topsites" = false;
-              "browser.newtabpage.activity-stream.showsponsoredtopsites" = false;
-              "browser.newtabpage.activity-stream.improvesearch.topsitesearchshortcuts" = false;
-              "browser.newtabpage.blocked" = lib.genAttrs [
-                # youtube
-                "26ubzfj7qt9/4dhodhka1q=="
-                # facebook
-                "4gppjkxgzzxpvtueoal9ig=="
-                # wikipedia
-                "ev8/wsslxhadrtl1gaxhug=="
-                # reddit
-                "glv0ja2ryvgxkdp0i5qwva=="
-                # amazon
-                "k00ilyscaeq8+beqv/3nuw=="
-                # twitter
-                "t9njot5purhjsy8n038xga=="
-              ] (_: 1);
-
-              # disable some telemetry
-              "app.shield.optoutstudies.enabled" = false;
-              "browser.discovery.enabled" = false;
-              "browser.newtabpage.activity-stream.feeds.telemetry" = false;
-              "browser.newtabpage.activity-stream.telemetry" = false;
-              "browser.ping-centre.telemetry" = false;
-              "datareporting.healthreport.service.enabled" = false;
-              "datareporting.healthreport.uploadenabled" = false;
-              "datareporting.policy.datasubmissionenabled" = false;
-              "datareporting.sessions.current.clean" = true;
-              "devtools.onboarding.telemetry.logged" = false;
-              "toolkit.telemetry.archive.enabled" = false;
-              "toolkit.telemetry.bhrping.enabled" = false;
-              "toolkit.telemetry.enabled" = false;
-              "toolkit.telemetry.firstshutdownping.enabled" = false;
-              "toolkit.telemetry.hybridcontent.enabled" = false;
-              "toolkit.telemetry.newprofileping.enabled" = false;
-              "toolkit.telemetry.prompted" = 2;
-              "toolkit.telemetry.rejected" = true;
-              "toolkit.telemetry.reportingpolicy.firstrun" = false;
-              "toolkit.telemetry.server" = "";
-              "toolkit.telemetry.shutdownpingsender.enabled" = false;
-              "toolkit.telemetry.unified" = false;
-              "toolkit.telemetry.unifiedisoptin" = false;
-              "toolkit.telemetry.updateping.enabled" = false;
-
+              "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = "vimium";
+              "{2f67aecb-5dac-4f76-9378-0ac4f2bedc9c}" = "no-chat";
+              "{00000f2a-7cde-4f20-83ed-434fcb420d71}" = "imagus";
+              "firefox@fehelper.com" = "fehelper";
+              "{72bd91c9-3dc5-40a8-9b10-dec633c0873f}" = "Enhanced GitHub";
+              "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "Bitwarden";
+              "addon@bewlybewly.com" = "bewlybewly";
+              "firefox@tampermonkey.net" = "tampermonkey";
+              "{5efceaa7-f3a2-4e59-a54b-85319448e305}" = "__MSG_brandName__";
             };
           };
 
-        profiles.default = rec {
+        nativeMessagingHosts = [ pkgs.firefoxpwa ];
+        inherit (config.programs.firefox) languagePacks;
+
+        profiles."${username}" = rec {
           settings = {
             "zen.workspaces.continue-where-left-off" = true;
             "zen.workspaces.natural-scroll" = true;
@@ -191,54 +115,10 @@ in
             "zen.view.compact.hide-toolbar" = true;
             "zen.view.compact.animate-sidebar" = false;
             "zen.welcome-screen.seen" = true;
-          };
-
-          bookmarks = {
-            force = true;
-            settings = [
-              {
-                name = "Nix sites";
-                toolbar = true;
-                bookmarks = [
-                  {
-                    name = "homepage";
-                    url = "https://nixos.org/";
-                  }
-                  {
-                    name = "wiki";
-                    tags = [
-                      "wiki"
-                      "nix"
-                    ];
-                    url = "https://wiki.nixos.org/";
-                  }
-                ];
-              }
-            ];
-          };
-
-          pinsForce = true;
-          pins = {
-            "GitHub" = {
-              id = "48e8a119-5a14-4826-9545-91c8e8dd3bf6";
-              workspace = spaces."Rendezvous".id;
-              url = "https://github.com";
-              position = 101;
-              isEssential = false;
-            };
-            "WhatsApp Web" = {
-              id = "1eabb6a3-911b-4fa9-9eaf-232a3703db19";
-              workspace = spaces."Rendezvous".id;
-              url = "https://web.whatsapp.com/";
-              position = 102;
-              isEssential = false;
-            };
-            "Telegram Web" = {
-              id = "5065293b-1c04-40ee-ba1d-99a231873864";
-              url = "https://web.telegram.org/k/";
-              position = 103;
-              isEssential = true;
-            };
+          }
+          // firefoxConfig.settings;
+          extensions = {
+            packages = firefoxConfig.extensions.packages;
           };
 
           containersForce = true;
@@ -303,78 +183,35 @@ in
             };
           };
 
-          search = {
-            force = true;
-            default = "google";
-            engines =
-              let
-                nixSnowflakeIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              in
-              {
-                "Nix Packages" = {
-                  urls = [
-                    {
-                      template = "https://search.nixos.org/packages";
-                      params = [
-                        {
-                          name = "type";
-                          value = "packages";
-                        }
-                        {
-                          name = "channel";
-                          value = "unstable";
-                        }
-                        {
-                          name = "query";
-                          value = "{searchTerms}";
-                        }
-                      ];
-                    }
-                  ];
-                  icon = nixSnowflakeIcon;
-                  definedAliases = [ "np" ];
-                };
-                "Nix Options" = {
-                  urls = [
-                    {
-                      template = "https://search.nixos.org/options";
-                      params = [
-                        {
-                          name = "channel";
-                          value = "unstable";
-                        }
-                        {
-                          name = "query";
-                          value = "{searchTerms}";
-                        }
-                      ];
-                    }
-                  ];
-                  icon = nixSnowflakeIcon;
-                  definedAliases = [ "nop" ];
-                };
-                "Home Manager Options" = {
-                  urls = [
-                    {
-                      template = "https://home-manager-options.extranix.com/";
-                      params = [
-                        {
-                          name = "query";
-                          value = "{searchTerms}";
-                        }
-                        {
-                          name = "release";
-                          value = "master"; # unstable
-                        }
-                      ];
-                    }
-                  ];
-                  icon = nixSnowflakeIcon;
-                  definedAliases = [ "hmop" ];
-                };
-                bing.metaData.hidden = "true";
-              };
+          pinsForce = true;
+          pins = {
+            "GitHub" = {
+              id = "48e8a119-5a14-4826-9545-91c8e8dd3bf6";
+              workspace = spaces."Rendezvous".id;
+              url = "https://github.com";
+              position = 101;
+              isEssential = false;
+            };
+            "WhatsApp Web" = {
+              id = "1eabb6a3-911b-4fa9-9eaf-232a3703db19";
+              workspace = spaces."Rendezvous".id;
+              url = "https://web.whatsapp.com/";
+              position = 102;
+              isEssential = false;
+            };
+            "Telegram Web" = {
+              id = "5065293b-1c04-40ee-ba1d-99a231873864";
+              url = "https://web.telegram.org/k/";
+              position = 103;
+              isEssential = true;
+            };
           };
+
+          inherit (firefoxConfig)
+            isDefault
+            # search
+            ;
+
         };
       };
     };

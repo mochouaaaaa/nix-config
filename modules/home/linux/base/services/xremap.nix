@@ -42,34 +42,50 @@ in
             }; # globally remap CapsLock to Esc
           }
         ];
-        keymap = [
-          {
-            name = "Replace Super/Command With Ctrl";
-            exact_match = true;
-            application.not = [
-              "kitty"
-              "code"
-            ];
-            remap = {
+        keymap =
+          let
+            zen = {
               "SUPER-c" = "C-c";
               "SUPER-v" = "C-v";
               "SUPER-x" = "C-x";
-              "SUPER-w" = "C-w";
               "SUPER-a" = "C-a";
               "SUPER-z" = "C-z";
-              "SUPER-t" = "C-t";
-              "SUPER-f" = "C-f";
-              "SUPER-r" = "C-r";
             };
-          }
-        ]
-        ++ (lib.optionals ((lib.lists.length cfg.global) > 0)) [
-          {
-            name = "Shortcuts";
-            exact_match = true;
-            remap = lib.mkMerge (cfg.global);
-          }
-        ];
+          in
+          [
+            {
+              name = "Replace Super/Command With Ctrl";
+              exact_match = true;
+              application.only = [
+                "firefox"
+                "chromium"
+                "zen"
+                "zen-beta"
+              ];
+              remap = zen;
+            }
+            {
+              name = "Firefox/Chromium Replace Super/Command With Ctrl";
+              exact_match = true;
+              application.only = [
+                "firefox"
+                "chromium"
+              ];
+              remap = {
+                "SUPER-r" = "C-r";
+                "SUPER-f" = "C-f";
+                "SUPER-w" = "C-w";
+                "SUPER-t" = "C-t";
+              };
+            }
+          ]
+          ++ (lib.optionals ((lib.lists.length cfg.global) > 0)) [
+            {
+              name = "Shortcuts";
+              exact_match = true;
+              remap = lib.mkMerge (cfg.global);
+            }
+          ];
       };
     };
   };

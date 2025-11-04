@@ -49,7 +49,6 @@ in
               "browser.download.usedownloaddir" = false;
 
               # disable crappy home activity stream page
-              "browser.newtabpage.activity-stream.feeds.topsites" = false;
               "browser.newtabpage.activity-stream.showsponsoredtopsites" = false;
               "browser.newtabpage.activity-stream.improvesearch.topsitesearchshortcuts" = false;
               "browser.newtabpage.blocked" = lib.genAttrs [
@@ -102,6 +101,34 @@ in
               "mozilla.widget.use-argb-visuals" = true;
               "widget.gtk.rounded-bottom-corners.enabled" = true;
               "svg.context-properties.content.enabled" = true;
+
+              # network
+              "network.trr.mode" = 5;
+              "network.trr.disable_public_resolvers" = true;
+              "network.cookie.CHIPS.lastMigrateDatabase" = 2;
+              "network.dns.disablePrefetch" = true;
+              "network.http.speculative-parallel-limit" = 0;
+              "network.prefetch-next" = false;
+
+              "browser.aboutConfig.showWarning" = false;
+              "browser.tabs.warnOnClose" = false;
+              "media.videocontrols.picture-in-picture.video-toggle.enabled" = true;
+              # Disable swipe gestures (Browser:BackOrBackDuplicate, Browser:ForwardOrForwardDuplicate)
+              "browser.gesture.swipe.left" = "";
+              "browser.gesture.swipe.right" = "";
+              "browser.tabs.hoverPreview.enabled" = true;
+              "browser.newtabpage.activity-stream.feeds.topsites" = false;
+              "browser.topsites.contile.enabled" = false;
+
+              "privacy.resistFingerprinting" = true;
+              "privacy.firstparty.isolate" = true;
+              "network.cookie.cookieBehavior" = 5;
+              "dom.battery.enabled" = false;
+
+              "gfx.webrender.all" = true;
+              "network.http.http3.enabled" = true;
+              "network.socket.ip_addr_any.disabled" = false; # disallow bind to 0.0.0.0
+
             };
             search = {
               default = "google";
