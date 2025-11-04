@@ -7,7 +7,7 @@
 {
   imports = lib.importModule' ./.;
 
-  programs = {
+  programs = rec {
     firefox = {
       profiles = {
         "${username}" = {
@@ -20,5 +20,6 @@
         };
       };
     };
+
   };
 }
