@@ -5,10 +5,11 @@
 }:
 let
   cfg = config.modules'.desktop.shell.noctalia;
+  cfgNiri = config.modules'.desktop.niri;
 in
 {
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && cfgNiri.enable) {
 
     programs.noctalia-shell = {
       showScreenCorners = false;

@@ -5,10 +5,11 @@
 }:
 let
   cfg = config.modules'.desktop.shell.caelestia;
+  cfgHyprland = config.modules'.desktop.hyprland;
 in
 {
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && cfgHyprland.enable) {
 
     modules'.desktop.services.vicinae.enable = lib.mkForce false;
 

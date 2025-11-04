@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.programs.dankMaterialShell;
+  cfgNiri = config.modules'.desktop.niri;
 in
 {
 
@@ -13,7 +14,7 @@ in
     inputs.DankMaterialShell.homeModules.dankMaterialShell.niri
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && cfgNiri.enable) {
 
     programs.niri.settings = {
       binds =

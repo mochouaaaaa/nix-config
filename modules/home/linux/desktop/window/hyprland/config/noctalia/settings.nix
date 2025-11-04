@@ -6,7 +6,6 @@
 let
   cfg = config.modules'.desktop.hyprland;
   cfgNoctalia = config.modules'.desktop.shell.noctalia;
-  cfgLauncher = config.modules'.desktop.services.vicinae;
 in
 {
   config = lib.mkIf (cfg.enable && cfgNoctalia.enable) {
