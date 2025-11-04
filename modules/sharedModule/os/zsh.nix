@@ -10,7 +10,10 @@
   programs = {
     zsh.enable = true;
   };
-  environment.shells = [
-    pkgs.zsh
-  ];
+  environment = {
+    localBinInPath = true;
+    shells = [
+      pkgs.zsh
+    ];
+  };
 }
