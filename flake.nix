@@ -115,8 +115,15 @@
     };
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+      # to have it up-to-date or simply don't specify the nixpkgs input
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # desktop components
-    vicinae.url = "github:vicinaehq/vicinae?ref=v0.15.2";
+    vicinae.url = "github:vicinaehq/vicinae?ref=v0.16.1";
 
     # desktop-shell
     caelestia-shell = {

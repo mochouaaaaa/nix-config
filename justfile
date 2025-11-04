@@ -94,6 +94,11 @@ _reset_dconf:
 boot desktop="hyprland":
     DESKTOP={{ desktop }} {{ PRE_ARGS }} nh os boot {{ NH_OS_FLAKE }} -H {{ NH_HOSTNAME }} {{ NH_BUILD_ARGS }}
 
+# restart home-manager
+[linux]
+@home-manager-restart:
+    sudo systemctl restart home-manager-$(whoami).service
+
 # switch flake config
 [linux]
 switch desktop="hyprland":
