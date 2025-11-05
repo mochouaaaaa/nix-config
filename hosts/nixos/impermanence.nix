@@ -14,13 +14,23 @@ in
 
   options.modules'.persistent = with lib; {
     osDirectories = mkOption rec {
-      type = types.listOf types.str;
+      type = types.listOf (
+        types.oneOf [
+          types.str
+          types.attrs
+        ]
+      );
       default = [ ];
       description = "List of directories to preserve across reboots.";
       apply = userValue: default ++ userValue;
     };
     hmDirectories = mkOption rec {
-      type = types.listOf types.str;
+      type = types.listOf (
+        types.oneOf [
+          types.str
+          types.attrs
+        ]
+      );
       default = [ ];
       description = "List of directories to preserve across reboots for Home Manager Profiles.";
       apply = userValue: default ++ userValue;
@@ -91,15 +101,12 @@ in
             # ======================================
             # XDG Directories
             # ======================================
-
             "Downloads"
             "Music"
             "Pictures"
             "Public"
             "Documents"
             "Videos"
-
-            ".icons"
 
             # ======================================
             # Work / dotfiles
@@ -131,22 +138,6 @@ in
             ".local/nvim/catppuccin"
             ".wakatime"
             ".config/github-copilot"
-            ".config/kitty"
-
-            # jetbrains
-            ".config/JetBrains"
-            ".local/share/JetBrains"
-            ".config/.jetbra-free"
-
-            # vscode
-            ".vscode"
-            ".config/Code"
-            ".vscode-insiders" # open source
-            ".config/Code - Insiders"
-
-            # zed
-            ".local/share/zed"
-            ".local/state/zed"
 
             # ======================================
             # Language config
@@ -174,69 +165,14 @@ in
               directory = ".pki";
               mode = "0700";
             }
-            {
-              directory = ".config/Bitwarden";
-              mode = "0700";
-            }
             ".local/share/keyrings"
-
-            # ======================================
-            # Instant Messaging
-            # ======================================
-            ".config/QQ"
-            ".local/share/materialgram"
-
-            # ======================================
-            # Remote
-            # ======================================
-            ".config/remmina"
-            ".local/share/remmina"
-
-            ".config/freerdp"
-            ".zoom"
-
-            # ======================================
-            # Browser
-            # ======================================
-            ".mozilla"
-            ".config/google-chrome"
-            ".cache/google-chrome"
-            ".config/chromium"
-            ".cache/chromium"
-
-            # ======================================
-            # Containers
-            # ======================================
-            ".local/share/containers"
-
-            ".local/share/flatpak"
-            ".var/app"
 
             # ======================================
             # Misc
             # ======================================
             # services
             ".cache/cliphist"
-            # Clash Verge Rev
-            ".local/share/io.github.clash-verge-rev.clash-verge-rev"
-            ".local/share/clash-verge"
-            # mihomo party
-            ".config/mihomo"
-            ".config/mihomo-party"
-            ".config/pulse"
-            ".local/state/wireplumber"
 
-            # ======================================
-            # custom packages
-            # ======================================
-            ".config/obs-studio"
-            ".config/wiliwili"
-
-            # spotify
-            ".config/spicetify"
-            ".config/spotify"
-            ".cache/spotify"
-            ".config/SPlayer"
           ]
           ++ cfgPersistent.hmDirectories;
 

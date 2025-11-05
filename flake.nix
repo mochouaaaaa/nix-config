@@ -75,10 +75,6 @@
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     preservation = {
       url = "github:nix-community/preservation";
     };
