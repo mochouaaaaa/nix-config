@@ -16,7 +16,7 @@ let
 
   initjetbrains = jetbrainsConfig (cfg.enable && config.programs.desktop.enable);
   vmoptsPath = "${config.xdg.configHome}/JetBrains/vmopts.vmoptions";
-
+  propertiesPath = "${config.xdg.configHome}/JetBrains/idea.properties";
 in
 {
   options.modules'.packages.jetbrains = {
@@ -90,9 +90,29 @@ in
         GOLAND_VM_OPTIONS = vmoptsPath;
         DATAGRIP_VM_OPTIONS = vmoptsPath;
         CLION_VM_OPTIONS = vmoptsPath;
+        GOLAND_PROPERTIES = propertiesPath;
+        PYCHARM_PROPERTIES = propertiesPath;
+        DATAGRIP_PROPERTIES = propertiesPath;
+        CLION_PROPERTIES = propertiesPath;
       };
 
       activation = {
+        initProperties =
+          let
+            propertiesContent = ''
+              # custom GoLand properties (expand/override 'bin/idea.properties')
+
+
+              keymap.windows.as.meta=true
+            '';
+          in
+          lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            if [ -f "${propertiesPath}" ]; then
+              echo "存在"
+            else
+              echo "${propertiesContent}" > "${propertiesPath}"
+            fi
+          '';
         initVmoptions =
           let
             vmOptionsContent = ''

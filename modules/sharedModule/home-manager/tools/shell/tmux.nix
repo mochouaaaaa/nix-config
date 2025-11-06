@@ -104,7 +104,7 @@
       #: }}}
 
       #: Custom keys {{{
-      bind-key -n M-w if -F "#{@pane-is-vim}" 'send-keys Escape "[119;9u]"' 'kill-pane'
+      bind-key -n M-w if -F "#{@pane-is-vim}" 'send-keys Escape "[119;9u"' 'kill-pane'
       bind-key -n M-e if -F "#{@pane-is-vim}" 'send-keys Escape "[101;9u"'
       bind-key -n M-s if -F "#{@pane-is-vim}" 'send-keys Escape "[115;9u"'
       bind-key -n M-f if -F "#{@pane-is-vim}" 'send-keys Escape "[102;9u"'  'display-panes -d 0'

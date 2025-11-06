@@ -87,6 +87,10 @@ in
                 { app-id = "xdg-desktop-portal-gtk"; }
                 { app-id = "org.kde.polkit-kde-authentication-agent-1"; }
                 { app-id = "pinentry"; }
+                {
+                  app-id = "io.github.kukuruzka165.materialgram";
+                  title = "媒体查看器";
+                }
                 { title = "Progress"; }
                 { title = "File Operations"; }
                 { title = "Copying"; }
@@ -113,8 +117,8 @@ in
             {
               opacity = 0.85;
               matches = [
-                { app-id = "^(chromium-browser|firefox)$"; }
-                { app-id = "^io.github.kukuruzka165.materialgram$"; }
+                { app-id = "^(chromium-browser|firefox|zen|zen-beta)$"; }
+                { app-id = "io.github.kukuruzka165.materialgram"; }
               ];
             }
             {

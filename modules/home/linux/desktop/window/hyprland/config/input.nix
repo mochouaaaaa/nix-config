@@ -23,8 +23,8 @@ in
           sensitivity = 0; # mouse sensitivity
           numlock_by_default = true;
           left_handed = false;
-          follow_mouse = 4;
-          mouse_refocus = false;
+          follow_mouse = 1;
+          mouse_refocus = 0;
           float_switch_override_focus = false;
 
           touchpad = {

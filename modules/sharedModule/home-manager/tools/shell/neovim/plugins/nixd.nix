@@ -50,7 +50,7 @@
                 expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable {}",
              },
              ["pkgs-stable"] = {
-                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-stable {}",
+                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-os {}",
              },
              ["pkgs-unstable"] = {
                 expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable {}",

@@ -50,6 +50,7 @@ in
         faviconService = "google";
         font = {
           size = 12;
+          normal = "Monaco Nerd Font";
         };
         keybinding = "default";
         keybinds = { };
@@ -59,6 +60,7 @@ in
         };
         theme = {
           name = "matugen";
+          iconTheme = "WhiteSur-light";
         };
         window = {
           csd = true;
@@ -68,21 +70,15 @@ in
       };
     };
 
-    xdg.configFile = {
-      "vicinae/vicinae.json".enable = false;
-    };
+    xdg.configFile."vicinae/vicinae.json".force = true;
 
-    home.activation =
-      let
-        json = pkgs.formats.json { };
-        data = json.generate "vicinae.json" config.services.vicinae.settings;
-      in
-      {
-        initVicinae = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          rm -rf ${config.xdg.configHome}/vicinae/vicinae.*
-          cat ${data} > ${config.xdg.configHome}/vicinae/vicinae.json
-        '';
+    systemd.user.services.vicinae = {
+      Service = {
+        Environment = [
+          "QT_QPA_PLATFORMTHEME=gtk3"
+        ];
       };
+    };
 
   };
 

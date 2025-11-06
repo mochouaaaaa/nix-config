@@ -114,13 +114,13 @@ in
               "browser.tabs.warnOnClose" = false;
               "media.videocontrols.picture-in-picture.video-toggle.enabled" = true;
               # Disable swipe gestures (Browser:BackOrBackDuplicate, Browser:ForwardOrForwardDuplicate)
-              "browser.gesture.swipe.left" = "";
-              "browser.gesture.swipe.right" = "";
+              # "browser.gesture.swipe.left" = "";
+              # "browser.gesture.swipe.right" = "";
               "browser.tabs.hoverPreview.enabled" = true;
               "browser.newtabpage.activity-stream.feeds.topsites" = false;
               "browser.topsites.contile.enabled" = false;
 
-              "privacy.resistFingerprinting" = true;
+              "privacy.resistFingerprinting" = false; # 会让主题不跟随系统改变
               "privacy.firstparty.isolate" = true;
               "network.cookie.cookieBehavior" = 5;
               "dom.battery.enabled" = false;

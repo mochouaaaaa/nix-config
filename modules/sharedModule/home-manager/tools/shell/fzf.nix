@@ -14,7 +14,7 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
     enableFishIntegration = true;
-    defaultCommand = "fd --hidden --follow -I --exclude={Pods,.git,.idea,.vscode,.sass-cache,node_modules,build} --type f";
+    defaultCommand = "fd --hidden --follow -I --exclude={Pods,.direnv,.git,.idea,.vscode,.sass-cache,node_modules,build} --type f";
     defaultOptions = [
       "--tmux"
       "--height 60%"
@@ -45,8 +45,10 @@
     ];
     # alt-c
     changeDirWidgetCommand = ''
-      --walker-skip .git,node_modules,target
+      fd --type d
     '';
+    # --walker-skip .git,node_modules,target
+
     changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
     tmux = {
       enableShellIntegration = true;

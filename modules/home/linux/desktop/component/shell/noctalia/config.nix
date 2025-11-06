@@ -62,6 +62,7 @@ in
             {
               blacklist = [
                 "nm-applet"
+                "udiskie"
               ];
               id = "Tray";
             }

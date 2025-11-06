@@ -17,8 +17,9 @@ in
           "center 1, floating:1, xwayland:0" # Center all floating windows (not xwayland cause popups)
 
           # opacity
-          "opacity 0.78, class:^(firefox|chromium-browser)$"
+          "opacity 0.78, class:^(firefox|chromium-browser|zen|zen-beta)$"
           "opacity 0.78, class:^(io.github.kukuruzka165.materialgram)$"
+          "float, class:^(io.github.kukuruzka165.materialgram)$, title:媒体查看器"
 
           # Float
           "float, class:guifetch" # FlafyDev/guifetch
@@ -91,6 +92,8 @@ in
           "float, class:^([Rr]ofi)$"
           "float, class:^(eog|org.gnome.Loupe)$" # image viewer
           "float, class:^(mpv|com.github.rafostar.Clapper)$"
+          "size 70% 70%, class:^(mpv|com.github.rafostar.Clapper)$"
+
           "float, class:^(nm-applet|nm-connection-editor|blueman-manager)$"
           "float, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$" # system monitor
           "float, class:^([Yy]ad)$"

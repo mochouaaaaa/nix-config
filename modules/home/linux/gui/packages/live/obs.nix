@@ -9,6 +9,8 @@
 
   config = lib.mkIf (config.programs.desktop.enable) {
     home.packages = with pkgs; [
+      kooha # 录制屏幕 GIF图
+
       # creative
       blender # 3d modeling
       # gimp      # image editing, I prefer using figma in browser instead of this one
@@ -35,7 +37,7 @@
         enable = true;
         package = pkgs-stable.obs-studio;
         plugins = with pkgs-stable.obs-studio-plugins; [
-          input-overlay
+          # input-overlay
           # screen capture
           wlrobs
           obs-ndi
