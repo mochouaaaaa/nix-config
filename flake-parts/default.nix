@@ -60,7 +60,6 @@
           inherit (customPkgs)
             mkPkgs
             pkgs-unstable
-            pkgs-stable
             pkgs-os
             ;
         };

@@ -102,7 +102,7 @@ let
                 pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs-unstable {
                   overlays = [ self.overlays.home-manager ];
                 };
-                pkgs-stable = ctx.extraPackages.pkgs-stable;
+                pkgs-stable = ctx.extraPackages.pkgs-os;
 
                 isNixos = true;
                 nixosSystemName = name;

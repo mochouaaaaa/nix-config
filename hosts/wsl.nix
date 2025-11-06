@@ -12,26 +12,6 @@ let
 
       modules'.packages = {
         # tencent enable default use true
-        tencent = {
-          qq.enable = false;
-          wechat.enable = false;
-          wemeet.enable = false;
-          dingding.enable = false;
-          feishu.enable = false;
-        };
-        obsidian.enable = false;
-        live = {
-          simple-live-app.enable = false;
-          wiliwili.enable = false;
-          hypontix.enable = false; # IPTV
-        };
-        bitwarden.enable = false;
-        authenticator.enable = false;
-
-        terminal = {
-          kitty.enable = false;
-          wezterm.enable = false;
-        };
 
         envs = {
           pyenv.enable = true;

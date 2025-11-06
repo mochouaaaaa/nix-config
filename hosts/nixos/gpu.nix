@@ -11,6 +11,11 @@
   };
 
   hardware = {
+    amdgpu = {
+      opencl.enable = true;
+      initrd.enable = true;
+      overdrive.enable = true;
+    };
     graphics = {
       enable = true;
       extraPackages = with pkgs; [

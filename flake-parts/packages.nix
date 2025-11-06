@@ -29,11 +29,10 @@ let
     };
 
   pkgs-unstable = mkPkgs inputs.nixpkgs-unstable { };
-  pkgs-stable = mkPkgs inputs.nixpkgs-stable { };
   pkgs-os = mkPkgs inputs.nixpkgs-os { };
 
   nvfetcherSources = import ../_sources/generated.nix {
-    inherit (pkgs-stable)
+    inherit (pkgs-os)
       fetchurl
       fetchgit
       fetchFromGitHub
@@ -48,7 +47,6 @@ in
   inherit
     mkPkgs
     pkgs-unstable
-    pkgs-stable
     pkgs-os
     nvfetcherSources
     ;

@@ -30,7 +30,6 @@
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-os.url = "github:nixos/nixpkgs/nixos-25.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -123,7 +122,7 @@
 
     # desktop-shell
     caelestia-shell = {
-      url = "github:caelestia-dots/shell?ref=v1.3.2";
+      url = "github:caelestia-dots/shell?ref=v1.3.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
@@ -131,7 +130,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     DankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v0.3.1";
+      url = "github:AvengeMedia/DankMaterialShell?ref=v0.3.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

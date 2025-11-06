@@ -18,6 +18,14 @@ in
 
   config = lib.mkIf cfg.enable {
 
+    modules'.persistent.hmDirectories = [
+      # mihomo party
+      ".config/mihomo"
+      ".config/mihomo-party"
+      ".config/pulse"
+      ".local/state/wireplumber"
+    ];
+
     environment = {
       systemPackages = with pkgs; [
         clash-party

@@ -20,6 +20,11 @@ in
 
   config = lib.mkIf cfg.enable {
 
+    modules'.persistent.hmDirectories = [
+      ".local/share/io.github.clash-verge-rev.clash-verge-rev"
+      ".local/share/clash-verge"
+    ];
+
     programs.clash-verge = {
       enable = true;
       autoStart = true;

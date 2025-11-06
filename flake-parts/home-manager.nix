@@ -80,7 +80,7 @@ let
 
           extraSpecialArgs =
             let
-              pkgs-stable = ctx.extraPackages.mkPkgs inputs.nixpkgs-stable {
+              pkgs-stable = ctx.extraPackages.mkPkgs inputs.nixpkgs-os {
                 inherit overlays custom_config;
               };
             in
