@@ -16,11 +16,10 @@
     enableFishIntegration = true;
     defaultCommand = "fd --hidden --follow -I --exclude={Pods,.direnv,.git,.idea,.vscode,.sass-cache,node_modules,build} --type f";
     defaultOptions = [
-      "--tmux"
       "--height 60%"
       "--layout reverse"
-      "--sort"
-      "--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -N -C {}) 2> /dev/null | head -500'"
+      "--ansi --tiebreak=chunk"
+      "--preview 'cat {} || tree -N -C {}'"
       "--preview-window right:50%:wrap "
       "--bind '?:toggle-preview'"
       "--border"

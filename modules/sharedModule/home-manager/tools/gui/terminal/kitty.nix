@@ -12,7 +12,6 @@ in
   config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
     modules'.packages.terminal.kitty.extraConfig = [
       "include init.conf"
-      # "shell ${config.programs.zsh.package}/bin/zsh --login --interactive"
     ];
 
     programs = {
@@ -59,32 +58,21 @@ in
         };
         themeFile = "Catppuccin-Mocha";
         extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" (cfg.extraConfig));
+        enableGitIntegration = true;
         shellIntegration = {
           enableZshIntegration = true;
           enableBashIntegration = true;
           enableFishIntegration = true;
         };
       };
-      git = {
-        settings = {
-          diff = {
-            tool = "kitty";
-            guitool = "kitty.gui";
-          };
-          difftool = {
-            prompt = false;
-            trustExitCode = true;
-          };
-          difftool."kitty" = {
-            cmd = "kitty +kitten diff $LOCAL $REMOTE";
-          };
-          difftool."kitty.gui" = {
-            cmd = "kitty kitty +kitten diff $LOCAL $REMOTE";
-          };
-        };
-      };
     };
 
-    xdg.configFile = config.modules'.dotfileLink "kitty";
+    xdg.configFile = {
+      "kitty/kitty.conf" = {
+        force = true;
+        enable = true;
+      };
+    }
+    // config.modules'.dotfileLink "kitty";
   };
 }

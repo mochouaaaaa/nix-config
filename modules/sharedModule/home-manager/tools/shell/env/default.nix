@@ -1,6 +1,6 @@
 {
-  self,
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -32,6 +32,8 @@ in
   imports = lib.importModule' ./.;
 
   config = lib.mkIf lazyZsh {
+    home.packages = [ pkgs.nodejs_24 ];
+
     programs.zsh.initContent = ''
       _lazyload_add_command() {
           eval "$1() {

@@ -47,13 +47,10 @@
        settings = {
           nixd = {
              pkgs = {
-                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable {}",
+                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs {}",
              },
              ["pkgs-stable"] = {
                 expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-os {}",
-             },
-             ["pkgs-unstable"] = {
-                expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs-unstable {}",
              },
              formatting = {
                 command = { "nixfmt" },

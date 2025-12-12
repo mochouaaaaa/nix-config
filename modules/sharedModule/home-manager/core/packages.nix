@@ -26,7 +26,7 @@
 
     doggo # DNS client for humans
     # duf # Disk Usage/Free Utility - a better 'df' alternative
-    du-dust # A more intuitive version of `du` in rust
+    dust # A more intuitive version of `du` in rust
 
     # nix-output-monitor
     # hydra-check # check hydra(nix's build farm) for the build status of a package
