@@ -14,26 +14,17 @@ in
       default = false;
       description = "Whether to enable Steam.";
     };
-    monitor = mkOption {
-      type = types.str;
-      default = "DP-1";
-      description = "The monitor to use for Steam.";
-    };
-    fps = mkOption {
-      type = types.int;
-      default = 60;
-      description = "The maximum frames per second to render the game.";
-      apply = x: toString x;
-    };
-    bg = mkOption {
-      type = types.int;
-      default = "";
-      description = "The background image to use for Steam.";
-      apply = x: toString x;
-    };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
+
+    modules'.persistent.hmDirectories = [
+      # ======================================
+      # Game
+      # ======================================
+      ".local/share/Steam"
+      ".steam"
+    ];
 
     hardware.steam-hardware.enable = true;
 
@@ -91,32 +82,6 @@ in
             libxkbcommon
             wayland # To use the wayland feature
           ];
-      };
-    };
-
-    # environment.systemPackages = with pkgs; [
-    #   linux-wallpaperengine
-    # ];
-
-    systemd.user.services = {
-      linux-wallpaperengine = {
-        enable = false;
-        description = "Wallpaper engine daemon";
-        wantedBy = [ "graphical-session.target" ];
-        unitConfig = {
-          After = [ "graphical-session.target" ];
-          PartOf = [ "graphical-session.target" ];
-        };
-        serviceConfig = {
-          ExecStart = "${lib.getExe pkgs.linux-wallpaperengine} --scaling fill --screen-root ${cfg.monitor} --fps ${cfg.fps} --bg ${cfg.bg}";
-          Restart = "on-failure";
-        };
-        environment = {
-          XDG_SESSION_TYPE = "wayland";
-          WAYLAND_DISPLAY = "wayland-1";
-          GDK_BACKEND = "wayland";
-          DISPLAY = ":0";
-        };
       };
     };
 

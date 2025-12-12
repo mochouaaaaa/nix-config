@@ -8,7 +8,6 @@ let
         firefox.enable = true;
         google-chrome.enable = true;
 
-        translate.enable = true;
         # tencent enable default use true
         tencent = {
           # qq.enable = false;
@@ -73,14 +72,12 @@ in
               virtual = {
                 virtualbox.enable = false;
                 vmware.enable = false;
-                qemu.enable = false;
+                qemu.enable = true;
               };
               packages = {
                 database-suite.enable = true;
                 steam = {
                   enable = true;
-                  monitor = "DP-1";
-                  bg = 892387259;
                 };
               };
             };

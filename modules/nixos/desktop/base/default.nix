@@ -24,6 +24,7 @@ in
 
       # jetbrains
       ".config/JetBrains"
+      ".cache/JetBrains"
       ".local/share/JetBrains"
       ".config/.jetbra-free"
 

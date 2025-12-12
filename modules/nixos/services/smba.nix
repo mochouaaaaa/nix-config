@@ -9,7 +9,7 @@
   config = lib.mkIf (!config.programs.wsl.enable) {
 
     services.samba = {
-      enable = false;
+      enable = true;
       openFirewall = true;
       package = pkgs.sambaFull;
       settings = {

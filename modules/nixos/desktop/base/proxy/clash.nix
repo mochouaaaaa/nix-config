@@ -1,16 +1,14 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   ...
 }:
 let
-  cfg = config.modules.network.proxy.clash;
+  cfg = config.modules'.network.proxy.clash;
 in
 {
 
-  options.modules.network.proxy.clash = {
+  options.modules'.network.proxy.clash = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -18,7 +16,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.programs.desktop.enable && cfg.enable) {
 
     modules'.persistent.hmDirectories = [
       ".local/share/io.github.clash-verge-rev.clash-verge-rev"

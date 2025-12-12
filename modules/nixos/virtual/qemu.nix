@@ -51,7 +51,7 @@ in
     virtualisation = {
       spiceUSBRedirection.enable = true;
       libvirtd = {
-        enable = false;
+        enable = true;
         qemu = {
           package = pkgs.qemu_kvm;
           runAsRoot = true;
@@ -71,11 +71,18 @@ in
       };
     };
 
-    # dconf.settings = {
-    #   "org/virt-manager/virt-manager/connections" = {
-    #     autoconnect = ["qemu:///system"];
-    #     uris = ["qemu:///system"];
-    #   };
-    # };
+    programs.dconf.profiles = {
+      # A "user" profile with a database
+      user.databases = [
+        {
+          settings = {
+            "org/virt-manager/virt-manager/connections" = {
+              autoconnect = [ "qemu:///system" ];
+              uris = [ "qemu:///system" ];
+            };
+          };
+        }
+      ];
+    };
   };
 }

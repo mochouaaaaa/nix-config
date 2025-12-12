@@ -1,4 +1,12 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  vmwareMode = lib.hasAttr "vmware" config;
+in
 {
   boot = {
 
@@ -38,7 +46,7 @@
     loader = {
       systemd-boot.enable = false;
       grub = {
-        enable = true;
+        enable = lib.mkDefault true;
         device = lib.mkDefault "nodev";
         efiSupport = lib.mkDefault true;
         extraEntries = ''
@@ -55,7 +63,7 @@
         '';
       };
       efi = {
-        canTouchEfiVariables = true;
+        canTouchEfiVariables = if vmwareMode then false else true;
         efiSysMountPoint = "/boot";
       };
     };

@@ -1,18 +1,24 @@
 {
   pkgs,
+  config,
+  lib,
   ...
 }:
 {
 
-  environment.systemPackages = [
-    pkgs.rustdesk-flutter
-  ];
+  config = lib.mkIf (config.programs.desktop.enable) {
 
-  services.rustdesk-server = {
-    enable = false;
-    openFirewall = true;
-    relay.enable = true;
-    signal.enable = true;
-    signal.relayHosts = [ "rs-ny.rustdesk.com:21116" ];
+    environment.systemPackages = [
+      pkgs.rustdesk-flutter
+    ];
+
+    services.rustdesk-server = {
+      enable = false;
+      openFirewall = true;
+      relay.enable = true;
+      signal.enable = true;
+      signal.relayHosts = [ "rs-ny.rustdesk.com:21116" ];
+    };
+
   };
 }

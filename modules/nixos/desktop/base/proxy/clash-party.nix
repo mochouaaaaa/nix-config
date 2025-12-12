@@ -16,7 +16,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (config.programs.desktop.enable && cfg.enable) {
 
     modules'.persistent.hmDirectories = [
       # mihomo party

@@ -35,7 +35,6 @@ in
           inputs.nixos-wsl.nixosModules.default
 
           self.nixosModules.base
-
         ]
         ++ [
           (
@@ -61,18 +60,6 @@ in
                 docker
                 docker-compose
               ];
-
-              # systemd.services.docker-desktop-proxy = {
-              #   description = "Docker Desktop proxy";
-              #   script = ''
-              #     ${config.wsl.wslConf.automount.root}/wsl/docker-desktop/docker-desktop-user-distro proxy --docker-desktop-root ${config.wsl.wslConf.automount.root}/wsl/docker-desktop
-              #   '';
-              #   wantedBy = [ "multi-user.target" ];
-              #   serviceConfig = {
-              #     Restart = "on-failure";
-              #     RestartSec = "30s";
-              #   };
-              # };
 
               users.groups.docker.members = [
                 config.wsl.defaultUser

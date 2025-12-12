@@ -19,8 +19,9 @@ in
     programs = {
       hyprland = {
         enable = true;
-        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-        portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+        portalPackage =
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
 
       nautilus-open-any-terminal = {
@@ -36,7 +37,8 @@ in
         (pkgs.writeShellApplication {
           name = "launch-hyprland";
           text = ''
-            systemd-cat --identifier hyprland Hyprland
+            # systemd-cat --identifier hyprland Hyprland
+            Hyprland 2>&1 | systemd-cat -t hyprland
           '';
         })
       ];
@@ -50,7 +52,7 @@ in
           default_session = {
             user = username;
             # command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
-            command = lib.mkForce "systemd-cat --identifier hyprland Hyprland";
+            command = lib.mkForce "Hyprland 2>&1 | systemd-cat -t hyprland";
           };
           initial_session = default_session;
         };

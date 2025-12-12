@@ -3,9 +3,12 @@
   config,
   ...
 }:
+let
+  vmwareMode = lib.hasAttr "vmware" config;
+in
 {
 
-  config = rec {
+  config = lib.mkIf (!vmwareMode) {
     boot.extraModprobeConfig = lib.mkForce "options kvm_amd nested=1"; # for amd cpu
     boot.extraModulePackages = [ ];
 
