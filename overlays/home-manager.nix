@@ -23,6 +23,7 @@
       inputs.niri.overlays.niri
       inputs.nuenv.overlays.default
       inputs.vicinae.overlays.default
+      inputs.hyprland-contrib.overlays.default
       (import ./pkgs/vicinae-wrapper.nix)
       (import ./pkgs/obsidian-wrapper.nix)
       (import ./pkgs/tiny-rdm-wrapper.nix)
@@ -39,9 +40,11 @@
     #    };
   }
   // {
+    pot = prev.callPackage ./pkgs/pot.nix { };
     jetbra-free = prev.callPackage ./pkgs/jetbra-free { };
     # waybar_git = inputs.waybar.packages.${final.pkgs.system}.waybar;
-    xwayland-satellite = inputs.xwayland-satellite.packages.${final.pkgs.system}.default;
+    xwayland-satellite =
+      inputs.xwayland-satellite.packages.${final.pkgs.stdenv.hostPlatform.system}.default;
     colloid-gtk-theme = prev.callPackage ./pkgs/themes/colloid-gtk-theme.nix { };
     neovide = prev.callPackage ./pkgs/neovide.nix { };
   }

@@ -29,7 +29,7 @@ in
         enable = lib.mkOption {
           default = builtins.getEnv "DESKTOP" == "hyprland";
           type = lib.types.bool;
-          description = "Enable Hyprland desktop environment.";
+          description = "Enable Hyprland desktop manager";
         };
       };
 
@@ -37,7 +37,7 @@ in
         enable = lib.mkOption {
           type = lib.types.bool;
           default = builtins.getEnv "DESKTOP" == "kde";
-          description = "Enable KDE desktop environment.";
+          description = "Enable KDE desktop manager";
         };
       };
 
@@ -45,7 +45,7 @@ in
         enable = lib.mkOption {
           type = lib.types.bool;
           default = builtins.getEnv "DESKTOP" == "niri";
-          description = "Enable Niri window manager";
+          description = "Enable Niri desktop manager";
         };
       };
 
@@ -53,7 +53,7 @@ in
         enable = lib.mkOption {
           type = lib.types.bool;
           default = builtins.getEnv "DESKTOP" == "sway";
-          description = "Enable Sway window manager";
+          description = "Enable Sway desktop manager";
         };
       };
     };

@@ -32,6 +32,7 @@ stdenv.mkDerivation rec {
     fetchurl {
       url = "https://github.com/mihomo-party-org/${pname}/releases/download/v${version}/${pname}-linux-${version}-${arch}.deb";
       hash = selectSystem {
+        # x86_64-linux = "sha256-i1pWgmrEUBLJxCNvFRGcqv36bBjgXYtaJMZVIQtKAfI=";
         x86_64-linux = "sha256-CijLo3yLQsHMtejIvRk41kWdv6VoZxOeHKawwqfG6gc=";
         aarch64-linux = "sha256-3x6xueQS81IWutY0BH52wRdb8Fh2kTQF7QgwZACE6kk=";
       };

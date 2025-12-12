@@ -8,10 +8,6 @@
 
     dconf.enable = lib.mkForce false;
 
-    services.xremap = {
-      enable = false;
-    };
-
   };
 
 }
