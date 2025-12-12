@@ -14,9 +14,13 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = if isNixos then null else inputs.hyprland.packages.${pkgs.system}.hyprland;
+      package =
+        if isNixos then null else inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       portalPackage =
-        if isNixos then null else inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+        if isNixos then
+          null
+        else
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
       systemd = {
         enable = true;

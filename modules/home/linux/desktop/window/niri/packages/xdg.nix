@@ -15,6 +15,8 @@ in
         config = {
           niri = {
             default = [ "niri" ] ++ [ config.xdg.portal.config.common.default ];
+            "org.freedesktop.impl.portal.Settings" = "gnome";
+
           };
         };
         extraPortals = with pkgs; [

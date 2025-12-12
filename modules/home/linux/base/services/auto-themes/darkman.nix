@@ -81,7 +81,6 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      whitesur-icon-theme
       libadwaita
     ];
 

@@ -10,11 +10,10 @@ in
 {
   config = lib.mkIf (cfg.enable && cfgNoctalia.enable) {
 
-    modules'.desktop.services.vicinae.enable = lib.mkForce true;
     modules'.desktop.hypridle.lock_cmd = "noctalia-shell ipc call lockScreen lock";
 
-    wayland.windowManager.hyprland = {
-      custom_settings = {
+    modules'.desktop.hyprland = {
+      settings = {
         media = [
           ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
           ", XF86AudioNext, exec, noctalia-shell ipc call media next"
@@ -22,22 +21,25 @@ in
           ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
         ];
         brightness = [
-          ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
-          ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
+          ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase" # f2
+          ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease" # f1
         ];
         volume = [
-          ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
-          ", XD86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
+          ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase" # f12
+          ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease" # f11
         ];
-        # clipboard = "$mod, P, exec, noctalia-shell ipc call launcher clipboard";
-        # launcher = "$mod, Space, exec, noctalia-shell ipc call launcher toggle";
         lock = "$mod CTRL, q, exec, noctalia-shell ipc call lockScreen lock";
         shell-settings = "$mod, comma, exec, noctalia-shell ipc call settings toggle";
       };
+    };
+    wayland.windowManager.hyprland = {
       settings = {
+        decoration = lib.mkForceRecursive {
+          rounding = 15;
+        };
         layerrule = [
-          "blur, noctalia-bar"
-          "ignorezero, noctalia-bar"
+          "blur, noctalia-.*"
+          "ignorezero, noctalia-.*"
         ];
       };
     };

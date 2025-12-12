@@ -13,7 +13,7 @@ in
 
         misc = {
           disable_splash_rendering = true;
-          disable_hyprland_qtutils_check = true;
+          # disable_hyprland_qtutils_check = true;
           # 禁用吞噬模式
           # 它会导致neovim使用yazi查看图片出现问题, kitty打开其他Tui程序覆盖问题
           # enable_swallow = true

@@ -15,12 +15,10 @@ in
     services.darkman.enable = lib.mkForce false;
 
     modules'.themes.auto = {
-      enable = true;
+      enable = false;
       gtkTheme = {
         enable = true;
-        shellTheme = "${
-          lib.getExe inputs.noctalia.packages.${pkgs.system}.default
-        } ipc call darkMode setLight";
+        # shellTheme = "${lib.getExe config.programs.noctalia-shell.package} ipc call darkMode setLight";
       };
     };
 

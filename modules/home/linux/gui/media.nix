@@ -18,7 +18,8 @@
       libva-utils
       vdpauinfo
       vulkan-tools
-      glxinfo
+      # glxinfo
+      mesa-demos
     ];
 
     programs.cava = {

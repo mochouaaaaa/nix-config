@@ -22,9 +22,9 @@ in
           src = pkgs.fetchFromGitHub {
             owner = "xfangfang";
             repo = "wiliwili";
-            rev = "v1.5.2";
+            rev = "v1.5.3";
             fetchSubmodules = true;
-            hash = "sha256-lcHKbEYlOznu9WhWX7ZoOCnxr6h/AJCLbjLmc2ZZTbg=";
+            hash = "sha256-NPJ1PLO6eqm4rBn4t965S0lqzT+npfYLWN6FKYCpnlQ=";
           };
         });
       };

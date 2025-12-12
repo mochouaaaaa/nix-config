@@ -25,14 +25,11 @@ in
     };
 
     home.packages = with pkgs; [
-      pkgs-stable.kdePackages.qt6gtk2
 
-      grimblast
       slurp
       gimp
       grim
-
-      cliphist
+      grimblast
 
       # audio
       alsa-utils # provides amixer/alsamixer/...

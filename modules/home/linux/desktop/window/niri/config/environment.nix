@@ -16,7 +16,7 @@ in
         CLUTTER_BACKEND = "wayland";
         SDL_VIDEODRIVER = "wayland";
         # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-        QT_QPA_PLATFORM = "wayland;xcb";
+        QT_QPA_PLATFORM = "wayland";
         # GDK_DPI_SCALE = "1";
         # QT_SCALE_FACTOR = "1";
         # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";

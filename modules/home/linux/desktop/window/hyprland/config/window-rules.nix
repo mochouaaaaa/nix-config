@@ -17,8 +17,6 @@ in
           "center 1, floating:1, xwayland:0" # Center all floating windows (not xwayland cause popups)
 
           # opacity
-          "opacity 0.78, class:^(firefox|chromium-browser|zen|zen-beta)$"
-          "opacity 0.78, class:^(io.github.kukuruzka165.materialgram)$"
           "float, class:^(io.github.kukuruzka165.materialgram)$, title:媒体查看器"
 
           # Float
@@ -59,14 +57,13 @@ in
           "float, class:(flameshot), title:(flameshot-pin)"
 
           # filemanager
-          "center, class:([Tt]hunar), title:^([Tt]hunar)$, size: 1200,1300"
+          "center, class:([Tt]hunar), title:^([Tt]hunar)$, size: 1200 1300"
           "center, class:([Tt]hunar), title:(Confirm to replace files)"
           "float, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
           "size 1145 672, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
           "float, class:([Tt]hunar), title:(File Operation Progress)"
           "float, class:([Tt]hunar), title:(Confirm to replace files)"
 
-          "float, class:SPlayer, title:SPlayer"
           "float, class:mihomo-party, title:Clash Party"
           "size 1250 1050, class:mihomo-party, title:Clash Party"
           "float, class:chromium-browser, title:(雀魂麻将 - Chromium)"
@@ -176,44 +173,21 @@ in
 
           # vicinae
           "blur, vicinae"
-          # "blurpopups, vicinae"
           "ignorealpha 0, vicinae"
-          "noanim, vicinae"
-
-          # blur
-          # rofi
-          "blur, rofi"
-          # layerrule = unset, rofi
-          "ignorezero, rofi"
-          "blur, class:^(swww)$"
-
-          # blur waybar
-          # "blur, waybar"
-
-          # blur swaync
-          "blur, swaync-control-center"
-          "blur, swaync-notification-window"
-          "ignorezero, swaync-control-center"
-          "ignorezero, swaync-notification-window"
-          "ignorealpha, swaync-control-center"
-          "ignorealpha, swaync-notification-window"
 
           # blur wlogout
-          "blur, logout_dialog"
-          "blur, gtk-layer-shell"
-
-          # wezterm
-          "blur, class:org.wezfurlong.wezterm"
+          # "blur, logout_dialog"
+          # "blur, gtk-layer-shell"
 
           # ######## Layer rules ########
           "animation fade, hyprpicker" # Colour picker out animation
-          "animation fade, logout_dialog" # wlogout
+          # "animation fade, logout_dialog" # wlogout
           "animation fade, selection" # slurp
-          "animation fade, wayfreeze"
+          # "animation fade, wayfreeze"
 
           # Fuzzel
-          "animation popin 80%, launcher"
-          "blur, launcher"
+          # "animation popin 80%, launcher"
+          # "blur, launcher"
         ];
       };
     };

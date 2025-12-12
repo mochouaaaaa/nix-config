@@ -7,23 +7,15 @@
 }:
 let
   cfg = config.modules'.desktop.shell.noctalia;
-  cfgNoctalia-shell = config.programs.noctalia-shell;
 in
 {
 
-  options.programs.noctalia-shell = {
-    showScreenCorners = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to show screen corners in Noctalia shell.";
-    };
-  };
-
   config = lib.mkIf (cfg.enable) {
 
-    programs.noctalia-shell.settings = {
+    modules'.desktop.shell.noctalia.settings = rec {
       appLauncher = {
-        backgroundOpacity = 1;
+        backgroundOpacity = ui.panelBackgroundOpacity;
+        customLaunchPrefixEnabled = true;
         enableClipboardHistory = true;
         pinnedExecs = [ ];
         position = "center";
@@ -35,19 +27,22 @@ in
         cavaFrameRate = 60;
         mprisBlacklist = [ ];
         preferredPlayer = "";
+        visualizerQuality = "high";
         visualizerType = "linear";
         volumeOverdrive = false;
         volumeStep = 5;
       };
       bar = {
-        backgroundOpacity = 0.6;
+        backgroundOpacity = ui.panelBackgroundOpacity;
         density = "comfortable";
+        exclusive = true;
         floating = false;
         marginHorizontal = 0.25;
         marginVertical = 0.25;
         monitors = [ ];
+        outerCorners = true;
         position = "top";
-        showCapsule = true;
+        showCapsule = false;
         widgets = {
           center = [
           ];
@@ -64,14 +59,28 @@ in
                 "nm-applet"
                 "udiskie"
               ];
+              colorizeIcons = false;
+              drawerEnabled = false;
               id = "Tray";
+            }
+            {
+              id = "SystemMonitor";
+              showCpuTemp = false;
+              showCpuUsage = false;
+              showDiskUsage = false;
+              showMemoryAsPercent = false;
+              showMemoryUsage = false;
+              showNetworkStats = true;
+              usePrimaryColor = true;
             }
             { id = "ScreenRecorder"; }
             {
               id = "WiFi";
+              displayMode = "onhover";
             }
             {
               id = "Bluetooth";
+              displayMode = "onhover";
             }
             {
               customIconPath = "";
@@ -92,6 +101,8 @@ in
       };
       brightness = {
         brightnessStep = 5;
+        enableDdcSupport = true;
+        enforceMinimum = true;
       };
       colorSchemes = {
         darkMode = false;
@@ -106,8 +117,30 @@ in
       controlCenter = {
         position = "close_to_bar_button";
         quickSettingsStyle = "compact";
-        widgets = {
-          quickSettings = [
+        cards = [
+          {
+            enabled = true;
+            id = "profile-card";
+          }
+          {
+            enabled = true;
+            id = "shortcuts-card";
+          }
+          {
+            enabled = true;
+            id = "audio-card";
+          }
+          {
+            enabled = false;
+            id = "weather-card";
+          }
+          {
+            enabled = true;
+            id = "media-sysmon-card";
+          }
+        ];
+        shortcuts = {
+          left = [
             {
               id = "WiFi";
             }
@@ -115,23 +148,31 @@ in
               id = "Bluetooth";
             }
             {
-              id = "Notifications";
+              id = "ScreenRecorder";
             }
             {
-              id = "ScreenRecorder";
+              id = "WallpaperSelector";
+            }
+          ];
+          right = [
+            {
+              id = "Notifications";
             }
             {
               id = "PowerProfile";
             }
             {
-              id = "WallpaperSelector";
+              id = "KeepAwake";
+            }
+            {
+              id = "NightLight";
             }
           ];
         };
       };
       dock = {
         enabled = false;
-        backgroundOpacity = 1;
+        backgroundOpacity = ui.panelBackgroundOpacity;
         displayMode = "always_visible";
         floatingRatio = 1;
         monitors = [ ];
@@ -140,16 +181,22 @@ in
       };
       general = {
         animationDisabled = false;
-        animationSpeed = 0.97;
+        animationSpeed = 0.68;
         avatarImage = "${config.home.homeDirectory}/.face";
         compactLockScreen = false;
+        dimmerOpacity = 0;
         dimDesktop = false;
+        enableShadows = false;
         forceBlackScreenCorners = false;
+        language = "";
         lockOnSuspend = true;
-        radiusRatio = 0.94;
+        radiusRatio = 1;
         scaleRatio = 1;
-        screenRadiusRatio = 0.5;
-        showScreenCorners = cfgNoctalia-shell.showScreenCorners;
+        screenRadiusRatio = 0;
+        shadowDirection = "center";
+        shadowOffsetX = 0;
+        shadowOffsetY = 0;
+        showScreenCorners = lib.mkDefault true;
       };
       hooks = {
         darkModeChange =
@@ -162,16 +209,26 @@ in
               else
                 switch-theme Light
               fi
+              sleep 1 && pkill -SIGUSR1 kitty 
             '';
 
           in
           "${lib.getExe hook_theme} $1";
         enabled = true;
-        wallpaperChange = "";
+        wallpaperChange =
+          let
+            hook_wallpaper = pkgs.writeShellScriptBin "hook_wallpaper" ''
+              sleep 1 && pkill -SIGUSR1 kitty 
+              # notify-send "$2:壁纸" "壁纸已更新"
+            '';
+          in
+          "${lib.getExe hook_wallpaper} $1 $2";
       };
       location = {
+        analogClockInCalendar = false;
         name = "Beijing; China";
         showCalendarEvents = true;
+        showCalendarWeather = true;
         showWeekNumberInCalendar = true;
         use12hourFormat = false;
         useFahrenheit = false;
@@ -190,8 +247,10 @@ in
         nightTemp = "3300";
       };
       notifications = {
+        backgroundOpacity = ui.panelBackgroundOpacity;
         criticalUrgencyDuration = 15;
         doNotDisturb = false;
+        enabled = true;
         location = "top_right";
         lowUrgencyDuration = 3;
         monitors = [ ];
@@ -202,9 +261,16 @@ in
       osd = {
         enabled = true;
         autoHideMs = 3000;
+        enabledTypes = [
+          0
+          1
+          2
+          3
+        ];
         location = "top_right";
         monitors = [ ];
         overlayLayer = true;
+        backgroundOpacity = ui.panelBackgroundOpacity;
       };
       screenRecorder = {
         audioCodec = "opus";
@@ -217,32 +283,38 @@ in
         videoCodec = "h264";
         videoSource = "portal";
       };
-      settingsVersion = 16;
       templates = {
+        alacritty = false;
+        code = false;
         discord = false;
         discord_armcord = false;
         discord_dorion = false;
-        discord_equibop = false;
+        discord_equibop = true;
         discord_lightcord = false;
-        discord_vesktop = false;
+        discord_vesktop = true;
         discord_webcord = false;
         enableUserTemplates = true;
+        cava = true;
         foot = false;
         fuzzel = false;
         ghostty = false;
-        gtk = false;
-        kcolorscheme = false;
-        kitty = false;
+        gtk = true;
+        kcolorscheme = true;
+        kitty = true;
         pywalfox = false;
-        qt = false;
+        qt = true;
         vicinae = true;
+        walker = false;
+        wezterm = true;
       };
       ui = {
+        panelBackgroundOpacity = 0.78;
         fontDefault = "Monaco Nerd Font";
         fontDefaultScale = 1;
         fontFixed = "Monaco Nerd Font Mono";
         fontFixedScale = 1;
-        panelsOverlayLayer = true;
+        panelsAttachedToBar = true;
+        settingsPanelMode = "centered";
         tooltipsEnabled = true;
       };
       wallpaper = {
@@ -250,7 +322,7 @@ in
         directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
         enabled = true;
-        fillColor = "#000000";
+        fillColor = "#1e1e2e";
         fillMode = "crop";
         monitors = [
           {
@@ -259,15 +331,22 @@ in
             wallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png";
           }
         ];
-        randomEnabled = false;
+        overviewEnabled = false;
+        panelPosition = "follow_bar";
+        randomEnabled = true;
         randomIntervalSec = 300;
         recursiveSearch = true;
         setWallpaperOnAllMonitors = true;
-        transitionDuration = 1500;
-        transitionEdgeSmoothness = 0.05;
+        transitionDuration = 3000;
+        transitionEdgeSmoothness = 0.15;
         transitionType = "random";
       };
     };
+
+    programs.cava.settings = {
+      theme = "noctalia";
+    };
+
   };
 
 }

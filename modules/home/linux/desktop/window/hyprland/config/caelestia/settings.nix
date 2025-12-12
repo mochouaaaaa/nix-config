@@ -11,10 +11,8 @@ in
 
   config = lib.mkIf (cfg.enable && cfgHyprland.enable) {
 
-    modules'.desktop.services.vicinae.enable = lib.mkForce false;
-
-    wayland.windowManager.hyprland = {
-      custom_settings = {
+    modules'.desktop.hyprland = {
+      settings = {
         media = [
           ", XF86AudioPlay, global, caelestia:mediaToggle"
           ", XF86AudioPause, global, caelestia:mediaToggle"
@@ -34,58 +32,60 @@ in
           "$mod CTRL, A, exec, caelestia screenshot --region -f"
         ];
       };
+    };
+    wayland.windowManager.hyprland = {
       settings = {
-        exec = "cp =: ==no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
+        exec = "cp -L --no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
 
         source = [
           "${config.xdg.configHome}/hypr/scheme/current.conf"
           "${config.xdg.configHome}/hypr/variables.conf"
         ];
 
-        input = {
+        input = lib.mkForceRecursive {
           touchpad = {
-            disable_while_typing = lib.mkForce "$touchpadDisableTyping";
-            scroll_factor = lib.mkForce "$touchpadScrollFactor";
+            disable_while_typing = "$touchpadDisableTyping";
+            scroll_factor = "$touchpadScrollFactor";
           };
         };
 
-        misc = {
-          background_color = lib.mkForce "rgb($surfaceContainer)";
+        misc = lib.mkForceRecursive {
+          background_color = "rgb($surfaceContainer)";
         };
 
-        general = {
-          border_size = lib.mkForce "$windowBorderSize";
+        general = lib.mkForceRecursive {
+          border_size = "$windowBorderSize";
 
-          gaps_workspaces = lib.mkForce "$workspaceGaps";
-          gaps_in = lib.mkForce "$windowGapsIn";
-          gaps_out = lib.mkForce "$windowGapsOut";
-          "col.active_border" = lib.mkForce "$activeWindowBorderColour";
-          "col.inactive_border" = lib.mkForce "$inactiveWindowBorderColour";
+          gaps_workspaces = "$workspaceGaps";
+          gaps_in = "$windowGapsIn";
+          gaps_out = "$windowGapsOut";
+          "col.active_border" = "$activeWindowBorderColour";
+          "col.inactive_border" = "$inactiveWindowBorderColour";
         };
 
-        decoration = {
-          rounding = lib.mkForce "$windowRounding";
+        decoration = lib.mkForceRecursive {
+          rounding = "$windowRounding";
           shadow = {
-            enabled = lib.mkForce "$shadowEnabled";
-            range = lib.mkForce "$shadowRange";
-            render_power = lib.mkForce "$shadowRenderPower";
-            color = lib.mkForce "$shadowColour";
+            enabled = "$shadowEnabled";
+            range = "$shadowRange";
+            render_power = "$shadowRenderPower";
+            color = "$shadowColour";
           };
         };
 
-        group = {
+        group = lib.mkForceRecursive {
 
-          "col.border_active" = lib.mkForce "$activeWindowBorderColour";
-          "col.border_inactive" = lib.mkForce "$inactiveWindowBorderColour";
-          "col.border_locked_active" = lib.mkForce "$activeWindowBorderColour";
-          "col.border_locked_inactive" = lib.mkForce "$inactiveWindowBorderColour";
+          "col.border_active" = "$activeWindowBorderColour";
+          "col.border_inactive" = "$inactiveWindowBorderColour";
+          "col.border_locked_active" = "$activeWindowBorderColour";
+          "col.border_locked_inactive" = "$inactiveWindowBorderColour";
 
           groupbar = {
-            text_color = lib.mkForce "rgb($onPrimary)";
-            "col.active" = lib.mkForce "rgba($primaryd4)";
-            "col.inactive" = lib.mkForce "rgba($outlined4)";
-            "col.locked_active" = lib.mkForce "rgba($primaryd4)";
-            "col.locked_inactive" = lib.mkForce "rgba($secondaryd4)";
+            text_color = "rgb($onPrimary)";
+            "col.active" = "rgba($primaryd4)";
+            "col.inactive" = "rgba($outlined4)";
+            "col.locked_active" = "rgba($primaryd4)";
+            "col.locked_inactive" = "rgba($secondaryd4)";
           };
         };
 
@@ -128,7 +128,7 @@ in
           $blurPopups = true
           $blurInputMethods = true
           $blurSize = 8
-          $blurPasses = 2
+          $blurPasses = 4
           $blurXray = false
 
           # Shadow

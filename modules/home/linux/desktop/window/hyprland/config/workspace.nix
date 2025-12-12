@@ -52,7 +52,7 @@ in
           "workspace special:tg, class:io.github.kukuruzka165.materialgram"
 
           # Special workspaces
-          "workspace special:music, class:feishin|Spotify|Supersonic"
+          "workspace special:music, class:feishin|Spotify|Supersonic|SPlayer"
           "workspace special:music, initialTitle:Spotify( Free)?" # Spotify wayland, it has no class for some reason
           "workspace special:wechat, class:discord|equibop|vesktop|whatsapp"
           "workspace special:todo, class:Todoist"

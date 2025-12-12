@@ -9,8 +9,8 @@ in
 
     modules'.desktop.services.vicinae.enable = lib.mkForce false;
 
-    wayland.windowManager.hyprland = {
-      custom_settings = {
+    modules'.desktop.hyprland = {
+      settings = {
         media = [ ];
         brightness = [
           ", XF86MonBrightnessUp, exec, dms ipc call brightness increment 5"
@@ -25,13 +25,45 @@ in
         lock = "$mod CTRL, q, exec, dms ipc call lock lock";
         shell-settings = "$mod, comma, exec, dms ipc call settings toggle";
       };
+    };
+    wayland.windowManager.hyprland = {
       settings = {
+        decoration = lib.mkForceRecursive {
+          shadow = {
+            enabled = true;
+            range = 30;
+            render_power = 5;
+            offset = "0 5";
+            color = "rgba(00000070)";
+          };
+          blur = {
+            enabled = true;
+            size = 10;
+            passes = 4;
+
+            ignore_opacity = true;
+            new_optimizations = true;
+            xray = false;
+
+            noise = 0.02;
+            contrast = 1.1;
+            vibrancy = 0.2;
+            vibrancy_darkness = 0.3;
+          };
+          rounding = 12;
+          active_opacity = 1.0;
+          inactive_opacity = 0.9;
+        };
         bindl = [
           ", XF86AudioMute, exec, dms ipc call audio mute"
           ", XF86AudioMicMute, exec, dms ipc call audio micmute"
         ];
+        "$blur_layer" = "dms:(color-picker|clipboard|spotlight|settings)";
         layerrule = [
-          "blur, quickshell:bar"
+          "animation slide right, dms:control-center"
+          "animation slide top, dms:dms:workspace-overview"
+
+          "noanim, ^(quickshell)$"
         ];
       };
     };

@@ -1,6 +1,8 @@
 {
   lib,
   config,
+  pkgs,
+  inputs,
   ...
 }:
 let
@@ -14,7 +16,7 @@ in
       enable = true;
       gtkTheme = {
         enable = true;
-        shellTheme = "dms ipc call theme light";
+        # shellTheme = "${config.systemd.user.services.dms.Service.ExecStart} ipc call theme light";
       };
     };
 
@@ -23,14 +25,12 @@ in
         gtk-theme = ''
           dms ipc call theme light
           switch-theme Light
-          vicinae vicinae://theme/set/vicinae-light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
           dms ipc call theme dark
           switch-theme Dark
-          vicinae vicinae://theme/set/vicinae-dark
         '';
       };
     };

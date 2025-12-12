@@ -6,12 +6,11 @@
 }:
 let
   cfg = config.modules'.desktop.hyprland;
-  cfgSettings = config.wayland.windowManager.hyprland.custom_settings;
 in
 {
 
-  options.wayland.windowManager.hyprland = {
-    custom_settings = {
+  options.modules'.desktop.hyprland = {
+    settings = {
       media = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default =
@@ -70,12 +69,12 @@ in
 
       settings = {
         "$mod" = "SUPER";
-        "$term" = "kitty";
+        "$term" = "kitty --single-instance";
         "$files" = "nautilus";
 
-        bindel = cfgSettings.brightness ++ cfgSettings.volume;
+        bindel = cfg.settings.brightness ++ cfg.settings.volume;
 
-        bindl = cfgSettings.media;
+        bindl = cfg.settings.media;
 
         binde = [
           # Resize windows
@@ -104,9 +103,6 @@ in
             "$mod CTRL, T, exec, $term" # Launch terminal
             "$mod CTRL, E, exec, nautilus" # Launch file manager
 
-            # "$mod ALT, R, exec, bash refresh" # Refresh waybar, swaync, rofi
-
-            # "$mod SHIFT CTRL, I, exec, bash WallpaperSelect.sh" # Select wallpaper to apply
             "$mod ALT, O, exec, hyprctl setprop active opaque toggle" # disable opacity to active window
 
             # group
@@ -127,11 +123,11 @@ in
             "ALT, k, movefocus, u"
             "ALT, j, movefocus, d"
           ]
-          ++ cfgSettings.screenshot
-          ++ lib.optional (cfgSettings.clipboard != "") cfgSettings.clipboard
-          ++ lib.optional (cfgSettings.launcher != "") cfgSettings.launcher
-          ++ lib.optional (cfgSettings.lock != "") cfgSettings.lock
-          ++ lib.optional (cfgSettings.shell-settings != "") cfgSettings.shell-settings;
+          ++ cfg.settings.screenshot
+          ++ lib.optional (cfg.settings.clipboard != "") cfg.settings.clipboard
+          ++ lib.optional (cfg.settings.launcher != "") cfg.settings.launcher
+          ++ lib.optional (cfg.settings.lock != "") cfg.settings.lock
+          ++ lib.optional (cfg.settings.shell-settings != "") cfg.settings.shell-settings;
         bindm = [
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"

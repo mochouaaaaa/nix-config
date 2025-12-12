@@ -8,6 +8,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+
     wayland.windowManager.hyprland = {
       settings = {
 

@@ -86,9 +86,9 @@ let
   '';
 
   switch-theme = pkgs.writeShellScriptBin "switch-theme" ''
-    mode=''${1:-${cfg.light}}  # 如果没有提供 mode 参数，默认是 Light
-    theme=''${2:-${cfg.name}}  # 如果没有提供 theme 参数，默认是 Colloid
-    icon_theme=''${3:-${cfg.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
+    mode=''${1:-${cfg.light}} 
+    theme=''${2:-${cfg.name}}
+    icon_theme=''${3:-${cfg.icon.name}} 
 
     # 默认主题是 Colloid
     gtk_theme_name="$theme-$mode"
@@ -142,6 +142,7 @@ in
       cfg.package
       cfg.icon.package
       switch-theme
+      pkgs.whitesur-icon-theme
     ];
 
     services.darkman = {

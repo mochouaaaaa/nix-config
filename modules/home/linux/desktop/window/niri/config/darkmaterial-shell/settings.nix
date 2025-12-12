@@ -16,6 +16,12 @@ in
 
   config = lib.mkIf (cfg.enable && cfgNiri.enable) {
 
+    programs.dankMaterialShell = {
+      default.settings = lib.mkForce {
+        dankBarGothCornersEnabled = false;
+      };
+    };
+
     programs.niri.settings = {
       binds =
         let
