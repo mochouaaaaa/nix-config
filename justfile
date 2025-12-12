@@ -40,7 +40,7 @@ verify-store:
 
 [group('flake')]
 _update:
-    nix flake update nixpkgs nixpkgs-unstable nixpkgs-stable systems flake-parts home-manager
+    nix flake update nixpkgs nixpkgs-stable systems flake-parts home-manager
 
 #-------------------------------
 # MacOS 环境
@@ -145,7 +145,6 @@ home-repl desktop="hyprland":
 [linux]
 [group('home-manager')]
 home-hyprland:
-    # nix flake update rofi-tools swww hyprlux waybar
     DESKTOP=hyprland {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -b backup {{ NH_BUILD_ARGS }}
 
 
