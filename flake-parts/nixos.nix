@@ -99,7 +99,7 @@ let
 
               home-manager.extraSpecialArgs = specialArgs // {
 
-                pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs-unstable {
+                pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs {
                   overlays = [ self.overlays.home-manager ];
                 };
                 pkgs-stable = ctx.extraPackages.pkgs-os;

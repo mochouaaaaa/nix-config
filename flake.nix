@@ -29,7 +29,6 @@
   inputs = {
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-os.url = "github:nixos/nixpkgs/nixos-25.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -70,6 +69,7 @@
       url = "github:mochouaaaaa/dotfile/nvim-fzf";
       flake = false;
     };
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";
@@ -91,12 +91,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # add git hooks to format nix code before commit
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nuenv.url = "github:DeterminateSystems/nuenv";
 
     nixpak = {
@@ -104,6 +98,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    frizbee.url = "github:saghen/frizbee";
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -112,52 +107,50 @@
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
-      # to have it up-to-date or simply don't specify the nixpkgs input
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # desktop components
-    vicinae.url = "github:vicinaehq/vicinae?ref=v0.16.1";
+    vicinae = {
+      url = "github:vicinaehq/vicinae?ref=v0.16.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
+    # quickshell = {
+    #   url = "github:outfoxxed/quickshell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     # desktop-shell
     caelestia-shell = {
       url = "github:caelestia-dots/shell?ref=v1.3.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v2.21.1";
+      # url = "github:mochouaaaaa/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell";
+      # url = "path:/home/mochou/Code/Projects/c/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.quickshell.follows = "quickshell";
     };
     DankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v0.3.4";
+      url = "github:AvengeMedia/DankMaterialShell?ref=v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # hyprland
+    hyprutils.url = "github:hyprwm/hyprutils";
+    hyprgraphics.url = "github:hyprwm/hyprgraphics";
+    aquamarine.url = "github:hyprwm/aquamarine";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.51.1";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:hyprwm/Hyprland?ref=v0.52.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprutils.follows = "hyprutils";
+      inputs.hyprgraphics.follows = "hyprgraphics";
+      inputs.aquamarine.follows = "aquamarine";
     };
-    hyprlux = {
-      url = "github:amadejkastelic/Hyprlux";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    Hyprspace = {
-      url = "github:KZDKM/Hyprspace";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland"; # to make sure that the plugin is built for the correct version of hyprland
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    hyprgrass = {
-      url = "github:horriblename/hyprgrass";
-      inputs.hyprland.follows = "hyprland"; # IMPORTANT
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # niri

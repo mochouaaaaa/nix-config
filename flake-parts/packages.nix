@@ -28,7 +28,7 @@ let
       inherit overlays;
     };
 
-  pkgs-unstable = mkPkgs inputs.nixpkgs-unstable { };
+  pkgs-unstable = mkPkgs inputs.nixpkgs { };
   pkgs-os = mkPkgs inputs.nixpkgs-os { };
 
   nvfetcherSources = import ../_sources/generated.nix {

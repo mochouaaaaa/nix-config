@@ -25,11 +25,18 @@ let
   # |> lib.subtractLists [ "default.nix" ]
   # |> map (n: path + "/${n}");
 
+  mkForceRecursive =
+    attrset:
+    lib.mapAttrs (
+      name: value:
+      if lib.isAttrs value && !lib.isDerivation value then mkForceRecursive value else lib.mkForce value
+    ) attrset;
+
 in
 {
 
   flake.overlays.lib = final: prev: {
-    inherit importModule';
+    inherit importModule' mkForceRecursive;
   };
 
   perSystem._module.args = {

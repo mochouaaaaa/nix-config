@@ -6,9 +6,9 @@
 
   perSystem =
     {
-      inputs',
+      inputs,
+      system,
       pkgs,
-      pkgs-stable,
       ...
     }:
     {

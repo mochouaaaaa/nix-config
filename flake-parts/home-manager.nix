@@ -74,7 +74,7 @@ let
         in
         inputs.home-manager.lib.homeManagerConfiguration {
 
-          pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs-unstable {
+          pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs {
             inherit overlays custom_config;
           };
 

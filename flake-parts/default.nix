@@ -10,7 +10,7 @@
     ./darwin.nix
     ./home-manager.nix
 
-    ./imports.nix
+    ./_lib.nix
 
     ./dev-shells
   ];
@@ -81,5 +81,6 @@
         };
 
       };
+
     };
 }
