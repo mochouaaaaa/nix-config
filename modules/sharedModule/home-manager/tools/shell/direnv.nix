@@ -1,5 +1,9 @@
 { lib, pkgs, ... }:
 {
+  home.packages = [
+    pkgs.devenv
+  ];
+
   programs =
     let
       direnv_shell_warpper = ''

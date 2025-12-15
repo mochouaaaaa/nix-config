@@ -4,23 +4,26 @@
   lib,
   ...
 }:
+let
+  yaziRuntimeDeps =
+    with pkgs;
+    [
+      # db
+      duckdb
+      # pdf
+      zathura
+      evince
+      # markdown
+      glow
+      # image
+      chafa
+      ueberzugpp
+    ]
+    ++ lib.optionals (pkgs.stdenv.isLinux) [
+      wl-clipboard
+    ];
+in
 {
-  home.packages = with pkgs; [
-    # db
-    duckdb
-
-    # pdf
-    zathura
-    evince
-
-    # markdown
-    glow
-
-    # image
-    chafa
-    ueberzugpp
-  ];
-
   programs =
     let
       warpper_shell = ''
@@ -41,10 +44,22 @@
     rec {
       yazi = {
         enable = true;
-        # package = inputs.yazi.packages.${pkgs.system}.default;
+        package = (pkgs.yazi.override { extraPackages = yaziRuntimeDeps; });
         enableZshIntegration = false;
         enableBashIntegration = false;
         enableFishIntegration = false;
+        plugins = {
+          git = pkgs.yaziPlugins.git;
+          chmod = pkgs.yaziPlugins.chmod;
+          ouch = pkgs.yaziPlugins.ouch;
+          full-border = pkgs.yaziPlugins.full-border;
+          duckdb = pkgs.yaziPlugins.duckdb;
+          piper = pkgs.yaziPlugins.piper;
+          vcs-files = pkgs.yaziPlugins.vcs-files;
+          jump-to-char = pkgs.yaziPlugins.jump-to-char;
+          smart-enter = pkgs.yaziPlugins.smart-enter;
+          smart-filter = pkgs.yaziPlugins.smart-filter;
+        };
       };
       zsh.initContent = lib.optionalString (yazi.enable) warpper_shell + ''
         if [[ -n "$YAZI_ID" ]]; then
@@ -57,11 +72,6 @@
       bash.initExtra = warpper_shell;
     };
 
-  xdg.configFile = {
-    "yazi" = {
-      force = true;
-      recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.modules'.dotfiles}/yazi";
-    };
-  };
+  xdg.configFile = config.modules'.dotfileLink "yazi";
+
 }

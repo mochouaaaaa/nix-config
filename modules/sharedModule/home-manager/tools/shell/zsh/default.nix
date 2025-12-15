@@ -38,8 +38,8 @@
       };
       history = {
         path = "$HOME/.zsh_history";
-        size = 5000;
-        save = 5000;
+        size = 10000;
+        save = 10000;
         append = true;
         saveNoDups = true;
         ignoreSpace = true;
@@ -57,11 +57,5 @@
     };
   };
 
-  xdg.configFile = {
-    "zsh" = {
-      force = true;
-      recursive = true;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.modules'.dotfiles}/zsh";
-    };
-  };
+  xdg.configFile = config.modules'.dotfileLink "zsh";
 }
