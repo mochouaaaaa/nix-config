@@ -15,6 +15,9 @@ in
       general = {
         showScreenCorners = false;
       };
+      templates = {
+        niri = lib.mkForce true;
+      };
     };
 
   };

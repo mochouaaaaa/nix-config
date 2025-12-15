@@ -209,7 +209,7 @@ in
               else
                 switch-theme Light
               fi
-              sleep 1 && pkill -SIGUSR1 kitty 
+              (sleep 2 && pkill -SIGUSR1 kitty) &
             '';
 
           in
@@ -218,7 +218,7 @@ in
         wallpaperChange =
           let
             hook_wallpaper = pkgs.writeShellScriptBin "hook_wallpaper" ''
-              sleep 1 && pkill -SIGUSR1 kitty 
+              (sleep 2 && pkill -SIGUSR1 kitty) &
               # notify-send "$2:壁纸" "壁纸已更新"
             '';
           in
@@ -249,7 +249,6 @@ in
       notifications = {
         backgroundOpacity = ui.panelBackgroundOpacity;
         criticalUrgencyDuration = 15;
-        doNotDisturb = false;
         enabled = true;
         location = "top_right";
         lowUrgencyDuration = 3;
@@ -294,10 +293,11 @@ in
         discord_vesktop = true;
         discord_webcord = false;
         enableUserTemplates = true;
+        niri = false;
         cava = true;
         foot = false;
         fuzzel = false;
-        ghostty = false;
+        ghostty = true;
         gtk = true;
         kcolorscheme = true;
         kitty = true;
@@ -306,6 +306,10 @@ in
         vicinae = true;
         walker = false;
         wezterm = true;
+        yazi = true;
+        neovim = false;
+        tmux = true;
+        btop = true;
       };
       ui = {
         panelBackgroundOpacity = 0.78;
@@ -324,15 +328,17 @@ in
         enabled = true;
         fillColor = "#1e1e2e";
         fillMode = "crop";
-        monitors = [
-          {
-            directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
-            name = "DP-1";
-            wallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png";
-          }
-        ];
+        hideWallpaperFilenames = false;
+        monitorDirectories = [ ];
+        # monitors = [
+        #   {
+        #     directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
+        #     name = "DP-1";
+        #     wallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png";
+        #   }
+        # ];
         overviewEnabled = false;
-        panelPosition = "follow_bar";
+        panelPosition = "center";
         randomEnabled = true;
         randomIntervalSec = 300;
         recursiveSearch = true;
@@ -340,6 +346,7 @@ in
         transitionDuration = 3000;
         transitionEdgeSmoothness = 0.15;
         transitionType = "random";
+        useWallhaven = false;
       };
     };
 

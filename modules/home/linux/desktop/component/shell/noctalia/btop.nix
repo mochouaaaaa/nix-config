@@ -3,7 +3,7 @@ let
   cfg = config.modules'.desktop.shell.noctalia;
 in
 {
-  config = lib.mkIf (cfg.enable) {
+  config = lib.mkIf (cfg.enable && cfg.settings.templates.btop) {
 
     programs = {
       btop = {

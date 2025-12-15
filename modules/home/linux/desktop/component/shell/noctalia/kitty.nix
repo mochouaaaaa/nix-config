@@ -3,7 +3,8 @@ let
   cfg = config.modules'.desktop.shell.noctalia;
 in
 {
-  config = lib.mkIf (cfg.enable) {
+  config = lib.mkIf (cfg.enable && cfg.settings.templates.kitty) {
+
     modules'.packages.terminal.kitty.extraConfig = lib.mkAfter [
       "include current-theme.conf"
     ];
