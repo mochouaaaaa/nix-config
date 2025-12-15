@@ -20,7 +20,7 @@
         materialgram
       ]
       ++ lib.optionals (pkgs.stdenv.isLinux) [
-        #      tiny-rdm-wrapper
+        tiny-rdm-wrapper
       ];
   };
 }

@@ -56,7 +56,7 @@ in
           name = "Monaco Nerd Font Mono";
           size = 16;
         };
-        themeFile = "Catppuccin-Mocha";
+        # themeFile = "Catppuccin-Mocha";
         extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" (cfg.extraConfig));
         enableGitIntegration = true;
         shellIntegration = {
