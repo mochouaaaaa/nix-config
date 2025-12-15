@@ -112,7 +112,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.16.11";
+      url = "github:vicinaehq/vicinae?ref=v0.16.14";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -133,7 +133,7 @@
       # inputs.quickshell.follows = "quickshell";
     };
     DankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v0.4.3";
+      url = "github:AvengeMedia/DankMaterialShell?ref=v1.0.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -142,7 +142,7 @@
     hyprgraphics.url = "github:hyprwm/hyprgraphics";
     aquamarine.url = "github:hyprwm/aquamarine";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.52.1";
+      url = "github:hyprwm/Hyprland?ref=v0.52.2";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprutils.follows = "hyprutils";
       inputs.hyprgraphics.follows = "hyprgraphics";
