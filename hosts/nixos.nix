@@ -73,6 +73,7 @@ in
                 virtualbox.enable = false;
                 vmware.enable = false;
                 qemu.enable = true;
+                docker.enable = true;
               };
               packages = {
                 database-suite.enable = true;

@@ -16,17 +16,8 @@
         name = "nix flake plugins";
 
         packages = with pkgs; [
-          # bashInteractive
-
-          home-manager
-          just
-          nixd
-          nvfetcher
+          devenv
         ];
-        shellHook = ''
-          echo -e "\033[1;32m==> Welcome to Nix-Config ✅\033[0m"
-          # just --completions zsh
-        '';
       };
     };
 }
