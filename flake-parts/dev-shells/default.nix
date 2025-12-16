@@ -1,7 +1,6 @@
 {
   imports = [
     ./pyenv.nix
-    ./luaenv.nix
   ];
 
   perSystem =

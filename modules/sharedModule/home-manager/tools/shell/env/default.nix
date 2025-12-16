@@ -10,9 +10,8 @@ let
   pyenvEnable = cfg.pyenv.enable;
   goenvEnable = cfg.goenv.enable;
   nodenvEnable = cfg.nodenv.enable;
-  luaenvEnable = cfg.luaenv.enable;
 
-  lazyZsh = pyenvEnable || goenvEnable || nodenvEnable || luaenvEnable;
+  lazyZsh = pyenvEnable || goenvEnable || nodenvEnable;
 in
 {
   options.modules'.packages.envs = {
@@ -23,9 +22,6 @@ in
       default = false;
     };
     nodenv.enable = lib.mkEnableOption "nodenv" // {
-      default = false;
-    };
-    luaenv.enable = lib.mkEnableOption "luaenv" // {
       default = false;
     };
   };

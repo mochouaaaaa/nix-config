@@ -17,7 +17,6 @@ let
           pyenv.enable = true;
           goenv.enable = true;
           nodenv.enable = true;
-          luaenv.enable = true;
         };
       };
     }

@@ -44,7 +44,6 @@ let
           pyenv.enable = true;
           goenv.enable = true;
           nodenv.enable = false;
-          luaenv.enable = true;
         };
       };
     }
