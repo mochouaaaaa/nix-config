@@ -115,8 +115,6 @@ in
         useWallpaperColors = true;
       };
       controlCenter = {
-        position = "close_to_bar_button";
-        quickSettingsStyle = "compact";
         cards = [
           {
             enabled = true;
@@ -125,6 +123,10 @@ in
           {
             enabled = true;
             id = "shortcuts-card";
+          }
+          {
+            enabled = true;
+            id = "brightness-card";
           }
           {
             enabled = true;
@@ -139,6 +141,7 @@ in
             id = "media-sysmon-card";
           }
         ];
+        position = "close_to_bar_button";
         shortcuts = {
           left = [
             {
@@ -260,16 +263,16 @@ in
       osd = {
         enabled = true;
         autoHideMs = 3000;
+        backgroundOpacity = ui.panelBackgroundOpacity;
         enabledTypes = [
           0
           1
           2
           3
         ];
-        location = "top_right";
+        location = "bottom";
         monitors = [ ];
         overlayLayer = true;
-        backgroundOpacity = ui.panelBackgroundOpacity;
       };
       screenRecorder = {
         audioCodec = "opus";
