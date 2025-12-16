@@ -97,10 +97,10 @@ let
                 home-manager.backupFileExtension = "home-manager.backup";
 
                 home-manager.extraSpecialArgs = specialArgs // {
-                  pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs-unstable {
+                  pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs {
                     overlays = [ self.overlays.home-manager ];
                   };
-                  pkgs-stable = ctx.extraPackages.pkgs-stable;
+                  pkgs-stable = ctx.extraPackages.pkgs-os;
                   isNixos = false;
                   nixosSystemName = "${username}@nixos";
                   isNixDarwin = true;
