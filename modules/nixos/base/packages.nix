@@ -1,41 +1,44 @@
 { pkgs, ... }:
 {
 
-  environment.systemPackages = with pkgs; [
-    # system call monitoring
-    coreutils
-    strace # system call monitoring
-    ltrace # library call monitoring
-    tcpdump # network sniffer
-    lsof # list open files
+  environment = {
+    localBinInPath = true;
+    systemPackages = with pkgs; [
+      # system call monitoring
+      coreutils
+      strace # system call monitoring
+      ltrace # library call monitoring
+      tcpdump # network sniffer
+      lsof # list open files
 
-    # ebpf related tools
-    # https://github.com/bpftrace/bpftrace
-    #bpftrace # powerful tracing tool
-    bpftop # monitor BPF programs
-    bpfmon # BPF based visual packet rate monitor
+      # ebpf related tools
+      # https://github.com/bpftrace/bpftrace
+      #bpftrace # powerful tracing tool
+      bpftop # monitor BPF programs
+      bpfmon # BPF based visual packet rate monitor
 
-    # system monitoring
-    sysstat
-    iotop
-    iftop
-    nmon
-    sysbench
+      # system monitoring
+      sysstat
+      iotop
+      iftop
+      nmon
+      sysbench
 
-    # system tools
-    chntpw
-    psmisc # killall/pstree/prtstat/fuser/...
-    lm_sensors # for `sensors` command
-    ethtool
-    pciutils # lspci
-    usbutils # lsusb
-    udisks
-    hdparm # for disk performance, command
-    dmidecode # a tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard
-    parted
+      # system tools
+      chntpw
+      psmisc # killall/pstree/prtstat/fuser/...
+      lm_sensors # for `sensors` command
+      ethtool
+      pciutils # lspci
+      usbutils # lsusb
+      udisks
+      hdparm # for disk performance, command
+      dmidecode # a tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard
+      parted
 
-    icu.dev
-  ];
+      icu.dev
+    ];
+  };
 
   # BCC - Tools for BPF-based Linux IO analysis, networking, monitoring, and more
   # https://github.com/iovisor/bcc

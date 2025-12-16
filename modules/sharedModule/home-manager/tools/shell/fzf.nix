@@ -43,9 +43,7 @@
       "--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
     ];
     # alt-c
-    changeDirWidgetCommand = ''
-      fd --type d
-    '';
+    changeDirWidgetCommand = "fd --type d";
     # --walker-skip .git,node_modules,target
 
     changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];

@@ -1,10 +1,10 @@
-{ ussername, ... }:
+{ username, ... }:
 {
   # system.defaults.smb.NetBIOSName = hostname;
 
   networking = {
     # hostName = hostname;
-    computerName = "${ussername}’s MacBook Pro";
+    computerName = "${username}’s MacBook Pro";
     knownNetworkServices = [
       "Wi-Fi"
       "Ethernet Adaptor"

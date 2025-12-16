@@ -11,7 +11,6 @@
     zsh.enable = true;
   };
   environment = {
-    localBinInPath = true;
     shells = [
       pkgs.zsh
     ];

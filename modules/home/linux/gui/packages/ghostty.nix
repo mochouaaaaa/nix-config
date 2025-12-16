@@ -1,7 +1,10 @@
 { config, ... }:
+let
+  isdesktop = config.programs.desktop.enable;
+in
 {
   programs.ghostty = {
-    enable = true;
+    enable = isdesktop;
     settings = {
       font-size = 16;
       font-family = "Monaco Nerd Font";
