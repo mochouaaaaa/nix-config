@@ -107,7 +107,10 @@
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     # desktop components
@@ -143,10 +146,12 @@
     aquamarine.url = "github:hyprwm/aquamarine";
     hyprland = {
       url = "github:hyprwm/Hyprland?ref=v0.52.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprutils.follows = "hyprutils";
-      inputs.hyprgraphics.follows = "hyprgraphics";
-      inputs.aquamarine.follows = "aquamarine";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        hyprutils.follows = "hyprutils";
+        hyprgraphics.follows = "hyprgraphics";
+        aquamarine.follows = "aquamarine";
+      };
     };
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
@@ -166,8 +171,10 @@
     # kde
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
   };
 }

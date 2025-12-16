@@ -106,7 +106,7 @@ switch desktop="hyprland":
 
 # repl test environment
 [linux]
-@repl desktop="hyprland":
+repl desktop="hyprland":
     NIXPKGS_ALLOW_INSECURE=1 HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild repl --flake .#mochou@nixos --impure
 
 # switch hyprland desktop environment
