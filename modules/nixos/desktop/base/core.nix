@@ -13,10 +13,12 @@
       gparted
     ];
 
+    # "i2c-dev"  显示器亮度
+    hardware.i2c.enable = true;
+
     boot = {
 
       kernelModules = [
-        "i2c-dev" # 显示器亮度
         "uhid" # 让用户态创建虚拟 HID 设备
         "hidp" # 蓝牙 HID 协议
         "hid_apple" # Apple 键盘/触控设备特殊功能支持
