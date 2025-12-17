@@ -25,6 +25,7 @@ in
       };
       audio = {
         cavaFrameRate = 60;
+        externalMixer = "pwvucontrol || pavucontrol";
         mprisBlacklist = [ ];
         preferredPlayer = "";
         visualizerQuality = "high";
@@ -33,7 +34,6 @@ in
         volumeStep = 5;
       };
       bar = {
-        backgroundOpacity = ui.panelBackgroundOpacity;
         density = "comfortable";
         exclusive = true;
         floating = false;
@@ -43,14 +43,22 @@ in
         outerCorners = true;
         position = "top";
         showCapsule = false;
+        showOutline = false;
+        transparent = false;
         widgets = {
           center = [
           ];
           left = [
             {
+              characterCount = 2;
+              colorizeIcons = false;
+              enableScrollWheel = true;
+              followFocusedScreen = false;
               hideUnoccupied = true;
               id = "Workspace";
               labelMode = "index";
+              showApplications = true;
+              showLabelsOnlyWhenOccupied = true;
             }
           ];
           right = [
@@ -64,6 +72,7 @@ in
               id = "Tray";
             }
             {
+              diskPath = "/";
               id = "SystemMonitor";
               showCpuTemp = false;
               showCpuUsage = false;
@@ -183,14 +192,17 @@ in
         pinnedApps = [ ];
       };
       general = {
+        allowPanelsOnScreenWithoutBar = true;
         animationDisabled = false;
         animationSpeed = 0.68;
         avatarImage = "${config.home.homeDirectory}/.face";
+        boxRadiusRatio = 1;
         compactLockScreen = false;
         dimmerOpacity = 0;
         dimDesktop = false;
         enableShadows = false;
         forceBlackScreenCorners = false;
+        iRadiusRatio = 1;
         language = "";
         lockOnSuspend = true;
         radiusRatio = 1;
@@ -199,9 +211,13 @@ in
         shadowDirection = "center";
         shadowOffsetX = 0;
         shadowOffsetY = 0;
+        showHibernateOnLockScreen = false;
         showScreenCorners = lib.mkDefault true;
+        showSessionButtonsOnLockScreen = true;
       };
       hooks = {
+        screenLock = "";
+        screenUnlock = "";
         darkModeChange =
           let
             hook_theme = pkgs.writeShellScriptBin "hook_theme" ''
@@ -229,6 +245,7 @@ in
       };
       location = {
         analogClockInCalendar = false;
+        firstDayOfWeek = -1;
         name = "Beijing; China";
         showCalendarEvents = true;
         showCalendarWeather = true;
@@ -236,6 +253,7 @@ in
         use12hourFormat = false;
         useFahrenheit = false;
         weatherEnabled = true;
+        weatherShowEffects = true;
       };
       network = {
         wifiEnabled = true;
@@ -289,12 +307,6 @@ in
         alacritty = false;
         code = false;
         discord = false;
-        discord_armcord = false;
-        discord_dorion = false;
-        discord_equibop = true;
-        discord_lightcord = false;
-        discord_vesktop = true;
-        discord_webcord = false;
         enableUserTemplates = true;
         niri = false;
         cava = true;
@@ -306,13 +318,15 @@ in
         kitty = true;
         pywalfox = false;
         qt = true;
+        spicetify = false;
         vicinae = true;
         walker = false;
         wezterm = true;
-        yazi = true;
         neovim = false;
         tmux = true;
         btop = true;
+        yazi = true;
+        zed = false;
       };
       ui = {
         panelBackgroundOpacity = 0.78;
@@ -325,7 +339,6 @@ in
         tooltipsEnabled = true;
       };
       wallpaper = {
-        defaultWallpaper = "";
         directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
         enabled = true;
@@ -333,13 +346,6 @@ in
         fillMode = "crop";
         hideWallpaperFilenames = false;
         monitorDirectories = [ ];
-        # monitors = [
-        #   {
-        #     directory = "${config.home.homeDirectory}/Pictures/Wallpapers";
-        #     name = "DP-1";
-        #     wallpaper = "${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png";
-        #   }
-        # ];
         overviewEnabled = false;
         panelPosition = "center";
         randomEnabled = true;
@@ -350,6 +356,15 @@ in
         transitionEdgeSmoothness = 0.15;
         transitionType = "random";
         useWallhaven = false;
+        wallhavenCategories = "111";
+        wallhavenOrder = "desc";
+        wallhavenPurity = "100";
+        wallhavenQuery = "";
+        wallhavenResolutionHeight = "";
+        wallhavenResolutionMode = "atleast";
+        wallhavenResolutionWidth = "";
+        wallhavenSorting = "relevance";
+
       };
     };
 
