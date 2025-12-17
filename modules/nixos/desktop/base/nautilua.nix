@@ -8,7 +8,6 @@ let
   cfg = config.modules'.desktop;
 in
 {
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf (cfg.hyprland.enable || cfg.niri.enable || cfg.gnome.enable) {
 
