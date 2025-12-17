@@ -10,10 +10,8 @@
   imports = lib.importModule' ./. ++ [ inputs.nixvim.homeModules.nixvim ];
 
   home.packages = with pkgs; [
-    ghostscript
-    multimarkdown
-    icu
-    python313Packages.pylatexenc
+    luajit
+    luajitPackages.luarocks
   ];
 
   programs = {
@@ -32,10 +30,14 @@
         ps.luarocks
         ps.luacheck
       ];
-      extraPackages = [
-        pkgs.imagemagick
-        pkgs.sqlite
-        pkgs.libgit2
+      extraPackages = with pkgs; [
+        imagemagick
+        sqlite
+        libgit2
+        ghostscript
+        multimarkdown
+        icu
+        python313Packages.pylatexenc
       ];
       extraPython3Packages = ps: [
         ps.debugpy
