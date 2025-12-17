@@ -23,17 +23,10 @@ in
         portalPackage =
           inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
-
-      nautilus-open-any-terminal = {
-        enable = true;
-        terminal = "kitty";
-      };
     };
 
     environment = {
-      systemPackages = with pkgs; [
-        turtle # nautilus plugin
-        nautilus
+      systemPackages = [
         (pkgs.writeShellApplication {
           name = "launch-hyprland";
           text = ''

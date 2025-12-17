@@ -31,7 +31,6 @@ in
         sddm = {
           enable = true;
           package = lib.mkForce pkgs.kdePackages.sddm;
-          # theme = "WhiteSur-dark";
           extraPackages = with pkgs; [
             kdePackages.plasma-desktop
             kdePackages.plasma-workspace

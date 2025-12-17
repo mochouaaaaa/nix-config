@@ -1,24 +1,23 @@
 {
-  pkgs,
-  config,
   lib,
+  config,
+  pkgs,
   ...
 }:
 let
-  cfg = config.modules'.desktop.niri;
+  cfg = config.modules'.desktop;
 in
 {
+  imports = lib.importModule' ./.;
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.hyprland.enable || cfg.niri.enable || cfg.gnome.enable) {
 
     environment.systemPackages = with pkgs; [
-
       turtle # nautilus plugin
       nautilus
     ];
 
     programs = {
-      ssh.startAgent = lib.mkForce false;
       nautilus-open-any-terminal = {
         enable = true;
         terminal = "kitty";

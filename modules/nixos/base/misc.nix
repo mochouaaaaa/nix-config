@@ -28,7 +28,6 @@ in
     with pkgs;
     lib.optionals (!isWsl) [
       gnumake
-      nautilus
       ntfs3g
     ];
 
