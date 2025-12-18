@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.modules'.packages.envs.nodenv;
-
 in
 {
 

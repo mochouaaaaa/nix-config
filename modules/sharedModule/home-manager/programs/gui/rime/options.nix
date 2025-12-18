@@ -76,6 +76,10 @@ in
       default = makeRimeData;
       description = "The Rime data package.";
     };
+    patch = {
+      type = types.attrs;
+      default = { };
+    };
   };
 
 }

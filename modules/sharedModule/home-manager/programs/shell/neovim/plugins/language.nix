@@ -14,7 +14,7 @@
       luajitPackages.luacheck
 
       # python
-      basedpyright
+      ty
       ruff
       # pylyzer
 

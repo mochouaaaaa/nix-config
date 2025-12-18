@@ -10,7 +10,7 @@ in
 {
 
   config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
-    modules'.packages.terminal.kitty.extraConfig = [
+    modules'.packages.terminal.kitty.extraConfig = lib.mkBefore [
       "include init.conf"
     ];
 

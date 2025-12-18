@@ -15,7 +15,6 @@
     tldr
     cowsay
     gnupg
-    gnumake
 
     # Modern cli tools, replacement of grep/sed/...
 

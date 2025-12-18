@@ -52,6 +52,7 @@
     which
     rsync
     pango
+    gnumake
 
     # extra tools
     clang
