@@ -9,16 +9,16 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1765552734,
-        "narHash": "sha256-rWjWYu5rs3ZOJ4YJpvIscBZSYu74thJHc0VYyYKJTUc=",
+        "lastModified": 1765861165,
+        "narHash": "sha256-IT21E2XX83IlO6/dW0YmUdY2JW//+ZBHLqpKPGd6tx8=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "7fb358bada0d3a229ec5ee6aaad0f9b64f367331",
+        "rev": "5ad2a9d7044a23428e5d95e10e8b2329667dc285",
         "type": "github"
       },
       "original": {
         "owner": "AvengeMedia",
-        "ref": "v1.0.2",
+        "ref": "v1.0.3",
         "repo": "DankMaterialShell",
         "type": "github"
       }
@@ -114,16 +114,15 @@
         "quickshell": "quickshell_2"
       },
       "locked": {
-        "lastModified": 1761746637,
-        "narHash": "sha256-t0mId8j2uvwiBM+SGVDv58CwbqXtebaHFX1D9+hdB08=",
+        "lastModified": 1765675511,
+        "narHash": "sha256-o8Ok+UaDRDUhONI9JqytO//RlWOf6LAPnEQ7vA8f+qw=",
         "owner": "caelestia-dots",
         "repo": "shell",
-        "rev": "bfd149b256d1364ec320c8a0307966b5d4fde826",
+        "rev": "d819bf2fc3ded72ad4fa116c4f06c3afb7d59153",
         "type": "github"
       },
       "original": {
         "owner": "caelestia-dots",
-        "ref": "v1.3.3",
         "repo": "shell",
         "type": "github"
       }
@@ -1818,11 +1817,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1764517877,
-        "narHash": "sha256-pp3uT4hHijIC8JUK5MEqeAWmParJrgBVzHLNfJDZxg4=",
+        "lastModified": 1765779637,
+        "narHash": "sha256-KJ2wa/BLSrTqDjbfyNx70ov/HdgNBCBBSQP3BIzKnv4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2d293cbfa5a793b4c50d17c05ef9e385b90edf6c",
+        "rev": "1306659b587dc277866c7b69eb97e5f07864d8c4",
         "type": "github"
       },
       "original": {
@@ -1875,17 +1874,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1765916394,
-        "narHash": "sha256-Rao0WX2ZVUC9hFEs3oqy/oIP6O2sSfQRq/mNhHqvG0Y=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "29d4347d9073ec66512d46c0d52a90c04131a5ed",
-        "type": "github"
+        "lastModified": 1765992220,
+        "narHash": "sha256-1Yg4uzBbfC3/qSXeBgnDTNLsjh7XsLjF1qJpHBcxrdg=",
+        "path": "/home/mochou/Code/Projects/c/noctalia-shell",
+        "type": "path"
       },
       "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "type": "github"
+        "path": "/home/mochou/Code/Projects/c/noctalia-shell",
+        "type": "path"
       }
     },
     "nuenv": {
