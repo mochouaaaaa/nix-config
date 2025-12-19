@@ -27,7 +27,6 @@ in
   environment.systemPackages =
     with pkgs;
     lib.optionals (!isWsl) [
-      gnumake
       ntfs3g
     ];
 

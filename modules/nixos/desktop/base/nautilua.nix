@@ -12,7 +12,7 @@ in
   config = lib.mkIf (cfg.hyprland.enable || cfg.niri.enable || cfg.gnome.enable) {
 
     environment.systemPackages = with pkgs; [
-      turtle # nautilus plugin
+      turtle # nautilus plugin git operation
       nautilus
     ];
 
