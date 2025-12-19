@@ -368,10 +368,6 @@ in
       };
     };
 
-    programs.cava.settings = {
-      theme = "noctalia";
-    };
-
   };
 
 }

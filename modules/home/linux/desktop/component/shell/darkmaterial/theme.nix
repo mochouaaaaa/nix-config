@@ -20,20 +20,5 @@ in
       };
     };
 
-    services.darkman = {
-      lightModeScripts = {
-        gtk-theme = ''
-          dms ipc call theme light
-          switch-theme Light
-        '';
-      };
-      darkModeScripts = {
-        gtk-theme = ''
-          dms ipc call theme dark
-          switch-theme Dark
-        '';
-      };
-    };
-
   };
 }
