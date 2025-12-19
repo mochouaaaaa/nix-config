@@ -171,14 +171,6 @@ in
         ];
         layerrule = [
 
-          # vicinae
-          "blur, vicinae"
-          "ignorealpha 0, vicinae"
-
-          # blur wlogout
-          # "blur, logout_dialog"
-          # "blur, gtk-layer-shell"
-
           # ######## Layer rules ########
           "animation fade, hyprpicker" # Colour picker out animation
           # "animation fade, logout_dialog" # wlogout

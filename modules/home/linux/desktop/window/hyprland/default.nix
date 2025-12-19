@@ -3,7 +3,13 @@
   ...
 }:
 {
-  imports = lib.importModule' ./. ++ [
-    ../../component
-  ];
+  imports = [
+    ./options.nix
+  ]
+  ++ (
+    lib.importModule' ./.
+    ++ [
+      ../../component
+    ]
+  );
 }

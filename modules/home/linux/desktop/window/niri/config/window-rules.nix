@@ -7,16 +7,6 @@ in
 
     programs.niri = {
       settings = {
-        layer-rules = [
-          {
-            matches = [
-              {
-                namespace = "noctalia-notifications";
-              }
-            ];
-            block-out-from = "screencast";
-          }
-        ];
 
         window-rules =
           let
