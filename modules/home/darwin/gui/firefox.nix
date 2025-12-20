@@ -41,8 +41,6 @@ in
         "${username}" = {
           isDefault = true;
           settings = {
-            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-            "browser.tabs.drawInTitlebar" = true;
             "browser.uidensity" = 0;
           };
         };

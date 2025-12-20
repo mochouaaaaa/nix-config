@@ -4,7 +4,7 @@
 }:
 {
   programs.vscode = {
-    profiles."${username}" = {
+    profiles.default = {
       userSettings = {
         # "window.nativeTabs" = false;
         # "workbench.activityBar.location" = "top";

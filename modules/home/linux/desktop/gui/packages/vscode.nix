@@ -10,11 +10,14 @@ let
 
   # Dynamically determine the correct password store based on the active DE.
   passwordStore =
-    if desktopCfg.kde.enable then "kde"
+    if desktopCfg.kde.enable then
+      "kde"
     # GNOME, Hyprland, and Niri all use gnome-keyring in this config.
-    else if (desktopCfg.gnome.enable || desktopCfg.hyprland.enable || desktopCfg.niri.enable) then "gnome-libsecret"
+    else if (desktopCfg.gnome.enable || desktopCfg.hyprland.enable || desktopCfg.niri.enable) then
+      "gnome-libsecret"
     # A sensible fallback if no specific DE is matched.
-    else "basic";
+    else
+      "basic";
 
   # Consolidate all command line arguments here.
   vscodeArgs = [
@@ -49,7 +52,7 @@ in
         commandLineArgs = vscodeArgs;
       };
       # let vscode sync and update its configuration & extensions across devices, using github account.
-      profiles."${username}" = {
+      profiles.default = {
         extensions =
           let
             inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
