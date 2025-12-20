@@ -10,6 +10,7 @@ in
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       settings = {
+        "$windowOpacity" = 0.78;
         windowrule = [
           "opacity $windowOpacity override, fullscreen:0"
 
@@ -17,7 +18,7 @@ in
           "center 1, floating:1, xwayland:0" # Center all floating windows (not xwayland cause popups)
 
           # opacity
-          "float, class:^(io.github.kukuruzka165.materialgram)$, title:媒体查看器"
+          "float, class:^(io.github.kukuruzka165.materialgram|org.telegram.desktop)$, title:媒体查看器"
 
           # Float
           "float, class:guifetch" # FlafyDev/guifetch

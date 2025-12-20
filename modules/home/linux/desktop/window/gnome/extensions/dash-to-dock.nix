@@ -23,6 +23,7 @@ in
           "org.gnome.Nautilus.desktop"
           "kitty.desktop"
           "io.github.kukuruzka165.materialgram.desktop"
+          "org.telegram.desktop"
           "code.desktop"
         ];
       };

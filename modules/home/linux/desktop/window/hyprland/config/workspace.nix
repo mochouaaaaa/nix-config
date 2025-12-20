@@ -50,6 +50,7 @@ in
           #"workspace name:tencent, class:^([Ff]erdium)$"
           #"workspace name:tencent, class:^([Ww]hatsapp-for-linux)$"
           "workspace special:tg, class:io.github.kukuruzka165.materialgram"
+          "workspace special:tg, class:org.telegram.desktop"
 
           # Special workspaces
           "workspace special:music, class:feishin|Spotify|Supersonic|SPlayer"

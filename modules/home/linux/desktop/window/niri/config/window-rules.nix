@@ -78,7 +78,7 @@ in
                 { app-id = "org.kde.polkit-kde-authentication-agent-1"; }
                 { app-id = "pinentry"; }
                 {
-                  app-id = "io.github.kukuruzka165.materialgram";
+                  app-id = "^(io.github.kukuruzka165.materialgram|org.telegram.desktop)$";
                   title = "媒体查看器";
                 }
                 { title = "Progress"; }
@@ -109,6 +109,7 @@ in
               matches = [
                 { app-id = "^(chromium-browser|firefox|zen|zen-beta)$"; }
                 { app-id = "io.github.kukuruzka165.materialgram"; }
+                { app-id = "org.telegram.desktop"; }
               ];
             }
             {

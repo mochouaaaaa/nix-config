@@ -13,8 +13,8 @@ in
 
         decoration = {
           rounding = 7;
-          active_opacity = 0.78;
-          inactive_opacity = 0.78;
+          # active_opacity = 0.78;
+          # inactive_opacity = 0.78;
 
           blur = {
             enabled = true;
