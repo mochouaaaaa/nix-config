@@ -19,9 +19,8 @@
 
     composed = inputs.nixpkgs.lib.composeManyExtensions [
       inputs.nur.overlays.default
-      inputs.nix-vscode-extensions.overlays.default
+      inputs.vscode-extensions.overlays.default
       inputs.niri.overlays.niri
-      inputs.nuenv.overlays.default
       inputs.vicinae.overlays.default
       inputs.hyprland-contrib.overlays.default
       (import ./pkgs/vicinae-wrapper.nix)

@@ -84,25 +84,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
     disko = {
       url = "github:nix-community/disko/v1.6.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nuenv.url = "github:DeterminateSystems/nuenv";
 
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    frizbee.url = "github:saghen/frizbee";
     nixvim = {
       url = "github:nix-community/nixvim";
     };
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -129,8 +124,8 @@
     };
     noctalia = {
       # url = "github:mochouaaaaa/noctalia-shell";
-      # url = "github:noctalia-dev/noctalia-shell";
-      url = "path:/home/mochou/Code/Projects/c/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell";
+      # url = "path:/home/mochou/Code/Projects/c/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
       # inputs.quickshell.follows = "quickshell";
     };
