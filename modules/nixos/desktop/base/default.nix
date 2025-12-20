@@ -43,6 +43,7 @@ in
       # ======================================
       ".config/QQ"
       ".local/share/materialgram"
+      ".local/share/TelegramDesktop"
 
       # ======================================
       # Remote

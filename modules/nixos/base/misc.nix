@@ -30,7 +30,10 @@ in
       ntfs3g
     ];
 
-  services = lib.mkIf (!isWsl) {
+  services = {
+    envfs.enable = true;
+  }
+  // lib.mkIf (!isWsl) {
     resolved.enable = true; # DNS resolver
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
