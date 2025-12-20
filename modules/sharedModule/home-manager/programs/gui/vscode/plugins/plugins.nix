@@ -1,18 +1,31 @@
 {
   pkgs,
   lib,
-  username,
   ...
 }:
 let
   inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
+  baseFinditfaster = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "find-it-faster";
+      publisher = "TomRijndorp";
+      version = "0.0.39";
+      hash = "sha256-Rr1EKYSYmY52FfG4ClSQyikr0fd4cFKjphNxpzhiraw=";
+    };
+  };
 
+  finditfaster = baseFinditfaster.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      cd $out/share/vscode/extensions/TomRijndorp.find-it-faster
+      patchShebangs .
+    '';
+  });
 in
 {
   programs = {
     vscode = {
       profiles = {
-        "${username}" = {
+        default = {
           extensions = with pkgs.vscode-extensions; [
             # base extensions
             formulahendry.code-runner
@@ -21,6 +34,8 @@ in
             redhat.vscode-yaml
             tamasfe.even-better-toml
             k--kato.intellij-idea-keybindings
+            finditfaster
+            mkhl.direnv
 
             #ai
             # FittenTech.Fitten-Code
@@ -28,8 +43,8 @@ in
               mktplcRef = {
                 name = "Fitten-Code";
                 publisher = "FittenTech";
-                version = "0.10.149";
-                hash = "sha256-3TTpOn6t5gOqYf3TcXNzk57mHk2vaERvmBdHmkxQuXc=";
+                version = "1.0.1";
+                hash = "sha256-ma1bsd9OQFCA8rESS9PNBwib8REO+VaWmCWiKM2yHHc=";
               };
             })
 
@@ -39,17 +54,6 @@ in
             # Vogadero.auto-theme
             vscode-icons-team.vscode-icons
             zhuangtongfa.material-theme
-            # (buildVscodeMarketplaceExtension {
-            #   mktplcRef = {
-            #     name = "auto-theme";
-            #     publisher = "Vogadero";
-            #     version = "0.1.0";
-            #     hash = "sha256-e5ySgUdHpkekYcZbtjFrzws/foaerKed0nNEVBEx0Ic=";
-            #   };
-            #   meta = {
-            #     license = lib.licenses.mit;
-            #   };
-            # })
 
             # shell
             timonwong.shellcheck

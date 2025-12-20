@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  cfgHyprland = config.wayland.windowManager.hyprland;
+in
 {
   home.packages =
     with pkgs;
@@ -71,7 +74,7 @@
       # css/js
       stylelint
     ]
-    ++ lib.optionals (pkgs.stdenv.isLinux) [
+    ++ lib.optionals (cfgHyprland.enable) [
       # hyprland
       hyprls
       kdePackages.qtdeclarative

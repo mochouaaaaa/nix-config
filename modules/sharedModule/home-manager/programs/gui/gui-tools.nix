@@ -16,8 +16,9 @@
 
         # api client
         hoppscotch
-
         materialgram
+        telegram-desktop
+
       ]
       ++ lib.optionals (pkgs.stdenv.isLinux) [
         tiny-rdm-wrapper

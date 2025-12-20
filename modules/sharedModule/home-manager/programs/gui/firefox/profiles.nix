@@ -94,13 +94,7 @@ in
 
               # ui
               "ui.key.textcontrol.prefer_native_key_bindings_over_builtin_shortcut" = false;
-              "toolkit.legacyuserprofilecustomizations.stylesheets" = true;
               "browser.tabs.drawintitlebar" = true;
-              "browser.uidensity" = 0;
-              "layers.acceleration.force-enabled" = true;
-              "mozilla.widget.use-argb-visuals" = true;
-              "widget.gtk.rounded-bottom-corners.enabled" = true;
-              "svg.context-properties.content.enabled" = true;
 
               # network
               "network.trr.mode" = 5;

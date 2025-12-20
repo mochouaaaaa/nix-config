@@ -1,7 +1,4 @@
 {
-  lib,
-  pkgs,
-  username,
   isNixDarwin,
   nixDarwinSystemName,
   isNixos,
@@ -22,11 +19,19 @@ let
 in
 {
 
+  home.file = {
+    ".config/Code/User/settings.json".force = true;
+    ".config/Code/User/keybindings.json".force = true;
+  };
+
   programs = {
     vscode.profiles = {
-      "${username}" = {
+      default = {
         userSettings = {
-          "[nix]"."editor.tabSize" = 4;
+          "[nix]" = {
+            "editor.tabSize" = 4;
+            "editor.defaultFormatter" = "brettm12345.nixfmt-vscode";
+          };
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "nixd";
           "nix.serverSettings" = {
@@ -90,21 +95,31 @@ in
           "window.autoDetectColorScheme" = true;
           "workbench.preferredLightColorTheme" = "Default Light+";
           "workbench.preferredDarkColorTheme" = "One Dark Pro";
+          "workbench.tree.indent" = 22;
+          "workbench.list.smoothScrolling" = true;
+          "workbench.tree.renderIndentGuides" = "always";
 
           # // ctrl+滚轮调整字体大小
-          "editor.mouseWheelZoom" = false;
+          "editor.mouseWheelZoom" = true;
           # // 一个制表符等于的空格数。
           "editor.tabSize" = 4;
           "editor.lineHeight" = 24;
           # // 控制字体大小(像素)。
-          "editor.fontSize" = 17;
+          "editor.fontSize" = 18;
           # // 控制字体系列。
           "editor.fontFamily" = "Monaco Nerd Font Mono";
           "editor.codeActionsOnSave" = {
             "source.organizeImports" = "explicit";
           };
+          "window.zoomLevel" = 1.6;
+          "editor.wordWrap" = "on";
+          "editor.formatOnPaste" = true;
+          "editor.autoIndentOnPaste" = true;
+          "editor.codeLensFontFamily" = "Monaco Nerd Font";
+          "editor.defaultFormatter" = "vscode.json-language-features";
           "editor.formatOnSave" = true;
           "editor.formatOnType" = true;
+          "editor.formatOnSaveMode" = "file";
           "editor.tokenColorCustomizations" = {
             "textMateRules" = [
               {
@@ -152,6 +167,8 @@ in
           "debug.console.fontFamily" = "Monaco Nerd Font Mono";
           "debug.console.fontSize" = 15;
           "debug.console.historySuggestions" = false;
+          # plugins
+          "find-it-faster.general.useTerminalInEditor" = false;
         };
       };
     };

@@ -3,8 +3,8 @@
   pkgs,
   config,
   username,
-  ... 
-}: 
+  ...
+}:
 let
   cfg = config.modules'.packages.firefox.plugins;
   rycee-addons = pkgs.nur.repos.rycee.firefox-addons;
@@ -67,13 +67,13 @@ in
   options.modules'.packages.firefox.plugins = with lib; {
     bewlybewly = mkEnableOption "BewlyBewly";
     bitwarden = mkEnableOption "Bitwarden";
-    "enhanced-github" = mkEnableOption "Enhanced GitHub";
+    enhanced-github = mkEnableOption "Enhanced GitHub";
     fehelper = mkEnableOption "FeHelper";
     imagus = mkEnableOption "Imagus";
-    "immersive-translate" = mkEnableOption "Immersive Translate";
-    "nope-cha" = mkEnableOption "NopeCHA";
+    immersive-translate = mkEnableOption "Immersive Translate";
+    nope-cha = mkEnableOption "NopeCHA";
     tampermonkey = mkEnableOption "Tampermonkey";
-    "ublock-origin" = mkEnableOption "uBlock Origin";
+    ublock-origin = mkEnableOption "uBlock Origin";
     vimium = mkEnableOption "Vimium";
     xbrowsersync = mkEnableOption "xBrowserSync";
   };
@@ -81,6 +81,9 @@ in
   # --- Plugin Configuration ---
   config = {
     programs.firefox.profiles."${username}".extensions = lib.mkMerge [
+      {
+        force = true;
+      }
       # Each plugin is defined in its own conditional block.
       # `mkMerge` will concatenate the `packages` lists and recursively merge the `settings` attrs.
       (lib.mkIf cfg.bewlybewly {
@@ -123,8 +126,6 @@ in
       (lib.mkIf cfg."nope-cha" {
         packages = [ nopecha-plugin ];
       })
-
-
 
       (lib.mkIf cfg.tampermonkey {
         packages = [ rycee-addons.tampermonkey ];

@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  username,
   ...
 }:
 {
@@ -13,9 +12,9 @@
     programs = {
       vscode = {
         enable = true;
-        mutableExtensionsDir = false;
+        mutableExtensionsDir = true;
         profiles = {
-          "${username}" = {
+          default = {
             extensions = with pkgs.vscode-extensions; [
               ms-ceintl.vscode-language-pack-zh-hans
               usernamehw.errorlens
