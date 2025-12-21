@@ -18,7 +18,8 @@ in
       modules'.desktop.shell.noctalia = {
         settings = rec {
           ui = {
-            panelBackgroundOpacity = lib.mkForce 0.44;
+            # panelBackgroundOpacity = lib.mkForce 0.44;
+            panelBackgroundOpacity = lib.mkForce 0.62;
           };
           appLauncher = {
             backgroundOpacity = ui.panelBackgroundOpacity;
@@ -38,8 +39,16 @@ in
 
       wayland.windowManager.hyprland = {
         settings = {
+          "$windowOpacity" = lib.mkForce 0.88;
           decoration = lib.mkForceRecursive {
-            rounding = 15;
+            rounding = 14;
+            blur = {
+              ignore_opacity = false;
+              passes = 4;
+              size = 2;
+              vibrancy = 0.28;
+              vibrancy_darkness = 0.14;
+            };
           };
           layerrule = [
             "blur, noctalia-.*"

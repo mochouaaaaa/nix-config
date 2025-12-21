@@ -72,6 +72,9 @@ in
               id = "Tray";
             }
             {
+              id = "plugin:catwalk";
+            }
+            {
               diskPath = "/";
               id = "SystemMonitor";
               showCpuTemp = false;
@@ -90,6 +93,9 @@ in
             {
               id = "Bluetooth";
               displayMode = "onhover";
+            }
+            {
+              id = "plugin:privacy-indicator";
             }
             {
               customIconPath = "";
@@ -223,22 +229,20 @@ in
             hook_theme = pkgs.writeShellScriptBin "hook_theme" ''
               mode=$1
 
+              (sleep ${builtins.toString (wallpaper.transitionDuration / 1000)} && pkill -SIGUSR1 kitty) &
               if [ "$mode" = "true" ]; then
                 switch-theme Dark
               else
                 switch-theme Light
               fi
-              (sleep 2 && pkill -SIGUSR1 kitty) &
             '';
-
           in
           "${lib.getExe hook_theme} $1";
         enabled = true;
         wallpaperChange =
           let
             hook_wallpaper = pkgs.writeShellScriptBin "hook_wallpaper" ''
-              (sleep 2 && pkill -SIGUSR1 kitty) &
-              # notify-send "$2:壁纸" "壁纸已更新"
+              (sleep ${builtins.toString (wallpaper.transitionDuration / 1000)} && pkill -SIGUSR1 kitty) &
             '';
           in
           "${lib.getExe hook_wallpaper} $1 $2";
@@ -287,6 +291,7 @@ in
           1
           2
           3
+          4
         ];
         location = "bottom";
         monitors = [ ];
@@ -305,7 +310,7 @@ in
       };
       templates = {
         alacritty = false;
-        code = false;
+        code = true;
         discord = false;
         enableUserTemplates = true;
         niri = false;
@@ -316,7 +321,8 @@ in
         gtk = true;
         kcolorscheme = true;
         kitty = true;
-        pywalfox = false;
+        pywalfox = true;
+        telegram = true;
         qt = true;
         spicetify = false;
         vicinae = true;
@@ -326,7 +332,7 @@ in
         tmux = true;
         btop = true;
         yazi = true;
-        zed = false;
+        zed = true;
       };
       ui = {
         panelBackgroundOpacity = 0.78;
