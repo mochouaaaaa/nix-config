@@ -4,11 +4,13 @@
   inputs,
   ...
 }:
+with lib;
 let
   cfg = config.modules'.desktop.shell.dankMaterialShell;
+  cfgDesktop = config.modules'.desktop;
 in
 {
-  imports = lib.importModule' ./. ++ [
+  imports = lib.importModule ./. ++ [
     inputs.DankMaterialShell.homeModules.dankMaterialShell.default
   ];
 
@@ -16,7 +18,7 @@ in
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable Noctalia's Hyprland module";
+      description = "Enable DankMaterialShell";
     };
   };
 
@@ -34,7 +36,6 @@ in
         ];
       };
     };
-
   };
 
 }
