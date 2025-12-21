@@ -1,16 +1,19 @@
 {
   lib,
   config,
-  ...}: let
+  ...
+}:
+let
   cfgDesktop = config.modules'.desktop;
   cfg = config.modules'.desktop.shell.caelestia;
-in {
+in
+{
   config = lib.mkIf (cfg.enable) (
     lib.mkMerge [
 
       (lib.mkIf cfgDesktop.hyprland.enable {
 
-        modules'.desktop.hyprland.lock_cmd = "caelestia shell lock lock";
+        modules'.desktop.hypridle.lock_cmd = "caelestia shell lock lock";
 
         modules'.desktop.hyprland = {
           settings = {
@@ -37,7 +40,7 @@ in {
         wayland.windowManager.hyprland = {
           settings = {
             exec = "cp -L --no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
-
+            "$windowOpacity" = lib.mkForce 0.78;
             source = [
               "${config.xdg.configHome}/hypr/scheme/current.conf"
               "${config.xdg.configHome}/hypr/variables.conf"
@@ -96,6 +99,7 @@ in {
             ];
 
             windowrule = [
+              "opacity $windowOpacity override, fullscreen:0"
               "opaque, class:org\.quickshell" # They use native transparency or we want them opaque
               "float, class:org\.quickshell"
             ];
