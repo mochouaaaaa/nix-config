@@ -59,6 +59,7 @@ in
           jump-to-char = pkgs.yaziPlugins.jump-to-char;
           smart-enter = pkgs.yaziPlugins.smart-enter;
           smart-filter = pkgs.yaziPlugins.smart-filter;
+          smart-paste = pkgs.yaziPlugins.smart-paste;
         };
       };
       zsh.initContent = lib.optionalString (yazi.enable) warpper_shell + ''

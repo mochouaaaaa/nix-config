@@ -10,6 +10,7 @@
     du = "dust";
     ".." = "cd ..";
     "~" = "cd ~";
+    bak = "cp -iv --";
 
     desktop = "cd $HOME/Desktop";
     downloads = "cd $HOME/Downloads";

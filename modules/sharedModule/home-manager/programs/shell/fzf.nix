@@ -22,7 +22,7 @@
       "--preview 'cat {} || tree -N -C {}'"
       "--preview-window right:50%:wrap "
       "--bind '?:toggle-preview'"
-      "--border"
+      "--border --color=border:4"
       "--cycle"
       "--select-1 --exit-0"
       "--color=fg:7,bg:0,hl:6,fg+:7,bg+:8,hl+:6"
