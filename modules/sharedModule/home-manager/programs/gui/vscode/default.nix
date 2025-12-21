@@ -20,7 +20,6 @@
               usernamehw.errorlens
               eamodio.gitlens
               mhutchie.git-graph
-              vspacecode.whichkey
 
               ms-vscode-remote.remote-ssh
               ms-vscode-remote.remote-ssh-edit

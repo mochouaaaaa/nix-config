@@ -19,11 +19,6 @@ let
 in
 {
 
-  home.file = {
-    ".config/Code/User/settings.json".force = true;
-    ".config/Code/User/keybindings.json".force = true;
-  };
-
   programs = {
     vscode.profiles = {
       default = {
@@ -35,14 +30,6 @@ in
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "nixd";
           "nix.serverSettings" = {
-            "nil" = {
-              # "diagnostics"= {
-              #  "ignored"= ["unused_binding"; "unused_with"];
-              # };
-              "formatting" = {
-                "command" = [ "nixfmt" ];
-              };
-            };
             "nixd" = {
               "formatting" = {
                 "command" = [ "nixfmt" ];
@@ -78,7 +65,9 @@ in
           # ================= 插件配置
           "fittencode.languagePreference.displayPreference" = "zh-cn";
           "fittencode.languagePreference.commentPreference" = "zh-cn";
+          "find-it-faster.general.useTerminalInEditor" = false;
 
+          # ================== files
           "files.watcherExclude" = {
             "**/.git/objects/**" = true;
             "**/.git/subtree-cache/**" = true;
@@ -90,28 +79,26 @@ in
           # theme
           "workbench.iconTheme" = "vscode-icons";
           "workbench.colorTheme" = "One Dark Pro";
-          # "workbench.preferredDarkColorTheme" = "One Dark Pro";
-          # "workbench.preferredLightColorTheme" = "One Dark Pro";
-          "window.autoDetectColorScheme" = true;
           "workbench.preferredLightColorTheme" = "Default Light+";
           "workbench.preferredDarkColorTheme" = "One Dark Pro";
           "workbench.tree.indent" = 22;
           "workbench.list.smoothScrolling" = true;
           "workbench.tree.renderIndentGuides" = "always";
 
+          #============= window
+          "window.autoDetectColorScheme" = true;
+          "window.zoomLevel" = 1.6;
+
+          # =================== editor
           # // ctrl+滚轮调整字体大小
           "editor.mouseWheelZoom" = true;
-          # // 一个制表符等于的空格数。
           "editor.tabSize" = 4;
           "editor.lineHeight" = 24;
-          # // 控制字体大小(像素)。
           "editor.fontSize" = 18;
-          # // 控制字体系列。
           "editor.fontFamily" = "Monaco Nerd Font Mono";
           "editor.codeActionsOnSave" = {
             "source.organizeImports" = "explicit";
           };
-          "window.zoomLevel" = 1.6;
           "editor.wordWrap" = "on";
           "editor.formatOnPaste" = true;
           "editor.autoIndentOnPaste" = true;
@@ -162,14 +149,14 @@ in
                 };
               }
             ];
+            # debug
+            "debug.console.fontFamily" = "Monaco Nerd Font Mono";
+            "debug.console.fontSize" = 15;
+            "debug.console.historySuggestions" = false;
           };
-          # debug
-          "debug.console.fontFamily" = "Monaco Nerd Font Mono";
-          "debug.console.fontSize" = 15;
-          "debug.console.historySuggestions" = false;
-          # plugins
-          "find-it-faster.general.useTerminalInEditor" = false;
+
         };
+
       };
     };
   };

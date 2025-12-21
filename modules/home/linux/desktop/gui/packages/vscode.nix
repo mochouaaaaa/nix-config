@@ -31,42 +31,81 @@ in
 {
   config = lib.mkIf (config.programs.vscode.enable && config.programs.desktop.enable) {
 
-    services.xremap = {
-      config = {
-        modmap = [
-          # {
-          #   name = "VSCode";
-          #   application.only = [
-          #     "code"
-          #   ];
-          #   remap = {
-          #     "SUPER_L" = "Ctrl_L";
-          #   };
-          # }
-        ];
-      };
-    };
-
     programs.vscode = {
       package = pkgs.vscode.override {
         commandLineArgs = vscodeArgs;
       };
-      # let vscode sync and update its configuration & extensions across devices, using github account.
       profiles.default = {
+        userSettings = {
+          "vscode-default-keybindings.removeOSKeybindings" = true;
+          "vscode-default-keybindings.macOSKeybindings" = true;
+        };
         extensions =
           let
             inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
           in
           [
-            # (buildVscodeMarketplaceExtension {
-            #   mktplcRef = {
-            #     name = "MikeCunneen";
-            #     publisher = "default-keys-macos";
-            #     version = "1.0.0";
-            #     hash = "sha256-WHbUl3js9jXNxa1Zn0jydB2uAcXdoca9kVkPGu5OxjY=";
-            #   };
-            # })
+            (buildVscodeMarketplaceExtension {
+              mktplcRef = {
+                name = "vscode-default-keybindings";
+                publisher = "jbro";
+                version = "0.2.51";
+                hash = "sha256-SJ+YghLJMWqvNsvhMLLzyPgkAiy/g+WlobXBx0mUGLs=";
+              };
+            })
           ];
+        keybindings = [
+          {
+            key = "meta+k";
+            command = "selectPrevSuggestion";
+            when = "config.vscode-default-keybindings.macOSKeybindings && suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || config.vscode-default-keybindings.macOSKeybindings && suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+          }
+          {
+            key = "ctrl+p";
+            command = "-selectPrevSuggestion";
+            when = "config.vscode-default-keybindings.macOSKeybindings && suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || config.vscode-default-keybindings.macOSKeybindings && suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+          }
+          {
+            key = "meta+j";
+            command = "selectNextSuggestion";
+            when = "config.vscode-default-keybindings.macOSKeybindings && suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || config.vscode-default-keybindings.macOSKeybindings && suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+          }
+          {
+            key = "ctrl+n";
+            command = "-selectNextSuggestion";
+            when = "config.vscode-default-keybindings.macOSKeybindings && suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || config.vscode-default-keybindings.macOSKeybindings && suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion";
+          }
+          {
+            key = "meta+e";
+            command = "editor.action.inlineSuggest.hide";
+            when = "config.vscode-default-keybindings.macOSKeybindings && inInlineEditsPreviewEditor";
+          }
+          {
+            key = "escape";
+            command = "-editor.action.inlineSuggest.hide";
+            when = "config.vscode-default-keybindings.macOSKeybindings && inInlineEditsPreviewEditor";
+          }
+          {
+            key = "meta+e";
+            command = "editor.action.inlineSuggest.hide";
+            when = "config.vscode-default-keybindings.macOSKeybindings && inlineEditIsVisible || config.vscode-default-keybindings.macOSKeybindings && inlineSuggestionVisible";
+          }
+          {
+            key = "escape";
+            command = "-editor.action.inlineSuggest.hide";
+            when = "config.vscode-default-keybindings.macOSKeybindings && inlineEditIsVisible || config.vscode-default-keybindings.macOSKeybindings && inlineSuggestionVisible";
+          }
+          {
+            key = "meta+e";
+            command = "hideSuggestWidget";
+            when = "config.vscode-default-keybindings.macOSKeybindings && suggestWidgetVisible && textInputFocus";
+          }
+          {
+            key = "escape";
+            command = "-hideSuggestWidget";
+            when = "config.vscode-default-keybindings.macOSKeybindings && suggestWidgetVisible && textInputFocus";
+          }
+        ];
       };
     };
 

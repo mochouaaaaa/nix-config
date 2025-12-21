@@ -26,6 +26,16 @@ in
     vscode = {
       profiles = {
         default = {
+          keybindings = [
+            # {
+            #   key = "meta+f";
+            #   command = "find-it-faster.findFiles";
+            # }
+            # {
+            #   key = "meta+shift+f";
+            #   command = "find-it-faster.findWithinFiles";
+            # }
+          ];
           extensions = with pkgs.vscode-extensions; [
             # base extensions
             formulahendry.code-runner
@@ -37,7 +47,7 @@ in
             finditfaster
             mkhl.direnv
 
-            #ai
+            #ai FittenTech.Fitten-Code
             # FittenTech.Fitten-Code
             (buildVscodeMarketplaceExtension {
               mktplcRef = {
