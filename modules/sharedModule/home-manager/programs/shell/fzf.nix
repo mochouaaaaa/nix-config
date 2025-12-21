@@ -25,6 +25,8 @@
       "--border"
       "--cycle"
       "--select-1 --exit-0"
+      "--color=fg:7,bg:0,hl:6,fg+:7,bg+:8,hl+:6"
+      "--color=info:5,prompt:4,pointer:1,marker:3,spinner:2,header:0"
     ];
     # CTRL-R
     historyWidgetOptions = [
