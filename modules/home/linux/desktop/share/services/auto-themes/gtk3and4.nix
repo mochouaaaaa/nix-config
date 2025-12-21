@@ -5,19 +5,20 @@
   ...
 }:
 let
-  cfg = config.modules'.themes.auto.gtkTheme;
+  cfg = config.modules'.desktop;
+  cfgTheme = config.modules'.themes.gtkTheme;
 
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
 
   switch-gtk2-config = pkgs.writeShellScriptBin "switch-gtk2-config" ''
     # 第一个参数：模式 (Dark 或 Light)
-    mode=''${1:-${cfg.light}}  # 如果没有提供 mode 参数，默认是 Light
+    mode=''${1:-${cfgTheme.light}}  # 如果没有提供 mode 参数，默认是 Light
 
     # 第二个参数：主题名称
-    theme=''${2:-${cfg.name}}  # 如果没有提供 theme 参数，默认是 Colloid
+    theme=''${2:-${cfgTheme.name}}  # 如果没有提供 theme 参数，默认是 Colloid
 
     # 第三个参数：图标主题名称
-    icon_theme=''${3:-${cfg.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
+    icon_theme=''${3:-${cfgTheme.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
 
     # 默认主题是 Colloid
     gtk_theme_name="$theme-$mode"
@@ -39,9 +40,9 @@ let
   '';
 
   switch-gtk3and4-config = pkgs.writeShellScriptBin "switch-gtk3and4-config" ''
-    mode=''${1:-${cfg.light}}  # 如果没有提供 mode 参数，默认是 Light
-    theme=''${2:-${cfg.name}}  # 如果没有提供 theme 参数，默认是 Colloid
-    icon_theme=''${3:-${cfg.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
+    mode=''${1:-${cfgTheme.light}}  # 如果没有提供 mode 参数，默认是 Light
+    theme=''${2:-${cfgTheme.name}}  # 如果没有提供 theme 参数，默认是 Colloid
+    icon_theme=''${3:-${cfgTheme.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
 
     # 默认主题是 Colloid
     gtk_theme_name="$theme-$mode"
@@ -86,9 +87,9 @@ let
   '';
 
   switch-theme = pkgs.writeShellScriptBin "switch-theme" ''
-    mode=''${1:-${cfg.light}} 
-    theme=''${2:-${cfg.name}}
-    icon_theme=''${3:-${cfg.icon.name}} 
+    mode=''${1:-${cfgTheme.light}} 
+    theme=''${2:-${cfgTheme.name}}
+    icon_theme=''${3:-${cfgTheme.icon.name}} 
 
     # 默认主题是 Colloid
     gtk_theme_name="$theme-$mode"
@@ -129,18 +130,79 @@ let
 in
 {
 
-  config = lib.mkIf cfg.enable {
+  options.modules'.themes = {
+    gtkTheme = {
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = (
+          pkgs.colloid-gtk-theme.override {
+            tweaks = [ "black" ];
+          }
+        );
+        description = "GTK theme package.";
+      };
+      shellTheme = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+        description = "window shell theme.";
+      };
+      icon = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = "Colloid";
+          description = "Name of GTK icon theme.";
+        };
+        package = lib.mkOption {
+          type = lib.types.package;
+          # default = pkgs.colloid-icon-theme;
+          default = pkgs.colloid-icon-theme.overrideAttrs (oldAttrs: {
+            version = "2025-07-19";
+            src = pkgs.fetchFromGitHub {
+              owner = "vinceliuice";
+              repo = "colloid-icon-theme";
+              tag = "2025-07-19";
+              hash = "sha256-CzFEMY3oJE3sHdIMQQi9qizG8jKo72gR8FlVK0w0p74=";
+            };
+            dontWrapQtApps = true;
+            propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ pkgs.kdePackages.breeze ];
+            postInstall = (oldAttrs.postInstall or "") + ''
+              rm -f $out/share/icons/Colloid-Light/apps/scalable/io.github.vinegarhq.Vinegar.studio.svg
+            '';
+          });
+          description = "Icon theme package.";
+        };
+      };
+      name = lib.mkOption {
+        type = lib.types.str;
+        default = "Colloid";
+        description = "Name of GTK theme.";
+      };
+      dark = lib.mkOption {
+        type = lib.types.str;
+        default = "Dark";
+        description = "Name of GTK dark theme.";
+      };
+      light = lib.mkOption {
+        type = lib.types.str;
+        default = "Light";
+        description = "Name of GTK light theme.";
+      };
+    };
+
+  };
+
+  config = lib.mkIf (cfg.gnome.enable || cfg.hyprland.enable || cfg.niri.enable) {
 
     home.activation = {
       initSwitchedGtkTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${lib.getExe switch-theme} Light
-        ${cfg.shellTheme}
+        ${cfgTheme.shellTheme}
       '';
     };
 
     home.packages = [
-      cfg.package
-      cfg.icon.package
+      cfgTheme.package
+      cfgTheme.icon.package
       switch-theme
       pkgs.whitesur-icon-theme
     ];

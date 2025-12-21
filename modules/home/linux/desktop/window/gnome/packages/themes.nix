@@ -12,7 +12,6 @@ in
 
     modules'.themes.auto = {
       enable = true;
-      gtkTheme.enable = true;
     };
 
     services.darkman = {
