@@ -10,7 +10,7 @@ let
   cfgDesktop = config.modules'.desktop;
 in
 {
-  imports = lib.importModule ./. ++ [
+  imports = lib.importModule' ./. ++ [
     inputs.DankMaterialShell.homeModules.dankMaterialShell.default
   ];
 
