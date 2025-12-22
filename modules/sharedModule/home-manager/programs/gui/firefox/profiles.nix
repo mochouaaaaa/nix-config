@@ -125,10 +125,24 @@ in
 
             };
             search = {
-              default = "google";
+              default = "duckduckgo";
               force = true;
               engines = {
-                "nix-packages" = {
+                GitHub = {
+                  urls = [
+                    {
+                      template = "https://github.com/search";
+                      params = [
+                        {
+                          name = "q";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  definedAliases = [ "gh" ];
+                };
+                nix-packages = {
                   urls = [
                     {
                       template = "https://search.nixos.org/packages";
@@ -147,24 +161,37 @@ in
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                   definedaliases = [ "@np" ];
                 };
-                "nixpkgs-prs" = {
+                nixpkgs-prs = {
                   urls = [ { template = "https://nixpk.gs/pr-tracker.html?pr={searchterms}"; } ];
                   icon = "https://nixos.org/favicon.png";
                   updateinterval = 24 * 60 * 60 * 1000; # every day
                   definedaliases = [ "@npr" ];
                 };
-
-                "nixos-wiki" = {
-                  urls = [ { template = "https://wiki.nixos.org/index.php?search={searchterms}"; } ];
-                  icon = "https://wiki.nixos.org/favicon.png";
-                  updateinterval = 24 * 60 * 60 * 1000; # every day
-                  definedaliases = [ "@nw" ];
+                nixos-wiki = {
+                  name = "NixOS Wiki";
+                  urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
+                  iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+                  definedAliases = [ "@nw" ];
                 };
-                "bing".metadata.hidden = true;
-                "duckduckgo".metadata.hidden = true;
-                "amazonnl".metadata.hidden = true;
-                "ebay".metadata.hidden = true;
-                "google".metadata.alias = "@g";
+                nix-nur = {
+                  urls = [
+                    {
+                      template = "https://nur.nix-community.org/";
+                      params = [
+                        {
+                          name = "query";
+                          value = "{searchterms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "https://nur.nix-community.org/images/logonur.png";
+                  updateinterval = 24 * 60 * 60 * 1000;
+                  definedaliases = [ "@nur" ];
+                };
+                bing.metadata.hidden = true;
+                duckduckgo.metadata.hidden = true;
+                amazonnl.metadata.hidden = true;
               };
             };
           };

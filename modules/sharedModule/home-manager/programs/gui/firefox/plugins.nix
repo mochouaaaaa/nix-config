@@ -6,7 +6,8 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.firefox.plugins;
+  cfg = config.programs.firefox;
+  cfg-plugins = config.modules'.packages.firefox.plugins;
   rycee-addons = pkgs.nur.repos.rycee.firefox-addons;
 
   # --- Custom Plugin Derivations ---
@@ -63,30 +64,16 @@ let
   };
 in
 {
-  # --- Plugin Options ---
-  options.modules'.packages.firefox.plugins = with lib; {
-    bewlybewly = mkEnableOption "BewlyBewly";
-    bitwarden = mkEnableOption "Bitwarden";
-    enhanced-github = mkEnableOption "Enhanced GitHub";
-    fehelper = mkEnableOption "FeHelper";
-    imagus = mkEnableOption "Imagus";
-    immersive-translate = mkEnableOption "Immersive Translate";
-    nope-cha = mkEnableOption "NopeCHA";
-    tampermonkey = mkEnableOption "Tampermonkey";
-    ublock-origin = mkEnableOption "uBlock Origin";
-    vimium = mkEnableOption "Vimium";
-    xbrowsersync = mkEnableOption "xBrowserSync";
-  };
 
   # --- Plugin Configuration ---
-  config = {
+  config = lib.mkIf (cfg.enable) {
     programs.firefox.profiles."${username}".extensions = lib.mkMerge [
       {
         force = true;
       }
       # Each plugin is defined in its own conditional block.
       # `mkMerge` will concatenate the `packages` lists and recursively merge the `settings` attrs.
-      (lib.mkIf cfg.bewlybewly {
+      (lib.mkIf cfg-plugins.bewlybewly {
         packages = [ bewlybewly-plugin ];
         settings = {
           "addon@bewlybewly.com".settings = {
@@ -96,15 +83,15 @@ in
         };
       })
 
-      (lib.mkIf cfg.bitwarden {
+      (lib.mkIf cfg-plugins.bitwarden {
         packages = [ rycee-addons.bitwarden ];
       })
 
-      (lib.mkIf cfg."enhanced-github" {
+      (lib.mkIf cfg-plugins."enhanced-github" {
         packages = [ rycee-addons.enhanced-github ];
       })
 
-      (lib.mkIf cfg.fehelper {
+      (lib.mkIf cfg-plugins.fehelper {
         packages = [ fehelper-plugin ];
         settings = {
           "firefox@fehelper.com".settings = {
@@ -115,23 +102,23 @@ in
         };
       })
 
-      (lib.mkIf cfg.imagus {
+      (lib.mkIf cfg-plugins.imagus {
         packages = [ rycee-addons.imagus ];
       })
 
-      (lib.mkIf cfg."immersive-translate" {
+      (lib.mkIf cfg-plugins.immersive-translate {
         packages = [ rycee-addons.immersive-translate ];
       })
 
-      (lib.mkIf cfg."nope-cha" {
+      (lib.mkIf cfg-plugins."nope-cha" {
         packages = [ nopecha-plugin ];
       })
 
-      (lib.mkIf cfg.tampermonkey {
+      (lib.mkIf cfg-plugins.tampermonkey {
         packages = [ rycee-addons.tampermonkey ];
       })
 
-      (lib.mkIf cfg."ublock-origin" {
+      (lib.mkIf cfg-plugins."ublock-origin" {
         packages = [ rycee-addons.ublock-origin ];
         settings = {
           "uBlock0@raymondhill.net".settings = {
@@ -156,13 +143,28 @@ in
         };
       })
 
-      (lib.mkIf cfg.vimium {
+      (lib.mkIf cfg-plugins.vimium {
         packages = [ rycee-addons.vimium ];
       })
 
-      (lib.mkIf cfg.xbrowsersync {
+      (lib.mkIf cfg-plugins.xbrowsersync {
         packages = [ rycee-addons.xbrowsersync ];
       })
+
+      (lib.mkIf cfg-plugins.duckduckgo-privacy-essentials {
+        packages = [ rycee-addons.duckduckgo-privacy-essentials ];
+        settings = {
+          "jid1-ZAdIEUB7XOzOJw@jetpack".settings = {
+            httpsEverywhereEnabled = true;
+            embeddedTweetsEnabled = true;
+            GPC = true;
+            youtubePreviewsEnabled = true;
+            atb = "v513-5";
+            set_atb = "v513-5";
+          };
+        };
+      })
+
     ];
   };
 }
