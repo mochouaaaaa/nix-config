@@ -23,6 +23,8 @@ in
     vscode.profiles = {
       default = {
         userSettings = {
+          # =========== language
+          "python.languageServer" = "None";
           "[nix]" = {
             "editor.tabSize" = 4;
             "editor.defaultFormatter" = "brettm12345.nixfmt-vscode";
@@ -62,6 +64,11 @@ in
             "textDocument/definition"
           ];
 
+          # ================= Git
+          "git.enableCommitSigning" = true;
+          "git.enableSmartCommit" = false;
+          "GitCommitPlugin.ShowEmoji" = false;
+
           # ================= 插件配置
           "fittencode.languagePreference.displayPreference" = "zh-cn";
           "fittencode.languagePreference.commentPreference" = "zh-cn";
@@ -75,8 +82,25 @@ in
             "**/tmp/**" = true;
             "**/bower_components/**" = true;
           };
+          "files.exclude" = {
+            "**/.git" = true;
+            "**/.svn" = true;
+            "**/.hg" = true;
+            "**/.DS_Store" = true;
+            "**/Thumbs.db" = true;
+            "**/node_modules" = true;
+            "**/bower_components" = true;
+            "**/*.code-search" = true;
+            "**/.direnv" = true;
+            "**/.devenv" = true;
+            "**/.venv" = true;
+            "**/Trash-1000" = true;
+          };
+          "explorer.excludeGitIgnore" = false;
+          "search.useIgnoreFiles" = true;
 
-          # theme
+          # UI
+          "workbench.sideBar.location" = "right";
           "workbench.iconTheme" = "vscode-icons";
           "workbench.colorTheme" = "One Dark Pro";
           "workbench.preferredLightColorTheme" = "Default Light+";
@@ -91,6 +115,8 @@ in
 
           # =================== editor
           # // ctrl+滚轮调整字体大小
+          "editor.emptySelectionClipboard" = false;
+          "editor.formatOnPaste" = false;
           "editor.mouseWheelZoom" = true;
           "editor.tabSize" = 4;
           "editor.lineHeight" = 24;
@@ -100,7 +126,6 @@ in
             "source.organizeImports" = "explicit";
           };
           "editor.wordWrap" = "on";
-          "editor.formatOnPaste" = true;
           "editor.autoIndentOnPaste" = true;
           "editor.codeLensFontFamily" = "Monaco Nerd Font";
           "editor.defaultFormatter" = "vscode.json-language-features";

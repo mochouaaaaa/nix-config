@@ -47,6 +47,16 @@ in
             finditfaster
             mkhl.direnv
 
+            (buildVscodeMarketplaceExtension {
+              mktplcRef = {
+                # redjue.git-commit-plugin
+                name = "git-commit-plugin";
+                publisher = "redjue";
+                version = "1.5.0";
+                hash = "sha256-fOdeUuB4jFL0LvGsLcjz5EQslD8jRRGslbumMo3cZCs=";
+              };
+            })
+
             #ai FittenTech.Fitten-Code
             # FittenTech.Fitten-Code
             (buildVscodeMarketplaceExtension {
@@ -95,12 +105,17 @@ in
 
             # python
             ms-python.python
-            ms-python.vscode-pylance
-            # pylyzer.pylyzer
             ms-python.pylint
             ms-python.debugpy
-            ms-python.vscode-pylance
             batisteo.vscode-django
+            (buildVscodeMarketplaceExtension {
+              mktplcRef = {
+                name = "ty";
+                publisher = "astral-sh";
+                version = "2025.74.0";
+                hash = "sha256-hOqajQNLwvk73aAoZVsloEQhGwS6T+Pl+U/j0uGOPr0=";
+              };
+            })
 
             # golang
             golang.go
