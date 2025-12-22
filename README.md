@@ -162,10 +162,6 @@ just swl
 
 </details>
 
-# Todo
-
-- [ ] hyprland上在浏览器输入框里无法使用super+a,c,v,x等快捷键操作，而其他桌面环境正常
-
 [Hyprland]: https://github.com/hyprwm/Hyprland
 [Niri]: https://github.com/YaLTeR/niri
 [Kde]: https://kde.org
