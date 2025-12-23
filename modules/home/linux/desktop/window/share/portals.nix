@@ -17,13 +17,16 @@ in
 
       # Add DE-specific portal packages to the system.
       # GTK is included as a general fallback.
-      extraPortals = with pkgs;
+      extraPortals =
+        with pkgs;
         [
           xdg-desktop-portal-gtk
         ]
         ++ lib.optionals cfg.gnome.enable [ xdg-desktop-portal-gnome ]
         ++ lib.optionals cfg.kde.enable [ kdePackages.xdg-desktop-portal-kde ]
-        ++ lib.optionals cfg.hyprland.enable [ inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland ];
+        ++ lib.optionals cfg.hyprland.enable [
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+        ];
 
       # Niri acts as its own portal backend, so its package is needed here.
       configPackages = lib.optionals cfg.niri.enable [ pkgs.niri ];
