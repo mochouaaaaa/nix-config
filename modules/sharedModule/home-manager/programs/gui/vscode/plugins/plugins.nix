@@ -113,7 +113,7 @@ in
                 name = "ty";
                 publisher = "astral-sh";
                 version = "2025.74.0";
-                hash = "sha256-hOqajQNLwvk73aAoZVsloEQhGwS6T+Pl+U/j0uGOPr0=";
+                hash = "sha256-TbM/0uzWKWoGfdkaEgdq6vwhsVteD0D642UB45J44w4=";
               };
             })
 
