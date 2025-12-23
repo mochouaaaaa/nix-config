@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 {
@@ -11,13 +10,5 @@
       [
         "nvim.desktop"
       ];
-
-  programs.nixvim = {
-    extraConfigLuaPre = ''
-      vim.env.GI_TYPELIB_PATH = "${pkgs.gobject-introspection}/lib/girepository-1.0";
-    '';
-  };
-
-  home.packages = [ pkgs.gobject-introspection ];
 
 }

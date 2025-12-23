@@ -4,15 +4,16 @@
   isNixos,
   nixosSystemName,
   homeManagerName,
+  username,
   ...
 }:
 let
 
   homeExpr =
     if isNixos then
-      "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${nixosSystemName}.options.home-manager.users.type.getSubOptions []"
+      "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.\"${nixosSystemName}\".options.home-manager.users.value.${username}"
     else if isNixDarwin then
-      "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.${nixDarwinSystemName}.options.home-manager.users.type.getSubOptions []"
+      "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.\"${nixDarwinSystemName}\".options.home-manager.users.value.${username}"
     else
       "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.\"${homeManagerName}\".options";
 
@@ -48,14 +49,14 @@ in
               "options" = {
                 "nixos" = {
                   "expr" =
-                    "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${nixDarwinSystemName}.options";
+                    "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.\"${nixDarwinSystemName}\".options";
                 };
                 "home-manager" = {
                   "expr" = "${homeExpr}";
                 };
                 "nix-darwin" = {
                   "expr" =
-                    "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.${nixosSystemName}.options";
+                    "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.\"${nixosSystemName}\".options";
                 };
               };
             };
@@ -65,7 +66,7 @@ in
           ];
 
           # ================= Git
-          "git.enableCommitSigning" = true;
+          "git.enableCommitSigning" = false;
           "git.enableSmartCommit" = false;
           "GitCommitPlugin.ShowEmoji" = false;
 
@@ -94,7 +95,7 @@ in
             "**/.direnv" = true;
             "**/.devenv" = true;
             "**/.venv" = true;
-            "**/Trash-1000" = true;
+            "**/.Trash-1000" = true;
           };
           "explorer.excludeGitIgnore" = false;
           "search.useIgnoreFiles" = true;

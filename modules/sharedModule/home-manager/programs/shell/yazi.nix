@@ -48,24 +48,24 @@ in
         enableZshIntegration = false;
         enableBashIntegration = false;
         enableFishIntegration = false;
-        plugins = {
-          git = pkgs.yaziPlugins.git;
-          chmod = pkgs.yaziPlugins.chmod;
-          ouch = pkgs.yaziPlugins.ouch;
-          full-border = pkgs.yaziPlugins.full-border;
-          duckdb = pkgs.yaziPlugins.duckdb;
-          piper = pkgs.yaziPlugins.piper;
-          vcs-files = pkgs.yaziPlugins.vcs-files;
-          jump-to-char = pkgs.yaziPlugins.jump-to-char;
-          smart-enter = pkgs.yaziPlugins.smart-enter;
-          smart-filter = pkgs.yaziPlugins.smart-filter;
-          smart-paste = pkgs.yaziPlugins.smart-paste;
+        plugins = with pkgs.yaziPlugins; {
+          git = git;
+          chmod = chmod;
+          ouch = ouch;
+          full-border = full-border;
+          duckdb = duckdb;
+          piper = piper;
+          vcs-files = vcs-files;
+          jump-to-char = jump-to-char;
+          smart-enter = smart-enter;
+          smart-filter = smart-filter;
+          smart-paste = smart-paste;
         };
       };
       zsh.initContent = lib.optionalString (yazi.enable) warpper_shell + ''
         if [[ -n "$YAZI_ID" ]]; then
             function _yazi_cd() {
-                ya pub dds-cd --str "$PWD"
+                ya emit cd "$PWD"
             }
             add-zsh-hook zshexit _yazi_cd
         fi

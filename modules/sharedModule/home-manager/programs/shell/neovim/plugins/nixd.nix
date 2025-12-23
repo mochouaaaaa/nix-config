@@ -1,11 +1,11 @@
 {
-  lib,
   pkgs,
   isNixDarwin,
   nixDarwinSystemName,
   isNixos,
   nixosSystemName,
   homeManagerName,
+  username,
   ...
 }:
 {
@@ -24,20 +24,32 @@
           local opts = {}
 
           if vim.g.is_darwin then
-              opts.nix_darwin = {
-                  expr = '(builtins.getFlake (builtins.toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options'
+              opts = {
+                  nix_darwin = {
+                      expr = '(builtins.getFlake (builtins.toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options',
+                  },
+                  home_manager = {
+                      expr = '(builtins.getFlake (builtins.toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options.home-manager.users.value.${username}',
+                  },
               }
           end
 
           if vim.g.is_nixos then
-              opts.nixos = {
-                  expr = '(builtins.getFlake (builtins.toString ./.)).nixosConfigurations."${nixosSystemName}".options'
+              opts = {
+                  nixos = {
+                      expr = '(builtins.getFlake (builtins.toString ./.)).nixosConfigurations."${nixosSystemName}".options',
+                  },
+                  home_manager = {
+                      expr = '(builtins.getFlake (builtins.toString ./.)).nixosConfigurations."${nixosSystemName}".options.home-manager.users.value.${username}',
+                  },
               }
           end
 
-            opts.home_manager = {
-                expr = '(builtins.getFlake (builtins.toString ./.)).homeConfigurations."${homeManagerName}".options'
-            }
+          if not vim.g.is_nixos and not vim.g.is_darwin then
+              opts.home_manager = {
+                  expr = '(builtins.getFlake (builtins.toString ./.)).homeConfigurations."${homeManagerName}".options',
+              }
+          end
 
           return opts
       end
