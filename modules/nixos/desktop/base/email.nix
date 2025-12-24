@@ -5,17 +5,16 @@
   ...
 }:
 let
-  cfgDesktop = config.modules'.desktop;
+  cfg = config.modules'.desktop;
+  gnomeSeries = cfg.hyprland.enable || cfg.niri.enable || cfg.gnome.enable;
 in
 {
-  config =
-    lib.mkIf (config.programs.desktop.enable && (cfgDesktop.hyprland.enable || cfgDesktop.niri.enable))
-      {
+  config = lib.mkIf gnomeSeries {
 
-        programs.evolution = {
-          enable = true;
-          plugins = [ pkgs.evolution-ews ];
-        };
+    programs.evolution = {
+      enable = true;
+      plugins = [ pkgs.evolution-ews ];
+    };
 
-      };
+  };
 }

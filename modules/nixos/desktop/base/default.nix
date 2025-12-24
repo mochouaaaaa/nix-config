@@ -44,6 +44,8 @@ in
       ".config/QQ"
       ".local/share/materialgram"
       ".local/share/TelegramDesktop"
+      ".local/share/fractal"
+      ".cache/fractal"
 
       # ======================================
       # Remote

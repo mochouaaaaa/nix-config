@@ -26,6 +26,9 @@ in
 
     security.pam.services = {
       login.kwallet.enable = lib.mkForce false;
+      sddm.enableGnomeKeyring = true;
+      sddm-greeter.enableGnomeKeyring = true;
+      sddm-autologin.enableGnomeKeyring = true;
       kde = {
         enableGnomeKeyring = true;
         kwallet.enable = lib.mkForce false;
