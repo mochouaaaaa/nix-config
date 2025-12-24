@@ -11,22 +11,10 @@ let
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
 
   switch-gtk2-config = pkgs.writeShellScriptBin "switch-gtk2-config" ''
-    # 第一个参数：模式 (Dark 或 Light)
-    mode=''${1:-${cfgTheme.light}}  # 如果没有提供 mode 参数，默认是 Light
-
-    # 第二个参数：主题名称
-    theme=''${2:-${cfgTheme.name}}  # 如果没有提供 theme 参数，默认是 Colloid
-
-    # 第三个参数：图标主题名称
-    icon_theme=''${3:-${cfgTheme.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
-
-    # 默认主题是 Colloid
-    gtk_theme_name="$theme-$mode"
-    gtk_icon_theme="$icon_theme-$mode"
 
     cat > $HOME/.gtkrc-2.0 << EOF         
     gtk-enable-animations=1
-    gtk-theme-name="$gtk_theme_name"
+    gtk-theme-name="$1"
     gtk-primary-button-warps-slider=1
     gtk-toolbar-style=0
     gtk-menu-images=1
@@ -34,26 +22,15 @@ let
     gtk-cursor-theme-size=${builtins.toString config.home.pointerCursor.size}
     gtk-sound-theme-name="ocean"
     gtk-cursor-theme-name="${config.home.pointerCursor.name}"
-    gtk-icon-theme-name="$gtk_icon_theme"
+    gtk-icon-theme-name="$2"
     gtk-font-name="Monaco Nerd Font Mono, 12"
     EOF
   '';
 
   switch-gtk3and4-config = pkgs.writeShellScriptBin "switch-gtk3and4-config" ''
-    mode=''${1:-${cfgTheme.light}}  # 如果没有提供 mode 参数，默认是 Light
-    theme=''${2:-${cfgTheme.name}}  # 如果没有提供 theme 参数，默认是 Colloid
-    icon_theme=''${3:-${cfgTheme.icon.name}}  # 如果没有提供 icon_theme 参数，默认是 Colloid
-
-    # 默认主题是 Colloid
-    gtk_theme_name="$theme-$mode"
-    gtk_icon_theme="$icon_theme-$mode"
-
-    # 根据模式设置 gtk-application-prefer-dark-theme 的值
-    if [ "$mode" = "Dark" ]; then
-        prefer_dark=1
-    else
-        prefer_dark=0
-    fi
+    mode=''${1:-${cfgTheme.light}}
+    gtk_theme_name=$2
+    gtk_icon_theme=$3
 
     function set_gtk_theme {
         local gtk_version=$1
@@ -78,7 +55,7 @@ let
     gtk-xft-hinting=1
     gtk-xft-hintstyle=hintslight
     gtk-xft-rgba=rgb
-    gtk-application-prefer-dark-theme=$prefer_dark
+    gtk-application-prefer-dark-theme=$mode
     EOF
     }
 
@@ -87,16 +64,33 @@ let
   '';
 
   switch-theme = pkgs.writeShellScriptBin "switch-theme" ''
-    mode=''${1:-${cfgTheme.light}} 
-    theme=''${2:-${cfgTheme.name}}
-    icon_theme=''${3:-${cfgTheme.icon.name}} 
+    mode=''${1:-light} 
 
-    # 默认主题是 Colloid
-    gtk_theme_name="$theme-$mode"
-    gtk_icon_theme="$icon_theme-$mode"
+    if [[ "''${mode,,}" == "dark" ]]; then
+        prefer_dark=1
+    else
+        prefer_dark=0
+    fi
 
-    ${lib.getExe switch-gtk2-config} $mode $theme $icon_theme
-    ${lib.getExe switch-gtk3and4-config} $mode $theme $icon_theme
+    declare -A GTK_THEME_MAP=(
+        [light]="${cfgTheme.name}${if cfgTheme.light != "" then "-${cfgTheme.light}" else ""}"
+        [dark]="${cfgTheme.name}${if cfgTheme.dark != "" then "-{cfgTheme.dark}" else ""}"
+    )
+
+    declare -A GTK_ICON_MAP=(
+        [light]="${cfgTheme.icon.name}${
+          if cfgTheme.icon.light != "" then "-${cfgTheme.icon.light}" else ""
+        }"
+        [dark]="${cfgTheme.icon.name}${
+          if cfgTheme.icon.dark != "" then "-${cfgTheme.icon.dark}" else ""
+        }"
+    )
+
+    gtk_theme_name="''${GTK_THEME_MAP[$mode]}"
+    gtk_icon_theme="''${GTK_ICON_MAP[$mode]}"
+
+    ${lib.getExe switch-gtk2-config} $gtk_theme_name $gtk_icon_theme
+    ${lib.getExe switch-gtk3and4-config} $prefer_dark $gtk_theme_name $gtk_icon_theme
     ${lib.getExe dconf-settings}
   '';
 
@@ -117,6 +111,10 @@ let
     $dconf write ''${gnome_schema}icon-theme "'$icon_theme'"
     $dconf write ''${gnome_schema}cursor-theme "'$cursor_theme'"
     $dconf write ''${gnome_schema}font-name "'$font_name'"
+    $dconf write ''${gnome_schema}text-scaling-factor 1.0
+    $dconf write ''${gnome_schema}toolbar-style "'large'"
+    $dconf write ''${gnome_schema}toolbar-icons-size "'both-horiz'"
+
 
     if [[ "$color_theme" == "1" ]]; then
         COLOR_SCHEME="prefer-dark"
@@ -131,7 +129,7 @@ in
 {
 
   options.modules'.themes = {
-    gtkTheme = {
+    gtkTheme = rec {
       package = lib.mkOption {
         type = lib.types.package;
         default = (
@@ -140,11 +138,6 @@ in
           }
         );
         description = "GTK theme package.";
-      };
-      shellTheme = lib.mkOption {
-        type = lib.types.str;
-        default = "";
-        description = "window shell theme.";
       };
       icon = {
         name = lib.mkOption {
@@ -171,6 +164,8 @@ in
           });
           description = "Icon theme package.";
         };
+        dark = dark;
+        light = light;
       };
       name = lib.mkOption {
         type = lib.types.str;
@@ -193,32 +188,27 @@ in
 
   config = lib.mkIf (cfg.gnome.enable || cfg.hyprland.enable || cfg.niri.enable) {
 
-    home.activation = {
-      initSwitchedGtkTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        ${lib.getExe switch-theme} Light
-        ${cfgTheme.shellTheme}
-      '';
+    modules'.themes.gtkTheme = {
+      name = "adw-gtk3";
+      package = pkgs.adw-gtk3;
+      icon = {
+        name = "Tela-circle";
+        package = pkgs.tela-circle-icon-theme.override {
+          # allColorVariants = true;
+          # circularFolder = true;
+        };
+        dark = "dark";
+        light = "light";
+      };
+      dark = "dark";
+      light = "";
     };
 
     home.packages = [
       cfgTheme.package
       cfgTheme.icon.package
       switch-theme
-      pkgs.whitesur-icon-theme
     ];
-
-    services.darkman = {
-      lightModeScripts = {
-        gtk-theme = ''
-          switch-theme Light
-        '';
-      };
-      darkModeScripts = {
-        gtk-theme = ''
-          switch-theme Dark
-        '';
-      };
-    };
 
   };
 }

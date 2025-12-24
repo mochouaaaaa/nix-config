@@ -10,20 +10,16 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.themes.auto = {
-      enable = true;
-    };
-
     services.darkman = {
       lightModeScripts = {
         gtk-theme = ''
-          switch-theme Light
+          switch-theme ${config.modules'.themes.gtkTheme.light}
           vicinae vicinae://theme/set/vicinae-light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
-          switch-theme Dark
+          switch-theme ${config.modules'.themes.gtkTheme.dark}
           vicinae vicinae://theme/set/vicinae-dark
         '';
       };
