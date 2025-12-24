@@ -41,9 +41,9 @@ let
           clion.enable = true;
         };
         envs = {
-          pyenv.enable = true;
+          python.enable = true;
           goenv.enable = true;
-          nodenv.enable = false;
+          node.enable = true;
         };
       };
     }

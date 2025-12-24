@@ -3,9 +3,10 @@
     shellAliases = {
       projects = "cd /Volumes/Code";
     };
-    sessionVariables = {
-      GOPATH = "/Volumes/Code/Projects/golang";
-    };
+  };
+
+  programs.go = {
+    GOPATH = "/Volumes/Code/Projects/golang";
   };
 
 }

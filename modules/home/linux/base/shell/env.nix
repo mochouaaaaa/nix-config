@@ -1,7 +1,6 @@
 { config, ... }:
 {
   programs = {
-
     zsh = {
       dirHashes = {
         projects = "$HOME/Code";
@@ -9,7 +8,7 @@
     };
   };
 
-  home.sessionVariables = {
+  programs.go = {
     GOPATH = "${config.home.homeDirectory}/Code/Projects/golang";
   };
 

@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ self, ... }:
 let
   homeModules = [
     self.homeModules.darwin.modules
@@ -14,9 +14,9 @@ let
         firefox.enable = true;
         bitwarden.enable = false;
         envs = {
-          pyenv.enable = true;
+          python.enable = true;
           goenv.enable = true;
-          nodenv.enable = true;
+          node.enable = true;
         };
       };
     }

@@ -14,9 +14,9 @@ let
         # tencent enable default use true
 
         envs = {
-          pyenv.enable = true;
+          python.enable = true;
           goenv.enable = true;
-          nodenv.enable = true;
+          node.enable = true;
         };
       };
     }
