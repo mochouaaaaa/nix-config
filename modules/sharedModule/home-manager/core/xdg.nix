@@ -8,8 +8,8 @@ rec {
     stateHome = "${config.home.homeDirectory}/.local/state";
   };
 
-  home.sessionVariables = {
-    CARGO_HOME = "${xdg.dataHome}/cargo";
-    RUSTUP_HOME = "${xdg.dataHome}/rustup";
-  };
+  programs.zsh.envExtra = ''
+    export CARGO_HOME="${xdg.dataHome}/cargo";
+    export RUSTUP_HOME="${xdg.dataHome}/rustup";
+  '';
 }

@@ -7,26 +7,23 @@
 {
   home.packages = [
     pkgs.yq
-    (pkgs.writeShellScriptBin "tmux_attch" ''
-      tmux attach-session -t main 2>/dev/null || tmux new-session -s main
-    '')
   ];
 
   programs = {
     tmux = {
       enable = true;
-      package = pkgs.tmux.overrideAttrs (
-        finalAttrs: prevAttrs: {
-          pname = "tmux-master";
-          version = "unstable-master";
-          src = pkgs.fetchFromGitHub {
-            owner = "tmux";
-            repo = "tmux";
-            rev = "7e439539377e272f37d18bb10dbff374b87acee6";
-            hash = "sha256-YY9CJ2Z6hjC4kGjRswlps4hya5Lk/ksM9luJHW8Cags=";
-          };
-        }
-      );
+      package = pkgs.writeShellScriptBin "tmux" ''
+
+        _tmux=${lib.getExe pkgs.tmux}
+
+        if [[ $# -gt 0 ]]; then
+            $_tmux "$@"
+            exit $?
+        fi
+
+        $_tmux attach-session -t default 2>/dev/null || $_tmux new-session -s default
+      '';
+
       prefix = "C-a";
       shortcut = "a";
       terminal = "tmux-256color";
