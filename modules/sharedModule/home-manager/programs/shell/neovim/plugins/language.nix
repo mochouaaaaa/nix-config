@@ -16,11 +16,6 @@ in
       stylua
       luajitPackages.luacheck
 
-      # python
-      ty
-      ruff
-      # pylyzer
-
       # go
       gopls
       gotools
