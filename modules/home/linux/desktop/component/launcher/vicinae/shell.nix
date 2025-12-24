@@ -15,7 +15,7 @@ in
 
       services.vicinae = {
         settings = {
-          window = {
+          launcher_window = {
             opacity = lib.mkForce config.modules'.desktop.shell.noctalia.settings.ui.panelBackgroundOpacity;
           };
         };
