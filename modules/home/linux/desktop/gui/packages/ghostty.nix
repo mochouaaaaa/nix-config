@@ -9,7 +9,6 @@ in
       font-size = 16;
       font-family = "Monaco Nerd Font";
 
-      theme = "noctalia";
       window-theme = "auto";
 
       background-opacity = 0.78;

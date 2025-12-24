@@ -1,41 +1,70 @@
 {
   pkgs,
+  lib,
+  config,
   inputs,
   ...
 }:
+let
+  cfg = config.modules'.packages.tencent;
+  isDesktop = config.programs.desktop.enable;
+  cfgDesktop = config.modules'.desktop;
+in
 {
 
   imports = [
     inputs.spicetify-nix.homeManagerModules.spicetify
   ];
 
-  programs.spicetify =
-    let
-      spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
-    in
-    {
-      enable = true;
-      # wayland = true;
-      enabledExtensions = with spicePkgs.extensions; [
-        adblock
-        adblockify
-        autoSkipVideo
-        hidePodcasts
-        shuffle
-        fullAppDisplay
-      ];
-      # theme = spicePkgs.themes.starryNight;
-      theme = spicePkgs.themes.turntable;
-    };
+  config = lib.mkIf isDesktop (
+    lib.mkMerge [
 
-  home.packages = with pkgs; [
-    splayer
-    # spotify
-    # (spicetify-cli.overrideAttrs (oldAttrs: {
-    #   postInstall = oldAttrs.postInstall + ''
-    #     cp -rf $src/Extensions $out/share/spicetify
-    #   '';
-    # }))
-  ];
+      {
+        programs.spicetify =
+          let
+            spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
+          in
+          {
+            enable = true;
+            # wayland = true;
+            enabledExtensions = with spicePkgs.extensions; [
+              adblock
+              adblockify
+              autoSkipVideo
+              hidePodcasts
+              shuffle
+              fullAppDisplay
+            ];
+            # theme = spicePkgs.themes.starryNight;
+            theme = spicePkgs.themes.turntable;
+          };
+
+        home.packages = with pkgs; [
+          splayer
+          # spotify
+          # (spicetify-cli.overrideAttrs (oldAttrs: {
+          #   postInstall = oldAttrs.postInstall + ''
+          #     cp -rf $src/Extensions $out/share/spicetify
+          #   '';
+          # }))
+        ];
+      }
+
+      (lib.mkIf (cfgDesktop.hyprland.enable) {
+        wayland.windowManager.hyprland = {
+          settings = {
+            bind = [
+              "$mod CTRL, 1, togglespecialworkspace, music"
+            ];
+            windowrule = [
+              "workspace special:music, class:feishin|Spotify|Supersonic|SPlayer"
+              "workspace special:music, initialTitle:Spotify( Free)?" # Spotify wayland, it has no class for some reason
+            ];
+          };
+        };
+      })
+
+    ]
+  );
 
 }
