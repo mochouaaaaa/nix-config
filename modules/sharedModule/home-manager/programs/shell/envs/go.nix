@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -15,6 +16,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    home.packages = [
+      pkgs.gopls
+      pkgs.gofumpt
+      pkgs.delve
+      pkgs.goimports-reviser
+    ];
 
     programs = {
       go = {

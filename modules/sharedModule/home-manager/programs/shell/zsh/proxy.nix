@@ -17,7 +17,7 @@
     in
     {
       zsh = {
-        initContent = proxy_config;
+        envExtra = proxy_config;
       };
       bash = {
         initExtra = proxy_config;

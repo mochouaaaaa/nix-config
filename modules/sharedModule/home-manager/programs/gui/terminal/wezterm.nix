@@ -20,14 +20,8 @@ in
       {
         wezterm = {
           enable = true;
-          enableBashIntegration = true;
-          enableZshIntegration = true;
-        };
-        tmux = {
-          extraConfig = lib.mkAfter ''
-            # Wezterm termianl Use 
-            set -g update-environment "IS_WEZTERM"
-          '';
+          # enableBashIntegration = true;
+          # enableZshIntegration = true;
         };
         zsh.initContent = lib.mkOrder 2410 warpper_shell;
         bash.initExtra = lib.mkOrder 2410 warpper_shell;

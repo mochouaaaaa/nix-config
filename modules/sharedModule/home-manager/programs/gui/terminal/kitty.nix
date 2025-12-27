@@ -53,16 +53,16 @@ in
         enable = true;
         package = pkgs.kitty;
         font = {
-          name = "Monaco Nerd Font Mono";
+          name = "Monaco Nerd Font";
           size = 16;
         };
         # themeFile = "Catppuccin-Mocha";
         extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" (cfg.extraConfig));
         enableGitIntegration = true;
         shellIntegration = {
-          enableZshIntegration = true;
-          enableBashIntegration = true;
-          enableFishIntegration = true;
+          # enableZshIntegration = true;
+          # enableBashIntegration = true;
+          # enableFishIntegration = true;
         };
       };
     };
