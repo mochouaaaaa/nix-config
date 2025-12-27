@@ -31,9 +31,14 @@
         ps.luacheck
       ];
       extraPackages = with pkgs; [
+        fd
+        chafa
+        ffmpeg
+        ripgrep
         imagemagick
         sqlite
         libgit2
+        diff-so-fancy
         ghostscript
         multimarkdown
         icu

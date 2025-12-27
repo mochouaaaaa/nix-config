@@ -16,19 +16,6 @@ in
       stylua
       luajitPackages.luacheck
 
-      # go
-      gopls
-      gotools
-      gofumpt
-      # revive
-      delve
-      goimports-reviser
-
-      # rust
-      cargo
-      rust-analyzer
-      rustfmt
-
       # c / c++
       llvmPackages_18.clang-tools
 
@@ -52,22 +39,19 @@ in
 
       # Misc
       # nodePackages.cspell
-      sqls
+      # sqls
 
       # js/ts
       vtsls
       typescript
       emmet-ls
-      vscode-js-debug
       vue-language-server
-      # vscode-css-languageserver
       vscode-langservers-extracted
+      stylelint
 
       # yaml
       # actionlint
 
-      # css/js
-      stylelint
     ]
     ++ lib.optionals (cfgHyprland.enable) [
       # hyprland

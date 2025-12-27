@@ -46,6 +46,7 @@ in
             k--kato.intellij-idea-keybindings
             finditfaster
             mkhl.direnv
+            asvetliakov.vscode-neovim
 
             (buildVscodeMarketplaceExtension {
               mktplcRef = {
@@ -112,8 +113,8 @@ in
               mktplcRef = {
                 name = "ty";
                 publisher = "astral-sh";
-                version = "2025.74.0";
-                hash = "sha256-TbM/0uzWKWoGfdkaEgdq6vwhsVteD0D642UB45J44w4=";
+                version = "2025.76.0";
+                hash = "sha256-rbP4ZdWO4kHvcKTR1tgBomzYj9yAagSGjZCPnHNIqZ0=";
               };
             })
 
