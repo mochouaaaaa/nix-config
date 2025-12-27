@@ -1680,15 +1680,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1766292198,
-        "narHash": "sha256-HS37zzMNZMJmd02IQ596QMFngyglvPJWAJRFKGpjtsc=",
+        "lastModified": 1766537508,
+        "narHash": "sha256-TBrsYS+n+8AsXRAP4wA3JNOdT604QmPo8yeSTT/p61I=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "2cc2a12a80e6feb89c9a7b4961d5066581455e11",
+        "rev": "a865af00357b9b240b3f760359f96413a086054f",
         "type": "github"
       },
       "original": {
         "owner": "noctalia-dev",
+        "ref": "v3.7.5",
         "repo": "noctalia-shell",
         "type": "github"
       }
@@ -2095,16 +2096,15 @@
         "systems": "systems_8"
       },
       "locked": {
-        "lastModified": 1765271704,
-        "narHash": "sha256-G9zuw0IuzOxCeAcLE+IXcsdp0vAGMXBBdlfjBISnL90=",
+        "lastModified": 1766500739,
+        "narHash": "sha256-scSmqIoVh6QtJEIZsFuUxoUaEYdEgw9z+1QAxdr9vFQ=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "04608039dda3da97ccb2e89f22f4943eb1df9a03",
+        "rev": "d3ea37c8291d6aa68b6fedef8c205cef6f870233",
         "type": "github"
       },
       "original": {
         "owner": "vicinaehq",
-        "ref": "v0.16.14",
         "repo": "vicinae",
         "type": "github"
       }
@@ -2218,16 +2218,16 @@
     "xremap": {
       "flake": false,
       "locked": {
-        "lastModified": 1758860852,
-        "narHash": "sha256-80Fzf5hnRBWx0NxV1z8majc7JbDNj0DZSRNkbPvI7Ck=",
+        "lastModified": 1765400488,
+        "narHash": "sha256-QkrZltxJf5GhWczhBj3K8G6LRqlYEbZjhMtEbY8bdsk=",
         "owner": "k0kubun",
         "repo": "xremap",
-        "rev": "05b66b23b8e16ca8d4a143259c8f303c10e3cb70",
+        "rev": "95289472fc25b0ca0b0bf655f1ffb88fed7b014f",
         "type": "github"
       },
       "original": {
         "owner": "k0kubun",
-        "ref": "v0.14.1",
+        "ref": "v0.14.6",
         "repo": "xremap",
         "type": "github"
       }
@@ -2244,11 +2244,11 @@
         "xremap": "xremap"
       },
       "locked": {
-        "lastModified": 1760847274,
-        "narHash": "sha256-nNWkc3r0xuht/g32+eO/NiM2O2NhV7dhEzZs96nzafM=",
+        "lastModified": 1765504354,
+        "narHash": "sha256-Nw+pODpVmU+M00CRUSKMMaKaK1VEvbL9UJtcchmdemY=",
         "owner": "xremap",
         "repo": "nix-flake",
-        "rev": "960e9dd0f557b14234cbe1254806a2b4c34e69c7",
+        "rev": "2162570e24b5df19df053bf7b3b4817a850dcb8a",
         "type": "github"
       },
       "original": {
