@@ -48,21 +48,29 @@ in
         pop_to_root_on_close = true;
         favicon_service = "twenty";
         search_files_in_root = true;
+        escape_key_behavior = false;
         font = {
           normal = {
             size = 12;
             normal = "Monaco Nerd Font";
           };
         };
-        theme = rec {
+        theme = {
           light = {
             name = "matugen";
-            icon_theme = "${config.modules'.themes.gtkTheme.icon.name}";
+            icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.light}";
           };
-          dark = light;
+          dark = {
+            name = "matugen";
+            icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.dark}";
+          };
         };
         launcher_window = {
           opacity = 0.78;
+          dim_around = false;
+          blur = {
+            enabled = false;
+          };
         };
       };
     };
