@@ -89,7 +89,8 @@ in
       # custom packages
       # ======================================
       ".config/obs-studio"
-      ".config/wiliwili"
+      # ".config/wiliwili"
+      ".local/share/com.example.piliplus"
 
       # spotify
       ".config/spicetify"
