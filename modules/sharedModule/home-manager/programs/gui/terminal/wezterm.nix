@@ -20,8 +20,8 @@ in
       {
         wezterm = {
           enable = true;
-          # enableBashIntegration = true;
-          # enableZshIntegration = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
         };
         zsh.initContent = lib.mkOrder 2410 warpper_shell;
         bash.initExtra = lib.mkOrder 2410 warpper_shell;

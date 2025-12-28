@@ -29,24 +29,12 @@ in
               zle -N ctrl_l
               bindkey '^l' ctrl_l
           fi
-
-          if test -n "$KITTY_INSTALLATION_DIR"; then
-              export KITTY_SHELL_INTEGRATION="enabled"
-              autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
-              kitty-integration
-              unfunction kitty-integration
-          fi
         '';
       };
       bash.initExtra = lib.mkOrder 2400 ''
         if [[ -n "$KITTY_WINDOW_ID" ]]; then
              kitty +complete setup bash | source /dev/stdin
              alias ssh="kitty +kitten ssh"
-        fi
-
-        if test -n "$KITTY_INSTALLATION_DIR"; then
-            export KITTY_SHELL_INTEGRATION="enabled"
-            source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"
         fi
       '';
       kitty = {
@@ -60,8 +48,8 @@ in
         extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" (cfg.extraConfig));
         enableGitIntegration = true;
         shellIntegration = {
-          # enableZshIntegration = true;
-          # enableBashIntegration = true;
+          enableZshIntegration = true;
+          enableBashIntegration = true;
           # enableFishIntegration = true;
         };
       };
