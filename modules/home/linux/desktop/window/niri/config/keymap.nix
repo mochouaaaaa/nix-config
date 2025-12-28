@@ -21,7 +21,7 @@ in
         "Mod+Ctrl+t" = {
           inherit allow-inhibiting;
           cooldown-ms = 1000;
-          action.spawn = "kitty";
+          action.spawn = "kitty --single-instance";
         };
         "Mod+q".action = close-window;
 

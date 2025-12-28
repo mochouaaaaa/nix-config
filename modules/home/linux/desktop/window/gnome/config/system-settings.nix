@@ -19,7 +19,7 @@ in
         idle-delay = lib.gvariant.mkUint32 600;
       };
       "org/gnome/desktop/applications/terminal" = {
-        exec = "kitty";
+        exec = "kitty --single-instance";
       };
       "org/gnome/desktop/peripherals/keyboard" = {
         delay = lib.gvariant.mkUint32 200;

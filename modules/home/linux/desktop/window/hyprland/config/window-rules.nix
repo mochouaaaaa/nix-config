@@ -81,7 +81,6 @@ in
           "float, class:(xfce4-appfinder)"
           "float, class:kitty, title:yazi"
           "float, class:^(gnome-)"
-          "float, class:^(org.kde.polkit-kde-authentication-agent-1)$"
           "float, class:([Zz]oom|onedriver|onedriver-launcher)$"
 
           "float, class:(xdg-desktop-portal-gtk)"

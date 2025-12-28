@@ -22,8 +22,7 @@
       };
       brightness = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [
-        ];
+        default = [ ];
       };
       volume = lib.mkOption {
         type = lib.types.listOf lib.types.str;

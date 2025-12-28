@@ -102,7 +102,7 @@ in
       };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Control><Super>t";
-        command = "kitty";
+        command = "kitty --single-instance";
         name = "kitty";
       };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {

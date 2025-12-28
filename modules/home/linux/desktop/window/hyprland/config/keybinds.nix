@@ -12,7 +12,7 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         "$mod" = "SUPER";
-        "$term" = "kitty";
+        "$term" = "kitty --single-instance";
         "$files" = "nautilus";
 
         bindel = cfg.settings.brightness ++ cfg.settings.volume;

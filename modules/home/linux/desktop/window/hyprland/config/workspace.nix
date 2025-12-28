@@ -18,9 +18,8 @@ in
           "$mod, 4, workspace, 4"
           "$mod, 5, workspace, 5"
           "$mod, 6, workspace, 6"
-          "$mod CTRL, 1, togglespecialworkspace, music"
+
           "$mod CTRL, 2, togglespecialworkspace, tg"
-          "$mod CTRL, 3, togglespecialworkspace, wechat"
 
           # Move active window and follow to workspace mainMod + SHIFT [1-5]
           "$mod SHIFT, 1, movetoworkspace, 1"
@@ -52,10 +51,6 @@ in
           "workspace special:tg, class:io.github.kukuruzka165.materialgram"
           "workspace special:tg, class:org.telegram.desktop"
 
-          # Special workspaces
-          "workspace special:music, class:feishin|Spotify|Supersonic|SPlayer"
-          "workspace special:music, initialTitle:Spotify( Free)?" # Spotify wayland, it has no class for some reason
-          "workspace special:wechat, class:discord|equibop|vesktop|whatsapp"
           "workspace special:todo, class:Todoist"
         ];
         workspace = [

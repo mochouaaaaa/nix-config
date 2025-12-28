@@ -19,7 +19,7 @@ in
       overrideConfig = true;
       configFile = {
         kdeglobals.General = {
-          TerminalApplication = "kitty";
+          TerminalApplication = "kitty --single-instance";
           TerminalService = "kitty.desktop";
         };
         kcminputrc.Mouse = {

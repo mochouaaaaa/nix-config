@@ -75,7 +75,6 @@ in
                 { app-id = "nm-connection-editor"; }
                 { app-id = "blueman-manager"; }
                 { app-id = "xdg-desktop-portal-gtk"; }
-                { app-id = "org.kde.polkit-kde-authentication-agent-1"; }
                 { app-id = "pinentry"; }
                 {
                   app-id = "^(io.github.kukuruzka165.materialgram|org.telegram.desktop)$";
