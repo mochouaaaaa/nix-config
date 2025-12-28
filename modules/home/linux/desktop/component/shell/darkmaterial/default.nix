@@ -4,10 +4,9 @@
   inputs,
   ...
 }:
-with lib;
 let
   cfg = config.modules'.desktop.shell.dankMaterialShell;
-  cfgDesktop = config.modules'.desktop;
+  # cfgDesktop = config.modules'.desktop;
 in
 {
   imports = lib.importModule' ./. ++ [

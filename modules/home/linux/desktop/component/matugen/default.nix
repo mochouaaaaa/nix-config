@@ -18,6 +18,7 @@ let
       btop = {
         inputPath = "${config.xdg.configHome}/matugen/templates/btop.theme";
         outputPath = "${config.xdg.configHome}/btop/themes/matugen.theme";
+        postHook = "pkill -USR2 btop";
       };
     }
     // lib.optionalAttrs config.programs.cava.enable {
@@ -55,9 +56,11 @@ let
       };
     }
     // lib.optionalAttrs (cfgDarkMaterial.enable && config.services.vicinae.enable) {
-      inputPath = "${config.xdg.configHome}/matugen/templates/vicinae.toml";
-      outputPath = "${config.xdg.dataHome}/vicinae/themes/matugen.toml";
-      postHook = "vicinae theme set matugen";
+      vicinae = {
+        inputPath = "${config.xdg.configHome}/matugen/templates/vicinae.toml";
+        outputPath = "${config.xdg.dataHome}/vicinae/themes/matugen.toml";
+        postHook = "vicinae theme set matugen";
+      };
     };
 
   # Filter templates relevant for Noctalia (excluding Vicinae)
@@ -66,6 +69,8 @@ let
       "vicinae"
       "cava"
       "yazi"
+      "hyprland"
+      "neovim"
     ]
   );
 

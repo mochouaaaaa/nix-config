@@ -36,7 +36,7 @@ let
 
 in
 {
-  options.modules'.packages.rime = with lib; rec {
+  options.modules'.packages.rime = with lib; {
 
     defaultCustomYaml = mkOption {
       type = types.attrs;

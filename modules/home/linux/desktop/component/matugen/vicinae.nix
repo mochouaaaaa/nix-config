@@ -3,12 +3,35 @@ let
   cfg = config.services.vicinae;
   cfgMatugen = config.programs.matugen;
   cfgDarkMaterial = config.programs.dankMaterialShell;
+  cfgNoctalia = config.modules'.desktop.shell.noctalia;
 in
 {
   config = lib.mkIf (cfg.enable && cfgMatugen.enable) (
     lib.mkMerge [
 
+      (lib.mkIf (cfgNoctalia.enable) {
+
+        services.vicinae = {
+          settings = {
+            theme = {
+              light.name = lib.mkForce "noctalia";
+              dark.name = lib.mkForce "noctalia";
+            };
+          };
+        };
+
+      })
+
       (lib.mkIf (cfgDarkMaterial.enable) {
+        services.vicinae = {
+          settings = {
+            theme = {
+              light.name = lib.mkForce "matugen";
+              dark.name = lib.mkForce "matugen";
+            };
+          };
+        };
+
         xdg.configFile = {
           "matugen/templates/vicinae.toml".text = ''
             # Vicinae Matugen Theme Template

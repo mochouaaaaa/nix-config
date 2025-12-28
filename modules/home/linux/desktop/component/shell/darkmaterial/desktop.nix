@@ -17,6 +17,21 @@ in
   config = mkIf (cfg.enable) (
     lib.mkMerge [
 
+      {
+        services.darkman = {
+          lightModeScripts = {
+            light = ''
+              dms ipc call theme light
+            '';
+          };
+          darkModeScripts = {
+            dark = ''
+              dms ipc call theme dark
+            '';
+          };
+        };
+      }
+
       # hyprland
       (lib.mkIf (cfgDesktop.hyprland.enable) {
 

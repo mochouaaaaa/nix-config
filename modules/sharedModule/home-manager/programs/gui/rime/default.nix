@@ -21,26 +21,6 @@
         patch = {
           "menu/page_size" = 9;
           "key_binder/bindings" = [
-            {
-              accept = "Super+j";
-              send = "Page_Down";
-              when = "has_menu";
-            }
-            {
-              accept = "Super+k";
-              send = "Page_Up";
-              when = "has_menu";
-            }
-            {
-              accept = "Super+l";
-              send = "Down";
-              when = "composing";
-            }
-            {
-              accept = "Super+h";
-              send = "Up";
-              when = "composing";
-            }
           ];
 
           # 语言模型

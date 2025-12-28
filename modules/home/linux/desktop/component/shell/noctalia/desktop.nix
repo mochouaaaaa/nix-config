@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 with lib;
@@ -11,6 +10,20 @@ let
 in
 {
   config = mkIf (cfgNoctalia.enable) (mkMerge [
+    {
+      services.darkman = {
+        lightModeScripts = {
+          light = ''
+            noctalia-shell ipc call darkMode setLight
+          '';
+        };
+        darkModeScripts = {
+          dark = ''
+            noctalia-shell ipc call darkMode setDark
+          '';
+        };
+      };
+    }
 
     # hyprland
     (mkIf (cfgDesktop.hyprland.enable) {
@@ -38,6 +51,9 @@ in
       };
 
       wayland.windowManager.hyprland = {
+        extraConfig = ''
+          source=noctalia/noctalia-colors.conf
+        '';
         settings = {
           "$windowOpacity" = lib.mkForce 0.88;
           decoration = lib.mkForceRecursive {

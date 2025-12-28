@@ -126,7 +126,7 @@ in
         manualSunset = "18:30";
         matugenSchemeType = "scheme-fruit-salad";
         predefinedScheme = "Catppuccin";
-        schedulingMode = "location";
+        schedulingMode = "off";
         useWallpaperColors = true;
       };
       controlCenter = {
@@ -229,23 +229,19 @@ in
             hook_theme = pkgs.writeShellScriptBin "hook_theme" ''
               mode=$1
 
-              (sleep ${builtins.toString (wallpaper.transitionDuration / 1000)} && pkill -SIGUSR1 kitty) &
+              is_random="${lib.boolToString wallpaper.randomEnabled}"
+
               if [ "$mode" = "true" ]; then
-                switch-theme Dark
+                switch-theme ${config.modules'.themes.gtkTheme.dark}
+                [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set /home/mochou/Pictures/Wallpapers/Dynamic-Wallpapers/Dark/Summer-Scene-Dark.png DP-1
               else
-                switch-theme Light
+                switch-theme ${config.modules'.themes.gtkTheme.light}
+                [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set /home/mochou/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png DP-1
               fi
             '';
           in
           "${lib.getExe hook_theme} $1";
         enabled = true;
-        wallpaperChange =
-          let
-            hook_wallpaper = pkgs.writeShellScriptBin "hook_wallpaper" ''
-              (sleep ${builtins.toString (wallpaper.transitionDuration / 1000)} && pkill -SIGUSR1 kitty) &
-            '';
-          in
-          "${lib.getExe hook_wallpaper} $1 $2";
       };
       location = {
         analogClockInCalendar = false;
@@ -314,6 +310,7 @@ in
         discord = false;
         enableUserTemplates = true;
         niri = false;
+        hyprland = true;
         cava = true;
         foot = false;
         fuzzel = false;
@@ -354,7 +351,7 @@ in
         monitorDirectories = [ ];
         overviewEnabled = false;
         panelPosition = "center";
-        randomEnabled = true;
+        randomEnabled = false;
         randomIntervalSec = 300;
         recursiveSearch = true;
         setWallpaperOnAllMonitors = true;
@@ -365,10 +362,7 @@ in
         wallhavenCategories = "111";
         wallhavenOrder = "desc";
         wallhavenPurity = "100";
-        wallhavenQuery = "";
-        wallhavenResolutionHeight = "";
         wallhavenResolutionMode = "atleast";
-        wallhavenResolutionWidth = "";
         wallhavenSorting = "relevance";
 
       };

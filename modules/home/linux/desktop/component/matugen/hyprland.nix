@@ -4,11 +4,11 @@
   ...
 }:
 let
-  cfgHyprland = config.modules'.desktop.hyprland;
   cfgMatugen = config.programs.matugen;
+  cfgDarkMaterial = config.programs.dankMaterialShell;
 in
 {
-  config = lib.mkIf (cfgHyprland.enable && cfgMatugen.enable) (
+  config = lib.mkIf (cfgDarkMaterial.enable && cfgMatugen.enable) (
     lib.mkMerge [
       {
         xdg.configFile = {

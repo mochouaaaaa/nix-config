@@ -28,7 +28,7 @@ let
   '';
 
   switch-gtk3and4-config = pkgs.writeShellScriptBin "switch-gtk3and4-config" ''
-    mode=''${1:-${cfgTheme.light}}
+    mode=$1
     gtk_theme_name=$2
     gtk_icon_theme=$3
 
@@ -74,7 +74,7 @@ let
 
     declare -A GTK_THEME_MAP=(
         [light]="${cfgTheme.name}${if cfgTheme.light != "" then "-${cfgTheme.light}" else ""}"
-        [dark]="${cfgTheme.name}${if cfgTheme.dark != "" then "-{cfgTheme.dark}" else ""}"
+        [dark]="${cfgTheme.name}${if cfgTheme.dark != "" then "-${cfgTheme.dark}" else ""}"
     )
 
     declare -A GTK_ICON_MAP=(

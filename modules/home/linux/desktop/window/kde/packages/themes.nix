@@ -33,18 +33,5 @@ in
       '')
     ];
 
-    services.darkman = {
-      lightModeScripts = {
-        kde-theme = ''
-          switch-theme ${config.modules'.themes.gtkTheme.light}
-        '';
-      };
-      darkModeScripts = {
-        kde-theme = ''
-          switch-theme ${config.modules'.themes.gtkTheme.dark}
-        '';
-      };
-    };
-
   };
 }

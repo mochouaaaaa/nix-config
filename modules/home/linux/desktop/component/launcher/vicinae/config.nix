@@ -48,7 +48,7 @@ in
         pop_to_root_on_close = true;
         favicon_service = "twenty";
         search_files_in_root = true;
-        escape_key_behavior = false;
+        escape_key_behavior = "escape_key_behavior";
         font = {
           normal = {
             size = 12;
@@ -57,12 +57,14 @@ in
         };
         theme = {
           light = {
-            name = "matugen";
-            icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.light}";
+            name = "vicinae-light";
+            # icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.light}";
+            icon_theme = "default";
           };
           dark = {
-            name = "matugen";
-            icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.dark}";
+            name = "vicinae-dark";
+            # icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.dark}";
+            icon_theme = "default";
           };
         };
         launcher_window = {
