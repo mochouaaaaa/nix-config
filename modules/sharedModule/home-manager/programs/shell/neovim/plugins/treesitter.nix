@@ -41,7 +41,6 @@
           c
           cpp
           cmake
-          swift
           qmljs
           #
           # # lua

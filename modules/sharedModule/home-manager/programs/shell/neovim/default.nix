@@ -29,6 +29,7 @@
         ps.magick
         ps.luarocks
         ps.luacheck
+        ps.jsregexp
       ];
       extraPackages = with pkgs; [
         fd
@@ -43,6 +44,8 @@
         multimarkdown
         icu
         python313Packages.pylatexenc
+        lua51Packages.lua
+        lua51Packages.luarocks
       ];
       extraPython3Packages = ps: [
         ps.debugpy
