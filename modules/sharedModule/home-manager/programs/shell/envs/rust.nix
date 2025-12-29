@@ -12,8 +12,6 @@ in
   config = lib.mkIf cfg.enable {
 
     home.packages = [
-      pkgs.rust-analyzer
-      pkgs.rustfmt
       pkgs.rustup
     ];
 

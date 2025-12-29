@@ -13,6 +13,23 @@ in
     programs = {
       ty = {
         enable = true;
+        package = pkgs.ty.overrideAttrs (
+          oldAttrs: prev: rec {
+            version = "0.0.8";
+            src = pkgs.fetchFromGitHub {
+              owner = "astral-sh";
+              repo = "ty";
+              tag = version;
+              fetchSubmodules = true;
+              hash = "sha256-PSw+yRAj6i2qld+10FEMWRxOaqzqu+4CYJcO0PAgG0g=";
+            };
+            cargoDeps = pkgs.rustPlatform.importCargoLock {
+              lockFile = src + "/ruff/Cargo.lock";
+              allowBuiltinFetchGit = true;
+            };
+            cargoHash = null;
+          }
+        );
       };
       ruff = {
         enable = true;

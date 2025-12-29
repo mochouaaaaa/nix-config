@@ -44,6 +44,7 @@ let
           python.enable = true;
           goenv.enable = true;
           node.enable = true;
+          rust.enable = true;
         };
       };
     }
