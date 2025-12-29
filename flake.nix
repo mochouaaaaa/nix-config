@@ -109,9 +109,8 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae";
-      # url = "github:vicinaehq/vicinae?ref=v0.17.2";
-      # url = "path:/home/mochou/Code/Projects/c/vicinae";
+      # url = "github:vicinaehq/vicinae";
+      url = "github:vicinaehq/vicinae?ref=v0.17.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -125,11 +124,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
-      # url = "github:mochouaaaaa/noctalia-shell";
-      url = "github:noctalia-dev/noctalia-shell?ref=v3.7.5";
-      # url = "path:/home/mochou/Code/Projects/c/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell";
+      # url = "github:noctalia-dev/noctalia-shell?ref=v3.7.5";
       inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.quickshell.follows = "quickshell";
     };
     DankMaterialShell = {
       url = "github:AvengeMedia/DankMaterialShell?ref=v1.0.3";
