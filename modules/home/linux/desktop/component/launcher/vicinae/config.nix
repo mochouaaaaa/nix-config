@@ -39,6 +39,7 @@ in
           # QT_SCALE_FACTOR = 1;
           QT_QPA_PLATFORMTHEME = "gtk3";
         };
+        target = config.wayland.systemd.target;
       };
       themes = {
       };

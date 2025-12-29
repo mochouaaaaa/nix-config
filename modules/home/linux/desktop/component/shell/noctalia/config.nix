@@ -65,6 +65,7 @@ in
             {
               blacklist = [
                 "nm-applet"
+                "blueman-applet"
                 "udiskie"
               ];
               colorizeIcons = false;
@@ -75,13 +76,14 @@ in
               id = "plugin:catwalk";
             }
             {
+              compactMode = false;
               diskPath = "/";
               id = "SystemMonitor";
               showCpuTemp = false;
               showCpuUsage = false;
               showDiskUsage = false;
-              showMemoryAsPercent = false;
-              showMemoryUsage = false;
+              showMemoryAsPercent = true;
+              showMemoryUsage = true;
               showNetworkStats = true;
               usePrimaryColor = true;
             }

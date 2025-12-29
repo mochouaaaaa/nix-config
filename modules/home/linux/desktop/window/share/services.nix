@@ -23,14 +23,14 @@ in
           }:
           {
             Install = {
-              WantedBy = [ "graphical-session.target" ];
+              WantedBy = [ config.wayland.systemd.target ];
             };
             Unit = {
               After = [
-                "graphical-session.target"
+                config.wayland.systemd.target
               ];
               Wants = [
-                "graphical-session.target"
+                config.wayland.systemd.target
               ];
             };
             Service = {

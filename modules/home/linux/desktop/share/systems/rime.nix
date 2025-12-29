@@ -46,6 +46,17 @@ in
           librime-octagram
         ];
         waylandFrontend = true;
+        settings = {
+          inputMethod = {
+            GroupOrder."0" = "Other";
+            "Groups/0" = {
+              Name = "Other";
+              "Default Layout" = "us";
+              DefaultIM = "rime";
+            };
+            "Groups/0/Items/0".Name = "rime";
+          };
+        };
       };
     };
 
@@ -105,22 +116,6 @@ in
     };
 
     xdg.configFile = {
-      "fcitx5/profile" = {
-        force = true;
-        text = ''
-          [Groups/0]
-          Name=Other
-          Default Layout=us
-          DefaultIM=rime
-
-          [Groups/0/Items/0]
-          Name=rime
-          Layout=
-
-          [GroupOrder]
-          0=Other
-        '';
-      };
       "fcitx5/conf/classicui.conf" = {
         force = true;
         text = ''

@@ -17,14 +17,14 @@
     systemd.user.services.pot = {
       Unit = {
         Description = "Pot translation daemon";
-        After = [ "graphical-session-pre.target" ];
+        After = [ config.wayland.systemd.target ];
       };
       Service = {
         ExecStart = "${lib.getExe pkgs-stable.pot}";
         Restart = "on-failure";
       };
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = [ config.wayland.systemd.target ];
       };
     };
 
