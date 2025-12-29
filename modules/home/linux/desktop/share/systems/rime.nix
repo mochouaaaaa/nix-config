@@ -22,7 +22,7 @@ let
 
     installPhase = ''
       mkdir -p $out/share/fcitx5/themes
-      cp -r $src/* $out/share/fcitx5/themes
+      cp -r $src/{macOS-light,macOS-dark} $out/share/fcitx5/themes
     '';
   };
 in
@@ -55,6 +55,45 @@ in
               DefaultIM = "rime";
             };
             "Groups/0/Items/0".Name = "rime";
+          };
+          addons = {
+            notifications = {
+              sections = {
+                "HiddenNotifications" = {
+                  "0" = "fcitx-rime-deploy";
+                };
+              };
+            };
+            rime = {
+              globalSection = {
+                PreeditMode = "Commit preview";
+                "InputState" = "No";
+                "PreeditCursorPositionAtBeginning" = "True";
+                "SwitchInputMethodBehavior" = "Commit commit preview";
+                "Deploy" = "";
+                "Synchronize" = "";
+              };
+            };
+            classicui = {
+              globalSection = {
+                "Vertical Candidate List" = "True";
+                "PerScreenDPI" = "True";
+                "WheelForPaging" = "True";
+                "Font" = "Monaco Nerd Font 10";
+                "MenuFont" = "inter 11";
+                "TrayFont" = "Maple Mono NF 11";
+                "TrayOutlineColor" = "#000000";
+                "TrayTextColor" = "#ffffff";
+                "PreferTextIcon" = "True";
+                "ShowLayoutNameInIcon" = "True";
+                "UseInputMethodLangaugeToDisplayText" = "True";
+                "Theme" = "macOS-light";
+                "DarkTheme" = "macOS-dark";
+                "UseDarkTheme" = "True";
+                "ForceWaylandDPI" = "0";
+                "EnableFractionalScale" = "True";
+              };
+            };
           };
         };
       };
@@ -115,46 +154,5 @@ in
       };
     };
 
-    xdg.configFile = {
-      "fcitx5/conf/classicui.conf" = {
-        force = true;
-        text = ''
-          Vertical Candidate List=False
-          PerScreenDPI=True
-          WheelForPaging=True
-          Font="Monaco Nerd Font 10"
-          MenuFont="inter 11"
-          TrayFont="Maple Mono NF 11"
-          TrayOutlineColor=#000000
-          TrayTextColor=#ffffff
-          PreferTextIcon=True
-          ShowLayoutNameInIcon=True
-          UseInputMethodLangaugeToDisplayText=True
-          Theme=macOS-light
-          DarkTheme=macOS-dark
-          UseDarkTheme=True
-          ForceWaylandDPI=0
-          EnableFractionalScale=True
-        '';
-      };
-      "fcitx5/conf/rime.conf" = {
-        force = true;
-        text = ''
-          PreeditMode="Commit preview"
-          InputState=No
-          PreeditCursorPositionAtBeginning=True
-          SwitchInputMethodBehavior="Commit commit preview"
-          Deploy=
-          Synchronize=
-        '';
-      };
-      "fcitx5/conf/notifications.conf" = {
-        force = true;
-        text = ''
-          [HiddenNotifications]
-          0=fcitx-rime-deploy
-        '';
-      };
-    };
   };
 }
