@@ -34,6 +34,7 @@ in
 
       # hyprland
       (lib.mkIf (cfgDesktop.hyprland.enable) {
+        services.vicinae.enable = true;
 
         modules'.desktop.hyprland = {
           settings = {
@@ -86,17 +87,17 @@ in
               ", XF86AudioMicMute, exec, dms ipc call audio micmute"
             ];
             windowrule = [
-              "float, class:org.quickshell"
+              "float on, match:class org.quickshell"
             ];
             "$blur_layer" = "dms:(color-picker|clipboard|spotlight|settings)";
             layerrule = [
-              "blur, dms:.*"
-              "ignorezero, dms:.*"
+              "blur on, match:namespace dms:.*"
+              "ignore_alpha 0, match:namespace dms:.*"
 
-              "animation slide right, dms:control-center"
-              "animation slide top, dms:workspace-overview"
+              "animation slide right, match:namespace dms:control-center"
+              "animation slide top, match:namespace dms:workspace-overview"
 
-              "noanim, ^(quickshell)$"
+              "no_anim on, match:namespace ^(quickshell)$"
             ];
           };
         };
@@ -104,6 +105,8 @@ in
       })
 
       (lib.mkIf (cfgDesktop.niri.enable) {
+
+        services.vicinae.enable = true;
 
         programs.dankMaterialShell = {
           default.settings = lib.mkForce {

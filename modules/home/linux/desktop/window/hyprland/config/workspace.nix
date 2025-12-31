@@ -38,20 +38,20 @@ in
           "$mod SHIFT, tab, workspace, m-1"
         ];
         windowrule = [
-          #"workspace name:tencent, class:^([Tt]hunderbird)$"
-          #"workspace name:browser, class:^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$"
-          #"workspace name:browser, class:^([Mm]icrosoft-edge(-stable|-beta|-dev|-unstable)?)$"
-          #"workspace name:browser, class:^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$"
-          #"workspace name:obs, class:^(com.obsproject.Studio)$"
-          #"workspace name:steam, class:^([Ss]team)$"
-          #"workspace name:steam, class:^([Ll]utris)$"
-          #"workspace name:tencent, class:^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$"
-          #"workspace name:tencent, class:^([Ff]erdium)$"
-          #"workspace name:tencent, class:^([Ww]hatsapp-for-linux)$"
-          "workspace special:tg, class:io.github.kukuruzka165.materialgram"
-          "workspace special:tg, class:org.telegram.desktop"
+          #"workspace name:tencent, match:class ^([Tt]hunderbird)$"
+          #"workspace name:browser, match:class ^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$"
+          #"workspace name:browser, match:class ^([Mm]icrosoft-edge(-stable|-beta|-dev|-unstable)?)$"
+          #"workspace name:browser, match:class ^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$"
+          #"workspace name:obs, match:class ^(com.obsproject.Studio)$"
+          #"workspace name:steam, match:class ^([Ss]team)$"
+          #"workspace name:steam, match:class ^([Ll]utris)$"
+          #"workspace name:tencent, match:class ^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$"
+          #"workspace name:tencent, match:class ^([Ff]erdium)$"
+          #"workspace name:tencent, match:class ^([Ww]hatsapp-for-linux)$"
+          "workspace special:tg, match:class io.github.kukuruzka165.materialgram"
+          "workspace special:tg, match:class org.telegram.desktop"
 
-          "workspace special:todo, class:Todoist"
+          "workspace special:todo, match:class Todoist"
         ];
         workspace = [
           "w[tv1]s[false], gapsout:4"

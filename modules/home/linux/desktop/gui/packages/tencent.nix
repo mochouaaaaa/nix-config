@@ -71,8 +71,8 @@ in
               "$mod CTRL, 4, togglespecialworkspace, matrix"
             ];
             windowrule = [
-              "workspace special:wechat, class:discord|equibop|vesktop|whatsapp|qq|dingtalk"
-              "workspace special:matrix, class:org.gnome.Fractal|fluffychat|Element"
+              "workspace special:wechat, match:class discord|equibop|vesktop|whatsapp|qq|dingtalk"
+              "workspace special:matrix, match:class org.gnome.Fractal|fluffychat|Element"
             ];
           };
         };

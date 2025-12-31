@@ -12,169 +12,114 @@ in
       settings = {
         "$windowOpacity" = 0.78;
         windowrule = [
-          "opacity $windowOpacity override, fullscreen:0"
+          "opacity $windowOpacity override, match:fullscreen 0"
 
-          "opaque, class:foot|equibop|imv|swappy" # They use native transparency or we want them opaque
-          "center 1, floating:1, xwayland:0" # Center all floating windows (not xwayland cause popups)
+          "center on, match:float 1 match:xwayland 0" # Center all floating windows (not xwayland cause popups)
 
           # opacity
-          "float, class:^(io.github.kukuruzka165.materialgram|org.telegram.desktop)$, title:媒体查看器"
+          "float on, match:class ^(io.github.kukuruzka165.materialgram|org.telegram.desktop)$, match:title 媒体查看器"
 
           # Float
-          "float, class:guifetch" # FlafyDev/guifetch
-          "float, class:yad"
-          "float, class:zenity"
-          "float, class:wev"
-          "float, class:org\.gnome\.FileRoller"
-          "float, class:file-roller" # WHY IS THERE TWOOOOOOOOOOOOOOOO
-          "float, class:blueman-manager"
-          "float, class:com\.github\.GradienceTeam\.Gradience"
-          "float, class:feh"
-          "float, class:imv"
-          "float, class:system-config-printer"
-
-          # Float, resize and center
-          "float, class:foot, title:nmtui"
-          "size 60% 70%, class:foot, title:nmtui"
-          "center 1, class:foot, title:nmtui"
-          "float, class:org\.gnome\.Settings"
-          "size 70% 80%, class:org\.gnome\.Settings"
-          "center 1, class:org\.gnome\.Settings"
-          "float, class:org\.pulseaudio\.pavucontrol|yad-icon-browser"
-          "size 60% 70%, class:org\.pulseaudio\.pavucontrol|yad-icon-browser"
-          "center 1, class:org\.pulseaudio\.pavucontrol|yad-icon-browser"
-          "float, class:nwg-look"
-          "size 50% 60%, class:nwg-look"
-          "center 1, class:nwg-look"
+          "float on, match:class guifetch" # FlafyDev/guifetch
+          "float on, match:class yad"
+          "float on, match:class zenity"
+          "float on, match:class wev"
+          "float on, match:class org\.gnome\.FileRoller"
+          "float on, match:class file-roller" # WHY IS THERE TWOOOOOOOOOOOOOOOO
+          "float on, match:class blueman-manager"
+          "float on, match:class com\.github\.GradienceTeam\.Gradience"
+          "float on, match:class feh"
+          "float on, match:class system-config-printer"
 
           # windowrule Position
-          "center,class:^([Ww]hatsapp-for-linux)$"
-          "center,class:^([Ff]erdium)$"
-
-          # flameshot
-          "move 0 0,title:^(flameshot)"
-          "pin, class:^(flameshot)$"
-          "suppressevent fullscreen,title:^(flameshot)"
-          "float, class:(flameshot), title:(flameshot-pin)"
+          "center on,match:class ^([Ww]hatsapp-for-linux)$"
+          "center on,match:class ^([Ff]erdium)$"
 
           # filemanager
-          "center, class:([Tt]hunar), title:^([Tt]hunar)$, size: 1200 1300"
-          "center, class:([Tt]hunar), title:(Confirm to replace files)"
-          "float, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
-          "size 1145 672, class:^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
-          "float, class:([Tt]hunar), title:(File Operation Progress)"
-          "float, class:([Tt]hunar), title:(Confirm to replace files)"
+          "center on, match:class ([Tt]hunar), match:title ^([Tt]hunar)$, size 1200 1300"
+          "center on, match:class ([Tt]hunar), match:title (Confirm to replace files)"
+          "float on, match:class ^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
+          "size 1145 672, match:class ^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
+          "float on, match:class ([Tt]hunar), match:title (File Operation Progress)"
+          "float on, match:class ([Tt]hunar), match:title (Confirm to replace files)"
 
-          "float, class:mihomo-party, title:Clash Party"
-          "size 1250 1050, class:mihomo-party, title:Clash Party"
-          "float, class:chromium-browser, title:(雀魂麻将 - Chromium)"
-          "float, class:(pot|.pot-wrapped), title:(Translate|Translator|OCR|PopClip|Screenshot Translate|Config)" # Translation window floating
-          "float, class:(org.telegram.desktop), title:(Media viewer)"
-          "float, title:overskride"
-          "float, title:QQ"
-          "float, title:图片查看器"
+          "float on, match:class sparkle, match:title Sparkle"
+          "size 1250 1050, match:class sparkle, match:title Sparkle"
+          "float on, match:class chromium-browser, match:title (雀魂麻将 - Chromium)"
+          "float on, match:class ^(pot|.pot-wrapped)$, match:title (Translate|Translator|OCR|PopClip|Screenshot Translate|Config)" # Translation window floating
+          "move cursor 0 0, match:class (pot|.pot-wrapped), match:title (Translator|PopClip|Screenshot Translate) "
+          "float on, match:class (org.telegram.desktop), match:title (Media viewer)"
+          "float on, match:title overskride"
+          "float on, match:title QQ"
+          "float on, match:title 图片查看器"
 
-          "float, class:(VirtualBox)"
-          "float, class:firefox,title:(我的足迹)"
-          "float, class:firefox,title:画中画"
+          "float on, match:class (VirtualBox)"
+          "float on, match:class firefox,match:title (我的足迹)"
+          "float on, match:class firefox,match:title 画中画"
 
-          "float, class:(xfce4-appfinder)"
-          "float, class:kitty, title:yazi"
-          "float, class:^(gnome-)"
-          "float, class:([Zz]oom|onedriver|onedriver-launcher)$"
+          "float on, match:class (xfce4-appfinder)"
+          "float on, match:class kitty, match:title yazi"
+          "float on, match:class ^(gnome-)"
+          "float on, match:class ([Zz]oom|onedriver|onedriver-launcher)$"
 
-          "float, class:(xdg-desktop-portal-gtk)"
-          "float, class:(org.gnome.Calculator), title:(Calculator)"
-          "float, class:(codium|codium-url-handler|VSCodium), title:(Add Folder to Workspace)"
-          "float, class:^([Rr]ofi)$"
-          "float, class:^(eog|org.gnome.Loupe)$" # image viewer
-          "float, class:^(mpv|com.github.rafostar.Clapper)$"
-          "size 70% 70%, class:^(mpv|com.github.rafostar.Clapper)$"
+          "float on, match:class (xdg-desktop-portal-gtk)"
+          "float on, match:class (org.gnome.Calculator), match:title (Calculator)"
+          "float on, match:class (codium|codium-url-handler|VSCodium), match:title (Add Folder to Workspace)"
+          "float on, match:class ^([Rr]ofi)$"
+          "float on, match:class ^(eog|org.gnome.Loupe)$" # image viewer
+          "float on, match:class ^(mpv|com.github.rafostar.Clapper)$"
+          "size 70% 70%, match:class ^(mpv|com.github.rafostar.Clapper)$"
 
-          "float, class:^(nm-applet|nm-connection-editor|blueman-manager)$"
-          "float, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$" # system monitor
-          "float, class:^([Yy]ad)$"
-          "float, class:^(wihotspot(-gui)?)$" # wifi hotspot
-          "float, class:^(evince)$" # document viewer
-          "float, class:^(file-roller|org.gnome.FileRoller)$" # archive manager
-          "float, class:^([Bb]aobab|org.gnome.[Bb]aobab)$" # Disk usage analyzer
-          "float, title:(Kvantum Manager)"
-          "float, class:^([Qq]alculate-gtk)$"
-          "float, class:^([Ff]erdium)$"
+          "float on, match:class ^(nm-applet|nm-connection-editor|blueman-manager)$"
+          "float on, match:class ^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$" # system monitor
+          "float on, match:class ^([Yy]ad)$"
+          "float on, match:class ^(wihotspot(-gui)?)$" # wifi hotspot
+          "float on, match:class ^(evince)$" # document viewer
+          "float on, match:class ^(file-roller|org.gnome.FileRoller)$" # archive manager
+          "float on, match:class ^([Bb]aobab|org.gnome.[Bb]aobab)$" # Disk usage analyzer
+          "float on, match:title (Kvantum Manager)"
+          "float on, match:class ^([Qq]alculate-gtk)$"
+          "float on, match:class ^([Ff]erdium)$"
 
-          "size 70% 70%, class:^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
-          "size 70% 70%, class:^(xdg-desktop-portal-gtk)$"
-          "size 60% 70%, title:(Kvantum Manager)"
-          "size 60% 70%, class:^(qt6ct)$"
-          "size 70% 70%, class:^(evince|wihotspot(-gui)?)$"
-          "size 60% 70%, class:^(file-roller|org.gnome.FileRoller)$"
-          "size 60% 70%, class:^([Ww]hatsapp-for-linux)$"
-          "size 60% 70%, class:^([Ff]erdium)$"
+          "size 70% 70%, match:class ^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
+          "size 70% 70%, match:class ^(xdg-desktop-portal-gtk)$"
+          "size 60% 70%, match:title (Kvantum Manager)"
+          "size 60% 70%, match:class ^(qt6ct)$"
+          "size 70% 70%, match:class ^(evince|wihotspot(-gui)?)$"
+          "size 60% 70%, match:class ^(file-roller|org.gnome.FileRoller)$"
+          "size 60% 70%, match:class ^([Ww]hatsapp-for-linux)$"
+          "size 60% 70%, match:class ^([Ff]erdium)$"
 
           # screen sharing
-          "opacity 0.0 override, class:^(xwaylandvideobridge)$"
-          "noanim, class:^(xwaylandvideobridge)$"
-          "noinitialfocus, class:^(xwaylandvideobridge)$"
-          "noinitialfocus, xwayland:1"
-          "maxsize 1 1, class:^(xwaylandvideobridge)$"
-          "noblur, class:^(xwaylandvideobridge)$"
-          "nofocus, class:^(xwaylandvideobridge)$"
+          "no_initial_focus on, match:xwayland 1"
 
-          "unset, class:^(ueberzugpp.*)$"
+          "group unset, match:class ^(ueberzugpp.*)$"
 
           # Dialogs
-          "float, title:(Select|Open)( a)? (File|Folder)(s)?"
-          "float, title:File (Operation|Upload)( Progress)?"
-          "float, title:.* Properties"
-          "float, title:Export Image as PNG"
-          "float, title:GIMP Crash Debug"
-          "float, title:Save As"
-          "float, title:Library"
-
-          # Picture in picture (resize and move done via script)
-          "move 100%-w-2% 100%-w-3%, title:Picture(-| )in(-| )[Pp]icture" # Initial move so window doesn't shoot across the screen from the center
-          "keepaspectratio, title:Picture(-| )in(-| )[Pp]icture"
-          "float, title:Picture(-| )in(-| )[Pp]icture"
-          "pin, title:Picture(-| )in(-| )[Pp]icture"
-
-          # Steam
-          "rounding 10, title:, class:steam"
-          "float, title:Friends List, class:steam"
-          "immediate, class:steam_app_[0-9]+" # Allow tearing for steam games
-          "idleinhibit always, class:steam_app_[0-9]+" # Always idle inhibit when playing a steam game
+          "float on, match:title (Select|Open)( a)? (File|Folder)(s)?"
+          "float on, match:title File (Operation|Upload)( Progress)?"
+          "float on, match:title .* Properties"
+          "float on, match:title Export Image as PNG"
+          "float on, match:title GIMP Crash Debug"
+          "float on, match:title Save As"
+          "float on, match:title Library"
 
           # ATLauncher console
-          "float, class:com-atlauncher-App, title:ATLauncher Console"
+          "float on, match:class com-atlauncher-App, match:title ATLauncher Console"
 
           # Autodesk Fusion 360
-          "noblur, title:Fusion360|(Marking Menu), class:fusion360\.exe"
-
-          # Ugh xwayland popups
-          "nodim, xwayland:1, title:win[0-9]+"
-          "noshadow, xwayland:1, title:win[0-9]+"
-          "rounding 10, xwayland:1, title:win[0-9]+"
-
-          # Bitwarden
-          "float, class:Bitwarden,title:Bitwarden"
-          "size 60% 70%, class:Bitwarden, title:Bitwarden"
-          "noscreenshare, class:Bitwarden, title:Bitwarden"
-
-          "float, class:com-group_finity-mascot-Main"
-          "noblur, class:com-group_finity-mascot-Main"
-          "nofocus, class:com-group_finity-mascot-Main"
-          "noshadow, class:com-group_finity-mascot-Main"
-          "noborder, class:com-group_finity-mascot-Main"
+          "no_blur on, match:title Fusion360|(Marking Menu), match:class fusion360\.exe"
 
           # This not gonna take the focus to the window that appears when hovering over some of the parts of the IntelliJ Products"
-          "noinitialfocus,class:^(.*jetbrains.*)$,title:^(win[0-9]+)$"
+          "no_initial_focus on,  match:class ^(.*jetbrains.*)$, match:title ^(win[0-9]+)$"
 
         ];
         layerrule = [
 
           # ######## Layer rules ########
-          "animation fade, hyprpicker" # Colour picker out animation
+          "animation fade, match:namespace hyprpicker" # Colour picker out animation
           # "animation fade, logout_dialog" # wlogout
-          "animation fade, selection" # slurp
+          "animation fade, match:namespace selection" # slurp
           # "animation fade, wayfreeze"
 
           # Fuzzel
@@ -182,6 +127,120 @@ in
           # "blur, launcher"
         ];
       };
+      extraConfig = ''
+        # ========= tools =========
+        windowrule {
+            name = imv-took
+            match:class = imv|equibop|swappy
+
+            float = on
+            opaque = on
+        }
+
+        # ====== gnome ============ 
+        windowrule {
+            name = gnome-settings
+            match:class = org\.gnome\.Settings
+
+            float = on
+            size = 70% 80%
+            center = on
+        }
+        windowrule {
+            name = pulseaudio
+            match:class = org\.pulseaudio\.pavucontrol|yad-icon-browser
+
+            float = on
+            size = 60% 70%
+            center = on
+        }
+        windowrule {
+            name = nwg-look
+            match:class = nwg-look
+
+            float = on
+            size = 50% 60%
+            center = on
+        }
+
+        windowrule {
+            name = flameshot
+            match:class = flameshot
+
+            pin = on
+            move = 0 0
+            suppress_event = fullscreen
+        }
+        windowrule = float on, match:class (flameshot) match:title (flameshot-pin)
+
+        # screen sharing
+        windowrule {
+            name = screen_sharing
+            match:class = xwaylandvideobridge
+
+            opacity = 0.0 override
+            no_anim = on
+            no_initial_focus = on
+            max_size = 1 1
+            no_blur = on
+            no_focus = on
+        }
+
+        # Picture in picture (resize and move done via script)
+        windowrule {
+            name = picture_in_picture
+            match:title = Picture(-| )in(-| )[Pp]icture
+
+            float = on
+            pin = on
+            keep_aspect_ratio = on
+            move = 100%-w-2% 100%-w-3%
+        }
+
+        windowrule {
+            name = steam_app
+            match:class = steam_app_[0-9]+
+
+            rounding = 10
+            float = on
+            immediate = on
+            idle_inhibit = always
+        }
+        windowrule = float on, match:class steam match:title \"Friends List\"
+
+        # Bitwarden
+        windowrule {
+            name = Bitwarden-rule
+            match:class = Bitwarden
+            match:title = Bitwarden
+
+            float = on
+            size = 60% 70%
+            no_screen_share = on
+        }
+
+        # Ugh xwayland popups
+        windowrule {
+            name = xwayland-title
+            match:xwayland = 1
+            match:title = "win[0-9]+"
+
+            no_dim = on
+            no_shadow = on
+            rounding = 10
+        }
+
+        windowrule {
+            name = com-group_finity-mascot-Main
+            match:class = com-group_finity-mascot-Main
+
+            float = on
+            no_blur = on
+            no_focus = on
+            no_shadow = on
+            border_size = 0
+        }
+      '';
     };
   };
 }

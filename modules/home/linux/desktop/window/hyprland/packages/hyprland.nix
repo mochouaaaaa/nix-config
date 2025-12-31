@@ -3,7 +3,7 @@
   config,
   lib,
   inputs,
-  isNixos,
+  # isNixos,
   ...
 }:
 let

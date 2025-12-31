@@ -16,11 +16,6 @@ in
         #  nvidia_anti_flicker = true
         #}
 
-        #could help when scaling and not pixelating
-        xwayland = {
-          # force_zero_scaling = true;
-        };
-
         # render section for hyprland >= v0.42.0
         render = {
           cm_auto_hdr = 1; # 0.50

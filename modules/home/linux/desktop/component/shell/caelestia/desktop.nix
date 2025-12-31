@@ -11,6 +11,21 @@ in
   config = lib.mkIf (cfg.enable) (
     lib.mkMerge [
 
+      {
+        services.darkman = {
+          lightModeScripts = {
+            light = ''
+              noctalia-shell ipc call darkMode setLight
+            '';
+          };
+          darkModeScripts = {
+            dark = ''
+              noctalia-shell ipc call darkMode setDark
+            '';
+          };
+        };
+      }
+
       (lib.mkIf cfgDesktop.hyprland.enable {
 
         modules'.desktop.hypridle.lock_cmd = "caelestia shell lock lock";
@@ -42,8 +57,8 @@ in
             exec = "cp -L --no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
             "$windowOpacity" = lib.mkForce 0.78;
             source = [
-              "${config.xdg.configHome}/hypr/scheme/current.conf"
-              "${config.xdg.configHome}/hypr/variables.conf"
+              "scheme/current.conf"
+              "variables.conf"
             ];
 
             input = lib.mkForceRecursive {
@@ -99,18 +114,18 @@ in
             ];
 
             windowrule = [
-              "opacity $windowOpacity override, fullscreen:0"
-              "opaque, class:org\.quickshell" # They use native transparency or we want them opaque
-              "float, class:org\.quickshell"
+              "opacity $windowOpacity override, match:fullscreen  "
+              "opaque on, match:class org\.quickshell" # They use native transparency or we want them opaque
+              "float on, match:class org\.quickshell"
             ];
 
             layerrule = [
               # Shell
-              "noanim, caelestia-(border-exclusion|area-picker)"
-              "animation fade, caelestia-(drawers|background)"
+              "no_anim on, match:namespace caelestia-(border-exclusion|area-picker)"
+              "animation fade, match:namespace caelestia-(drawers|background)"
 
-              "blur, caelestia-drawers"
-              "ignorealpha 0.57, caelestia-drawers"
+              "blur on, match:namespace caelestia-drawers"
+              "ignore_alpha 0.57, match:namespace caelestia-drawers"
             ];
 
           };

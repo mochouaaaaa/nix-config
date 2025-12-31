@@ -57,8 +57,8 @@ in
               "$mod CTRL, 1, togglespecialworkspace, music"
             ];
             windowrule = [
-              "workspace special:music, class:feishin|Spotify|Supersonic|SPlayer"
-              "workspace special:music, initialTitle:Spotify( Free)?" # Spotify wayland, it has no class for some reason
+              "workspace special:music, match:class feishin|Spotify|Supersonic|SPlayer"
+              "workspace special:music, match:initial_title Spotify( Free)?" # Spotify wayland, it has no class for some reason
             ];
           };
         };

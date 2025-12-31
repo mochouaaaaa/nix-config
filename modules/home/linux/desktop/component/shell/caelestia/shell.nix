@@ -49,6 +49,8 @@ in
             apps = {
               terminal = [ "kitty" ];
               audio = [ "pavucontrol" ];
+              playback = [ "mpv" ];
+              explorer = [ "nautilus" ];
             };
             idle = {
               lockBeforeSleep = true;
