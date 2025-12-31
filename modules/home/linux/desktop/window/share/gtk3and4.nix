@@ -111,9 +111,6 @@ let
     $dconf write ''${gnome_schema}icon-theme "'$icon_theme'"
     $dconf write ''${gnome_schema}cursor-theme "'$cursor_theme'"
     $dconf write ''${gnome_schema}font-name "'$font_name'"
-    $dconf write ''${gnome_schema}text-scaling-factor 1.0
-    $dconf write ''${gnome_schema}toolbar-style "'large'"
-    $dconf write ''${gnome_schema}toolbar-icons-size "'both-horiz'"
 
 
     if [[ "$color_theme" == "1" ]]; then
@@ -202,6 +199,15 @@ in
       };
       dark = "dark";
       light = "";
+    };
+
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        text-scaling-factor = lib.hm.gvariant.mkDouble 1.0;
+        toolbar-style = lib.hm.gvariant.mkString "large";
+        toolbar-icons-size = lib.hm.gvariant.mkString "both-horiz";
+        font-name = lib.hm.gvariant.mkString "Monaco Nerd Font 12";
+      };
     };
 
     home.packages = [

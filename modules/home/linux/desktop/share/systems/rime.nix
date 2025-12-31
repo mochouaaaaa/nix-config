@@ -76,7 +76,7 @@ in
             };
             classicui = {
               globalSection = {
-                "Vertical Candidate List" = "True";
+                "Vertical Candidate List" = "False";
                 "PerScreenDPI" = "True";
                 "WheelForPaging" = "True";
                 "Font" = "Monaco Nerd Font 10";
