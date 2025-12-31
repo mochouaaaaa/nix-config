@@ -235,10 +235,10 @@ in
 
               if [ "$mode" = "true" ]; then
                 switch-theme ${config.modules'.themes.gtkTheme.dark}
-                [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set /home/mochou/Pictures/Wallpapers/Dynamic-Wallpapers/Dark/Summer-Scene-Dark.png DP-1
+                [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Dark/Summer-Scene-Dark.png DP-1
               else
                 switch-theme ${config.modules'.themes.gtkTheme.light}
-                [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set /home/mochou/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png DP-1
+                [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png DP-1
               fi
             '';
           in

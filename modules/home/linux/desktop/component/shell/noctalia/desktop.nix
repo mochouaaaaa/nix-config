@@ -28,6 +28,8 @@ in
     # hyprland
     (mkIf (cfgDesktop.hyprland.enable) {
 
+      services.vicinae.enable = true;
+
       modules'.desktop.shell.noctalia = {
         settings = rec {
           ui = {
@@ -51,8 +53,8 @@ in
       };
 
       wayland.windowManager.hyprland = {
-        extraConfig = ''
-          source=noctalia/noctalia-colors.conf
+        extraConfig = lib.mkOrder 2000 ''
+          source = noctalia/noctalia-colors.conf
         '';
         settings = {
           "$windowOpacity" = lib.mkForce 0.88;
@@ -67,8 +69,8 @@ in
             };
           };
           layerrule = [
-            "blur, noctalia-.*"
-            "ignorezero, noctalia-.*"
+            "blur on, match:namespace noctalia-.*"
+            "ignore_alpha 0, match:namespace noctalia-.*"
           ];
         };
       };
@@ -100,8 +102,7 @@ in
 
     (mkIf (cfgDesktop.niri.enable) {
 
-      programs.noctalia-shell.enable = true;
-
+      services.vicinae.enable = true;
       modules'.desktop.shell.noctalia.settings = {
         general = {
           showScreenCorners = false;
