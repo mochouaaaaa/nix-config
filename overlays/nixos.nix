@@ -10,6 +10,6 @@
   composed final prev
   // {
     clash-verge = inputs.nixpkgs.legacyPackages.${prev.system}.clash-verge;
-    clash-party = prev.callPackage ./pkgs/clash-party.nix { };
+    sparkle = prev.callPackage ./pkgs/sparkle.nix { };
   }
 )

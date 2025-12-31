@@ -6,7 +6,7 @@ self: super: {
     }:
     let
 
-      pycharm-professional = super.jetbrains.pycharm-professional.override {
+      pycharm-professional = super.jetbrains.pycharm.override {
         # jdk = super.jetbrains.jdk;
       };
 

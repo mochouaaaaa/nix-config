@@ -8,6 +8,11 @@
 
   config = lib.mkIf (!config.programs.wsl.enable) {
 
+    modules'.persistent.hmDirectories = [
+      ".config/pulse"
+      ".local/state/wireplumber"
+    ];
+
     #============================= Audio(PipeWire) =======================
 
     # List packages installed in system profile. To search, run:

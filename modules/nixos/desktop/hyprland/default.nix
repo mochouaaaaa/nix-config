@@ -16,27 +16,6 @@ in
 
     modules.dm.greetd.enable = true;
 
-    # programs = {
-    #   hyprland = {
-    #     enable = true;
-    #     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    #     portalPackage =
-    #       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    #   };
-    # };
-
-    environment = {
-      systemPackages = [
-        (pkgs.writeShellApplication {
-          name = "launch-hyprland";
-          text = ''
-            # systemd-cat --identifier hyprland Hyprland
-            Hyprland 2>&1 | systemd-cat -t hyprland
-          '';
-        })
-      ];
-    };
-
     programs.ssh.startAgent = lib.mkForce false;
 
     services = {
@@ -44,8 +23,7 @@ in
         settings = rec {
           default_session = {
             user = username;
-            # command = lib.mkForce "${lib.getExe config.programs.hyprland.package}";
-            command = lib.mkForce "Hyprland 2>&1 | systemd-cat -t hyprland";
+            command = lib.mkForce "start-hyprland";
           };
           initial_session = default_session;
         };

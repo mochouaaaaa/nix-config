@@ -68,7 +68,7 @@ in
 
           {
             modules' = {
-              network.proxy.clash-party.enable = true;
+              network.proxy.sparkle.enable = true;
               virtual = {
                 virtualbox.enable = false;
                 vmware.enable = false;

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules'.network.proxy.clash-party;
+  cfg = config.modules'.network.proxy.sparkle;
 in
 {
-  options.modules'.network.proxy.clash-party = {
+  options.modules'.network.proxy.sparkle = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -19,28 +19,24 @@ in
   config = lib.mkIf (config.programs.desktop.enable && cfg.enable) {
 
     modules'.persistent.hmDirectories = [
-      # mihomo party
-      ".config/mihomo"
-      ".config/mihomo-party"
-      ".config/pulse"
-      ".local/state/wireplumber"
+      ".config/sparkle"
     ];
 
     environment = {
       systemPackages = with pkgs; [
-        clash-party
+        sparkle
         (makeAutostartItem {
-          name = "clash-party";
-          package = pkgs.clash-party;
+          name = "sparkle";
+          package = pkgs.sparkle;
         })
       ];
     };
 
-    security.wrappers.clash-party = {
+    security.wrappers.sparkle = {
       owner = "root";
       group = "root";
       capabilities = "cap_net_bind_service,cap_net_raw,cap_net_admin=+ep";
-      source = "${lib.getExe pkgs.clash-party}";
+      source = "${lib.getExe pkgs.sparkle}";
     };
 
   };
