@@ -114,14 +114,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # quickshell = {
-    #   url = "github:outfoxxed/quickshell";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # desktop-shell
     caelestia-shell = {
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -137,13 +138,15 @@
     hyprutils.url = "github:hyprwm/hyprutils";
     hyprgraphics.url = "github:hyprwm/hyprgraphics";
     aquamarine.url = "github:hyprwm/aquamarine";
+    hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.7";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.52.2";
+      url = "github:hyprwm/Hyprland?ref=v0.53.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprutils.follows = "hyprutils";
         hyprgraphics.follows = "hyprgraphics";
         aquamarine.follows = "aquamarine";
+        hyprlang.follows = "hyprlang";
       };
     };
     hyprland-contrib = {
