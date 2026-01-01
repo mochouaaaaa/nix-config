@@ -9,7 +9,7 @@ rec {
   };
 
   programs.zsh.envExtra = ''
-    export CARGO_HOME="${xdg.dataHome}/cargo";
-    export RUSTUP_HOME="${xdg.dataHome}/rustup";
+    export CARGO_HOME="${xdg.dataHome}/cargo"
+    export RUSTUP_HOME="${xdg.dataHome}/rustup"
   '';
 }

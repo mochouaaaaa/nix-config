@@ -26,8 +26,6 @@
         package = pkgs.zsh-syntax-highlighting;
       };
       initContent = ''
-        source ${config.modules'.dotfiles}/zsh/init.zsh
-
         source ${dotDir}/.p10k.zsh 
 
         export PATH="$HOME/.local/bin:$PATH"

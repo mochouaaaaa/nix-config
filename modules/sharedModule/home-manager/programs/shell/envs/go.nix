@@ -29,12 +29,12 @@ in
         enable = true;
       };
       zsh.envExtra = ''
-        export GOBIN="${goPath}/bin";
-        export GOPROXY="https://goproxy.cn,direct";
-        export GOSUMDB="sum.golang.google.cn";
-        export GOENV_DISABLE_GOPATH=1;
-        export GOENV="${goPath}/env";
-        export GOTELEMETRYDIR="${goPath}/telemetry";
+        export GOBIN="${goPath}/bin"
+        export GOPROXY="https://goproxy.cn,direct"
+        export GOSUMDB="sum.golang.google.cn"
+        export GOENV_DISABLE_GOPATH=1
+        export GOENV="${goPath}/env"
+        export GOTELEMETRYDIR="${goPath}/telemetry"
       '';
     };
 
