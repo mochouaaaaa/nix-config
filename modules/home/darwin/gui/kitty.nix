@@ -8,6 +8,12 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    programs.kitty = {
+      darwinLaunchOptions = [
+        "--single-instance"
+        "--listen-on=unix:/tmp/mykitty.sock"
+      ];
+    };
 
     modules'.packages.terminal.kitty = {
       extraConfig = [

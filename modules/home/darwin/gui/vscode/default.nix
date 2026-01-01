@@ -1,7 +1,9 @@
 {
+  lib,
   ...
 }:
 {
+  programs.zed-editor.enable = lib.mkForce false;
   programs.vscode = {
     profiles.default = {
       userSettings = {
