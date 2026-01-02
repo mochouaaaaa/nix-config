@@ -18,8 +18,6 @@
     clipboard-jh
 
     # db related
-    pkgs.mycli
-    pkgs.pgcli
     mongosh
     sqlite
 

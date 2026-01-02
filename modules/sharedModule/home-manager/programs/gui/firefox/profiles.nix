@@ -33,6 +33,8 @@ in
               # disable irritating first-run stuff
               "browser.disableresetprompt" = true;
               "browser.download.panel.shown" = true;
+              "browser.link.open_newwindow" = 3;
+              browser.tabs.loadInBackground = true;
               "browser.feeds.showfirstrunui" = false;
               "browser.messaging-system.whatsnewpanel.enabled" = false;
               "browser.rights.3.shown" = true;

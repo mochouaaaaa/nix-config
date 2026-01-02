@@ -54,6 +54,4 @@
       };
     };
   };
-
-  xdg.configFile = config.modules'.dotfileLink "zsh";
 }
