@@ -19,9 +19,6 @@
     nixfmt
   ];
 
-  # https://devenv.sh/languages/
-  languages.nix.enable = true;
-
   # https://devenv.sh/processes/
   # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
 
@@ -42,9 +39,6 @@
   # };
 
   # https://devenv.sh/tests/
-  enterTest = ''
-    echo "Running tests"
-  '';
 
   # https://devenv.sh/git-hooks/
   # git-hooks.hooks.shellcheck.enable = true;

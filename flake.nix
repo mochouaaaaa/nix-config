@@ -32,7 +32,7 @@
     nixpkgs-os.url = "github:nixos/nixpkgs/nixos-25.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    # agenix.url = "github:ryantm/agenix";
+    agenix.url = "github:ryantm/agenix";
 
     nur = {
       url = "github:nix-community/NUR";
