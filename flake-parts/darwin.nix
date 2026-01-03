@@ -48,6 +48,7 @@ let
           type = types.listOf types.unspecified;
           default = [
             self.sharedModules.home-manager
+            ../secrets/home.nix
           ];
           description = "List of home-manager modules to disable.";
           apply = userValue: default ++ userValue;

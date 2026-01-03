@@ -13,6 +13,7 @@ in
 
     home.packages = [
       pkgs.nodejs_25
+      (pkgs.gemini-cli.override { nodejs = pkgs.nodejs_22; })
     ];
 
     programs = {
