@@ -33,6 +33,7 @@ let
           description = "List of NixOS modules to include in the configuration.";
           default = [
             self.sharedModules.os
+            ../secrets/nixos.nix
 
             {
               nixpkgs.overlays = [
@@ -46,6 +47,7 @@ let
         homeModules = lib.mkOption rec {
           type = types.listOf types.unspecified;
           default = [
+            ../secrets/home.nix
             self.sharedModules.home-manager
           ];
           description = "List of home-manager modules to disable.";

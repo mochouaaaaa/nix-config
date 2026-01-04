@@ -27,6 +27,7 @@
     let
       customPkgs = import ./packages.nix { inherit inputs system lib; };
       myvars = import ../config.nix;
+      mysecrets = inputs.mysecrets;
     in
     {
 
@@ -72,6 +73,7 @@
             inputs
             system
             myvars
+            mysecrets
             ;
         }
         // {
