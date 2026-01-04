@@ -16,7 +16,7 @@
     ];
 
     programs.joplin-desktop = {
-      enable = false;
+      enable = true;
       general.editor = null;
 
       sync = {

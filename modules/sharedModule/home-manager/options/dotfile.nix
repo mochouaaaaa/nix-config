@@ -32,7 +32,7 @@
             name = "${folderName}/${fileName}";
             value = {
               force = true;
-              source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}";
+              source = lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}");
             };
           }) dirContentsNames
         );

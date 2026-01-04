@@ -61,8 +61,8 @@ in
             # "$mod CTRL, A, exec, screenshot --area"
 
             # Move focus with mainMod + arrow keys
-            "ALT, l, movefocus, l"
-            "ALT, h, movefocus, r"
+            "ALT, l, movefocus, r"
+            "ALT, h, movefocus, l"
             "ALT, k, movefocus, u"
             "ALT, j, movefocus, d"
           ]
