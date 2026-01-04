@@ -110,7 +110,7 @@
     # desktop components
     vicinae = {
       # url = "github:vicinaehq/vicinae";
-      url = "github:vicinaehq/vicinae?ref=v0.17.3";
+      url = "github:vicinaehq/vicinae?ref=v0.18.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -172,5 +172,11 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    mysecrets = {
+      url = "git+ssh://git@github.com/mochouaaaaa/secrets.git";
+      flake = false;
+    };
+
   };
 }

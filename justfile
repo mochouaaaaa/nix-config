@@ -107,13 +107,12 @@ switch desktop="hyprland":
 # repl test environment
 [linux]
 repl desktop="hyprland":
-    NIXPKGS_ALLOW_INSECURE=1 HOME=/root DESKTOP={{ desktop }} sudo -E nixos-rebuild repl --flake .#mochou@nixos --impure
+    NIXPKGS_ALLOW_INSECURE=1 DESKTOP={{ desktop }} nixos-rebuild repl --flake .#{{ NH_HOSTNAME  }} --impure
 
 # switch hyprland desktop environment
 [linux]
 [group('nixos desktop')]
-@nixos-hyprland:
-    # nix flake update hypr-dynamic-cursors hyprland-plugins hyprlux waybar
+nixos-hyprland:
     just switch
 
 # switch kde desktop environment

@@ -1285,6 +1285,22 @@
         "type": "github"
       }
     },
+    "mysecrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767457907,
+        "narHash": "sha256-X97YAfn6eZ3IqyZRF/uBbXR6s8junQilATWSpofs1Ik=",
+        "ref": "refs/heads/master",
+        "rev": "fd97f1e08fea78e54e45b4bed29a036155b52404",
+        "revCount": 4,
+        "type": "git",
+        "url": "ssh://git@github.com/mochouaaaaa/secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/mochouaaaaa/secrets.git"
+      }
+    },
     "niri": {
       "inputs": {
         "niri-stable": "niri-stable",
@@ -1803,11 +1819,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767140690,
-        "narHash": "sha256-FemE1tu5FgtlfDD9Vwgk7fA3qg1xsOZKNMapZcB+/LE=",
+        "lastModified": 1767431215,
+        "narHash": "sha256-tOPlDfyxmY+g2WAqiqTOMi0PV59oPWFCbgiHE97ysHs=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "a3e277ce20dc3401afb7887c089395b0ad0d3108",
+        "rev": "5110271e96afdb9036e2a7401ee0c5c5fbbf6b2a",
         "type": "github"
       },
       "original": {
@@ -1980,6 +1996,7 @@
         "hyprland-contrib": "hyprland-contrib",
         "hyprlang": "hyprlang",
         "hyprutils": "hyprutils_4",
+        "mysecrets": "mysecrets",
         "niri": "niri",
         "nix-darwin": "nix-darwin",
         "nix-flatpak": "nix-flatpak",
@@ -2250,16 +2267,16 @@
         "systems": "systems_10"
       },
       "locked": {
-        "lastModified": 1766696603,
-        "narHash": "sha256-EzvASqrcGZqWyESuYNKRnH17s5hBJK2woIrS6iD6nOs=",
+        "lastModified": 1767350895,
+        "narHash": "sha256-ApMcDKe+6uYb2M+UL8SWW8M1S5bmT8EI5uOChLxzWqs=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "e8e0c24ce35e1bbfc78029f7ad258f4d073f9e19",
+        "rev": "b22ad4bda3bfa0d878f719c61ec72f5fc273a13d",
         "type": "github"
       },
       "original": {
         "owner": "vicinaehq",
-        "ref": "v0.17.3",
+        "ref": "v0.18.0",
         "repo": "vicinae",
         "type": "github"
       }
