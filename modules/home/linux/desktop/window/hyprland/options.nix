@@ -4,7 +4,7 @@
   ...
 }:
 {
-  options.modules'.desktop.hyprland = {
+  options.profiles.desktop.hyprland = {
     settings = {
       media = lib.mkOption {
         type = lib.types.listOf lib.types.str;

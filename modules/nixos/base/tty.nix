@@ -6,7 +6,7 @@
 }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (!config.profiles.wsl.enable) {
 
     # https://wiki.archlinux.org/title/KMSCON
     services.kmscon = {

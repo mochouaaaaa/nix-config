@@ -1,12 +1,11 @@
 { lib, config, ... }:
 let
-  cfg = config.modules'.desktop;
+  cfg = config.profiles.desktop;
 in
 {
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf (cfg.hyprland.enable || cfg.niri.enable || cfg.kde.enable || cfg.gnome.enable) {
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       ".icons"
 
       # ======================================

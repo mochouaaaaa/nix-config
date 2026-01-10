@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfgDesktop = config.modules'.desktop;
-  cfg = config.modules'.packages;
+  cfgDesktop = config.profiles.desktop;
+  cfg = config.profiles.packages;
 in
 {
-  options.modules'.packages = {
+  options.profiles.packages = {
     authenticator = {
       enable = lib.mkEnableOption "Authenticator" // {
         default = cfgDesktop.gnome.enable && cfgDesktop.hyprland.enable;
@@ -24,7 +24,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
     home.packages = [
     ]
     ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;

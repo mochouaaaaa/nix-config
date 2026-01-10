@@ -1,10 +1,7 @@
-{ inputs, lib, ... }:
 let
   hostName = "nixos"; # Define your hostname.
 in
 {
-
-  imports = lib.importModule' ./.;
 
   networking = {
     inherit hostName;

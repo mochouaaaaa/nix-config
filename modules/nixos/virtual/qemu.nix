@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules'.virtual;
+  cfg = config.profiles.virtual;
 in
 {
-  config = lib.mkIf (cfg.qemu.enable && config.programs.desktop.enable) {
+  config = lib.mkIf (cfg.qemu.enable && config.profiles.desktop.enable) {
     environment.systemPackages = with pkgs; [
       virt-viewer
       libvirt
@@ -54,19 +54,9 @@ in
         enable = true;
         qemu = {
           package = pkgs.qemu_kvm;
-          runAsRoot = true;
+          runAsRoot = false;
           swtpm.enable = true;
           vhostUserPackages = [ pkgs.virtiofsd ];
-          ovmf = {
-            enable = true;
-            #packages = [(pkgs.unstable.OVMF.override {
-            packages = [
-              (pkgs.OVMF.override {
-                secureBoot = true;
-                tpmSupport = true;
-              }).fd
-            ];
-          };
         };
       };
     };

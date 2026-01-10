@@ -5,64 +5,67 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop;
+  cfg = config.profiles.desktop;
+  isDesktopEnable =
+    cfg.gnome.enable || cfg.hyprland.enable || cfg.kde.enable || cfg.niri.enable || cfg.sway.enable;
 in
 {
   options = {
-    programs = {
-      wsl.enable = lib.mkEnableOption "if you want to use WSL";
-      desktop.enable = lib.mkEnableOption "Desktop environment is enabled";
-    };
-
-    modules'.desktop = with lib; {
-
-      gnome = {
-        enable = mkOption {
-          type = types.bool;
-          default = builtins.getEnv "DESKTOP" == "gnome";
-          description = "Enable GNOME desktop environment.";
-        };
+    profiles = {
+      wsl = {
+        enable = lib.mkEnableOption "if you want to use WSL";
+        default = builtins.hasAttr "wsl" config;
       };
 
-      hyprland = {
-        enable = lib.mkOption {
-          default = builtins.getEnv "DESKTOP" == "hyprland";
-          type = lib.types.bool;
-          description = "Enable Hyprland desktop manager";
-        };
-      };
+      desktop = with lib; {
+        enable = lib.mkEnableOption "Desktop environment is enabled";
 
-      kde = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = builtins.getEnv "DESKTOP" == "kde";
-          description = "Enable KDE desktop manager";
+        gnome = {
+          enable = mkOption {
+            type = types.bool;
+            default = builtins.getEnv "DESKTOP" == "gnome";
+            description = "Enable GNOME desktop environment.";
+          };
         };
-      };
 
-      niri = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = builtins.getEnv "DESKTOP" == "niri";
-          description = "Enable Niri desktop manager";
+        hyprland = {
+          enable = lib.mkOption {
+            default = builtins.getEnv "DESKTOP" == "hyprland";
+            type = lib.types.bool;
+            description = "Enable Hyprland desktop manager";
+          };
         };
-      };
 
-      sway = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = builtins.getEnv "DESKTOP" == "sway";
-          description = "Enable Sway desktop manager";
+        kde = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = builtins.getEnv "DESKTOP" == "kde";
+            description = "Enable KDE desktop manager";
+          };
         };
-      };
 
+        niri = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = builtins.getEnv "DESKTOP" == "niri";
+            description = "Enable Niri desktop manager";
+          };
+        };
+
+        sway = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = builtins.getEnv "DESKTOP" == "sway";
+            description = "Enable Sway desktop manager";
+          };
+        };
+
+      };
     };
   };
 
-  config = {
-    programs.desktop.enable = lib.mkIf (
-      cfg.gnome.enable || cfg.hyprland.enable || cfg.kde.enable || cfg.niri.enable || cfg.sway.enable
-    ) true;
+  config = lib.mkIf isDesktopEnable {
+    profiles.desktop.enable = true;
 
     environment.variables = {
       NIXOS_OZONE_WL = "1"; # 让 Electron 应用使用 Wayland

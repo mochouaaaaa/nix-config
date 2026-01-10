@@ -5,8 +5,8 @@
   ...
 }:
 let
-  cfgGnome = config.modules'.desktop.gnome;
-  cfg = config.modules'.desktop.gnome.extensions."fuzzy-app-search";
+  cfgGnome = config.profiles.desktop.gnome;
+  cfg = config.profiles.desktop.gnome.extensions."fuzzy-app-search";
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

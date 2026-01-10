@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.modules'.virtual;
+  cfg = config.profiles.virtual;
 in
 {
-  config = lib.mkIf (cfg.virtualbox.enable && config.programs.desktop.enable) {
+  config = lib.mkIf (cfg.virtualbox.enable && config.profiles.desktop.enable) {
     users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
     virtualisation = {

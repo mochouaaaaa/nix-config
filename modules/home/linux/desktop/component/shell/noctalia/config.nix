@@ -6,47 +6,54 @@
 
 }:
 let
-  cfg = config.modules'.desktop.shell.noctalia;
+  cfg = config.programs.noctalia-shell;
 in
 {
 
   config = lib.mkIf (cfg.enable) {
 
-    modules'.desktop.shell.noctalia.settings = rec {
+    programs.noctalia-shell.settings = {
       appLauncher = {
-        backgroundOpacity = ui.panelBackgroundOpacity;
-        customLaunchPrefixEnabled = true;
-        enableClipboardHistory = true;
-        pinnedExecs = [ ];
-        position = "center";
-        sortByMostUsed = true;
-        terminalCommand = "kitty -e";
-        useApp2Unit = false;
-      };
-      audio = {
-        cavaFrameRate = 60;
-        externalMixer = "pwvucontrol || pavucontrol";
-        mprisBlacklist = [ ];
-        preferredPlayer = "";
-        visualizerQuality = "high";
-        visualizerType = "linear";
-        volumeOverdrive = false;
-        volumeStep = 5;
+        backgroundOpacity = cfg.settings.ui.panelBackgroundOpacity;
       };
       bar = {
+        backgroundOpacity = lib.mkDefault 0.88;
+        capsuleOpacity = 1;
         density = "comfortable";
         exclusive = true;
         floating = false;
-        marginHorizontal = 0.25;
-        marginVertical = 0.25;
         monitors = [ ];
-        outerCorners = true;
+        outerCorners = lib.mkDefault true;
         position = "top";
         showCapsule = false;
         showOutline = false;
-        transparent = false;
+        useSeparateOpacity = false;
         widgets = {
           center = [
+            {
+              compactMode = false;
+              compactShowAlbumArt = true;
+              compactShowVisualizer = false;
+              hideMode = "idle";
+              hideWhenIdle = false;
+              id = "MediaMini";
+              maxWidth = 225;
+              panelShowAlbumArt = true;
+              panelShowVisualizer = true;
+              scrollingMode = "hover";
+              showAlbumArt = true;
+              showArtistFirst = true;
+              showProgressRing = true;
+              showVisualizer = true;
+              useFixedWidth = true;
+              visualizerType = "linear";
+            }
+            {
+              id = "plugin:todo";
+            }
+            {
+              id = "plugin:privacy-indicator";
+            }
           ];
           left = [
             {
@@ -73,9 +80,6 @@ in
               id = "Tray";
             }
             {
-              id = "plugin:catwalk";
-            }
-            {
               compactMode = false;
               diskPath = "/";
               id = "SystemMonitor";
@@ -87,17 +91,19 @@ in
               showNetworkStats = true;
               usePrimaryColor = true;
             }
-            { id = "ScreenRecorder"; }
             {
-              id = "WiFi";
-              displayMode = "onhover";
+              id = "KeepAwake";
+            }
+            {
+              id = "plugin:screen-recorder";
+            }
+            {
+              id = "Network";
+              displayMode = "alwaysShow";
             }
             {
               id = "Bluetooth";
               displayMode = "onhover";
-            }
-            {
-              id = "plugin:privacy-indicator";
             }
             {
               customIconPath = "";
@@ -123,7 +129,6 @@ in
       };
       colorSchemes = {
         darkMode = false;
-        generateTemplatesForPredefined = true;
         manualSunrise = "06:30";
         manualSunset = "18:30";
         matugenSchemeType = "scheme-fruit-salad";
@@ -158,15 +163,10 @@ in
             id = "media-sysmon-card";
           }
         ];
+        diskPath = "/";
         position = "close_to_bar_button";
         shortcuts = {
           left = [
-            {
-              id = "WiFi";
-            }
-            {
-              id = "Bluetooth";
-            }
             {
               id = "ScreenRecorder";
             }
@@ -175,53 +175,32 @@ in
             }
           ];
           right = [
-            {
-              id = "Notifications";
-            }
-            {
-              id = "PowerProfile";
-            }
-            {
-              id = "KeepAwake";
-            }
-            {
-              id = "NightLight";
-            }
           ];
         };
       };
       dock = {
         enabled = false;
-        backgroundOpacity = ui.panelBackgroundOpacity;
-        displayMode = "always_visible";
-        floatingRatio = 1;
-        monitors = [ ];
-        onlySameOutput = true;
-        pinnedApps = [ ];
+        backgroundOpacity = cfg.settings.ui.panelBackgroundOpacity;
       };
       general = {
         allowPanelsOnScreenWithoutBar = true;
         animationDisabled = false;
-        animationSpeed = 0.68;
+        animationSpeed = lib.mkDefault 0.68;
         avatarImage = "${config.home.homeDirectory}/.face";
         boxRadiusRatio = 1;
         compactLockScreen = false;
         dimmerOpacity = 0;
-        dimDesktop = false;
         enableShadows = false;
         forceBlackScreenCorners = false;
         iRadiusRatio = 1;
-        language = "";
         lockOnSuspend = true;
         radiusRatio = 1;
         scaleRatio = 1;
         screenRadiusRatio = 0;
         shadowDirection = "center";
-        shadowOffsetX = 0;
-        shadowOffsetY = 0;
         showHibernateOnLockScreen = false;
         showScreenCorners = lib.mkDefault true;
-        showSessionButtonsOnLockScreen = true;
+        showSessionButtonsOnLockScreen = false;
       };
       hooks = {
         screenLock = "";
@@ -231,13 +210,13 @@ in
             hook_theme = pkgs.writeShellScriptBin "hook_theme" ''
               mode=$1
 
-              is_random="${lib.boolToString wallpaper.randomEnabled}"
+              is_random="${lib.boolToString cfg.settings.wallpaper.randomEnabled}"
 
               if [ "$mode" = "true" ]; then
-                switch-theme ${config.modules'.themes.gtkTheme.dark}
+                switch-theme ${config.profiles.themes.gtkTheme.dark}
                 [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Dark/Summer-Scene-Dark.png DP-1
               else
-                switch-theme ${config.modules'.themes.gtkTheme.light}
+                switch-theme ${config.profiles.themes.gtkTheme.light}
                 [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png DP-1
               fi
             '';
@@ -257,20 +236,15 @@ in
         weatherEnabled = true;
         weatherShowEffects = true;
       };
-      network = {
-        wifiEnabled = true;
-      };
       nightLight = {
         autoSchedule = true;
         dayTemp = "5500";
         enabled = true;
         forced = false;
-        manualSunrise = "06:30";
-        manualSunset = "18:30";
         nightTemp = "3300";
       };
       notifications = {
-        backgroundOpacity = ui.panelBackgroundOpacity;
+        backgroundOpacity = cfg.settings.ui.panelBackgroundOpacity;
         criticalUrgencyDuration = 15;
         enabled = true;
         location = "top_right";
@@ -283,7 +257,7 @@ in
       osd = {
         enabled = true;
         autoHideMs = 3000;
-        backgroundOpacity = ui.panelBackgroundOpacity;
+        backgroundOpacity = cfg.settings.ui.panelBackgroundOpacity;
         enabledTypes = [
           0
           1
@@ -295,24 +269,13 @@ in
         monitors = [ ];
         overlayLayer = true;
       };
-      screenRecorder = {
-        audioCodec = "opus";
-        audioSource = "both";
-        colorRange = "full";
-        directory = "${config.home.homeDirectory}/Videos/Recordings";
-        frameRate = 60;
-        quality = "very_high";
-        showCursor = true;
-        videoCodec = "h264";
-        videoSource = "portal";
-      };
       templates = {
         alacritty = false;
         code = true;
         discord = false;
         enableUserTemplates = true;
         niri = false;
-        hyprland = true;
+        hyprland = false;
         cava = true;
         foot = false;
         fuzzel = false;

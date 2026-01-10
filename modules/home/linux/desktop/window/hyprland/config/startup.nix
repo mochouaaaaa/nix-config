@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.hyprland;
+  cfg = config.profiles.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -12,7 +12,7 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         exec-once = [
-          "hyprctl setcursor ${config.home.pointerCursor.name} ${builtins.toString config.home.pointerCursor.size}"
+          "hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
         ];
       };
     };

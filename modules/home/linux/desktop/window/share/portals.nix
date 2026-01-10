@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop;
+  cfg = config.profiles.desktop;
 in
 {
   # This module centralizes the configuration of xdg-desktop-portal backends
@@ -29,7 +29,7 @@ in
         ];
 
       # Niri acts as its own portal backend, so its package is needed here.
-      configPackages = lib.optionals cfg.niri.enable [ pkgs.niri ];
+      configPackages = lib.optionals cfg.niri.enable [ pkgs.niri-unstable ];
 
       # Recursively merge portal configurations from different DEs.
       # This sets the preferred `default` portal implementation and other

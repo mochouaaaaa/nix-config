@@ -1,22 +1,27 @@
 { self, ... }:
 let
   homeModules = [
-    self.homeModules.darwin.modules
+    self.homeModules.darwin
 
     {
-      modules'.packages = {
-        terminal = {
-          kitty.enable = true;
-          wezterm.enable = true;
+      profiles = {
+        languages = {
+          envs = {
+            python.enable = true;
+            goenv.enable = true;
+            node.enable = true;
+            rust.enable = true;
+          };
         };
+        packages = {
+          terminal = {
+            kitty.enable = true;
+            wezterm.enable = true;
+          };
 
-        ollama.enable = false;
-        firefox.enable = true;
-        bitwarden.enable = false;
-        envs = {
-          python.enable = true;
-          goenv.enable = true;
-          node.enable = true;
+          ollama.enable = false;
+          firefox.enable = true;
+          bitwarden.enable = false;
         };
       };
     }
@@ -34,7 +39,7 @@ in
 
           self.darwinModules.base
           {
-            modules'.packages = {
+            profiles.packages = {
               openvpn.enable = true;
               tunnelblick.enable = true;
               aerospace.enable = false;

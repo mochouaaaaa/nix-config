@@ -1,8 +1,4 @@
 {
-  imports = [
-    ./pyenv.nix
-  ];
-
   perSystem =
     {
       inputs,

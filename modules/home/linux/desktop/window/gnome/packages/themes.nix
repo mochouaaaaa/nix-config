@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.gnome;
+  cfg = config.profiles.desktop.gnome;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -13,13 +13,13 @@ in
     services.darkman = {
       lightModeScripts = {
         gtk-theme = ''
-          switch-theme ${config.modules'.themes.gtkTheme.light}
+          switch-theme ${config.profiles.themes.gtkTheme.light}
           vicinae vicinae://theme/set/vicinae-light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
-          switch-theme ${config.modules'.themes.gtkTheme.dark}
+          switch-theme ${config.profiles.themes.gtkTheme.dark}
           vicinae vicinae://theme/set/vicinae-dark
         '';
       };

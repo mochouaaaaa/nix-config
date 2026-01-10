@@ -1,12 +1,12 @@
 { config, lib, ... }:
 let
-  cfgHyprland = config.modules'.desktop.hyprland;
+  cfgHyprland = config.profiles.desktop.hyprland;
 in
 {
 
   config = lib.mkIf cfgHyprland.enable {
 
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       ".local/state/caelestia"
       ".cache/noctalia"
       ".local/state/DankMaterialShell"

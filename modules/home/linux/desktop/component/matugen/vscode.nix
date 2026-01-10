@@ -7,7 +7,7 @@
 let
   cfg = config.programs.vscode;
   cfgMatugen = config.programs.matugen;
-  cfgNoctalia = config.modules'.desktop.shell.noctalia;
+  cfgNoctalia = config.programs.noctalia-shell;
 
 in
 {

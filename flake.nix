@@ -29,9 +29,10 @@
   inputs = {
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-os.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-os.url = "github:nixos/nixpkgs/nixos-25.11";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
     agenix.url = "github:ryantm/agenix";
 
     nur = {
@@ -61,7 +62,6 @@
 
     # home-manager, used for managing user configuration
     home-manager = {
-      # url = "github:nix-community/home-manager/release-25.05";
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -110,7 +110,7 @@
     # desktop components
     vicinae = {
       # url = "github:vicinaehq/vicinae";
-      url = "github:vicinaehq/vicinae?ref=v0.18.0";
+      url = "github:vicinaehq/vicinae?ref=v0.18.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -120,7 +120,7 @@
     };
     # desktop-shell
     caelestia-shell = {
-      url = "github:caelestia-dots/shell";
+      url = "github:caelestia-dots/shell?ref=v1.4.0";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
@@ -140,7 +140,7 @@
     aquamarine.url = "github:hyprwm/aquamarine";
     hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.7";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.53.0";
+      url = "github:hyprwm/Hyprland?ref=v0.53.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprutils.follows = "hyprutils";
@@ -156,7 +156,8 @@
 
     # niri
     niri = {
-      url = "github:sodiboo/niri-flake";
+      # url = "github:sodiboo/niri-flake";
+      url = "github:sodiboo/niri-flake?ref=very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     xwayland-satellite = {

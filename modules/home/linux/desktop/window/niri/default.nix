@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.niri;
+  cfg = config.profiles.desktop.niri;
 in
 {
-  imports = lib.importModule' ./. ++ [ inputs.niri.homeModules.niri ];
+  imports = [ inputs.niri.homeModules.niri ];
 
   config = lib.mkIf cfg.enable {
 

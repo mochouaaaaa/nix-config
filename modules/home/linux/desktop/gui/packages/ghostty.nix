@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  isdesktop = config.programs.desktop.enable;
+  isdesktop = config.profiles.desktop.enable;
 in
 {
   programs.ghostty = {

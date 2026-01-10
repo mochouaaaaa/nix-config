@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.modules'.packages.database-suite;
+  cfg = config.profiles.packages.database-suite;
 in
 {
-  options.modules'.packages.database-suite = {
+  options.profiles.packages.database-suite = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -32,13 +32,7 @@ let
           type = types.listOf types.unspecified;
           description = "List of nix-darwin modules to include in the configuration.";
           default = [
-            self.sharedModules.os
-
-            {
-              nixpkgs.overlays = [
-                self.overlays.darwin
-              ];
-            }
+            self.darwinModules.shared
           ];
           apply = userValue: default ++ userValue;
 
@@ -46,10 +40,7 @@ let
 
         homeModules = lib.mkOption rec {
           type = types.listOf types.unspecified;
-          default = [
-            self.sharedModules.home-manager
-            ../secrets/home.nix
-          ];
+          default = [ ];
           description = "List of home-manager modules to disable.";
           apply = userValue: default ++ userValue;
         };
@@ -70,16 +61,11 @@ let
           hostname = splitName 2; # nixos
           username = splitName 0; # mochou
 
-          specialArgs =
-            ctx.extraModuleArgs
-            // {
-              inherit self inputs;
-              inherit (ctx) lib;
-              inherit hostname username;
-            }
-            // {
-              pkgs-unstable = ctx.extraPackages.pkgs-unstable;
-            };
+          specialArgs = ctx.extraModuleArgs // {
+            inherit (ctx) lib;
+            inherit hostname username;
+            pkgs-unstable = ctx.pkgs-unstable;
+          };
 
         in
         nix-darwin.lib.darwinSystem {
@@ -96,12 +82,15 @@ let
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "home-manager.backup";
+                home-manager.sharedModules = [
+                  self.homeModules.shared
+                ];
 
                 home-manager.extraSpecialArgs = specialArgs // {
-                  pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs {
+                  pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
                     overlays = [ self.overlays.home-manager ];
                   };
-                  pkgs-stable = ctx.extraPackages.pkgs-os;
+                  pkgs-stable = ctx.pkgs-os;
                   isNixos = false;
                   nixosSystemName = "${username}@nixos";
                   isNixDarwin = true;
@@ -119,8 +108,7 @@ let
                   home = {
                     enableNixpkgsReleaseCheck = false;
                     inherit username;
-                    stateVersion = "24.11";
-                    # inherit (opts.config) stateVersion;
+                    inherit (opts.config) stateVersion;
                     homeDirectory = "/Users/${username}";
                   };
                 };
@@ -128,15 +116,22 @@ let
             ])
 
             ++ [
-              (
-                { pkgs, ... }:
-                {
-                  inherit (ctx) nix nixpkgs;
-                  networking.hostName = hostname;
-                  system.defaults.smb.NetBIOSName = hostname;
-                  system.stateVersion = config.stateVersion;
-                }
-              )
+              {
+                inherit (ctx) nix;
+
+                nixpkgs = lib.mkMerge [
+                  {
+                    nixpkgs.overlays = [
+                      self.overlays.darwin
+                    ];
+                  }
+                  ctx.nixpkgs
+                ];
+
+                networking.hostName = hostname;
+                system.defaults.smb.NetBIOSName = hostname;
+                system.stateVersion = config.stateVersion;
+              }
             ];
         }
       );

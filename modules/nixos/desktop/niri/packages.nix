@@ -6,15 +6,11 @@
   ...
 }:
 let
-  cfgNiri = config.modules'.desktop.niri;
+  cfgNiri = config.profiles.desktop.niri;
 in
 {
 
   config = lib.mkIf cfgNiri.enable {
-
-    programs = {
-      ssh.startAgent = lib.mkForce false;
-    };
 
   };
 }

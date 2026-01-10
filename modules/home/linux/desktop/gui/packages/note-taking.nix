@@ -6,7 +6,7 @@
 }:
 {
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     home.packages = with pkgs; [
       # GUI apps
@@ -21,9 +21,9 @@
 
       sync = {
         # one of "undefined", "disabled", "5m", "10m", "30m", "1h", "12h", "1d"
-        interval = null;
+        interval = "disabled";
         # one of "undefined", "none", "file-system", "onedrive", "nextcloud", "webdav", "dropbox", "s3", "joplin-server", "joplin-cloud"
-        target = null;
+        target = "none";
       };
     };
 

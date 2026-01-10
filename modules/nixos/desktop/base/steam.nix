@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.steam;
+  cfg = config.profiles.packages.steam;
 in
 {
-  options.modules'.packages.steam = with lib; {
+  options.profiles.packages.steam = with lib; {
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -16,9 +16,9 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
+  config = lib.mkIf (cfg.enable && config.profiles.desktop.enable) {
 
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       # ======================================
       # Game
       # ======================================

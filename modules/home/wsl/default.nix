@@ -1,13 +1,9 @@
 { lib, self, ... }:
 {
-  imports = lib.importModule' ./. ++ [
-    self.homeModules.linux.modules
-  ];
+  imports = [ self.homeModules.linux ];
 
   config = {
-
     dconf.enable = lib.mkForce false;
-
   };
 
 }

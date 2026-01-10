@@ -1,6 +1,5 @@
-{ lib, username, ... }:
+{ username, ... }:
 {
-  imports = lib.importModule' ./.;
 
   # Add ability to used TouchID for sudo authentication
   security.pam.services = {

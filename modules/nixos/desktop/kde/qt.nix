@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfgKde = config.modules'.desktop.kde;
+  cfgKde = config.profiles.desktop.kde;
 in
 {
   config = lib.mkIf cfgKde.enable {

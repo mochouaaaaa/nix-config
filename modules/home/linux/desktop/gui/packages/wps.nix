@@ -6,7 +6,7 @@
 }:
 {
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     home.packages = with pkgs; [
       nur.repos.novel2430.wpsoffice-cn

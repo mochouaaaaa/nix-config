@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop;
+  cfg = config.profiles.desktop;
   gnomeSeries = cfg.hyprland.enable || cfg.niri.enable || cfg.gnome.enable;
 in
 {
@@ -16,6 +16,7 @@ in
       (python3.withPackages (pyPkgs: with pyPkgs; [ pygobject3 ]))
       turtle # nautilus plugin git operation
       nautilus
+      libadwaita
     ];
 
     security = {

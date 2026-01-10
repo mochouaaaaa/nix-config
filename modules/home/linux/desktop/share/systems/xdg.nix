@@ -9,11 +9,11 @@
   ...
 }:
 let
-  cfg = config.modules'.xdg-mime;
+  cfg = config.profiles.xdg-mime;
 in
 {
 
-  options.modules'.xdg-mime = with lib; {
+  options.profiles.xdg-mime = with lib; {
     editors = mkOption rec {
       type = types.listOf types.str;
       default = [ ];
@@ -25,7 +25,7 @@ in
     };
   };
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
     home = {
       packages = with pkgs; [
         xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`

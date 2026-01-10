@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.kde;
+  cfg = config.profiles.desktop.kde;
 
   resources-monitor = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "resources-monitor";

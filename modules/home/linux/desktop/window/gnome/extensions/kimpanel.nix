@@ -5,8 +5,8 @@
   ...
 }:
 let
-  cfgGnome = config.modules'.desktop.gnome;
-  cfg = config.modules'.desktop.gnome.extensions.kimpanel;
+  cfgGnome = config.profiles.desktop.gnome;
+  cfg = config.profiles.desktop.gnome.extensions.kimpanel;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

@@ -45,7 +45,7 @@ https://github.com/nix-community/NixOS-WSL
 
 ## Screenshot
 
-![Hyprland](./asset/hyprland.png)
+![Hyprland](./asset/hyprland_desktop.png)
 
 ## ![Niri](./asset/niri.png)
 
@@ -54,60 +54,56 @@ https://github.com/nix-community/NixOS-WSL
 <details>
     <summary>目录结构</summary>
 
-```bash
-.
-├── asset
-├── config.nix
-├── flake.lock
-├── flake.nix
-├── flake-parts
-│   ├── darwin.nix                  # nix-darwin
-│   ├── default.nix
-│   ├── dev-shells                  # dev-shells
-│   ├── home-manager.nix            # home-manager
-│   ├── imports.nix                 # imports
-│   ├── nixos.nix                   # nixos
-│   ├── nix-settings.nix            # nix settings
-│   └── packages.nix                # nixpkgs
-├── hosts
-│   ├── darwin.nix                  # darwin 系统配置入口
-│   ├── default.nix
-│   ├── nixos                       # nixos 主机配置,每个主机都不一样
-│   ├── nixos.nix                   # nixos 系统配置入口
-│   └── wsl.nix                     # wsl 配置入口
-├── justfile                        # 一键部署脚本
-├── modules
-│   ├── darwin                      # darwin 系统配置
-│   ├── default.nix
-│   ├── home                        # home-manager 配置
-│   │   ├── base
-│   │   ├── darwin                  # home-manager darwin 配置
-│   │   ├── default.nix
-│   │   ├── linux                   # home-manager linux 配置
-│   │   └── wsl                     # home-manager wsl 配置
-│   ├── nixos                       # nixos 系统配置
-│   │   ├── base
-│   │   ├── default.nix
-│   │   ├── desktop                 # nixos 桌面配置
-│   │   ├── services                # nixos 服务相关配置
-│   │   └── virtual                 # nixos 虚拟机配置
-│   └── sharedModule                # darwin/linux 共享模块
-│       ├── default.nix
-│       ├── home-manager            # home-manager 共享模块不区分darwin/linux
-│       └── os                      # os 共享模块不区分darwin/linux
-├── nvfetcher.toml                  # 部分包pin版本
-├── outputs.nix
-├── overlays                        # nixpkgs overlays
-│   ├── darwin.nix                  # darwin overlays
-│   ├── default.nix
-│   ├── home-manager.nix            # home-manager overlays
-│   ├── nixos.nix                   # nixos overlays
-│   └── pkgs
-├── README.md
-└── _sources
-    ├── generated.json
-    └── generated.nix
 ```
+.
+├───.envrc
+├───.gitignore
+├───config.nix
+├───devenv.lock
+├───devenv.nix
+├───devenv.yaml
+├───flake.lock
+├───flake.nix
+├───justfile
+├───nvfetcher.toml
+├───outputs.nix
+├───README.md
+├───_sources/
+├───asset/
+├───flake-parts/
+│   ├───darwin.nix
+│   ├───home-manager.nix
+│   ├───mylib.nix
+│   ├───nix-settings.nix
+│   ├───nixos.nix
+│   ├───packages.nix
+│   └───dev-shells/
+├───hosts/
+│   ├───darwin.nix
+│   ├───default.nix
+│   ├───nixos.nix
+│   └───wsl.nix
+├───modules/
+│   ├───darwin/
+│   ├───home/
+│   ├───nixos/
+│   └───sharedModules/
+├───overlays/
+│   ├───default.nix
+│   └───pkgs/
+└───secrets/
+    ├───home.nix
+    ├───nixos.nix
+    └───secrets.nix
+```
+
+**关键目录说明 (Description of Key Directories):**
+
+- **`flake-parts/`**: 包含 `flake.nix` 的可重用组件,用于组织不同系统和功能(如软件包和 shell)的设置。(Contains reusable components for `flake.nix`, organizing settings for different systems and functionalities like packages and shells.)
+- **`hosts/`**: 存放特定于主机的配置。每个子目录或文件对应于不同的计算机(例如,`nixos`, `darwin`, `wsl`)。(Holds host-specific configurations. Each subdirectory or file corresponds to a different machine (e.g., `nixos`, `darwin`, `wsl`).)
+- **`modules/`**: 包含在不同主机之间共享的 NixOS和 home-manager 模块。这里配置系统服务、桌面环境和用户级程序。(Contains NixOS and home-manager modules that are shared across different hosts. This is where system services, desktop environments, and user-level programs are configured.)
+- **`overlays/`**: 用于添加新软件包或修改现有软件包。这样可以轻松自定义软件包集。(Used to add new packages or modify existing ones. This allows for easy customization of the package set.)
+- **`secrets/`**: 使用 `agenix` 管理敏感数据。(Manages sensitive data using `agenix`.)
 
 </details>
 

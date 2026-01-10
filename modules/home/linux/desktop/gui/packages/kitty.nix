@@ -4,22 +4,21 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.terminal.kitty;
-  desktopCfg = config.modules'.desktop;
+  cfg = config.profiles.packages.terminal.kitty;
+  desktopCfg = config.profiles.desktop;
 in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.packages.terminal.kitty = {
-      extraConfig =
-        [
-          "adjust_line_height 100%"
-          "adjust_column_width 100%"
-          "font_features Monaco Nerd Font Mono -liga -clig -calt"
-          "mouse_map        ctrl+left click ungrabbed mouse_handle_click link"
-        ]
-        ++ lib.optionals desktopCfg.gnome.enable [ "background_opacity 1" ]
-        ++ lib.optionals desktopCfg.kde.enable [ "# hide_window_decorations yes" ];
+    profiles.packages.terminal.kitty = {
+      extraConfig = [
+        "adjust_line_height 100%"
+        "adjust_column_width 100%"
+        "font_features Monaco Nerd Font Mono -liga -clig -calt"
+        "mouse_map        ctrl+left click ungrabbed mouse_handle_click link"
+      ]
+      ++ lib.optionals desktopCfg.gnome.enable [ "background_opacity 1" ]
+      ++ lib.optionals desktopCfg.kde.enable [ "# hide_window_decorations yes" ];
     };
 
     xdg.configFile = {

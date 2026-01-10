@@ -5,18 +5,23 @@
 }:
 let
   homeModules = [
-    self.homeModules.wsl.modules
+    self.homeModules.wsl
 
     {
-      programs.wsl.enable = true;
+      profiles.wsl.enable = true;
 
-      modules'.packages = {
-        # tencent enable default use true
+      profiles = {
+        languages = {
+          envs = {
+            python.enable = true;
+            goenv.enable = true;
+            node.enable = true;
+            rust.enable = true;
+          };
+        };
 
-        envs = {
-          python.enable = true;
-          goenv.enable = true;
-          node.enable = true;
+        packages = {
+          # tencent enable default use true
         };
       };
     }
@@ -37,6 +42,21 @@ in
         ]
         ++ [
           (
+            { lib, config, ... }:
+            {
+              options = {
+                profiles = {
+                  wsl = {
+                    enable = lib.mkEnableOption "if you want to use WSL";
+                    default = builtins.hasAttr "wsl" config;
+                  };
+                };
+              };
+            }
+          )
+        ]
+        ++ [
+          (
             {
               config,
               lib,
@@ -52,7 +72,7 @@ in
               wsl.startMenuLaunchers = true;
               wsl.usbip.enable = true;
 
-              programs.wsl.enable = true;
+              profiles.wsl.enable = true;
 
               environment.systemPackages = with pkgs; [
 

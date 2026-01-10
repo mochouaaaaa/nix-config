@@ -2,7 +2,7 @@
 let
   yazi = config.programs.yazi;
   cfgMatugen = config.programs.matugen;
-  cfgNoctalia = config.modules'.desktop.shell.noctalia;
+  cfgNoctalia = config.programs.noctalia-shell;
   cfgDarkMaterial = config.programs.dankMaterialShell;
 in
 {
@@ -11,12 +11,12 @@ in
       (lib.mkIf (cfgNoctalia.enable) {
         programs = {
           yazi = {
-            theme = {
-              flavor = {
-                light = "noctalia";
-                dark = "noctalia";
-              };
-            };
+            # theme = {
+            #   flavor = {
+            #     light = "noctalia";
+            #     dark = "noctalia";
+            #   };
+            # };
           };
         };
       })
@@ -24,12 +24,12 @@ in
       (lib.mkIf (cfgDarkMaterial.enable) {
         programs = {
           yazi = {
-            theme = {
-              flavor = {
-                light = "matugen";
-                dark = "matugen";
-              };
-            };
+            # theme = {
+            #   flavor = {
+            #     light = "matugen";
+            #     dark = "matugen";
+            #   };
+            # };
           };
         };
         xdg.configFile = {

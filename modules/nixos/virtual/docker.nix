@@ -6,12 +6,12 @@
   ...
 }:
 let
-  cfg = config.modules'.virtual.docker;
+  cfg = config.profiles.virtual.docker;
 in
 {
   config = lib.mkIf cfg.enable {
 
-    environment.systemPackages = lib.optionals (config.programs.desktop.enable) [
+    environment.systemPackages = lib.optionals (config.profiles.desktop.enable) [
       pkgs.podman-desktop
     ];
 
@@ -23,7 +23,7 @@ in
     };
 
     virtualisation = {
-      podman = lib.mkIf (config.programs.desktop.enable) {
+      podman = lib.mkIf (config.profiles.desktop.enable) {
         enable = true;
         autoPrune.enable = true;
         dockerSocket.enable = true;
@@ -58,7 +58,7 @@ in
       };
     };
 
-    modules'.persistent.osDirectories = [
+    profiles.persistent.osDirectories = [
       "/var/lib/docker"
     ];
 

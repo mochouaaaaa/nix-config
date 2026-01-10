@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (!config.profiles.wsl.enable) {
 
     # enable the node exporter on all nixos hosts
     # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/modules/services/monitoring/prometheus/exporters/node.nix

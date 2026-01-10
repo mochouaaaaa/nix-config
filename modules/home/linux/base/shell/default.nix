@@ -1,7 +1,5 @@
 {
-  lib,
   config,
-  username,
   ...
 }:
 let
@@ -9,9 +7,7 @@ let
   c = config.xdg.configHome;
   cache = config.xdg.cacheHome;
 in
-rec {
-
-  imports = lib.importModule' ./.;
+{
 
   # environment variables that always set at login
   home.sessionVariables = {

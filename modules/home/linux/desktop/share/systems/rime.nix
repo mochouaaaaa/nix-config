@@ -6,7 +6,7 @@
 }:
 let
 
-  rime-data = config.modules'.packages.rime.data-package;
+  rime-data = config.profiles.packages.rime.data-package;
 
   fictx5-themes = pkgs.stdenv.mkDerivation {
     name = "fcitx5-themes-candlelight";
@@ -27,7 +27,7 @@ let
   };
 in
 {
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";
@@ -105,7 +105,7 @@ in
       QT_IM_MODULE = "fcitx";
     };
 
-    modules'.packages.rime.fcitx5CustomYaml =
+    profiles.packages.rime.fcitx5CustomYaml =
       let
         ascii = {
           ascii_mode = true;

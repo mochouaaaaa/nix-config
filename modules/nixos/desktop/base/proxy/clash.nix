@@ -4,11 +4,11 @@
   ...
 }:
 let
-  cfg = config.modules'.network.proxy.clash;
+  cfg = config.profiles.network.proxy.clash;
 in
 {
 
-  options.modules'.network.proxy.clash = {
+  options.profiles.network.proxy.clash = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,9 +16,9 @@ in
     };
   };
 
-  config = lib.mkIf (config.programs.desktop.enable && cfg.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable && cfg.enable) {
 
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       ".local/share/io.github.clash-verge-rev.clash-verge-rev"
       ".local/share/clash-verge"
     ];

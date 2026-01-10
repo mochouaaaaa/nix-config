@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.firefox;
+  cfg = config.profiles.packages.firefox;
 
   themes = pkgs.stdenv.mkDerivation {
     name = "firefox-themes";
@@ -49,7 +49,7 @@ let
 in
 {
 
-  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
+  config = lib.mkIf (cfg.enable && config.profiles.desktop.enable) {
 
     home.file = {
       ".mozilla/firefox/${username}/chrome/Monterey".source =

@@ -1,12 +1,15 @@
 {
+  self,
   config,
   inputs,
   pkgs,
   lib,
-  mysecrets,
   isNixos,
   ...
 }:
+let
+  inherit (inputs) mysecrets;
+in
 {
   imports = [ inputs.agenix.homeManagerModules.default ];
 
@@ -16,10 +19,11 @@
 
   age = {
     identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
+
     secrets = {
-      email = {
-        file = "${mysecrets}/useremail.age";
-      };
+      # email = {
+      # file = "${mysecrets}/useremail.age";
+      # };
       fittencode = {
         file = "${mysecrets}/fittencode.age";
         path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";

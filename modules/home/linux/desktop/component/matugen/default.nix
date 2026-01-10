@@ -8,7 +8,7 @@ let
   cfg = config.programs.matugen;
   tomlFormat = pkgs.formats.toml { };
 
-  cfgNoctalia = config.modules'.desktop.shell.noctalia;
+  cfgNoctalia = config.programs.noctalia-shell;
   cfgDarkMaterial = config.programs.dankMaterialShell;
 
   # Centralized definitions for all matugen templates.
@@ -81,7 +81,6 @@ let
 
 in
 {
-  imports = lib.importModule' ./.;
 
   options.programs.matugen = {
     enable = lib.mkEnableOption "matugen configuration";

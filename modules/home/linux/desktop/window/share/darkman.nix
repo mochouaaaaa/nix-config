@@ -1,19 +1,14 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
-  cfg = config.modules'.desktop;
+  cfg = config.profiles.desktop;
 in
 {
 
   config = lib.mkIf (cfg.hyprland.enable || cfg.niri.enable || cfg.gnome.enable) {
-
-    home.packages = with pkgs; [
-      libadwaita
-    ];
 
     services.darkman = {
       enable = true;

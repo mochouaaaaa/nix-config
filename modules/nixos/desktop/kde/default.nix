@@ -4,11 +4,9 @@
   ...
 }:
 let
-  cfgKde = config.modules'.desktop.kde;
+  cfgKde = config.profiles.desktop.kde;
 in
 {
-
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfgKde.enable {
 

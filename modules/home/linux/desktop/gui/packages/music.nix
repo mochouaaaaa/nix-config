@@ -6,9 +6,9 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.tencent;
-  isDesktop = config.programs.desktop.enable;
-  cfgDesktop = config.modules'.desktop;
+  cfg = config.profiles.packages.tencent;
+  isDesktop = config.profiles.desktop.enable;
+  cfgDesktop = config.profiles.desktop;
 in
 {
 

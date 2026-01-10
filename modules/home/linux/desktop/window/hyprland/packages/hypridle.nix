@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.hyprland;
-  cfgHypridle = config.modules'.desktop.hypridle;
+  cfg = config.profiles.desktop.hyprland;
+  cfgHypridle = config.profiles.desktop.hypridle;
 in
 {
 
-  options.modules'.desktop.hypridle = {
+  options.profiles.desktop.hypridle = {
     lock_cmd = lib.mkOption {
       type = lib.types.str;
       default = "hyprlock";
@@ -18,7 +18,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && !config.modules'.desktop.shell.dankMaterialShell.enable) {
+  config = lib.mkIf (cfg.enable && !config.profiles.desktop.shell.dankMaterialShell.enable) {
     services.hypridle = {
       enable = true;
       settings = {

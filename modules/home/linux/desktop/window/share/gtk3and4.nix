@@ -5,8 +5,8 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop;
-  cfgTheme = config.modules'.themes.gtkTheme;
+  cfg = config.profiles.desktop;
+  cfgTheme = config.profiles.themes.gtkTheme;
 
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
 
@@ -19,7 +19,7 @@ let
     gtk-toolbar-style=0
     gtk-menu-images=1
     gtk-button-images=1
-    gtk-cursor-theme-size=${builtins.toString config.home.pointerCursor.size}
+    gtk-cursor-theme-size=${toString config.home.pointerCursor.size}
     gtk-sound-theme-name="ocean"
     gtk-cursor-theme-name="${config.home.pointerCursor.name}"
     gtk-icon-theme-name="$2"
@@ -46,7 +46,7 @@ let
     gtk-icon-theme-name=$gtk_icon_theme
     gtk-font-name=Monaco Nerd Font 12
     gtk-cursor-theme-name=${config.home.pointerCursor.name}
-    gtk-cursor-theme-size=${builtins.toString config.home.pointerCursor.size}
+    gtk-cursor-theme-size=${toString config.home.pointerCursor.size}
     gtk-button-images=0
     gtk-menu-images=0
     gtk-enable-event-sounds=1
@@ -125,7 +125,7 @@ let
 in
 {
 
-  options.modules'.themes = {
+  options.profiles.themes = {
     gtkTheme = rec {
       package = lib.mkOption {
         type = lib.types.package;
@@ -185,17 +185,14 @@ in
 
   config = lib.mkIf (cfg.gnome.enable || cfg.hyprland.enable || cfg.niri.enable) {
 
-    modules'.themes.gtkTheme = {
+    profiles.themes.gtkTheme = {
       name = "adw-gtk3";
       package = pkgs.adw-gtk3;
       icon = {
-        name = "Tela-circle";
-        package = pkgs.tela-circle-icon-theme.override {
-          # allColorVariants = true;
-          # circularFolder = true;
-        };
-        dark = "dark";
-        light = "light";
+        name = "Adwaita";
+        package = pkgs.adwaita-icon-theme;
+        dark = "";
+        light = "";
       };
       dark = "dark";
       light = "";

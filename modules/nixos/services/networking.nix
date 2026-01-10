@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (!config.profiles.wsl.enable) {
 
     # Network discovery, mDNS
     # With this enabled, you can access your machine at <hostname>.local

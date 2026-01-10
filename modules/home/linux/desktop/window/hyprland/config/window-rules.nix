@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.hyprland;
+  cfg = config.profiles.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -38,13 +38,9 @@ in
           # filemanager
           "center on, match:class ([Tt]hunar), match:title ^([Tt]hunar)$, size 1200 1300"
           "center on, match:class ([Tt]hunar), match:title (Confirm to replace files)"
-          "float on, match:class ^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
-          "size 1145 672, match:class ^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$"
           "float on, match:class ([Tt]hunar), match:title (File Operation Progress)"
           "float on, match:class ([Tt]hunar), match:title (Confirm to replace files)"
 
-          "float on, match:class sparkle, match:title Sparkle"
-          "size 1250 1050, match:class sparkle, match:title Sparkle"
           "float on, match:class chromium-browser, match:title (雀魂麻将 - Chromium)"
           "float on, match:class ^(pot|.pot-wrapped)$, match:title (Translate|Translator|OCR|PopClip|Screenshot Translate|Config)" # Translation window floating
           "move cursor 0 0, match:class (pot|.pot-wrapped), match:title (Translator|PopClip|Screenshot Translate) "
@@ -63,32 +59,31 @@ in
           "float on, match:class ([Zz]oom|onedriver|onedriver-launcher)$"
 
           "float on, match:class (xdg-desktop-portal-gtk)"
-          "float on, match:class (org.gnome.Calculator), match:title (Calculator)"
           "float on, match:class (codium|codium-url-handler|VSCodium), match:title (Add Folder to Workspace)"
-          "float on, match:class ^([Rr]ofi)$"
-          "float on, match:class ^(eog|org.gnome.Loupe)$" # image viewer
-          "float on, match:class ^(mpv|com.github.rafostar.Clapper)$"
-          "size 70% 70%, match:class ^(mpv|com.github.rafostar.Clapper)$"
+          "float on, match:class ^(eog)$" # image viewer
 
           "float on, match:class ^(nm-applet|nm-connection-editor|blueman-manager)$"
-          "float on, match:class ^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$" # system monitor
+          "float on, match:class ^(gnome-system-monitor)$" # system monitor
           "float on, match:class ^([Yy]ad)$"
           "float on, match:class ^(wihotspot(-gui)?)$" # wifi hotspot
           "float on, match:class ^(evince)$" # document viewer
-          "float on, match:class ^(file-roller|org.gnome.FileRoller)$" # archive manager
-          "float on, match:class ^([Bb]aobab|org.gnome.[Bb]aobab)$" # Disk usage analyzer
+          "float on, match:class ^(file-roller)$" # archive manager
+          "float on, match:class ^([Bb]aobab)$" # Disk usage analyzer
           "float on, match:title (Kvantum Manager)"
           "float on, match:class ^([Qq]alculate-gtk)$"
           "float on, match:class ^([Ff]erdium)$"
 
-          "size 70% 70%, match:class ^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
-          "size 70% 70%, match:class ^(xdg-desktop-portal-gtk)$"
-          "size 60% 70%, match:title (Kvantum Manager)"
-          "size 60% 70%, match:class ^(qt6ct)$"
-          "size 70% 70%, match:class ^(evince|wihotspot(-gui)?)$"
-          "size 60% 70%, match:class ^(file-roller|org.gnome.FileRoller)$"
-          "size 60% 70%, match:class ^([Ww]hatsapp-for-linux)$"
-          "size 60% 70%, match:class ^([Ff]erdium)$"
+          "size (monitor_w*0.7) (monitor_h*0.7), match:class ^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
+          "size (monitor_w*0.7) (monitor_h*0.7), match:class ^(xdg-desktop-portal-gtk)$"
+          "size (monitor_w*0.6) (monitor_h*0.7), match:title (Kvantum Manager)"
+          "size (monitor_w*0.6) (monitor_h*0.7), match:class ^(qt6ct)$"
+          "size (monitor_w*0.7) (monitor_h*0.7), match:class ^(evince|wihotspot(-gui)?)$"
+          "size (monitor_w*0.6) (monitor_h*0.7), match:class ^(file-roller|org.gnome.FileRoller)$"
+          "size (monitor_w*0.6) (monitor_h*0.7), match:class ^([Ww]hatsapp-for-linux)$"
+          "size (monitor_w*0.6) (monitor_h*0.7), match:class ^([Ff]erdium)$"
+
+          # gnome app
+          "float on, match:class ^(org.gnome.*)$"
 
           # screen sharing
           "no_initial_focus on, match:xwayland 1"
@@ -130,11 +125,36 @@ in
       extraConfig = ''
         # ========= tools =========
         windowrule {
+            name = mpv-took
+            match:class = mpv|com.github.rafostar.Clapper
+
+            float = on
+            size = (monitor_w*0.86) (monitor_h*0.86)
+        }
+
+        windowrule {
+            name = proxy-took
+            match:class = sparkle
+            match:title = Sparkle
+
+            float = on
+            size = (monitor_w*0.5) (monitor_h*0.8)
+        }
+
+        windowrule {
             name = imv-took
             match:class = imv|equibop|swappy
 
             float = on
             opaque = on
+        }
+
+        windowrule {
+            name = filebrowser-took
+            match:class = ^(org.gnome.Nautilus|thunar|pcmanfm|dolphin)$
+
+            float = on
+            size = (monitor_w*0.6) (monitor_h*0.7)
         }
 
         # ====== gnome ============ 
@@ -143,7 +163,7 @@ in
             match:class = org\.gnome\.Settings
 
             float = on
-            size = 70% 80%
+            size = (monitor_w*0.7) (monitor_h*0.8)
             center = on
         }
         windowrule {
@@ -151,7 +171,7 @@ in
             match:class = org\.pulseaudio\.pavucontrol|yad-icon-browser
 
             float = on
-            size = 60% 70%
+            size = (monitor_w*0.6) (monitor_h*0.7)
             center = on
         }
         windowrule {
@@ -215,7 +235,7 @@ in
             match:title = Bitwarden
 
             float = on
-            size = 60% 70%
+            size = (monitor_w*0.6) (monitor_h*0.7)
             no_screen_share = on
         }
 

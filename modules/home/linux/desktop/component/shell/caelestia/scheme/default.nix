@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
-  cfg = config.modules'.desktop.shell.caelestia;
-  cfgHyprland = config.modules'.desktop.hyprland;
+  cfg = config.profiles.desktop.shell.caelestia;
+  cfgHyprland = config.profiles.desktop.hyprland;
 in
 {
 

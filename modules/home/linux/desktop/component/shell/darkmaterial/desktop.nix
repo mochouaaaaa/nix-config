@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.programs.dankMaterialShell;
-  cfgDesktop = config.modules'.desktop;
+  cfgDesktop = config.profiles.desktop;
 in
 {
   imports = [
@@ -36,7 +36,7 @@ in
       (lib.mkIf (cfgDesktop.hyprland.enable) {
         services.vicinae.enable = true;
 
-        modules'.desktop.hyprland = {
+        profiles.desktop.hyprland = {
           settings = {
             media = [ ];
             brightness = [

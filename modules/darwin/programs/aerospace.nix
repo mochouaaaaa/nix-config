@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.aerospace;
+  cfg = config.profiles.packages.aerospace;
 in
 {
-  options.modules'.packages.aerospace = {
+  options.profiles.packages.aerospace = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

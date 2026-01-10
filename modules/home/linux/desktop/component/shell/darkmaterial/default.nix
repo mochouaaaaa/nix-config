@@ -5,15 +5,15 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.shell.dankMaterialShell;
-  # cfgDesktop = config.modules'.desktop;
+  cfg = config.profiles.desktop.shell.dankMaterialShell;
+  # cfgDesktop = config.profiles.desktop;
 in
 {
-  imports = lib.importModule' ./. ++ [
+  imports = [
     inputs.DankMaterialShell.homeModules.dankMaterialShell.default
   ];
 
-  options.modules'.desktop.shell.dankMaterialShell = {
+  options.profiles.desktop.shell.dankMaterialShell = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -4,8 +4,8 @@
   ...
 }:
 let
-  cfgGnome = config.modules'.desktop.gnome;
-  cfg = config.modules'.desktop.gnome.extensions.workflow;
+  cfgGnome = config.profiles.desktop.gnome;
+  cfg = config.profiles.desktop.gnome.extensions.workflow;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

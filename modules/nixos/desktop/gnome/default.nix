@@ -5,18 +5,13 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.gnome;
+  cfg = config.profiles.desktop.gnome;
 in
 {
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfg.enable {
 
-    programs = {
-      ssh.startAgent = lib.mkForce false;
-    };
-
-    modules.dm.gdm.enable = true;
+    modules.display-manager.gdm.enable = true;
 
     services = {
       udisks2.enable = true;

@@ -6,9 +6,9 @@
 }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (!config.profiles.wsl.enable) {
 
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       ".config/pulse"
       ".local/state/wireplumber"
     ];
@@ -130,7 +130,6 @@
       udev.packages = with pkgs; [
         platformio # udev rules for platformio
         openocd # required by paltformio, see https://github.com/NixOS/nixpkgs/issues/224895
-        android-udev-rules # required by adb
         openfpgaloader
       ];
     };

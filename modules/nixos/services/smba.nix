@@ -6,7 +6,7 @@
   ...
 }:
 {
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (!config.profiles.wsl.enable) {
 
     services.samba = {
       enable = true;
@@ -37,7 +37,7 @@
       };
     };
 
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       "Share/"
     ];
 

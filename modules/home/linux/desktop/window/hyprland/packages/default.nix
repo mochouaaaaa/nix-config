@@ -6,10 +6,9 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.hyprland;
+  cfg = config.profiles.desktop.hyprland;
 in
 {
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfg.enable {
 
@@ -32,11 +31,7 @@ in
       grimblast
 
       # audio
-      alsa-utils # provides amixer/alsamixer/...
-      pkgs-stable.mpd # for playing system sounds
-      pkgs-stable.mpc-cli # command-line mpd client
-      pkgs-stable.ncmpcpp # a mpd client with a UI
-      pkgs-stable.networkmanagerapplet # provide GUI app: nm-connection-editor
+      # pkgs-stable.networkmanagerapplet # provide GUI app: nm-connection-editor
     ];
 
   };

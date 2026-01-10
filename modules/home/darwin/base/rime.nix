@@ -3,13 +3,13 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.rime;
+  cfg = config.profiles.packages.rime;
   rime-data = cfg.data-package;
 in
 {
   config = {
 
-    modules'.packages.rime.squirrelCustomYaml =
+    profiles.packages.rime.squirrelCustomYaml =
       let
         ascii = {
           ascii_mode = true;

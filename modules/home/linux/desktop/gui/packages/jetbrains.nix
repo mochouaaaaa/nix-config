@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.jetbrains;
+  cfg = config.profiles.packages.jetbrains;
   jetbrainsConfig = enable: {
     pycharm = enable && cfg.pycharm.enable;
     goland = enable && cfg.goland.enable;
@@ -14,12 +14,12 @@ let
     clion = enable && cfg.clion.enable;
   };
 
-  initjetbrains = jetbrainsConfig (cfg.enable && config.programs.desktop.enable);
+  initjetbrains = jetbrainsConfig (cfg.enable && config.profiles.desktop.enable);
   vmoptsPath = "${config.xdg.configHome}/JetBrains/vmopts.vmoptions";
   propertiesPath = "${config.xdg.configHome}/JetBrains/idea.properties";
 in
 {
-  options.modules'.packages.jetbrains = {
+  options.profiles.packages.jetbrains = {
     enable = lib.mkEnableOption "JetBrains IDEs";
     pycharm = {
       enable = lib.mkOption {

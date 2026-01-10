@@ -5,10 +5,10 @@
   ...
 }:
 {
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     programs.appimage = {
-      enable = config.programs.desktop.enable;
+      enable = config.profiles.desktop.enable;
       package = pkgs.appimage-run.override {
         extraPkgs = pkgs: [
           pkgs.ffmpeg

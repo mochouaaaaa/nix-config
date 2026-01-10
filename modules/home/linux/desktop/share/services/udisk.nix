@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     # auto mount usb drives
     services = {

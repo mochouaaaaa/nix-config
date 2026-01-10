@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop;
+  cfg = config.profiles.desktop;
 in
 {
 

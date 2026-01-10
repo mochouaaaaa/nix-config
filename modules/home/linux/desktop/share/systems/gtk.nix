@@ -16,7 +16,7 @@ let
 in
 {
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     # If your themes for mouse cursor, icons or windows don’t load correctly,
     # try setting them with home.pointerCursor and gtk.theme,

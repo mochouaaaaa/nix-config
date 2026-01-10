@@ -1,50 +1,54 @@
-{ self, ... }:
+{ self, inputs, ... }:
 let
   homeModules = [
-    self.homeModules.linux.modules
+    self.homeModules.linux
 
     {
-      modules'.packages = {
-        firefox.enable = true;
-        google-chrome.enable = true;
-
-        # tencent enable default use true
-        tencent = {
-          # qq.enable = false;
-          wechat.enable = true;
-          wemeet.enable = true;
-          dingding.enable = true;
-          feishu.enable = true;
+      profiles = {
+        languages = {
+          envs = {
+            python.enable = true;
+            goenv.enable = true;
+            node.enable = true;
+            rust.enable = true;
+          };
         };
+        packages = {
+          firefox.enable = true;
+          google-chrome.enable = true;
 
-        obsidian.enable = true;
-        live = {
-          simple-live-app.enable = true;
-          wiliwili.enable = true;
-          iptv.enable = true; # IPTV
-        };
+          # tencent enable default use true
+          tencent = {
+            # qq.enable = false;
+            wechat.enable = true;
+            wemeet.enable = true;
+            dingding.enable = true;
+            feishu.enable = true;
+          };
 
-        # defalut enable true
-        bitwarden.enable = true;
-        authenticator.enable = true;
+          obsidian.enable = true;
+          live = {
+            simple-live-app.enable = true;
+            wiliwili.enable = true;
+            iptv.enable = true; # IPTV
+          };
 
-        terminal = {
-          kitty.enable = true;
-          wezterm.enable = true;
-        };
+          # defalut enable true
+          bitwarden.enable = true;
+          authenticator.enable = true;
 
-        jetbrains = {
-          enable = true;
-          pycharm.enable = true;
-          goland.enable = true;
-          datagrip.enable = true;
-          clion.enable = true;
-        };
-        envs = {
-          python.enable = true;
-          goenv.enable = true;
-          node.enable = true;
-          rust.enable = true;
+          terminal = {
+            kitty.enable = true;
+            wezterm.enable = true;
+          };
+
+          jetbrains = {
+            enable = true;
+            pycharm.enable = true;
+            goland.enable = true;
+            datagrip.enable = true;
+            clion.enable = true;
+          };
         };
       };
     }
@@ -59,15 +63,16 @@ in
         system = "x86_64-linux";
         stateVersion = "25.05";
         modules = [
-          ./nixos/default.nix
-
+          (inputs.import-tree ./nixos)
+        ]
+        ++ [
           self.nixosModules.base
           self.nixosModules.services
           self.nixosModules.virtual
           self.nixosModules.desktop
 
           {
-            modules' = {
+            profiles = {
               network.proxy.sparkle.enable = true;
               virtual = {
                 virtualbox.enable = false;

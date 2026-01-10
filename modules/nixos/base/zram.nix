@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
 
-  config = lib.mkIf (!config.programs.wsl.enable) {
+  config = lib.mkIf (!config.profiles.wsl.enable) {
 
     # Enable in-memory compressed devices and swap space provided by the zram kernel module.
     # By enable this, we can store more data in memory instead of fallback to disk-based swap devices directly,

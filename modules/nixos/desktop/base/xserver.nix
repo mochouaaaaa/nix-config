@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     services.xserver = {
       enable = lib.mkForce true;

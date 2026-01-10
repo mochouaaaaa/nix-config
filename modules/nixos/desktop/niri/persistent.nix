@@ -1,12 +1,12 @@
 { config, lib, ... }:
 let
-  cfgNiri = config.modules'.desktop.niri;
+  cfgNiri = config.profiles.desktop.niri;
 in
 {
 
   config = lib.mkIf cfgNiri.enable {
 
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       ".local/state/DankMaterialShell"
       ".cache/DankMaterialShell"
       ".cache/noctalia"

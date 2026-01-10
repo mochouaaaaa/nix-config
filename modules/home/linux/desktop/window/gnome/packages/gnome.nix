@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.gnome;
+  cfg = config.profiles.desktop.gnome;
 in
 {
   # Centralized options for all GNOME Shell extensions.
   # This makes managing them easier and simplifies individual module files.
-  options.modules'.desktop.gnome.extensions = with lib; {
+  options.profiles.desktop.gnome.extensions = with lib; {
     appindicator = mkEnableOption "AppIndicator and KStatusNotifierItem Support";
     auto-move-windows = mkEnableOption "Auto Move Windows";
     blur-my-shell = mkEnableOption "Blur My Shell";
@@ -50,7 +50,7 @@ in
 
     # Set the defaults for the newly defined centralized options.
     # These were previously set in this file or in the individual extension files.
-    modules'.desktop.gnome.extensions = {
+    profiles.desktop.gnome.extensions = {
       appindicator = true;
       auto-move-windows = true;
       coverflow-alt-tab = true;

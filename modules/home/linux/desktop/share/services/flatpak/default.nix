@@ -6,11 +6,11 @@
   ...
 }:
 {
-  imports = lib.importModule' ./. ++ [
+  imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     home.packages = with pkgs; [
       (flatpak.overrideAttrs (oldAttrs: {

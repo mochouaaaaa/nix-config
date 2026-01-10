@@ -5,14 +5,15 @@
   ...
 }:
 let
-  cfg = config.modules'.shortcuts;
+  cfg = config.profiles.shortcuts;
+  cfgDesktop = config.profiles.desktop;
 in
 {
   imports = [
     inputs.xremap-flake.homeManagerModules.default
   ];
 
-  options.modules'.shortcuts = {
+  options.profiles.shortcuts = {
     global = lib.mkOption rec {
       type = lib.types.listOf lib.types.attrs;
       default = [ ];
@@ -21,16 +22,15 @@ in
     };
   };
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
     services.xremap = {
       enable = true;
-      # serviceMode = "user";
       watch = true;
       # debug = true;
-      withWlroots = false;
-      withKDE = false;
-      withGnome = false;
-      withNiri = false;
+      withWlroots = cfgDesktop.hyprland.enable;
+      withKDE = cfgDesktop.kde.enable;
+      withGnome = cfgDesktop.gnome.enable;
+      withNiri = cfgDesktop.niri.enable;
       withHypr = false;
       config = {
         modmap = [

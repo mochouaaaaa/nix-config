@@ -6,7 +6,7 @@
   ...
 }:
 {
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     # home.packages = with pkgs-stable; [
     #   pot
@@ -28,7 +28,7 @@
     #   };
     # };
 
-    # modules'.shortcuts.global = [
+    # profiles.shortcuts.global = [
     #   {
     #     "ALT-a" = {
     #       launch = [

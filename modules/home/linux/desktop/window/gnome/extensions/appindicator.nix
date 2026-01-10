@@ -5,9 +5,9 @@
   ...
 }:
 let
-  cfgGnome = config.modules'.desktop.gnome;
+  cfgGnome = config.profiles.desktop.gnome;
   # The option is now a simple boolean defined centrally.
-  cfg = config.modules'.desktop.gnome.extensions.appindicator;
+  cfg = config.profiles.desktop.gnome.extensions.appindicator;
 in
 {
   # The 'options' block is removed from here and managed centrally.

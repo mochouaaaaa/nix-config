@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.gnome;
+  cfg = config.profiles.desktop.gnome;
 in
 
 {

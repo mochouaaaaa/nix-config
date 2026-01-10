@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.shell.caelestia;
+  cfg = config.profiles.desktop.shell.caelestia;
 in
 {
 

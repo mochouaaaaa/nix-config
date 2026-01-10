@@ -40,7 +40,7 @@ let
           type = types.listOf types.unspecified;
           description = "List of home-manager modules to include in the configuration.";
           default = [
-            self.sharedModules.home-manager
+            self.homeModules.shared
           ];
           apply = userValue: default ++ userValue;
 
@@ -74,13 +74,13 @@ let
         in
         inputs.home-manager.lib.homeManagerConfiguration {
 
-          pkgs = ctx.extraPackages.mkPkgs inputs.nixpkgs {
+          pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
             inherit overlays custom_config;
           };
 
           extraSpecialArgs =
             let
-              pkgs-stable = ctx.extraPackages.mkPkgs inputs.nixpkgs-os {
+              pkgs-stable = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs-os {
                 inherit overlays custom_config;
               };
             in
@@ -110,14 +110,12 @@ let
               }:
               {
 
-                nix =
-                  (removeAttrs ctx.nix [
+                nix = (
+                  removeAttrs ctx.nix [
                     "channel"
                     "gc"
-                  ])
-                  // {
-                    package = pkgs.nix;
-                  };
+                  ]
+                );
 
                 home = {
                   username = username;
@@ -129,6 +127,7 @@ let
                     (lib.mkIf pkgs.stdenv.isLinux "/home/${config.home.username}")
                   ];
                 };
+
               }
             )
           ];

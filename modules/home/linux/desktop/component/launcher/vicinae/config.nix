@@ -11,7 +11,7 @@ in
 
   config = lib.mkIf (cfg.enable) {
 
-    modules'.shortcuts.global = [
+    profiles.shortcuts.global = [
       {
         "SUPER-SPACE" = {
           launch = [
@@ -59,12 +59,12 @@ in
         theme = {
           light = {
             name = "vicinae-light";
-            # icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.light}";
+            # icon_theme = "${config.profiles.themes.gtkTheme.icon.name} ${config.profiles.themes.gtkTheme.icon.light}";
             icon_theme = "default";
           };
           dark = {
             name = "vicinae-dark";
-            # icon_theme = "${config.modules'.themes.gtkTheme.icon.name} ${config.modules'.themes.gtkTheme.icon.dark}";
+            # icon_theme = "${config.profiles.themes.gtkTheme.icon.name} ${config.profiles.themes.gtkTheme.icon.dark}";
             icon_theme = "default";
           };
         };

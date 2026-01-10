@@ -2,7 +2,7 @@
 let
   cfgMatugen = config.programs.matugen;
 
-  cfgNoctalia = config.modules'.desktop.shell.noctalia;
+  cfgNoctalia = config.programs.noctalia-shell;
   cfgDarkMaterial = config.programs.dankMaterialShell;
 
   useNoctaliaKitty = cfgNoctalia.enable && cfgNoctalia.settings.templates.kitty;
@@ -13,7 +13,7 @@ in
   config = lib.mkIf (cfgMatugen.enable) (
     lib.mkMerge [
       {
-        modules'.packages.terminal.kitty.extraConfig = lib.mkMerge [
+        profiles.packages.terminal.kitty.extraConfig = lib.mkMerge [
 
           (lib.mkIf useNoctaliaKitty (lib.mkAfter [ "include themes/noctalia.conf" ]))
 

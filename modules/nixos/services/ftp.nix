@@ -5,7 +5,7 @@
   ...
 }:
 {
-  services.vsftpd = lib.mkIf (!config.programs.wsl.enable) {
+  services.vsftpd = lib.mkIf (!config.profiles.wsl.enable) {
     enable = true;
     writeEnable = true;
     localUsers = true;

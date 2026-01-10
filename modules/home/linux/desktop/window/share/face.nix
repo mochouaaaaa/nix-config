@@ -12,7 +12,7 @@ let
 in
 {
 
-  options.modules'.desktop = {
+  options.profiles.desktop = {
     face = lib.mkOption {
       type = lib.types.path;
       default = img;
@@ -22,7 +22,7 @@ in
 
   config = {
     home.file = {
-      ".face".source = config.modules'.desktop.face;
+      ".face".source = config.profiles.desktop.face;
     };
   };
 

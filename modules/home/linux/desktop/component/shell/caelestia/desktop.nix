@@ -4,8 +4,8 @@
   ...
 }:
 let
-  cfgDesktop = config.modules'.desktop;
-  cfg = config.modules'.desktop.shell.caelestia;
+  cfgDesktop = config.profiles.desktop;
+  cfg = config.profiles.desktop.shell.caelestia;
 in
 {
   config = lib.mkIf (cfg.enable) (
@@ -28,9 +28,9 @@ in
 
       (lib.mkIf cfgDesktop.hyprland.enable {
 
-        modules'.desktop.hypridle.lock_cmd = "caelestia shell lock lock";
+        profiles.desktop.hypridle.lock_cmd = "caelestia shell lock lock";
 
-        modules'.desktop.hyprland = {
+        profiles.desktop.hyprland = {
           settings = {
             media = [
               ", XF86AudioPlay, global, caelestia:mediaToggle"

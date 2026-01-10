@@ -3,7 +3,7 @@ let
   cfg = config.services.vicinae;
   cfgMatugen = config.programs.matugen;
   cfgDarkMaterial = config.programs.dankMaterialShell;
-  cfgNoctalia = config.modules'.desktop.shell.noctalia;
+  cfgNoctalia = config.programs.noctalia-shell;
 in
 {
   config = lib.mkIf (cfg.enable && cfgMatugen.enable) (

@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
 
-  cfg = config.modules'.desktop.niri;
+  cfg = config.profiles.desktop.niri;
 in
 {
   config = lib.mkIf cfg.enable {

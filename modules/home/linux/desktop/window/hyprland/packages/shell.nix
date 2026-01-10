@@ -4,14 +4,14 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.hyprland;
+  cfg = config.profiles.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.desktop.shell.caelestia.enable = false;
-    modules'.desktop.shell.noctalia.enable = true;
-    modules'.desktop.shell.dankMaterialShell.enable = false;
+    profiles.desktop.shell.caelestia.enable = false;
+    profiles.desktop.shell.noctalia.enable = true;
+    profiles.desktop.shell.dankMaterialShell.enable = false;
 
   };
 }

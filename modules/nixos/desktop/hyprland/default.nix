@@ -7,16 +7,13 @@
   ...
 }:
 let
-  cfgHyprland = config.modules'.desktop.hyprland;
+  cfgHyprland = config.profiles.desktop.hyprland;
 in
 {
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfgHyprland.enable {
 
-    modules.dm.greetd.enable = true;
-
-    programs.ssh.startAgent = lib.mkForce false;
+    modules.display-manager.greetd.enable = true;
 
     services = {
       greetd = {

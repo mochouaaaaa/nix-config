@@ -7,7 +7,7 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.firefox;
+  cfg = config.profiles.packages.firefox;
   firefoxConfig = config.programs.firefox.profiles."${username}";
 in
 {
@@ -17,7 +17,7 @@ in
   ];
 
   # about:debugging#/runtime/this-firefox
-  config = lib.mkIf (cfg.enable && config.programs.desktop.enable) {
+  config = lib.mkIf (cfg.enable && config.profiles.desktop.enable) {
 
     home.file = {
       ".zen/${username}/zen-keyboard-shortcuts.json".source = ./zen-shortcuts.json;

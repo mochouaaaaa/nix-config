@@ -6,14 +6,13 @@
   ...
 }:
 let
-  cfgNiri = config.modules'.desktop.niri;
+  cfgNiri = config.profiles.desktop.niri;
 in
 {
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf cfgNiri.enable {
 
-    modules.dm.greetd.enable = true;
+    modules.display-manager.greetd.enable = true;
 
     services = {
       greetd = {

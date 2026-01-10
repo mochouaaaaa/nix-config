@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.terminal.kitty;
+  cfg = config.profiles.packages.terminal.kitty;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -15,7 +15,7 @@ in
       ];
     };
 
-    modules'.packages.terminal.kitty = {
+    profiles.packages.terminal.kitty = {
       extraConfig = [
         "mouse_map        cmd+left click ungrabbed mouse_handle_click link"
       ];

@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfgDesktop = config.modules'.desktop;
+  cfgDesktop = config.profiles.desktop;
 in
 {
   config = mkMerge [

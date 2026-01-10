@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.gnome;
+  cfg = config.profiles.desktop.gnome;
   monitors = config.programs.gnome.monitors;
 in
 {
@@ -74,7 +74,7 @@ in
           <logicalmonitor>
             <x>0</x>
             <y>0</y>
-            <scale>${builtins.toString monitors.scale}</scale>
+            <scale>${toString monitors.scale}</scale>
             <primary>yes</primary>
             <monitor>
               <monitorspec>
@@ -84,11 +84,11 @@ in
                 <serial>${monitors.monitorspec.serial}</serial>
               </monitorspec>
               <mode>
-                <width>${builtins.toString monitors.mode.width}</width>
-                <height>${builtins.toString monitors.mode.height}</height>
-                <rate>${builtins.toString monitors.mode.rate}</rate>
+                <width>${toString monitors.mode.width}</width>
+                <height>${toString monitors.mode.height}</height>
+                <rate>${toString monitors.mode.rate}</rate>
               </mode>
-              <colormode>bt${builtins.toString monitors.HDR}</colormode>
+              <colormode>bt${toString monitors.HDR}</colormode>
             </monitor>
           </logicalmonitor>
         </configuration>

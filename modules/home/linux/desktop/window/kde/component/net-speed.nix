@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.kde;
+  cfg = config.profiles.desktop.kde;
 
   net-speed = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "net-speed";

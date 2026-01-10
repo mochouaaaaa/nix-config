@@ -6,15 +6,15 @@
 }:
 {
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     environment.systemPackages = with pkgs; [
-      ddcutil
+      # ddcutil
       gparted
     ];
 
     # "i2c-dev"  显示器亮度
-    hardware.i2c.enable = true;
+    services.ddccontrol.enable = true;
 
     boot = {
 

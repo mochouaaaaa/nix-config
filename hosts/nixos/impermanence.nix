@@ -7,12 +7,12 @@
 }:
 let
   isTmpfsRoot = (config.fileSystems."/".fsType or "") == "tmpfs";
-  cfgPersistent = config.modules'.persistent;
+  cfgPersistent = config.profiles.persistent;
 in
 
 {
 
-  options.modules'.persistent = with lib; {
+  options.profiles.persistent = with lib; {
     osDirectories = mkOption rec {
       type = types.listOf (
         types.oneOf [
@@ -37,11 +37,7 @@ in
     };
   };
 
-  imports = [
-    inputs.preservation.nixosModules.default
-  ];
-
-  config = lib.mkIf (isTmpfsRoot) {
+  config = lib.mkIf isTmpfsRoot {
 
     # pverservation required initrd using systemd.
     boot.initrd.systemd.enable = true;
@@ -178,7 +174,7 @@ in
 
           files = [
             ".zsh_history"
-	    ".zsh_history.new"
+            ".zsh_history.new"
           ];
         };
       };

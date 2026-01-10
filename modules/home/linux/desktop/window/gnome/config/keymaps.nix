@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.modules'.desktop.gnome;
+  cfg = config.profiles.desktop.gnome;
 in
 {
   config = lib.mkIf cfg.enable {

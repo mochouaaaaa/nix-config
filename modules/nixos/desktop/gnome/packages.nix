@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.gnome;
+  cfg = config.profiles.desktop.gnome;
 in
 {
   config = lib.mkIf cfg.enable {
 
-    modules'.packages.steam.enable = lib.mkForce false;
+    profiles.packages.steam.enable = lib.mkForce false;
 
     environment.systemPackages = with pkgs; [
       xorg.xev

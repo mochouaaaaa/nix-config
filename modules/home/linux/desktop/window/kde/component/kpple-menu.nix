@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.kde;
+  cfg = config.profiles.desktop.kde;
 
   kpple-menu = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "kppleMenu";

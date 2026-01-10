@@ -6,11 +6,11 @@
   ...
 }:
 let
-  cfg = config.modules'.packages.live;
-  isDesktop = config.programs.desktop.enable;
+  cfg = config.profiles.packages.live;
+  isDesktop = config.profiles.desktop.enable;
 in
 {
-  options.modules'.packages.live = {
+  options.profiles.packages.live = {
     obs.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -57,7 +57,8 @@ in
           package = pkgs-stable.obs-studio;
           plugins = with pkgs-stable.obs-studio-plugins; [
             wlrobs
-            obs-ndi
+            # obs-ndi
+            distroav
             obs-vaapi
             obs-teleport
             obs-hyperion

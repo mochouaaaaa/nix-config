@@ -5,8 +5,8 @@
 }:
 with lib;
 let
-  cfgDesktop = config.modules'.desktop;
-  cfgNoctalia = config.modules'.desktop.shell.noctalia;
+  cfgDesktop = config.profiles.desktop;
+  cfgNoctalia = config.programs.noctalia-shell;
 in
 {
   config = mkIf (cfgNoctalia.enable) (mkMerge [
@@ -30,8 +30,9 @@ in
 
       services.vicinae.enable = true;
 
-      modules'.desktop.shell.noctalia = {
+      programs.noctalia-shell = {
         settings = rec {
+          templates.hyprland = lib.mkForce true;
           ui = {
             # panelBackgroundOpacity = lib.mkForce 0.44;
             panelBackgroundOpacity = lib.mkForce 0.62;
@@ -75,9 +76,9 @@ in
         };
       };
 
-      modules'.desktop.hypridle.lock_cmd = "noctalia-shell ipc call lockScreen lock";
+      profiles.desktop.hypridle.lock_cmd = "noctalia-shell ipc call lockScreen lock";
 
-      modules'.desktop.hyprland = {
+      profiles.desktop.hyprland = {
         settings = {
           media = [
             ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
@@ -103,16 +104,22 @@ in
     (mkIf (cfgDesktop.niri.enable) {
 
       services.vicinae.enable = true;
-      modules'.desktop.shell.noctalia.settings = {
+      programs.noctalia-shell.settings = {
         general = {
           showScreenCorners = false;
         };
         templates = {
           niri = lib.mkForce true;
         };
+        bar = {
+          outerCorners = false;
+        };
       };
 
       programs.niri.settings = {
+        includes = [
+          "noctalia.kdl"
+        ];
         binds =
           let
             allow-inhibiting = false;
@@ -167,7 +174,19 @@ in
               action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
             };
           };
+        layout.background-color = "transparent";
+        overview.workspace-shadow = {
+          enable = true;
+        };
         layer-rules = [
+          {
+            matches = [
+              {
+                namespace = "^noctalia-wallpaper*";
+              }
+            ];
+            place-within-backdrop = true;
+          }
           {
             matches = [
               {

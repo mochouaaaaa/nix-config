@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
 
-  cfg = config.modules'.desktop.niri;
+  cfg = config.profiles.desktop.niri;
   browser = "^(firefox|chrome|chromium|brave|vivaldi|opera|safari|edge|zen).*";
 in
 {
@@ -9,14 +9,13 @@ in
 
     programs.niri.settings = {
 
-      workspaces = {
-        "1" = { };
-        "2" = { };
-        "3" = { };
-        "4" = { };
-        "5" = { };
-        # "6" = { };
-      };
+      # workspaces = {
+      # ws1 = { };
+      # ws2 = { };
+      # ws3 = { };
+      # ws4 = { };
+      # ws5 = { };
+      # };
 
       window-rules = [
         {
@@ -50,19 +49,23 @@ in
       ];
 
       binds = {
-        "Mod+1".action.focus-workspace = "1";
-        "Mod+2".action.focus-workspace = "2";
-        "Mod+3".action.focus-workspace = "3";
-        "Mod+4".action.focus-workspace = "4";
-        "Mod+5".action.focus-workspace = "5";
-        # "Mod+6".action.focus-workspace = "6";
+        "Mod+1".action.focus-workspace = 1;
+        "Mod+2".action.focus-workspace = 2;
+        "Mod+3".action.focus-workspace = 3;
+        "Mod+4".action.focus-workspace = 4;
+        "Mod+5".action.focus-workspace = 5;
+        # "Mod+6".action.focus-workspace = 6;
 
-        "Mod+Shift+1".action.move-window-to-workspace = "1";
-        "Mod+Shift+2".action.move-window-to-workspace = "2";
-        "Mod+Shift+3".action.move-window-to-workspace = "3";
-        "Mod+Shift+4".action.move-window-to-workspace = "4";
-        "Mod+Shift+5".action.move-window-to-workspace = "5";
-        # "Mod+Shift+6".action.move-window-to-workspace = "6";
+        "Mod+Shift+h".action.move-column-left = { };
+        "Mod+Shift+l".action.move-column-right = { };
+        "Mod+Shift+j".action.move-window-down = { };
+        "Mod+Shift+k".action.move-window-up = { };
+        "Mod+Shift+1".action.move-window-to-workspace = 1;
+        "Mod+Shift+2".action.move-window-to-workspace = 2;
+        "Mod+Shift+3".action.move-window-to-workspace = 3;
+        "Mod+Shift+4".action.move-window-to-workspace = 4;
+        "Mod+Shift+5".action.move-window-to-workspace = 5;
+        # "Mod+Shift+6".action.move-window-to-workspace = 6;
       };
     };
   };

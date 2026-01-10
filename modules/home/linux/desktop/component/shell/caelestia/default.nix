@@ -5,15 +5,15 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.shell.caelestia;
+  cfg = config.profiles.desktop.shell.caelestia;
 in
 {
 
-  imports = lib.importModule' ./. ++ [
+  imports = [
     inputs.caelestia-shell.homeManagerModules.default
   ];
 
-  options.modules'.desktop.shell.caelestia = {
+  options.profiles.desktop.shell.caelestia = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -1,10 +1,10 @@
 { lib, config, ... }:
 let
-  cfg = config.modules'.desktop;
+  cfg = config.profiles.desktop;
 in
 {
 
-  config = lib.mkIf (config.programs.desktop.enable) (
+  config = lib.mkIf (config.profiles.desktop.enable) (
     lib.mkMerge [
 
       {

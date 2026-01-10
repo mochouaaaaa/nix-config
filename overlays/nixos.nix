@@ -1,15 +1,20 @@
 { inputs, ... }:
 
-(
-  final: prev:
-  let
-    composed = inputs.nixpkgs.lib.composeManyExtensions [
-      # (import ./pkgs/mihomo-party-wrapper.nix)
-    ];
-  in
-  composed final prev
-  // {
-    clash-verge = inputs.nixpkgs.legacyPackages.${prev.system}.clash-verge;
-    sparkle = prev.callPackage ./pkgs/sparkle.nix { };
-  }
-)
+final: prev:
+let
+  lib = inputs.nixpkgs.lib;
+
+  overlays = [
+    (final: prev: {
+      sparkle = prev.callPackage ./pkgs/sparkle.nix { };
+    })
+
+    (final: prev: {
+      clash-verge = inputs.nixpkgs.legacyPackages.${prev.system}.clash-verge;
+    })
+
+    # 3️⃣ lix stable 工具集
+    (import ./pkgs/lix.nix)
+  ];
+in
+lib.composeManyExtensions overlays final prev

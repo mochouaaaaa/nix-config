@@ -2,7 +2,7 @@
 let
   cfgCava = config.programs.cava;
   cfgMatugen = config.programs.matugen;
-  cfgNoctalia = config.modules'.desktop.shell.noctalia;
+  cfgNoctalia = config.programs.noctalia-shell;
   cfgDarkMaterial = config.programs.dankMaterialShell;
 in
 {

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules'.network.proxy.sparkle;
+  cfg = config.profiles.network.proxy.sparkle;
 in
 {
-  options.modules'.network.proxy.sparkle = {
+  options.profiles.network.proxy.sparkle = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,9 +16,9 @@ in
     };
   };
 
-  config = lib.mkIf (config.programs.desktop.enable && cfg.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable && cfg.enable) {
 
-    modules'.persistent.hmDirectories = [
+    profiles.persistent.hmDirectories = [
       ".config/sparkle"
     ];
 

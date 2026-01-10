@@ -6,7 +6,7 @@
 }:
 {
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     programs.mpv = {
       scripts = [

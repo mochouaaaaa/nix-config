@@ -1,14 +1,16 @@
 {
-  inputs,
   lib,
   pkgs,
+  inputs,
   config,
   ...
 }:
 {
-  imports = [ inputs.grub2-themes.nixosModules.default ];
+  imports = [
+    inputs.grub2-themes.nixosModules.default
+  ];
 
-  config = lib.mkIf (config.programs.desktop.enable) {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
     boot.loader.grub = rec {
       fontSize = 16;

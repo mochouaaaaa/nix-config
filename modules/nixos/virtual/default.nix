@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.modules'.virtual;
+  cfg = config.profiles.virtual;
   importModules = [
     (lib.mkIf cfg.docker.enable ./docker.nix)
     (lib.mkIf cfg.qemu.enable ./qemu.nix)
@@ -15,7 +15,7 @@ let
   hasModules = lib.lists.length importModules > 0;
 in
 {
-  options.modules'.virtual = {
+  options.profiles.virtual = {
     virtualbox.enable = lib.mkOption {
       type = lib.types.bool;
       description = "Whether to enable VirtualBox support.";
@@ -37,8 +37,6 @@ in
       default = false;
     };
   };
-
-  imports = lib.importModule' ./.;
 
   config = lib.mkIf hasModules {
     # For Intel:

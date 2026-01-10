@@ -2,11 +2,10 @@
   lib,
   pkgs,
   config,
-  username,
   ...
 }:
 let
-  desktopCfg = config.modules'.desktop;
+  desktopCfg = config.profiles.desktop;
 
   # Dynamically determine the correct password store based on the active DE.
   passwordStore =
@@ -29,7 +28,7 @@ let
   ];
 in
 {
-  config = lib.mkIf (config.programs.vscode.enable && config.programs.desktop.enable) {
+  config = lib.mkIf (config.programs.vscode.enable && desktopCfg.enable) {
 
     programs.vscode = {
       package = pkgs.vscode.override {
@@ -109,7 +108,7 @@ in
       };
     };
 
-    modules'.xdg-mime = {
+    profiles.xdg-mime = {
       editors = [
         "code.desktop"
         "code-insiders.desktop"

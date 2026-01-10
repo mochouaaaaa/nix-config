@@ -4,14 +4,14 @@
   ...
 }:
 let
-  cfg = config.modules'.desktop.hyprland;
+  cfg = config.profiles.desktop.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       settings = {
         env = [
-          "XCURSOR_SIZE,${builtins.toString config.home.pointerCursor.size}"
+          "XCURSOR_SIZE,${toString config.home.pointerCursor.size}"
 
           "NIXOS_OZONE_WL,1" # for any ozone-based browser & electron apps to run on wayland
 
