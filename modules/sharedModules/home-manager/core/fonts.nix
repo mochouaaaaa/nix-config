@@ -54,7 +54,7 @@ in
   options.profiles.fonts = {
     default = lib.mkOption {
       type = lib.types.str;
-      default = "Monaco";
+      default = "Monaco Nerd Font";
     };
     serif = lib.mkOption {
       type = lib.types.str;
