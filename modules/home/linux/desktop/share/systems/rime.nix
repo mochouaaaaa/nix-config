@@ -33,17 +33,12 @@ in
       type = "fcitx5";
       fcitx5 = {
         fcitx5-with-addons = pkgs.kdePackages.fcitx5-with-addons;
-        addons = with pkgs; [
-          (fcitx5-rime.override {
+        addons = [
+          (pkgs.fcitx5-rime.override {
             rimeDataPkgs = [
               rime-data
             ];
           })
-          fcitx5-lua
-          fcitx5-gtk
-          kdePackages.fcitx5-qt
-          qt6Packages.fcitx5-chinese-addons
-          librime-octagram
         ];
         waylandFrontend = true;
         settings = {
@@ -79,7 +74,7 @@ in
                 "Vertical Candidate List" = "False";
                 "PerScreenDPI" = "True";
                 "WheelForPaging" = "True";
-                "Font" = "Monaco Nerd Font 10";
+                "Font" = "${config.profiles.fonts.default} 10";
                 "MenuFont" = "inter 11";
                 "TrayFont" = "Maple Mono NF 11";
                 "TrayOutlineColor" = "#000000";
@@ -118,11 +113,6 @@ in
           "menu/page_size" = 9;
           "style/candidate_list_layout" = "linear";
           "style/translucency" = true;
-
-          schema_list = [
-            { schema = "rime_mint"; }
-            { schema = "rime_mint_flypy"; }
-          ];
 
           "app_options/gcr-prompter" = ascii;
           "app_options/org.wezfurlong.wezterm" = ascii;
