@@ -11,7 +11,6 @@
         name = "nix flake plugins";
 
         packages = with pkgs; [
-          devenv
         ];
       };
     };

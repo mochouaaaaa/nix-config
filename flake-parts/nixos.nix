@@ -35,6 +35,7 @@ let
             inputs.preservation.nixosModules.default
 
             self.nixosModules.shared
+            self.nixosModules.secrets
           ];
           apply = userValue: default ++ userValue;
         };
@@ -69,7 +70,8 @@ let
           };
 
         in
-        inputs.nixpkgs-os.lib.nixosSystem {
+        # inputs.nixpkgs-os.lib.nixosSystem {
+        inputs.nixpkgs.lib.nixosSystem {
           inherit specialArgs;
 
           modules = [
@@ -137,7 +139,6 @@ let
 
               system = {
                 stateVersion = config.stateVersion;
-                rebuild.enableNg = true;
               };
 
             }

@@ -33,6 +33,7 @@ let
           description = "List of nix-darwin modules to include in the configuration.";
           default = [
             self.darwinModules.shared
+            self.darwinModules.secrets
           ];
           apply = userValue: default ++ userValue;
 
@@ -90,7 +91,7 @@ let
                   pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
                     overlays = [ self.overlays.home-manager ];
                   };
-                  pkgs-stable = ctx.pkgs-os;
+                  pkgs-stable = ctx.extraModuleArgs.pkgs-os;
                   isNixos = false;
                   nixosSystemName = "${username}@nixos";
                   isNixDarwin = true;
@@ -108,7 +109,7 @@ let
                   home = {
                     enableNixpkgsReleaseCheck = false;
                     inherit username;
-                    inherit (opts.config) stateVersion;
+                    stateVersion = "24.11";
                     homeDirectory = "/Users/${username}";
                   };
                 };
@@ -121,7 +122,7 @@ let
 
                 nixpkgs = lib.mkMerge [
                   {
-                    nixpkgs.overlays = [
+                    overlays = [
                       self.overlays.darwin
                     ];
                   }
