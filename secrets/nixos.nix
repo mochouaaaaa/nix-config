@@ -21,7 +21,7 @@ in
     age = {
       identityPaths =
         if config.preservation.enable then
-          [ "/persistent/etc/ssh/ssh_host_ed25519_key" ]
+          [ "/nix/persistence/etc/ssh/ssh_host_ed25519_key" ]
         else
           [ "/etc/ssh/ssh_host_ed25519_key" ];
 

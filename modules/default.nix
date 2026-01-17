@@ -17,8 +17,9 @@ in
     };
 
     darwinModules = {
-      darwin = import-tree ./darwin; # darwin modules
+      base = import-tree ./darwin; # darwin modules
       shared = osShared;
+      secrets = "${self}/secrets/darwin.nix";
     };
 
     homeModules = {

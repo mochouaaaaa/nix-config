@@ -1,5 +1,4 @@
 {
-  self,
   config,
   inputs,
   pkgs,
@@ -21,9 +20,9 @@ in
     identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
 
     secrets = {
-      # email = {
-      # file = "${mysecrets}/useremail.age";
-      # };
+      wallhavenApiKey = {
+        file = "${mysecrets}/wallhavenApiKey.age";
+      };
       fittencode = {
         file = "${mysecrets}/fittencode.age";
         path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
