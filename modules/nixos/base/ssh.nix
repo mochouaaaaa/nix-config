@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
 
   networking.firewall.enable = lib.mkDefault false;
@@ -14,6 +14,8 @@
     };
     # openFirewall = true;
   };
+
+  programs.ssh.startAgent = !config.programs.gnupg.agent.enableSSHSupport;
 
   # Add terminfo database of all known terminals to the system profile.
   # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/config/terminfo.nix

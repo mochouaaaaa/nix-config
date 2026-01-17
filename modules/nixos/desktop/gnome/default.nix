@@ -11,7 +11,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    modules.display-manager.gdm.enable = true;
+    profiles.display-manager.gdm.enable = true;
 
     services = {
       udisks2.enable = true;

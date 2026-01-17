@@ -20,7 +20,7 @@
     environment.systemPackages = with pkgs; [
       bluetuith
       pamixer
-      pulseaudio # provides `pactl`, which is required by some apps(e.g. sonic-pi)
+      # pulseaudio # provides `pactl`, which is required by some apps(e.g. sonic-pi)
     ];
 
     # PipeWire is a new low-level multimedia framework.
@@ -116,7 +116,6 @@
         };
       };
     };
-    services.blueman.enable = true;
 
     #================================= Misc =================================
 

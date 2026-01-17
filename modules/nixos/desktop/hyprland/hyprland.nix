@@ -1,0 +1,79 @@
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  username,
+  ...
+}:
+let
+  cfg = config.profiles.desktop.hyprland;
+  cfghyprland = config.programs.hyprland;
+in
+{
+
+  imports = [ inputs.hyprland.nixosModules.default ];
+
+  config = lib.mkIf cfg.enable {
+
+    profiles.display-manager.greetd.enable = true;
+
+    services = {
+      greetd = {
+        settings = rec {
+          default_session = {
+            user = username;
+            command = lib.mkForce "start-hyprland";
+          };
+          initial_session = default_session;
+        };
+      };
+    };
+
+    programs.hyprland = {
+      enable = true;
+      # FIX: home-manager env unload
+      withUWSM = false;
+    };
+
+    profiles.persistent.hmDirectories = lib.optionals cfghyprland.withUWSM [
+      ".config/uwsm"
+    ];
+
+    home-manager.sharedModules = [
+      (
+        { config, ... }:
+        {
+
+          config = lib.mkIf cfghyprland.enable (
+            lib.mkMerge [
+
+              {
+                wayland.windowManager.hyprland = {
+                  package = lib.mkForce null;
+                  portalPackage = lib.mkForce null;
+                  systemd.enable = lib.mkForce (!cfghyprland.withUWSM);
+                };
+
+                # FIX: Path=/org/freedesktop/portal/desktop  Interface=org.freedesktop.portal.NetworkMonitor
+                xdg.portal.extraPortals = [ cfghyprland.portalPackage ];
+              }
+
+              (lib.mkIf cfghyprland.withUWSM {
+                wayland.systemd.target = lib.mkForce "graphical-session.target";
+
+                xdg.configFile."uwsm/env" = {
+                  enable = true;
+                  source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+                };
+              })
+
+            ]
+          );
+
+        }
+      )
+    ];
+
+  };
+}

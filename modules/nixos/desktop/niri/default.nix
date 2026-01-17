@@ -12,7 +12,7 @@ in
 
   config = lib.mkIf cfgNiri.enable {
 
-    modules.display-manager.greetd.enable = true;
+    profiles.display-manager.greetd.enable = true;
 
     services = {
       greetd = {

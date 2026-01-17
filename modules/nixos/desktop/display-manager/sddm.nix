@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.modules.display-manager.sddm;
+  cfg = config.profiles.display-manager.sddm;
 in
 {
-  options.modules.display-manager.sddm = {
+  options.profiles.display-manager.sddm = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.modules.display-manager.gdm;
+  cfg = config.profiles.display-manager.gdm;
 in
 {
-  options.modules.display-manager.gdm = {
+  options.profiles.display-manager.gdm = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -18,7 +18,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services = {
-      xserver.displayManager.gdm = {
+      displayManager.gdm = {
         enable = true;
         wayland = true;
         autoLogin.delay = 0;

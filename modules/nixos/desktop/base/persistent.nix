@@ -1,10 +1,7 @@
-{ lib, config, ... }:
-let
-  cfg = config.profiles.desktop;
-in
+{ config, lib, ... }:
 {
+  config = lib.mkIf (config.profiles.desktop.enable) {
 
-  config = lib.mkIf (cfg.hyprland.enable || cfg.niri.enable || cfg.kde.enable || cfg.gnome.enable) {
     profiles.persistent.hmDirectories = [
       ".icons"
 
@@ -13,6 +10,10 @@ in
       # ======================================
       {
         directory = ".config/Bitwarden";
+        mode = "0700";
+      }
+      {
+        directory = ".local/share/authenticator";
         mode = "0700";
       }
 
@@ -100,4 +101,5 @@ in
     ];
 
   };
+
 }
