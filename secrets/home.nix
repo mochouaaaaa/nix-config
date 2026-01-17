@@ -33,6 +33,9 @@ in
         path = "${config.home.homeDirectory}/.gemini/.env";
         mode = "644";
       };
+      github_token = {
+        file = "${mysecrets}/github_token.age";
+      };
     };
   };
 

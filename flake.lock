@@ -1143,10 +1143,10 @@
     "mysecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1768258424,
-        "narHash": "sha256-YG0VYTi7a0nA/4ziLrnPhK/zySHVgL7qpAtMWe9uxPU=",
+        "lastModified": 1768646508,
+        "narHash": "sha256-nGXhD2T3uVG4xiuklYu6HlHJo0gmkw2qwctnSds94Qg=",
         "ref": "refs/heads/master",
-        "rev": "0674f1258da9ceb4a163ae7767976ae153dafe55",
+        "rev": "20cb34477e66395bf5adf12a7aaee256f4bafe7c",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/mochouaaaaa/secrets.git"
