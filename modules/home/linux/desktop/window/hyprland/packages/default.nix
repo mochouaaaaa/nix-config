@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  pkgs-stable,
+  inputs,
   ...
 }:
 let
@@ -11,6 +11,11 @@ in
 {
 
   config = lib.mkIf cfg.enable {
+
+    programs.quickshell = {
+      enable = true;
+      systemd.enable = true;
+    };
 
     programs = {
       swappy = {
@@ -25,13 +30,12 @@ in
 
     home.packages = with pkgs; [
 
+      inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown
+
       slurp
       gimp
       grim
       grimblast
-
-      # audio
-      # pkgs-stable.networkmanagerapplet # provide GUI app: nm-connection-editor
     ];
 
   };

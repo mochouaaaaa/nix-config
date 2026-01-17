@@ -26,7 +26,6 @@ in
           "float on, match:class wev"
           "float on, match:class org\.gnome\.FileRoller"
           "float on, match:class file-roller" # WHY IS THERE TWOOOOOOOOOOOOOOOO
-          "float on, match:class blueman-manager"
           "float on, match:class com\.github\.GradienceTeam\.Gradience"
           "float on, match:class feh"
           "float on, match:class system-config-printer"
@@ -62,7 +61,7 @@ in
           "float on, match:class (codium|codium-url-handler|VSCodium), match:title (Add Folder to Workspace)"
           "float on, match:class ^(eog)$" # image viewer
 
-          "float on, match:class ^(nm-applet|nm-connection-editor|blueman-manager)$"
+          "float on, match:class ^(nm-applet|nm-connection-editor|blueman-manager|.blueman-manager-wrapped)$"
           "float on, match:class ^(gnome-system-monitor)$" # system monitor
           "float on, match:class ^([Yy]ad)$"
           "float on, match:class ^(wihotspot(-gui)?)$" # wifi hotspot
@@ -236,6 +235,12 @@ in
 
             float = on
             size = (monitor_w*0.6) (monitor_h*0.7)
+            no_screen_share = on
+        }
+        windowrule {
+            name = Authenticator
+            match:class = com.belmoussaoui.Authenticator
+            float = on
             no_screen_share = on
         }
 

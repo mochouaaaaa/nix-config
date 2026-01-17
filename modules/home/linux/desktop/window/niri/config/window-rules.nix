@@ -73,7 +73,7 @@ in
                 { app-id = "file-roller"; }
                 { app-id = "org.gnome.FileRoller"; }
                 { app-id = "nm-connection-editor"; }
-                { app-id = "blueman-manager"; }
+                { app-id = "blueman-manager|.blueman-manager-wrapped"; }
                 { app-id = "xdg-desktop-portal-gtk"; }
                 { app-id = "pinentry"; }
                 {

@@ -11,6 +11,9 @@ in
 {
   config = mkIf (cfgNoctalia.enable) (mkMerge [
     {
+      services.blueman-applet.enable = lib.mkForce false;
+      services.network-manager-applet.enable = lib.mkForce false;
+
       services.darkman = {
         lightModeScripts = {
           light = ''
@@ -50,6 +53,27 @@ in
           osd = {
             backgroundOpacity = ui.panelBackgroundOpacity;
           };
+
+          sessionMenu = {
+            powerOptions = [
+              {
+                action = "reboot";
+                command = ''hyprshutdown -p "reboot"'';
+                enabled = true;
+              }
+              {
+                action = "logout";
+                command = "hyprshutdown";
+                enabled = true;
+              }
+              {
+                action = "shutdown";
+                command = ''hyprshutdown -p "poweroff"'';
+                enabled = true;
+              }
+            ];
+          };
+
         };
       };
 

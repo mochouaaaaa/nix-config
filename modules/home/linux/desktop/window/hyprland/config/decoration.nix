@@ -13,6 +13,7 @@ in
 
         decoration = {
           rounding = 7;
+          rounding_power = 7.0;
           # active_opacity = 0.78;
           # inactive_opacity = 0.78;
 

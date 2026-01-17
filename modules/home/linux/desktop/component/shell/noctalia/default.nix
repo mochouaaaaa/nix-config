@@ -7,6 +7,11 @@
 }:
 let
   cfg = config.profiles.desktop.shell.noctalia;
+  noctalia-shell = (
+    pkgs.noctalia-shell.override {
+      calendarSupport = true;
+    }
+  );
 in
 {
 
@@ -25,11 +30,7 @@ in
   config = lib.mkIf (cfg.enable) {
 
     home.packages = [
-      # (inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-      #   calendarSupport = true;
-      # })
-      (inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default)
-
+      noctalia-shell
     ];
 
     services.cliphist.enable = lib.mkForce false;
@@ -47,6 +48,7 @@ in
 
     programs.noctalia-shell = {
       enable = true;
+      package = noctalia-shell;
       systemd.enable = true;
     };
   };

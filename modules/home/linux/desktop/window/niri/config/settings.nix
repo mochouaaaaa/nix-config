@@ -2,14 +2,14 @@
   config,
   lib,
   pkgs,
-  inputs,
+  # inputs,
   ...
 }:
 let
   cfg = config.profiles.desktop.niri;
 in
 {
-  imports = [ "${inputs.niri}/modules/binary-cache.nix" ];
+  # imports = [ "${inputs.niri}/modules/binary-cache.nix" ];
 
   config = lib.mkIf cfg.enable {
 
