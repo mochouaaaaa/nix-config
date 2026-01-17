@@ -145,7 +145,7 @@ in
         launcherLogoBrightness = 0.5;
         launcherLogoContrast = 1;
         launcherLogoSizeOffset = 0;
-        fontFamily = "Monaco Nerd Font";
+        fontFamily = "${config.profiles.fonts.default}";
         monoFontFamily = "Fira Code";
         fontWeight = 400;
         fontScale = 1;

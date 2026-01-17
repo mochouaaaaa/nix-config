@@ -53,7 +53,7 @@ in
         font = {
           normal = {
             size = 12;
-            normal = "Monaco Nerd Font";
+            normal = "${config.profiles.fonts.default}";
           };
         };
         theme = {

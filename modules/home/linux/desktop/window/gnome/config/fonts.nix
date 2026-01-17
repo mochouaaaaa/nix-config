@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -11,16 +10,12 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    home.packages = with pkgs; [
-      maple-mono.NF
-    ];
-
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         # FIXME: 如果不加上字体号会导致titlebar出现在显示器外部，启动器也有问题
-        font-name = "Monaco Nerd Font 11";
-        document-font-name = "Monaco Nerd Font";
-        monospace-font-name = "Maple Mono NF";
+        font-name = "${config.profiles.fonts.default} 11";
+        document-font-name = "${config.profiles.fonts.default}";
+        monospace-font-name = "${config.profiles.fonts.monospace}";
         titlebar-font = "inter";
       };
     };

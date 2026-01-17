@@ -98,6 +98,11 @@ in
               "ui.key.textcontrol.prefer_native_key_bindings_over_builtin_shortcut" = false;
               "browser.tabs.drawintitlebar" = true;
 
+              # font
+              "font.name.serif.zh-CN" = "${config.profiles.fonts.serif}";
+              "font.name.sans-serif.zh-CN" = "${config.profiles.fonts.sansSerif}";
+              "font.name.monospace.zh-CN" = "${config.profiles.fonts.monospace}";
+
               # network
               "network.trr.mode" = 5;
               "network.trr.disable_public_resolvers" = true;

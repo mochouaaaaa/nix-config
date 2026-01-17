@@ -1,4 +1,5 @@
 {
+  config,
   isNixDarwin,
   nixDarwinSystemName,
   isNixos,
@@ -121,13 +122,13 @@ in
           "editor.tabSize" = 4;
           "editor.lineHeight" = 24;
           "editor.fontSize" = 18;
-          "editor.fontFamily" = "Monaco Nerd Font Mono";
+          "editor.fontFamily" = "${config.profiles.fonts.default}";
           "editor.codeActionsOnSave" = {
             "source.organizeImports" = "explicit";
           };
           "editor.wordWrap" = "on";
           "editor.autoIndentOnPaste" = true;
-          "editor.codeLensFontFamily" = "Monaco Nerd Font";
+          "editor.codeLensFontFamily" = "${config.profiles.fonts.default}";
           "editor.defaultFormatter" = "vscode.json-language-features";
           "editor.formatOnSave" = true;
           "editor.formatOnType" = true;
@@ -175,7 +176,7 @@ in
               }
             ];
             # debug
-            "debug.console.fontFamily" = "Monaco Nerd Font Mono";
+            "debug.console.fontFamily" = "${config.profiles.fonts.default}";
             "debug.console.fontSize" = 15;
             "debug.console.historySuggestions" = false;
           };

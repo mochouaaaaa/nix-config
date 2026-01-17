@@ -41,7 +41,7 @@ in
         enable = true;
         package = pkgs.kitty;
         font = {
-          name = "Monaco Nerd Font";
+          name = "${config.profiles.fonts.default}";
           size = 16;
         };
         # themeFile = "Catppuccin-Mocha";

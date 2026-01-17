@@ -188,7 +188,7 @@ in
                   customDateFormat = "M月d日 ddd";
                   dateDisplayFormat = "BesideTime";
                   dateFormat = "custom";
-                  fontFamily = "Monaco Nerd Font";
+                  fontFamily = "${config.profiles.fonts.default}";
                   fontSize = "11";
                   fontStyleName = "Regular";
                   fontWeight = "400";

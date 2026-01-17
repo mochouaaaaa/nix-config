@@ -19,7 +19,7 @@ in
       "org/gnome/gedit/preferences/editor" = {
         auto-save = true;
         display-right-margin = true;
-        editor-font = "Monaco Nerd Font Mono 12";
+        editor-font = "${config.profiles.fonts.default} 12";
         right-margin-position = lib.hm.gvariant.mkUint32 120;
         tabs-size = lib.hm.gvariant.mkUint32 4;
         use-default-font = false;

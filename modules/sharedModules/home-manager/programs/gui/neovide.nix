@@ -20,7 +20,7 @@
         vsync = true;
         wsl = false;
         font = {
-          normal = [ "Monaco Nerd Font" ]; # Will use the bundled Fira Code Nerd Font by default
+          normal = [ "${config.profiles.fonts.default}" ]; # Will use the bundled Fira Code Nerd Font by default
           size = 17;
         };
         box-drawing = {

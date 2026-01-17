@@ -5,13 +5,13 @@
 
     fonts.fontconfig = {
       defaultFonts = {
-        serif = [ "Monaco Nerd Font" ];
+        serif = [ "${config.profiles.fonts.serif}" ];
         sansSerif = [
           "inter"
-          "Monaco Nerd Font"
+          "${config.profiles.fonts.sansSerif}"
         ];
-        monospace = [ "Maple Mono NF" ];
-        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "${config.profiles.fonts.monospace}" ];
+        emoji = [ "${config.profiles.fonts.emoji}" ];
       };
     };
 

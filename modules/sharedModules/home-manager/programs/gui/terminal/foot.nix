@@ -16,7 +16,7 @@ in
       settings = {
         main = {
           term = "xterm-256color";
-          font = "Monaco Nerd Font Mono:size=16";
+          font = "${config.profiles.fonts.default}:size=16";
           dpi-aware = "yes";
         };
 

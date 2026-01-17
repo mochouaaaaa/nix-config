@@ -23,7 +23,7 @@ let
     gtk-sound-theme-name="ocean"
     gtk-cursor-theme-name="${config.home.pointerCursor.name}"
     gtk-icon-theme-name="$2"
-    gtk-font-name="Monaco Nerd Font Mono, 12"
+    gtk-font-name="${config.profiles.fonts.default}, 12"
     EOF
   '';
 
@@ -44,7 +44,7 @@ let
     [Settings]
     gtk-theme-name=$gtk_theme_name
     gtk-icon-theme-name=$gtk_icon_theme
-    gtk-font-name=Monaco Nerd Font 12
+    gtk-font-name=${config.profiles.fonts.default} 12
     gtk-cursor-theme-name=${config.home.pointerCursor.name}
     gtk-cursor-theme-size=${toString config.home.pointerCursor.size}
     gtk-button-images=0
@@ -203,7 +203,7 @@ in
         text-scaling-factor = lib.hm.gvariant.mkDouble 1.0;
         toolbar-style = lib.hm.gvariant.mkString "large";
         toolbar-icons-size = lib.hm.gvariant.mkString "both-horiz";
-        font-name = lib.hm.gvariant.mkString "Monaco Nerd Font 12";
+        font-name = lib.hm.gvariant.mkString "${config.profiles.fonts.default} 12";
       };
     };
 

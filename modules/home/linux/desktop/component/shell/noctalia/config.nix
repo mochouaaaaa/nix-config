@@ -48,9 +48,9 @@ in
               useFixedWidth = true;
               visualizerType = "linear";
             }
-            {
-              id = "plugin:todo";
-            }
+            # {
+            #   id = "plugin:todo";
+            # }
             {
               id = "plugin:privacy-indicator";
             }
@@ -298,9 +298,9 @@ in
       };
       ui = {
         panelBackgroundOpacity = 0.78;
-        fontDefault = "Monaco Nerd Font";
+        fontDefault = "${config.profiles.fonts.default}";
         fontDefaultScale = 1;
-        fontFixed = "Monaco Nerd Font Mono";
+        fontFixed = "${config.profiles.fonts.default}";
         fontFixedScale = 1;
         panelsAttachedToBar = true;
         settingsPanelMode = "centered";
@@ -322,6 +322,7 @@ in
         setWallpaperOnAllMonitors = true;
         transitionDuration = 3000;
         transitionEdgeSmoothness = 0.15;
+        wallhavenApiKey = "";
         transitionType = "random";
         useWallhaven = false;
         wallhavenCategories = "111";

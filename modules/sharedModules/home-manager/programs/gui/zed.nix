@@ -27,7 +27,7 @@
 
           ui_font_size = 16;
           buffer_font_size = 16;
-          buffer_font_family = "Monaco Nerd Font";
+          buffer_font_family = "${config.profiles.fonts.default}";
 
           restore_on_startup = "last_session";
 

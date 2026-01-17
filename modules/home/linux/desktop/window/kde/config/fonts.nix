@@ -2,7 +2,7 @@
 let
   cfg = config.profiles.desktop.kde;
   fontConfig = {
-    family = "Monaco Nerd Font Mono";
+    family = "${config.profiles.fonts.default}";
     pointSize = 12;
   };
 in
