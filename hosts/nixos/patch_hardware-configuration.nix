@@ -21,21 +21,33 @@ in
       ];
     };
 
-    fileSystems."/persistent" = {
-      neededForBoot = true;
-      fsType = "btrfs";
-      options = [
-        "subvol=persistent"
-        "compress-force=zstd"
-      ];
-    };
-
     fileSystems."/nix" = {
       options = [
         "subvol=nix"
         "noatime"
         "compress-force=zstd"
       ];
+      neededForBoot = true;
+    };
+
+    fileSystems."/nix/persistence" = {
+      fsType = "btrfs";
+      options = [ "subvol=@rootfs,compress-force=zstd,noatime" ];
+      depends = [ "/nix" ];
+      neededForBoot = true;
+    };
+
+    fileSystems."/nix/persistence/home" = {
+      fsType = "btrfs";
+      options = [ "subvol=@home,compress-force=zstd,noatime" ];
+      depends = [ "/nix/persistence" ];
+    };
+
+    fileSystems."/nix/persistence/var" = {
+      fsType = "btrfs";
+      options = [ "subvol=@var,compress-force=zstd,noatime" ];
+      depends = [ "/nix/persistence" ];
+      neededForBoot = true;
     };
 
     fileSystems."/boot" = {

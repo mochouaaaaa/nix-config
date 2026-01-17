@@ -16,7 +16,7 @@ let
         packages = {
           terminal = {
             kitty.enable = true;
-            wezterm.enable = true;
+            wezterm.enable = false;
           };
 
           ollama.enable = false;

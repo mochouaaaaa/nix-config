@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   username,
   lib,
@@ -44,7 +43,7 @@ in
 
     preservation = {
       enable = true;
-      preserveAt."/persistent" = {
+      preserveAt."/nix/persistence" = {
 
         directories = [
           "/etc/NetworkManager/system-connections"
@@ -56,11 +55,6 @@ in
           # system-core
           "/var/lib/nixos"
           "/var/lib/systemd"
-
-          {
-            directory = "/var/lib/private";
-            mode = "0700";
-          }
 
           # containers
           "/var/lib/cni"
@@ -112,6 +106,7 @@ in
             ".config/dotfile"
             ".config/env"
             ".local/share/direnv"
+            ".local/share/devenv"
             ".tmux"
             "tmp"
 

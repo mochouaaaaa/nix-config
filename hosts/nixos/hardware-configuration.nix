@@ -34,17 +34,27 @@ in
       fsType = "btrfs";
     };
 
-    fileSystems."/nix" = {
-      device = "/dev/disk/by-uuid/5c33a7a0-f3e6-4454-a129-46c5f277b430";
-      fsType = "btrfs";
-    };
-
     fileSystems."/boot" = {
       device = lib.mkDefault "/dev/disk/by-uuid/7B2B-742D";
       fsType = "vfat";
     };
 
-    fileSystems."/persistent" = {
+    fileSystems."/nix" = {
+      device = "/dev/disk/by-uuid/5c33a7a0-f3e6-4454-a129-46c5f277b430";
+      fsType = "btrfs";
+    };
+
+    fileSystems."/nix/persistence" = {
+      device = "/dev/disk/by-uuid/5c33a7a0-f3e6-4454-a129-46c5f277b430";
+      fsType = "btrfs";
+    };
+
+    fileSystems."/nix/persistence/home" = {
+      device = "/dev/disk/by-uuid/5c33a7a0-f3e6-4454-a129-46c5f277b430";
+      fsType = "btrfs";
+    };
+
+    fileSystems."/nix/persistence/var" = {
       device = "/dev/disk/by-uuid/5c33a7a0-f3e6-4454-a129-46c5f277b430";
       fsType = "btrfs";
     };
