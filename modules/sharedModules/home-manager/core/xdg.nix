@@ -1,5 +1,5 @@
 { config, ... }:
-rec {
+{
   xdg = {
     enable = true;
     cacheHome = "${config.home.homeDirectory}/.cache";
@@ -8,8 +8,4 @@ rec {
     stateHome = "${config.home.homeDirectory}/.local/state";
   };
 
-  programs.zsh.envExtra = ''
-    export CARGO_HOME="${xdg.dataHome}/cargo"
-    export RUSTUP_HOME="${xdg.dataHome}/rustup"
-  '';
 }

@@ -19,7 +19,6 @@
     music = "cd $HOME/Music";
     pictures = "cd $HOME/Pictures";
     movies = "cd $HOME/Movies";
-    # trash = "cd $HOME/.Trash";
   };
 
 }

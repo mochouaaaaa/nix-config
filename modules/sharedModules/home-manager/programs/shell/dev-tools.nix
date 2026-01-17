@@ -20,15 +20,5 @@
     mongosh
     sqlite
 
-    # ai related
-    pkgs.python312Packages.huggingface-hub # huggingface-cli
-
-    # misc
-    pkgs.devbox
-    bfg-repo-cleaner # remove large files from git history
-    protobuf # protocol buffer compiler
-
-    # solve coding extercises - learn by doing
-    exercism
   ];
 }

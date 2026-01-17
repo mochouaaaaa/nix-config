@@ -3,7 +3,7 @@
     enable = true;
   };
 
-  programs = rec {
+  programs = {
     gnupg = {
       agent = {
         enable = true;
@@ -11,7 +11,6 @@
       };
     };
 
-    ssh.startAgent = !gnupg.agent.enableSSHSupport;
   };
 
 }

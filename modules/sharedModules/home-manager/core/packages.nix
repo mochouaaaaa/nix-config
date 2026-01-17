@@ -6,25 +6,15 @@
   };
 
   home.packages = with pkgs; [
-    lftp
 
     tree
     trash-cli
 
     # Misc
     tldr
-    cowsay
-    # gnupg
 
-    # Modern cli tools, replacement of grep/sed/...
-
-    # Interactively filter its input using fuzzy searching, not limit to filenames.
-    luajitPackages.fzf-lua
     # search for files by its content, replacement of grep
     (ripgrep.override { withPCRE2 = true; })
-
-    doggo # DNS client for humans
-    # duf # Disk Usage/Free Utility - a better 'df' alternative
 
     # nix-output-monitor
     # hydra-check # check hydra(nix's build farm) for the build status of a package
