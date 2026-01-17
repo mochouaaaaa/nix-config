@@ -25,22 +25,22 @@ https://github.com/nix-community/NixOS-WSL
 
 ## Components
 
-|                             | NixOS(Wayland)                                                                            |
-| --------------------------- | ----------------------------------------------------------------------------------------- |
-| **Window Manager**          | [Hyprland][Hyprland] / [Niri][Niri] / [Kde][Kde] / [Gnome][Gnome]                         |
-| **Desktop Shell**           | [noctalia][noctalia] / [caelestia][caelestia] / [dankMaterial][dankMaterial]              |
-| **Terminal Emulator**       | [Kitty][Kitty] / [Wezterm][Wezterm]                                                       |
-| **Application Launcher**    | [vicinae][vicinae]                                                                        |
-| **network management tool** | [NetworkManager][NetworkManager]                                                          |
-| **Input method framework**  | [Fcitx5][Fcitx5] + [rime][rime] + [oh-my-rime][oh-my-rime] + [WanxiangGRAM][WanxiangGRAM] |
-| **File Manager**            | [Yazi][Yazi] + [nautilus][nautilus]                                                       |
-| **Shell**                   | [Zsh][Zsh] + [p10k][p10k]                                                                 |
-| **Media Player**            | [mpv][mpv]                                                                                |
-| **Text Editor**             | [Neovim][Neovim]                                                                          |
-| **Fonts**                   | [Nerd fonts][Nerd fonts]                                                                  |
-| **Image Viewer**            | [imv][imv] + [loupe][loupe]                                                               |
-| **Screenshot Software**     | [grimblast][grimblast]                                                                    |
-| **Screen Recording**        | [OBS][OBS] + [Kooha][Kooha]                                                               |
+|                             | NixOS(Wayland)                                                               |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| **Window Manager**          | [Hyprland][Hyprland] / [Niri][Niri] / [Gnome][Gnome] / [Kde][Kde]            |
+| **Desktop Shell**           | [noctalia][noctalia] / [caelestia][caelestia] / [dankMaterial][dankMaterial] |
+| **Terminal Emulator**       | [Kitty][Kitty] / [Wezterm][Wezterm]                                          |
+| **Application Launcher**    | [vicinae][vicinae]                                                           |
+| **network management tool** | `use desktop shell ui`                                                       |
+| **Input method framework**  | [Fcitx5][Fcitx5] + [rime][rime] + [rime_wanxiang][rime_wanxiang]             |
+| **File Manager**            | [Yazi][Yazi] + [nautilus][nautilus]                                          |
+| **Shell**                   | [Zsh][Zsh] + [p10k][p10k]                                                    |
+| **Media Player**            | [mpv][mpv]                                                                   |
+| **Text Editor**             | [Neovim][Neovim]                                                             |
+| **Fonts**                   | [Nerd fonts][Nerd fonts]                                                     |
+| **Image Viewer**            | [imv][imv] + [loupe][loupe]                                                  |
+| **Screenshot Software**     | [grimblast][grimblast]                                                       |
+| **Screen Recording**        | [OBS][OBS] + [Kooha][Kooha]                                                  |
 
 ## Screenshot
 
@@ -168,11 +168,10 @@ just swl
 [Wezterm]: https://github.com/wezterm/wezterm
 [Fcitx5]: https://github.com/fcitx/fcitx5
 [rime]: https://rime.im
-[oh-my-rime]: https://github.com/Mintimate/oh-my-rime
 [Zsh]: https://www.zsh.org/
 [p10k]: https://github.com/romkatv/powerlevel10k
 [vicinae]: https://github.com/vicinaehq/vicinae
-[WanxiangGRAM]: https://github.com/amzxyz/RIME-LMDG
+[rime_wanxiang]: https://github.com/amzxyz/rime_wanxiang
 [Btop]: https://github.com/aristocratos/btop
 [mpv]: https://github.com/mpv-player/mpv
 [imv]: https://sr.ht/~exec64/imv
@@ -183,5 +182,4 @@ just swl
 [Yazi]: https://github.com/sxyazi/yazi
 [Kooha]: https://github.com/SeaDve/Kooha
 [grimblast]: https://github.com/hyprwm/contrib
-[NetworkManager]: https://wiki.gnome.org/Projects/NetworkManager
 [Nerd fonts]: https://github.com/ryanoasis/nerd-fonts
