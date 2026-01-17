@@ -33,7 +33,6 @@ https://github.com/nix-community/NixOS-WSL
 | **Application Launcher**    | [vicinae][vicinae]                                                                        |
 | **network management tool** | [NetworkManager][NetworkManager]                                                          |
 | **Input method framework**  | [Fcitx5][Fcitx5] + [rime][rime] + [oh-my-rime][oh-my-rime] + [WanxiangGRAM][WanxiangGRAM] |
-| **System resource monitor** | [Btop][Btop]                                                                              |
 | **File Manager**            | [Yazi][Yazi] + [nautilus][nautilus]                                                       |
 | **Shell**                   | [Zsh][Zsh] + [p10k][p10k]                                                                 |
 | **Media Player**            | [mpv][mpv]                                                                                |

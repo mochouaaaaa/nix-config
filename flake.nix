@@ -85,7 +85,7 @@
     };
 
     disko = {
-      url = "github:nix-community/disko/v1.6.1";
+      url = "github:nix-community/disko/v1.11.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -139,6 +139,7 @@
     hyprgraphics.url = "github:hyprwm/hyprgraphics";
     aquamarine.url = "github:hyprwm/aquamarine";
     hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.7";
+    hyprshutdown.url = "github:hyprwm/hyprshutdown";
     hyprland = {
       url = "github:hyprwm/Hyprland?ref=v0.53.1";
       inputs = {
@@ -175,7 +176,7 @@
     };
 
     mysecrets = {
-      url = "git+ssh://git@github.com/mochouaaaaa/secrets.git";
+      url = "git+ssh://git@github.com/mochouaaaaa/secrets.git?shallow=1";
       flake = false;
     };
 
