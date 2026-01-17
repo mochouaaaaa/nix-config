@@ -82,12 +82,11 @@ in
           # Use xdg-desktop-portal-gtk for every portal interface...
           default = [
             "gtk"
-            "gnome"
           ];
           # except for the secret portal, which is handled by gnome-keyring
           "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-          "org.freedesktop.impl.portal.Screenshot" = "gnome";
+          "org.freedesktop.impl.portal.ScreenCast" = "gtk";
+          "org.freedesktop.impl.portal.Screenshot" = "gtk";
           "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
         };
       };

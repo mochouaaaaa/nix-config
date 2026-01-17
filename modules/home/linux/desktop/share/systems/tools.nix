@@ -6,8 +6,5 @@
     libnotify
     mitmproxy # http/https proxy tool
     wireguard-tools # manage wireguard vpn manually, via wg-quick
-
-    ventoy # create bootable usb
-    persepolis
   ];
 }

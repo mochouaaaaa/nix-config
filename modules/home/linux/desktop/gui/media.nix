@@ -12,14 +12,7 @@
       # audio control
       pavucontrol
       playerctl
-      pulsemixer
-
-      # video/audio tools
-      libva-utils
-      vdpauinfo
-      vulkan-tools
-      # glxinfo
-      mesa-demos
+      # pulsemixer
     ];
 
     programs.cava = {

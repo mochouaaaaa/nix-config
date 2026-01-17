@@ -40,16 +40,10 @@ in
         home.packages = with pkgs; [
           kooha # 录制屏幕 GIF图
           # creative
-          blender # 3d modeling
-          inkscape # vector graphics
-          krita # digital painting
-          musescore # music notation
-          go-musicfox
-          # fpga
-          pkgs-stable.python312Packages.apycula # gowin fpga
-          pkgs-stable.yosys # fpga synthesis
-          pkgs-stable.nextpnr # fpga place and route
-          pkgs-stable.openfpgaloader # fpga programming
+          # blender # 3d modeling
+          # inkscape # vector graphics
+          # krita # PS digital painting
+          # musescore # music notation
         ];
 
         programs.obs-studio = {
@@ -57,7 +51,6 @@ in
           package = pkgs-stable.obs-studio;
           plugins = with pkgs-stable.obs-studio-plugins; [
             wlrobs
-            # obs-ndi
             distroav
             obs-vaapi
             obs-teleport
@@ -83,26 +76,13 @@ in
       })
 
       # Other live packages
-      (
-        let
-          wiliwili-pkg = pkgs.wiliwili.overrideAttrs (oldAttrs: {
-            src = pkgs.fetchFromGitHub {
-              owner = "xfangfang";
-              repo = "wiliwili";
-              rev = "v1.5.3";
-              fetchSubmodules = true;
-              hash = "sha256-NPJ1PLO6eqm4rBn4t965S0lqzT+npfYLWN6FKYCpnlQ=";
-            };
-          });
-        in
-        {
-          home.packages =
-            [ ]
-            ++ lib.optionals cfg.iptv.enable [ pkgs.hypnotix ]
-            ++ lib.optionals cfg.simple-live-app.enable [ pkgs.simple-live-app ]
-            ++ lib.optionals cfg.wiliwili.enable [ pkgs.piliplus ];
-        }
-      )
+      {
+        home.packages =
+          [ ]
+          ++ lib.optionals cfg.iptv.enable [ pkgs.hypnotix ]
+          ++ lib.optionals cfg.simple-live-app.enable [ pkgs.simple-live-app ]
+          ++ lib.optionals cfg.wiliwili.enable [ pkgs.piliplus ];
+      }
     ]
   );
 }
