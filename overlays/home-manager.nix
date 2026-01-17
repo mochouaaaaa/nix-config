@@ -38,6 +38,8 @@ let
     inputs.niri.overlays.niri
     inputs.vicinae.overlays.default
     inputs.hyprland-contrib.overlays.default
+    inputs.noctalia.overlays.default
+    inputs.hyprland.overlays.default
     (import ./pkgs/vicinae-wrapper.nix)
     (import ./pkgs/obsidian-wrapper.nix)
     (import ./pkgs/tiny-rdm-wrapper.nix)
