@@ -13,22 +13,28 @@
   config = lib.mkIf (config.profiles.desktop.enable) {
 
     home.packages = with pkgs; [
-      (flatpak.overrideAttrs (oldAttrs: {
-        nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
-        postFixup = (oldAttrs.postFixup or "") + ''
-          wrapProgram $out/bin/flatpak \
-            --prefix XDG_DATA_DIRS : /var/lib/flatpak/exports/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share
-        '';
-      }))
+      flatpak
+    ];
 
+    xdg.systemDirs.data = [
+      "${config.home.homeDirectory}/.local/share/flatpak/exports/share"
     ];
 
     services = {
       flatpak = {
-        overrides = {
-          global = { };
-        };
         enable = true;
+        overrides = {
+          global = {
+            Context = {
+              filesystems = [
+                "/etc/fonts:ro"
+              ];
+            };
+            Environment = {
+              GTK_THEME = "Adwaita";
+            };
+          };
+        };
         remotes = lib.mkOptionDefault [
           {
             name = "flathub";
