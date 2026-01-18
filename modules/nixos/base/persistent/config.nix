@@ -2,41 +2,19 @@
   config,
   username,
   lib,
+  inputs,
   ...
 }:
 let
-  isTmpfsRoot = (config.fileSystems."/".fsType or "") == "tmpfs";
-  cfgPersistent = config.profiles.persistent;
+  cfg = config.profiles.persistent;
 in
-
 {
 
-  options.profiles.persistent = with lib; {
-    osDirectories = mkOption rec {
-      type = types.listOf (
-        types.oneOf [
-          types.str
-          types.attrs
-        ]
-      );
-      default = [ ];
-      description = "List of directories to preserve across reboots.";
-      apply = userValue: default ++ userValue;
-    };
-    hmDirectories = mkOption rec {
-      type = types.listOf (
-        types.oneOf [
-          types.str
-          types.attrs
-        ]
-      );
-      default = [ ];
-      description = "List of directories to preserve across reboots for Home Manager Profiles.";
-      apply = userValue: default ++ userValue;
-    };
-  };
+  imports = [
+    inputs.preservation.nixosModules.default
+  ];
 
-  config = lib.mkIf isTmpfsRoot {
+  config = lib.mkIf cfg.enable {
 
     # pverservation required initrd using systemd.
     boot.initrd.systemd.enable = true;
@@ -74,7 +52,7 @@ in
           "/var/lib/NetworkManager"
           "/var/lib/iwd"
         ]
-        ++ cfgPersistent.osDirectories;
+        ++ cfg.osDirectories;
 
         files = [
           {
@@ -106,7 +84,6 @@ in
             ".config/dotfile"
             ".config/env"
             ".local/share/direnv"
-            ".local/share/devenv"
             ".tmux"
             "tmp"
 
@@ -165,7 +142,7 @@ in
             ".cache/cliphist"
 
           ]
-          ++ cfgPersistent.hmDirectories;
+          ++ cfg.hmDirectories;
 
           files = [
             ".zsh_history"
@@ -216,7 +193,6 @@ in
     # let the service commit the transient ID to the persistent volume
     systemd.services.systemd-machine-id-commit = {
       unitConfig.ConditionPathIsMountPoint = [
-        ""
         "/persistent/etc/machine-id"
       ];
       serviceConfig.ExecStart = [

@@ -4,6 +4,7 @@
   ...
 }:
 let
+  # nixos-generators
   vmwareMode = lib.hasAttr "vmware" config;
 in
 {
