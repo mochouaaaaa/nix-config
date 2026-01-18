@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  config,
   myvars,
   username,
   ...
@@ -11,13 +9,6 @@
   home.packages = with pkgs; [ emojify ];
 
   programs = {
-    zsh.envExtra = lib.mkBefore ''
-      GITHUB_TOKEN_FILE="${config.age.secrets.github_token.path}"
-      if [[ -r "$GITHUB_TOKEN_FILE" ]]; then
-        export GITHUB_TOKEN="$(<"$GITHUB_TOKEN_FILE")"
-      fi
-    '';
-
     gh = {
       enable = true;
     };
