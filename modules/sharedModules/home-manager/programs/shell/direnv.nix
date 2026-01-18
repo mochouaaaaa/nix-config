@@ -1,8 +1,5 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 {
-  home.packages = [
-    pkgs.devenv
-  ];
 
   programs =
     let

@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   inputs,
   username,
   ...
@@ -16,18 +15,9 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    profiles.display-manager.greetd.enable = true;
-
-    services = {
-      greetd = {
-        settings = rec {
-          default_session = {
-            user = username;
-            command = lib.mkForce "start-hyprland";
-          };
-          initial_session = default_session;
-        };
-      };
+    profiles.display-manager.greetd = {
+      enable = true;
+      command = "start-hyprland";
     };
 
     programs.hyprland = {

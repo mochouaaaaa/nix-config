@@ -2,6 +2,7 @@
   config,
   lib,
   username,
+  pkgs,
   ...
 }:
 let
@@ -14,6 +15,10 @@ in
       default = false;
       description = "Whether to enable greetd.";
     };
+    command = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -21,11 +26,13 @@ in
     services = {
       greetd = {
         enable = true;
-        settings = {
+        settings = rec {
           terminal.vt = 1;
           default_session = {
+            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${cfg.command}";
             user = username;
           };
+          initial_session = default_session;
         };
       };
     };
