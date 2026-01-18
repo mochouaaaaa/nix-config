@@ -58,9 +58,6 @@ https://github.com/nix-community/NixOS-WSL
 ├───.envrc
 ├───.gitignore
 ├───config.nix
-├───devenv.lock
-├───devenv.nix
-├───devenv.yaml
 ├───flake.lock
 ├───flake.nix
 ├───justfile
