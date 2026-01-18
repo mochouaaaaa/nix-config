@@ -26,18 +26,6 @@ in
           [ "/etc/ssh/ssh_host_ed25519_key" ];
 
       secrets = {
-        userPassword = {
-          file = "${mysecrets}/user_password.age";
-          owner = "root";
-          group = "root";
-          mode = "0400";
-        };
-        rootPassword = {
-          file = "${mysecrets}/root_password.age";
-          owner = "root";
-          group = "root";
-          mode = "0400";
-        };
 
       };
     };
