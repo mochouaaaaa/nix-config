@@ -1,6 +1,4 @@
 {
-  pkgs,
-  username,
   lib,
   config,
   ...
@@ -12,17 +10,18 @@
     security = lib.mkMerge [
 
       {
-        polkit = {
-          enable = true;
-        };
+        soteria.enable = true;
         pam = {
           services = {
-            login.enableGnomeKeyring = true;
-            "${username}" = {
-              kwallet.enable = false;
-              enableGnomeKeyring = true;
-            };
+            swaylock = { };
+            hyprlock = { };
           };
+        };
+      }
+
+      {
+        polkit = {
+          enable = true;
         };
         pki = {
           certificates = [
@@ -51,15 +50,8 @@
           ];
         };
       }
-    ];
 
-    programs = {
-      # gpg agent with pinentry
-      gnupg.agent = {
-        pinentryPackage = pkgs.pinentry-qt;
-        settings.default-cache-ttl = 4 * 60 * 60; # 4 hours
-      };
-    };
+    ];
 
   };
 }

@@ -1,20 +1,11 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
 {
 
   config = lib.mkIf (config.profiles.desktop.enable) {
-
-    environment.systemPackages = with pkgs; [
-      # ddcutil
-      gparted
-    ];
-
-    # "i2c-dev"  显示器亮度
-    services.ddccontrol.enable = true;
 
     boot = {
 
@@ -37,14 +28,6 @@
 
         timeout = lib.mkDefault 10; # wait for x seconds to select the boot entry
       };
-    };
-
-    services = {
-      # for power management
-      power-profiles-daemon = {
-        enable = true;
-      };
-      upower.enable = true;
     };
 
     # https://dev.leiyanhui.com/nixos/kvm-qemu/

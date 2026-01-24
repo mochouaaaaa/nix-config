@@ -14,7 +14,6 @@ in
     profiles.display-manager.gdm.enable = true;
 
     services = {
-      udisks2.enable = true;
       xserver = {
         xkb.layout = "us";
       };

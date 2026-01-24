@@ -29,7 +29,8 @@ in
         settings = rec {
           terminal.vt = 1;
           default_session = {
-            command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${cfg.command}";
+            # command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${cfg.command}";
+            command = "${cfg.command}";
             user = username;
           };
           initial_session = default_session;

@@ -2,7 +2,6 @@
   lib,
   config,
   inputs,
-  username,
   ...
 }:
 let
@@ -45,7 +44,6 @@ in
                   systemd.enable = lib.mkForce (!cfghyprland.withUWSM);
                 };
 
-                # FIX: Path=/org/freedesktop/portal/desktop  Interface=org.freedesktop.portal.NetworkMonitor
                 xdg.portal.extraPortals = [ cfghyprland.portalPackage ];
               }
 
