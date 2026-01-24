@@ -17,6 +17,7 @@
     nixvim = {
       enable = true;
       defaultEditor = true;
+      nixpkgs.pkgs = pkgs;
       globals = {
         IS_NIX = true;
       };
@@ -47,7 +48,6 @@
         lua51Packages.luarocks
       ];
       extraPython3Packages = ps: [
-        ps.debugpy
         ps.pynvim
       ];
       withNodeJs = true;

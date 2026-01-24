@@ -18,49 +18,45 @@
         };
         grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           regex
-          #
+
           # # git
           git_rebase
           gitignore
           gitcommit
           gitattributes
           git_config
-          #
+
           # # base
           bash
           diff
-          comment
-          vim
           dockerfile
-          #
+
           # # sql
           sql
-          graphql
-          #
-          # # c
+
+          # c
           c
           cpp
           cmake
           qmljs
-          #
+
           # # lua
           lua
-          luap
-          #
+
           # # golang
           go
           gomod
           gosum
           gowork
-          #
+
           # # python
           python
           htmldjango
-          #
-          # # rust
+
+          # rust
           rust
-          #
-          # # javascript
+
+          # javascript
           javascript
           typescript
           tsx
@@ -69,17 +65,18 @@
           css
           html
           astro
-          #
-          # # markdown
+
+          # markdown
           markdown
           markdown_inline
           latex
-          #
-          # # filetype
+
+          # filetype
           yaml
           json
           json5
-          jsonc
+
+          # jsonc
           toml
           xml
           ini

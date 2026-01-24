@@ -27,7 +27,7 @@ in
   programs = rec {
     yazi = {
       enable = true;
-      package = (pkgs.yazi.override { extraPackages = yaziRuntimeDeps; });
+      extraPackages = yaziRuntimeDeps;
       enableZshIntegration = false;
       enableBashIntegration = false;
       enableFishIntegration = false;
