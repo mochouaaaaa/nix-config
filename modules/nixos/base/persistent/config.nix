@@ -24,11 +24,8 @@ in
       preserveAt."/nix/persistence" = {
 
         directories = [
-          "/etc/NetworkManager/system-connections"
-          "/etc/ssh"
           "/var/lib/sbctl" # lanzaboote - secure boot
-
-          "/var/log"
+          # "/var/log"
 
           # system-core
           "/var/lib/nixos"
@@ -51,6 +48,10 @@ in
           "/var/lib/bluetooth"
           "/var/lib/NetworkManager"
           "/var/lib/iwd"
+        ]
+        ++ lib.optionals (!config.system.etc.overlay.enable) [
+          "/etc/NetworkManager/system-connections"
+          "/etc/ssh"
         ]
         ++ cfg.osDirectories;
 
@@ -81,6 +82,7 @@ in
             # ======================================
             "Code"
             "nix"
+            ".ollama"
             ".config/dotfile"
             ".config/env"
             ".local/share/direnv"
@@ -133,7 +135,6 @@ in
               directory = ".pki";
               mode = "0700";
             }
-            ".local/share/keyrings"
 
             # ======================================
             # Misc
@@ -181,7 +182,7 @@ in
         "/home/${username}/.local/share".d = permission;
         "/home/${username}/.local/state".d = permission;
         "/home/${username}/.local/state/nix".d = permission;
-        "/home/${username}/.terraform.d".d = permission;
+        # "/home/${username}/.terraform.d".d = permission;
       };
 
     # systemd-machine-id-commit.service would fail but it is not relevant
@@ -193,11 +194,10 @@ in
     # let the service commit the transient ID to the persistent volume
     systemd.services.systemd-machine-id-commit = {
       unitConfig.ConditionPathIsMountPoint = [
-        "/persistent/etc/machine-id"
+        "/nix/persistence/etc/machine-id"
       ];
       serviceConfig.ExecStart = [
-        ""
-        "systemd-machine-id-setup --commit --root /persistent"
+        "systemd-machine-id-setup --commit --root /nix/persistence"
       ];
     };
 

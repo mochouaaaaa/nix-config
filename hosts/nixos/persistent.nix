@@ -58,10 +58,6 @@ in
       ];
     };
 
-    networking.useDHCP = lib.mkForce false;
-    # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
-    networking.interfaces.wlp5s0.useDHCP = lib.mkForce true;
-
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   };
 }
