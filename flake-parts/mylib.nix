@@ -6,18 +6,24 @@
 }:
 let
 
-  mkForceRecursive =
-    attrset:
+  recursiveField =
+    attrset: fn:
     lib.mapAttrs (
       name: value:
-      if lib.isAttrs value && !lib.isDerivation value then mkForceRecursive value else lib.mkForce value
+      if lib.isAttrs value && !lib.isDerivation value then recursiveField value fn else fn value
     ) attrset;
+
+  # mkForceRecursive
+  mkForceRecursive = attrset: recursiveField attrset lib.mkForce;
+
+  # mkDefaultRecursive
+  mkDefaultRecursive = attrset: recursiveField attrset lib.mkDefault;
 
 in
 {
 
   flake.overlays.lib = final: prev: {
-    inherit mkForceRecursive;
+    inherit mkForceRecursive mkDefaultRecursive;
   };
 
   perSystem._module.args = {

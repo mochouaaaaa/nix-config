@@ -80,37 +80,40 @@ let
             ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
               home-manager.darwinModules.home-manager
               {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "home-manager.backup";
-                home-manager.sharedModules = [
-                  self.homeModules.shared
-                ];
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "home-manager.backup";
+                  overwriteBackup = true;
+                  sharedModules = [
+                    self.homeModules.shared
+                  ];
 
-                home-manager.extraSpecialArgs = specialArgs // {
-                  pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
-                    overlays = [ self.overlays.home-manager ];
+                  extraSpecialArgs = specialArgs // {
+                    pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
+                      overlays = [ self.overlays.home-manager ];
+                    };
+                    pkgs-stable = ctx.extraModuleArgs.pkgs-os;
+                    isNixos = false;
+                    nixosSystemName = "${username}@nixos";
+                    isNixDarwin = true;
+                    nixDarwinSystemName = name;
+                    homeManagerName = name;
                   };
-                  pkgs-stable = ctx.extraModuleArgs.pkgs-os;
-                  isNixos = false;
-                  nixosSystemName = "${username}@nixos";
-                  isNixDarwin = true;
-                  nixDarwinSystemName = name;
-                  homeManagerName = name;
-                };
-                home-manager.users."${username}" = {
-                  imports = config.homeModules;
-                  nix = (
-                    removeAttrs ctx.nix [
-                      "channel"
-                      "gc"
-                    ]
-                  );
-                  home = {
-                    enableNixpkgsReleaseCheck = false;
-                    inherit username;
-                    stateVersion = "24.11";
-                    homeDirectory = "/Users/${username}";
+                  users."${username}" = {
+                    imports = config.homeModules;
+                    nix = (
+                      removeAttrs ctx.nix [
+                        "channel"
+                        "gc"
+                      ]
+                    );
+                    home = {
+                      enableNixpkgsReleaseCheck = false;
+                      inherit username;
+                      stateVersion = "24.11";
+                      homeDirectory = "/Users/${username}";
+                    };
                   };
                 };
               }

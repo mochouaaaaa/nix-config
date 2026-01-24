@@ -32,8 +32,6 @@ let
           type = types.listOf types.unspecified;
           description = "List of NixOS modules to include in the configuration.";
           default = [
-            inputs.preservation.nixosModules.default
-
             self.nixosModules.shared
             self.nixosModules.secrets
           ];
@@ -70,8 +68,8 @@ let
           };
 
         in
-        # inputs.nixpkgs-os.lib.nixosSystem {
-        inputs.nixpkgs.lib.nixosSystem {
+        inputs.nixpkgs-os.lib.nixosSystem {
+          # inputs.nixpkgs.lib.nixosSystem {
           inherit specialArgs;
 
           modules = [
@@ -82,41 +80,44 @@ let
           ++ (lib.optionals ((lib.lists.length config.homeModules) > 0) [
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = false;
-              home-manager.backupFileExtension = "home-manager.backup";
-              home-manager.sharedModules = [
-                self.homeModules.shared
-              ];
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = false;
+                backupFileExtension = "home-manager.backup";
+                overwriteBackup = true;
+                sharedModules = [
+                  self.homeModules.shared
+                ];
 
-              home-manager.extraSpecialArgs = specialArgs // {
+                extraSpecialArgs = specialArgs // {
 
-                pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
-                  overlays = [ self.overlays.home-manager ];
+                  pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
+                    overlays = [ self.overlays.home-manager ];
+                  };
+                  pkgs-stable = ctx.extraModuleArgs.pkgs-os;
+
+                  isNixos = true;
+                  nixosSystemName = name;
+                  isNixDarwin = false;
+                  nixDarwinSystemName = "${username}@darwin";
+                  homeManagerName = name;
                 };
-                pkgs-stable = ctx.extraModuleArgs.pkgs-os;
 
-                isNixos = true;
-                nixosSystemName = name;
-                isNixDarwin = false;
-                nixDarwinSystemName = "${username}@darwin";
-                homeManagerName = name;
-              };
+                users."${username}" = {
+                  imports = config.homeModules;
+                  nix = (
+                    removeAttrs ctx.nix [
+                      "channel"
+                      "gc"
+                    ]
+                  );
 
-              home-manager.users."${username}" = {
-                imports = config.homeModules;
-                nix = (
-                  removeAttrs ctx.nix [
-                    "channel"
-                    "gc"
-                  ]
-                );
-
-                home = {
-                  enableNixpkgsReleaseCheck = false;
-                  inherit username;
-                  inherit (opts.config) stateVersion;
-                  homeDirectory = "/home/${username}";
+                  home = {
+                    enableNixpkgsReleaseCheck = false;
+                    inherit username;
+                    inherit (opts.config) stateVersion;
+                    homeDirectory = "/home/${username}";
+                  };
                 };
               };
             }
