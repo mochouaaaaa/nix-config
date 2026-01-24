@@ -25,8 +25,15 @@ in
         else
           [ "/etc/ssh/ssh_host_ed25519_key" ];
 
+      secretsDir = "/var/agenix";
+      secretsMountPoint = "/var/agenix.d";
       secrets = {
-
+        home_wifi_pwd = {
+          file = ./home_wifi_pwd.age;
+        };
+        next_dns_server = {
+          file = ./next_dns_server.env;
+        };
       };
     };
 
