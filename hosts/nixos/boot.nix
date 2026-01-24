@@ -62,6 +62,13 @@ in
                   }
         '';
       };
+      limine = {
+        extraEntries = ''
+          /Windows
+            protocol: efi
+            path: uuid(d3e7ba79-ce08-4f78-bf4f-8c28d41ee039):/EFI/Microsoft/Boot/bootmgfw.efi
+        '';
+      };
       efi = {
         canTouchEfiVariables = if vmwareMode then false else true;
         efiSysMountPoint = "/boot";

@@ -24,8 +24,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    blender-hip
     clinfo
+    pkgsRocm.blender
   ];
 
   systemd.tmpfiles.rules = [

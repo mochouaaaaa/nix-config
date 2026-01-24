@@ -14,6 +14,7 @@ let
           };
         };
         packages = {
+          ollama.enable = true;
           firefox.enable = true;
           google-chrome.enable = true;
 
@@ -80,8 +81,10 @@ in
                 qemu.enable = true;
                 docker.enable = true;
               };
+              services = {
+                database-suite.enable = false;
+              };
               packages = {
-                database-suite.enable = true;
                 steam = {
                   enable = true;
                 };
