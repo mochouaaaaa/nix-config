@@ -6,12 +6,12 @@
   ...
 }:
 let
-  cfg = config.profiles.packages.database-suite;
+  cfg = config.profiles.services.database-suite;
 
   user = "${username}";
 in
 {
-  options.profiles.packages.database-suite = {
+  options.profiles.services.database-suite = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

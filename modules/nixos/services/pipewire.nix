@@ -86,9 +86,6 @@
       };
     };
 
-    services.touchegg = {
-      enable = true;
-    };
     #============================= Bluetooth =============================
     #  systemctl --user daemon-reload
     # systemctl --user restart pulseaudio
