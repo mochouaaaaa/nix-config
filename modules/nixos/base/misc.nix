@@ -17,27 +17,11 @@ in
     execWheelOnly = true;
   };
 
-  environment.variables = {
-    # fix https://github.com/NixOS/nixpkgs/issues/238025
-    TZ = "${config.time.timeZone}";
-  };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages =
-    with pkgs;
-    lib.optionals (!isWsl) [
-      ntfs3g
-    ];
-
-  services = {
-    envfs.enable = true;
-  }
-  // lib.mkIf (!isWsl) {
-    resolved.enable = true; # DNS resolver
-    gvfs.enable = true; # Mount, trash, and other functionalities
-    tumbler.enable = true; # Thumbnail support for images
-  };
+  environment.systemPackages = lib.optionals (!isWsl) [
+    pkgs.ntfs3g
+  ];
 
   programs = {
     # dconf is a low-level configuration system.

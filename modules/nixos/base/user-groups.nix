@@ -22,6 +22,10 @@
     uinput = { };
   };
 
+  services.userborn = {
+    enable = true;
+  };
+
   users.users."${username}" = {
     inherit (myvars) initialHashedPassword;
 
