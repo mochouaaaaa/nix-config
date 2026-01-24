@@ -34,15 +34,13 @@ in
       services.vicinae.enable = true;
 
       programs.noctalia-shell = {
-        settings = rec {
-          templates.hyprland = lib.mkForce true;
+        settings = lib.mkForceRecursive rec {
           ui = {
-            # panelBackgroundOpacity = lib.mkForce 0.44;
-            panelBackgroundOpacity = lib.mkForce 0.62;
+            panelBackgroundOpacity = 0.62;
           };
           appLauncher = {
             backgroundOpacity = ui.panelBackgroundOpacity;
-            customLaunchPrefix = lib.mkForce "hyprctl dispatch exec ";
+            customLaunchPrefix = "hyprctl dispatch exec ";
           };
           bar = {
             backgroundOpacity = ui.panelBackgroundOpacity;
@@ -58,7 +56,7 @@ in
             powerOptions = [
               {
                 action = "reboot";
-                command = ''hyprshutdown -p "reboot"'';
+                command = ''hyprshutdown -p reboot'';
                 enabled = true;
               }
               {
@@ -68,7 +66,7 @@ in
               }
               {
                 action = "shutdown";
-                command = ''hyprshutdown -p "poweroff"'';
+                command = ''hyprshutdown -p poweroff'';
                 enabled = true;
               }
             ];
@@ -128,12 +126,9 @@ in
     (mkIf (cfgDesktop.niri.enable) {
 
       services.vicinae.enable = true;
-      programs.noctalia-shell.settings = {
+      programs.noctalia-shell.settings = lib.mkForceRecursive {
         general = {
           showScreenCorners = false;
-        };
-        templates = {
-          niri = lib.mkForce true;
         };
         bar = {
           outerCorners = false;

@@ -5,13 +5,13 @@
   ...
 }:
 let
-  cfg = config.programs.dankMaterialShell;
+  cfg = config.programs.dank-material-shell;
 in
 {
 
   config = lib.mkIf cfg.enable {
 
-    programs.dankMaterialShell = {
+    programs.dank-material-shell = {
       default.settings = {
         currentThemeName = "dynamic";
         customThemeFile = "";

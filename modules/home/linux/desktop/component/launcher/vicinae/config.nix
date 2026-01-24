@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  themeNameWithMode,
   ...
 }:
 let
@@ -53,19 +54,17 @@ in
         font = {
           normal = {
             size = 12;
-            normal = "${config.profiles.fonts.default}";
+            family = "${config.profiles.fonts.default}";
           };
         };
         theme = {
           light = {
             name = "vicinae-light";
-            # icon_theme = "${config.profiles.themes.gtkTheme.icon.name} ${config.profiles.themes.gtkTheme.icon.light}";
-            icon_theme = "default";
+            icon_theme = "${themeNameWithMode config.profiles.themes.gtkTheme.icon.name config.profiles.themes.gtkTheme.icon.light}";
           };
           dark = {
             name = "vicinae-dark";
-            # icon_theme = "${config.profiles.themes.gtkTheme.icon.name} ${config.profiles.themes.gtkTheme.icon.dark}";
-            icon_theme = "default";
+            icon_theme = "${themeNameWithMode config.profiles.themes.gtkTheme.icon.name config.profiles.themes.gtkTheme.icon.dark}";
           };
         };
         launcher_window = {

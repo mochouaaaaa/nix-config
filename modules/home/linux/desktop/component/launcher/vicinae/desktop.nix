@@ -14,12 +14,15 @@ in
     (mkIf (cfgDesktop.hyprland.enable) {
 
       wayland.windowManager.hyprland = {
-        settings = {
-          layerrule = [
-            "blur on, match:namespace vicinae"
-            "ignore_alpha 0, match:namespace vicinae"
-          ];
-        };
+        extraConfig = ''
+          layerrule {
+              name = vicinae
+              match:namespace = vicinae
+
+              blur = on
+              ignore_alpha = 0
+          }
+        '';
       };
 
     })

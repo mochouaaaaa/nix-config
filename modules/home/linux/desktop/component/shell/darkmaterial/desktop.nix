@@ -6,12 +6,12 @@
 }:
 with lib;
 let
-  cfg = config.programs.dankMaterialShell;
+  cfg = config.programs.dank-material-shell;
   cfgDesktop = config.profiles.desktop;
 in
 {
   imports = [
-    inputs.DankMaterialShell.homeModules.dankMaterialShell.niri
+    inputs.DankMaterialShell.homeModules.niri
   ];
 
   config = mkIf (cfg.enable) (
@@ -108,7 +108,7 @@ in
 
         services.vicinae.enable = true;
 
-        programs.dankMaterialShell = {
+        programs.dank-material-shell = {
           default.settings = lib.mkForce {
             dankBarGothCornersEnabled = false;
           };

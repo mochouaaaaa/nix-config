@@ -10,7 +10,7 @@ let
 in
 {
   imports = [
-    inputs.DankMaterialShell.homeModules.dankMaterialShell.default
+    inputs.DankMaterialShell.homeModules.dank-material-shell
   ];
 
   options.profiles.desktop.shell.dankMaterialShell = {
@@ -23,7 +23,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    programs.dankMaterialShell = {
+    programs.dank-material-shell = {
       enable = true;
       systemd.enable = true;
     };

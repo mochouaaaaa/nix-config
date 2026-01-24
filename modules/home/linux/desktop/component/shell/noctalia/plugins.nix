@@ -12,11 +12,6 @@ in
 
   config = lib.mkIf (cfg.enable) {
 
-    home.packages = [
-      pkgs.gpu-screen-recorder
-      pkgs.todoist
-    ];
-
     programs.noctalia-shell = {
       plugins = {
         sources = [
@@ -36,7 +31,7 @@ in
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
           todo = {
-            enabled = true;
+            enabled = false;
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
         };
@@ -64,5 +59,14 @@ in
       };
 
     };
+
+    home.packages =
+      lib.optionals (cfg.plugins.states.screen-recorder.enabled) [
+        pkgs.gpu-screen-recorder
+      ]
+      ++ lib.optionals (cfg.plugins.states.todo.enabled) [
+        pkgs.todoist
+      ];
+
   };
 }
