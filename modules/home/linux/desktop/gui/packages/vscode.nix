@@ -6,33 +6,35 @@
 }:
 let
   desktopCfg = config.profiles.desktop;
-
-  # Dynamically determine the correct password store based on the active DE.
-  passwordStore =
-    if desktopCfg.kde.enable then
-      "kde"
-    # GNOME, Hyprland, and Niri all use gnome-keyring in this config.
-    else if (desktopCfg.gnome.enable || desktopCfg.hyprland.enable || desktopCfg.niri.enable) then
-      "gnome-libsecret"
-    # A sensible fallback if no specific DE is matched.
-    else
-      "basic";
-
-  # Consolidate all command line arguments here.
-  vscodeArgs = [
-    "--ozone-platform-hint=auto"
-    "--enable-features=UseOzonePlatform"
-    "--enable-wayland-ime"
-    "--gtk-version=4"
-    "--password-store=${passwordStore}"
-  ];
 in
 {
+
+  options.profiles.packages.vscode = {
+    passwordStore = lib.mkOption {
+      type = lib.types.str;
+      default =
+        if desktopCfg.kde.enable then
+          "kde"
+        # GNOME, Hyprland, and Niri all use gnome-keyring in this config.
+        else if (desktopCfg.gnome.enable || desktopCfg.hyprland.enable || desktopCfg.niri.enable) then
+          "gnome-libsecret"
+        # A sensible fallback if no specific DE is matched.
+        else
+          "basic";
+    };
+  };
+
   config = lib.mkIf (config.programs.vscode.enable && desktopCfg.enable) {
 
     programs.vscode = {
       package = pkgs.vscode.override {
-        commandLineArgs = vscodeArgs;
+        commandLineArgs = [
+          "--ozone-platform-hint=auto"
+          "--enable-features=UseOzonePlatform"
+          "--enable-wayland-ime"
+          "--gtk-version=4"
+          "--password-store=${config.profiles.packages.vscode.passwordStore}"
+        ];
       };
       profiles.default = {
         userSettings = {

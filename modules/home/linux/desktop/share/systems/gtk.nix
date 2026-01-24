@@ -42,6 +42,7 @@ in
     #   2. ~/.config/gtk-3.0/settings.ini
     #   3. ~/.config/gtk-4.0/settings.ini
 
+    home.preferXdgDirectories = true;
     # 当不使用gtk时需要设置
     home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
     gtk = {

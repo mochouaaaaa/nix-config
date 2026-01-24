@@ -49,9 +49,7 @@ in
       {
         home.packages =
           with pkgs;
-          [
-          ]
-          ++ lib.optionals cfg.matrix.enable [
+          lib.optionals cfg.matrix.enable [
             # element-desktop
             fractal
             # fluffychat

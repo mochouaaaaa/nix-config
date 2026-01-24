@@ -8,11 +8,13 @@ let
   cfg = config.profiles.desktop;
   cfgTheme = config.profiles.themes.gtkTheme;
 
-  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
+  nameWithMode = name: mode: name + lib.optionalString (mode != "") "-${mode}";
 
+  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
   switch-gtk2-config = pkgs.writeShellScriptBin "switch-gtk2-config" ''
 
-    cat > $HOME/.gtkrc-2.0 << EOF         
+    mkdir -p "$(dirname ${config.gtk.gtk2.configLocation})"
+    cat > ${config.gtk.gtk2.configLocation} << EOF         
     gtk-enable-animations=1
     gtk-theme-name="$1"
     gtk-primary-button-warps-slider=1
@@ -73,17 +75,13 @@ let
     fi
 
     declare -A GTK_THEME_MAP=(
-        [light]="${cfgTheme.name}${if cfgTheme.light != "" then "-${cfgTheme.light}" else ""}"
-        [dark]="${cfgTheme.name}${if cfgTheme.dark != "" then "-${cfgTheme.dark}" else ""}"
+        [light]="${nameWithMode cfgTheme.name cfgTheme.light}"
+        [dark]="${nameWithMode cfgTheme.name cfgTheme.dark}"
     )
 
     declare -A GTK_ICON_MAP=(
-        [light]="${cfgTheme.icon.name}${
-          if cfgTheme.icon.light != "" then "-${cfgTheme.icon.light}" else ""
-        }"
-        [dark]="${cfgTheme.icon.name}${
-          if cfgTheme.icon.dark != "" then "-${cfgTheme.icon.dark}" else ""
-        }"
+        [light]="${nameWithMode cfgTheme.icon.name cfgTheme.icon.light}"
+        [dark]="${nameWithMode cfgTheme.icon.name cfgTheme.icon.dark}"
     )
 
     gtk_theme_name="''${GTK_THEME_MAP[$mode]}"
@@ -144,21 +142,7 @@ in
         };
         package = lib.mkOption {
           type = lib.types.package;
-          # default = pkgs.colloid-icon-theme;
-          default = pkgs.colloid-icon-theme.overrideAttrs (oldAttrs: {
-            version = "2025-07-19";
-            src = pkgs.fetchFromGitHub {
-              owner = "vinceliuice";
-              repo = "colloid-icon-theme";
-              tag = "2025-07-19";
-              hash = "sha256-CzFEMY3oJE3sHdIMQQi9qizG8jKo72gR8FlVK0w0p74=";
-            };
-            dontWrapQtApps = true;
-            propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ pkgs.kdePackages.breeze ];
-            postInstall = (oldAttrs.postInstall or "") + ''
-              rm -f $out/share/icons/Colloid-Light/apps/scalable/io.github.vinegarhq.Vinegar.studio.svg
-            '';
-          });
+          default = pkgs.colloid-icon-theme;
           description = "Icon theme package.";
         };
         dark = dark;
@@ -184,6 +168,8 @@ in
   };
 
   config = lib.mkIf (cfg.gnome.enable || cfg.hyprland.enable || cfg.niri.enable) {
+
+    _module.args.themeNameWithMode = nameWithMode;
 
     profiles.themes.gtkTheme = {
       name = "adw-gtk3";
