@@ -95,7 +95,6 @@ in
         # General purpose fonts from former os/fonts.nix
         noto-fonts
         noto-fonts-cjk-sans
-        noto-fonts-color-emoji
         source-sans
         source-serif
         source-han-sans
@@ -103,7 +102,10 @@ in
         mononoki
         dejavu_fonts
       ]
-      ++ lib.optionals (pkgs.stdenv.isLinux) [ fontconfig ]
+      ++ lib.optionals (pkgs.stdenv.isLinux) [
+        fontconfig
+        noto-fonts-color-emoji
+      ]
     );
   };
 }

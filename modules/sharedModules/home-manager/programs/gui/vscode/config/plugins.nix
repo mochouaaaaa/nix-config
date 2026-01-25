@@ -73,7 +73,7 @@ in
 
             # theme
             # Vogadero.auto-theme
-            vscode-icons-team.vscode-icons
+            # vscode-icons-team.vscode-icons
             zhuangtongfa.material-theme
 
             # shell

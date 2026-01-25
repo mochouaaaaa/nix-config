@@ -36,7 +36,7 @@ in
     };
 
     programs.firefox = {
-      package = pkgs-stable.firefox-bin;
+      package = pkgs.firefox-bin;
       profiles = {
         "${username}" = {
           isDefault = true;

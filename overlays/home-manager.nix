@@ -46,7 +46,7 @@ let
     (import ./pkgs/jetbrains/goland.nix)
     (import ./pkgs/jetbrains/clion.nix)
     (import ./pkgs/jetbrains/datagrip.nix)
-    (import ./pkgs/ty.nix)
+    # (import ./pkgs/ty.nix)
   ];
 in
 lib.composeManyExtensions overlays final prev

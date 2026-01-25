@@ -55,7 +55,7 @@
     gnumake
 
     # extra tools
-    clang
+    # clang
     cmake
     opencc
     ccache

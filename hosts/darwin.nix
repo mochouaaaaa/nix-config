@@ -39,12 +39,17 @@ in
 
           self.darwinModules.base
           {
-            profiles.packages = {
-              openvpn.enable = false;
-              tunnelblick.enable = true;
-              aerospace.enable = false;
-              database-suite.enable = false;
-              rustdesk.enable = true;
+            profiles = {
+              packages = {
+                openvpn.enable = false;
+                tunnelblick.enable = true;
+                aerospace.enable = false;
+
+                rustdesk.enable = true;
+              };
+              services = {
+                database-suite.enable = false;
+              };
             };
           }
 

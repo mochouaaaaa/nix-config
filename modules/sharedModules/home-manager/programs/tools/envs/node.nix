@@ -14,7 +14,7 @@ in
     home.packages = [
       pkgs.nodejs_22
       # (pkgs.gemini-cli.override { nodejs = pkgs.nodejs_22; })
-      pkgs.gemini-cli
+      pkgs.gemini-cli-bin
     ];
 
     programs = {

@@ -35,6 +35,9 @@
       # Incomplete list of macOS `defaults` commands :
       #   https://github.com/yannbertrand/macos-defaults
       CustomUserPreferences = {
+        "com.apple.dock" = {
+          ResetLaunchPad = true;
+        };
         ".GlobalPreferences" = {
           # automatically switch to a new space when switching to the application
           AppleSpacesSwitchOnActivate = true;

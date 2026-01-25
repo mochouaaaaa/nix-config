@@ -17,7 +17,8 @@ in
       luajitPackages.luacheck
 
       # c / c++
-      llvmPackages_18.clang-tools
+      # llvmPackages_20.clangUseLLVM
+      # llvmPackages_20.clang-tools
 
       # markdown
       marksman
