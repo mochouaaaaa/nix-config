@@ -50,7 +50,6 @@ in
 
             (buildVscodeMarketplaceExtension {
               mktplcRef = {
-                # redjue.git-commit-plugin
                 name = "git-commit-plugin";
                 publisher = "redjue";
                 version = "1.5.0";
@@ -64,8 +63,8 @@ in
               mktplcRef = {
                 name = "Fitten-Code";
                 publisher = "FittenTech";
-                version = "1.0.1";
-                hash = "sha256-ma1bsd9OQFCA8rESS9PNBwib8REO+VaWmCWiKM2yHHc=";
+                version = "1.0.3";
+                hash = "sha256-BPkCKefKVqTl4VF0/Dct52j2kz0K3bw3BuLOLMkkMII=";
               };
             })
 

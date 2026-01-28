@@ -132,7 +132,7 @@ in
 
             };
             search = {
-              default = "ddg";
+              default = "DuckDuckGo";
               force = true;
 
               engines = {

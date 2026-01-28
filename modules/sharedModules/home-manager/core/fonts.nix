@@ -91,6 +91,7 @@ in
         # Icon fonts
         font-awesome
         material-design-icons
+        nerd-fonts.symbols-only
 
         # General purpose fonts from former os/fonts.nix
         noto-fonts
