@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 let
@@ -13,7 +14,7 @@ in
     programs = {
       ty = {
         enable = true;
-        # package = pkgs.ty;
+        package = inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.ty;
       };
       ruff = {
         enable = true;

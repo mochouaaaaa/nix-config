@@ -132,10 +132,79 @@ in
 
             };
             search = {
-              default = "duckduckgo";
+              default = "ddg";
               force = true;
+
               engines = {
-                GitHub = {
+                "Nix Packages" = {
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/packages";
+                      params = [
+                        {
+                          name = "channel";
+                          value = "unstable";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  definedAliases = [ "@np" ];
+                };
+
+                "Nix Options" = {
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/options";
+                      params = [
+                        {
+                          name = "channel";
+                          value = "unstable";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  definedAliases = [ "@no" ];
+                };
+
+                "NixOS Wiki" = {
+                  urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
+                  iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+                  definedAliases = [ "@nw" ];
+                };
+
+                "NUR" = {
+                  urls = [
+                    {
+                      template = "https://nur.nix-community.org/";
+                      params = [
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "https://nur.nix-community.org/images/logonur.png";
+                  definedAliases = [ "@nur" ];
+                };
+
+                "Nixpkgs PRs" = {
+                  urls = [ { template = "https://nixpk.gs/pr-tracker.html?pr={searchTerms}"; } ];
+                  icon = "https://nixos.org/favicon.png";
+                  definedAliases = [ "@npr" ];
+                };
+
+                "GitHub" = {
                   urls = [
                     {
                       template = "https://github.com/search";
@@ -147,59 +216,29 @@ in
                       ];
                     }
                   ];
-                  definedAliases = [ "gh" ];
+                  definedAliases = [ "@gh" ];
                 };
-                nix-packages = {
+
+                "Google Translate" = {
                   urls = [
-                    {
-                      template = "https://search.nixos.org/packages";
-                      params = [
-                        {
-                          name = "type";
-                          value = "packages";
-                        }
-                        {
-                          name = "query";
-                          value = "{searchterms}";
-                        }
-                      ];
-                    }
+                    { template = "https://translate.google.com/?sl=auto&tl=zh-CN&text={searchTerms}&op=translate"; }
                   ];
-                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                  definedaliases = [ "@np" ];
+                  definedAliases = [ "@tr" ];
                 };
-                nixpkgs-prs = {
-                  urls = [ { template = "https://nixpk.gs/pr-tracker.html?pr={searchterms}"; } ];
-                  icon = "https://nixos.org/favicon.png";
-                  updateinterval = 24 * 60 * 60 * 1000; # every day
-                  definedaliases = [ "@npr" ];
-                };
-                nixos-wiki = {
-                  name = "NixOS Wiki";
-                  urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
-                  iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
-                  definedAliases = [ "@nw" ];
-                };
-                nix-nur = {
-                  urls = [
-                    {
-                      template = "https://nur.nix-community.org/";
-                      params = [
-                        {
-                          name = "query";
-                          value = "{searchterms}";
-                        }
-                      ];
-                    }
-                  ];
-                  icon = "https://nur.nix-community.org/images/logonur.png";
-                  updateinterval = 24 * 60 * 60 * 1000;
-                  definedaliases = [ "@nur" ];
-                };
-                bing.metadata.hidden = true;
-                duckduckgo.metadata.hidden = true;
-                amazonnl.metadata.hidden = true;
+
+                "baidu".metaData.hidden = true;
+                "wikipedia".metaData.hidden = true;
+                "bing".metaData.hidden = true;
+                "google".metaData.hidden = true; # 建议也把 Google 加上，防止它抢占默认
+                "amazondotcom-us".metaData.hidden = true;
+                "ebay".metaData.hidden = true;
               };
+              order = [
+                "DuckDuckGo"
+                "GitHub"
+                "Nix Packages"
+                "Nix Options"
+              ];
             };
           };
         };

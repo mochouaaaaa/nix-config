@@ -41,7 +41,7 @@ in
     foot = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = false;
+        default = pkgs.stdenv.isLinux;
         description = "Whether to enable foot.";
       };
     };
