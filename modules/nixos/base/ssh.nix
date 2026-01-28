@@ -17,7 +17,32 @@
 
   programs.ssh.startAgent = false;
 
-  # Add terminfo database of all known terminals to the system profile.
-  # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/nixos/modules/config/terminfo.nix
-  environment.enableAllTerminfo = lib.mkDefault true;
+  preservation.preserveAt."/nix/persistence" = {
+    files = [
+      {
+        file = "/etc/ssh/ssh_host_rsa_key";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+      {
+        file = "/etc/ssh/ssh_host_rsa_key.pub";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key.pub";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+    ];
+  };
 }

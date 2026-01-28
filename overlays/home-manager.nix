@@ -19,10 +19,6 @@ let
   overlays = [
 
     (final: prev: {
-      pot = prev.callPackage ./pkgs/pot.nix { };
-      jetbra-free = prev.callPackage ./pkgs/jetbra-free { };
-      colloid-gtk-theme = prev.callPackage ./pkgs/themes/colloid-gtk-theme.nix { };
-      # neovide = prev.callPackage ./pkgs/neovide.nix { };
       # nixpaks = {
       #      wechat-uos = wrapper prev ./pkgs/wechat-uos.nix;
       #    };
@@ -46,7 +42,6 @@ let
     (import ./pkgs/jetbrains/goland.nix)
     (import ./pkgs/jetbrains/clion.nix)
     (import ./pkgs/jetbrains/datagrip.nix)
-    # (import ./pkgs/ty.nix)
   ];
 in
 lib.composeManyExtensions overlays final prev

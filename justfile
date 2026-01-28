@@ -138,7 +138,7 @@ nixos-hyprland:
 [linux]
 [group('home-manager')]
 home-repl desktop="hyprland":
-    NIXPKGS_ALLOW_INSECURE=1 DESKTOP={{ desktop }} nix repl .
+    NIXPKGS_ALLOW_INSECURE=1 DESKTOP={{ desktop }} nix repl . --impure
 
 # switch hyprland desktop environment
 [linux]

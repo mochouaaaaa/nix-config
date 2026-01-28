@@ -15,7 +15,6 @@ in
       gnome = {
         gnome-keyring.enable = lib.mkForce true;
         gcr-ssh-agent.enable = lib.mkForce false;
-        evolution-data-server.enable = true;
       };
     };
 
