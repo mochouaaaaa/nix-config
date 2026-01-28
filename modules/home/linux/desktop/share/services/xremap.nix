@@ -44,7 +44,7 @@ in
         ];
         keymap =
           let
-            zen = {
+            base-keymap = {
               "SUPER-c" = "C-c";
               "SUPER-v" = "C-v";
               "SUPER-x" = "C-x";
@@ -61,8 +61,9 @@ in
                 "chromium"
                 "zen"
                 "zen-beta"
+                "io.github.kukuruzka165.materialgram"
               ];
-              remap = zen;
+              remap = base-keymap;
             }
             {
               name = "Firefox/Chromium Replace Super/Command With Ctrl";

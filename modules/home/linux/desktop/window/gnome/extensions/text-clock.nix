@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."text-clock";
+  cfg = config.profiles.desktop.gnome.extensions.text-clock;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

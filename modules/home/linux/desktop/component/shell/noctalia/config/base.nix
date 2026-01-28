@@ -101,10 +101,10 @@ in
         automationEnabled = false;
         wallpaperChangeMode = "random";
         randomIntervalSec = 300;
-        transitionDuration = 3000;
+        transitionDuration = 2500;
         transitionType = "random";
         transitionEdgeSmoothness = 0.15;
-        panelPosition = "center";
+        panelPosition = "top_center";
         hideWallpaperFilenames = false;
         useWallhaven = false;
         wallhavenQuery = "";
@@ -203,19 +203,19 @@ in
         powerOptions = [
           {
             action = "reboot";
-            command = "hyprshutdown -p reboot";
+            command = "";
             countdownEnabled = true;
             enabled = true;
           }
           {
             action = "logout";
-            command = "hyprshutdown";
+            command = "";
             countdownEnabled = true;
             enabled = true;
           }
           {
             action = "shutdown";
-            command = "hyprshutdown -p poweroff";
+            command = "";
             countdownEnabled = true;
             enabled = true;
           }
@@ -269,7 +269,7 @@ in
       };
       osd = {
         enabled = true;
-        location = "right";
+        location = "buttom";
         autoHideMs = 3000;
         overlayLayer = true;
         backgroundOpacity = lib.mkDefault 0.78;
@@ -333,10 +333,6 @@ in
           }
           {
             enabled = true;
-            id = "wezterm";
-          }
-          {
-            enabled = true;
             id = "pywalfox";
           }
           {
@@ -378,6 +374,12 @@ in
           {
             enabled = true;
             id = "niri";
+          }
+        ]
+        ++ lib.optionals config.programs.wezterm.enable [
+          {
+            enabled = true;
+            id = "wezterm";
           }
         ]
         ++ lib.optionals config.programs.ghostty.enable [

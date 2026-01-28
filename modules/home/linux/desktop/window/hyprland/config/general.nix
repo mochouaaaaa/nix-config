@@ -12,17 +12,17 @@ in
       settings = {
 
         general = {
-          layout = "dwindle";
+          layout = "master"; # "dwindle"
 
           allow_tearing = false; # Allows `immediate` window rule to work
 
           gaps_workspaces = 8;
           gaps_in = 3;
           gaps_out = 3;
-          border_size = 2;
+          border_size = 0;
 
-          "col.active_border" = "0xFFFF0000 0xFF00FFFF 45deg";
-          "col.inactive_border" = "rgba(255,255,255,0.15)";
+          "col.active_border" = "0x00000000";
+          "col.inactive_border" = "0x00000000";
         };
 
         dwindle = {

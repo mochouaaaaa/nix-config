@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."logo-menu";
+  cfg = config.profiles.desktop.gnome.extensions.logo-menu;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

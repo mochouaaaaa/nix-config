@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."auto-move-windows";
+  cfg = config.profiles.desktop.gnome.extensions.auto-move-windows;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

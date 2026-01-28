@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."dash-to-dock";
+  cfg = config.profiles.desktop.gnome.extensions.dash-to-dock;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

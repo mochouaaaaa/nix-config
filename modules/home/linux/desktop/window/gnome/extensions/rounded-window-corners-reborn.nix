@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."rounded-window-corners-reborn";
+  cfg = config.profiles.desktop.gnome.extensions.rounded-window-corners-reborn;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

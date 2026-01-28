@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."blur-my-shell";
+  cfg = config.profiles.desktop.gnome.extensions.blur-my-shell;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

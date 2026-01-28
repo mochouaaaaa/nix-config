@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."user-themes";
+  cfg = config.profiles.desktop.gnome.extensions.user-themes;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

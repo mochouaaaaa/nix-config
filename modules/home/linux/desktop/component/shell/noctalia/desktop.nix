@@ -56,7 +56,7 @@ in
             powerOptions = [
               {
                 action = "reboot";
-                command = ''hyprshutdown -p reboot'';
+                command = "hyprshutdown -p reboot";
                 enabled = true;
               }
               {
@@ -66,7 +66,7 @@ in
               }
               {
                 action = "shutdown";
-                command = ''hyprshutdown -p poweroff'';
+                command = "hyprshutdown -p poweroff";
                 enabled = true;
               }
             ];
@@ -76,9 +76,9 @@ in
       };
 
       wayland.windowManager.hyprland = {
-        extraConfig = lib.mkOrder 2000 ''
-          source = noctalia/noctalia-colors.conf
-        '';
+        # extraConfig = lib.mkOrder 2000 ''
+        #   source = noctalia/noctalia-colors.conf
+        # '';
         settings = {
           "$windowOpacity" = lib.mkForce 0.88;
           decoration = lib.mkForceRecursive {

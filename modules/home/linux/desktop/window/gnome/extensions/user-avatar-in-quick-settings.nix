@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."user-avatar-in-quick-settings";
+  cfg = config.profiles.desktop.gnome.extensions.user-avatar-in-quick-settings;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

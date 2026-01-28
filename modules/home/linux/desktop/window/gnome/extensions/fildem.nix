@@ -41,7 +41,7 @@ let
 
     buildPhase = ''
       runHook preBuild
-        find . -exec touch -d "2000-01-01" {} +
+      find . -exec touch -d "2000-01-01" {} +
       python3 setup.py install --optimize=1 --prefix=$out
       runHook postBuild
     '';

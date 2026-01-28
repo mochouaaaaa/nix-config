@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."burn-my-windows";
+  cfg = config.profiles.desktop.gnome.extensions.burn-my-windows;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

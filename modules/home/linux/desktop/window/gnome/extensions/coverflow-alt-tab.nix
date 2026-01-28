@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."coverflow-alt-tab";
+  cfg = config.profiles.desktop.gnome.extensions.coverflow-alt-tab;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

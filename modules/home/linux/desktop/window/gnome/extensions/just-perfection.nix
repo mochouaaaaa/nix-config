@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."just-perfection";
+  cfg = config.profiles.desktop.gnome.extensions.just-perfection;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

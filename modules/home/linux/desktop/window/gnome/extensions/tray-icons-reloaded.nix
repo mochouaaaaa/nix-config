@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."tray-icons-reloaded";
+  cfg = config.profiles.desktop.gnome.extensions.tray-icons-reloaded;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {

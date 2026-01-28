@@ -6,7 +6,7 @@
 }:
 let
   cfgGnome = config.profiles.desktop.gnome;
-  cfg = config.profiles.desktop.gnome.extensions."clipboard-indicator";
+  cfg = config.profiles.desktop.gnome.extensions.clipboard-indicator;
 in
 {
   config = lib.mkIf (cfgGnome.enable && cfg) {
