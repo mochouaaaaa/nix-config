@@ -74,6 +74,7 @@ in
 
           {
             profiles = {
+              i18n.locale = "en_US";
               network.proxy.sparkle.enable = true;
               virtual = {
                 virtualbox.enable = false;
