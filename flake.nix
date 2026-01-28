@@ -8,21 +8,23 @@
   # for more information, see:
   #     https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
   nixConfig = {
-    trusted-substituters = [
+    extra-substituters = [
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
       "https://nix-mirror.freetls.fastly.net?priority=11"
       "https://cache.nixos.org?priority=12"
       "https://nix-community.cachix.org?priority=13"
       "https://niri.cachix.org"
       "https://hyprland.cachix.org"
+      "https://mochouaaaaa.cachix.org"
     ];
 
-    trusted-public-keys = [
+    extra-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "mochouaaaaa.cachix.org-1:/enIIKfFu959KLIDs0OOHBd9EjnMt53b62Jr2oatV34="
     ];
   };
 
@@ -38,6 +40,11 @@
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    mochou_nur = {
+      url = "github:mochouaaaaa/nur-packages";
+      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs25-05.url = "github:nixos/nixpkgs/nixos-25.05";
     };
 
     # for macos
@@ -124,8 +131,8 @@
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      url = "/home/mochou/.config/quickshell/noctalia-shell";
-      # url = "github:noctalia-dev/noctalia-shell?ref=v4.2.1";
+      url = "/home/mochou/Code/Projects/c/noctalia-shell";
+      # url = "github:noctalia-dev/noctalia-shell?ref=v4.2.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     DankMaterialShell = {
