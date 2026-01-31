@@ -1,4 +1,6 @@
 {
+  pkgs,
+  lib,
   config,
   username,
   myvars,
@@ -24,6 +26,7 @@
 
   services.userborn = {
     enable = true;
+    passwordFilesLocation = "/var/lib/nixos";
   };
 
   users.users."${username}" = {
@@ -51,4 +54,24 @@
     inherit (myvars) initialHashedPassword;
     openssh.authorizedKeys.keys = config.users.users."${username}".openssh.authorizedKeys.keys;
   };
+
+  environment.etc =
+    let
+      autosubs = lib.pipe config.users.users [
+        lib.attrValues
+        (lib.filter (u: u.uid != null && u.isNormalUser))
+        (lib.concatMapStrings (u: "${toString u.uid}:${toString (100000 + u.uid * 65536)}:65536\n"))
+      ];
+    in
+    lib.optionalAttrs (config.services.userborn.enable) {
+      "subuid" = {
+        text = autosubs;
+        mode = "0444";
+      };
+      "subgid" = {
+        text = autosubs;
+        mode = "0444";
+      };
+    };
+
 }

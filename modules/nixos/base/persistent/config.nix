@@ -28,7 +28,10 @@ in
           # "/var/log"
 
           # system-core
-          "/var/lib/nixos"
+          {
+            directory = "/var/lib/nixos";
+            inInitrd = true;
+          }
           "/var/lib/systemd"
 
           # containers

@@ -19,7 +19,10 @@
         enable = true;
         maxGenerations = 10;
         resolution = "1920x1080";
-        style.interface.resolution = "1920x1080";
+        style = {
+          wallpapers = lib.mkForce [ ];
+          interface.resolution = "1920x1080";
+        };
         extraConfig = ''
           timeout: 15
           graphics: yes

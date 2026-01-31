@@ -27,6 +27,7 @@ in
         libadwaita
         gsettings-desktop-schemas
         glib
+        mission-center
       ];
       sessionVariables = {
         ADW_DISABLE_PORTAL = 1;
@@ -34,7 +35,10 @@ in
     };
 
     services = {
-      dbus.packages = [ pkgs.turtle ];
+      dbus.packages = [
+        pkgs.turtle
+        pkgs.mission-center
+      ];
       gnome = {
         sushi.enable = true;
         gnome-settings-daemon.enable = true;

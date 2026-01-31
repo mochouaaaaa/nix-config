@@ -6,10 +6,13 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    # "i2c-dev"  显示器亮度
-    services.ddccontrol.enable = true;
-
     services = {
+      dbus.implementation = "broker";
+      sysprof.enable = true;
+
+      # "i2c-dev"  显示器亮度
+      ddccontrol.enable = true;
+
       touchegg = {
         enable = false;
       };
