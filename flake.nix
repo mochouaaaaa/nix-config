@@ -10,7 +10,7 @@
   nixConfig = {
     extra-substituters = [
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
-      "https://nix-mirror.freetls.fastly.net?priority=11"
+      # "https://nix-mirror.freetls.fastly.net?priority=11"
       "https://cache.nixos.org?priority=12"
       "https://nix-community.cachix.org?priority=13"
       "https://niri.cachix.org"

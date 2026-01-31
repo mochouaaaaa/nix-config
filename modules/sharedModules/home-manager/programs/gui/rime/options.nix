@@ -37,7 +37,7 @@ let
 
       # 写入自定义文件（如果有）
       ${pkgs.lib.concatStringsSep "\n" (
-        map (file: "ln -s ${file} $out/share/rime-data/${file.name}") cfg.extraFiles
+        map (file: "ln -s ${file} $out/share/rime-data/${file.name}") cfg._extraFiles
       )}
     '';
   };
@@ -61,13 +61,19 @@ in
       default = { };
       description = "Custom YAML configuration for Squirrel.";
     };
-    extraFiles = mkOption {
+    _extraFiles = mkOption {
       readOnly = true;
-      default = [
-        (yamkFormats.generate "squirrel.custom.yaml" cfg.squirrelCustomYaml)
-        (yamkFormats.generate "default.custom.yaml" cfg.defaultCustomYaml)
-        (yamkFormats.generate "fcitx5.custom.yaml" cfg.fcitx5CustomYaml)
-      ];
+      default =
+        let
+          genIfNotEmpty = name: value: lib.optional (value != { }) (yamkFormats.generate name value);
+        in
+        lib.flatten (
+          lib.mapAttrsToList genIfNotEmpty {
+            "squirrel.custom.yaml" = cfg.squirrelCustomYaml;
+            "default.custom.yaml" = cfg.defaultCustomYaml;
+            "fcitx5.custom.yaml" = cfg.fcitx5CustomYaml;
+          }
+        );
       description = "Extra files to be included in the Rime data package.";
     };
     data-package = mkOption {

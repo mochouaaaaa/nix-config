@@ -15,7 +15,7 @@
     enableSshSupport = true;
     enableExtraSocket = true;
     enableZshIntegration = true;
-    pinentry.package = if pkgs.stdenv.isDarwin then pkgs.pinentry-mac else pkgs.pinentry-qt;
+    pinentry.package = if pkgs.stdenv.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-qt;
     defaultCacheTtlSsh = 3600;
     defaultCacheTtl = 3600;
     maxCacheTtl = 7200;

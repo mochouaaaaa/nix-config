@@ -1,4 +1,10 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  isNixos,
+  isNixDarwin,
+  ...
+}:
 let
   # Custom derivation for Monaco Nerd Font, as it's not in nixpkgs.
   MonacoNerdFont = pkgs.fetchzip {
@@ -44,8 +50,11 @@ let
   };
 in
 {
+
+  imports = lib.optionals isNixos [ ./_nixos.nix ] ++ lib.optionals isNixDarwin [ ./_darwin.nix ];
+
   fonts.packages = with pkgs; [
-    monaco
+    # monaco
     monaco-nerd-font
     maple-mono.opentype
     maple-mono.CN
@@ -65,6 +74,33 @@ in
     source-han-serif
     mononoki
     dejavu_fonts
+  ];
+
+  home-manager.sharedModules = [
+    {
+      options.profiles.fonts = {
+        default = lib.mkOption {
+          type = lib.types.str;
+          default = "Monaco Nerd Font";
+        };
+        serif = lib.mkOption {
+          type = lib.types.str;
+          default = "Source Han Serif";
+        };
+        sansSerif = lib.mkOption {
+          type = lib.types.str;
+          default = "Source Han Sans";
+        };
+        monospace = lib.mkOption {
+          type = lib.types.str;
+          default = "Maple Mono CN";
+        };
+        emoji = lib.mkOption {
+          type = lib.types.str;
+          default = "Noto Color Emoji";
+        };
+      };
+    }
   ];
 
 }

@@ -21,6 +21,7 @@ in
           "menu/page_size" = 9;
           "style/candidate_list_layout" = "linear";
           "style/translucency" = true;
+          "style/font_face" = "Monaco";
 
           "app_options/com.apple.Spotligh" = ascii;
           "app_options/com.runningwithcrayons.Alfred" = ascii;

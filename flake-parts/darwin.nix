@@ -66,6 +66,9 @@ let
             inherit (ctx) lib;
             inherit hostname username;
             pkgs-unstable = ctx.pkgs-unstable;
+
+            isNixDarwin = true;
+            isNixos = false;
           };
 
         in
@@ -94,9 +97,7 @@ let
                       overlays = [ self.overlays.home-manager ];
                     };
                     pkgs-stable = ctx.extraModuleArgs.pkgs-os;
-                    isNixos = false;
                     nixosSystemName = "${username}@nixos";
-                    isNixDarwin = true;
                     nixDarwinSystemName = name;
                     homeManagerName = name;
                   };
