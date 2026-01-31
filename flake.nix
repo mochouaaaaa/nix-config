@@ -126,13 +126,14 @@
     };
     # desktop-shell
     caelestia-shell = {
-      url = "github:caelestia-dots/shell?ref=v1.4.1";
+      url = "github:caelestia-dots/shell?ref=v1.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      url = "/home/mochou/Code/Projects/c/noctalia-shell";
+      # url = "/home/mochou/Code/Projects/c/noctalia-shell";
       # url = "github:noctalia-dev/noctalia-shell?ref=v4.2.3";
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     DankMaterialShell = {
