@@ -74,6 +74,8 @@ in
           "fittencode.languagePreference.displayPreference" = "zh-cn";
           "fittencode.languagePreference.commentPreference" = "zh-cn";
           "find-it-faster.general.useTerminalInEditor" = false;
+          "fittencode.agent.enableFunctionCall" = true;
+          "fittencode.Unit Test Framework.Go" = "gotest";
 
           # ================== files
           "files.watcherExclude" = {

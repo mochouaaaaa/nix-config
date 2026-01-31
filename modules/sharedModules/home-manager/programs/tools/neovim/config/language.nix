@@ -29,6 +29,7 @@ in
       yaml-language-server
       prettierd
       eslint_d
+      actionlint
 
       # XML
       # html-lsp

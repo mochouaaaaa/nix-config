@@ -132,7 +132,7 @@ in
 
             };
             search = {
-              default = "DuckDuckGo";
+              default = "ddg";
               force = true;
 
               engines = {
@@ -234,7 +234,7 @@ in
                 "ebay".metaData.hidden = true;
               };
               order = [
-                "DuckDuckGo"
+                "ddg"
                 "GitHub"
                 "Nix Packages"
                 "Nix Options"
