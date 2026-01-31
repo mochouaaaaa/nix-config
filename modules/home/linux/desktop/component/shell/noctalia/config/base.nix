@@ -302,8 +302,8 @@ in
       colorSchemes = {
         useWallpaperColors = true;
         predefinedScheme = "Catppuccin";
-        darkMode = false;
-        schedulingMode = "off";
+        darkMode = true;
+        schedulingMode = "location";
         manualSunrise = "06:30";
         manualSunset = "18:30";
         generationMethod = "fruit-salad";
@@ -322,10 +322,6 @@ in
           {
             enabled = true;
             id = "kcolorscheme";
-          }
-          {
-            enabled = true;
-            id = "foot";
           }
           {
             enabled = true;
@@ -374,6 +370,12 @@ in
           {
             enabled = true;
             id = "niri";
+          }
+        ]
+        ++ lib.optionals config.programs.alacritty.enable [
+          {
+            enabled = true;
+            id = "alacritty";
           }
         ]
         ++ lib.optionals config.programs.wezterm.enable [

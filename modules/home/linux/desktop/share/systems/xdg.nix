@@ -30,6 +30,7 @@ in
       packages = with pkgs; [
         xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`
         xdg-user-dirs
+        font-manager
       ];
       shellAliases = {
         open = "xdg-open";
@@ -60,12 +61,21 @@ in
         defaultApplications =
           let
             editor = cfg.editors;
+            font-manager = [ "com.github.FontManager.FontViewer.desktop" ];
           in
           {
             "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
 
             "text/plain" = editor;
             "application/x-wine-extension-ini" = editor;
+
+            "font/ttf" = font-manager;
+            "font/ttc" = font-manager;
+            "font/otf" = font-manager;
+            "font/sfnt" = font-manager;
+            "application/x-font-ttf" = font-manager;
+            "application/x-font-otf" = font-manager;
+            "application/vnd.ms-opentype" = font-manager;
           }
           // cfg.defaultApplications;
 

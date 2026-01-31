@@ -54,7 +54,6 @@ in
 
           "float on, match:class (xfce4-appfinder)"
           "float on, match:class kitty, match:title yazi"
-          "float on, match:class ^(gnome-)"
           "float on, match:class ([Zz]oom|onedriver|onedriver-launcher)$"
 
           "float on, match:class (xdg-desktop-portal-gtk)"
@@ -62,7 +61,7 @@ in
           "float on, match:class ^(eog)$" # image viewer
 
           "float on, match:class ^(nm-applet|nm-connection-editor|blueman-manager|.blueman-manager-wrapped)$"
-          "float on, match:class ^(gnome-system-monitor)$" # system monitor
+
           "float on, match:class ^([Yy]ad)$"
           "float on, match:class ^(wihotspot(-gui)?)$" # wifi hotspot
           "float on, match:class ^(evince)$" # document viewer
@@ -72,7 +71,6 @@ in
           "float on, match:class ^([Qq]alculate-gtk)$"
           "float on, match:class ^([Ff]erdium)$"
 
-          "size (monitor_w*0.7) (monitor_h*0.7), match:class ^(gnome-system-monitor|org.gnome.SystemMonitor|io.missioncenter.MissionCenter)$"
           "size (monitor_w*0.7) (monitor_h*0.7), match:class ^(xdg-desktop-portal-gtk)$"
           "size (monitor_w*0.6) (monitor_h*0.7), match:title (Kvantum Manager)"
           "size (monitor_w*0.6) (monitor_h*0.7), match:class ^(qt6ct)$"
@@ -80,9 +78,6 @@ in
           "size (monitor_w*0.6) (monitor_h*0.7), match:class ^(file-roller|org.gnome.FileRoller)$"
           "size (monitor_w*0.6) (monitor_h*0.7), match:class ^([Ww]hatsapp-for-linux)$"
           "size (monitor_w*0.6) (monitor_h*0.7), match:class ^([Ff]erdium)$"
-
-          # gnome app
-          "float on, match:class ^(org.gnome.*)$"
 
           # screen sharing
           "no_initial_focus on, match:xwayland 1"
@@ -122,6 +117,16 @@ in
         ];
       };
       extraConfig = ''
+        # ========= global ========
+        windowrule {
+            name = global
+            match:class = font-manager
+
+            float = on
+            center = on
+            size = (monitor_w*0.7) (monitor_h*0.8)
+        }
+
         # ========= tools =========
         windowrule {
             name = mpv-took
@@ -159,7 +164,7 @@ in
         # ====== gnome ============ 
         windowrule {
             name = gnome-settings
-            match:class = org\.gnome\.Settings
+            match:class = org\.gnome\.Settings|gnome-.*|org.gnome.*|io.missioncenter.MissionCenter
 
             float = on
             size = (monitor_w*0.7) (monitor_h*0.8)

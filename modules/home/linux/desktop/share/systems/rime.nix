@@ -117,6 +117,7 @@ in
           "app_options/gcr-prompter" = ascii;
           "app_options/org.wezfurlong.wezterm" = ascii;
           "app_options/kitty" = ascii;
+          "app_options/Alacritty" = ascii;
           "app_options/com.mitchellh.ghostty" = ascii;
           "app_options/foot" = ascii;
           "app_options/code" = ascii;

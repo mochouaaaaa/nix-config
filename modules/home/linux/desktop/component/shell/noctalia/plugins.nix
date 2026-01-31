@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 
@@ -59,14 +58,6 @@ in
       };
 
     };
-
-    home.packages =
-      lib.optionals (cfg.plugins.states.screen-recorder.enabled) [
-        pkgs.gpu-screen-recorder
-      ]
-      ++ lib.optionals (cfg.plugins.states.todo.enabled) [
-        pkgs.todoist
-      ];
 
   };
 }

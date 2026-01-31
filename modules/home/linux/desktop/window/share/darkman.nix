@@ -19,6 +19,17 @@ in
       };
     };
 
+    systemd.user.services.darkman = {
+      Unit = {
+        StartLimitIntervalSec = 30;
+        StartLimitBurst = 5;
+      };
+      Service = {
+        Restart = "on-failure";
+        RestartSec = "3s";
+      };
+    };
+
   };
 
 }

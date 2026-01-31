@@ -41,6 +41,7 @@ let
           terminal = {
             kitty.enable = true;
             wezterm.enable = false;
+            alacritty.enable = true;
           };
 
           jetbrains = {
@@ -74,7 +75,7 @@ in
 
           {
             profiles = {
-              i18n.locale = "en_US";
+              # i18n.locale = "en_US";
               network.proxy.sparkle.enable = true;
               virtual = {
                 virtualbox.enable = false;

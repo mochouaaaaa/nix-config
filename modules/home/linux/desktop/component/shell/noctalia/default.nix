@@ -10,6 +10,10 @@ let
   noctalia-shell = (
     pkgs.noctalia-shell.override {
       calendarSupport = true;
+      extraPackages = [
+        pkgs.gpu-screen-recorder
+        pkgs.todoist
+      ];
     }
   );
 in

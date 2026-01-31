@@ -15,6 +15,7 @@ in
       services.network-manager-applet.enable = lib.mkForce false;
 
       services.darkman = {
+        enable = lib.mkForce false;
         lightModeScripts = {
           light = ''
             noctalia-shell ipc call darkMode setLight

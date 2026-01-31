@@ -27,11 +27,15 @@
           global = {
             Context = {
               filesystems = [
-                "/etc/fonts:ro"
+                "xdg-config/gtk-3.0:ro"
+                "xdg-config/gtk-4.0:ro"
+                "/nix/store:ro"
+                "${config.home.homeDirectory}/.icons:ro"
+                "${config.home.homeDirectory}/.local/share/fonts:ro"
               ];
             };
             Environment = {
-              GTK_THEME = "Adwaita";
+              GTK_THEME = "${config.profiles.themes.gtkTheme.name}";
             };
           };
         };
@@ -46,6 +50,7 @@
           enable = false;
         };
         packages = [
+          "com.github.tchx84.Flatseal"
           "io.github.flattool.Warehouse"
         ];
       };
