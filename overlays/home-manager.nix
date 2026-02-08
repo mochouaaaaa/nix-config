@@ -29,6 +29,7 @@ let
         inputs.xwayland-satellite.packages.${final.pkgs.stdenv.hostPlatform.system}.default;
     })
 
+    inputs.nixd.overlays.default
     inputs.nur.overlays.default
     inputs.vscode-extensions.overlays.default
     inputs.niri.overlays.niri
