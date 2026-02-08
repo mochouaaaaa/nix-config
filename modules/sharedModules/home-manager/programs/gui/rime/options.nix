@@ -2,37 +2,24 @@
   lib,
   pkgs,
   config,
-  nvfetcherSources,
+  inputs,
   ...
 }:
 let
+
   cfg = config.profiles.packages.rime;
   yamkFormats = pkgs.formats.yaml { };
 
-  RimeLMDG = nvfetcherSources.rime-lmdg.src;
-  rime-wanxiang = pkgs.rime-wanxiang.overrideAttrs (oldAttrs: {
-    src = pkgs.fetchFromGitHub {
-      owner = "amzxyz";
-      repo = "rime_wanxiang";
-      tag = "v14.2.3";
-      hash = "sha256-3jzt/uPf11tRF3FfY1XNRgkUFZ7pf2a3drfPpsf01+c=";
-    };
-  });
+  rime-wanxiang = inputs.mochou_nur.packages.${pkgs.stdenv.system}.rime.wanxiang;
 
   CustomRimeData = pkgs.stdenv.mkDerivation {
     pname = "my-rime-data";
     version = "1.0";
 
-    srcs = [
-      RimeLMDG
-      rime-wanxiang
-    ];
-
     unpackPhase = "true";
     installPhase = ''
       mkdir -p $out/share/rime-data
 
-      cp ${RimeLMDG} $out/share/rime-data/wanxiang-lts-zh-hans.gram
       cp -r ${rime-wanxiang}/share/rime-data/* $out/share/rime-data/
 
       # 写入自定义文件（如果有）

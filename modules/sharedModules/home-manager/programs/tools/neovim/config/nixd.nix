@@ -5,7 +5,6 @@
   isNixos,
   nixosSystemName,
   homeManagerName,
-  username,
   ...
 }:
 {
@@ -29,7 +28,7 @@
                       expr = '(builtins.getFlake (toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options',
                   },
                   home_manager = {
-                      expr = '(builtins.getFlake (toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options.home-manager.users.value.${username}',
+                      expr = '(builtins.getFlake (toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options.home-manager.users.type.getSubOptions []',
                   },
               }
           end
@@ -40,7 +39,7 @@
                       expr = '(builtins.getFlake (toString ./.)).nixosConfigurations."${nixosSystemName}".options',
                   },
                   home_manager = {
-                      expr = '(builtins.getFlake (toString ./.)).nixosConfigurations."${nixosSystemName}".options.home-manager.users.value.${username}',
+                      expr = '(builtins.getFlake (toString ./.)).nixosConfigurations."${nixosSystemName}".options.home-manager.users.type.getSubOptions []',
                   },
               }
           end
