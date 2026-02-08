@@ -36,6 +36,10 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
     agenix.url = "github:ryantm/agenix";
+    nixd = {
+      url = "github:nix-community/nixd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nur = {
       url = "github:nix-community/NUR";
@@ -43,7 +47,7 @@
     };
     mochou_nur = {
       url = "github:mochouaaaaa/nur-packages";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      # url = "/home/mochou/Code/Projects/nix/nur-packages";
       inputs.nixpkgs25-05.url = "github:nixos/nixpkgs/nixos-25.05";
     };
 
@@ -116,7 +120,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.19.0";
+      url = "github:vicinaehq/vicinae?ref=v0.19.6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -132,7 +136,7 @@
     };
     noctalia = {
       # url = "/home/mochou/Code/Projects/c/noctalia-shell";
-      # url = "github:noctalia-dev/noctalia-shell?ref=v4.2.3";
+      # url = "github:noctalia-dev/noctalia-shell?ref=v4.4.0";
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
