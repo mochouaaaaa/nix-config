@@ -1,13 +1,3 @@
-[oh-my-rime]
-src.branch = "main"
-src.git = "https://github.com/Mintimate/oh-my-rime.git"
-version.from = "git"
-fetch.github = "Mintimate/oh-my-rime"
-
-[rime-lmdg]
-src.manual = "LTS"
-fetch.url = "https://github.com/amzxyz/RIME-LMDG/releases/download/$ver/wanxiang-lts-zh-hans.gram"
-
 [pycharm]
 src.manual = "2025.2.3"
 fetch.url = "https://download.jetbrains.com/python/pycharm-professional-$ver.tar.gz"

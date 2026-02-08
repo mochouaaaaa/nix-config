@@ -30,32 +30,12 @@
       sha256 = "06d9e18cc840e5bc68db6802ed90cfd5c8629d8c434e51aee6e4a93dad56b3e1";
     };
   };
-  oh-my-rime = {
-    pname = "oh-my-rime";
-    version = "bfac9c1d04fc0e2900ca8facbd538138f70604a1";
-    src = fetchFromGitHub {
-      owner = "Mintimate";
-      repo = "oh-my-rime";
-      rev = "96b2620c387366065fb00cb1227937a43bf9a341";
-      fetchSubmodules = false;
-      sha256 = "sha256-+s5GdncoMJo2W+yTnthMoASvHuXhkrcFaCAjLqdlxAE=";
-    };
-    date = "2025-05-20";
-  };
   pycharm = {
     pname = "pycharm";
     version = "2025.2.3";
     src = fetchurl {
       url = "https://download.jetbrains.com/python/pycharm-professional-2025.2.3.tar.gz";
       sha256 = "58f6165ea8ace65e708c607bec49d20d46b8d5908045ae31703353a184e59a05";
-    };
-  };
-  rime-lmdg = {
-    pname = "rime-lmdg";
-    version = "LTS";
-    src = fetchurl {
-      url = "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram";
-      sha256 = "sha256-dSQKkL6MO9RvvktGtbh+Pn1EZrwb3GuaX+a0GsTEzjA=";
     };
   };
 }
