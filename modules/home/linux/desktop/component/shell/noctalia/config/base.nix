@@ -5,7 +5,6 @@
 }:
 let
   cfg = config.programs.noctalia-shell;
-  cfgDesktop = config.profiles.desktop;
 in
 {
 
@@ -307,90 +306,6 @@ in
         manualSunrise = "06:30";
         manualSunset = "18:30";
         generationMethod = "fruit-salad";
-      };
-
-      templates = {
-        activeTemplates = [
-          {
-            enabled = true;
-            id = "gtk";
-          }
-          {
-            enabled = true;
-            id = "qt";
-          }
-          {
-            enabled = true;
-            id = "kcolorscheme";
-          }
-          {
-            enabled = true;
-            id = "kitty";
-          }
-          {
-            enabled = true;
-            id = "pywalfox";
-          }
-          {
-            enabled = true;
-            id = "vicinae";
-          }
-          {
-            enabled = true;
-            id = "code";
-          }
-          {
-            enabled = true;
-            id = "telegram";
-          }
-          {
-            enabled = true;
-            id = "cava";
-          }
-          {
-            enabled = true;
-            id = "yazi";
-          }
-          {
-            enabled = true;
-            id = "zed";
-          }
-          {
-            enabled = false;
-            id = "btop";
-          }
-        ]
-        ++ lib.optionals cfgDesktop.hyprland.enable [
-          {
-            enabled = true;
-            id = "hyprland";
-          }
-        ]
-        ++ lib.optionals cfgDesktop.niri.enable [
-          {
-            enabled = true;
-            id = "niri";
-          }
-        ]
-        ++ lib.optionals config.programs.alacritty.enable [
-          {
-            enabled = true;
-            id = "alacritty";
-          }
-        ]
-        ++ lib.optionals config.programs.wezterm.enable [
-          {
-            enabled = true;
-            id = "wezterm";
-          }
-        ]
-        ++ lib.optionals config.programs.ghostty.enable [
-          {
-            enabled = true;
-            id = "ghostty";
-          }
-        ];
-        enableUserTheming = true;
       };
       nightLight = {
         enabled = true;

@@ -12,7 +12,7 @@ in
 
     programs.noctalia-shell.settings = {
       desktopWidgets = {
-        enabled = true;
+        enabled = false;
         gridSnap = true;
         monitorWidgets = [
           {
