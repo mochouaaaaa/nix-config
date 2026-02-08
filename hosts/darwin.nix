@@ -37,7 +37,7 @@ in
 
         modules = [
 
-          self.darwinModules.base
+          self.darwinModules.default
           {
             profiles = {
               packages = {

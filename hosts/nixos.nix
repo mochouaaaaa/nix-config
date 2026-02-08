@@ -68,10 +68,11 @@ in
           (inputs.import-tree ./nixos)
         ]
         ++ [
-          self.nixosModules.base
-          self.nixosModules.services
-          self.nixosModules.virtual
-          self.nixosModules.desktop
+          self.nixosModules.default
+          # self.nixosModules.base
+          # self.nixosModules.services
+          # self.nixosModules.virtual
+          # self.nixosModules.desktop
 
           {
             profiles = {

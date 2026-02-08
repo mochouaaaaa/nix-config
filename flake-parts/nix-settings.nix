@@ -15,7 +15,7 @@
       _module.args = {
 
         nix = {
-          nixPath = [ "nixpkgs=${inputs.nixpkgs.outPath}" ];
+          nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
           package = if isLix then lib.mkForce pkgs.lixPackageSets.stable.lix else pkgs.nix;
 
           registry.nixpkgs.to = {

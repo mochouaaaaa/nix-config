@@ -32,8 +32,8 @@ let
           type = types.listOf types.unspecified;
           description = "List of NixOS modules to include in the configuration.";
           default = [
-            self.nixosModules.shared
-            self.nixosModules.secrets
+            # self.nixosModules.shared
+            # self.nixosModules.secrets
           ];
           apply = userValue: default ++ userValue;
         };
@@ -63,7 +63,7 @@ let
           username = splitName 0; # mochou
 
           specialArgs = ctx.extraModuleArgs // {
-            inherit (ctx) lib;
+            inherit (ctx) lib profiles;
             inherit hostname username;
 
             isNixos = true;
@@ -89,7 +89,7 @@ let
                 backupFileExtension = "home-manager.backup";
                 overwriteBackup = true;
                 sharedModules = [
-                  self.homeModules.shared
+                  self.homeModules.default
                 ];
 
                 extraSpecialArgs = specialArgs // {

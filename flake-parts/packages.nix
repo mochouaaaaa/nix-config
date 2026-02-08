@@ -65,6 +65,7 @@
         extraModuleArgs =
           let
             myvars = import ../config.nix;
+            import-tree = inputs.import-tree;
           in
           {
             inherit
@@ -80,6 +81,8 @@
               mkPkgs
               pkgs-unstable
               pkgs-os
+
+              import-tree
 
               ;
           };

@@ -31,10 +31,7 @@ let
         modules = lib.mkOption rec {
           type = types.listOf types.unspecified;
           description = "List of nix-darwin modules to include in the configuration.";
-          default = [
-            self.darwinModules.shared
-            self.darwinModules.secrets
-          ];
+          default = [ ];
           apply = userValue: default ++ userValue;
 
         };
@@ -89,7 +86,7 @@ let
                   backupFileExtension = "home-manager.backup";
                   overwriteBackup = true;
                   sharedModules = [
-                    self.homeModules.shared
+                    self.homeModules.default
                   ];
 
                   extraSpecialArgs = specialArgs // {

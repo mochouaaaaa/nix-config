@@ -39,9 +39,7 @@ let
         modules = lib.mkOption rec {
           type = types.listOf types.unspecified;
           description = "List of home-manager modules to include in the configuration.";
-          default = [
-            self.homeModules.shared
-          ];
+          default = [ ];
           apply = userValue: default ++ userValue;
 
         };
