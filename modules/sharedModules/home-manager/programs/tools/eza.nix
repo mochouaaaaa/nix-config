@@ -2,6 +2,7 @@
 {
   programs = {
     eza = {
+      enable = true;
       enableBashIntegration = config.programs.bash.enable;
       enableZshIntegration = config.programs.zsh.enable;
       git = true;

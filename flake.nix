@@ -47,8 +47,6 @@
     };
     mochou_nur = {
       url = "github:mochouaaaaa/nur-packages";
-      # url = "/home/mochou/Code/Projects/nix/nur-packages";
-      inputs.nixpkgs25-05.url = "github:nixos/nixpkgs/nixos-25.05";
     };
 
     # for macos
