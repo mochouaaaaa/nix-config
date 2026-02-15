@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   # https://github.com/junegunn/fzf/issues/4151
   # 还没开始实现
@@ -47,8 +47,8 @@
     '';
     fzf = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
+      enableBashIntegration = config.programs.bash.enable;
+      enableZshIntegration = config.programs.zsh.enable;
       enableFishIntegration = true;
       tmux = {
         enableShellIntegration = true;

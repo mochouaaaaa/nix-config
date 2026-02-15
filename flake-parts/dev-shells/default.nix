@@ -13,13 +13,12 @@
         packages = with pkgs; [
           home-manager
           just
-          nvfetcher
-          nixfmt
         ];
 
         shellHook = ''
           echo -e "\033[1;32m==> Welcome to Nix-Config ✅\033[0m"
         '';
       };
+      formatter.${system} = pkgs.nixfmt-tree;
     };
 }

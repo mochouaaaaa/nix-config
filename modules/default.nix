@@ -12,10 +12,6 @@ in
         osShared
         "${self}/secrets/nixos.nix"
       ];
-      # base = import-tree ./nixos/base;
-      # services = import-tree ./nixos/services;
-      # virtual = import-tree ./nixos/virtual;
-      # desktop = import-tree ./nixos/desktop;
     };
 
     darwinModules = {
@@ -32,7 +28,6 @@ in
         homeShared
         "${self}/secrets/home.nix"
       ];
-      # base = import-tree ./home/base;
       linux = import-tree [
         default
         ./home/linux
@@ -45,9 +40,6 @@ in
         linux
         ./home/wsl
       ];
-
-      # shared = homeShared;
-      # secrets = "${self}/secrets/home.nix";
     };
   };
 }

@@ -13,14 +13,9 @@
     };
   };
 
-  time.timeZone = "Asia/Shanghai";
-
   system = {
 
     primaryUser = "${username}";
-
-    # 开机 sound
-    startup.chime = false;
 
     defaults = {
       menuExtraClock.Show24Hour = true; # show 24 hour clock

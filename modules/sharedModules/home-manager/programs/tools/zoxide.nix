@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   home.shellAliases = {
     j = "z";
@@ -5,9 +6,8 @@
 
   programs = {
     zoxide = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
+      enableBashIntegration = config.programs.bash.enable;
+      enableZshIntegration = config.programs.zsh.enable;
     };
   };
 }

@@ -24,7 +24,7 @@
           owner = "Freed-Wu";
           repo = "fzf-tab-source";
           rev = "main";
-          sha256 = "sha256-0k6x4AhO8ULqanA+1bTNLhMGVz2A3K7LXQ/MgSLuQkc=";
+          sha256 = "sha256-ar025RTlDFWEnE9Ql8WBz4tiBmz1B2tsZiRI2/mVCDI=";
         };
       }
     ];

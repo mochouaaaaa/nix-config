@@ -3,18 +3,13 @@
 ## Install
 
 ```bash
-
-# curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
-# or
-
-sh <(curl -L https://nixos.org/nix/install)
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)
 ```
 
 ### Darwin
 
 ```base
 nix profile install github:LnL7/nix-darwin
-
 ```
 
 ### Wsl

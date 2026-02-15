@@ -1,10 +1,9 @@
+{ config, ... }:
 {
   programs = {
     eza = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      enableFishIntegration = true;
+      enableBashIntegration = config.programs.bash.enable;
+      enableZshIntegration = config.programs.zsh.enable;
       git = true;
       icons = "auto";
       colors = "auto";

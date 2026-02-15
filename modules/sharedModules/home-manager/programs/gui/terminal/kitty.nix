@@ -48,8 +48,8 @@ in
         extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" (cfg.extraConfig));
         enableGitIntegration = true;
         shellIntegration = {
-          enableZshIntegration = true;
-          enableBashIntegration = true;
+          enableZshIntegration = config.programs.zsh.enable;
+          enableBashIntegration = config.programs.bash.enable;
           # enableFishIntegration = true;
         };
       };

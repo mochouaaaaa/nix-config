@@ -66,8 +66,8 @@ home-darwin:
 
 # repl test environment
 [macos]
-@repl:
-    {{ PRE_ARGS }} nh darwin repl {{ NH_DARWIN_FLAKE }} -H {{ NH_HOSTNAME }}
+repl:
+    {{ PRE_ARGS }} nh darwin repl {{ NH_DARWIN_FLAKE }} -H {{ NH_HOSTNAME }} 
 
 
 #-------------------------------

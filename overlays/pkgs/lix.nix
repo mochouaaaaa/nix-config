@@ -7,6 +7,6 @@ final: prev: {
     ;
 
   nix-direnv = prev.nix-direnv.override {
-    nix = final.lixPackageSets.latest.lix;
+    nix = final.lixPackageSets.stable.lix;
   };
 }

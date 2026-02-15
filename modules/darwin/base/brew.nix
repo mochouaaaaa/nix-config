@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  pkgs-unstable,
-  ...
-}:
+{ username, ... }:
 {
   # homebrew need to be installed manually, see https://brew.sh
   # https://github.com/LnL7/nix-darwin/blob/master/modules/homebrew.nix
@@ -30,8 +24,6 @@
 
     taps = [
       # "homebrew/cask-fonts"
-      # "homebrew/services"
-      # "homebrew/cask-versions"
       "hashicorp/tap"
       "FelixKratz/formulae" # janky borders - highlight active window borders
     ];
@@ -51,7 +43,14 @@
       "squirrel-app" # input method for Chinese, rime-squirrel
       "appcleaner"
       "neteasemusic"
-      "adguard"
+      # "adguard"
+
+      "google-chrome"
     ];
+
+    caskArgs = {
+      appdir = "/Users/${username}/Applications";
+      no_quarantine = true;
+    };
   };
 }

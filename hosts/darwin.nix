@@ -33,7 +33,7 @@ in
     darwinConfigurations = {
       "mochou@darwin" = {
         system = "x86_64-darwin";
-        stateVersion = 5;
+        stateVersion = 6;
 
         modules = [
 

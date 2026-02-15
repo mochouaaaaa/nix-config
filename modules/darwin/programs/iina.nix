@@ -5,6 +5,7 @@
       # "iina/homebrew-mpv-iina"
     ];
     casks = [
+      "iina"
       "iina+"
     ];
     brews = [

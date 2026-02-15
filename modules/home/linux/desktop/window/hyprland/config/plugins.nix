@@ -17,7 +17,7 @@ in
         # inputs.hyprgrass.packages.${pkgs.system}.hyprgrass-pulse
         # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
       ];
-      extraConfig = '''';
+      extraConfig = "";
     };
   };
 }

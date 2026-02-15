@@ -1,6 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
-
   home.packages = with pkgs; [
     (writeShellScriptBin "nixify" ''
       if [ ! -e ./.envrc ]; then
@@ -40,8 +39,8 @@
       enable = true;
       nix-direnv.enable = true;
 
-      enableZshIntegration = true;
-      enableBashIntegration = true;
+      enableZshIntegration = config.programs.zsh.enable;
+      enableBashIntegration = config.programs.bash.enable;
     };
   };
 }

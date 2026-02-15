@@ -11,6 +11,7 @@
           "menu/page_size" = 9;
           "style/candidate_list_layout" = "linear";
           "style/translucency" = true;
+          "select_keys" = "123456789";
 
         };
       };

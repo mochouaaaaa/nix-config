@@ -33,7 +33,6 @@ let
           description = "List of nix-darwin modules to include in the configuration.";
           default = [ ];
           apply = userValue: default ++ userValue;
-
         };
 
         homeModules = lib.mkOption rec {

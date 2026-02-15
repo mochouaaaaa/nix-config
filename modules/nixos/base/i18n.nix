@@ -16,9 +16,6 @@ in
 
   config = {
 
-    # Set your time zone.
-    time.timeZone = "Asia/Shanghai";
-
     i18n = {
       # Select internationalisation properties.
       defaultLocale = "${cfg.locale}.UTF-8";
