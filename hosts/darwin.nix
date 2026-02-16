@@ -19,7 +19,7 @@ let
             wezterm.enable = false;
           };
 
-          ollama.enable = false;
+          ollama.enable = true;
           firefox.enable = true;
           bitwarden.enable = false;
         };

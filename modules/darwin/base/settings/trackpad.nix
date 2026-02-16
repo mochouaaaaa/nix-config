@@ -9,7 +9,11 @@
         FirstClickThreshold = 0;
         SecondClickThreshold = 0; # 用于力触摸:0用于轻点击,1为介质,2为坚定。 默认值为1。
         TrackpadRightClick = true; # enable two finger right click
+        TrackpadRotate = true;
         TrackpadThreeFingerDrag = true; # enable three finger drag
+        TrackpadFourFingerPinchGesture = 2;
+        TrackpadFourFingerVertSwipeGesture = 2;
+        TrackpadFourFingerHorizSwipeGesture = 2;
       };
     };
   };
