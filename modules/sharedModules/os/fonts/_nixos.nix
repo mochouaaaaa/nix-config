@@ -7,6 +7,7 @@
 
     fonts = {
       fontDir.enable = true;
+      enableDefaultPackages = false;
       packages = [ pkgs.corefonts ];
       fontconfig = {
         useEmbeddedBitmaps = true;
@@ -20,16 +21,5 @@
         };
       };
     };
-
-    home-manager.sharedModules = [
-      {
-        config = {
-          xdg.dataFile = {
-            "fonts".source = "/run/current-system/sw/share/X11/fonts";
-          };
-        };
-      }
-    ];
-
   };
 }

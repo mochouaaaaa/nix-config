@@ -78,28 +78,7 @@ in
 
   home-manager.sharedModules = [
     {
-      options.profiles.fonts = {
-        default = lib.mkOption {
-          type = lib.types.str;
-          default = "Monaco Nerd Font";
-        };
-        serif = lib.mkOption {
-          type = lib.types.str;
-          default = "Source Han Serif";
-        };
-        sansSerif = lib.mkOption {
-          type = lib.types.str;
-          default = "Source Han Sans";
-        };
-        monospace = lib.mkOption {
-          type = lib.types.str;
-          default = "Maple Mono CN";
-        };
-        emoji = lib.mkOption {
-          type = lib.types.str;
-          default = "Noto Color Emoji";
-        };
-      };
+      config.profiles.fonts.enable = lib.mkForce false;
     }
   ];
 
