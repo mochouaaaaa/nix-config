@@ -23,7 +23,7 @@
           config =
             lib.mkForce {
               allowUnfree = true;
-              config.allowBroken = true;
+              allowBroken = true;
               tarball-ttl = 0;
             }
             // custom_config;
