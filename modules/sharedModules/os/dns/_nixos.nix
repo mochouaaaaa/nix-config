@@ -48,7 +48,6 @@ in
 
         serviceConfig = {
           DynamicUser = true;
-          EnvironmentFile = config.age.secrets.next_dns_server.path;
           ExecStart = "${lib.getExe cfg.package} start ${args}";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

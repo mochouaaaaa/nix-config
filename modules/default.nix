@@ -1,4 +1,8 @@
-{ inputs, self, ... }:
+{
+  inputs,
+  self,
+  ...
+}:
 let
   inherit (inputs) import-tree;
   homeShared = import-tree ./sharedModules/home-manager;

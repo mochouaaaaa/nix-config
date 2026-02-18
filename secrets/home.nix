@@ -7,39 +7,43 @@
   ...
 }:
 let
-  inherit (inputs) mysecrets;
+  isSecret = lib.hasAttr "mysecrets" inputs;
 in
 {
   imports = [ inputs.agenix.homeManagerModules.default ];
 
-  config = {
+  config = lib.mkIf isSecret {
 
     home.packages = lib.optionals (!isNixos) [
       inputs.agenix.packages."${pkgs.stdenv.hostPlatform.system}".default
     ];
 
-    age = {
-      identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
+    age =
+      let
+        inherit (inputs) mysecrets;
+      in
+      {
+        identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
 
-      secrets = {
-        wallhavenApiKey = {
-          file = "${mysecrets}/wallhavenApiKey.age";
-        };
-        fittencode = {
-          file = "${mysecrets}/fittencode.age";
-          path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
-          mode = "644";
-        };
-        gemini_env = {
-          file = "${mysecrets}/gemini_env.age";
-          path = "${config.home.homeDirectory}/.gemini/.env";
-          mode = "644";
-        };
-        github_token = {
-          file = "${mysecrets}/github_token.age";
+        secrets = {
+          wallhavenApiKey = {
+            file = "${mysecrets}/wallhavenApiKey.age";
+          };
+          fittencode = {
+            file = "${mysecrets}/fittencode.age";
+            path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
+            mode = "644";
+          };
+          gemini_env = {
+            file = "${mysecrets}/gemini_env.age";
+            path = "${config.home.homeDirectory}/.gemini/.env";
+            mode = "644";
+          };
+          github_token = {
+            file = "${mysecrets}/github_token.age";
+          };
         };
       };
-    };
 
     programs = {
       zsh.envExtra = lib.mkBefore ''

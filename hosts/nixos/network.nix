@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 {
 
   networking = {
@@ -6,9 +6,6 @@
     networkmanager = {
       enable = true;
       ensureProfiles = {
-        environmentFiles = [
-          "${config.age.secrets.home_wifi_pwd.path}"
-        ];
         profiles = {
           home-wifi = {
             connection = {
