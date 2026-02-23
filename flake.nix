@@ -41,6 +41,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # home-manager, used for managing user configuration
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dotfiles = {
+      url = "github:mochouaaaaa/dotfile/nvim-fzf";
+      flake = false;
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,21 +73,6 @@
     };
 
     # for linux
-    grub2-themes = {
-      url = "github:vinceliuice/grub2-themes";
-    };
-    # flatpak
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
-    # home-manager, used for managing user configuration
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dotfiles = {
-      url = "github:mochouaaaaa/dotfile/nvim-fzf";
-      flake = false;
-    };
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     # keymap replaced
@@ -98,6 +93,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # flatpak
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -118,7 +115,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.19.6";
+      url = "github:vicinaehq/vicinae?ref=v0.19.9";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -144,10 +141,10 @@
     };
 
     # hyprland
-    hyprutils.url = "github:hyprwm/hyprutils";
+    hyprutils.url = "github:hyprwm/hyprutils?ref=v0.11.0";
     hyprgraphics.url = "github:hyprwm/hyprgraphics";
     aquamarine.url = "github:hyprwm/aquamarine";
-    hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.7";
+    hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.8";
     hyprshutdown.url = "github:hyprwm/hyprshutdown";
     hyprland = {
       url = "github:hyprwm/Hyprland?ref=v0.53.1";
@@ -165,14 +162,15 @@
     };
 
     # niri
+    xwayland-satellite = {
+      url = "github:Supreeeme/xwayland-satellite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     niri = {
       # url = "github:sodiboo/niri-flake";
       url = "github:sodiboo/niri-flake?ref=very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    xwayland-satellite = {
-      url = "github:Supreeeme/xwayland-satellite";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.xwayland-satellite-unstable.follows = "xwayland-satellite";
     };
 
     # kde

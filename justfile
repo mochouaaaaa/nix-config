@@ -78,7 +78,7 @@ repl:
 [linux]
 update:
     just _update
-    nix flake update impermanence nixos-generators grub2-themes nix-flatpak xremap-flake
+    nix flake update impermanence nixos-generators nix-flatpak xremap-flake
 
 [linux]
 _reset_dconf:
