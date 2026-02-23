@@ -19,14 +19,15 @@ in
   # about:debugging#/runtime/this-firefox
   config = lib.mkIf (cfg.enable && config.profiles.desktop.enable) {
 
-    home.file = {
-      ".zen/${username}/zen-keyboard-shortcuts.json".source = ./zen-shortcuts.json;
+    xdg.configFile = {
+      "zen/${username}/zen-keyboard-shortcuts.json".source = ./zen-shortcuts.json;
     };
 
     programs = {
 
       zen-browser = {
         enable = true;
+        suppressXdgMigrationWarning = true;
 
         policies =
           let

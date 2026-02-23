@@ -20,7 +20,13 @@
   nss,
   pango,
   udev,
-  xorg,
+  libX11,
+  libXcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxcb,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -67,13 +73,13 @@ stdenv.mkDerivation (finalAttrs: {
     nss
     pango
     udev
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxcb
+    libX11
+    libXcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxcb
     (lib.getLib stdenv.cc.cc)
   ];
 

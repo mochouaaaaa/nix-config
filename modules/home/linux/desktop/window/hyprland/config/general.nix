@@ -12,7 +12,7 @@ in
       settings = {
 
         general = {
-          layout = "master"; # "dwindle"
+          layout = "dwindle"; # "dwindle"
 
           allow_tearing = false; # Allows `immediate` window rule to work
 

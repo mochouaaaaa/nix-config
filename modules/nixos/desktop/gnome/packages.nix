@@ -13,7 +13,7 @@ in
     profiles.packages.steam.enable = lib.mkForce false;
 
     environment.systemPackages = with pkgs; [
-      xorg.xev
+      xev
       wev
       gdm-settings
       (marble-shell-theme.overrideAttrs (oldAttrs: {

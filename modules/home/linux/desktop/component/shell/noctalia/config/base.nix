@@ -268,7 +268,7 @@ in
       };
       osd = {
         enabled = true;
-        location = "buttom";
+        location = "bottom";
         autoHideMs = 3000;
         overlayLayer = true;
         backgroundOpacity = lib.mkDefault 0.78;

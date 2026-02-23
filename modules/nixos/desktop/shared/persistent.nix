@@ -61,7 +61,7 @@
       # ======================================
       ".mozilla"
       ".cache/mozilla"
-      ".zen"
+      ".config/zen"
       ".cache/zen"
       ".config/google-chrome"
       ".cache/google-chrome"

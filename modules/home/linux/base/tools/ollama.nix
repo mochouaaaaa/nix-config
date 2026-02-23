@@ -1,5 +1,9 @@
+{ pkgs, pkgs-stable, ... }:
 {
   services.ollama = {
-    acceleration = "rocm";
+    package = pkgs-stable.ollama-rocm.override {
+      rocmGpuTargets = [ "gfx1030" ];
+    };
+    # acceleration = "rocm";
   };
 }

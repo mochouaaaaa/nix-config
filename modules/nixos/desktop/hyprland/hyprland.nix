@@ -9,9 +9,6 @@ let
   cfghyprland = config.programs.hyprland;
 in
 {
-
-  imports = [ inputs.hyprland.nixosModules.default ];
-
   config = lib.mkIf cfg.enable {
 
     profiles.display-manager.greetd = {
