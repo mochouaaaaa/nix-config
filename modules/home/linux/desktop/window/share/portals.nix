@@ -18,7 +18,7 @@ in
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
       ]
-      ++ lib.optionals cfg.gnome.enable [ pkgs.xdg-desktop-portal-gnome ]
+      ++ lib.optionals (cfg.gnome.enable || cfg.niri.enable) [ pkgs.xdg-desktop-portal-gnome ]
       ++ lib.optionals cfg.kde.enable [ pkgs.kdePackages.xdg-desktop-portal-kde ]
       ++ lib.optionals (cfgHyprland.portalPackage != null) [
         cfgHyprland.portalPackage
@@ -30,37 +30,45 @@ in
       # Recursively merge portal configurations from different DEs.
       # This sets the preferred `default` portal implementation and other
       # DE-specific settings for interfaces like screencasting or settings.
-      config = lib.mkMerge [
-        (lib.mkIf (cfgHyprland.enable) {
-          hyprland = {
-            default = [ "hyprland" ] ++ [ config.xdg.portal.config.common.default ];
-            "org.freedesktop.impl.portal.RemoteDesktop" = "hyprland";
-            "org.freedesktop.impl.portal.Screenshot" = "hyprland";
-            "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+      config =
+        let
+          gnome-config = {
             "org.freedesktop.impl.portal.Settings" = "gnome";
+            "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+            "org.freedesktop.impl.portal.Screenshot" = "gnome";
           };
-        })
+        in
+        lib.mkMerge [
+          (lib.mkIf (cfgHyprland.enable) {
+            hyprland = {
+              default = [ "hyprland" ] ++ [ config.xdg.portal.config.common.default ];
+              "org.freedesktop.impl.portal.RemoteDesktop" = "hyprland";
+              "org.freedesktop.impl.portal.Screenshot" = "hyprland";
+              "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+            };
+          })
 
-        (lib.mkIf cfg.kde.enable {
-          kde = {
-            default = [ "kde" ] ++ [ config.xdg.portal.config.common.default ];
-          };
-        })
+          (lib.mkIf cfg.kde.enable {
+            kde = {
+              default = [ "kde" ] ++ [ config.xdg.portal.config.common.default ];
+            };
+          })
 
-        (lib.mkIf cfg.gnome.enable {
-          gnome = {
-            default = [ "gnome" ] ++ [ config.xdg.portal.config.common.default ];
-          };
-        })
+          (lib.mkIf cfg.gnome.enable {
+            gnome = {
+              default = [ "gnome" ] ++ [ config.xdg.portal.config.common.default ];
+            }
+            // gnome-config;
+          })
 
-        (lib.mkIf cfg.niri.enable {
-          niri = {
-            default = [ "niri" ] ++ [ config.xdg.portal.config.common.default ];
-            "org.freedesktop.impl.portal.Settings" = "gnome";
-          };
-        })
+          (lib.mkIf cfg.niri.enable {
+            niri = {
+              default = [ "niri" ] ++ [ config.xdg.portal.config.common.default ];
+            }
+            // gnome-config;
+          })
 
-      ];
+        ];
 
     };
   };

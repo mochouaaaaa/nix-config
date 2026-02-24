@@ -19,7 +19,11 @@ in
           repeat = false;
         };
       in
+      with config.lib.niri.actions;
       {
+        "Mod+g" = default-params // {
+          action = toggle-overview;
+        };
         "Mod+Ctrl+t" = default-params // {
           action.spawn-sh = "kitty --single-instance";
         };
@@ -46,7 +50,7 @@ in
         };
         "Mod+Ctrl+s" = default-params // {
           action.screenshot-window = {
-            show-pointer = false;
+            # show-pointer = false;
             write-to-disk = true;
           };
         };

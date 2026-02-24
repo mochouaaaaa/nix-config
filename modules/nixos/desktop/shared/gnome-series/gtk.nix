@@ -36,7 +36,6 @@ in
 
     services = {
       dbus.packages = [
-        # pkgs.turtle
         pkgs.mission-center
       ];
       gnome = {

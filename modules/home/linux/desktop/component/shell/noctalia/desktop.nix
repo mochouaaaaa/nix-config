@@ -194,9 +194,8 @@ in
               action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
             };
           };
-        layout.background-color = "transparent";
         overview.workspace-shadow = {
-          enable = true;
+          enable = false;
         };
         layer-rules = [
           {

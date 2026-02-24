@@ -9,8 +9,6 @@ let
   cfg = config.profiles.desktop.niri;
 in
 {
-  # imports = [ "${inputs.niri}/modules/binary-cache.nix" ];
-
   config = lib.mkIf cfg.enable {
 
     programs.niri = {
@@ -52,6 +50,7 @@ in
             width = 2;
           };
           always-center-single-column = true;
+          background-color = "transparent";
         };
         cursor = {
           theme = config.home.pointerCursor.name;
@@ -60,7 +59,6 @@ in
 
         overview = {
           zoom = 0.5;
-          backdrop-color = "#262626";
           workspace-shadow = {
             softness = 40;
             spread = 10;

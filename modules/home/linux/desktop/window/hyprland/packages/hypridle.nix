@@ -18,7 +18,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && !config.profiles.desktop.shell.dankMaterialShell.enable) {
+  config = lib.mkIf (cfg.enable && !config.profiles.desktop.shell.dank-material-shell.enable) {
     services.hypridle = {
       enable = true;
       settings = {

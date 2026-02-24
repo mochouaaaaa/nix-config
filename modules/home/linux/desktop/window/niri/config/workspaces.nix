@@ -1,6 +1,5 @@
 { config, lib, ... }:
 let
-
   cfg = config.profiles.desktop.niri;
   browser = "^(firefox|chrome|chromium|brave|vivaldi|opera|safari|edge|zen).*";
 in

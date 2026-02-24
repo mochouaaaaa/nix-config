@@ -41,6 +41,8 @@ in
         userSettings = {
           "vscode-default-keybindings.removeOSKeybindings" = true;
           "vscode-default-keybindings.macOSKeybindings" = true;
+          "qt-qml.doNotAskForQmllsDownload" = true;
+          "qt-qml.qmlls.customExePath" = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
         };
         extensions =
           let
@@ -55,6 +57,18 @@ in
                 hash = "sha256-SJ+YghLJMWqvNsvhMLLzyPgkAiy/g+WlobXBx0mUGLs=";
               };
             })
+            (buildVscodeMarketplaceExtension {
+              mktplcRef = {
+                name = "qt-qml";
+                publisher = "TheQtCompany";
+                version = "1.7.0";
+                hash = "sha256-QjfvZIcE4LcJU93YiYN/zykEluHtR7zVOwYiPL0k+cQ=";
+              };
+              meta = {
+                license = lib.licenses.gpl3Plus;
+              };
+            })
+
           ];
         keybindings = [
           {

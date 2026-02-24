@@ -95,8 +95,6 @@ in
           ];
           # except for the secret portal, which is handled by gnome-keyring
           "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-          "org.freedesktop.impl.portal.ScreenCast" = "gtk";
-          "org.freedesktop.impl.portal.Screenshot" = "gtk";
           "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
         };
       };

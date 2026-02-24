@@ -11,7 +11,7 @@ let
 in
 {
   imports = [
-    inputs.DankMaterialShell.homeModules.niri
+    # inputs.DankMaterialShell.homeModules.niri
   ];
 
   config = mkIf (cfg.enable) (
@@ -19,6 +19,7 @@ in
 
       {
         services.darkman = {
+          enable = lib.mkForce false;
           lightModeScripts = {
             light = ''
               dms ipc call theme light
@@ -35,6 +36,12 @@ in
       # hyprland
       (lib.mkIf (cfgDesktop.hyprland.enable) {
         services.vicinae.enable = true;
+
+        programs.dank-material-shell = {
+          settings = lib.mkForceRecursive {
+            matugenTemplateHyprland = true;
+          };
+        };
 
         profiles.desktop.hyprland = {
           settings = {
@@ -109,8 +116,9 @@ in
         services.vicinae.enable = true;
 
         programs.dank-material-shell = {
-          default.settings = lib.mkForce {
+          settings = lib.mkForceRecursive {
             dankBarGothCornersEnabled = false;
+            matugenTemplateNiri = true;
           };
         };
 
@@ -177,7 +185,7 @@ in
             {
               matches = [
                 {
-                  appid = "org.quickshell$";
+                  app-id = "org.quickshell$";
                 }
               ];
               open-floating = true;

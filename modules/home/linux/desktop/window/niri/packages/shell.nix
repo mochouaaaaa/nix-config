@@ -9,7 +9,7 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    profiles.desktop.shell.dankMaterialShell.enable = false;
+    profiles.desktop.shell.dank-material-shell.enable = false;
     profiles.desktop.shell.noctalia.enable = true;
 
   };

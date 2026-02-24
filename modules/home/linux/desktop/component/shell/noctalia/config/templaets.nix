@@ -35,7 +35,7 @@ in
             id = "pywalfox";
           }
           {
-            enabled = true;
+            enabled = config.services.vicinae.enable;
             id = "vicinae";
           }
           {
@@ -79,13 +79,42 @@ in
             id = "ghostty";
           }
           {
+            enabled = config.programs.foot.enable;
+            id = "foot";
+          }
+          {
             enabled = config.programs.zed-editor.enable;
             id = "zed";
+          }
+          {
+            enabled = config.programs.zen-browser.enable;
+            id = "zenBrowser";
+          }
+          {
+            enabled = config.programs.helix.enable;
+            id = "helix";
+          }
+          {
+            enabled = config.programs.emacs.enable;
+            id = "emacs";
+          }
+          {
+            enabled = true;
+            id = "steam";
+          }
+          {
+            enabled = true;
+            id = "discord";
           }
         ];
         enableUserTheming = true;
       };
 
     };
+
+    programs.emacs.extraConfig = lib.optionalString (config.programs.emacs.enable) ''
+      (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+      (load-theme 'noctalia t)
+    '';
   };
 }

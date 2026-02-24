@@ -16,7 +16,6 @@ in
         backgroundOpacity = cfg.settings.ui.panelBackgroundOpacity;
       };
       bar = {
-        backgroundOpacity = 0.88;
         outerCorners = true;
       };
       dock = {
@@ -28,6 +27,32 @@ in
         avatarImage = "${config.home.homeDirectory}/.face";
       };
       hooks = {
+        startup =
+          let
+            hook_startup = pkgs.writeShellScriptBin "hook_startup" ''
+              noctalia-shell ipc call colorScheme setGenerationMethod muted
+              sleep 0.1
+              noctalia-shell ipc call colorScheme setGenerationMethod fruit-salad
+              noctalia-shell ipc call idleInhibitor enable
+            '';
+          in
+          "${lib.getExe hook_startup}";
+
+        screenLock =
+          let
+            hook_lock = pkgs.writeShellScriptBin "hook_lock" ''
+              noctalia-shell ipc call idleInhibitor disable
+            '';
+          in
+          "${lib.getExe hook_lock}";
+        screenUnlock =
+          let
+            hook_unlock = pkgs.writeShellScriptBin "hook_unlock" ''
+              noctalia-shell ipc call idleInhibitor enable
+            '';
+          in
+          "${lib.getExe hook_unlock}";
+
         darkModeChange =
           let
             hook_theme = pkgs.writeShellScriptBin "hook_theme" ''

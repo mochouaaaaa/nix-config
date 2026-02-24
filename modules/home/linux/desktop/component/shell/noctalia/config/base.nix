@@ -318,12 +318,6 @@ in
       };
       hooks = {
         enabled = true;
-        wallpaperChange = "";
-        screenLock = "";
-        screenUnlock = "";
-        performanceModeEnabled = "";
-        performanceModeDisabled = "";
-        session = "";
       };
 
     };
