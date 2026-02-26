@@ -69,6 +69,7 @@
                 "https://nix-community.cachix.org?priority=13"
                 "https://hyprland.cachix.org"
                 "https://niri.cachix.org"
+                "https://mochouaaaaa.cachix.org"
               ];
 
               trusted-public-keys = [
@@ -77,6 +78,7 @@
                 "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
                 "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
                 "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+                "mochouaaaaa.cachix.org-1:/enIIKfFu959KLIDs0OOHBd9EjnMt53b62Jr2oatV34="
               ];
 
               max-jobs = "auto";

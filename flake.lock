@@ -1224,11 +1224,11 @@
         "nixpkgs25-05": "nixpkgs25-05"
       },
       "locked": {
-        "lastModified": 1771734860,
-        "narHash": "sha256-m6f6YydN5NVQXPQK5f7XH6DEW6TJG+2/Cp1fAK/1vM8=",
+        "lastModified": 1772111677,
+        "narHash": "sha256-nQxY9KRYATzGOWsPql4o3S80ls4IaazUTZ3bG2WO7gM=",
         "owner": "mochouaaaaa",
         "repo": "nur-packages",
-        "rev": "39bb029242b87668539a73640e87ef819df72a7a",
+        "rev": "740c4cbe3835707c9941e5276fa2e4a349d98347",
         "type": "github"
       },
       "original": {
