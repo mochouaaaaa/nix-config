@@ -1,10 +1,11 @@
-{ self, ... }:
+{ self, inputs, ... }:
 let
   homeModules = [
     self.homeModules.darwin
 
     {
       profiles = {
+        secrets.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJyTnhFwOTyrb2gMvEyV6I83L7Xrek8bnzcg2FW6UahY";
         languages = {
           envs = {
             python.enable = true;
@@ -36,6 +37,7 @@ in
         stateVersion = 6;
 
         modules = [
+          (inputs.import-tree ./_darwin)
 
           self.darwinModules.default
           {

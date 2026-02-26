@@ -14,7 +14,7 @@ in
       default = import-tree [
         ./nixos
         osShared
-        "${self}/secrets/nixos.nix"
+        "${self}/secrets/nixos"
       ];
     };
 
@@ -22,7 +22,7 @@ in
       default = import-tree [
         ./darwin
         osShared
-        "${self}/secrets/darwin.nix"
+        "${self}/secrets/darwin"
       ];
     };
 
@@ -30,7 +30,7 @@ in
       default = import-tree [
         ./home/base
         homeShared
-        "${self}/secrets/home.nix"
+        "${self}/secrets/home"
       ];
       linux = import-tree [
         default

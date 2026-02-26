@@ -134,6 +134,10 @@ in
         bar = {
           outerCorners = false;
         };
+        wallpaper = {
+          overviewBlur = 0.4;
+          overviewTint = 0;
+        };
       };
 
       programs.niri.settings = {

@@ -35,7 +35,10 @@
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
+
     agenix.url = "github:ryantm/agenix";
+    agenix-rekey.url = "github:oddlama/agenix-rekey";
+
     nixd = {
       url = "github:nix-community/nixd";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -130,8 +133,7 @@
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      # url = "/home/mochou/Code/Projects/c/noctalia-shell";
-      # url = "github:noctalia-dev/noctalia-shell?ref=v4.4.0";
+      # url = "github:noctalia-dev/noctalia-shell?ref=v4.5.0";
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };

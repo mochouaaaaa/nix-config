@@ -5,6 +5,7 @@ let
 
     {
       profiles = {
+        secrets.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECNEOhSUgaHrFy8WYaHcFTTyeBDaS2bNXj/mE7RCkGo";
         languages = {
           envs = {
             python.enable = true;
@@ -65,14 +66,10 @@ in
         system = "x86_64-linux";
         stateVersion = "25.05";
         modules = [
-          (inputs.import-tree ./nixos)
+          (inputs.import-tree ./_nixos)
         ]
         ++ [
           self.nixosModules.default
-          # self.nixosModules.base
-          # self.nixosModules.services
-          # self.nixosModules.virtual
-          # self.nixosModules.desktop
 
           {
             profiles = {

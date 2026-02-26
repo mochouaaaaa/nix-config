@@ -8,9 +8,9 @@ let
     self.homeModules.wsl
 
     {
-      profiles.wsl.enable = true;
-
       profiles = {
+        secrets.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECNEOhSUgaHrFy8WYaHcFTTyeBDaS2bNXj/mE7RCkGo";
+        wsl.enable = true;
         languages = {
           envs = {
             python.enable = true;
@@ -38,22 +38,7 @@ in
         modules = [
           inputs.nixos-wsl.nixosModules.default
 
-          self.nixosModules.base
-        ]
-        ++ [
-          (
-            { lib, config, ... }:
-            {
-              options = {
-                profiles = {
-                  wsl = {
-                    enable = lib.mkEnableOption "if you want to use WSL";
-                    default = builtins.hasAttr "wsl" config;
-                  };
-                };
-              };
-            }
-          )
+          self.nixosModules.default
         ]
         ++ [
           (

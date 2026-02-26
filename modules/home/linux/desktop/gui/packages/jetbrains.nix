@@ -108,7 +108,7 @@ in
           in
           lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             if [ -f "${propertiesPath}" ]; then
-              echo "存在"
+              echo "properties file already exists, skipping creation"
             else
               echo "${propertiesContent}" > "${propertiesPath}"
             fi
@@ -125,7 +125,7 @@ in
           in
           lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             if [ -f "${vmoptsPath}" ]; then
-              echo "存在"         
+              echo "vmoptions file already exists, skipping creation"         
             else
               echo "${vmOptionsContent}" > "${vmoptsPath}"
             fi
