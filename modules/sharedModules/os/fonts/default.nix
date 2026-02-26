@@ -66,6 +66,7 @@ in
     nerd-fonts.symbols-only
 
     # General purpose fonts from former os/fonts.nix
+    fira-code
     noto-fonts
     noto-fonts-cjk-sans
     source-sans

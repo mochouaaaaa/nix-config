@@ -91,6 +91,7 @@ in
         inter
 
         # Icon fonts
+        fira-code
         font-awesome
         material-design-icons
         nerd-fonts.symbols-only

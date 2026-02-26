@@ -39,8 +39,8 @@ in
         lockScreenCountdownDuration = 10000;
       };
       ui = {
-        fontDefault = "Monaco Nerd Font";
-        fontFixed = "Monaco Nerd Font";
+        fontDefault = "${config.profiles.fonts.default}";
+        fontFixed = "${config.profiles.fonts.default}";
         fontDefaultScale = 1;
         fontFixedScale = 1;
         tooltipsEnabled = true;
