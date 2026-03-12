@@ -1,39 +1,12 @@
 {
+  inputs,
   lib,
   pkgs,
   config,
   ...
 }:
 let
-
   cfg = config.profiles.fonts;
-
-  # Custom derivation for Monaco Nerd Font, as it's not in nixpkgs.
-  MonacoNerdFont = pkgs.fetchzip {
-    url = "https://github.com/thep0y/monaco-nerd-font/releases/download/v0.2.1/MonacoNerdFont.zip";
-    sha256 = "sha256-Sal3Oa1H5Ng56VxTLToSjfSwsFFm0EtU3UksPa4P4+c=";
-    stripRoot = false;
-  };
-
-  MonacoNerdFontMono = pkgs.fetchzip {
-    url = "https://github.com/thep0y/monaco-nerd-font/releases/download/v0.2.1/MonacoNerdFontMono.zip";
-    sha256 = "sha256-gu1n+GRgiCWBka01B+jrvU2a4T3u9y1/RlspOcWMErE=";
-    stripRoot = false;
-  };
-
-  monaco-nerd-font = pkgs.stdenv.mkDerivation {
-    name = "monaco-nerd-font";
-    srcs = [
-      MonacoNerdFont
-      MonacoNerdFontMono
-    ];
-    unpackPhase = "true";
-    installPhase = ''
-      mkdir -p $out/share/fonts/opentype
-      cp -r ${MonacoNerdFont}/* $out/share/fonts/opentype
-      cp -r ${MonacoNerdFontMono}/* $out/share/fonts/opentype
-    '';
-  };
 in
 {
 
@@ -61,23 +34,23 @@ in
     };
     emoji = lib.mkOption {
       type = lib.types.str;
-      default = "Noto Color Emoji";
+      default = [
+        "Apple Color Emoji"
+        "Symbols Nerd Font"
+        "Noto Color Emoji"
+      ];
     };
   };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       home.packages = with pkgs; [
-        # monaco
-        monaco-nerd-font
+        inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
         maple-mono.opentype
-        maple-mono.CN
         inter
 
         # Icon fonts
         fira-code
-        font-awesome
-        material-design-icons
         nerd-fonts.symbols-only
 
         # General purpose fonts from former os/fonts.nix
@@ -87,8 +60,6 @@ in
         source-serif
         source-han-sans
         source-han-serif
-        mononoki
-        dejavu_fonts
       ];
 
       fonts.fontconfig = lib.optionalAttrs (pkgs.stdenv.hostPlatform.isLinux) {
@@ -99,19 +70,22 @@ in
           ];
           sansSerif = [ cfg.sansSerif ];
           monospace = [ cfg.monospace ];
-          emoji = [ cfg.emoji ];
+          emoji = cfg.emoji;
         };
       };
     })
 
     (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+      home.packages = [
+        inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
+      ];
       fonts.fontconfig = {
         enable = true;
         antialiasing = true;
       };
-      xdg.dataFile = {
-        "fonts".source = "/run/current-system/sw/share/X11/fonts";
-      };
+      # xdg.dataFile = {
+      #   "fonts".source = "/run/current-system/sw/share/X11/fonts";
+      # };
     })
   ];
 }

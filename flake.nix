@@ -76,6 +76,7 @@
     };
 
     # for linux
+    apple-emoji-font.url = "github:zhdsmy/apple-emoji";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     # keymap replaced

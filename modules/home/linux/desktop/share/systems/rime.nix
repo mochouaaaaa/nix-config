@@ -76,7 +76,7 @@ in
                 "WheelForPaging" = "True";
                 "Font" = "${config.profiles.fonts.default} 10";
                 "MenuFont" = "inter 11";
-                "TrayFont" = "Maple Mono NF 11";
+                "TrayFont" = "Maple Mono 11";
                 "TrayOutlineColor" = "#000000";
                 "TrayTextColor" = "#ffffff";
                 "PreferTextIcon" = "True";

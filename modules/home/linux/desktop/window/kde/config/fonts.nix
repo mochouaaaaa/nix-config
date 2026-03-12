@@ -12,7 +12,7 @@ in
       fonts = {
         general = fontConfig;
         fixedWidth = fontConfig // {
-          family = "Maple Mono NF";
+          family = config.profiles.fonts.monospace;
           pointSize = 10;
         };
         small = fontConfig // {

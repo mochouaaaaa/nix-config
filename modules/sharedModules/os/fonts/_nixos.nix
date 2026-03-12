@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -8,7 +9,9 @@
     fonts = {
       fontDir.enable = true;
       enableDefaultPackages = false;
-      packages = [ pkgs.corefonts ];
+      packages = [
+        inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
+      ];
       fontconfig = {
         useEmbeddedBitmaps = true;
         defaultFonts = {
@@ -18,6 +21,11 @@
           ];
           sansSerif = [ "Source Han Sans" ];
           monospace = [ "Maple Mono CN" ];
+          emoji = [
+            "Apple Color Emoji"
+            "Symbols Nerd Font"
+            "Noto Color Emoji"
+          ];
         };
       };
     };
