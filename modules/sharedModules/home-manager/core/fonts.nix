@@ -34,22 +34,6 @@ let
       cp -r ${MonacoNerdFontMono}/* $out/share/fonts/opentype
     '';
   };
-
-  monaco = pkgs.stdenv.mkDerivation rec {
-    pname = "monaco";
-    version = "0.2.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "thep0y";
-      repo = "monaco-nerd-font";
-      tag = "v${version}";
-      hash = "sha256-+Z55U3dPb+wyjlSrJ447PlKkW9uyFpRFXDIB+OgORXI=";
-    };
-
-    installPhase = ''
-      mkdir -p $out/share/fonts/opentype
-      find $src -type f -name "*.ttf" -exec cp {} $out/share/fonts/opentype/ \;
-    '';
-  };
 in
 {
 

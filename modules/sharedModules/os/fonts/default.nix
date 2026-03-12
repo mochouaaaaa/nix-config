@@ -19,33 +19,25 @@ let
     stripRoot = false;
   };
 
+  MonacoFiraCode = pkgs.fetchzip {
+    url = "https://github.com/muhac/monaco-fira-code-ligatures/archive/refs/tags/v1.zip";
+    hash = "sha256-z5KXhw0P4ufSvJe49Wf3WG2VaSmIqxWBirLe69cLbuA=";
+    stripRoot = false;
+  };
+
   monaco-nerd-font = pkgs.stdenv.mkDerivation {
     name = "monaco-nerd-font";
     srcs = [
       MonacoNerdFont
       MonacoNerdFontMono
+      MonacoFiraCode
     ];
     unpackPhase = "true";
     installPhase = ''
       mkdir -p $out/share/fonts/opentype
       cp -r ${MonacoNerdFont}/* $out/share/fonts/opentype
       cp -r ${MonacoNerdFontMono}/* $out/share/fonts/opentype
-    '';
-  };
-
-  monaco = pkgs.stdenv.mkDerivation rec {
-    pname = "monaco";
-    version = "0.2.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "thep0y";
-      repo = "monaco-nerd-font";
-      tag = "v${version}";
-      hash = "sha256-+Z55U3dPb+wyjlSrJ447PlKkW9uyFpRFXDIB+OgORXI=";
-    };
-
-    installPhase = ''
-      mkdir -p $out/share/fonts/opentype
-      find $src -type f -name "*.ttf" -exec cp {} $out/share/fonts/opentype/ \;
+      cp -r ${MonacoFiraCode}/monaco-fira-code-ligatures-1/MonacoFiraNerd/* $out/share/fonts/opentype
     '';
   };
 in
@@ -79,7 +71,10 @@ in
 
   home-manager.sharedModules = [
     {
-      config.profiles.fonts.enable = lib.mkForce false;
+      config.profiles.fonts = {
+        enable = lib.mkForce false;
+        default = lib.mkForce "Monaco Fira Nerd";
+      };
     }
   ];
 
