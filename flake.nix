@@ -118,8 +118,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.19.9";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:vicinaehq/vicinae?ref=v0.20.5";
     };
 
     quickshell = {
@@ -133,11 +132,10 @@
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      # url = "github:noctalia-dev/noctalia-shell?ref=v4.5.0";
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    DankMaterialShell = {
+    dank-material-shell = {
       url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -149,7 +147,7 @@
     hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.8";
     hyprshutdown.url = "github:hyprwm/hyprshutdown";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.53.1";
+      url = "github:hyprwm/Hyprland?ref=v0.54.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprutils.follows = "hyprutils";
@@ -168,10 +166,11 @@
       url = "github:Supreeeme/xwayland-satellite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-unstable.url = "github:YaLTeR/niri?ref=wip/branch";
     niri = {
-      # url = "github:sodiboo/niri-flake";
       url = "github:sodiboo/niri-flake?ref=very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.niri-unstable.follows = "niri-unstable";
       inputs.xwayland-satellite-unstable.follows = "xwayland-satellite";
     };
 
