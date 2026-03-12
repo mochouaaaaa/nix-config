@@ -23,21 +23,21 @@ in
             ];
           in
           [
-            {
-              geometry-corner-radius =
-                let
-                  # radius = 12.0;
-                  radius = 0.0;
-                in
-                {
-                  bottom-left = radius;
-                  bottom-right = radius;
-                  top-left = radius;
-                  top-right = radius;
-                };
-              clip-to-geometry = true;
-              draw-border-with-background = false;
-            }
+            # {
+            # geometry-corner-radius =
+            #   let
+            #     # radius = 12.0;
+            #     radius = 0.0;
+            #   in
+            #   {
+            #     bottom-left = radius;
+            #     bottom-right = radius;
+            #     top-left = radius;
+            #     top-right = radius;
+            #   };
+            # clip-to-geometry = true;
+            # draw-border-with-background = false;
+            # }
             {
               matches = [
                 { is-floating = true; }
@@ -64,6 +64,10 @@ in
                 {
                   app-id = "imv";
                   title = "^imv - .*\\.png \\[scale to fit\\]$";
+                }
+                {
+                  app-id = "com.alibabainc.dingtalk";
+                  title = "com.alibabainc.dingtalk";
                 }
                 { app-id = "^(pavucontrol|pavucontrol-qt|com.saivert.pwvucontrol)$"; }
                 { app-id = "io.github.fsobolev.Cavalier"; }
@@ -150,6 +154,18 @@ in
               block-out-from = "screen-capture";
             }
           ];
+
+        layer-rules = [
+          {
+            matches = [
+              {
+                namespace = "";
+              }
+            ];
+            place-within-backdrop = true;
+
+          }
+        ];
 
       };
 

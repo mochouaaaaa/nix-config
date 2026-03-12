@@ -16,6 +16,7 @@ in
     extensions = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [
+        { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; } # duckduckgo
         { id = "ffabmkklhbepgcgfonabamgnfafbdlkn"; } # gzip github
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
         { id = "immpkjjlgappgfkkfieppnmlhakdmaab"; } # imagus

@@ -71,6 +71,7 @@ in
               application.only = [
                 "firefox"
                 "chromium"
+                "chromium-browser"
               ];
               remap = {
                 "SUPER-r" = "C-r";

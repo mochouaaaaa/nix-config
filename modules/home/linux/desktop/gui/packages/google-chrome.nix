@@ -12,7 +12,7 @@ let
 in
 {
   programs.chromium = {
-    package = pkgs.chromium;
+    package = pkgs.ungoogled-chromium;
     extensions = [
       { id = "padekgcemlokbadohgkifijomclgjgif"; } # Proxy SwitchyOmega
     ];

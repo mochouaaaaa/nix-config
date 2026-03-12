@@ -11,12 +11,52 @@ in
 {
   config = lib.mkIf cfg.enable {
 
+    xdg.configFile."niri/blur.kdl".text = ''
+      blur {
+          passes 3
+          offset 3.0
+      }
+
+      layer-rule {
+          match namespace="vicinae"
+          baba-is-float true
+      }
+
+
+      window-rule {
+          draw-border-with-background false
+          clip-to-geometry true
+
+          background-effect {
+              xray false
+              blur true
+          }
+      }
+
+      layer-rule {
+          match namespace="vicinae"
+
+          place-within-backdrop true
+
+          background-effect {
+              xray false
+              blur true
+          }
+      }
+
+    '';
     programs.niri = {
       settings = {
+        includes = [
+          "blur.kdl"
+        ];
         xwayland-satellite = {
           enable = true;
           path = lib.getExe pkgs.xwayland-satellite;
         };
+        # debug = ''
+        #   honor-xdg-activation-with-invalid-serial
+        # '';
         input = {
           keyboard = {
 

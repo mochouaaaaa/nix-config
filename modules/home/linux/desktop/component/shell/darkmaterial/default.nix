@@ -9,7 +9,7 @@ let
 in
 {
   imports = [
-    inputs.DankMaterialShell.homeModules.dank-material-shell
+    inputs.dank-material-shell.homeModules.dank-material-shell
   ];
 
   options.profiles.desktop.shell.dank-material-shell = {

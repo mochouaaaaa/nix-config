@@ -70,6 +70,7 @@ in
           "float on, match:title (Kvantum Manager)"
           "float on, match:class ^([Qq]alculate-gtk)$"
           "float on, match:class ^([Ff]erdium)$"
+          "float on, match:class com.alibabainc.dingtalk"
 
           "size (monitor_w*0.7) (monitor_h*0.7), match:class ^(xdg-desktop-portal-gtk)$"
           "size (monitor_w*0.6) (monitor_h*0.7), match:title (Kvantum Manager)"

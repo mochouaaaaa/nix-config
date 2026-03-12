@@ -13,20 +13,6 @@ in
     {
       services.blueman-applet.enable = lib.mkForce false;
       services.network-manager-applet.enable = lib.mkForce false;
-
-      services.darkman = {
-        enable = lib.mkForce false;
-        lightModeScripts = {
-          light = ''
-            noctalia-shell ipc call darkMode setLight
-          '';
-        };
-        darkModeScripts = {
-          dark = ''
-            noctalia-shell ipc call darkMode setDark
-          '';
-        };
-      };
     }
 
     # hyprland
@@ -127,16 +113,33 @@ in
     (mkIf (cfgDesktop.niri.enable) {
 
       services.vicinae.enable = true;
-      programs.noctalia-shell.settings = lib.mkForceRecursive {
-        general = {
-          showScreenCorners = false;
-        };
-        bar = {
-          outerCorners = false;
-        };
-        wallpaper = {
-          overviewBlur = 0.4;
-          overviewTint = 0;
+      programs.noctalia-shell = {
+        settings = lib.mkForceRecursive rec {
+          ui = {
+            panelBackgroundOpacity = 0.62;
+          };
+          appLauncher = {
+            backgroundOpacity = ui.panelBackgroundOpacity;
+          };
+          bar = {
+            backgroundOpacity = ui.panelBackgroundOpacity;
+          };
+          notifications = {
+            backgroundOpacity = ui.panelBackgroundOpacity;
+          };
+          osd = {
+            backgroundOpacity = ui.panelBackgroundOpacity;
+          };
+          general = {
+            showScreenCorners = false;
+          };
+          bar = {
+            outerCorners = false;
+          };
+          wallpaper = {
+            overviewBlur = 0.4;
+            overviewTint = 0;
+          };
         };
       };
 

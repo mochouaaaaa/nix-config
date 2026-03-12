@@ -12,11 +12,6 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    programs.quickshell = {
-      enable = true;
-      systemd.enable = false;
-    };
-
     programs = {
       swappy = {
         enable = true;

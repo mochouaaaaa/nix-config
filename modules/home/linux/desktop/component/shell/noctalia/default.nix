@@ -33,10 +33,6 @@ in
 
   config = lib.mkIf (cfg.enable) {
 
-    home.packages = [
-      noctalia-shell
-    ];
-
     services.cliphist.enable = lib.mkForce false;
 
     systemd.user.services = {

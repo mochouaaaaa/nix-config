@@ -25,6 +25,7 @@ in
         animationDisabled = false;
         compactLockScreen = true;
         lockOnSuspend = true;
+        lockScreenAnimations = true;
         showSessionButtonsOnLockScreen = false;
         showHibernateOnLockScreen = false;
         enableShadows = false;
@@ -44,7 +45,7 @@ in
         fontDefaultScale = 1;
         fontFixedScale = 1;
         tooltipsEnabled = true;
-        panelBackgroundOpacity = lib.mkDefault 0.78;
+        panelBackgroundOpacity = 0.78;
         panelsAttachedToBar = true;
         settingsPanelMode = "centered";
         wifiDetailsViewMode = "grid";

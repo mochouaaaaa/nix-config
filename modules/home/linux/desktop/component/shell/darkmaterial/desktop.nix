@@ -11,7 +11,7 @@ let
 in
 {
   imports = [
-    # inputs.DankMaterialShell.homeModules.niri
+    # inputs.dank-material-shell.homeModules.niri
   ];
 
   config = mkIf (cfg.enable) (
