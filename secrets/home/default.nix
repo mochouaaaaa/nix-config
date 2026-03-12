@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -39,11 +40,11 @@ in
     age = {
       identityPaths = cfg.identityPaths;
 
-      rekey = {
+      rekey = rec {
         hostPubkey = cfg.hostPubkey;
         masterIdentities = cfg.masterIdentities;
         storageMode = "local";
-        localStorageDir = "${self}/secrets/rekeyed/${config.home.username}";
+        localStorageDir = "${self}/secrets/rekeyed/home/${config.home.username}/${pkgs.stdenv.hostPlatform.system}/${builtins.hashString "md5" hostPubkey}";
       };
 
       secrets = {

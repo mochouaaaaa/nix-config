@@ -12,7 +12,7 @@ let
       duckdb
       # pdf
       zathura
-      evince
+      # evince
       # markdown
       glow
       # image
