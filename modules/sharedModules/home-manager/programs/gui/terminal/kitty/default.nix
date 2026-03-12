@@ -13,8 +13,8 @@ in
     profiles.packages.terminal.kitty.extraConfig = lib.mkBefore [
       "include init.conf"
       "\n"
-      "font_features ${config.profiles.fonts.default} -liga -clig -calt"
-      "symbol_map U+003C,U+003D,U+003E,U+0021,U+002D,U+0026,U+007C,U+002B Fira Code"
+      # "font_features ${config.profiles.fonts.default} -liga -clig -calt"
+      # "symbol_map U+003C,U+003D,U+003E,U+0021,U+002D,U+0026,U+007C,U+002B Fira Code"
       "\n"
     ];
 
