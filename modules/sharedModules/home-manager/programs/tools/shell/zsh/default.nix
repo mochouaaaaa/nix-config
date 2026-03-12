@@ -16,16 +16,13 @@
         readline = pkgs.readline;
       };
     };
-    zsh = rec {
+    zsh = {
       enable = true;
       enableCompletion = true;
       syntaxHighlighting = {
         enable = true;
         package = pkgs.zsh-syntax-highlighting;
       };
-      initContent = ''
-        source ${dotDir}/.p10k.zsh 
-      '';
       dotDir = "${config.xdg.configHome}/env/zsh";
       autosuggestion = {
         enable = true;
