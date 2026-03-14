@@ -14,24 +14,39 @@
         extensions = [
           "nix"
           "python"
-          "basedpyright"
+          "ty"
           "golangci-lint"
         ];
         extraPackages = with pkgs; [
           nixd
         ];
         userSettings = {
-          base_keymap = "JetBrains";
           vim_mode = false;
           autosave = "after_delay";
+          theme = {
+            mode = "system";
+          };
 
-          ui_font_size = 16;
-          buffer_font_size = 16;
+          ui_font_size = 18;
+          buffer_font_size = 18;
+          ui_font_family = "${config.profiles.fonts.default}";
           buffer_font_family = "${config.profiles.fonts.default}";
 
           restore_on_startup = "last_session";
-
           cursor_shape = "block"; # 光标样式
+
+          which_key = {
+            enabled = true;
+          };
+
+          languages = {
+            Python = {
+              language_servers = [
+                "ty"
+                "!basedpyright"
+              ];
+            };
+          };
         };
         # userKeymaps = [
         #   {
