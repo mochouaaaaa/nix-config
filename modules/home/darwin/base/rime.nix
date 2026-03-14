@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   ...
 }:
 let
@@ -42,12 +43,17 @@ in
         };
       };
 
-    home.file = {
-      "Library/Rime" = {
-        source = "${rime-data}/share/rime-data";
-        recursive = true;
-        force = true;
-      };
+    home.activation = {
+      generateRimeBuild =
+        let
+          squrrelContets = "/Library/Input Methods/Squirrel.app/Contents";
+        in
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          ${squrrelContets}/MacOS/rime_deployer --build \
+          ${rime-data}/share/rime-data \
+          ${squrrelContets}/SharedSupport \
+          $HOME/Library/Rime
+        '';
     };
   };
 }

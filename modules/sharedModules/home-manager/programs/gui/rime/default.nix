@@ -1,7 +1,22 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
 
   config = lib.mkIf config.profiles.desktop.enable {
+
+    home.activation = {
+      clearRimeBuild =
+        let
+          rimePath = if pkgs.stdenv.isDarwin then "$HOME/Library/Rime" else "$HOME/.local/share/fcitx5/rime";
+        in
+        lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+          $DRY_RUN_CMD rm -rf ${rimePath}/build
+        '';
+    };
 
     profiles.packages.rime = {
       defaultCustomYaml = {
