@@ -31,11 +31,11 @@
       fehelper = true;
       imagus = true;
       immersive-translate = true;
-      nope-cha = true;
+      nope-cha = false;
       tampermonkey = true;
       ublock-origin = true;
       vimium = true;
-      xbrowsersync = true;
+      xbrowsersync = false;
       duckduckgo-privacy-essentials = true;
     };
   };

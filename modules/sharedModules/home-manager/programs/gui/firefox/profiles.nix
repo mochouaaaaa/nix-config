@@ -100,7 +100,7 @@ in
 
               # font
               "font.name.serif.zh-CN" = "${config.profiles.fonts.serif}";
-              "font.name.sans-serif.zh-CN" = "${config.profiles.fonts.sansSerif}";
+              "font.name.sans-serif.zh-CN" = "${config.profiles.fonts.default}";
               "font.name.monospace.zh-CN" = "${config.profiles.fonts.monospace}";
 
               # network

@@ -7,59 +7,18 @@
 }:
 let
   cfg = config.profiles.packages.firefox;
-
-  themes = pkgs.stdenv.mkDerivation {
-    name = "firefox-themes";
-    src = pkgs.fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = "WhiteSur-firefox-theme";
-      tag = "2025-07-28";
-      hash = "sha256-T1gWHKc6W9Z+PjuLo8wq145/ZGXM5L2RekXeEyoo0Ls=";
-    };
-
-    left_button = "4";
-    right_button = "3";
-    adaptive = "-adaptive";
-
-    installPhase = ''
-      TARGET="$out/share/mozilla/firefox/firefox-themes"
-      mkdir -p "$TARGET/Monterey/parts"
-
-      cp -rf src/Monterey/* "$TARGET/Monterey/" 2>/dev/null || true
-      cp -f src/customChrome.css "$TARGET/customChrome.css"
-
-      cp -rf src/common/icons "$TARGET/Monterey/"
-      cp -rf src/common/titlebuttons "$TARGET/Monterey/"
-      cp -rf src/common/pages "$TARGET/Monterey/"
-      cp -f src/common/*.css "$TARGET/Monterey/"
-      cp -rf src/common/parts/*.css "$TARGET/Monterey/parts/"
-
-      cp -f "src/userChrome-Monterey-alt$adaptive.css" "$TARGET/userChrome.css"
-      cp -f "src/userContent-Monterey$adaptive.css" "$TARGET/userContent.css"
-
-      cp -f "src/WhiteSur/parts/headerbar-urlbar.css" "$TARGET/Monterey/parts/headerbar-urlbar-alt.css"
-
-      substituteInPlace "$TARGET/userChrome.css" \
-        --replace "left_header_button_3" "left_header_button_$left_button" \
-        --replace "right_header_button_3" "right_header_button_$right_button"
-
-    '';
-  };
-
 in
 {
 
   config = lib.mkIf (cfg.enable && config.profiles.desktop.enable) {
 
-    home.file = {
-      ".mozilla/firefox/${username}/chrome/Monterey".source =
-        "${themes}/share/mozilla/firefox/firefox-themes/Monterey";
+    home.activation = {
+      active-firefox-theme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs.firefox-gnome-theme}/bin/auto-install.sh
+      '';
     };
 
     programs.firefox.profiles.${username} = {
-      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        adaptive-tab-bar-colour
-      ];
       settings = {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "browser.uidensity" = 0;
@@ -68,43 +27,10 @@ in
         "widget.gtk.rounded-bottom-corners.enabled" = true;
         "widget.gtk.non-native-titlebar-buttons.enabled" = false;
         "svg.context-properties.content.enabled" = true;
+
+        "gnomeTheme.hideSingleTab" = true;
       };
-      userChrome = ''
-        @import "Monterey/theme-alt-adaptive.css";
-        @import "Monterey/hide-single-tab.css";
-        @import "customChrome.css";
-      '';
-      userContent = ''
-        @import "Monterey/colors/light-adaptive.css";
-        @import "Monterey/colors/dark-adaptive.css";
-
-        @import "Monterey/pages/newtab-adaptive.css";
-      '';
     };
-
-    home.file.".mozilla/firefox/${username}/chrome/customChrome.css".text = ''
-      #tabbrowser-tabbox {
-        box-shadow: none !important;
-      }
-
-      #navigator-toolbox,
-      #TabsToolbar,
-      #nav-bar,
-      #PersonalToolbar,
-      #sidebar-box,
-      .tab-background,
-      .urlbar-background,
-      findbar {
-        transition:
-          background-color 0.5s cubic-bezier(0, 0, 0, 1),
-          border-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-      }
-
-      .Sidebar,
-      .bottom-space {
-        transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-      }
-    '';
 
     xdg.mimeApps =
       let
