@@ -12,7 +12,7 @@ in
       settings = {
 
         general = {
-          layout = "dwindle"; # "dwindle"
+          layout = "scrolling"; # "dwindle"
 
           allow_tearing = false; # Allows `immediate` window rule to work
 
@@ -29,6 +29,11 @@ in
           preserve_split = true;
           smart_split = false;
           smart_resizing = true;
+        };
+
+        scrolling = {
+          explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
+          column_width = 0.51;
         };
 
       };

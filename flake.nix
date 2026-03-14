@@ -9,7 +9,7 @@
   #     https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
   nixConfig = {
     extra-substituters = [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
+      # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
       # "https://nix-mirror.freetls.fastly.net?priority=11"
       "https://cache.nixos.org?priority=12"
       "https://nix-community.cachix.org?priority=13"
@@ -148,7 +148,7 @@
     hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.8";
     hyprshutdown.url = "github:hyprwm/hyprshutdown";
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.54.1";
+      url = "github:hyprwm/Hyprland?ref=v0.54.2";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprutils.follows = "hyprutils";

@@ -112,6 +112,13 @@ in
 
     };
 
+    programs.zed-editor.userSettings = {
+      theme = {
+        light = "Noctalia Light";
+        dark = "Noctalia Dark";
+      };
+    };
+
     programs.emacs.extraConfig = lib.optionalString (config.programs.emacs.enable) ''
       (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
       (load-theme 'noctalia t)

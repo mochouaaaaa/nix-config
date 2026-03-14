@@ -21,8 +21,10 @@ in
 
         binde = [
           # Resize windows
-          "CTRL SHIFT, left, resizeactive,-50 0"
-          "CTRL SHIFT, right, resizeactive,50 0"
+          # "CTRL SHIFT, left, resizeactive,-50 0"
+          # "CTRL SHIFT, right, resizeactive,50 0"
+          "CTRL SHIFT, left, layoutmsg, colresize -0.1"
+          "CTRL SHIFT, right,layoutmsg, colresize +0.1"
           "CTRL SHIFT, up, resizeactive,0 -50"
           "CTRL SHIFT, down, resizeactive,0 50"
         ];
@@ -65,6 +67,10 @@ in
             "ALT, h, movefocus, l"
             "ALT, k, movefocus, u"
             "ALT, j, movefocus, d"
+
+            "CTRL SHIFT, R, layoutmsg, colresize +conf"
+            "CTRL ALT, left, layoutmsg, swapcol l"
+            "CTRL ALT, right, layoutmsg, swapcol r"
           ]
           ++ cfg.settings.screenshot
           ++ lib.optional (cfg.settings.clipboard != "") cfg.settings.clipboard
@@ -73,8 +79,14 @@ in
           ++ lib.optional (cfg.settings.shell-settings != "") cfg.settings.shell-settings;
         bindm = [
           "$mod, mouse:272, movewindow"
-          "$mod, mouse:273, resizewindow"
+          "$mod, mouse:273, resizewindow 2"
         ];
+        bindc = [
+          "$mod, mouse:272, togglefloating"
+        ];
+        binds = {
+          drag_threshold = 10;
+        };
       };
     };
   };
