@@ -15,7 +15,7 @@
       "https://nix-community.cachix.org?priority=13"
       "https://niri.cachix.org"
       "https://hyprland.cachix.org"
-      "https://mochouaaaaa.cachix.org"
+      "https://mochouaaaaa.cachix.org?priority=11"
     ];
 
     extra-public-keys = [
@@ -156,10 +156,6 @@
         aquamarine.follows = "aquamarine";
         hyprlang.follows = "hyprlang";
       };
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # niri
