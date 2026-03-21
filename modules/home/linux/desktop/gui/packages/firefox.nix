@@ -20,6 +20,8 @@ in
 
     programs.firefox.profiles.${username} = {
       settings = {
+        "ui.key.menuAccessKey" = 0;
+
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "browser.uidensity" = 0;
         "layers.acceleration.force-enabled" = true;

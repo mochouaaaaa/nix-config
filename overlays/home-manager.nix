@@ -34,7 +34,6 @@ let
     inputs.vscode-extensions.overlays.default
     inputs.niri.overlays.niri
     inputs.vicinae.overlays.default
-    inputs.hyprland-contrib.overlays.default
     inputs.noctalia.overlays.default
     inputs.hyprland.overlays.default
     (import ./pkgs/obsidian-wrapper.nix)

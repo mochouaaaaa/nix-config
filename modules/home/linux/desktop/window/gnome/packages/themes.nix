@@ -13,13 +13,13 @@ in
     services.darkman = {
       lightModeScripts = {
         gtk-theme = ''
-          switch-theme ${config.profiles.themes.gtkTheme.light}
+          switch-theme light
           vicinae vicinae://theme/set/vicinae-light
         '';
       };
       darkModeScripts = {
         gtk-theme = ''
-          switch-theme ${config.profiles.themes.gtkTheme.dark}
+          switch-theme dark
           vicinae vicinae://theme/set/vicinae-dark
         '';
       };

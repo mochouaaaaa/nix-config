@@ -36,10 +36,17 @@ let
 
     function set_gtk_theme {
         local gtk_version=$1
-        local config_dir="$XDG_CONFIG_HOME/gtk-$gtk_version.0"
+        local version=gtk-$gtk_version.0
+        local config_dir="$XDG_CONFIG_HOME/$version"
         local config_file="$config_dir/settings.ini"
 
         mkdir -p "$config_dir"
+
+        rm -rf $config_dir/{gtk.css,gtk-dark.css,assets}
+        ln -s ${cfgTheme.package}/share/themes/$gtk_theme_name/$version/assets $config_dir/assets 
+        ln -s ${cfgTheme.package}/share/themes/$gtk_theme_name/$version/gtk.css $config_dir/gtk.css 
+        ln -s ${cfgTheme.package}/share/themes/$gtk_theme_name/$version/gtk-dark.css $config_dir/gtk-dark.css 
+
 
         # 使用 cat 生成配置文件
         cat > "$config_file" << EOF
@@ -62,7 +69,7 @@ let
     }
 
     set_gtk_theme 3
-    # set_gtk_theme 4
+    set_gtk_theme 4
   '';
 
   switch-theme = pkgs.writeShellScriptBin "switch-theme" ''
@@ -104,7 +111,6 @@ let
     cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | sed 's/.*\s*=\s*//')"
     font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
 
-    $dconf reset -f /org/gnome/
     $dconf write ''${gnome_schema}gtk-theme "'$gtk_theme'"
     $dconf write ''${gnome_schema}icon-theme "'$icon_theme'"
     $dconf write ''${gnome_schema}cursor-theme "'$cursor_theme'"
@@ -117,6 +123,7 @@ let
         COLOR_SCHEME="prefer-light"
     fi
     $dconf write ''${gnome_schema}color-scheme "'$COLOR_SCHEME'"
+    $dconf write /org/gnome/shell/extensions/user-theme/name "'$gtk_theme'"
 
   '';
 
@@ -171,7 +178,7 @@ in
 
     _module.args.themeNameWithMode = nameWithMode;
 
-    profiles.themes.gtkTheme = {
+    profiles.themes.gtkTheme = lib.mkDefaultRecursive {
       name = "adw-gtk3";
       package = pkgs.adw-gtk3;
       icon = {

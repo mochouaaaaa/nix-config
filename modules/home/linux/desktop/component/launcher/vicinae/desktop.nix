@@ -34,6 +34,7 @@ in
     })
 
     (mkIf (cfgDesktop.gnome.enable) {
+      services.vicinae.enable = true;
 
       programs.gnome-shell = {
         extensions = [

@@ -63,8 +63,10 @@ in
               if [ "$mode" = "true" ]; then
                 # [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Dark/Summer-Scene-Dark.png DP-1
                 [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png DP-1
+                switch-theme dark
               else
                 [ "$is_random" = "false" ] && noctalia-shell ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png DP-1
+                switch-theme light
               fi
             '';
           in

@@ -29,6 +29,7 @@ in
         showSessionButtonsOnLockScreen = false;
         showHibernateOnLockScreen = false;
         enableShadows = false;
+        enableBlurBehind = true;
         shadowDirection = "center";
         shadowOffsetX = 2;
         shadowOffsetY = 3;
@@ -45,14 +46,14 @@ in
         fontDefaultScale = 1;
         fontFixedScale = 1;
         tooltipsEnabled = true;
+        scrollbarAlwaysVisible = true;
         panelBackgroundOpacity = 0.78;
+        networkPanelView = "wifi";
+        boxBorderEnabled = false;
+        translucentWidgets = true;
         panelsAttachedToBar = true;
         settingsPanelMode = "centered";
-        wifiDetailsViewMode = "grid";
-        bluetoothDetailsViewMode = "grid";
-        networkPanelView = "wifi";
-        bluetoothHideUnnamedDevices = false;
-        boxBorderEnabled = false;
+        settingsPanelSideBarCardStyle = false;
       };
 
       location = {

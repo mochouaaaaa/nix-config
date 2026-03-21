@@ -38,9 +38,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.activation = {
+      resetDconf = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/desktop/
+      '';
+    };
+
     programs = {
       gnome.monitors.enable = true;
-      gnome-shell.enable = true;
+      gnome-shell = {
+        enable = true;
+      };
     };
 
     home.packages = with pkgs; [
@@ -52,7 +60,7 @@ in
     # These were previously set in this file or in the individual extension files.
     profiles.desktop.gnome.extensions = {
       appindicator = true;
-      auto-move-windows = true;
+      auto-move-windows = false;
       coverflow-alt-tab = true;
       dash-to-dock = true;
       just-perfection = true;
@@ -61,6 +69,7 @@ in
       settingscenter = true;
       unite = true;
       user-themes = true;
+      xremap = true;
     };
   };
 }
