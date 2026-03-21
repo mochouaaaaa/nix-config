@@ -3,10 +3,9 @@ let
   cfgMatugen = config.programs.matugen;
 
   cfgNoctalia = config.programs.noctalia-shell;
-  cfgDarkMaterial = config.programs.dankMaterialShell;
+  cfgDarkMaterial = config.programs.dank-material-shell;
 
-  useNoctaliaKitty = cfgNoctalia.enable && cfgNoctalia.settings.templates.kitty;
-  useNoctaliaGhostty = cfgNoctalia.enable && cfgNoctalia.settings.templates.ghostty;
+  useNoctaliaKitty = cfgNoctalia.enable;
   useDarkMaterial = cfgDarkMaterial.enable;
 in
 {
@@ -29,10 +28,6 @@ in
 
       {
         programs.ghostty.settings = lib.mkMerge [
-
-          (lib.mkIf useNoctaliaGhostty {
-            theme = "noctalia";
-          })
 
           (lib.mkIf useDarkMaterial {
             theme = "dankcolors";

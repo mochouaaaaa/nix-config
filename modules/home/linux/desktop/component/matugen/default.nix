@@ -9,7 +9,7 @@ let
   tomlFormat = pkgs.formats.toml { };
 
   cfgNoctalia = config.programs.noctalia-shell;
-  cfgDarkMaterial = config.programs.dankMaterialShell;
+  cfgDarkMaterial = config.programs.dank-material-shell;
 
   # Centralized definitions for all matugen templates.
   # They are conditionally included based on whether the target program is enabled.
@@ -28,13 +28,6 @@ let
         postHook = "pkill -USR1 cava || true";
       };
     }
-    // lib.optionalAttrs config.wayland.windowManager.hyprland.enable {
-      hyprland = {
-        inputPath = "${config.xdg.configHome}/matugen/templates/hyprland-colors.conf";
-        outputPath = "${config.xdg.configHome}/hypr/colors.conf";
-        postHook = "hyprctl reload";
-      };
-    }
     // lib.optionalAttrs config.programs.tmux.enable {
       tmux = {
         inputPath = "${config.xdg.configHome}/matugen/templates/tmux.conf";
@@ -48,13 +41,13 @@ let
         outputPath = "${config.xdg.configHome}/yazi/flavors/matugen.yazi/flavor.toml";
       };
     }
-    // lib.optionalAttrs (cfgNoctalia.enable && cfgNoctalia.settings.templates.neovim) {
-      neovim = {
-        inputPath = "${config.xdg.configHome}/matugen/templates/template.lua";
-        outputPath = "${config.xdg.configHome}/nvim/generated.lua";
-        postHook = "pkill -SIGUSR1 nvim";
-      };
-    }
+    # // lib.optionalAttrs (cfgNoctalia.enable && cfgNoctalia.settings.templates.neovim) {
+    #   neovim = {
+    #     inputPath = "${config.xdg.configHome}/matugen/templates/template.lua";
+    #     outputPath = "${config.xdg.configHome}/nvim/generated.lua";
+    #     postHook = "pkill -SIGUSR1 nvim";
+    #   };
+    # }
     // lib.optionalAttrs (cfgDarkMaterial.enable && config.services.vicinae.enable) {
       vicinae = {
         inputPath = "${config.xdg.configHome}/matugen/templates/vicinae.toml";
@@ -62,17 +55,6 @@ let
         postHook = "vicinae theme set matugen";
       };
     };
-
-  # Filter templates relevant for Noctalia (excluding Vicinae)
-  noctaliaFilteredTemplates = lib.filterAttrs (_: v: v ? inputPath) (
-    lib.removeAttrs allTemplates [
-      "vicinae"
-      "cava"
-      "yazi"
-      "hyprland"
-      "neovim"
-    ]
-  );
 
   # Filter templates relevant for DankMaterialShell (excluding Neovim)
   darkMaterialFilteredTemplates = lib.filterAttrs (_: v: v != { }) (
@@ -144,12 +126,7 @@ in
       # This ensures `programs.matugen.user-templates.templates` is populated correctly
       # for nix-repl queries and the matugen program's `config.toml`.
       programs.matugen.user-templates.templates =
-        if cfgNoctalia.enable then
-          noctaliaFilteredTemplates
-        else if cfgDarkMaterial.enable then
-          darkMaterialFilteredTemplates
-        else
-          { };
+        if cfgDarkMaterial.enable then darkMaterialFilteredTemplates else { };
 
       # This part still generates the final config.toml for matugen to consume.
       xdg.configFile."matugen/config.toml" = {

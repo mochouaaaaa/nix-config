@@ -2,7 +2,7 @@
 let
   cfg = config.services.vicinae;
   cfgMatugen = config.programs.matugen;
-  cfgDarkMaterial = config.programs.dankMaterialShell;
+  cfgDarkMaterial = config.programs.dank-material-shell;
   cfgNoctalia = config.programs.noctalia-shell;
 in
 {

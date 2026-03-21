@@ -3,7 +3,7 @@ let
   cfgCava = config.programs.cava;
   cfgMatugen = config.programs.matugen;
   cfgNoctalia = config.programs.noctalia-shell;
-  cfgDarkMaterial = config.programs.dankMaterialShell;
+  cfgDarkMaterial = config.programs.dank-material-shell;
 in
 {
   config = lib.mkIf (cfgCava.enable && cfgMatugen.enable) (

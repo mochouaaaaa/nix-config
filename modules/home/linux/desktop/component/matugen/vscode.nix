@@ -14,7 +14,7 @@ in
   config = lib.mkIf (cfg.enable && cfgMatugen.enable) (
     lib.mkMerge [
 
-      (lib.mkIf (cfgNoctalia.enable && cfgNoctalia.settings.templates.code) {
+      (lib.mkIf cfgNoctalia.enable {
         programs.vscode.profiles.default = {
           userSettings = {
             "workbench.colorTheme" = lib.mkForce "NoctaliaTheme";

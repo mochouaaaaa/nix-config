@@ -8,7 +8,6 @@
 let
   cfg = config.programs.firefox;
   cfgMatugen = config.programs.matugen;
-  cfgNoctalia = config.programs.noctalia-shell;
 in
 {
   config = lib.mkIf (cfg.enable && cfgMatugen.enable) (

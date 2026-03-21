@@ -5,7 +5,7 @@
 }:
 let
   cfgMatugen = config.programs.matugen;
-  cfgDarkMaterial = config.programs.dankMaterialShell;
+  cfgDarkMaterial = config.programs.dank-material-shell;
 in
 {
   config = lib.mkIf (cfgDarkMaterial.enable && cfgMatugen.enable) (
