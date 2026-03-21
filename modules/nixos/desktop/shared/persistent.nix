@@ -14,7 +14,7 @@
       }
       {
         directory = ".local/share/authenticator";
-        mode = "0700";
+        mode = "0755";
       }
 
       # ======================================

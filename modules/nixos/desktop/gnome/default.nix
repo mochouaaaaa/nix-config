@@ -17,7 +17,7 @@ in
       xserver = {
         xkb.layout = "us";
       };
-      xserver.desktopManager = {
+      desktopManager = {
         gnome.enable = true;
       };
       gnome = {
