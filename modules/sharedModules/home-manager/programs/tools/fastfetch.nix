@@ -2,6 +2,7 @@
   pkgs,
   lib,
   isNixos,
+  myvars,
   ...
 }:
 let
@@ -18,128 +19,109 @@ in
     settings = {
       "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
       logo = {
-        type = "kitty-icat";
-        height = 18;
-        width = 36;
-        padding.top = 1;
+        type = "kitty";
+        preserveAspectRatio = true;
       }
       // lib.optionalAttrs isNixos { source = "${image}"; };
-      display.separator = " 󰑃  ";
+      display = {
+        separator = " · ";
+        color = {
+          separator = "#313244";
+        };
+        hideCursor = true;
+      };
       modules = [
-        "break"
         {
-          type = "os";
-          key = " DISTRO";
-          keyColor = "yellow";
-        }
-        {
-          type = "kernel";
-          key = "│ ├";
-          keyColor = "yellow";
-        }
-        {
-          type = "packages";
-          key = "│ ├󰏖";
-          keyColor = "yellow";
-        }
-        {
-          type = "shell";
-          key = "│ └";
-          keyColor = "yellow";
-        }
-        {
-          type = "wm";
-          key = " DE/WM";
-          keyColor = "blue";
-        }
-        {
-          type = "wmtheme";
-          key = "│ ├󰉼";
-          keyColor = "blue";
-        }
-        {
-          type = "icons";
-          key = "│ ├󰀻";
-          keyColor = "blue";
-        }
-        {
-          type = "cursor";
-          key = "│ ├";
-          keyColor = "blue";
-        }
-        {
-          type = "terminalfont";
-          key = "│ ├";
-          keyColor = "blue";
-        }
-        {
-          type = "terminal";
-          key = "│ └";
-          keyColor = "blue";
-        }
-        {
-          type = "host";
-          key = "󰌢 SYSTEM";
-          keyColor = "green";
-        }
-        {
-          type = "cpu";
-          key = "│ ├󰻠";
-          keyColor = "green";
-        }
-        {
-          type = "gpu";
-          key = "│ ├󰻑";
-          format = "{2}";
-          keyColor = "green";
-        }
-        {
-          type = "display";
-          key = "│ ├󰍹";
-          keyColor = "green";
-          compactType = "original-with-refresh-rate";
-        }
-        {
-          type = "memory";
-          key = "│ ├󰾆";
-          keyColor = "green";
-        }
-        {
-          type = "swap";
-          key = "│ ├󰓡";
-          keyColor = "green";
-        }
-        {
-          type = "uptime";
-          key = "│ ├󰅐";
-          keyColor = "green";
-        }
-        {
-          type = "display";
-          key = "│ └󰍹";
-          keyColor = "green";
-        }
-        {
-          type = "sound";
-          key = " AUDIO";
-          format = "{2}";
-          keyColor = "magenta";
-        }
-        {
-          type = "player";
-          key = "│ ├󰥠";
-          keyColor = "magenta";
-        }
-        {
-          type = "media";
-          key = "│ └󰝚";
-          keyColor = "magenta";
+          type = "version";
+          key = " ";
+          format = "• Fastfetch {version}";
+          outputColor = "bold_#fab387";
         }
         {
           type = "custom";
-          format = "[90m  [31m  [32m  [33m  [34m  [35m  [36m  [37m  [38m  [39m  [39m    [38m  [37m  [36m  [35m  [34m  [33m  [32m  [31m  [90m ";
+          key = "• ${myvars.userfullname} Flake";
+          keyColor = "bold_#fab387";
+          format = "https://github.com/${myvars.userfullname}/nix-config";
+          outputColor = "bold_#fab387";
         }
         "break"
+        {
+          key = "• Host     ";
+          keyColor = "#f5c2e7";
+          type = "board";
+        }
+        {
+          key = "  • Memory ";
+          keyColor = "#eba0ac";
+          type = "memory";
+        }
+        {
+          key = "  • CPU    ";
+          keyColor = "#cba6f7";
+          type = "cpu";
+        }
+        {
+          key = "  • GPU    ";
+          keyColor = "#94e2d5";
+          type = "gpu";
+        }
+        {
+          key = "• OS       ";
+          keyColor = "#89dceb";
+          type = "os";
+        }
+        {
+          key = "  • Kernel ";
+          keyColor = "#a6adc8";
+          type = "kernel";
+        }
+        {
+          key = "  • Uptime ";
+          keyColor = "#b4befe";
+          type = "uptime";
+        }
+        {
+          key = "• Packages ";
+          keyColor = "#f9e2af";
+          type = "packages";
+        }
+        {
+          key = "• Btrfs    ";
+          keyColor = "#cba6f7";
+          type = "btrfs";
+        }
+        {
+          key = "• Terminal ";
+          keyColor = "#f2cdcd";
+          type = "terminal";
+        }
+        {
+          key = "  • Font   ";
+          keyColor = "#6c7086";
+          type = "terminalfont";
+        }
+        {
+          key = "• Desktop  ";
+          keyColor = "#74c7ec";
+          type = "wm";
+        }
+        {
+          key = "  • Font   ";
+          keyColor = "#6c7086";
+          type = "font";
+        }
+        "break"
+        {
+          type = "colors";
+          symbol = "diamond";
+        }
+        {
+          type = "title";
+          key = "The Star-Chase Nameless";
+          keyColor = "bold_#fab387";
+          format = "{full-user-name} ({user-name}@{host-name})";
+          outputColor = "bold_#fab387";
+        }
       ];
     };
   };

@@ -2,14 +2,21 @@
 {
   programs.zsh = {
     initContent = ''
-      # source ${config.programs.zsh.dotDir}/.p10k.zsh 
+      source ${config.programs.zsh.dotDir}/.p10k.zsh 
     '';
     plugins = [
-      # {
-      #   name = "zsh-powerlevel10k";
-      #   file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      #   src = pkgs.zsh-powerlevel10k;
-      # }
+      {
+        name = "zsh-powerlevel10k";
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        src = pkgs.zsh-powerlevel10k.overrideAttrs (oldAttrs: {
+          src = pkgs.fetchFromGitHub {
+            owner = "romkatv";
+            repo = "powerlevel10k";
+            rev = "main";
+            hash = "sha256-J8qKLkKYd62LuUY2y6Hy+AaokKVDSTucCNQwVQeAaxo=";
+          };
+        });
+      }
       {
         name = "zsh-fast-syntax-highlighting";
         file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";

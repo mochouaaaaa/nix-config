@@ -1,13 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  home.packages = with pkgs; [
-    dust
-    procs
-  ];
-
   home.shellAliases = {
 
-    du = "dust";
+    du = "${lib.getExe pkgs.dust}";
     ".." = "cd ..";
     "~" = "cd ~";
     bak = "cp -iv --";

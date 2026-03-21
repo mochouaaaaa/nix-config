@@ -14,7 +14,7 @@
           rimePath = if pkgs.stdenv.isDarwin then "$HOME/Library/Rime" else "$HOME/.local/share/fcitx5/rime";
         in
         lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-          $DRY_RUN_CMD rm -rf ${rimePath}/build
+          rm -rf ${rimePath}/build
         '';
     };
 

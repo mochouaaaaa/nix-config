@@ -12,7 +12,6 @@ let
       duckdb
       # pdf
       zathura
-      # evince
       # markdown
       glow
       # image
@@ -21,6 +20,7 @@ let
     ]
     ++ lib.optionals (pkgs.stdenv.isLinux) [
       wl-clipboard
+      evince
     ];
 in
 {

@@ -5,11 +5,8 @@
 }:
 {
 
-  home.packages = with pkgs; [
-    less
-  ];
-
   programs = {
+    less.enable = true;
     bash = {
       enable = true;
       package = pkgs.bashInteractive.override {

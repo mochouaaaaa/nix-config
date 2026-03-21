@@ -19,6 +19,13 @@ in
 
   config = lib.mkIf (cfg.enable && config.profiles.desktop.enable) {
 
+    programs.discord = {
+      enable = true;
+      package = pkgs.vencord;
+    };
+
+    programs.vesktop.enable = true;
+
     programs.obsidian = {
       enable = true;
       package = pkgs.obsidian-wrapper;

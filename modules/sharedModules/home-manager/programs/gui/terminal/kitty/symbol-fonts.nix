@@ -66,7 +66,7 @@ in
 
     # home.activation = {
     #   generate-symbol-map = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    #     $DRY_RUN_CMD ${pkgs.nodejs}/bin/node ${generated-symbols} \
+    #     ${pkgs.nodejs}/bin/node ${generated-symbols} \
     #       "${config.xdg.configHome}/kitty/symbol-map1.conf"
     #   '';
     # };

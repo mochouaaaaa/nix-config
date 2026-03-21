@@ -2,7 +2,7 @@
 {
 
   users.users.${username} = {
-    shell = pkgs.zsh;
+    shell = "/run/current-system/sw/bin/zsh";
     description = "${username}. up up up!";
   };
 
