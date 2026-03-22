@@ -20,22 +20,21 @@ https://github.com/nix-community/NixOS-WSL
 
 ## Components
 
-|                             | NixOS(Wayland)                                                               |
-| --------------------------- | ---------------------------------------------------------------------------- |
-| **Window Manager**          | [Hyprland][Hyprland] / [Niri][Niri] / [Gnome][Gnome] / [Kde][Kde]            |
-| **Desktop Shell**           | [noctalia][noctalia] / [caelestia][caelestia] / [dankMaterial][dankMaterial] |
-| **Terminal Emulator**       | [Kitty][Kitty] / [Wezterm][Wezterm]                                          |
-| **Application Launcher**    | [vicinae][vicinae]                                                           |
-| **network management tool** | `use desktop shell ui`                                                       |
-| **Input method framework**  | [Fcitx5][Fcitx5] + [rime][rime] + [rime_wanxiang][rime_wanxiang]             |
-| **File Manager**            | [Yazi][Yazi] + [nautilus][nautilus]                                          |
-| **Shell**                   | [Zsh][Zsh] + [p10k][p10k]                                                    |
-| **Media Player**            | [mpv][mpv]                                                                   |
-| **Text Editor**             | [Neovim][Neovim]                                                             |
-| **Fonts**                   | [Nerd fonts][Nerd fonts]                                                     |
-| **Image Viewer**            | [imv][imv] + [loupe][loupe]                                                  |
-| **Screenshot Software**     | [grimblast][grimblast]                                                       |
-| **Screen Recording**        | [OBS][OBS] + [Kooha][Kooha]                                                  |
+|                            | NixOS(Wayland)                                                               |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| **Window Manager**         | [Hyprland][Hyprland] / [Niri][Niri] / [Gnome][Gnome] / [Kde][Kde]            |
+| **Desktop Shell**          | [noctalia][noctalia] / [caelestia][caelestia] / [dankMaterial][dankMaterial] |
+| **Terminal Emulator**      | [Kitty][Kitty] / [Wezterm][Wezterm]                                          |
+| **Application Launcher**   | [vicinae][vicinae]                                                           |
+| **Input method framework** | [Fcitx5][Fcitx5] + [rime][rime] + [rime_wanxiang][rime_wanxiang]             |
+| **File Manager**           | [Yazi][Yazi] + [nautilus][nautilus]                                          |
+| **Shell**                  | [Zsh][Zsh] + [p10k][p10k]                                                    |
+| **Media Player**           | [mpv][mpv]                                                                   |
+| **Text Editor**            | [Neovim][Neovim]                                                             |
+| **Fonts**                  | [Nerd fonts][Nerd fonts]                                                     |
+| **Image Viewer**           | [imv][imv] + [loupe][loupe]                                                  |
+| **Screenshot Software**    | [grimblast][grimblast]                                                       |
+| **Screen Recording**       | [OBS][OBS] + [Kooha][Kooha]                                                  |
 
 ## Screenshot
 

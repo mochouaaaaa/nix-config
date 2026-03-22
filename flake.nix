@@ -119,7 +119,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.20.5";
+      url = "github:vicinaehq/vicinae?ref=v0.20.7";
     };
 
     quickshell = {
@@ -128,7 +128,7 @@
     };
     # desktop-shell
     caelestia-shell = {
-      url = "github:caelestia-dots/shell?ref=v1.4.2";
+      url = "github:caelestia-dots/shell?ref=v1.5.1";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
@@ -137,7 +137,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.2";
+      url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
