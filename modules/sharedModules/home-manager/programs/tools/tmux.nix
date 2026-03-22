@@ -20,17 +20,18 @@
     '';
     tmux = {
       enable = true;
-      package = pkgs.writeShellScriptBin "tmux" ''
+      package = pkgs.writeShellApplication {
+        name = "tmux";
+        runtimeInputs = [ pkgs.tmux ];
+        text = ''
+          if [[ $# -gt 0 ]]; then
+              tmux "$@"
+              exit $?
+          fi
 
-        _tmux=${lib.getExe pkgs.tmux}
-
-        if [[ $# -gt 0 ]]; then
-            $_tmux "$@"
-            exit $?
-        fi
-
-        $_tmux attach-session -t default 2>/dev/null || $_tmux new-session -s default
-      '';
+          tmux attach-session -t default 2>/dev/null || tmux new-session -s default
+        '';
+      };
 
       prefix = "C-a";
       shortcut = "a";
@@ -175,42 +176,57 @@
               status_dir = "${catppuccin}/status";
               status_utils = "${catppuccin}/utils";
 
-              reset = pkgs.writeShellScriptBin "reset" ''
+              reset = pkgs.writeShellApplication {
+                name = "reset";
+                runtimeInputs = [
+                  pkgs.ripgrep
+                ];
+                text = ''
 
-                set -euo pipefail
+                  set -euo pipefail
 
-                ${lib.getExe pkgs.ripgrep} -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' ${catppuccinPath}/**/*.conf | uniq | xargs -n1 -P0 tmux set -Ugq
+                  # shellcheck disable=SC2016
+                  ripgrep -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' ${catppuccinPath}/**/*.conf | uniq | xargs -n1 -P0 tmux set -Ugq
 
-                modules=()
+                  modules=()
 
-                for filepath in "${status_dir}"/*.conf; do
-                    [ -e "$filepath" ] || continue
-                    filename="$(basename "$filepath" .conf)"
-                    modules+=("$filename")
-                done
+                  for filepath in "${status_dir}"/*.conf; do
+                      [ -e "$filepath" ] || continue
+                      filename="$(basename "$filepath" .conf)"
+                      modules+=("$filename")
+                  done
 
-                for module in "''${modules[@]}"; do
-                      conf_file="${status_dir}/''${module}.conf"
+                  for module in "''${modules[@]}"; do
+                        conf_file="${status_dir}/''${module}.conf"
 
-                      rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "$conf_file" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
-                      rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "${status_utils}" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
-                done
-              '';
+                        rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "$conf_file" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
+                        rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' "${status_utils}" | sed "s/\''${MODULE_NAME}/$module/g" | uniq | xargs -n1 -P0 tmux set -Ugq
+                  done
+                '';
+              };
 
               # https://github.com/catppuccin/tmux/issues/426
               run = "tmux run-shell ${catppuccinPath}/catppuccin.tmux";
 
-              dark = pkgs.writeShellScriptBin "dark" ''
-                tmux run-shell ${lib.getExe reset}
-                tmux set -g @catppuccin_flavor 'mocha'
-                ${run}
-              '';
+              dark = pkgs.writeShellApplication {
+                name = "dark";
+                runtimeInputs = [ reset ];
+                text = ''
+                  tmux run-shell reset
+                  tmux set -g @catppuccin_flavor 'mocha'
+                  ${run}
+                '';
+              };
 
-              light = pkgs.writeShellScriptBin "light" ''
-                tmux run-shell ${lib.getExe reset}
-                tmux set -g @catppuccin_flavor 'latte'
-                ${run}
-              '';
+              light = pkgs.writeShellApplication {
+                name = "light";
+                runtimeInputs = [ reset ];
+                text = ''
+                  tmux run-shell reset
+                  tmux set -g @catppuccin_flavor 'latte'
+                  ${run}
+                '';
+              };
             in
             ''
               set -g @catppuccin_window_status_style "custom"

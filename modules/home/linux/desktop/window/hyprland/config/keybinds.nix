@@ -31,13 +31,17 @@ in
 
         bind =
           let
-            killactive = pkgs.writeShellScriptBin "killactive" ''
-              if [ "$(hyprctl activewindow -j | jq -r ".class")" = "Steam" ]; then
-                  xdotool getactivewindow windowunmap
-              else
-                  hyprctl dispatch killactive ""
-              fi
-            '';
+            killactive = pkgs.writeShellApplication {
+              name = "killactive";
+              runtimeInputs = [ pkgs.jq ];
+              text = ''
+                if [ "$(hyprctl activewindow -j | jq -r ".class")" = "Steam" ]; then
+                    xdotool getactivewindow windowunmap
+                else
+                    hyprctl dispatch killactive ""
+                fi
+              '';
+            };
           in
           [
             # "$mod CTRL, q, exec, Lock" # Lock screen

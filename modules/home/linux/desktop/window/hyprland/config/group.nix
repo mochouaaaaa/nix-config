@@ -18,7 +18,7 @@ in
           "col.border_locked_inactive" = "rgba(255,255,255,0.15)";
 
           groupbar = {
-            font_family = "JetBrains Mono NF";
+            font_family = "${config.profiles.fonts.default}";
             font_size = 15;
             gradients = true;
             gradient_round_only_edges = false;

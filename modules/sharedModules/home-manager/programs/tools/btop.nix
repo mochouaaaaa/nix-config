@@ -28,9 +28,6 @@ in
       btop = {
         enable = true;
         package = pkgs.btop;
-        settings = {
-          color_theme = "catppuccin_mocha";
-        };
       };
     };
     xdg.configFile."btop/themes".source = catppuccinMochaTheme + "/themes";

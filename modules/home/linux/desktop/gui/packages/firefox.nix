@@ -14,6 +14,7 @@ in
 
     home.activation = {
       active-firefox-theme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        rm -rf $HOME/.mozilla/firefox/mochou/user.js
         ${pkgs.firefox-gnome-theme}/bin/auto-install.sh
       '';
     };

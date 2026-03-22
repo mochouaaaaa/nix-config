@@ -28,7 +28,7 @@ let
             feishu.enable = true;
           };
 
-          obsidian.enable = false;
+          obsidian.enable = true;
           live = {
             simple-live-app.enable = true;
             wiliwili.enable = true;
@@ -41,7 +41,7 @@ let
 
           terminal = {
             kitty.enable = true;
-            wezterm.enable = false;
+            wezterm.enable = true;
             alacritty.enable = true;
           };
 
