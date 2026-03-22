@@ -28,6 +28,9 @@ in
       cli = {
         enable = true;
       };
+      systemd = {
+        environment = [ "QT_QPA_PLATFORMTHEME=gtk3" ];
+      };
     };
 
   };

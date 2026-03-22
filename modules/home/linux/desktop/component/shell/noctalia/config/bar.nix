@@ -103,20 +103,6 @@ in
               id = "KeepAwake";
             }
             {
-              defaultSettings = {
-                audioCodec = "opus";
-                audioSource = "default_output";
-                colorRange = "limited";
-                copyToClipboard = false;
-                directory = "";
-                filenamePattern = "recording_yyyyMMdd_HHmmss";
-                frameRate = "60";
-                quality = "very_high";
-                resolution = "original";
-                showCursor = true;
-                videoCodec = "h264";
-                videoSource = "portal";
-              };
               id = "plugin:screen-recorder";
             }
             {

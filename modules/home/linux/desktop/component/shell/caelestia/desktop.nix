@@ -15,12 +15,12 @@ in
         services.darkman = {
           lightModeScripts = {
             light = ''
-              noctalia-shell ipc call darkMode setLight
+              caelestia scheme set -n dynamic --mode light
             '';
           };
           darkModeScripts = {
             dark = ''
-              noctalia-shell ipc call darkMode setDark
+              caelestia scheme set -n dynamic --mode dark
             '';
           };
         };
@@ -60,6 +60,9 @@ in
               "scheme/current.conf"
               "variables.conf"
             ];
+            bind = [
+              "$mod, comma, exec, caelestia shell controlCenter open"
+            ];
 
             input = lib.mkForceRecursive {
               touchpad = {
@@ -73,6 +76,7 @@ in
             };
 
             general = lib.mkForceRecursive {
+              layout = "dwindle";
               border_size = "$windowBorderSize";
 
               gaps_workspaces = "$workspaceGaps";
@@ -84,6 +88,10 @@ in
 
             decoration = lib.mkForceRecursive {
               rounding = "$windowRounding";
+              blur = {
+                passes = 3;
+                size = 4;
+              };
               shadow = {
                 enabled = "$shadowEnabled";
                 range = "$shadowRange";
@@ -108,13 +116,8 @@ in
               };
             };
 
-            workspace = [
-              "w[tv1]s[false], gapsout:$singleWindowGapsOut"
-              "f[1]s[false], gapsout:$singleWindowGapsOut"
-            ];
-
             windowrule = [
-              "opacity $windowOpacity override, match:fullscreen  "
+              # "opacity $windowOpacity override, match:fullscreen  "
               "opaque on, match:class org\.quickshell" # They use native transparency or we want them opaque
               "float on, match:class org\.quickshell"
             ];
@@ -125,6 +128,7 @@ in
               "animation fade, match:namespace caelestia-(drawers|background)"
 
               "blur on, match:namespace caelestia-drawers"
+              "blur on, match:namespace launcher"
               "ignore_alpha 0.57, match:namespace caelestia-drawers"
             ];
 
