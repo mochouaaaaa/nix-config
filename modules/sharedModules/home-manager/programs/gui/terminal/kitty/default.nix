@@ -53,7 +53,6 @@ in
         shellIntegration = {
           enableZshIntegration = config.programs.zsh.enable;
           enableBashIntegration = config.programs.bash.enable;
-          # enableFishIntegration = true;
         };
       };
     };

@@ -32,6 +32,7 @@
         ps.jsregexp
       ];
       extraPackages = with pkgs; [
+        fzf
         fd
         chafa
         ffmpeg

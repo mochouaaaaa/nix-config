@@ -5,13 +5,6 @@
   ...
 }:
 let
-  catppuccinMochaTheme = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "btop";
-    rev = "89ff712";
-    sha256 = "sha256-J3UezOQMDdxpflGax0rGBF/XMiKqdqZXuX4KMVGTxFk=";
-  };
-
   cfg = config.profiles.packages.btop;
 in
 {
@@ -30,7 +23,6 @@ in
         package = pkgs.btop;
       };
     };
-    xdg.configFile."btop/themes".source = catppuccinMochaTheme + "/themes";
 
   };
 }

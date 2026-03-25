@@ -26,7 +26,8 @@ in
               "browser.startup.homepage" = "about:home";
               "browser.startup.page" = 3;
 
-              browser.uiCustomization.state = ''{"placements":{"widget-overflow-fixed-list":[],"unified-extensions-area":["firefox_tampermonkey_net-browser-action","_72bd91c9-3dc5-40a8-9b10-dec633c0873f_-browser-action","pywalfox_frewacom_org-browser-action","_5efceaa7-f3a2-4e59-a54b-85319448e305_-browser-action"],"nav-bar":["alltabs-button","sidebar-button","back-button","forward-button","stop-reload-button","customizableui-special-spring3","urlbar-container","vertical-spacer","customizableui-special-spring2","unified-extensions-button","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","ublock0_raymondhill_net-browser-action","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","screenshot-button","fxa-toolbar-menu-button","firefox_fehelper_com-browser-action"],"toolbar-menubar":["menubar-items"],"TabsToolbar":[],"vertical-tabs":["tabbrowser-tabs"],"PersonalToolbar":[]},"seen":["pywalfox_frewacom_org-browser-action","firefox_fehelper_com-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","firefox_tampermonkey_net-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","ublock0_raymondhill_net-browser-action","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","_5efceaa7-f3a2-4e59-a54b-85319448e305_-browser-action","developer-button","screenshot-button","_72bd91c9-3dc5-40a8-9b10-dec633c0873f_-browser-action"],"dirtyAreaCache":["unified-extensions-area","nav-bar","TabsToolbar","vertical-tabs","PersonalToolbar","toolbar-menubar"],"currentVersion":23,"newElementCount":12}'';
+              "browser.uiCustomization.state" =
+                ''{"placements":{"widget-overflow-fixed-list":[],"unified-extensions-area":["_72bd91c9-3dc5-40a8-9b10-dec633c0873f_-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","firefox_tampermonkey_net-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","ublock0_raymondhill_net-browser-action","pywalfox_frewacom_org-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","customizableui-special-spring1","vertical-spacer","urlbar-container","customizableui-special-spring2","downloads-button","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","_5efceaa7-f3a2-4e59-a54b-85319448e305_-browser-action","firefox_fehelper_com-browser-action","unified-extensions-button","fxa-toolbar-menu-button"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"vertical-tabs":[],"PersonalToolbar":["personal-bookmarks"]},"seen":["_72bd91c9-3dc5-40a8-9b10-dec633c0873f_-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","firefox_tampermonkey_net-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","ublock0_raymondhill_net-browser-action","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","developer-button","screenshot-button","firefox_fehelper_com-browser-action","_5efceaa7-f3a2-4e59-a54b-85319448e305_-browser-action","pywalfox_frewacom_org-browser-action"],"dirtyAreaCache":["unified-extensions-area","nav-bar","toolbar-menubar","TabsToolbar","vertical-tabs","PersonalToolbar"],"currentVersion":23,"newElementCount":9}'';
 
               "intl.locale.requested" = "zh-CN";
               "intl.multilingual.enabled" = true;
@@ -180,7 +181,7 @@ in
 
                 "NixOS Wiki" = {
                   urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
-                  iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+                  icon = "https://wiki.nixos.org/favicon.ico";
                   definedAliases = [ "@nw" ];
                 };
 

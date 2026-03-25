@@ -47,9 +47,8 @@
     '';
     fzf = {
       enable = true;
-      enableBashIntegration = config.programs.bash.enable;
-      enableZshIntegration = config.programs.zsh.enable;
-      enableFishIntegration = true;
+      enableBashIntegration = false;
+      enableZshIntegration = false;
       tmux = {
         enableShellIntegration = true;
         shellIntegrationOptions = [ "-p 90%,80%" ];

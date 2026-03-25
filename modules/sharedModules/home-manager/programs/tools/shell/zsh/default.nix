@@ -6,7 +6,6 @@
 {
 
   programs = {
-    less.enable = true;
     bash = {
       enable = true;
       package = pkgs.bashInteractive.override {
@@ -20,7 +19,7 @@
         enable = true;
         package = pkgs.zsh-syntax-highlighting;
       };
-      dotDir = "${config.xdg.configHome}/env/zsh";
+      dotDir = "${config.xdg.configHome}/zsh";
       autosuggestion = {
         enable = true;
       };

@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   ...
 }:
 let
@@ -49,13 +48,6 @@ in
         source = "${rime-data}/share/rime-data";
         force = true;
         recursive = true;
-        onChange =
-          let
-            squrrelContets = "/Library/Input\ Methods/Squirrel.app/Contents";
-          in
-          ''
-            "${squrrelContets}/MacOS/Squirrel" --reload
-          '';
       };
     };
   };
