@@ -27,7 +27,6 @@ in
 
       zen-browser = {
         enable = true;
-        suppressXdgMigrationWarning = true;
 
         policies =
           let

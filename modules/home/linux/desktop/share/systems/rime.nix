@@ -62,11 +62,12 @@ in
             rime = {
               globalSection = {
                 PreeditMode = "Commit preview";
-                "InputState" = "No";
-                "PreeditCursorPositionAtBeginning" = "True";
-                "SwitchInputMethodBehavior" = "Commit commit preview";
-                "Deploy" = "";
-                "Synchronize" = "";
+                PreeditInApplication = "True";
+                InputState = "No";
+                PreeditCursorPositionAtBeginning = "True";
+                SwitchInputMethodBehavior = "Commit commit preview";
+                Deploy = "";
+                Synchronize = "";
               };
             };
             classicui = {

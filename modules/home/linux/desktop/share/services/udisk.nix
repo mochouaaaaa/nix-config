@@ -5,7 +5,7 @@
 
     # auto mount usb drives
     services = {
-      udiskie.enable = true;
+      udiskie.enable = false;
       syncthing.enable = false;
     };
 

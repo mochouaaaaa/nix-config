@@ -40,23 +40,6 @@ in
           };
 
           sessionMenu = {
-            powerOptions = [
-              {
-                action = "reboot";
-                command = "hyprshutdown -p reboot";
-                enabled = true;
-              }
-              {
-                action = "logout";
-                command = "hyprshutdown";
-                enabled = true;
-              }
-              {
-                action = "shutdown";
-                command = "hyprshutdown -p poweroff";
-                enabled = true;
-              }
-            ];
           };
 
         };

@@ -2,16 +2,60 @@
   lib,
   username,
   config,
+  pkgs,
   ...
 }:
+let
+  thunderbird-gnome-theme = pkgs.firefox-gnome-theme.overrideAttrs (oldAttrs: {
+    pname = "thunderbird-gnome-theme";
+    version = config.programs.thunderbird.package.version;
+
+    src = pkgs.fetchFromGitHub {
+      owner = "rafaelmardojai";
+      repo = "thunderbird-gnome-theme";
+      rev = "main";
+      hash = "sha256-nSTxAMH+uGrjMWFv1EKhVOnL6QXmbvJByvtSkMJWeVU=";
+    };
+
+    postPatch = ''
+      patchShebangs ./scripts
+      substituteInPlace ./scripts/auto-install.sh \
+        --replace-fail \
+          'installScript="./scripts/install.sh"' \
+          'installScript="${placeholder "out"}/bin/install.sh"' \
+        --replace-fail \
+          'eval "chmod +x ''${installScript}"' \
+          ""
+      substituteInPlace ./scripts/install.sh \
+        --replace-fail \
+          'THEMEDIRECTORY=$(cd "$(dirname $0)" && cd ../.. && pwd)' \
+          'THEMEDIRECTORY="${placeholder "out"}/share"' \
+        --replace-fail \
+          'cp -fR "$THEMEDIRECTORY/thunderbird-gnome-theme"' \
+          'cp -fR --no-preserve=mode "$THEMEDIRECTORY/thunderbird-gnome-theme"' \
+        --replace-fail \
+          'mv chrome/thunderbird-gnome-theme/configuration/user.js' \
+          'cp chrome/thunderbird-gnome-theme/configuration/user.js'
+    '';
+
+    installPhase =
+      builtins.replaceStrings [ "firefox-gnome-theme" ] [ "thunderbird-gnome-theme" ]
+        oldAttrs.installPhase;
+  });
+in
 {
 
   config = lib.mkIf (config.profiles.desktop.enable) {
 
+    home.activation = {
+      active-thunderbird-theme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${thunderbird-gnome-theme}/bin/auto-install.sh
+      '';
+    };
+
     programs.thunderbird = {
       enable = true;
-      settings = { };
-      profiles."${username}" = {
+      profiles.${username} = {
         isDefault = true;
         withExternalGnupg = true;
         settings = {
@@ -26,11 +70,13 @@
           "gfx.webrender.enabled" = true;
 
           "browser.display.use_system_colors" = true;
-          "browser.theme.dark-toolbar-theme" = true;
         };
       };
 
       settings = {
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "svg.context-properties.content.enabled" = true;
+
         # Some general settings.
         "mail.server.default.allow_utf8_accept" = true;
         "mail.server.default.max_articles" = 1000;

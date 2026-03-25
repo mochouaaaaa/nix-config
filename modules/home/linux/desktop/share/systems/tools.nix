@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     # misc
     libnotify
-    mitmproxy # http/https proxy tool
+    # mitmproxy # http/https proxy tool
     wireguard-tools # manage wireguard vpn manually, via wg-quick
   ];
 }

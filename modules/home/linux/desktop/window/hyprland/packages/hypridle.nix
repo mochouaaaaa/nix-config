@@ -20,7 +20,7 @@ in
 
   config = lib.mkIf (cfg.enable && !config.profiles.desktop.shell.dank-material-shell.enable) {
     services.hypridle = {
-      enable = true;
+      enable = false;
       settings = {
         general = {
           lock_cmd = cfgHypridle.lock_cmd;

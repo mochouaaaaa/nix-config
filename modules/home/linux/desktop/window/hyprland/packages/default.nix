@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -24,9 +23,6 @@ in
     };
 
     home.packages = with pkgs; [
-
-      inputs.hyprshutdown.packages.${pkgs.stdenv.hostPlatform.system}.hyprshutdown
-
       slurp
       gimp
       grim

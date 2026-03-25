@@ -110,6 +110,7 @@ in
             if [ -f "${propertiesPath}" ]; then
               echo "properties file already exists, skipping creation"
             else
+              mkdir -p ${config.xdg.configHome}/JetBrains
               echo "${propertiesContent}" > "${propertiesPath}"
             fi
           '';
@@ -127,6 +128,7 @@ in
             if [ -f "${vmoptsPath}" ]; then
               echo "vmoptions file already exists, skipping creation"         
             else
+              mkdir -p ${config.xdg.configHome}/JetBrains
               echo "${vmOptionsContent}" > "${vmoptsPath}"
             fi
           '';

@@ -25,7 +25,7 @@ in
           launch = [
             "bash"
             "-c"
-            "vicinae vicinae://extensions/vicinae/clipboard/history"
+            "vicinae vicinae://launch/clipboard/history"
           ];
         };
       }
@@ -65,6 +65,13 @@ in
           dark = {
             name = "vicinae-dark";
             icon_theme = "${themeNameWithMode config.profiles.themes.gtkTheme.icon.name config.profiles.themes.gtkTheme.icon.dark}";
+          };
+        };
+        providers = {
+          applications = {
+            preferences = {
+              launchPrefix = "uwsm app --";
+            };
           };
         };
         launcher_window = {
