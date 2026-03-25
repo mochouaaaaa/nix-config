@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   myvars,
   username,
   ...
@@ -68,6 +69,11 @@
         git = {
           conventional_commits = true;
           filter_unconventional = true;
+          signing = {
+            key = "${config.home.homeDirectory}/.ssh/github.pub";
+            signByDefault = true;
+            format = "ssh";
+          };
           commit_parsers = [
             {
               message = "^feat";

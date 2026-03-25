@@ -91,6 +91,9 @@ let
                   extraSpecialArgs = specialArgs // {
                     pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
                       overlays = [ self.overlays.home-manager ];
+                      custom_config = {
+                        allowDeprecatedx86_64Darwin = true;
+                      };
                     };
                     pkgs-stable = ctx.extraModuleArgs.pkgs-os;
                     nixosSystemName = "${username}@nixos";
@@ -125,6 +128,9 @@ let
                     overlays = [
                       self.overlays.darwin
                     ];
+                    config = {
+                      allowDeprecatedx86_64Darwin = true;
+                    };
                   }
                   ctx.nixpkgs
                 ];
