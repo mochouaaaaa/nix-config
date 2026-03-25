@@ -87,7 +87,6 @@ in
             "nix"
             ".ollama"
             ".config/dotfile"
-            ".config/env"
             ".local/share/direnv"
             ".tmux"
             "tmp"
@@ -185,7 +184,6 @@ in
         "/home/${username}/.local/share".d = permission;
         "/home/${username}/.local/state".d = permission;
         "/home/${username}/.local/state/nix".d = permission;
-        # "/home/${username}/.terraform.d".d = permission;
       };
 
     # systemd-machine-id-commit.service would fail but it is not relevant
@@ -197,9 +195,11 @@ in
     # let the service commit the transient ID to the persistent volume
     systemd.services.systemd-machine-id-commit = {
       unitConfig.ConditionPathIsMountPoint = [
+        ""
         "/nix/persistence/etc/machine-id"
       ];
       serviceConfig.ExecStart = [
+        ""
         "systemd-machine-id-setup --commit --root /nix/persistence"
       ];
     };

@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  pkgs-unstable,
   config,
   ...
 }:
@@ -15,6 +16,7 @@
       # It supports a richer feature set than the standard linux console VT,
       # including full unicode support, and when the video card supports drm should be much faster.
       enable = true;
+      package = pkgs-unstable.kmscon;
       fonts = [
         {
           name = "Source Code Pro";
@@ -22,7 +24,7 @@
         }
       ];
       extraOptions = "--term xterm-256color";
-      extraConfig = "font-size=12";
+      extraConfig = "font-size=18";
       # Whether to use 3D hardware acceleration to render the console.
       hwRender = true;
     };

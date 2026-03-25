@@ -6,7 +6,7 @@
       readOnly = true;
       default = (config.fileSystems."/".fsType or "") == "tmpfs";
     };
-    osDirectories = mkOption rec {
+    osDirectories = mkOption {
       type = types.listOf (
         types.oneOf [
           types.str
@@ -15,9 +15,8 @@
       );
       default = [ ];
       description = "List of directories to preserve across reboots.";
-      apply = userValue: default ++ userValue;
     };
-    hmDirectories = mkOption rec {
+    hmDirectories = mkOption {
       type = types.listOf (
         types.oneOf [
           types.str
@@ -26,7 +25,6 @@
       );
       default = [ ];
       description = "List of directories to preserve across reboots for Home Manager Profiles.";
-      apply = userValue: default ++ userValue;
     };
   };
 

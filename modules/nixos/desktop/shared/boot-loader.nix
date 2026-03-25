@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -9,20 +8,23 @@
   config = lib.mkIf (config.profiles.desktop.enable) {
 
     boot.loader = {
+      systemd-boot = {
+        enable = false;
+      };
       grub = {
         enable = false;
         fontSize = 16;
-        font = "${pkgs.maple-mono.NF}/share/fonts/truetype/MapleMono-NF-Regular.ttf";
       };
 
       limine = {
         enable = true;
         maxGenerations = 10;
-        resolution = "1920x1080";
+        # resolution = "1920x1080";
         style = {
           wallpapers = lib.mkForce [ ];
-          interface.resolution = "1920x1080";
+          # interface.resolution = "1920x1080";
         };
+        force = true;
         extraConfig = ''
           timeout: 15
           graphics: yes

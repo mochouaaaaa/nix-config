@@ -9,6 +9,8 @@
 
     boot = {
 
+      tmp.cleanOnBoot = (config.fileSystems."/".fsType or "") != "tmpfs";
+
       kernelModules = [
         "uhid" # 让用户态创建虚拟 HID 设备
         "hidp" # 蓝牙 HID 协议

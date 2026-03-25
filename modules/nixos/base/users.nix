@@ -1,26 +1,35 @@
 {
   lib,
+  pkgs,
   config,
   username,
   myvars,
   ...
 }:
 {
+
+  hardware = {
+    enableAllFirmware = true;
+    uinput.enable = true;
+  };
+
   # Don't allow mutation of users outside the config.
-  users.mutableUsers = false;
-  hardware.enableAllFirmware = true;
-  hardware.uinput.enable = true;
-  users.groups = {
-    "${username}" = { };
-    docker = { };
-    wireshark = { };
-    # for android platform tools's udev rules
-    adbusers = { };
-    dialout = { };
-    # for openocd (embedded system development)
-    plugdev = { };
-    # misc
-    uinput = { };
+  users = {
+    mutableUsers = false;
+    defaultUserShell = pkgs.zsh;
+
+    groups = {
+      "${username}" = { };
+      docker = { };
+      wireshark = { };
+      # for android platform tools's udev rules
+      adbusers = { };
+      dialout = { };
+      # for openocd (embedded system development)
+      plugdev = { };
+      # misc
+      uinput = { };
+    };
   };
 
   services.userborn = {

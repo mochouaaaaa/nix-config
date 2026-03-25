@@ -51,6 +51,14 @@ in
           };
         };
 
+        cosmic = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = builtins.getEnv "DESKTOP" == "cosmic";
+            description = "Enable Cosmic desktop environment.";
+          };
+        };
+
         sway = {
           enable = lib.mkOption {
             type = lib.types.bool;
