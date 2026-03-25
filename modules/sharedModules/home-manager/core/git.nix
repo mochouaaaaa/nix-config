@@ -19,7 +19,7 @@
         chmod 644 "$PUB_KEY"
       fi
 
-      echo "${myvars.useremail} $(cat ~/.ssh/github.pub)" > ~/.config/git/allowed-signers
+      echo "${myvars.useremail} $(cat ~/.ssh/github.pub)" > ${config.xdg.configHome}/git/allowed-signers
     '';
   };
 
@@ -114,7 +114,7 @@
         push.autoSetupRemote = true;
         pull.rebase = true;
 
-        gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
+        gpg.ssh.allowedSignersFile = "${config.xdg.configHome}/git/allowed-signers";
 
         # replace https with ssh
         url = {
