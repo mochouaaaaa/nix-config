@@ -32,7 +32,7 @@ https://github.com/nix-community/NixOS-WSL
 | **Media Player**           | [mpv][mpv]                                                                   |
 | **Text Editor**            | [Neovim][Neovim]                                                             |
 | **Fonts**                  | [Nerd fonts][Nerd fonts]                                                     |
-| **Image Viewer**           | [imv][imv] + [loupe][loupe]                                                  |
+| **Image Viewer**           | [loupe][loupe]                                                               |
 | **Screenshot Software**    | [grimblast][grimblast]                                                       |
 | **Screen Recording**       | [OBS][OBS] + [Kooha][Kooha]                                                  |
 
@@ -165,7 +165,6 @@ just swl
 [rime_wanxiang]: https://github.com/amzxyz/rime_wanxiang
 [Btop]: https://github.com/aristocratos/btop
 [mpv]: https://github.com/mpv-player/mpv
-[imv]: https://sr.ht/~exec64/imv
 [Neovim]: https://github.com/neovim/neovim
 [loupe]: https://gitlab.gnome.org/GNOME/loupe
 [OBS]: https://obsproject.com

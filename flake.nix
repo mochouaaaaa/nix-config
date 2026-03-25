@@ -119,7 +119,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.20.7";
+      url = "github:vicinaehq/vicinae?ref=v0.20.8";
     };
 
     quickshell = {
@@ -133,7 +133,7 @@
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell = {
@@ -146,7 +146,6 @@
     hyprgraphics.url = "github:hyprwm/hyprgraphics";
     aquamarine.url = "github:hyprwm/aquamarine";
     hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.8";
-    hyprshutdown.url = "github:hyprwm/hyprshutdown";
     hyprland = {
       url = "github:hyprwm/Hyprland?ref=v0.54.2";
       inputs = {

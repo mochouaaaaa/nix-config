@@ -1,7 +1,7 @@
 
 set shell := ["bash", "-cu"]
 NH_HOSTNAME := "$USER@$(hostname)"
-NH_BUILD_ARGS := "-k -t -- --impure"
+NH_BUILD_ARGS := "-- --impure"
 NH_OS_FLAKE := "$(pwd)"
 NH_HOME_FLAKE := "$(pwd)"
 NH_DARWIN_FLAKE := "$(pwd)"
