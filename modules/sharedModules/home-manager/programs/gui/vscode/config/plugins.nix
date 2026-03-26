@@ -46,7 +46,6 @@ in
             k--kato.intellij-idea-keybindings
             finditfaster
             mkhl.direnv
-            asvetliakov.vscode-neovim
 
             (buildVscodeMarketplaceExtension {
               mktplcRef = {

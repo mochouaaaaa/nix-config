@@ -71,8 +71,12 @@ in
           "GitCommitPlugin.ShowEmoji" = false;
 
           # ================= 插件配置
-          "fittencode.languagePreference.displayPreference" = "zh-cn";
           "fittencode.languagePreference.commentPreference" = "zh-cn";
+          "fittencode.languagePreference.displayPreference" = "zh-cn";
+          "fittencode.addTypeToCommitMessage" = "Concise Commit Message";
+          "remote.extensionKind" = {
+            "FittenTech.Fitten-Code" = [ "ui" ];
+          };
           "find-it-faster.general.useTerminalInEditor" = false;
           "fittencode.agent.enableFunctionCall" = true;
           # "fittencode.Unit Test Framework.Go" = "gotests";
