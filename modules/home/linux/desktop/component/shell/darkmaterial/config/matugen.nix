@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  cfg = config.profiles.desktop.shell.dank-material-shell;
+  cfg = config.programs.dank-material-shell;
 in
 {
 
@@ -29,6 +29,24 @@ in
         matugenTemplateVscode = config.programs.vscode.enable;
         matugenTemplateEmacs = config.programs.emacs.enable;
       };
+    };
+
+    profiles.packages.terminal.kitty.extraConfig = [
+      "include dank-tabs.conf"
+      "include dank-theme.conf"
+    ];
+
+    programs.ghostty.settings = {
+      theme = "dankcolors";
+      app-notifications = "no-clipboard-copy,no-config-reload";
+    };
+
+    wayland.windowManager.hyprland.settings = {
+      source = [
+        "dms/colors.conf"
+        "dms/layout.conf"
+        "dms/windowrules.conf"
+      ];
     };
   };
 

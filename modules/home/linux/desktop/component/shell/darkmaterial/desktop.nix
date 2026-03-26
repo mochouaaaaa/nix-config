@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   ...
 }:
 with lib;
@@ -38,8 +37,14 @@ in
         services.vicinae.enable = true;
 
         programs.dank-material-shell = {
-          settings = lib.mkForceRecursive {
+          settings = {
             matugenTemplateHyprland = true;
+            # barConfigs = [
+            #   {
+            #     gothCornerRadiusValue = 18;
+            #     gothCornersEnabled = true;
+            #   }
+            # ];
           };
         };
 
@@ -62,8 +67,8 @@ in
         };
 
         wayland.windowManager.hyprland = {
-          settings = {
-            decoration = lib.mkForceRecursive {
+          settings = lib.mkForceRecursive {
+            decoration = {
               shadow = {
                 enabled = true;
                 range = 30;

@@ -112,6 +112,10 @@ in
 
     };
 
+    profiles.packages.terminal.kitty.extraConfig = lib.mkAfter [
+      "include themes/noctalia.conf"
+    ];
+
     programs.zed-editor.userSettings = {
       theme = {
         light = "Noctalia Light";

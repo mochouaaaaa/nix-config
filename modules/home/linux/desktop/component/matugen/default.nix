@@ -58,7 +58,12 @@ let
 
   # Filter templates relevant for DankMaterialShell (excluding Neovim)
   darkMaterialFilteredTemplates = lib.filterAttrs (_: v: v != { }) (
-    lib.removeAttrs allTemplates [ "neovim" ]
+    lib.removeAttrs allTemplates [
+      "neovim"
+      "hyprland"
+      "cava"
+      "tmux"
+    ]
   );
 
 in

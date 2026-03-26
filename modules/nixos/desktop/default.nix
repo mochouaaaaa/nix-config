@@ -78,6 +78,7 @@ in
       NIXOS_OZONE_WL = "1"; # 让 Electron 应用使用 Wayland
     };
 
+    services.accounts-daemon.enable = true;
     programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
   };
 
