@@ -116,6 +116,10 @@ in
       "include themes/noctalia.conf"
     ];
 
+    programs.helix.settings = {
+      theme = "noctalia";
+    };
+
     programs.zed-editor.userSettings = {
       theme = {
         light = "Noctalia Light";
