@@ -2,11 +2,12 @@
   pkgs,
   lib,
   config,
+  myvars,
   ...
 }:
 let
   img = pkgs.fetchurl {
-    url = "***REMOVED***";
+    url = "https://github.com/${myvars.userfullname}.png";
     hash = "sha256-VN4MBUSovo5YxOIvcbWjAP2O0R0Vt4fK0C5723cGtIQ=";
   };
 in
