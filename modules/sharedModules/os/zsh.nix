@@ -8,7 +8,11 @@
 
   # Default shell
   programs = {
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+      enableCompletion = false;
+      enableBashCompletion = false;
+    };
   };
   environment = {
     shells = [

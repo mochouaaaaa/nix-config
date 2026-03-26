@@ -1,8 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   programs.zsh = {
     initContent = ''
-      source ${config.programs.zsh.dotDir}/.p10k.zsh 
+      source ${./p10k.zsh}
     '';
     plugins = [
       {

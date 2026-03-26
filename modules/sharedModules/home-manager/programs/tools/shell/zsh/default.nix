@@ -14,7 +14,9 @@
     };
     zsh = {
       enable = true;
-      enableCompletion = true;
+      completionInit = ''
+        autoload -U compinit && compinit -d /tmp/zcompdump-$(whoami)-$ZSH_VERSION
+      '';
       syntaxHighlighting = {
         enable = true;
         package = pkgs.zsh-syntax-highlighting;
