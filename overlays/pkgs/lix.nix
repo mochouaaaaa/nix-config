@@ -1,5 +1,5 @@
 final: prev: {
-  inherit (prev.lixPackageSets.stable)
+  inherit (prev.lixPackageSets.git)
     nixpkgs-review
     nix-eval-jobs
     nix-fast-build
@@ -7,6 +7,6 @@ final: prev: {
     ;
 
   nix-direnv = prev.nix-direnv.override {
-    nix = final.lixPackageSets.stable.lix;
+    nix = final.lixPackageSets.git.lix;
   };
 }

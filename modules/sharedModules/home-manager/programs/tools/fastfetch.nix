@@ -2,7 +2,6 @@
   pkgs,
   lib,
   isNixos,
-  myvars,
   ...
 }:
 let
@@ -35,13 +34,6 @@ in
           type = "version";
           key = " ";
           format = "• Fastfetch {version}";
-          outputColor = "bold_#fab387";
-        }
-        {
-          type = "custom";
-          key = "• ${myvars.userfullname} Flake";
-          keyColor = "bold_#fab387";
-          format = "https://github.com/${myvars.userfullname}/nix-config";
           outputColor = "bold_#fab387";
         }
         "break"
