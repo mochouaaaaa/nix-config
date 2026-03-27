@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   nvfetcherSources,
   ...
 }:
@@ -17,6 +18,27 @@ let
   initjetbrains = jetbrainsConfig (cfg.enable && config.profiles.desktop.enable);
   vmoptsPath = "${config.xdg.configHome}/JetBrains/vmopts.vmoptions";
   propertiesPath = "${config.xdg.configHome}/JetBrains/idea.properties";
+
+  pluginList = [
+    "com.intellij.plugins.macoskeymap"
+  ];
+
+  buildPlugins =
+    with inputs.nix-jetbrains-plugins.lib;
+    lib.mkMerge [
+      (lib.mkIf initjetbrains.pycharm [
+        (buildIdeWithPlugins pkgs cfg.pycharm.package pluginList)
+      ])
+      (lib.mkIf initjetbrains.goland [
+        (buildIdeWithPlugins pkgs cfg.goland.package pluginList)
+      ])
+      (lib.mkIf initjetbrains.datagrip [
+        (buildIdeWithPlugins pkgs cfg.datagrip.package pluginList)
+      ])
+      (lib.mkIf initjetbrains.clion [
+        (buildIdeWithPlugins pkgs cfg.clion.package pluginList)
+      ])
+    ];
 in
 {
   options.profiles.packages.jetbrains = {
@@ -137,12 +159,7 @@ in
 
     };
 
-    home.packages = lib.mkMerge [
-      (lib.mkIf initjetbrains.pycharm [ cfg.pycharm.package ])
-      (lib.mkIf initjetbrains.goland [ cfg.goland.package ])
-      (lib.mkIf initjetbrains.datagrip [ cfg.datagrip.package ])
-      (lib.mkIf initjetbrains.clion [ cfg.clion.package ])
-    ];
+    home.packages = buildPlugins;
 
   };
 
