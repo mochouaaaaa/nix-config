@@ -39,6 +39,7 @@
 
     # `brew install --cask`
     casks = [
+      "ente-auth"
       "openinterminal-lite"
       "squirrel-app" # input method for Chinese, rime-squirrel
       "appcleaner"

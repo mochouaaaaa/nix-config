@@ -25,6 +25,7 @@ in
 
   config = lib.mkIf (config.profiles.desktop.enable) {
     home.packages = [
+      pkgs.ente-auth
     ]
     ++ lib.optionals (cfg.authenticator.enable) cfg.authenticator.package;
   };
