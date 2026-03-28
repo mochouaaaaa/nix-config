@@ -1,98 +1,84 @@
 {
-    "clion": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "clion",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-LR6NG4Y5wpBFFhVnvD/IzfvZyP5UnS2pLSXp2adcQI0=",
-            "type": "url",
-            "url": "https://download.jetbrains.com/cpp/CLion-2025.1.tar.gz"
-        },
-        "version": "2025.1"
+  "clion": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "clion",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-LR6NG4Y5wpBFFhVnvD/IzfvZyP5UnS2pLSXp2adcQI0=",
+      "type": "url",
+      "url": "https://download.jetbrains.com/cpp/CLion-2025.1.tar.gz"
     },
-    "datagrip": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "datagrip",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-1kuzACdPJQnd6aPHPrZvRdGBWL9GyeYdPfxgLej4O10=",
-            "type": "url",
-            "url": "https://download.jetbrains.com/datagrip/datagrip-2025.1.tar.gz"
-        },
-        "version": "2025.1"
+    "version": "2025.1"
+  },
+  "datagrip": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "datagrip",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-1kuzACdPJQnd6aPHPrZvRdGBWL9GyeYdPfxgLej4O10=",
+      "type": "url",
+      "url": "https://download.jetbrains.com/datagrip/datagrip-2025.1.tar.gz"
     },
-    "goland": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "goland",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-zCJhf5viM6E2RNZT8gy6KbBSlby1u3esliHuVEeuNJo=",
-            "type": "url",
-            "url": "https://download.jetbrains.com/go/goland-2025.1.tar.gz"
-        },
-        "version": "2025.1"
+    "version": "2025.1"
+  },
+  "goland": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "goland",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-zCJhf5viM6E2RNZT8gy6KbBSlby1u3esliHuVEeuNJo=",
+      "type": "url",
+      "url": "https://download.jetbrains.com/go/goland-2025.1.tar.gz"
     },
-    "oh-my-rime": {
-        "cargoLocks": null,
-        "date": "2025-05-20",
-        "extract": null,
-        "name": "oh-my-rime",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Mintimate",
-            "repo": "oh-my-rime",
-            "rev": "bfac9c1d04fc0e2900ca8facbd538138f70604a1",
-            "sha256": "sha256-2NoWGyvz3fOa3JyOYdfUNvAmHz4X9jE8kQKWxLdLuD4=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "bfac9c1d04fc0e2900ca8facbd538138f70604a1"
+    "version": "2025.1"
+  },
+  "oh-my-rime": {
+    "cargoLocks": null,
+    "date": "2025-05-20",
+    "extract": null,
+    "name": "oh-my-rime",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "Mintimate",
+      "repo": "oh-my-rime",
+      "rev": "bfac9c1d04fc0e2900ca8facbd538138f70604a1",
+      "sha256": "sha256-2NoWGyvz3fOa3JyOYdfUNvAmHz4X9jE8kQKWxLdLuD4=",
+      "sparseCheckout": [],
+      "type": "github"
     },
-    "pycharm": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "pycharm",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-EoKQfxNKcm4Xu3/oy3CI5AaqT7+dkQ3vA2M1cvOmL4w=",
-            "type": "url",
-            "url": "https://download.jetbrains.com/python/pycharm-professional-2025.1.tar.gz"
-        },
-        "version": "2025.1"
+    "version": "bfac9c1d04fc0e2900ca8facbd538138f70604a1"
+  },
+  "pycharm": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "pycharm",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-EoKQfxNKcm4Xu3/oy3CI5AaqT7+dkQ3vA2M1cvOmL4w=",
+      "type": "url",
+      "url": "https://download.jetbrains.com/python/pycharm-professional-2025.1.tar.gz"
     },
-    "rime-lmdg": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "rime-lmdg",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-qTH+TCh3j0ljz4ZIRxCS93RJRYPYN+3RGuc9d7vXMik=",
-            "type": "url",
-            "url": "https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram"
-        },
-        "version": "LTS"
-    }
+    "version": "2025.1"
+  }
 }
+

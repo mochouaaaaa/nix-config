@@ -16,6 +16,7 @@
       "https://niri.cachix.org"
       "https://hyprland.cachix.org"
       "https://mochouaaaaa.cachix.org?priority=11"
+      "https://vicinae.cachix.org"
     ];
 
     extra-public-keys = [
@@ -25,6 +26,7 @@
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "mochouaaaaa.cachix.org-1:/enIIKfFu959KLIDs0OOHBd9EjnMt53b62Jr2oatV34="
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
     ];
   };
 
@@ -78,6 +80,7 @@
     # for linux
     apple-emoji-font.url = "github:zhdsmy/apple-emoji";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
 
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";
@@ -119,7 +122,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.20.8";
+      url = "github:vicinaehq/vicinae?ref=v0.20.9";
     };
 
     quickshell = {
