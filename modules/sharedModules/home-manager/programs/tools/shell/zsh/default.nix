@@ -22,9 +22,6 @@
         package = pkgs.zsh-syntax-highlighting;
       };
       dotDir = "${config.xdg.configHome}/zsh";
-      autosuggestion = {
-        enable = true;
-      };
       history = {
         path = "$HOME/.zsh_history";
         size = 10000;

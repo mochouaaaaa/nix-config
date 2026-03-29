@@ -14,10 +14,10 @@ in
     programs.firefox.profiles.${username}.handlers = {
       mimeTypes = {
         "application/pdf" = {
-          action = "saveToDisk"; # 直接下载而不预览
+          action = 1; # 直接下载而不预览
         };
         "application/zip" = {
-          action = "alwaysAsk"; # 总是询问
+          action = 1; # 总是询问
         };
       };
     };
