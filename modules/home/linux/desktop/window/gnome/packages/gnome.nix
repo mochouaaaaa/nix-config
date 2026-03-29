@@ -45,6 +45,7 @@ in
     };
 
     programs = {
+      firefox.enableGnomeExtensions = true;
       gnome.monitors.enable = true;
       gnome-shell = {
         enable = true;
