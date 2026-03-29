@@ -16,6 +16,10 @@
         directory = ".local/share/authenticator";
         mode = "0755";
       }
+      {
+        directory = ".local/share/io.ente.auth";
+        mode = "0755";
+      }
 
       # ======================================
       # IDE / Editors
@@ -59,7 +63,7 @@
       # ======================================
       # Browser
       # ======================================
-      ".mozilla"
+      ".config/mozilla"
       ".cache/mozilla"
       ".config/zen"
       ".cache/zen"

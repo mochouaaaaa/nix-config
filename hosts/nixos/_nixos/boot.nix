@@ -1,16 +1,10 @@
 {
-  pkgs-os,
+  pkgs,
   lib,
-  config,
   ...
 }:
-let
-  vmwareMode = lib.hasAttr "vmware" config;
-in
 {
   boot = {
-
-    # tmp.cleanOnBoot = true;
 
     initrd = {
       systemd.emergencyAccess = true;
@@ -25,7 +19,7 @@ in
     };
 
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs-os.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_zen;
 
     kernelModules = [
       "kvm-amd"
@@ -45,7 +39,7 @@ in
     ];
 
     loader = {
-      systemd-boot.enable = false;
+      systemd-boot.enable = lib.mkDefault false;
       grub = {
         enable = lib.mkDefault true;
         device = lib.mkDefault "nodev";
@@ -55,12 +49,12 @@ in
                       search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi
                       chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
                   }
-          menuentry "Ubuntu24.10" {
-                      insmod part_gpt
-                      insmod fat
-                      search --no-floppy --fs-uuid --set=root C14D-581B
-                      chainloader /EFI/ubuntu/shimx64.efi
-                  }
+          # menuentry "Ubuntu24.10" {
+          #             insmod part_gpt
+          #             insmod fat
+          #             search --no-floppy --fs-uuid --set=root C14D-581B
+          #             chainloader /EFI/ubuntu/shimx64.efi
+          #         }
         '';
       };
       limine = {
@@ -71,7 +65,7 @@ in
         '';
       };
       efi = {
-        canTouchEfiVariables = if vmwareMode then false else true;
+        canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
       };
     };

@@ -1,19 +1,14 @@
 {
   lib,
-  config,
   ...
 }:
-let
-  # nixos-generators
-  vmwareMode = lib.hasAttr "vmware" config;
-in
 {
 
-  config = lib.mkIf (!vmwareMode) {
-    boot.extraModprobeConfig = lib.mkForce "options kvm_amd nested=1"; # for amd cpu
-    boot.extraModulePackages = [ ];
+  boot.extraModprobeConfig = lib.mkForce "options kvm_amd nested=1"; # for amd cpu
+  boot.extraModulePackages = [ ];
 
-    fileSystems."/" = {
+  fileSystems = {
+    "/" = {
       device = lib.mkForce "tmpfs";
       fsType = lib.mkForce "tmpfs";
       options = [
@@ -22,7 +17,7 @@ in
       ];
     };
 
-    fileSystems."/nix" = {
+    "/nix" = {
       options = [
         "subvol=nix"
         "noatime"
@@ -31,33 +26,32 @@ in
       neededForBoot = true;
     };
 
-    fileSystems."/nix/persistence" = {
+    "/nix/persistence" = {
       fsType = "btrfs";
       options = [ "subvol=@rootfs,compress-force=zstd,noatime" ];
       depends = [ "/nix" ];
       neededForBoot = true;
     };
 
-    fileSystems."/nix/persistence/home" = {
+    "/nix/persistence/home" = {
       fsType = "btrfs";
       options = [ "subvol=@home,compress-force=zstd,noatime" ];
       depends = [ "/nix/persistence" ];
     };
 
-    fileSystems."/nix/persistence/var" = {
+    "/nix/persistence/var" = {
       fsType = "btrfs";
       options = [ "subvol=@var,compress-force=zstd,noatime" ];
       depends = [ "/nix/persistence" ];
-      neededForBoot = true;
     };
 
-    fileSystems."/boot" = {
+    "/boot" = {
       options = [
         "fmask=0022"
         "dmask=0022"
       ];
     };
-
-    powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   };
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

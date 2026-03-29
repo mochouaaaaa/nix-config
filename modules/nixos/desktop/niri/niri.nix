@@ -13,7 +13,7 @@ in
 
     profiles.display-manager.greetd = {
       enable = true;
-      command = "${lib.getExe' pkgs.niri "niri-session"}";
+      command = "niri-session";
     };
 
   };

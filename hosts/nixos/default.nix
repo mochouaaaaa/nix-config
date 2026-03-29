@@ -82,7 +82,11 @@ in
                 docker.enable = true;
               };
               services = {
-                database-suite.enable = false;
+                databases = {
+                  postgresql.enable = true;
+                  mysql.enable = false;
+                  redis.enable = true;
+                };
               };
               packages = {
                 steam = {
