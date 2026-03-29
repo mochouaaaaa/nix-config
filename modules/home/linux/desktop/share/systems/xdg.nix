@@ -8,29 +8,13 @@
   lib,
   ...
 }:
-let
-  cfg = config.profiles.xdg-mime;
-in
 {
-
-  options.profiles.xdg-mime = with lib; {
-    editors = mkOption rec {
-      type = types.listOf types.str;
-      default = [ ];
-      apply = userValue: default ++ userValue;
-    };
-    defaultApplications = mkOption {
-      type = types.attrsOf (types.listOf types.str);
-      default = { };
-    };
-  };
 
   config = lib.mkIf (config.profiles.desktop.enable) {
     home = {
       packages = with pkgs; [
         xdg-utils # provides cli tools such as `xdg-mime` `xdg-open`
         xdg-user-dirs
-        font-manager
       ];
       shellAliases = {
         open = "xdg-open";
@@ -58,31 +42,6 @@ in
       #  ls /etc/profiles/per-user/<username>/share/applications/
       mimeApps = {
         enable = true;
-        # let `xdg-open` to open the url with the correct application.
-        defaultApplications =
-          let
-            editor = cfg.editors;
-            font-manager = [ "com.github.FontManager.FontViewer.desktop" ];
-          in
-          {
-            "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
-
-            "text/plain" = editor;
-            "application/x-wine-extension-ini" = editor;
-
-            "font/ttf" = font-manager;
-            "font/ttc" = font-manager;
-            "font/otf" = font-manager;
-            "font/sfnt" = font-manager;
-            "application/x-font-ttf" = font-manager;
-            "application/x-font-otf" = font-manager;
-            "application/vnd.ms-opentype" = font-manager;
-          }
-          // cfg.defaultApplications;
-
-        associations.removed = {
-          # ......
-        };
       };
     };
 

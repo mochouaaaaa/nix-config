@@ -13,10 +13,6 @@
         pkgs.mpvScripts.mpris
       ];
     };
-    xdg.mimeApps.defaultApplications = {
-      "audio/*" = [ "mpv.desktop" ];
-      "video/*" = [ "mpv.desktop" ];
-    };
-
+    xdg.mimeApps.defaultApplicationPackages = [ config.programs.mpv.package ];
   };
 }

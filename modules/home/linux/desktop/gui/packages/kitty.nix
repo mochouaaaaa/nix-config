@@ -25,16 +25,6 @@ in
       "kitty/kitty.app.png".source = "${cfg.icon}/kitty-dark.png";
     };
 
-    xdg.mimeApps.defaultApplications =
-      let
-        terminal = [ "kitty.desktop" ];
-      in
-      {
-        "x-scheme-handler/ssh" = terminal;
-        "x-scheme-handler/telnet" = terminal;
-        "x-scheme-handler/x-man-page" = terminal;
-        "x-scheme-handler/terminal" = terminal;
-        "TerminalEmulator" = terminal;
-      };
+    xdg.mimeApps.defaultApplicationPackages = [ config.programs.kitty.package ];
   };
 }
