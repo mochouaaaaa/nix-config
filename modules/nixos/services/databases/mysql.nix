@@ -1,38 +1,24 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   username,
   ...
 }:
 let
-  cfg = config.profiles.services.database-suite;
-
-  user = "${username}";
+  cfg = config.profiles.services.databases.mysql;
 in
 {
-  options.profiles.services.database-suite = {
+  options.profiles.services.databases.mysql = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Whether to enable databases packages.";
+      description = "Whether to enable mysql packages.";
     };
   };
 
   config = lib.mkIf cfg.enable {
-
     services = {
-      redis = {
-        servers = {
-          "" = {
-            enable = true;
-            bind = null;
-            # unixSocket = "/var/run/redis.sock";
-            openFirewall = true;
-          };
-        };
-      };
-
       mysql = {
         enable = true;
         package = pkgs.mariadb;
@@ -40,18 +26,18 @@ in
         # group = user;
         ensureUsers = [
           {
-            name = user;
+            name = username;
             ensurePermissions = {
               "*.*" = "ALL PRIVILEGES";
             };
           }
         ];
         ensureDatabases = [
-          user
+          username
         ];
         replication = {
           role = "master";
-          masterUser = user;
+          masterUser = username;
           masterPassword = "P@ssw0rd";
           slaveHost = "%";
         };
@@ -74,5 +60,7 @@ in
         };
       };
     };
+
   };
+
 }

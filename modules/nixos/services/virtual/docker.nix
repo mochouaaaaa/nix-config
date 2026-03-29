@@ -13,9 +13,10 @@ in
 
     environment.systemPackages = lib.optionals (config.profiles.desktop.enable) [
       pkgs.podman-desktop
+      pkgs.podman-compose
     ];
 
-    users.users."${username}" = {
+    users.users.${username} = {
       extraGroups = [
         "docker"
         "podman"
@@ -27,7 +28,7 @@ in
         enable = true;
         autoPrune.enable = true;
         dockerSocket.enable = true;
-        dockerCompat = true;
+        dockerCompat = true; # docker alias
         defaultNetwork = {
           settings = {
             dns_enabled = true;
