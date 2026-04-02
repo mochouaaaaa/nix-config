@@ -87,7 +87,7 @@ _reset_dconf:
 # Wsl switch config
 [linux]
 @wsl:
-    if [ -e /proc/sys/fs/binfmt_misc/WSLInterop ]; then NIXPKGS_ALLOW_INSECURE=1 sudo -E nixos-rebuild switch --flake .#mochou@wsl --impure; fi
+    if [ -e /proc/sys/fs/binfmt_misc/WSLInterop ]; then NIXPKGS_ALLOW_INSECURE=1 nixos-rebuild switch --flake .#mochou@wsl --sudo --impure; fi
 
 # build nixos boot
 [linux]
