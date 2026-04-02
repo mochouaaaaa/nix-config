@@ -68,7 +68,7 @@ let
           };
 
         in
-        inputs.nixpkgs-os.lib.nixosSystem {
+        inputs.nixpkgs-stable.lib.nixosSystem {
           inherit specialArgs;
 
           modules = [
@@ -93,7 +93,7 @@ let
                   pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
                     overlays = [ self.overlays.home-manager ];
                   };
-                  pkgs-stable = ctx.extraModuleArgs.pkgs-os;
+                  pkgs-stable = ctx.extraModuleArgs.pkgs-stable;
                   nixosSystemName = name;
                   nixDarwinSystemName = "${username}@darwin";
                   homeManagerName = name;

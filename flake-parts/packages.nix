@@ -31,7 +31,7 @@
         };
 
       pkgs-unstable = mkPkgs inputs.nixpkgs { };
-      pkgs-os = mkPkgs inputs.nixpkgs-os { };
+      pkgs-stable = mkPkgs inputs.nixpkgs-stable { };
 
       nvfetcherSources = import ../_sources/generated.nix {
         inherit (pkgs)
@@ -80,7 +80,7 @@
               # nixpkgs
               mkPkgs
               pkgs-unstable
-              pkgs-os
+              pkgs-stable
 
               import-tree
 

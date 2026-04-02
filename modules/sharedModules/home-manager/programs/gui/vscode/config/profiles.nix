@@ -42,7 +42,7 @@ in
                 "expr" = "import <nixpkgs> { }";
               };
               "pkgs-stable" = {
-                "expr" = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs-os {}";
+                "expr" = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs-stable {}";
               };
               "pkgs-unstable" = {
                 "expr" = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs {}";

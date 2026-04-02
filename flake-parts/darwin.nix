@@ -95,7 +95,7 @@ let
                         allowDeprecatedx86_64Darwin = true;
                       };
                     };
-                    pkgs-stable = ctx.extraModuleArgs.pkgs-os;
+                    pkgs-stable = ctx.extraModuleArgs.pkgs-stable;
                     nixosSystemName = "${username}@nixos";
                     nixDarwinSystemName = name;
                     homeManagerName = name;
