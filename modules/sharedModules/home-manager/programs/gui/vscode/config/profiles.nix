@@ -5,7 +5,6 @@
   isNixos,
   nixosSystemName,
   homeManagerName,
-  username,
   ...
 }:
 let
