@@ -1,12 +1,12 @@
 {
+  lib,
   pkgs,
   config,
-  inputs,
+  isNixos ? false,
+  isNixDarwin ? false,
   ...
 }:
 {
-
-  imports = [ inputs.nixvim.homeModules.nixvim ];
 
   home.packages = with pkgs; [
     luajit
@@ -14,17 +14,39 @@
   ];
 
   programs = {
-    nixvim = {
+    neovim = {
       enable = true;
+      package = pkgs.neovim-unwrapped;
       defaultEditor = true;
-      nixpkgs.pkgs = pkgs;
-      globals = {
-        IS_NIX = true;
-      };
-      extraConfigLuaPre = ''
-        -- bootstrap lazy.nvim, LazyVim and your plugins
-        require("config.lazy")
-      '';
+      initLua =
+        let
+          toLus = lib.generators.toLua { };
+        in
+        ''
+          vim.g.IS_NIX      = true
+          vim.g.is_nixos    = ${toLus isNixos}
+          vim.g.is_dariwn   = ${toLus isNixDarwin}
+
+          -- bootstrap lazy.nvim, LazyVim and your plugins
+          require("config.lazy")
+        '';
+      extraWrapperArgs = with pkgs; [
+        "--suffix"
+        "LIBRARY_PATH"
+        ":"
+        "${lib.makeLibraryPath [
+          stdenv.cc.cc
+          zlib
+          sqlite
+        ]}"
+        "--suffix"
+        "PKG_CONFIG_PATH"
+        ":"
+        "${lib.makeSearchPathOutput "dev" "lib/pkgconfig" [
+          stdenv.cc.cc
+          zlib
+        ]}"
+      ];
       extraLuaPackages = ps: [
         ps.magick
         ps.luarocks
@@ -40,6 +62,7 @@
         imagemagick
         sqlite
         libgit2
+        mermaid-cli
         diff-so-fancy
         ghostscript
         multimarkdown

@@ -18,9 +18,11 @@ in
   config = lib.mkIf cfg.enable {
 
     home.packages = [
+      pkgs.gcc
       pkgs.gopls
       pkgs.gofumpt
       pkgs.delve
+      pkgs.golangci-lint
       pkgs.goimports-reviser
     ];
 

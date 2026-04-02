@@ -10,7 +10,7 @@
         frame = "none";
         idle = true;
         maximized = false;
-        neovim-bin = "${config.programs.nixvim.package}/bin/nvim";
+        neovim-bin = "${config.programs.neovim.package}/bin/nvim";
         no-multigrid = false;
         srgb = true;
         tabs = true;

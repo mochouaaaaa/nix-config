@@ -5,8 +5,8 @@ let
 in
 {
   config = lib.mkIf (cfgMatugen.enable && (cfgNoctalia.enable && false)) {
-    programs.nixvim = {
-      extraConfigLuaPost = ''
+    programs.neovim = {
+      initLua = ''
         local function source_matugen()
         	-- Update this with the location of your output file
         	local matugen_path = os.getenv("HOME") .. "/.config/nvim/generated.lua" -- dofile doesn't expand $HOME or ~

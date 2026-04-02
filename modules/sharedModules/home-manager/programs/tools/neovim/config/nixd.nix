@@ -1,8 +1,6 @@
 {
   pkgs,
-  isNixDarwin,
   nixDarwinSystemName,
-  isNixos,
   nixosSystemName,
   homeManagerName,
   ...
@@ -13,12 +11,8 @@
     nixfmt
   ];
 
-  programs.nixvim = {
-    globals = {
-      is_darwin = isNixDarwin;
-      is_nixos = isNixos;
-    };
-    extraConfigLuaPost = ''
+  programs.neovim = {
+    initLua = ''
       local nixd_lsp_config = function()
           local opts = {}
 
@@ -54,21 +48,22 @@
       end
 
       vim.lsp.config("nixd", {
-       cmd = { "nixd" },
-       settings = {
-          nixd = {
-             pkgs = {
-                expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs {}",
-             },
-             ["pkgs-stable"] = {
-                expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs-os {}",
-             },
-             formatting = {
-                command = { "nixfmt" },
-             },
-             options = nixd_lsp_config(),
+          cmd = { "nixd" },
+          root_markers = { "flake.nix", "flake.lock", ".git" },
+          settings = {
+              nixd = {
+                  pkgs = {
+                      expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs {}",
+                  },
+                  ["pkgs-stable"] = {
+                      expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs-stable {}",
+                  },
+                  formatting = {
+                      command = { "nixfmt" },
+                  },
+                  options = nixd_lsp_config(),
+              },
           },
-       },
       })
       vim.lsp.enable("nixd")
     '';
