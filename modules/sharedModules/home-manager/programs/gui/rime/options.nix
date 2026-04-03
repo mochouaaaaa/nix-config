@@ -10,8 +10,6 @@ let
   cfg = config.profiles.packages.rime;
   yamkFormats = pkgs.formats.yaml { };
 
-  rime-wanxiang = inputs.mochou_nur.packages.${pkgs.stdenv.system}.rime.wanxiang;
-
   CustomRimeData = pkgs.stdenv.mkDerivation {
     pname = "my-rime-data";
     version = "1.0";
@@ -20,7 +18,7 @@ let
     installPhase = ''
       mkdir -p $out/share/rime-data
 
-      cp -r ${rime-wanxiang}/share/rime-data/* $out/share/rime-data/
+      cp -r ${pkgs.rime-wanxiang}/share/rime-data/* $out/share/rime-data/
 
       # 写入自定义文件（如果有）
       ${pkgs.lib.concatStringsSep "\n" (

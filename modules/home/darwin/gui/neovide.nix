@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   programs.neovide = {
-    enable = lib.mkForce false;
+    package = null;
     settings = {
       frame = lib.mkForce "transparent";
     };

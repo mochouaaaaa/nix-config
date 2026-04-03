@@ -47,6 +47,7 @@
       # "adguard"
 
       "google-chrome"
+      "neovide"
     ];
 
     caskArgs = {

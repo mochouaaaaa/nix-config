@@ -18,7 +18,7 @@
     zed-editor.enableMcpIntegration = true;
     claude-code.enableMcpIntegration = true;
     vscode.profiles.default = {
-      userMcp = true;
+      userMcp = { };
       enableMcpIntegration = true;
     };
   };
