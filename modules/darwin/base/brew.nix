@@ -39,6 +39,8 @@
 
     # `brew install --cask`
     casks = [
+      "kitty"
+      "neovide-app"
       "ente-auth"
       "openinterminal-lite"
       "squirrel-app" # input method for Chinese, rime-squirrel
@@ -47,7 +49,6 @@
       # "adguard"
 
       "google-chrome"
-      "neovide"
     ];
 
     caskArgs = {

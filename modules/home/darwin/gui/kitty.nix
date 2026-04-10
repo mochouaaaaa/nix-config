@@ -9,6 +9,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
+      package = lib.mkForce null;
       darwinLaunchOptions = [
         "--single-instance"
         "--listen-on=unix:/tmp/mykitty.sock"
