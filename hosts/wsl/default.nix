@@ -56,11 +56,11 @@ in
               wsl.useWindowsDriver = true;
               wsl.startMenuLaunchers = true;
               wsl.usbip.enable = true;
+              wsl.ssh-agent.enable = true;
 
               profiles.wsl.enable = true;
 
               environment.systemPackages = with pkgs; [
-
                 docker
                 docker-compose
               ];

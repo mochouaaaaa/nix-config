@@ -9,7 +9,7 @@ let
   formatYaml = pkgs.formats.yaml { };
 in
 {
-  config = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
+  config = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux && !config.profiles.wsl.enable) {
 
     profiles.services.dns.enable = true;
 

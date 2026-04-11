@@ -52,7 +52,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dotfiles = {
-      url = "github:mochouaaaaa/dotfile/nvim-fzf";
+      url = "github:mochouaaaaa/dotfile/0.12";
       flake = false;
     };
 
