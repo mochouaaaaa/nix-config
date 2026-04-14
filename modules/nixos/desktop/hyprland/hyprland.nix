@@ -1,8 +1,7 @@
 {
   lib,
   config,
-  inputs,
-  pkgs,
+  pkgs-unstable,
   ...
 }:
 let
@@ -17,17 +16,11 @@ in
       command = "start-hyprland";
     };
 
-    programs.hyprland =
-      let
-        hyprlandPkgs = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
-      in
-      {
-        enable = true;
-        package = hyprlandPkgs.hyprland;
-        portalPackage = hyprlandPkgs.xdg-desktop-portal-hyprland;
-        # FIX: home-manager env unload
-        withUWSM = false;
-      };
+    programs.hyprland = {
+      enable = true;
+      package = pkgs-unstable.hyprland;
+      withUWSM = false;
+    };
 
     profiles.persistent.hmDirectories = lib.optionals cfghyprland.withUWSM [
       ".config/uwsm"

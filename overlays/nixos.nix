@@ -13,7 +13,6 @@ let
       clash-verge = inputs.nixpkgs.legacyPackages.${prev.system}.clash-verge;
     })
 
-    # inputs.hyprland.overlays.default
     (import ./pkgs/lix.nix)
   ];
 in

@@ -25,17 +25,13 @@ let
     })
 
     (final: prev: {
-      xwayland-satellite =
-        inputs.xwayland-satellite.packages.${final.pkgs.stdenv.hostPlatform.system}.default;
     })
 
-    inputs.nixd.overlays.default
     inputs.nur.overlays.default
     inputs.vscode-extensions.overlays.default
     inputs.niri.overlays.niri
     inputs.vicinae.overlays.default
     inputs.noctalia.overlays.default
-    inputs.hyprland.overlays.default
     (import ./pkgs/obsidian-wrapper.nix)
     (import ./pkgs/tiny-rdm-wrapper.nix)
     (import ./pkgs/jetbrains/pycharm.nix)

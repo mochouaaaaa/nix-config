@@ -1,15 +1,12 @@
 {
   config,
   lib,
-  inputs,
   ...
 }:
 let
   cfg = config.profiles.desktop.hyprland;
 in
 {
-
-  imports = [ inputs.hyprland.homeManagerModules.default ];
 
   config = lib.mkIf cfg.enable {
 
