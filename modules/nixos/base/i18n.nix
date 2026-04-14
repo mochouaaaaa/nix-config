@@ -16,22 +16,26 @@ in
 
   config = {
 
-    i18n = {
-      # Select internationalisation properties.
-      defaultLocale = "${cfg.locale}.UTF-8";
+    i18n =
+      let
+        locale = "${cfg.locale}.UTF-8";
+      in
+      {
+        # Select internationalisation properties.
+        defaultLocale = locale;
 
-      extraLocaleSettings = {
-        LC_ADDRESS = "${cfg.locale}.UTF-8";
-        LC_IDENTIFICATION = "${cfg.locale}.UTF-8";
-        LC_MEASUREMENT = "${cfg.locale}.UTF-8";
-        LC_MONETARY = "${cfg.locale}.UTF-8";
-        LC_NAME = "${cfg.locale}.UTF-8";
-        LC_NUMERIC = "${cfg.locale}.UTF-8";
-        LC_PAPER = "${cfg.locale}.UTF-8";
-        LC_TELEPHONE = "${cfg.locale}.UTF-8";
-        LC_TIME = "${cfg.locale}.UTF-8";
+        extraLocaleSettings = {
+          LC_ADDRESS = locale;
+          LC_IDENTIFICATION = locale;
+          LC_MEASUREMENT = locale;
+          LC_MONETARY = locale;
+          LC_NAME = locale;
+          LC_NUMERIC = locale;
+          LC_PAPER = locale;
+          LC_TELEPHONE = locale;
+          LC_TIME = locale;
+        };
       };
-    };
 
   };
 }

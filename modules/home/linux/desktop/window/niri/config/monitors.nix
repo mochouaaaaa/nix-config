@@ -10,11 +10,11 @@ in
       outputs = {
         "LG Electronics LG HDR 4K 0x00052C1D" = {
           mode = {
-            width = 2560;
-            height = 1440;
+            width = 3840;
+            height = 2160;
             refresh = 59.951;
           };
-          scale = 1;
+          scale = 1.5;
           variable-refresh-rate = "on-demand";
         };
       };

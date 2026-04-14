@@ -45,6 +45,7 @@ in
 
           #java
           "_JAVA_AWT_WM_NONREPARENTING,1"
+          "_JAVA_OPTIONS,-Dsun.java2d.uiScale=2"
 
           # firefox
           "MOZ_ENABLE_WAYLAND,1"

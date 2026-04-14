@@ -92,6 +92,7 @@ in
             width = 2;
           };
           always-center-single-column = true;
+          center-focused-column = "always";
           background-color = "transparent";
         };
         cursor = {

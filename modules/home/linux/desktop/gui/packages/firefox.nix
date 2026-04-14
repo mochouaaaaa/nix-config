@@ -14,6 +14,7 @@ in
 
     home.activation = {
       active-firefox-theme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        rm -rf $HOME/.mozilla
         ln -sfT ${config.xdg.configHome}/mozilla $HOME/.mozilla
 
         rm -rf ${config.xdg.configHome}/mozilla/firefox/mochou/user.js

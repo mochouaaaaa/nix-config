@@ -124,6 +124,7 @@ let
       dconf write ''${gnome_schema}gtk-theme "'$gtk_theme'"
       dconf write ''${gnome_schema}icon-theme "'$icon_theme'"
       dconf write ''${gnome_schema}cursor-theme "'$cursor_theme'"
+      dconf write ''${gnome_schema}cursor-size "${toString config.home.pointerCursor.size}"
       dconf write ''${gnome_schema}font-name "'$font_name'"
 
 

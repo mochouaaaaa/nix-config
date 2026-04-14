@@ -24,12 +24,12 @@ in
           # direct_scanout = false
         };
 
-        # cursor = {
-        #   no_hardware_cursors = true;
-        #   enable_hyprcursor = true;
-        #   warp_on_change_workspace = true;
-        #   no_warps = true;
-        # };
+        cursor = {
+          no_hardware_cursors = false;
+          enable_hyprcursor = true;
+          # warp_on_change_workspace = true;
+          # no_warps = true;
+        };
 
         # ecosystem = {
         #   no_donation_nag = true;

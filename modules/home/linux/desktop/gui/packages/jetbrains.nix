@@ -142,6 +142,8 @@ in
               --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
               --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
 
+              -Dsun.java2d.uiScale=1.5
+              -Dhidpi=true
               -Dawt.toolkit.name=WLToolkit
               -javaagent:${config.xdg.configHome}/.jetbra-free/static/ja-netfilter/ja-netfilter.jar=jetbrains
             '';

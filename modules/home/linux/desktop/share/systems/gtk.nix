@@ -4,16 +4,6 @@
   config,
   ...
 }:
-let
-  overrideCursors = pkgs.whitesur-cursors.overrideAttrs (oldAttrs: {
-    src = pkgs.fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = "WhiteSur-cursors";
-      rev = "master";
-      hash = "sha256-hFtfq8F6KeqUEBlypPCr/EKq6rif/g868vJd8c06c1I=";
-    };
-  });
-in
 {
 
   config = lib.mkIf (config.profiles.desktop.enable) (
@@ -26,8 +16,8 @@ in
         home.pointerCursor = {
           gtk.enable = true;
           x11.enable = true;
-          package = overrideCursors;
-          name = "WhiteSur-cursors";
+          package = pkgs.adwaita-icon-theme;
+          name = "Adwaita";
           size = 36;
         };
 

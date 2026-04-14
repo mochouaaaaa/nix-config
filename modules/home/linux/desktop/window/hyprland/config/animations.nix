@@ -28,10 +28,10 @@ in
 
             "windowsIn, 1, 5, emphasizedDecel"
             "windowsOut, 1, 3, emphasizedAccel"
-            "windowsMove, 1, 6, standard"
-            "workspaces, 1, 5, standard"
+            "windowsMove, 1, 5, standard"
+            "workspaces, 1, 4, standard"
 
-            "specialWorkspace, 1, 4, specialWorkSwitch, slidefadevert 15%"
+            "specialWorkspace, 1, 3, specialWorkSwitch, slidefadevert 15%"
 
             "fade, 1, 6, standard"
             "fadeDim, 1, 6, standard"

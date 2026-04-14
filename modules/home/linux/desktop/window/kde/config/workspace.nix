@@ -10,8 +10,8 @@ in
         theme = "WhiteSur-dark"; # 主题
         colorScheme = "WhiteSurDark"; # 配色方案
         cursor = {
-          theme = "WhiteSur Cursors"; # 光标主题
-          size = 36;
+          theme = config.home.pointerCursor.name; # 光标主题
+          size = config.home.pointerCursor.size;
         }; # 光标
         lookAndFeel = "com.github.vinceliuice.WhiteSur-dark";
         windowDecorations = {
