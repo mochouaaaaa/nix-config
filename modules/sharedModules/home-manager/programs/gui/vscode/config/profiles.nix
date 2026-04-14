@@ -1,4 +1,6 @@
 {
+  lib,
+  pkgs,
   config,
   isNixDarwin,
   nixDarwinSystemName,
@@ -31,11 +33,11 @@ in
             "editor.defaultFormatter" = "brettm12345.nixfmt-vscode";
           };
           "nix.enableLanguageServer" = true;
-          "nix.serverPath" = "nixd";
+          "nix.serverPath" = "${lib.getExe pkgs.nixd}";
           "nix.serverSettings" = {
             "nixd" = {
               "formatting" = {
-                "command" = [ "nixfmt" ];
+                "command" = [ "${lib.getExe pkgs.nixfmt}" ];
               };
               "pkgs" = {
                 "expr" = "import <nixpkgs> { }";

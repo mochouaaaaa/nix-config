@@ -22,7 +22,7 @@ in
 
       # markdown
       marksman
-      # markdownlint-cli2
+      markdownlint-cli2
 
       # filetypes
       # vscode-json-languageserver

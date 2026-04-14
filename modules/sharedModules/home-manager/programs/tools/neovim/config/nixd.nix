@@ -6,12 +6,11 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    nixd
-    nixfmt
-  ];
-
   programs.neovim = {
+    extraPackages = with pkgs; [
+      nixd
+      nixfmt
+    ];
     initLua = ''
       local nixd_lsp_config = function()
           local opts = {}
@@ -49,6 +48,7 @@
 
       vim.lsp.config("nixd", {
           cmd = { "nixd" },
+          filetypes = { "nix" },
           root_markers = { "flake.nix", "flake.lock", ".git" },
           settings = {
               nixd = {
