@@ -41,11 +41,6 @@
     agenix.url = "github:ryantm/agenix";
     agenix-rekey.url = "github:oddlama/agenix-rekey";
 
-    nixd = {
-      url = "github:nix-community/nixd";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -119,7 +114,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.20.9";
+      url = "github:vicinaehq/vicinae?ref=v0.20.12";
     };
 
     quickshell = {
@@ -133,7 +128,7 @@
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.3";
+      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell = {
@@ -142,32 +137,27 @@
     };
 
     # hyprland
-    hyprutils.url = "github:hyprwm/hyprutils?ref=v0.11.0";
-    hyprgraphics.url = "github:hyprwm/hyprgraphics";
-    aquamarine.url = "github:hyprwm/aquamarine";
-    hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.8";
-    hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.54.2";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        hyprutils.follows = "hyprutils";
-        hyprgraphics.follows = "hyprgraphics";
-        aquamarine.follows = "aquamarine";
-        hyprlang.follows = "hyprlang";
-      };
-    };
+    # hyprutils.url = "github:hyprwm/hyprutils?ref=v0.11.0";
+    # hyprgraphics.url = "github:hyprwm/hyprgraphics";
+    # aquamarine.url = "github:hyprwm/aquamarine";
+    # hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.8";
+    # hyprland = {
+    #   url = "github:hyprwm/Hyprland?ref=v0.54.2";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     hyprutils.follows = "hyprutils";
+    #     hyprgraphics.follows = "hyprgraphics";
+    #     aquamarine.follows = "aquamarine";
+    #     hyprlang.follows = "hyprlang";
+    #   };
+    # };
 
     # niri
-    xwayland-satellite = {
-      url = "github:Supreeeme/xwayland-satellite";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     niri-unstable.url = "github:YaLTeR/niri?ref=wip/branch";
     niri = {
       url = "github:sodiboo/niri-flake?ref=very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.niri-unstable.follows = "niri-unstable";
-      inputs.xwayland-satellite-unstable.follows = "xwayland-satellite";
     };
 
     # kde
