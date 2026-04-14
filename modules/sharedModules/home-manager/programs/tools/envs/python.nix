@@ -14,7 +14,7 @@ in
     programs = {
       ty = {
         enable = true;
-        package = inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.ty;
+        # package = inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.ty;
       };
       ruff = {
         enable = true;
