@@ -42,10 +42,10 @@ https://github.com/nix-community/NixOS-WSL
 
 ## ![Niri](./asset/niri.png)
 
-## 目录结构
+## Directory Structure
 
 <details>
-    <summary>目录结构</summary>
+    <summary>Directory Structure</summary>
 
 ```
 .
@@ -143,7 +143,7 @@ just home-hyprland # or home-gnome, home-kde, home-niri
 
 ```bash
 nix develop .#defailt
-just swl
+just wsl
 ```
 
 </details>
@@ -163,7 +163,6 @@ just swl
 [p10k]: https://github.com/romkatv/powerlevel10k
 [vicinae]: https://github.com/vicinaehq/vicinae
 [rime_wanxiang]: https://github.com/amzxyz/rime_wanxiang
-[Btop]: https://github.com/aristocratos/btop
 [mpv]: https://github.com/mpv-player/mpv
 [Neovim]: https://github.com/neovim/neovim
 [loupe]: https://gitlab.gnome.org/GNOME/loupe
