@@ -12,7 +12,9 @@ in
       settings = {
 
         misc = {
+          disable_hyprland_logo = true;
           disable_splash_rendering = true;
+          disable_hyprland_guiutils_check = true;
           # disable_hyprland_qtutils_check = true;
           # 禁用吞噬模式
           # 它会导致neovim使用yazi查看图片出现问题, kitty打开其他Tui程序覆盖问题
@@ -29,7 +31,6 @@ in
           animate_manual_resizes = false;
           animate_mouse_windowdragging = false;
 
-          disable_hyprland_logo = true;
           force_default_wallpaper = 0;
 
           # new_window_takes_over_fs = 2;

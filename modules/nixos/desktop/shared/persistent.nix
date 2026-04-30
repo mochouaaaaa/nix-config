@@ -50,6 +50,7 @@
       ".local/share/TelegramDesktop"
       ".local/share/fractal"
       ".cache/fractal"
+      ".config/vesktop"
 
       # ======================================
       # Remote

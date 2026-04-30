@@ -12,15 +12,15 @@ in
 
   config = lib.mkIf (cfg.enable && config.profiles.desktop.enable) {
 
-    home.activation = {
-      active-firefox-theme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        rm -rf $HOME/.mozilla
-        ln -sfT ${config.xdg.configHome}/mozilla $HOME/.mozilla
-
-        rm -rf ${config.xdg.configHome}/mozilla/firefox/mochou/user.js
-        ${pkgs.firefox-gnome-theme}/bin/auto-install.sh
-      '';
-    };
+    # home.activation = {
+    #   active-firefox-theme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    #     rm -rf $HOME/.mozilla
+    #     ln -sfT ${config.xdg.configHome}/mozilla $HOME/.mozilla
+    #
+    #     rm -rf ${config.xdg.configHome}/mozilla/firefox/mochou/user.js
+    #     ${pkgs.firefox-gnome-theme}/bin/auto-install.sh
+    #   '';
+    # };
 
     programs.firefox = {
       package = pkgs.firefox-bin;

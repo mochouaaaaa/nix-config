@@ -112,6 +112,22 @@ in
 
     };
 
+    services.vicinae = {
+      settings = {
+        theme = {
+          light = {
+            name = lib.mkForce "noctalia";
+          };
+          dark = {
+            name = lib.mkForce "noctalia";
+          };
+        };
+        launcher_window = {
+          opacity = lib.mkForce config.programs.noctalia-shell.settings.ui.panelBackgroundOpacity;
+        };
+      };
+    };
+
     profiles.packages.terminal.kitty.extraConfig = lib.mkAfter [
       "include themes/noctalia.conf"
     ];
