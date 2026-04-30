@@ -74,6 +74,8 @@
       extraPython3Packages = ps: [
         ps.pynvim
       ];
+      withPython3 = true;
+      withRuby = false;
       withNodeJs = true;
     };
   };

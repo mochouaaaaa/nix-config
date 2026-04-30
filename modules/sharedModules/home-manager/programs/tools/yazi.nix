@@ -24,6 +24,10 @@ let
     ];
 in
 {
+  home.packages = [
+    pkgs.sublime4
+  ];
+
   programs = rec {
     yazi = {
       enable = true;

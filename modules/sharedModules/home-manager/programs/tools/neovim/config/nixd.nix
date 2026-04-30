@@ -20,9 +20,9 @@
                   nix_darwin = {
                       expr = '(builtins.getFlake (toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options',
                   },
-                  home_manager = {
-                      expr = '(builtins.getFlake (toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options.home-manager.users.type.getSubOptions []',
-                  },
+                  -- home_manager = {
+                  --     expr = '(builtins.getFlake (toString ./.)).darwinConfigurations."${nixDarwinSystemName}".options.home-manager.users.type.getSubOptions []',
+                  -- },
               }
           end
 
@@ -31,9 +31,9 @@
                   nixos = {
                       expr = '(builtins.getFlake (toString ./.)).nixosConfigurations."${nixosSystemName}".options',
                   },
-                  home_manager = {
-                      expr = '(builtins.getFlake (toString ./.)).nixosConfigurations."${nixosSystemName}".options.home-manager.users.type.getSubOptions []',
-                  },
+                  -- home_manager = {
+                  --     expr = '(builtins.getFlake (toString ./.)).nixosConfigurations."${nixosSystemName}".options.home-manager.users.type.getSubOptions []',
+                  -- },
               }
           end
 

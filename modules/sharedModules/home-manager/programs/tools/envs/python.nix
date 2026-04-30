@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 let
@@ -11,10 +10,33 @@ in
 {
   config = lib.mkIf cfg.enable {
 
+    home.packages = [
+      pkgs.playwright-driver.browsers
+    ];
+
     programs = {
+      zsh.initContent = lib.mkAfter ''
+        export PLAYWRIGHT_BROWSERS_PATH="${pkgs.playwright-driver.browsers}";
+        export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD="1";
+      '';
       ty = {
         enable = true;
         # package = inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.ty;
+        package = pkgs.ty.overrideAttrs (oldAttrs: rec {
+          version = "0.0.31";
+          src = pkgs.fetchFromGitHub {
+            owner = "astral-sh";
+            repo = "ty";
+            tag = version;
+            fetchSubmodules = true;
+            hash = "sha256-TJGEI22hp+YZCxIvZgNc8BF2Dd+z/TzpnRW2pO1f3X0=";
+          };
+          cargoDeps = pkgs.rustPlatform.importCargoLock {
+            lockFile = src + "/ruff/Cargo.lock";
+            allowBuiltinFetchGit = true;
+          };
+          cargoHash = null;
+        });
       };
       ruff = {
         enable = true;
