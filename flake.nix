@@ -114,7 +114,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.20.12";
+      url = "github:vicinaehq/vicinae?ref=v0.20.13";
     };
 
     quickshell = {
@@ -128,29 +128,13 @@
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.5";
+      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell = {
       url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # hyprland
-    # hyprutils.url = "github:hyprwm/hyprutils?ref=v0.11.0";
-    # hyprgraphics.url = "github:hyprwm/hyprgraphics";
-    # aquamarine.url = "github:hyprwm/aquamarine";
-    # hyprlang.url = "github:hyprwm/hyprlang?ref=v0.6.8";
-    # hyprland = {
-    #   url = "github:hyprwm/Hyprland?ref=v0.54.2";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     hyprutils.follows = "hyprutils";
-    #     hyprgraphics.follows = "hyprgraphics";
-    #     aquamarine.follows = "aquamarine";
-    #     hyprlang.follows = "hyprlang";
-    #   };
-    # };
 
     # niri
     niri-unstable.url = "github:YaLTeR/niri?ref=wip/branch";
