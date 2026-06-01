@@ -7,7 +7,6 @@
 }:
 let
   isDesktop = config.profiles.desktop.enable;
-  cfgDesktop = config.profiles.desktop;
 in
 {
 
@@ -48,21 +47,6 @@ in
           # }))
         ];
       }
-
-      (lib.mkIf (cfgDesktop.hyprland.enable) {
-        wayland.windowManager.hyprland = {
-          settings = {
-            bind = [
-              "$mod CTRL, 1, togglespecialworkspace, music"
-            ];
-            windowrule = [
-              "workspace special:music, match:class feishin|Spotify|Supersonic|SPlayer"
-              "workspace special:music, match:initial_title Spotify( Free)?" # Spotify wayland, it has no class for some reason
-            ];
-          };
-        };
-      })
-
     ]
   );
 

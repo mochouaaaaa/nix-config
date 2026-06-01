@@ -7,7 +7,6 @@
 let
   cfg = config.profiles.packages.tencent;
   isDesktop = config.profiles.desktop.enable;
-  cfgDesktop = config.profiles.desktop;
 in
 {
   options.profiles.packages.tencent = {
@@ -60,21 +59,6 @@ in
           ++ lib.optionals cfg.wechat.enable [ wechat-uos ]
           ++ lib.optionals cfg.wemeet.enable [ wemeet ];
       }
-
-      (lib.mkIf (cfgDesktop.hyprland.enable) {
-        wayland.windowManager.hyprland = {
-          settings = {
-            bind = [
-              "$mod CTRL, 3, togglespecialworkspace, wechat"
-              "$mod CTRL, 4, togglespecialworkspace, matrix"
-            ];
-            windowrule = [
-              "workspace special:wechat, match:class discord|equibop|vesktop|whatsapp|qq|dingtalk"
-              "workspace special:matrix, match:class org.gnome.Fractal|fluffychat|Element"
-            ];
-          };
-        };
-      })
     ]
   );
 }

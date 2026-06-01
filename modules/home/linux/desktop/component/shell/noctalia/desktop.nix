@@ -46,49 +46,44 @@ in
       };
 
       wayland.windowManager.hyprland = {
-        # extraConfig = lib.mkOrder 2000 ''
-        #   source = noctalia/noctalia-colors.conf
-        # '';
-        settings = {
-          "$windowOpacity" = lib.mkForce 0.88;
-          decoration = lib.mkForceRecursive {
-            rounding = 14;
-            blur = {
-              ignore_opacity = false;
-              passes = 4;
-              size = 2;
-              vibrancy = 0.28;
-              vibrancy_darkness = 0.14;
-            };
-          };
-          layerrule = [
-            "blur on, match:namespace noctalia-.*"
-            "ignore_alpha 0, match:namespace noctalia-.*"
-          ];
-        };
-      };
+        extraConfig = ''
+          _G.windowOpacity = 0.88
 
-      profiles.desktop.hypridle.lock_cmd = "noctalia-shell ipc call lockScreen lock";
+          hl.config{
+            decoration = {
+                rounding = 14,
+                blur = {
+                ignore_opacity = false,
+                passes = 4,
+                size = 2,
+                vibrancy = 0.28,
+                vibrancy_darkness = 0.14,
+                },
+            }
+          }
 
-      profiles.desktop.hyprland = {
-        settings = {
-          media = [
-            ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
-            ", XF86AudioNext, exec, noctalia-shell ipc call media next"
-            ", XF86AudioPrev, exec, noctalia-shell ipc call media previous"
-            ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
-          ];
-          brightness = [
-            ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase" # f2
-            ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease" # f1
-          ];
-          volume = [
-            ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase" # f12
-            ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease" # f11
-          ];
-          lock = "$mod CTRL, q, exec, noctalia-shell ipc call lockScreen lock";
-          shell-settings = "$mod, comma, exec, noctalia-shell ipc call settings toggle";
-        };
+          hl.layer_rule {
+            name = "noctalia",
+            match = {
+                namespace = "noctalia-.*"
+            },
+            ignore_alpha = 0,
+            blur = true
+          }
+
+          -- noctalia
+          hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("noctalia-shell ipc call media playPause"))
+          hl.bind("XF86AudioNext", hl.dsp.exec_cmd("noctalia-shell ipc call media next"))
+          hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("noctalia-shell ipc call media previous"))
+          hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia-shell ipc call volume muteOutput"))
+
+          hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("noctalia-shell ipc call brightness increase"))
+          hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia-shell ipc call brightness decrease"))
+          hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("noctalia-shell ipc call volume increase"))
+          hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("noctalia-shell ipc call volume decrease"))
+
+          hl.bind("SUPER+CTRL+Q", hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock"))
+        '';
       };
 
     })

@@ -5,7 +5,7 @@
       enable = true;
       servers = {
         everything = {
-          command = "${pkgs.nodejs_25}/bin/npx";
+          command = "${pkgs.nodejs}/bin/npx";
           args = [
             "-y"
             "@modelcontextprotocol/server-everything"

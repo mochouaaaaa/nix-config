@@ -28,111 +28,40 @@ in
 
       (lib.mkIf cfgDesktop.hyprland.enable {
 
-        profiles.desktop.hypridle.lock_cmd = "caelestia shell lock lock";
-
-        profiles.desktop.hyprland = {
-          settings = {
-            media = [
-              ", XF86AudioPlay, global, caelestia:mediaToggle"
-              ", XF86AudioPause, global, caelestia:mediaToggle"
-              ", XF86AudioNext, global, caelestia:mediaNext"
-              ", XF86AudioPrev, global, caelestia:mediaPrev"
-              ", XF86AudioStop, global, caelestia:mediaStop"
-            ];
-            brightness = [
-              ", XF86MonBrightnessUp, global, caelestia:brightnessUp"
-              ", XF86MonBrightnessDown, global, caelestia:brightnessDown"
-            ];
-            clipboard = "$mod, P, exec, caelestia clipboard";
-            launcher = "$mod, Space, global, caelestia:launcher";
-            lock = "$mod CTRL, q, global, caelestia:lock";
-            screenshot = [
-              "$mod CTRL, S, exec, caelestia screenshot -r -f"
-              "$mod CTRL, A, exec, caelestia screenshot --region -f"
-            ];
-          };
-        };
         wayland.windowManager.hyprland = {
-          settings = {
-            exec = "cp -L --no-preserve=mode --update=none ${config.xdg.configHome}/hypr/scheme/default.conf ${config.xdg.configHome}/hypr/scheme/current.conf";
-            "$windowOpacity" = lib.mkForce 0.78;
-            source = [
-              "scheme/current.conf"
-              "variables.conf"
-            ];
-            bind = [
-              "$mod, comma, exec, caelestia shell controlCenter open"
-            ];
+          extraConfig = ''
+            _G.windowOpacity = 0.78
 
-            input = lib.mkForceRecursive {
-              touchpad = {
-                disable_while_typing = "$touchpadDisableTyping";
-                scroll_factor = "$touchpadScrollFactor";
-              };
+            hl.bind("SUPER+CTRL+A", hl.dsp.exec_cmd("caelestia screenshot --region -f"))
+            hl.bind("SUPER+CTRL+S", hl.dsp.exec_cmd("caelestia screenshot --r -f"))
+
+            hl.bind("SUPER+CTRL+Q", hl.dsp.global("caelestia:lock"))
+            hl.bind("SUPER+Space",  hl.dsp.global("caelestia:launcher"))
+            hl.bind("SUPER+P",      hl.dsp.exec_cmd("caelestia clipboard"))
+            hl.bind("SUPER+comma",  hl.dsp.exec_cmd("caelestia shell controlCenter open"))
+
+
+            hl.bind("XF86MonBrightnessUp",   hl.dsp.global("caelestia:brightnessUp"))
+            hl.bind("XF86MonBrightnessDown", hl.dsp.global("caelestia:brightnessDown"))
+
+            hl.bind("XF86AudioPlay",  hl.dsp.global("caelestia:mediaToggle"))
             };
+            hl.bind("XF86AudioPause", hl.dsp.global("caelestia:mediaToggle"))
+            hl.bind("XF86AudioNext",  hl.dsp.global("caelestia:mediaNext"))
+            hl.bind("XF86AudioPrev",  hl.dsp.global("caelestia:mediaPrev"))
+            hl.bind("XF86AudioStop",  hl.dsp.global("caelestia:mediaStop"))
 
-            misc = lib.mkForceRecursive {
-              background_color = "rgb($surfaceContainer)";
-            };
+            hl.layer_rule{
+                name = "caelestia-blur",
+                match = { namespace = "caelestia-drawers|launcher" },
+                blur = true,
+            }
+            hl.layer_rule{ match = { namespace = "caelestia-(border-exclusion|area-picker)" }, no_anim = true }
+            hl.layer_rule{ match = { namespace = "caelestia-(drawers|background)" }, animation = "fade" }
+            hl.layer_rule{ match = { namespace = "caelestia-drawers" }, ignore_alpha = 0.57 }
 
-            general = lib.mkForceRecursive {
-              layout = "dwindle";
-              border_size = "$windowBorderSize";
-
-              gaps_workspaces = "$workspaceGaps";
-              gaps_in = "$windowGapsIn";
-              gaps_out = "$windowGapsOut";
-              "col.active_border" = "$activeWindowBorderColour";
-              "col.inactive_border" = "$inactiveWindowBorderColour";
-            };
-
-            decoration = lib.mkForceRecursive {
-              rounding = "$windowRounding";
-              blur = {
-                passes = 3;
-                size = 4;
-              };
-              shadow = {
-                enabled = "$shadowEnabled";
-                range = "$shadowRange";
-                render_power = "$shadowRenderPower";
-                color = "$shadowColour";
-              };
-            };
-
-            group = lib.mkForceRecursive {
-
-              "col.border_active" = "$activeWindowBorderColour";
-              "col.border_inactive" = "$inactiveWindowBorderColour";
-              "col.border_locked_active" = "$activeWindowBorderColour";
-              "col.border_locked_inactive" = "$inactiveWindowBorderColour";
-
-              groupbar = {
-                text_color = "rgb($onPrimary)";
-                "col.active" = "rgba($primaryd4)";
-                "col.inactive" = "rgba($outlined4)";
-                "col.locked_active" = "rgba($primaryd4)";
-                "col.locked_inactive" = "rgba($secondaryd4)";
-              };
-            };
-
-            windowrule = [
-              # "opacity $windowOpacity override, match:fullscreen  "
-              "opaque on, match:class org\.quickshell" # They use native transparency or we want them opaque
-              "float on, match:class org\.quickshell"
-            ];
-
-            layerrule = [
-              # Shell
-              "no_anim on, match:namespace caelestia-(border-exclusion|area-picker)"
-              "animation fade, match:namespace caelestia-(drawers|background)"
-
-              "blur on, match:namespace caelestia-drawers"
-              "blur on, match:namespace launcher"
-              "ignore_alpha 0.57, match:namespace caelestia-drawers"
-            ];
-
-          };
+            hl.window_rule{ match = { class = "org.quickshell" }, opaque = true, float = true }
+          '';
         };
 
         xdg.configFile = {

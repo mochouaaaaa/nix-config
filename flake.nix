@@ -114,7 +114,7 @@
 
     # desktop components
     vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.20.13";
+      url = "github:vicinaehq/vicinae?ref=v0.21.2";
     };
 
     quickshell = {
@@ -123,12 +123,12 @@
     };
     # desktop-shell
     caelestia-shell = {
-      url = "github:caelestia-dots/shell?ref=v1.5.1";
+      url = "github:caelestia-dots/shell?ref=v1.6.2";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.6";
+      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell = {
@@ -137,7 +137,7 @@
     };
 
     # niri
-    niri-unstable.url = "github:YaLTeR/niri?ref=wip/branch";
+    niri-unstable.url = "github:YaLTeR/niri?ref=v26.04";
     niri = {
       url = "github:sodiboo/niri-flake?ref=very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";

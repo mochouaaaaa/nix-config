@@ -15,13 +15,15 @@ in
 
       wayland.windowManager.hyprland = {
         extraConfig = ''
-          layerrule {
-              name = vicinae
-              match:namespace = vicinae
-
-              blur = on
-              ignore_alpha = 0
+          hl.layer_rule {
+          	name = "vicinae",
+          	match = {
+          		namespace = "vicinae",
+          	},
+          	blur = true,
+          	ignore_alpha = 0,
           }
+
         '';
       };
 

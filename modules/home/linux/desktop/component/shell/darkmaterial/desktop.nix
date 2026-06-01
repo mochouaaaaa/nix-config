@@ -48,70 +48,58 @@ in
           };
         };
 
-        profiles.desktop.hyprland = {
-          settings = {
-            media = [ ];
-            brightness = [
-              ", XF86MonBrightnessUp, exec, dms ipc call brightness increment 5"
-              ", XF86MonBrightnessDown, exec, dms ipc call brightness decrement 5"
-            ];
-            volume = [
-              ", XF86AudioRaiseVolume, exec, dms ipc call audio increment 3"
-              ", XF86AudioLowerVolume, exec, dms ipc call audio decrement 3"
-            ];
-            # clipboard = "$mod, P, exec, dms ipc call clipboard toggle";
-            # launcher = "$mod, Space, exec, dms ipc call spotlight toggle";
-            lock = "$mod CTRL, q, exec, dms ipc call lock lock";
-            shell-settings = "$mod, comma, exec, dms ipc call settings toggle";
-          };
-        };
-
         wayland.windowManager.hyprland = {
-          settings = lib.mkForceRecursive {
-            decoration = {
-              shadow = {
-                enabled = true;
-                range = 30;
-                render_power = 5;
-                offset = "0 5";
-                color = "rgba(00000070)";
-              };
-              blur = {
-                enabled = true;
-                size = 10;
-                passes = 4;
+          extraConfig = ''
+            hl.config({
+                decoration = {
+                    shadow = {
+                        enabled = true,
+                        range = 30,
+                        render_power = 5,
+                        offset = "0 5",
+                        color = "rgba(00000070)",
+                    };
+                    blur = {
+                        enabled = true,
+                        size = 10,
+                        passes = 4,
 
-                ignore_opacity = true;
-                new_optimizations = true;
-                xray = false;
+                        ignore_opacity = true,
+                        new_optimizations = true,
+                        xray = false,
 
-                noise = 0.02;
-                contrast = 1.1;
-                vibrancy = 0.2;
-                vibrancy_darkness = 0.3;
-              };
-              rounding = 12;
-              active_opacity = 1.0;
-              inactive_opacity = 0.9;
-            };
-            bindl = [
-              ", XF86AudioMute, exec, dms ipc call audio mute"
-              ", XF86AudioMicMute, exec, dms ipc call audio micmute"
-            ];
-            windowrule = [
-              "float on, match:class org.quickshell"
-            ];
-            "$blur_layer" = "dms:(color-picker|clipboard|spotlight|settings)";
-            layerrule = [
-              "blur on, match:namespace dms:.*"
-              "ignore_alpha 0, match:namespace dms:.*"
+                        noise = 0.02,
+                        contrast = 1.1,
+                        vibrancy = 0.2,
+                        vibrancy_darkness = 0.3,
+                    };
+                    rounding = 12,
+                    active_opacity = 1.0,
+                    inactive_opacity = 0.9,
+                },
+            })
 
-              "animation slide right, match:namespace dms:control-center"
-              "animation slide top, match:namespace dms:workspace-overview"
+            hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("dms ipc call brightness increment 5"))
+            hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("dms ipc call brightness decrement 5"))
+            hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("dms ipc call audio increment 3"))
+            hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("dms ipc call audio decrement 3"))
+            hl.bind("XF86AudioMute", hl.dsp.exec_cmd("dms ipc call audio mute"))
+            hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("dms ipc call audio micmute"))
 
-              "no_anim on, match:namespace ^(quickshell)$"
-            ];
-          };
+            hl.bind("SUPER+P", hl.dsp.exec_cmd("dms ipc call clipboard toggle"))
+            hl.bind("SUPER+Space", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
+
+            hl.bind("SUPER+CTRL+Q", hl.dsp.exec_cmd("dms ipc call lock lock"))
+            hl.bind("SUPER+comma", hl.dsp.exec_cmd("dms ipc call settings toggle"))
+
+            hl.layer_rule{ match = {namespace = "dms:.*"}, blue = true }
+            hl.layer_rule{ match = {namespace = "dms:.*"}, ignore_alpha = 0 }
+            hl.layer_rule{ match = {namespace = "dms:control-center"}, animation = "slide right" }
+            hl.layer_rule{ match = {namespace = "dms:workspace-overview"}, animation = "slide right" }
+            hl.layer_rule{ match = {namespace = "^(quickshell)$"}, no_anim = true }
+
+            hl.window_rule{ name = "quickshell", match = { class = "org.quickshell" }, float = true }
+          '';
         };
 
       })

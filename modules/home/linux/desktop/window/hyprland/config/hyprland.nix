@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -9,34 +10,41 @@ in
 {
   config = lib.mkIf cfg.enable {
 
+    xdg.configFile = {
+      "hypr/.luarc.json".text = ''
+        {
+          "workspace": {
+            "library": [
+              "${pkgs.hyprland}/share/hypr/stubs"
+            ]
+          },
+          "diagnostics": {
+             "globals": [
+                "hl"
+             ]
+          }
+        }
+      '';
+    }
+    // config.profiles.dotfileLink "hypr";
+
     wayland.windowManager.hyprland = {
-      settings = {
+      configType = "lua";
+      extraConfig = lib.mkBefore ''
+        require("init")
 
-        #opengl {
-        #  nvidia_anti_flicker = true
-        #}
-
-        # render section for hyprland >= v0.42.0
-        render = {
-          cm_auto_hdr = 1; # 0.50
-          # explicit_sync = 0
-          # explicit_sync_kms = 2
-          # direct_scanout = false
-        };
-
-        cursor = {
-          no_hardware_cursors = false;
-          enable_hyprcursor = true;
-          # warp_on_change_workspace = true;
-          # no_warps = true;
-        };
-
-        # ecosystem = {
-        #   no_donation_nag = true;
-        #   # enforce_permissions = true
-        # };
-
-      };
+        hl.config({
+            render = {
+                cm_auto_hdr = 1,
+            },
+            cursor = {
+                no_hardware_cursors = false;
+                enable_hyprcursor = true;
+                -- warp_on_change_workspace = true;
+                -- no_warps = true;
+            };
+        })
+      '';
     };
 
   };

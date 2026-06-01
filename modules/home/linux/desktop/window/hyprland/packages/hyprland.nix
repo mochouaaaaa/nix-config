@@ -26,10 +26,6 @@ in
         enableXdgAutostart = true;
       };
       extraConfig = lib.mkBefore ''
-                  
-        xwayland {
-          force_zero_scaling = true
-        }
 
       '';
     };
