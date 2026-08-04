@@ -1,21 +1,11 @@
 {
   lib,
-  pkgs,
   config,
   inputs,
   ...
 }:
 let
   cfg = config.profiles.desktop.shell.noctalia;
-  noctalia-shell = (
-    pkgs.noctalia-shell.override {
-      calendarSupport = true;
-      extraPackages = [
-        pkgs.gpu-screen-recorder
-        pkgs.todoist
-      ];
-    }
-  );
 in
 {
 
@@ -46,10 +36,14 @@ in
       };
     };
 
-    programs.noctalia-shell = {
+    programs.noctalia = {
       enable = true;
-      package = noctalia-shell;
       systemd.enable = true;
+      settings = {
+        widget.media = {
+          hide_when_no_media = true;
+        };
+      };
     };
   };
 }
