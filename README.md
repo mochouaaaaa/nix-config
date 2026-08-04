@@ -23,7 +23,7 @@ https://github.com/nix-community/NixOS-WSL
 |                            | NixOS(Wayland)                                                               |
 | -------------------------- | ---------------------------------------------------------------------------- |
 | **Window Manager**         | [Hyprland][Hyprland] / [Niri][Niri] / [Gnome][Gnome] / [Kde][Kde]            |
-| **Desktop Shell**          | [noctalia][noctalia] / [caelestia][caelestia] / [dankMaterial][dankMaterial] |
+| **Desktop Shell**          | [noctalia][noctalia] / [dankMaterial][dankMaterial] |
 | **Terminal Emulator**      | [Kitty][Kitty] / [Wezterm][Wezterm]                                          |
 | **Application Launcher**   | [vicinae][vicinae]                                                           |
 | **Input method framework** | [Fcitx5][Fcitx5] + [rime][rime] + [rime_wanxiang][rime_wanxiang]             |
@@ -153,7 +153,6 @@ just wsl
 [Kde]: https://kde.org
 [Gnome]: https://www.gnome.org
 [noctalia]: https://github.com/noctalia-dev/noctalia-shell
-[caelestia]: https://github.com/caelestia-dots/shell
 [dankMaterial]: https://github.com/AvengeMedia/DankMaterialShell
 [Kitty]: https://github.com/kovidgoyal/kitty
 [Wezterm]: https://github.com/wezterm/wezterm

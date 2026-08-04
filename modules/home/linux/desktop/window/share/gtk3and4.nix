@@ -190,7 +190,7 @@ in
 
     _module.args.themeNameWithMode = nameWithMode;
 
-    profiles.themes.gtkTheme = lib.mkDefaultRecursive {
+    profiles.themes.gtkTheme = {
       name = "adw-gtk3";
       package = pkgs.adw-gtk3;
       icon = {

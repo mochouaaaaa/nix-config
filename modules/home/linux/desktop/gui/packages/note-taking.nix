@@ -16,13 +16,14 @@
 
     programs.joplin-desktop = {
       enable = true;
-      general.editor = null;
-
-      sync = {
-        # one of "undefined", "disabled", "5m", "10m", "30m", "1h", "12h", "1d"
-        interval = "disabled";
-        # one of "undefined", "none", "file-system", "onedrive", "nextcloud", "webdav", "dropbox", "s3", "joplin-server", "joplin-cloud"
-        target = "none";
+      settings = {
+        editor = null;
+        sync = {
+          # one of "undefined", "disabled", "5m", "10m", "30m", "1h", "12h", "1d"
+          interval = "disabled";
+          # one of "undefined", "none", "file-system", "onedrive", "nextcloud", "webdav", "dropbox", "s3", "joplin-server", "joplin-cloud"
+          target = "none";
+        };
       };
     };
 

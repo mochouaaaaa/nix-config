@@ -54,13 +54,15 @@ let
       config._home = withSystem config.system (
         ctx:
         let
-          overlays = [ self.overlays.home-manager ];
+          overlays = [
+            self.overlays.home-manager
+          ];
           custom_config = {
             allowUnfree = true;
             allowBroken = true;
             allowUnsupportedSystem = true;
             permittedInsecurePackages = [
-              "openssl-1.1.1w"
+              # "openssl-1.1.1w"
               "ventoy-1.1.05"
             ];
           };
@@ -121,8 +123,8 @@ let
                   inherit (opts.config) stateVersion;
 
                   homeDirectory = lib.mkMerge [
-                    (lib.mkIf pkgs.stdenv.isDarwin "/Users/${config.home.username}")
-                    (lib.mkIf pkgs.stdenv.isLinux "/home/${config.home.username}")
+                    (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin "/Users/${config.home.username}")
+                    (lib.mkIf pkgs.stdenv.hostPlatform.isLinux "/home/${config.home.username}")
                   ];
                 };
 

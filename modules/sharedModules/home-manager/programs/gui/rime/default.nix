@@ -12,7 +12,7 @@
       RimeSync =
         let
           platformConfig =
-            if pkgs.stdenv.isDarwin then
+            if pkgs.stdenv.hostPlatform.isDarwin then
               {
                 rimePath = "${config.home.homeDirectory}/Library/Rime";
                 syncDir = "/Volumes/Code/rime-sync";

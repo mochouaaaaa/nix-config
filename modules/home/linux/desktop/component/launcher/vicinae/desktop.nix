@@ -31,12 +31,12 @@ in
 
     (mkIf (cfgDesktop.kde.enable) {
 
-      services.vicinae.enable = true;
+      programs.vicinae.enable = true;
 
     })
 
     (mkIf (cfgDesktop.gnome.enable) {
-      services.vicinae.enable = true;
+      programs.vicinae.enable = true;
 
       programs.gnome-shell = {
         extensions = [

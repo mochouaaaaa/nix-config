@@ -8,19 +8,11 @@ in
       settings = {
         location = {
           address = "北京";
-          analogClockInCalendar = false;
-          firstDayOfWeek = -1;
-          hideWeatherCityName = false;
-          hideWeatherTimezone = false;
-          longitude = 39.904200000000003;
-          name = "Beijing; China";
-          showCalendarEvents = true;
-          showCalendarWeather = true;
-          showWeekNumberInCalendar = true;
-          use12hourFormat = false;
-          useFahrenheit = false;
-          weatherEnabled = true;
-          weatherShowEffects = true;
+          auto_locate = false;
+          custom_schedule = false;
+          longitude = 39.9042;
+          sunrise = "";
+          sunset = "";
         };
       };
     };

@@ -5,9 +5,9 @@ let
   lib = inputs.nixpkgs.lib;
 
   overlays = [
-    (final: prev: {
-      sparkle = prev.callPackage ./pkgs/sparkle.nix { };
-    })
+    # (final: prev: {
+    #   sparkle = prev.callPackage ./pkgs/sparkle.nix { };
+    # })
 
     (final: prev: {
       clash-verge = inputs.nixpkgs.legacyPackages.${prev.system}.clash-verge;

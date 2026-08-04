@@ -24,7 +24,7 @@ let
             # qq.enable = false;
             wechat.enable = true;
             wemeet.enable = true;
-            dingding.enable = true;
+            dingding.enable = false;
             feishu.enable = true;
           };
 
@@ -46,7 +46,7 @@ let
           };
 
           jetbrains = {
-            enable = true;
+            enable = false;
             pycharm.enable = true;
             goland.enable = true;
             datagrip.enable = true;

@@ -60,7 +60,7 @@ let
           username = splitName 0; # mochou
 
           specialArgs = ctx.extraModuleArgs // {
-            inherit (ctx) lib profiles;
+            inherit (ctx) profiles;
             inherit hostname username;
 
             isNixos = true;
@@ -80,7 +80,7 @@ let
             home-manager.nixosModules.home-manager
             {
               home-manager = {
-                useGlobalPkgs = true;
+                useGlobalPkgs = false;
                 useUserPackages = false;
                 backupFileExtension = "home-manager.backup";
                 overwriteBackup = true;
@@ -89,7 +89,7 @@ let
                 ];
 
                 extraSpecialArgs = specialArgs // {
-
+                  lib = ctx.hmlib;
                   pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
                     overlays = [ self.overlays.home-manager ];
                   };

@@ -18,12 +18,34 @@ in
     # hyprland
     (mkIf (cfgDesktop.hyprland.enable) {
       programs.vicinae.enable = true;
+      programs.noctalia = {
+        settings = {
+          theme = {
+            templates = {
+              builtin_ids = [
+                "hyprland"
+              ];
+            };
+          };
+        };
+      };
+
     })
 
     (mkIf (cfgDesktop.niri.enable) {
 
       programs.vicinae.enable = true;
-      programs.noctalia = { };
+      programs.noctalia = {
+        settings = {
+          theme = {
+            templates = {
+              builtin_ids = [
+                "niri"
+              ];
+            };
+          };
+        };
+      };
 
       programs.niri.settings = {
         includes = [

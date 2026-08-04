@@ -63,7 +63,7 @@ in
 
   config = {
     profiles.desktop.enable = lib.mkIf (
-      pkgs.stdenv.isDarwin
+      pkgs.stdenv.hostPlatform.isDarwin
       || cfg.gnome.enable
       || cfg.hyprland.enable
       || cfg.kde.enable

@@ -12,10 +12,10 @@ in
           let
             hide_matches = [
               {
-                app-id = "^org\.keepassxc\.KeePassXC$";
+                app-id = "^org.keepassxc.KeePassXC$";
               }
               {
-                app-id = "^org\.gnome\.World\.Secrets$";
+                app-id = "^org.gnome.World.Secrets$";
               }
               {
                 app-id = "Bitwarden";
@@ -63,7 +63,7 @@ in
                 }
                 {
                   app-id = "imv";
-                  title = "^imv - .*\\.png \\[scale to fit\\]$";
+                  title = ''^imv - .*\\.png \\[scale to fit\\]$'';
                 }
                 {
                   app-id = "com.alibabainc.dingtalk";
@@ -135,7 +135,7 @@ in
               matches = [
                 {
                   app-id = "steam";
-                  title = "^notificationtoasts_\d+_desktop$";
+                  title = ''^notificationtoasts_\d+_desktop$'';
                 }
               ];
               default-floating-position = {

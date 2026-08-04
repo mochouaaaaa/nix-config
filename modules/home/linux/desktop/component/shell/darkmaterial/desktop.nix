@@ -34,17 +34,11 @@ in
 
       # hyprland
       (lib.mkIf (cfgDesktop.hyprland.enable) {
-        services.vicinae.enable = true;
+        programs.vicinae.enable = true;
 
         programs.dank-material-shell = {
           settings = {
             matugenTemplateHyprland = true;
-            # barConfigs = [
-            #   {
-            #     gothCornerRadiusValue = 18;
-            #     gothCornersEnabled = true;
-            #   }
-            # ];
           };
         };
 
@@ -106,10 +100,11 @@ in
 
       (lib.mkIf (cfgDesktop.niri.enable) {
 
-        services.vicinae.enable = true;
+        programs.vicinae.enable = true;
 
         programs.dank-material-shell = {
-          settings = lib.mkForceRecursive {
+          # settings = lib.mkForceRecursive {
+          settings = {
             dankBarGothCornersEnabled = false;
             matugenTemplateNiri = true;
           };

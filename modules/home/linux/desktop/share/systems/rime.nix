@@ -7,6 +7,7 @@
 let
 
   rime-data = config.profiles.packages.rime.data-package;
+  rime-themes = config.rime.themes;
 
   fictx5-themes = pkgs.stdenv.mkDerivation {
     name = "fcitx5-themes-candlelight";
@@ -27,6 +28,22 @@ let
   };
 in
 {
+
+  options.rime.themes = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+    dark = lib.mkOption {
+      type = lib.types.str;
+      default = "macOS-dark";
+    };
+    light = lib.mkOption {
+      type = lib.types.str;
+      default = "macOS-light";
+    };
+  };
+
   config = lib.mkIf (config.profiles.desktop.enable) {
     i18n.inputMethod = {
       enable = true;
@@ -83,8 +100,8 @@ in
                 "PreferTextIcon" = "True";
                 "ShowLayoutNameInIcon" = "True";
                 "UseInputMethodLangaugeToDisplayText" = "True";
-                "Theme" = "macOS-light";
-                "DarkTheme" = "macOS-dark";
+                "Theme" = "${rime-themes.light}";
+                "DarkTheme" = "${rime-themes.dark}";
                 "UseDarkTheme" = "True";
                 "ForceWaylandDPI" = "0";
                 "EnableFractionalScale" = "True";
@@ -140,7 +157,7 @@ in
       };
 
     xdg.dataFile = {
-      "fcitx5/themes" = {
+      "fcitx5/themes" = lib.mkIf (rime-themes.enable == false) {
         source = "${fictx5-themes}/share/fcitx5/themes";
         recursive = true;
       };

@@ -26,6 +26,28 @@
             ipv4.method = "auto";
             ipv6.method = "auto";
           };
+          wifi-backup = {
+            connection = {
+              id = "CMCC-3QZ6-5G";
+              type = "wifi";
+              autoconnect = true;
+              autoconnect-priority = 50;
+              autoconnect-retries = 0;
+            };
+
+            wifi = {
+              mode = "infrastructure";
+              ssid = "Backup-WiFi";
+            };
+
+            wifi-security = {
+              key-mgmt = "wpa-psk";
+              psk = "5cedyz5h";
+            };
+
+            ipv4.method = "auto";
+            ipv6.method = "auto";
+          };
         };
       };
     };

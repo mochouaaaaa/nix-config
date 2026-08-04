@@ -7,21 +7,32 @@ in
     programs.noctalia = {
       settings = {
         osd = {
-          autoHideMs = 3000;
+          border = true;
           enabled = true;
-          enabledTypes = [
-            0
-            1
-            2
-            3
-            4
-          ];
-          location = "bottom";
           monitors = [ ];
+          offset_x = 20;
           offset_y = 30;
-          overlayLayer = true;
+          orientation = "horizontal";
           position = "bottom_center";
           position_vertical = "bottom_center";
+          scale = 1.0;
+          kinds = {
+            bluetooth = true;
+            brightness = true;
+            caffeine = true;
+            dnd = true;
+            keyboard_backlight = true;
+            keyboard_layout = true;
+            lock_keys = true;
+            media = true;
+            nightlight = true;
+            power_profile = true;
+            privacy = true;
+            volume = true;
+            volume_input = true;
+            volume_output = true;
+            wifi = true;
+          };
         };
       };
     };

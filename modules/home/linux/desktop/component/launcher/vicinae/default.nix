@@ -2,18 +2,27 @@
   lib,
   inputs,
   config,
+  pkgs,
   ...
 }:
 let
-  cfg = config.services.vicinae;
+  cfg = config.programs.vicinae;
 in
 {
-  imports = [ inputs.vicinae.homeManagerModules.default ];
 
-  config = lib.mkIf cfg.enable {
-    nix.settings = {
-      trusted-substituters = [ "https://vicinae.cachix.org" ];
-      trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
-    };
-  };
+  # assertions = [
+  #   {
+  #     assertion = lib ? importService;
+  #     message = "HM extendedLib is missing importService";
+  #   }
+  #   {
+  #     assertion = lib ? services;
+  #     message = "HM extendedLib is missing services";
+  #   }
+  #   {
+  #     assertion = pkgs.lib ? importService;
+  #     message = "HM pkgs.lib is missing importService";
+  #   }
+  # ];
+
 }

@@ -26,7 +26,7 @@ in
     programs = {
 
       zen-browser = {
-        enable = true;
+        enable = false;
 
         policies =
           let

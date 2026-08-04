@@ -18,13 +18,12 @@ let
       chafa
       ueberzugpp
     ]
-    ++ lib.optionals (pkgs.stdenv.isLinux) [
+    ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
       wl-clipboard
       evince
     ];
 in
 {
-
   programs = rec {
     yazi = {
       enable = true;
@@ -44,6 +43,21 @@ in
         smart-enter = smart-enter;
         smart-filter = smart-filter;
         smart-paste = smart-paste;
+      };
+      theme = {
+        git = {
+          unknown_sign = " ";
+          modified_sign = "M";
+          deleted_sign = "D";
+          clean_sign = "✔";
+          modified = {
+            fg = "blue";
+          };
+          deleted = {
+            fg = "red";
+            bold = true;
+          };
+        };
       };
     };
     zsh.initContent = lib.optionalString (yazi.enable) ''

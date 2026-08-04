@@ -38,7 +38,7 @@ in
           };
 
         home.packages = with pkgs; [
-          splayer
+          splayer-next
           # spotify
           # (spicetify-cli.overrideAttrs (oldAttrs: {
           #   postInstall = oldAttrs.postInstall + ''

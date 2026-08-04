@@ -11,12 +11,12 @@
     home.packages =
       with pkgs;
       [
-        insomnia # REST client
+        # insomnia # REST client
         # api client
         hoppscotch
         materialgram
       ]
-      ++ lib.optionals (pkgs.stdenv.isLinux) [
+      ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
         tiny-rdm-wrapper
         telegram-desktop
         wireshark # network analyzer

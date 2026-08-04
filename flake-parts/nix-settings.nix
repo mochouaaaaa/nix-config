@@ -30,7 +30,7 @@
             automatic = true;
             options = "--delete-older-than 7d";
           }
-          // lib.mkIf (pkgs.stdenv.isLinux) {
+          // lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
             dates = "weekly";
           };
 
@@ -61,6 +61,8 @@
                 "pipe-operators"
                 "ca-derivations"
                 "dynamic-derivations"
+                "or-as-identifier"
+                "broken-string-indentation"
               ];
 
               trusted-substituters = [
@@ -79,8 +81,10 @@
               max-jobs = "auto";
             }
 
-            (lib.mkIf (pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64) { extra-platforms = "x86_64-darwin"; })
-            (lib.mkIf pkgs.stdenv.isDarwin { sandbox = "relaxed"; })
+            (lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.isAarch64) {
+              extra-platforms = "x86_64-darwin";
+            })
+            (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin { sandbox = "relaxed"; })
           ];
 
         };

@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.programs.dank-material-shell;
 in
@@ -6,7 +11,7 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.dank-material-shell = {
-      settings = lib.mkDefaultRecursive {
+      settings = {
         matugenTemplateGtk = true;
         matugenTemplateNiri = false;
         matugenTemplateHyprland = false;

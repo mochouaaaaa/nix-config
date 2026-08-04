@@ -30,8 +30,6 @@ let
     inputs.nur.overlays.default
     inputs.vscode-extensions.overlays.default
     inputs.niri.overlays.niri
-    inputs.vicinae.overlays.default
-    inputs.noctalia.overlays.default
     (import ./pkgs/obsidian-wrapper.nix)
     (import ./pkgs/tiny-rdm-wrapper.nix)
     (import ./pkgs/jetbrains/pycharm.nix)

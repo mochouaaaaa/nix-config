@@ -27,7 +27,7 @@ in
   };
 
   perSystem._module.args = {
-    lib = inputs.nixpkgs.lib.extend (
+    hmlib = inputs.nixpkgs.lib.extend (
       final: prev:
       (
         self.overlays.lib final prev
@@ -37,4 +37,5 @@ in
       )
     );
   };
+
 }

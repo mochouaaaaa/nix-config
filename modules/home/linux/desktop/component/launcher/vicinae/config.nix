@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.services.vicinae;
+  cfg = config.programs.vicinae;
 in
 {
 
@@ -31,16 +31,10 @@ in
       }
     ];
 
-    services.vicinae = {
+    programs.vicinae = {
       package = pkgs.vicinae;
       systemd = {
         enable = true;
-        environment = {
-          USE_LAYER_SHELL = 1;
-          # QT_SCALE_FACTOR = 1;
-          QT_QPA_PLATFORMTHEME = "gtk3";
-        };
-        target = config.wayland.systemd.target;
       };
       themes = {
       };
@@ -80,6 +74,7 @@ in
           blur = {
             enabled = false;
           };
+          material = "blur";
         };
       };
     };

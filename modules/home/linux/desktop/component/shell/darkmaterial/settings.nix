@@ -11,7 +11,8 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    programs.dank-material-shell = lib.mkDefaultRecursive {
+    # programs.dank-material-shell = lib.mkDefaultRecursive {
+    programs.dank-material-shell = {
       enableCalendarEvents = true;
       settings = {
         currentThemeName = "dynamic";

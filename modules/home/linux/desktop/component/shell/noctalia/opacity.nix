@@ -7,16 +7,16 @@ in
     programs.noctalia = {
       settings = {
         bar = {
-          widgets.background_opacity = 0.68;
+          widgets.background_opacity = 0.62;
         };
         notification = {
-          background_opacity = 0.68;
+          background_opacity = 0.62;
         };
         osd = {
-          background_opacity = 0.68;
+          background_opacity = 0.62;
         };
         lockscreen = {
-          blur_intensity = 0.68;
+          blur_intensity = 0.62;
         };
       };
     };

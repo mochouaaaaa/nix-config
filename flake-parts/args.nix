@@ -6,8 +6,8 @@
       ...
     }:
     let
-      isDarwin = pkgs.stdenv.isDarwin;
-      isNixos = pkgs.stdenv.isLinux;
+      isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+      isNixos = pkgs.stdenv.hostPlatform.isLinux;
 
       isHyprland = builtins.getEnv "DESKTOP" == "hyprland";
       isNiri = builtins.getEnv "DESKTOP" == "niri";

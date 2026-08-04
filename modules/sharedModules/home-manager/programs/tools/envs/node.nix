@@ -13,8 +13,8 @@ in
 
     home.packages = [
       pkgs.nodejs_22
-      # (pkgs.gemini-cli.override { nodejs = pkgs.nodejs_22; })
-      pkgs.gemini-cli-bin
+      # pkgs.gemini-cli
+      pkgs.antigravity-cli
     ];
 
     programs = {

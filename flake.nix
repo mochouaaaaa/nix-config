@@ -9,14 +9,16 @@
   #     https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
   nixConfig = {
     extra-substituters = [
-      # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
+      "https://mirrors.ustc.edu.cn/nix-channels/store?priority=11"
+
       # "https://nix-mirror.freetls.fastly.net?priority=11"
-      "https://cache.nixos.org?priority=12"
-      "https://nix-community.cachix.org?priority=13"
-      "https://niri.cachix.org"
-      "https://hyprland.cachix.org"
-      "https://mochouaaaaa.cachix.org?priority=11"
-      "https://vicinae.cachix.org"
+      "https://cache.nixos.org?priority=20"
+      "https://nix-community.cachix.org?priority=21"
+
+      "https://niri.cachix.org?priority=40"
+      "https://hyprland.cachix.org?priority=40"
+      # "https://mochouaaaaa.cachix.org?priority=11"
     ];
 
     extra-public-keys = [
@@ -26,14 +28,13 @@
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "mochouaaaaa.cachix.org-1:/enIIKfFu959KLIDs0OOHBd9EjnMt53b62Jr2oatV34="
-      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
     ];
   };
 
   inputs = {
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
@@ -108,27 +109,13 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
+        # home-manager.follows = "home-manager";
       };
     };
 
     # desktop components
-    vicinae = {
-      url = "github:vicinaehq/vicinae?ref=v0.21.2";
-    };
-
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # desktop-shell
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell?ref=v1.6.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
-    };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=v4.7.7";
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell = {
@@ -149,7 +136,6 @@
       url = "github:nix-community/plasma-manager";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
       };
     };
 

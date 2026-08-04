@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 let
   cfg = config.profiles.desktop.shell.dank-material-shell;
 in
@@ -6,7 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.dank-material-shell = {
-      settings = lib.mkDefaultRecursive {
+      settings = {
         barConfigs = [
           {
             autoHide = false;

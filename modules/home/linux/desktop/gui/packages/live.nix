@@ -51,7 +51,7 @@ in
           package = pkgs-stable.obs-studio;
           plugins = with pkgs-stable.obs-studio-plugins; [
             wlrobs
-            distroav
+            # distroav
             obs-vaapi
             obs-teleport
             obs-hyperion

@@ -1,7 +1,15 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
 
   networking.firewall.enable = lib.mkDefault false;
+
+  environment.systemPackages = [ pkgs.upterm ];
+
+  services.uptermd = {
+    enable = true;
+    listenAddress = "0.0.0.0";
+    openFirewall = true;
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh = {

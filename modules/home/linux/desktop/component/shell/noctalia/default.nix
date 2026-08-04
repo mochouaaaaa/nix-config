@@ -1,17 +1,12 @@
 {
   lib,
   config,
-  inputs,
   ...
 }:
 let
   cfg = config.profiles.desktop.shell.noctalia;
 in
 {
-
-  imports = [
-    inputs.noctalia.homeModules.default
-  ];
 
   options.profiles.desktop.shell.noctalia = {
     enable = lib.mkOption {
@@ -40,8 +35,22 @@ in
       enable = true;
       systemd.enable = true;
       settings = {
-        widget.media = {
-          hide_when_no_media = true;
+        accessibility = {
+          high_contrast = false;
+          ui_scale = 1.0;
+        };
+        shell = {
+          clipboard_enabled = false;
+          clipboard_keep_from_closed_apps = false;
+          polkit_agent = true;
+          popup_shadows = false;
+          screenshot = {
+            confirm_region = true;
+            remember_last_region = true;
+          };
+          greeter_sync = {
+            auto_sync = false;
+          };
         };
       };
     };

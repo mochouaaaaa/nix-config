@@ -37,7 +37,7 @@
 
         home.preferXdgDirectories = true;
         # 当不使用gtk时需要设置
-        home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
+        # home.sessionVariables.GTK2_RC_FILES = config.gtk.gtk2.configLocation;
         gtk = {
           enable = false;
         };

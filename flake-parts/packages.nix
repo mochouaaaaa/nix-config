@@ -25,6 +25,7 @@
               allowUnfree = true;
               allowBroken = true;
               tarball-ttl = 0;
+              problems.handlers."gtk+".broken = "warn";
             }
             // custom_config;
           inherit overlays;
