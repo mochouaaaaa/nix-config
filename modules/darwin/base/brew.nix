@@ -9,7 +9,7 @@
       autoUpdate = false; # Fetch the newest stable branch of Homebrew's git repo
       upgrade = false; # Upgrade outdated casks, formulae, and App Store apps
       # 'zap': uninstalls all formulae(and related files) not listed in the generated Brewfile
-      cleanup = "zap";
+      cleanup = "none";
     };
 
     # Applications to install from Mac App Store using mas.
@@ -30,17 +30,15 @@
 
     brews = [
       # `brew install`
-      "wget" # download tool
-      "curl" # no not install curl via nixpkgs, it's not working well on macOS!
-      "openssl"
-      "readline"
-      "zlib"
+      # "openssl"
+      # "readline"
+      # "zlib"
     ];
 
     # `brew install --cask`
     casks = [
       "kitty"
-      "neovide-app"
+      # "neovide-app"
       "ente-auth"
       "openinterminal-lite"
       "squirrel-app" # input method for Chinese, rime-squirrel
