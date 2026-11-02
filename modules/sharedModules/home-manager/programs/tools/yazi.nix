@@ -11,7 +11,7 @@ let
       # db
       duckdb
       # pdf
-      zathura
+      # zathura
       # markdown
       glow
       # image
@@ -24,9 +24,6 @@ let
     ];
 in
 {
-  home.packages = [
-    pkgs.sublime4
-  ];
 
   programs = rec {
     yazi = {
