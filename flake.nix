@@ -114,10 +114,10 @@
     };
 
     # desktop components
-    noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # noctalia-greeter = {
+    #   url = "github:noctalia-dev/noctalia-greeter";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     dank-material-shell = {
       url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.4";
       inputs.nixpkgs.follows = "nixpkgs";
