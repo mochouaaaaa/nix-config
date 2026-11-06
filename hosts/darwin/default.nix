@@ -34,7 +34,7 @@ in
     darwinConfigurations = {
       "mochou@darwin" = {
         system = "x86_64-darwin";
-        stateVersion = 6;
+        stateVersion = "24.11";
 
         modules = [
           (inputs.import-tree ./_darwin)
@@ -68,4 +68,5 @@ in
       };
     };
   };
+
 }

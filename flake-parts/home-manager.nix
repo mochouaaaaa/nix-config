@@ -71,23 +71,26 @@ let
           hostname = splitName 2;
           username = splitName 0;
 
+          nixpkgsInput = if config.system == "x86_64-darwin" then inputs.nixpkgs-darwin else inputs.nixpkgs;
+          stableInput =
+            if config.system == "x86_64-darwin" then inputs.nixpkgs-darwin else inputs.nixpkgs-stable;
+
         in
         inputs.home-manager.lib.homeManagerConfiguration {
 
-          pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
+          pkgs = ctx.extraModuleArgs.mkPkgs nixpkgsInput {
             inherit overlays custom_config;
           };
 
           extraSpecialArgs =
             let
-              pkgs-stable = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs-stable {
+              pkgs-stable = ctx.extraModuleArgs.mkPkgs stableInput {
                 inherit overlays custom_config;
               };
             in
             ctx.extraModuleArgs
             // {
               inherit self;
-              inherit (ctx) lib;
               inherit pkgs-stable;
             }
             // {

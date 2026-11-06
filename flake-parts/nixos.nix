@@ -68,7 +68,7 @@ let
           };
 
         in
-        inputs.nixpkgs-stable.lib.nixosSystem {
+        inputs.nixpkgs.lib.nixosSystem {
           inherit specialArgs;
 
           modules = [

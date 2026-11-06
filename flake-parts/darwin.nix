@@ -24,7 +24,7 @@ let
         };
 
         stateVersion = lib.mkOption {
-          type = types.int;
+          type = types.str;
           description = "nix-darwin state version, changing this value DOES NOT update your system.";
         };
 
@@ -38,7 +38,7 @@ let
         homeModules = lib.mkOption rec {
           type = types.listOf types.unspecified;
           default = [ ];
-          description = "List of home-manager modules to disable.";
+          description = "List of Home Manager modules to include.";
           apply = userValue: default ++ userValue;
         };
 
@@ -59,7 +59,6 @@ let
           username = splitName 0; # mochou
 
           specialArgs = ctx.extraModuleArgs // {
-            inherit (ctx) lib;
             inherit hostname username;
             pkgs-unstable = ctx.pkgs-unstable;
 
@@ -84,12 +83,14 @@ let
                   useUserPackages = true;
                   backupFileExtension = "home-manager.backup";
                   overwriteBackup = true;
+
                   sharedModules = [
                     self.homeModules.default
                   ];
 
                   extraSpecialArgs = specialArgs // {
-                    pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs {
+                    lib = ctx.hmlib;
+                    pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs-darwin {
                       overlays = [ self.overlays.home-manager ];
                       custom_config = {
                         allowDeprecatedx86_64Darwin = true;
@@ -111,7 +112,7 @@ let
                     home = {
                       enableNixpkgsReleaseCheck = false;
                       inherit username;
-                      stateVersion = "24.11";
+                      stateVersion = config.stateVersion;
                       homeDirectory = "/Users/${username}";
                     };
                   };
@@ -137,7 +138,7 @@ let
 
                 networking.hostName = hostname;
                 system.defaults.smb.NetBIOSName = hostname;
-                system.stateVersion = config.stateVersion;
+                system.stateVersion = 6;
               }
             ];
         }
