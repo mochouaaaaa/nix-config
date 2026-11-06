@@ -10,7 +10,7 @@ let
     # })
 
     (final: prev: {
-      clash-verge = inputs.nixpkgs.legacyPackages.${prev.system}.clash-verge;
+      # clash-verge = inputs.nixpkgs.legacyPackages.${prev.system}.clash-verge;
     })
 
     (import ./pkgs/lix.nix)
