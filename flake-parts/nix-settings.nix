@@ -61,6 +61,8 @@
             accept-flake-config = true;
             http-connections = 0;
             use-xdg-base-directories = true;
+            auto-optimise-store = true;
+            max-jobs = "auto";
 
             experimental-features = lib.mkDefault [
               "flakes"
@@ -69,6 +71,8 @@
               "pipe-operators"
               "ca-derivations"
               "dynamic-derivations"
+            ];
+            extra-deprecated-features = [
               "or-as-identifier"
               "broken-string-indentation"
             ];
@@ -86,7 +90,6 @@
               "mochouaaaaa.cachix.org-1:/enIIKfFu959KLIDs0OOHBd9EjnMt53b62Jr2oatV34="
             ];
 
-            max-jobs = "auto";
           }
 
           (lib.mkIf (nixPkgs.stdenv.hostPlatform.isDarwin && nixPkgs.stdenv.isAarch64) {
