@@ -29,13 +29,8 @@ let
 
     inputs.nur.overlays.default
     inputs.vscode-extensions.overlays.default
-    inputs.niri.overlays.niri
     (import ./pkgs/obsidian-wrapper.nix)
     (import ./pkgs/tiny-rdm-wrapper.nix)
-    (import ./pkgs/jetbrains/pycharm.nix)
-    (import ./pkgs/jetbrains/goland.nix)
-    (import ./pkgs/jetbrains/clion.nix)
-    (import ./pkgs/jetbrains/datagrip.nix)
   ];
 in
 lib.composeManyExtensions overlays final prev
