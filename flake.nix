@@ -75,8 +75,8 @@
 
     # for linux
     apple-emoji-font.url = "github:zhdsmy/apple-emoji";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
+    # spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    # nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
 
     # keymap replaced
     xremap-flake.url = "github:xremap/nix-flake";
@@ -103,6 +103,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     zen-browser = {
@@ -114,21 +118,9 @@
     };
 
     # desktop components
-    # noctalia-greeter = {
-    #   url = "github:noctalia-dev/noctalia-greeter";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     dank-material-shell = {
       url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.4";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # niri
-    niri-unstable.url = "github:YaLTeR/niri?ref=v26.04";
-    niri = {
-      url = "github:sodiboo/niri-flake?ref=very-refactor";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.niri-unstable.follows = "niri-unstable";
     };
 
     # kde
