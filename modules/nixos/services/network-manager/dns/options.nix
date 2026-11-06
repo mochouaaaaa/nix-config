@@ -1,19 +1,17 @@
 {
   lib,
   pkgs,
-  config,
   ...
 }:
 let
   formatYaml = pkgs.formats.yaml { };
-
-  cfg = config.profiles.services.dns;
 in
 {
   options.profiles.services.dns = {
+
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Whether to enable the DNS service.";
     };
 
@@ -24,8 +22,13 @@ in
 
     listen = lib.mkOption {
       type = lib.types.str;
-      default = ":53";
+      default = "127.0.0.1:5335";
       description = "The address and port to listen on.";
+    };
+
+    webapi = lib.mkOption {
+      type = lib.types.str;
+      default = "127.0.0.1:8338";
     };
 
     settings = lib.mkOption {
@@ -33,12 +36,6 @@ in
       type = formatYaml.type;
     };
 
-  };
-
-  config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.mosdns
-    ];
   };
 
 }

@@ -9,17 +9,7 @@ let
   formatYaml = pkgs.formats.yaml { };
 in
 {
-  config = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux && !config.profiles.wsl.enable) {
-
-    profiles.services.dns.enable = true;
-
-    networking = {
-      networkmanager.dns = lib.mkForce "none";
-      nameservers = lib.mkForce [
-        "127.0.0.1"
-      ];
-      resolvconf.enable = true;
-    };
+  config = lib.mkIf (cfg.enable && !config.profiles.wsl.enable) {
 
     systemd.services.mosdns =
       let

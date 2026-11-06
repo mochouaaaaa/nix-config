@@ -24,7 +24,7 @@ let
             # qq.enable = false;
             wechat.enable = true;
             wemeet.enable = true;
-            dingding.enable = false;
+            dingding.enable = true;
             feishu.enable = true;
           };
 
@@ -46,11 +46,11 @@ let
           };
 
           jetbrains = {
-            enable = false;
+            enable = true;
             pycharm.enable = true;
             goland.enable = true;
-            datagrip.enable = true;
-            clion.enable = true;
+            datagrip.enable = false;
+            clion.enable = false;
           };
         };
       };
@@ -74,7 +74,7 @@ in
           {
             profiles = {
               # i18n.locale = "en_US";
-              network.proxy.sparkle.enable = true;
+              # network.proxy.sparkle.enable = false;
               virtual = {
                 virtualbox.enable = false;
                 vmware.enable = false;
@@ -82,6 +82,7 @@ in
                 docker.enable = true;
               };
               services = {
+                proxy.enable = true;
                 databases = {
                   postgresql.enable = true;
                   mysql.enable = false;
