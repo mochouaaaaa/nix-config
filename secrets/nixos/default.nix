@@ -29,8 +29,15 @@ in
         subscription = {
           rekeyFile = ./subscription.age;
         };
+        next_dns_server = {
+          rekeyFile = ./next_dns_server.env;
+        };
       };
 
+    };
+
+    systemd.services.mosdns.serviceConfig = {
+      EnvironmentFile = config.age.secrets.next_dns_server.path;
     };
 
     systemd.services.mihomo-config = {

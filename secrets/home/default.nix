@@ -64,6 +64,9 @@ in
         github_token = {
           rekeyFile = ./github_token.age;
         };
+        vicinae_github = {
+          rekeyFile = ./vicinae-github.age;
+        };
       };
     };
 
@@ -74,6 +77,12 @@ in
           export GITHUB_TOKEN="$(<"$GITHUB_TOKEN_FILE")"
         fi
       '';
+    };
+
+    programs.vicinae.settings = {
+      imports = [
+        "${config.age.secrets.vicinae_github.path}"
+      ];
     };
 
   };

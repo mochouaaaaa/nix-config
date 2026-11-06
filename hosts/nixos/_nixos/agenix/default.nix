@@ -11,11 +11,7 @@
       home_wifi_pwd = {
         rekeyFile = ./home_wifi_pwd.age;
       };
-      next_dns_server = {
-        rekeyFile = ./next_dns_server.env;
-      };
     };
-
   };
 
   networking = {
@@ -28,7 +24,4 @@
     };
   };
 
-  systemd.services.mosdns.serviceConfig = {
-    EnvironmentFile = config.age.secrets.next_dns_server.path;
-  };
 }
