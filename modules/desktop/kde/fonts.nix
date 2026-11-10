@@ -1,0 +1,37 @@
+{
+  flake.modules.homeManager."desktop.kde" =
+    { config, ... }:
+    let
+      fontConfig = {
+        family = "${config.profiles.fonts.default}";
+        pointSize = 12;
+      };
+    in
+    {
+      programs.plasma = {
+        fonts = {
+          general = fontConfig;
+          fixedWidth = fontConfig // {
+            family = config.profiles.fonts.monospace;
+            pointSize = 10;
+          };
+          small = fontConfig // {
+            family = "inter";
+            pointSize = 8;
+          };
+          toolbar = fontConfig // {
+            family = "inter";
+            pointSize = 10;
+          };
+          menu = fontConfig // {
+            family = "inter";
+            pointSize = 10;
+          };
+          windowTitle = fontConfig // {
+            pointSize = 10;
+          };
+        };
+      };
+
+    };
+}

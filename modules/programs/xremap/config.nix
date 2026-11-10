@@ -1,0 +1,111 @@
+{ inputs, ... }: {
+  flake.modules.homeManager.shortcuts =
+    {
+      lib,
+      config,
+      ...
+    }:
+    let
+      cfg = config.profiles.shortcuts;
+    in
+    {
+
+      imports = [
+        inputs.xremap-flake.homeManagerModules.default
+      ];
+
+      options.profiles.shortcuts = {
+        global = lib.mkOption rec {
+          type = lib.types.listOf lib.types.attrs;
+          default = [ ];
+          description = "Global shortcuts.";
+          apply = userValue: default ++ userValue;
+        };
+      };
+
+      config = {
+
+        services.xremap = {
+          enable = true;
+          watch = true;
+          # debug = true;
+          withWlroots = config.wayland.windowManager.hyprland.enable;
+          withNiri = config.wayland.windowManager.niri.enable;
+
+          withHypr = false;
+          config = {
+            modmap = [
+              {
+                name = "Global";
+                remap = {
+                  "CapsLock" = "Esc";
+                  "Esc" = "CapsLock";
+                }; # globally remap CapsLock to Esc
+              }
+            ];
+            keymap =
+              let
+                base-keymap = {
+                  "SUPER-c" = "C-c";
+                  "SUPER-v" = "C-v";
+                  "SUPER-x" = "C-x";
+                  "SUPER-a" = "C-a";
+                  "SUPER-z" = "C-z";
+                };
+              in
+              [
+                {
+                  name = "Replace Super/Command With Ctrl";
+                  exact_match = true;
+                  application.only = [
+                    "firefox"
+                    "chromium"
+                    "zen"
+                    "zen-beta"
+                    "io.github.kukuruzka165.materialgram"
+                  ];
+                  remap = base-keymap;
+                }
+                {
+                  name = "Firefox/Chromium Replace Super/Command With Ctrl";
+                  exact_match = true;
+                  application.only = [
+                    "firefox"
+                    "chromium"
+                    "chromium-browser"
+                  ];
+                  remap = {
+                    "SUPER-r" = "C-r";
+                    "SUPER-f" = "C-f";
+                    "SUPER-w" = "C-w";
+                    "SUPER-t" = "C-t";
+                  };
+                }
+              ]
+              ++ (lib.optionals ((lib.lists.length cfg.global) > 0)) [
+                {
+                  name = "Shortcuts";
+                  exact_match = true;
+                  remap = lib.mkMerge (cfg.global);
+                }
+              ];
+          };
+        };
+
+      };
+
+    };
+
+  flake.modules.homeManager."desktop.kde" = {
+    services.xremap = {
+      withKDE = true;
+    };
+  };
+
+  flake.modules.homeManager."desktop.gnome" = {
+    services.xremap = {
+      withGnome = true;
+    };
+  };
+
+}
