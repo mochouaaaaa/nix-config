@@ -115,7 +115,7 @@ nixos-test:
 
 [group('nixos')]
 nixos-repl:
-    nix repl "{{FLAKE}}" --impure
+    nixos-rebuild repl --flake .#{{HOST}} --impure
 
 # Inspect which desktop NixOS module is selected in the host's default.nix.
 [group('nixos')]

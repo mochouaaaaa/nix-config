@@ -9,20 +9,26 @@ let
 in
 {
 
-  flake.modules.nixos.core = { self, username, ... }: {
+  flake.modules.nixos.core =
+    {
+      self,
+      username,
+      ...
+    }:
+    {
 
-    nixpkgs = {
-      config = config;
-      overlays = [ self.overlays.nixos ];
-    };
-
-    home-manager.users.${username} = {
       nixpkgs = {
         config = config;
-        overlays = [ self.overlays.home-manager ];
+        overlays = [ self.overlays.nixos ];
+      };
+
+      home-manager.users.${username} = {
+        nixpkgs = {
+          config = config;
+          overlays = [ self.overlays.home-manager ];
+        };
       };
     };
-  };
 
   flake.modules.darwin.core = { self, ... }: {
     nixpkgs = {

@@ -75,7 +75,6 @@ in
           self.modules.nixos.core
           self.modules.nixos."services.base"
           self.modules.nixos.agenix
-          self.modules.nixos.nix-settings
         ]
         ++ lib.optional (host.platform == "nixos-wsl") inputs.nixos-wsl.nixosModules.default
         ++ [
@@ -95,7 +94,6 @@ in
           self.modules.darwin.core
           self.modules.darwin.agenix
           self.modules.darwin.home-manager
-          self.modules.darwin.nix-settings
 
           (inputs.import-tree host.path)
         ];

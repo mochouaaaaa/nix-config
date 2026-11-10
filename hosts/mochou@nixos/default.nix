@@ -20,12 +20,6 @@
 
   ];
 
-  nixpkgs = {
-    overlays = [
-      self.overlays.nixos
-    ];
-  };
-
   networking.hostName = platform;
   nixpkgs.hostPlatform = "x86_64-linux";
 
@@ -43,7 +37,6 @@
     ];
     users.${username} = {
       imports = [
-        self.modules.homeManager.nix-settings
         self.modules.homeManager.agenix
         self.modules.homeManager.core
         self.modules.homeManager.linux
