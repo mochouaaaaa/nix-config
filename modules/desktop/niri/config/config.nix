@@ -9,10 +9,10 @@
           saturation 1  // color saturation boost (default: 1.5)
       }
 
-      layer-rule {
-          match namespace="vicinae"
-          baba-is-float true
-      }
+      // layer-rule {
+      //     match namespace="vicinae"
+      //     baba-is-float true
+      // }
 
 
       window-rule {

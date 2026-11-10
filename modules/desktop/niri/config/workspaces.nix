@@ -2,7 +2,6 @@
   flake.modules.homeManager."desktop.niri" = {
 
     wayland.windowManager.niri.settings =
-      _:
       let
         browser = "^(firefox|chrome|chromium|brave|vivaldi|opera|safari|edge|zen).*";
       in

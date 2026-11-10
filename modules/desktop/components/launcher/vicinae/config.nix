@@ -26,7 +26,7 @@ in
         search_files_in_root = true;
         escape_key_behavior = "escape_key_behavior";
         global_shortcuts = {
-          toggle = "super+SPACE";
+          toggle = "";
         };
         input_server = {
           enabled = true;
@@ -79,7 +79,7 @@ in
           clipboard = {
             entrypoints = {
               history = {
-                shortcut = "super+P";
+                shortcut = "";
               };
             };
           };
