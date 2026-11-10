@@ -73,6 +73,7 @@
         dbus
         dbus-glib
         glib
+        libgpg-error
       ]);
   };
 }

@@ -11,81 +11,94 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    programs.niri.settings.binds =
+    wayland.windowManager.niri.settings.binds =
       let
-        playerctl = "${lib.getExe pkgs.playerctl}";
+        playerctl = lib.getExe pkgs.playerctl;
+
         default-params = {
-          allow-inhibiting = false;
-          repeat = false;
+          _props = {
+            allow-inhibiting = false;
+            repeat = false;
+          };
         };
       in
-      with config.lib.niri.actions;
       {
         "Mod+g" = default-params // {
-          action = toggle-overview;
+          toggle-overview = { };
         };
+
         "Mod+Ctrl+t" = default-params // {
-          action.spawn-sh = "kitty --single-instance";
+          spawn-sh = [ "kitty --single-instance" ];
         };
+
         "Mod+Ctrl+e" = default-params // {
-          action.spawn = "nautilus";
+          spawn = [ "nautilus" ];
         };
 
         "Mod+q" = default-params // {
-          action.close-window = [ ];
+          close-window = [ ];
         };
 
         "Ctrl+Alt+Return" = default-params // {
-          action.fullscreen-window = [ ];
+          fullscreen-window = [ ];
         };
 
         "Mod+Ctrl+a" = {
-          action.screenshot.show-pointer = true;
+          screenshot._props.show-pointer = true;
         };
+
         "Mod+Ctrl+Print" = default-params // {
-          action.screenshot-screen = {
-            show-pointer = false;
-            write-to-disk = true;
-          };
+          # screenshot-screen = {
+          #   show-pointer = false;
+          #   write-to-disk = true;
+          # };
+          screenshot-screen = { };
         };
+
         "Mod+Ctrl+s" = default-params // {
-          action.screenshot-window = {
-            # show-pointer = false;
-            write-to-disk = true;
-          };
+          # screenshot-window._props.write-to-disk = true;
+          screenshot-window = { };
         };
 
-        "Mod+Escape".action.toggle-keyboard-shortcuts-inhibit = [ ];
+        "Mod+Escape".toggle-keyboard-shortcuts-inhibit = [ ];
 
-        "Ctrl+Shift+left".action.set-column-width = "-10%";
-        "Ctrl+Shift+right".action.set-column-width = "+10%";
-        "Ctrl+Shift+up".action.set-window-height = "-2%";
-        "Ctrl+Shift+down".action.set-window-height = "+2%";
+        "Ctrl+Shift+left".set-column-width = "-10%";
+        "Ctrl+Shift+right".set-column-width = "+10%";
+        "Ctrl+Shift+up".set-window-height = "-2%";
+        "Ctrl+Shift+down".set-window-height = "+2%";
 
-        "Alt+h".action.focus-column-left = [ ];
-        "Alt+l".action.focus-column-right = [ ];
-        "Alt+j".action.focus-workspace-down = [ ];
-        "Alt+k".action.focus-workspace-up = [ ];
+        "Alt+h".focus-column-left = [ ];
+        "Alt+l".focus-column-right = [ ];
+        "Alt+j".focus-workspace-down = [ ];
+        "Alt+k".focus-workspace-up = [ ];
 
-        # "Mod+Shift+down".action = move-window-down;
-        # "Mod+Shift+up".action = move-window-up;
+        "XF86AudioPlay" = default-params // {
+          spawn = [
+            playerctl
+            "play-pause"
+          ];
+        };
 
-        "XF86AudioPlay" = {
-          action.spawn = "${playerctl}  play-pause";
-        }
-        // default-params;
-        "XF86AudioStop" = {
-          action.spawn = "${playerctl}  pause";
-        }
-        // default-params;
-        "XF86AudioPrev" = {
-          action.spawn = "${playerctl}  previous";
-        }
-        // default-params;
-        "XF86AudioNext" = {
-          action.spawn = "${playerctl}  next";
-        }
-        // default-params;
+        "XF86AudioStop" = default-params // {
+          spawn = [
+            playerctl
+            "pause"
+          ];
+        };
+
+        "XF86AudioPrev" = default-params // {
+          spawn = [
+            playerctl
+            "previous"
+          ];
+        };
+
+        "XF86AudioNext" = default-params // {
+          spawn = [
+            playerctl
+            "next"
+          ];
+        };
       };
 
   };

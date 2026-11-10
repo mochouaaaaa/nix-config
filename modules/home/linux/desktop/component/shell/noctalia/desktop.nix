@@ -47,93 +47,114 @@ in
         };
       };
 
-      programs.niri.settings = {
-        includes = [
-          "noctalia.kdl"
-        ];
+      wayland.windowManager.niri.settings = {
+
         binds =
           let
             allow-inhibiting = false;
+
+            noctalia = args: {
+              _props.allow-inhibiting = allow-inhibiting;
+              spawn = [
+                "noctalia-shell"
+                "ipc"
+                "call"
+              ]
+              ++ args;
+            };
           in
-          with config.lib.niri.actions;
           {
-            # "Mod+Space".action = spawn "noctalia-shell" "ipc" "call" "launcher" "toggle";
-            "Mod+Comma" = {
-              inherit allow-inhibiting;
-              action = spawn "noctalia-shell" "ipc" "call" "settings" "toggle";
-            };
+            "Mod+Comma" = noctalia [
+              "settings"
+              "toggle"
+            ];
 
-            "XF86AudioRaiseVolume" = {
-              inherit allow-inhibiting;
-              action = spawn "noctalia-shell" "ipc" "call" "volume" "increase";
-            };
-            "XF86AudioLowerVolume" = {
-              inherit allow-inhibiting;
-              action = spawn "noctalia-shell" "ipc" "call" "volume" "decrease";
-            };
-            "XF86AudioMute" = {
-              inherit allow-inhibiting;
-              action = lib.mkForce (spawn "noctalia-shell" "ipc" "call" "volume" "muteOutput");
-            };
-            "XF86AudioPlay" = {
-              inherit allow-inhibiting;
-              action = lib.mkForce (spawn "noctalia-shell" "ipc" "call" "media" "playPause");
-            };
-            "XF86AudioNext" = {
-              inherit allow-inhibiting;
-              action = lib.mkForce (spawn "noctalia-shell" "ipc" "call" "media" "next");
-            };
-            "XF86AudioPrev" = {
-              inherit allow-inhibiting;
-              action = lib.mkForce (spawn "noctalia-shell" "ipc" "call" "media" "previous");
-            };
+            "XF86AudioRaiseVolume" = noctalia [
+              "volume"
+              "increase"
+            ];
 
-            # F2
-            "XF86MonBrightnessUp" = {
-              inherit allow-inhibiting;
-              action = spawn "noctalia-shell" "ipc" "call" "brightness" "increase";
-            };
-            # F1
-            "XF86MonBrightnessDown" = {
-              inherit allow-inhibiting;
-              action = spawn "noctalia-shell" "ipc" "call" "brightness" "decrease";
-            };
+            "XF86AudioLowerVolume" = noctalia [
+              "volume"
+              "decrease"
+            ];
 
-            # "Mod+P".action = spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard";
-            "Mod+Ctrl+q" = {
-              inherit allow-inhibiting;
-              action = spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
-            };
+            "XF86AudioMute" = noctalia [
+              "volume"
+              "muteOutput"
+            ];
+
+            "XF86AudioPlay" = noctalia [
+              "media"
+              "playPause"
+            ];
+
+            "XF86AudioNext" = noctalia [
+              "media"
+              "next"
+            ];
+
+            "XF86AudioPrev" = noctalia [
+              "media"
+              "previous"
+            ];
+
+            "XF86MonBrightnessUp" = noctalia [
+              "brightness"
+              "increase"
+            ];
+
+            "XF86MonBrightnessDown" = noctalia [
+              "brightness"
+              "decrease"
+            ];
+
+            "Mod+Ctrl+q" = noctalia [
+              "lockScreen"
+              "lock"
+            ];
           };
-        overview.workspace-shadow = {
-          enable = false;
-        };
-        layer-rules = [
+        overview.workspace-shadow.off = { };
+        _children = [
+
           {
-            matches = [
-              {
-                namespace = "^noctalia-wallpaper*";
-              }
-            ];
-            place-within-backdrop = true;
+            include = {
+              _props.optional = true;
+              _args = [ "noctalia.kdl" ];
+            };
           }
+
+          # Noctalia wallpaper
           {
-            matches = [
+            layer-rule._children = [
               {
-                namespace = "^quickshell-overview$";
+                match._props.namespace = "^noctalia-wallpaper*";
               }
+              { place-within-backdrop = true; }
             ];
-            place-within-backdrop = true;
           }
+
+          # Quickshell overview
           {
-            matches = [
+            layer-rule._children = [
               {
-                namespace = "noctalia-notifications";
+                match._props.namespace = "^quickshell-overview$";
               }
+              { place-within-backdrop = true; }
             ];
-            block-out-from = "screencast";
+          }
+
+          # Noctalia notifications
+          {
+            layer-rule._children = [
+              {
+                match._props.namespace = "noctalia-notifications";
+              }
+              { block-out-from = "screencast"; }
+            ];
           }
         ];
+
       };
 
     })

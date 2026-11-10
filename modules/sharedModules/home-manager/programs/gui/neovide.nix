@@ -8,7 +8,7 @@
   config = lib.mkIf (config.profiles.desktop.enable) {
 
     programs.neovide = {
-      enable = true;
+      enable = false;
       settings = {
         fork = true;
         frame = "none";

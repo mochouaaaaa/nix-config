@@ -6,18 +6,22 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    programs.niri.settings = {
-      outputs = {
-        "LG Electronics LG HDR 4K 0x00052C1D" = {
-          mode = {
-            width = 3840;
-            height = 2160;
-            refresh = 59.951;
+    wayland.windowManager.niri.settings = {
+      _children = [
+        {
+          output = {
+            _args = [ "LG Electronics LG HDR 4K 0x00052C1D" ];
+
+            mode = {
+              _args = [ "3840x2160@59.951" ];
+            };
+
+            scale = 1.5;
+            variable-refresh-rate._args = [ ];
           };
-          scale = 1.5;
-          variable-refresh-rate = "on-demand";
-        };
-      };
+        }
+      ];
     };
+
   };
 }

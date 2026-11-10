@@ -110,16 +110,21 @@ in
           };
         };
 
-        programs.niri.settings = {
+        wayland.windowManager.niri.settings = {
           binds =
             let
               allow-inhibiting = false;
             in
-            with config.lib.niri.actions;
             {
               "Mod+Ctrl+q" = {
                 inherit allow-inhibiting;
-                action = spawn "dms" "ipc" "call" "lock" "lock";
+                spawn = [
+                  "dms"
+                  "ipc"
+                  "call"
+                  "lock"
+                  "lock"
+                ];
               };
               "Mod+M" = {
                 inherit allow-inhibiting;
@@ -135,7 +140,7 @@ in
               "Mod+Comma" = {
                 inherit allow-inhibiting;
                 hotkey-overlay.title = "Settings";
-                action.spawn = [
+                spawn = [
                   "dms"
                   "ipc"
                   "call"
@@ -146,57 +151,102 @@ in
 
               "XF86AudioMute" = {
                 inherit allow-inhibiting;
-                action = spawn "dms" "ipc" "call" "audio" "mute";
+                spawn = [
+                  "dms"
+                  "ipc"
+                  "call"
+                  "audio"
+                  "mute"
+                ];
               };
               "XF86AudioMicMute" = {
                 inherit allow-inhibiting;
-                action = spawn "dms" "ipc" "call" "audio" "micmute";
+                spawn = [
+                  "dms"
+                  "ipc"
+                  "call"
+                  "audio"
+                  "micmute"
+                ];
               };
               "XF86AudioRaiseVolume" = {
                 inherit allow-inhibiting;
-                action = spawn "dms" "ipc" "call" "audio" "increment" "3";
+                spawn = [
+                  "dms"
+                  "ipc"
+                  "call"
+                  "audio"
+                  "increment"
+                  "3"
+                ];
               };
               "XF86AudioLowerVolume" = {
                 inherit allow-inhibiting;
-                action = spawn "dms" "ipc" "call" "audio" "decrement" "3";
+                spawn = [
+                  "dms"
+                  "ipc"
+                  "call"
+                  "audio"
+                  "decrement"
+                  "3"
+                ];
               };
               "XF86MonBrightnessUp" = {
                 inherit allow-inhibiting;
-                action = spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
+                spawn = [
+                  "dms"
+                  "ipc"
+                  "call"
+                  "brightness"
+                  "increment"
+                  "5"
+                  ""
+                ];
               };
               "XF86MonBrightnessDown" = {
                 inherit allow-inhibiting;
-                action = spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
+                spawn = [
+                  "dms"
+                  "ipc"
+                  "call"
+                  "brightness"
+                  "decrement"
+                  "5"
+                  ""
+                ];
               };
             };
-          window-rules = [
+
+          _children = [
+            # Window rule: Quickshell floating
             {
-              matches = [
+              window-rule._children = [
                 {
-                  app-id = "org.quickshell$";
+                  match._props.app-id = "org.quickshell$";
                 }
+                { open-floating = true; }
               ];
-              open-floating = true;
-            }
-          ];
-          layer-rules = [
-            {
-              matches = [
-                {
-                  namespace = "^quickshell$";
-                }
-              ];
-              place-within-backdrop = true;
-            }
-            {
-              matches = [
-                {
-                  namespace = "dms:blurwallpaper";
-                }
-              ];
-              place-within-backdrop = true;
             }
 
+            # Layer rule: Quickshell backdrop
+            {
+              layer-rule._children = [
+                {
+                  match._props.namespace = "^quickshell$";
+                }
+                { place-within-backdrop = true; }
+              ];
+            }
+
+            # Layer rule: DMS blur wallpaper
+            {
+              layer-rule._children = [
+                {
+                  match._props.namespace = "dms:blurwallpaper";
+                }
+                { place-within-backdrop = true; }
+              ];
+            }
           ];
         };
 

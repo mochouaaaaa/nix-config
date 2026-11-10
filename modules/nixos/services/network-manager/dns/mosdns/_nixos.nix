@@ -46,6 +46,7 @@ in
 
           RuntimeDirectory = "mosdns";
           StateDirectory = "mosdns";
+          StateDirectoryMode = "0700";
           StandardOutput = "append:/var/log/mosdns.log";
           StandardError = "inherit";
         };

@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   pkgs-unstable,
   config,
@@ -17,16 +16,20 @@
       # including full unicode support, and when the video card supports drm should be much faster.
       enable = true;
       package = pkgs-unstable.kmscon;
-      fonts = [
-        {
-          name = "Source Code Pro";
-          package = pkgs.source-code-pro;
-        }
-      ];
+      # fonts = [
+      #   {
+      #     name = "Source Code Pro";
+      #     package = pkgs.source-code-pro;
+      #   }
+      # ];
       extraOptions = "--term xterm-256color";
-      extraConfig = "font-size=18";
+      config = {
+        font-name = "Source Code Pro";
+        font-size = 18;
+        hwaccel = true;
+      };
       # Whether to use 3D hardware acceleration to render the console.
-      hwRender = true;
+      # hwRender = true;
     };
 
   };

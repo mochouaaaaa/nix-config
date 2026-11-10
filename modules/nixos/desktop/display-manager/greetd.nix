@@ -1,18 +1,13 @@
 {
   config,
   lib,
-  username,
   pkgs,
-  inputs,
   ...
 }:
 let
   cfg = config.profiles.display-manager.greetd;
 in
 {
-  imports = [
-    inputs.noctalia-greeter.nixosModules.default
-  ];
 
   options.profiles.display-manager.greetd = {
     enable = lib.mkOption {
@@ -28,13 +23,8 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
-
-      # Optional configuration
-      greeter-args = "";
-      # Full declarative greeter.toml (overwritten on each activation).
-      # See examples/greeter.toml for every key (appearance.palette, output, …).
       settings = {
         cursor = {
           theme = "Bibata-Modern-Ice";

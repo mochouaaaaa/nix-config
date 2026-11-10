@@ -54,90 +54,89 @@ in
       };
     };
 
-    rime.themes = {
-      enable = true;
+    profiles.rime.themes = {
       dark = "noctalia";
       light = "noctalia";
     };
 
-    xdg = {
-      # dataFile = {
-      #   "fcitx5/themes/Matugen" =
-      #     let
-      #       fictx5-matugen = pkgs.stdenv.mkDerivation {
-      #         name = "fcitx5-matugen-theme";
-      #
-      #         src = pkgs.fetchFromGitHub {
-      #           owner = "StatIndet";
-      #           repo = "fcitx5-matugen-theme";
-      #           rev = "main";
-      #           sha256 = "sha256-1tbzTtYqJyDGu5Yyc+QxgqBRm3HWnDucHUuPaeMVk+M=";
-      #         };
-      #
-      #         unpackPhase = false;
-      #
-      #         installPhase = ''
-      #           mkdir -p $out/share/fcitx5/themes
-      #           cp -r $src/templates $out/share/fcitx5/themes
-      #         '';
-      #       };
-      #     in
-      #     {
-      #       source = "${fictx5-matugen}/share/fcitx5/themes";
-      #       recursive = true;
-      #     };
-      # };
-      # configFile = {
-      #   "noctalia/templates.toml".source =
-      #     let
-      #       settingsFormat = pkgs.formats.toml { };
-      #
-      #       settings = {
-      #         theme = {
-      #           templates = {
-      #             enable_builtin_templates = true;
-      #             enable_community_templates = true;
-      #
-      #             user =
-      #               let
-      #                 fcitx5-theme = "~/.local/share/fcitx5/themes/Matugen";
-      #               in
-      #               {
-      #                 fcitx5_theme = {
-      #                   input_path = "${fcitx5-theme}/templates/theme.conf";
-      #                   output_path = "${fcitx5-theme}/theme.conf";
-      #                   index = 10;
-      #                 };
-      #                 fcitx5_panel = {
-      #                   input_path = "${fcitx5-theme}/templates/panel.svg";
-      #                   output_path = "${fcitx5-theme}/panel.svg";
-      #                   index = 20;
-      #                 };
-      #                 fcitx5_highlight = {
-      #                   input_path = "${fcitx5-theme}/templates/highlight.svg";
-      #                   output_path = "${fcitx5-theme}/highlight.svg";
-      #                   index = 30;
-      #                 };
-      #                 fcitx5_radio = {
-      #                   input_path = "${fcitx5-theme}/templates/radio.svg";
-      #                   output_path = "${fcitx5-theme}/radio.svg";
-      #                   index = 40;
-      #                 };
-      #                 fcitx5_arrow = {
-      #                   input_path = "${fcitx5-theme}/templates/arrow.svg";
-      #                   output_path = "${fcitx5-theme}/arrow.svg";
-      #                   index = 50;
-      #                   post_hook = "busctl --user call org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1 ReloadAddonConfig s classicui";
-      #                 };
-      #               };
-      #
-      #           };
-      #         };
-      #       };
-      #     in
-      #     settingsFormat.generate "templates.toml" settings;
-      # };
-    };
+    # xdg = {
+    # dataFile = {
+    #   "fcitx5/themes/Matugen" =
+    #     let
+    #       fictx5-matugen = pkgs.stdenv.mkDerivation {
+    #         name = "fcitx5-matugen-theme";
+    #
+    #         src = pkgs.fetchFromGitHub {
+    #           owner = "StatIndet";
+    #           repo = "fcitx5-matugen-theme";
+    #           rev = "main";
+    #           sha256 = "sha256-1tbzTtYqJyDGu5Yyc+QxgqBRm3HWnDucHUuPaeMVk+M=";
+    #         };
+    #
+    #         unpackPhase = false;
+    #
+    #         installPhase = ''
+    #           mkdir -p $out/share/fcitx5/themes
+    #           cp -r $src/templates $out/share/fcitx5/themes
+    #         '';
+    #       };
+    #     in
+    #     {
+    #       source = "${fictx5-matugen}/share/fcitx5/themes";
+    #       recursive = true;
+    #     };
+    # };
+    # configFile = {
+    #   "noctalia/templates.toml".source =
+    #     let
+    #       settingsFormat = pkgs.formats.toml { };
+    #
+    #       settings = {
+    #         theme = {
+    #           templates = {
+    #             enable_builtin_templates = true;
+    #             enable_community_templates = true;
+    #
+    #             user =
+    #               let
+    #                 fcitx5-theme = "~/.local/share/fcitx5/themes/Matugen";
+    #               in
+    #               {
+    #                 fcitx5_theme = {
+    #                   input_path = "${fcitx5-theme}/templates/theme.conf";
+    #                   output_path = "${fcitx5-theme}/theme.conf";
+    #                   index = 10;
+    #                 };
+    #                 fcitx5_panel = {
+    #                   input_path = "${fcitx5-theme}/templates/panel.svg";
+    #                   output_path = "${fcitx5-theme}/panel.svg";
+    #                   index = 20;
+    #                 };
+    #                 fcitx5_highlight = {
+    #                   input_path = "${fcitx5-theme}/templates/highlight.svg";
+    #                   output_path = "${fcitx5-theme}/highlight.svg";
+    #                   index = 30;
+    #                 };
+    #                 fcitx5_radio = {
+    #                   input_path = "${fcitx5-theme}/templates/radio.svg";
+    #                   output_path = "${fcitx5-theme}/radio.svg";
+    #                   index = 40;
+    #                 };
+    #                 fcitx5_arrow = {
+    #                   input_path = "${fcitx5-theme}/templates/arrow.svg";
+    #                   output_path = "${fcitx5-theme}/arrow.svg";
+    #                   index = 50;
+    #                   post_hook = "busctl --user call org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1 ReloadAddonConfig s classicui";
+    #                 };
+    #               };
+    #
+    #           };
+    #         };
+    #       };
+    #     in
+    #     settingsFormat.generate "templates.toml" settings;
+    # };
+    # };
 
     programs.yazi.theme = {
       flavor = {

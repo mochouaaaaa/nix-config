@@ -28,15 +28,6 @@ in
 
     programs.vscode = {
       package = pkgs.vscode-fhs;
-      # package = pkgs.vscode-fhs.override {
-      #   commandLineArgs = [
-      #     "--ozone-platform-hint=auto"
-      #     "--enable-features=UseOzonePlatform"
-      #     "--enable-wayland-ime"
-      #     "--gtk-version=4"
-      #     "--password-store=${config.profiles.packages.vscode.passwordStore}"
-      #   ];
-      # };
       profiles.default = {
         userSettings = {
           "vscode-default-keybindings.removeOSKeybindings" = true;

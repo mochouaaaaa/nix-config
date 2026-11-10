@@ -39,8 +39,8 @@
       ".config/Code - Insiders"
 
       # zed
-      ".local/share/zed"
-      ".local/state/zed"
+      # ".local/share/zed"
+      # ".local/state/zed"
 
       # ======================================
       # Instant Messaging

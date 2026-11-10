@@ -21,11 +21,6 @@ in
       default = false;
       description = "Enable IPTV (Hypnotix).";
     };
-    simple-live-app.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Simple Live App.";
-    };
     wiliwili.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -48,8 +43,8 @@ in
 
         programs.obs-studio = {
           enable = true;
-          package = pkgs-stable.obs-studio;
-          plugins = with pkgs-stable.obs-studio-plugins; [
+          package = pkgs.obs-studio;
+          plugins = with pkgs.obs-studio-plugins; [
             wlrobs
             # distroav
             obs-vaapi
@@ -80,7 +75,6 @@ in
         home.packages =
           [ ]
           ++ lib.optionals cfg.iptv.enable [ pkgs.hypnotix ]
-          ++ lib.optionals cfg.simple-live-app.enable [ pkgs.simple-live-app ]
           ++ lib.optionals cfg.wiliwili.enable [ pkgs.piliplus ];
       }
     ]

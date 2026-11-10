@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 let
@@ -10,32 +9,32 @@ let
 in
 {
 
-  imports = [
-    inputs.spicetify-nix.homeManagerModules.spicetify
-  ];
+  # imports = [
+  # inputs.spicetify-nix.homeManagerModules.spicetify
+  # ];
 
   config = lib.mkIf isDesktop (
     lib.mkMerge [
 
       {
-        programs.spicetify =
-          let
-            spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
-          in
-          {
-            enable = true;
-            # wayland = true;
-            enabledExtensions = with spicePkgs.extensions; [
-              adblock
-              adblockify
-              autoSkipVideo
-              hidePodcasts
-              shuffle
-              fullAppDisplay
-            ];
-            # theme = spicePkgs.themes.starryNight;
-            theme = spicePkgs.themes.turntable;
-          };
+        # programs.spicetify =
+        # let
+        # spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
+        # in
+        # {
+        #   enable = true;
+        # wayland = true;
+        # enabledExtensions = with spicePkgs.extensions; [
+        #   adblock
+        #   adblockify
+        #   autoSkipVideo
+        #   hidePodcasts
+        #   shuffle
+        #   fullAppDisplay
+        # ];
+        # theme = spicePkgs.themes.starryNight;
+        # theme = spicePkgs.themes.turntable;
+        # };
 
         home.packages = with pkgs; [
           splayer-next

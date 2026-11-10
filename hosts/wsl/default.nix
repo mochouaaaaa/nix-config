@@ -57,6 +57,7 @@ in
               wsl.startMenuLaunchers = true;
               wsl.usbip.enable = true;
               wsl.ssh-agent.enable = true;
+              networking.resolvconf.enable = false;
 
               profiles.wsl.enable = true;
 

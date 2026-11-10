@@ -89,7 +89,7 @@ let
                   ];
 
                   extraSpecialArgs = specialArgs // {
-                    lib = ctx.hmlib;
+                    # lib = ctx.hmlib;
                     pkgs = ctx.extraModuleArgs.mkPkgs inputs.nixpkgs-darwin {
                       overlays = [ self.overlays.home-manager ];
                       custom_config = {

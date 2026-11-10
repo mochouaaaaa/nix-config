@@ -74,11 +74,11 @@
     lib.optionalAttrs (config.services.userborn.enable) {
       "subuid" = {
         text = autosubs;
-        mode = "0444";
+        # mode = "0444";
       };
       "subgid" = {
         text = autosubs;
-        mode = "0444";
+        # mode = lib.mkForce "0444";
       };
     };
 

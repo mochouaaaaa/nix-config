@@ -167,3 +167,6 @@ home-niri:
     DESKTOP=niri {{ PRE_ARGS }} nh home switch {{ NH_HOME_FLAKE }} -b backup {{ NH_BUILD_ARGS }}
 
 
+# flake check
+check:
+    nix flake check --no-build --impure

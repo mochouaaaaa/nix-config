@@ -5,170 +5,189 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    programs.niri = {
-      settings = {
-
-        window-rules =
-          let
-            hide_matches = [
-              {
-                app-id = "^org.keepassxc.KeePassXC$";
-              }
-              {
-                app-id = "^org.gnome.World.Secrets$";
-              }
-              {
-                app-id = "Bitwarden";
-              }
-            ];
-          in
-          [
-            # {
-            # geometry-corner-radius =
-            #   let
-            #     # radius = 12.0;
-            #     radius = 0.0;
-            #   in
-            #   {
-            #     bottom-left = radius;
-            #     bottom-right = radius;
-            #     top-left = radius;
-            #     top-right = radius;
-            #   };
-            # clip-to-geometry = true;
-            # draw-border-with-background = false;
-            # }
+    wayland.windowManager.niri.settings = {
+      _children = [
+        {
+          window-rule._children = [
             {
-              matches = [
-                { is-floating = true; }
-              ];
-              shadow.enable = true;
+              match._props = {
+                is-floating = true;
+              };
             }
             {
-              matches = [
-                {
-                  app-id = "^(org.gnome.Nautilus|nm-connection-editor)$";
-                }
-                {
-                  app-id = "pot";
-                  title = "Translate";
-                }
-                {
-                  app-id = "firefox";
-                  title = "Picture-in-Picture";
-                }
-                {
-                  app-id = "zen";
-                  title = "Picture-in-Picture";
-                }
-                {
-                  app-id = "imv";
-                  title = ''^imv - .*\\.png \\[scale to fit\\]$'';
-                }
-                {
-                  app-id = "com.alibabainc.dingtalk";
-                  title = "com.alibabainc.dingtalk";
-                }
-                { app-id = "^(pavucontrol|pavucontrol-qt|com.saivert.pwvucontrol)$"; }
-                { app-id = "io.github.fsobolev.Cavalier"; }
-                { app-id = "org.gnome.Loupe"; }
-                { app-id = "dialog"; }
-                { app-id = "task_dialog"; }
-                { app-id = "popup"; }
-                { app-id = "file-roller"; }
-                { app-id = "org.gnome.FileRoller"; }
-                { app-id = "nm-connection-editor"; }
-                { app-id = "blueman-manager|.blueman-manager-wrapped"; }
-                { app-id = "xdg-desktop-portal-gtk"; }
-                { app-id = "pinentry"; }
-                {
-                  app-id = "^(io.github.kukuruzka165.materialgram|org.telegram.desktop)$";
-                  title = "媒体查看器";
-                }
-                { title = "Progress"; }
-                { title = "File Operations"; }
-                { title = "Copying"; }
-                { title = "Moving"; }
-                { title = "Properties"; }
-                { title = "Downloads"; }
-                { title = "file progress"; }
-                { title = "Confirm"; }
-                { title = "Authentication Required"; }
-                { title = "Notice"; }
-                { title = "Warning"; }
-                { title = "Error"; }
-              ];
+              shadow.on = { };
+            }
+          ];
+        }
+
+        {
+          window-rule._children = [
+            {
+              match._props = {
+                app-id = "^(org.gnome.Nautilus|nm-connection-editor)$";
+              };
+            }
+            {
+              match._props = {
+                app-id = "pot";
+                title = "Translate";
+              };
+            }
+            {
+              match._props = {
+                app-id = "firefox";
+                title = "Picture-in-Picture";
+              };
+            }
+            {
+              match._props = {
+                app-id = "zen";
+                title = "Picture-in-Picture";
+              };
+            }
+            {
               open-floating = true;
             }
+          ];
+        }
+
+        {
+          window-rule._children = [
             {
-              matches = [
-                {
-                  app-id = "^mpv$";
-                }
-              ];
+              match._props = {
+                app-id = "^mpv$";
+              };
+            }
+            {
               variable-refresh-rate = true;
+            }
+          ];
+        }
+
+        {
+          window-rule._children = [
+            {
+              match._props = {
+                app-id = "^(chromium-browser|firefox|zen|zen-beta)$";
+              };
+            }
+            {
+              match._props = {
+                app-id = "io.github.kukuruzka165.materialgram";
+              };
+            }
+            {
+              match._props = {
+                app-id = "org.telegram.desktop";
+              };
             }
             {
               opacity = 0.85;
-              matches = [
-                { app-id = "^(chromium-browser|firefox|zen|zen-beta)$"; }
-                { app-id = "io.github.kukuruzka165.materialgram"; }
-                { app-id = "org.telegram.desktop"; }
-              ];
+            }
+          ];
+        }
+
+        {
+          window-rule._children = [
+            {
+              match._props = {
+                app-id = "^(org.wezfurlong.wezterm)$";
+              };
             }
             {
-              matches = [
-                { app-id = "^(org.wezfurlong.wezterm)$"; }
-              ];
               default-column-width = { };
             }
+          ];
+        }
+
+        {
+          window-rule._children = [
             {
-              matches = [
-                {
-                  app-id = "^(org.gnome.Nautilus)$";
-                }
-              ];
+              match._props = {
+                app-id = "^org.gnome.Nautilus$";
+              };
+            }
+            {
               min-width = 1145;
               min-height = 672;
             }
+          ];
+        }
+
+        {
+          window-rule._children = [
             {
-              matches = [
-                {
-                  app-id = "steam";
-                  title = ''^notificationtoasts_\d+_desktop$'';
-                }
-              ];
-              default-floating-position = {
+              match._props = {
+                app-id = "steam";
+                title = ''^notificationtoasts_\d+_desktop$'';
+              };
+            }
+            {
+              default-floating-position._props = {
                 x = 10;
                 y = 10;
                 relative-to = "bottom-right";
               };
             }
+          ];
+        }
+
+        {
+          window-rule._children = [
             {
-              # obs
-              matches = hide_matches;
-              block-out-from = "screencast";
+              match._props = {
+                app-id = "^org.keepassxc.KeePassXC$";
+              };
             }
             {
-              matches = hide_matches;
+              match._props = {
+                app-id = "^org.gnome.World.Secrets$";
+              };
+            }
+            {
+              match._props = {
+                app-id = "Bitwarden";
+              };
+            }
+            {
+              block-out-from = "screencast";
+            }
+          ];
+        }
+
+        {
+          window-rule._children = [
+            {
+              match._props = {
+                app-id = "^org.keepassxc.KeePassXC$";
+              };
+            }
+            {
+              match._props = {
+                app-id = "^org.gnome.World.Secrets$";
+              };
+            }
+            {
+              match._props = {
+                app-id = "Bitwarden";
+              };
+            }
+            {
               block-out-from = "screen-capture";
             }
           ];
+        }
+      ];
 
-        layer-rules = [
-          {
-            matches = [
-              {
-                namespace = "";
-              }
-            ];
-            place-within-backdrop = true;
-
-          }
-        ];
-
-      };
-
+      # layer-rules = [
+      #   {
+      #     matches = [
+      #       { namespace = ""; }
+      #     ];
+      #     place-within-backdrop = true;
+      #   }
+      # ];
     };
+
   };
 }

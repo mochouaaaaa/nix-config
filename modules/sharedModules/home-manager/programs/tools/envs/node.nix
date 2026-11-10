@@ -12,9 +12,13 @@ in
   config = lib.mkIf cfg.enable {
 
     home.packages = [
-      pkgs.nodejs_22
-      # pkgs.gemini-cli
+      pkgs.nodejs
+    ]
+    ++ (lib.optionals pkgs.stdenv.hostPlatform.isLinux) [
       pkgs.antigravity-cli
+    ]
+    ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin) [
+      pkgs.gemini-cli
     ];
 
     programs = {

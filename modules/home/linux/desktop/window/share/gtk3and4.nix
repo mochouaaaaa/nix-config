@@ -11,23 +11,23 @@ let
   nameWithMode = name: mode: name + lib.optionalString (mode != "") "-${mode}";
 
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
-  switch-gtk2-config = pkgs.writeShellScriptBin "switch-gtk2-config" ''
-
-    mkdir -p "$(dirname ${config.gtk.gtk2.configLocation})"
-    cat > ${config.gtk.gtk2.configLocation} << EOF         
-    gtk-enable-animations=1
-    gtk-theme-name="$1"
-    gtk-primary-button-warps-slider=1
-    gtk-toolbar-style=0
-    gtk-menu-images=1
-    gtk-button-images=1
-    gtk-cursor-theme-size=${toString config.home.pointerCursor.size}
-    gtk-sound-theme-name="ocean"
-    gtk-cursor-theme-name="${config.home.pointerCursor.name}"
-    gtk-icon-theme-name="$2"
-    gtk-font-name="${config.profiles.fonts.default}, 12"
-    EOF
-  '';
+  # switch-gtk2-config = pkgs.writeShellScriptBin "switch-gtk2-config" ''
+  #
+  #   mkdir -p "$(dirname ${config.gtk.gtk2.configLocation})"
+  #   cat > ${config.gtk.gtk2.configLocation} << EOF
+  #   gtk-enable-animations=1
+  #   gtk-theme-name="$1"
+  #   gtk-primary-button-warps-slider=1
+  #   gtk-toolbar-style=0
+  #   gtk-menu-images=1
+  #   gtk-button-images=1
+  #   gtk-cursor-theme-size=${toString config.home.pointerCursor.size}
+  #   gtk-sound-theme-name="ocean"
+  #   gtk-cursor-theme-name="${config.home.pointerCursor.name}"
+  #   gtk-icon-theme-name="$2"
+  #   gtk-font-name="${config.profiles.fonts.default}, 12"
+  #   EOF
+  # '';
 
   switch-gtk3and4-config = pkgs.writeShellScriptBin "switch-gtk3and4-config" ''
     mode=$1
@@ -75,7 +75,7 @@ let
   switch-theme = pkgs.writeShellApplication {
     name = "switch-theme";
     runtimeInputs = [
-      switch-gtk2-config
+      # switch-gtk2-config
       switch-gtk3and4-config
       dconf-settings
     ];
@@ -101,7 +101,7 @@ let
       gtk_theme_name="''${GTK_THEME_MAP[$mode]}"
       gtk_icon_theme="''${GTK_ICON_MAP[$mode]}"
 
-      switch-gtk2-config "$gtk_theme_name" "$gtk_icon_theme"
+      # switch-gtk2-config "$gtk_theme_name" "$gtk_icon_theme"
       switch-gtk3and4-config "$prefer_dark" "$gtk_theme_name" "$gtk_icon_theme"
       dconf-settings
     '';

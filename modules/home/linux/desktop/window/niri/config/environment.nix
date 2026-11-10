@@ -6,7 +6,7 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    programs.niri.settings = {
+    wayland.windowManager.niri.settings = {
       environment = {
         # theme
         QT_QPA_PLATFORMTHEME = "gtk3";

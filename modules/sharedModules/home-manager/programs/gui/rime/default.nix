@@ -31,24 +31,34 @@
           rimePath = platformConfig.rimePath;
         in
         lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-            if [ -f "${targetFile}" ]; then
-            if grep -q "sync_dir:" "${targetFile}"; then
+          $DRY_RUN_CMD mkdir -p "${targetDir}"
+
+          $DRY_RUN_CMD mkdir -p "${rimePath}"
+
+          if [ -f "${targetFile}" ]; then
+            # 如果存在 sync_dir，则替换
+            if grep -q "^sync_dir:" "${targetFile}"; then
               $DRY_RUN_CMD sed -i 's|^sync_dir:.*|sync_dir: "${targetDir}"|' "${targetFile}"
-              $DRY_RUN_CMD sed -i 's|^installation_id:.*|installation_id: "${targetId}"|' "${targetFile}"
-              echo "Rime: Updated sync_dir to ${targetDir}"
             else
               $DRY_RUN_CMD echo 'sync_dir: "${targetDir}"' >> "${targetFile}"
-              echo "Rime: Added sync_dir configuration"
             fi
+            
+            if grep -q "^installation_id:" "${targetFile}"; then
+              $DRY_RUN_CMD sed -i 's|^installation_id:.*|installation_id: "${targetId}"|' "${targetFile}"
+            else
+              $DRY_RUN_CMD echo 'installation_id: "${targetId}"' >> "${targetFile}"
+            fi
+            
+            echo "Rime: Updated sync configuration in ${targetFile}"
           else
-            $DRY_RUN_CMD mkdir -p "${rimePath}"
             $DRY_RUN_CMD echo 'sync_dir: "${targetDir}"' > "${targetFile}"
-            echo "Rime: Created ${targetFile} with sync_dir"
+            $DRY_RUN_CMD echo 'installation_id: "${targetId}"' >> "${targetFile}"
+            echo "Rime: Created ${targetFile} with sync configuration"
           fi
         '';
     };
 
-    profiles.packages.rime = {
+    profiles.rime = {
       defaultCustomYaml = {
         patch = {
           "__include" = "wanxiang_suggested_default:/";

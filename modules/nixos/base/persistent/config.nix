@@ -16,9 +16,6 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    # pverservation required initrd using systemd.
-    boot.initrd.systemd.enable = true;
-
     preservation = {
       enable = true;
       preserveAt."/nix/persistence" = {

@@ -30,7 +30,6 @@ let
 
           obsidian.enable = true;
           live = {
-            simple-live-app.enable = true;
             wiliwili.enable = true;
             iptv.enable = true; # IPTV
           };

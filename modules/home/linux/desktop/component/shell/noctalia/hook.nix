@@ -42,10 +42,8 @@ in
 
                 if [ "$mode" = "dark" ]; then
                   [ "$is_random" = "false" ] && noctalia msg wallpaper-set DP-1 ${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png
-                  # switch-theme dark
                 else
                   [ "$is_random" = "false" ] && noctalia msg wallpaper-set DP-1 ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png
-                  # switch-theme light
                 fi
               '';
             in

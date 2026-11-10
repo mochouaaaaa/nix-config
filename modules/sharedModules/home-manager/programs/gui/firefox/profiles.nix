@@ -156,6 +156,37 @@ let
   };
 
   searchEngines = {
+    "DuckDuckGo (no CSDN)" = {
+      urls = [
+        {
+          template = "https://duckduckgo.com/";
+          params = [
+            {
+              name = "q";
+              value = "{searchTerms} -site:csdn.net";
+            }
+          ];
+        }
+      ];
+      icon = "https://duckduckgo.com/favicon.ico";
+      definedAliases = [ "@ddg" ];
+    };
+
+    "Google (no CSDN)" = {
+      urls = [
+        {
+          template = "https://www.google.com/search";
+          params = [
+            {
+              name = "q";
+              value = "{searchTerms} -site:csdn.net";
+            }
+          ];
+        }
+      ];
+      icon = "https://www.google.com/favicon.ico";
+      definedAliases = [ "@gg" ];
+    };
     "NixOS Wiki" = {
       urls = [
         {
@@ -260,12 +291,13 @@ in
         inherit settings;
 
         search = {
-          default = "ddg";
+          default = "DuckDuckGo (no CSDN)";
           force = true;
           engines = searchEngines;
 
           order = [
-            "ddg"
+            "DuckDuckGo (no CSDN)"
+            "Google (no CSDN)"
             "GitHub"
             "Nix Packages"
             "Nix Options"

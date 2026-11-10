@@ -11,16 +11,19 @@ in
 {
   config = lib.mkIf cfg.enable {
 
-    programs.niri.settings = {
-      spawn-at-startup =
-        map
-          (s: {
-            command = pkgs.lib.strings.splitString " " s;
-          })
-          [
-            "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-            "dbus-update-activation-environment --systemd --all"
-          ];
-    };
+    # wayland.windowManager.niri.settings = {
+    #   spawn-at-startup._children =
+    #     map
+    #       (s: {
+    #         spawn-at-startup._args = [
+    #           (pkgs.lib.strings.splitString " " s)
+    #         ];
+    #       })
+    #       [
+    #         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+    #         "dbus-update-activation-environment --systemd --all"
+    #       ];
+    # };
+
   };
 }

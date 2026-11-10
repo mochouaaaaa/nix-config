@@ -38,7 +38,7 @@ in
   config = lib.mkIf isSecret {
 
     age = {
-      identityPaths = cfg.identityPaths;
+      # identityPaths = cfg.identityPaths;
 
       rekey = rec {
         hostPubkey = cfg.hostPubkey;

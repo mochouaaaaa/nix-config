@@ -34,13 +34,12 @@
               autoconnect-priority = 50;
               autoconnect-retries = 0;
             };
-
             wifi = {
               mode = "infrastructure";
-              ssid = "Backup-WiFi";
+              ssid = "CMCC-3QZ6-5G";
             };
-
             wifi-security = {
+              auth-alg = "open";
               key-mgmt = "wpa-psk";
               psk = "5cedyz5h";
             };

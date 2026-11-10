@@ -25,7 +25,7 @@ in
       ];
 
       # Niri acts as its own portal backend, so its package is needed here.
-      configPackages = lib.optionals cfg.niri.enable [ config.programs.niri.package ];
+      configPackages = lib.optionals cfg.niri.enable [ config.wayland.windowManager.niri.portalPackage ];
 
       # Recursively merge portal configurations from different DEs.
       # This sets the preferred `default` portal implementation and other

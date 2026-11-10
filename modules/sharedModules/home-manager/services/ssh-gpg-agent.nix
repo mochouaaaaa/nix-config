@@ -6,21 +6,22 @@
 {
 
   programs.gpg = {
-    enable = false;
+    enable = true;
     settings = {
     };
   };
 
   services = {
     ssh-agent = {
-      enable = true;
+      enable = false;
     };
     gpg-agent = {
-      enable = false;
+      enable = true;
       enableSshSupport = true;
       enableExtraSocket = true;
       enableZshIntegration = config.programs.zsh.enable;
-      pinentry.package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-qt;
+      pinentry.package =
+        if pkgs.stdenv.hostPlatform.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-qt;
       defaultCacheTtlSsh = 3600;
       defaultCacheTtl = 3600;
       maxCacheTtl = 7200;

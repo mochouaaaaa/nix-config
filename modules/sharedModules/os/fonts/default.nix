@@ -8,7 +8,11 @@
 }:
 {
 
-  imports = lib.optionals isNixos [ ./_nixos.nix ] ++ lib.optionals isNixDarwin [ ./_darwin.nix ];
+  imports = [
+    ./_home-manager.nix
+  ]
+  ++ lib.optionals isNixos [ ./_nixos.nix ]
+  ++ lib.optionals isNixDarwin [ ./_darwin.nix ];
 
   fonts.packages = with pkgs; [
     inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
@@ -28,15 +32,6 @@
     source-serif
     source-han-sans
     source-han-serif
-  ];
-
-  home-manager.sharedModules = [
-    {
-      config.profiles.fonts = {
-        enable = lib.mkForce false;
-        default = lib.mkForce "Monaco Fira Nerd";
-      };
-    }
   ];
 
 }

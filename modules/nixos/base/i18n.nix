@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -20,36 +19,6 @@ in
   };
 
   config = {
-
-    # warnings = [
-    #   "module lib version: ${lib.version}"
-    #   "pkgs lib version: ${pkgs.lib.version}"
-    #   "module lib path: ${toString lib.path}"
-    #   "pkgs path: ${toString pkgs.path}"
-    # ];
-
-    # assertions = [
-    #   {
-    #     assertion = lib.version == pkgs.lib.version;
-    #     message = "NixOS module lib and pkgs.lib versions differ";
-    #   }
-    #   {
-    #     assertion = lib ? services;
-    #     message = "NixOS lib.services missing";
-    #   }
-    #   {
-    #     assertion = lib ? importService;
-    #     message = "NixOS lib.importService missing";
-    #   }
-    #   # {
-    #   #   assertion = lib.services ? configure;
-    #   #   message = "NixOS lib.services.configure missing";
-    #   # }
-    #   {
-    #     assertion = pkgs.lib ? importService;
-    #     message = "NixOS pkgs.lib.importService missing";
-    #   }
-    # ];
 
     i18n =
       let

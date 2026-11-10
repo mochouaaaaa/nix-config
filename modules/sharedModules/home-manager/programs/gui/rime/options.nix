@@ -5,69 +5,81 @@
   ...
 }:
 let
-
-  cfg = config.profiles.packages.rime;
+  cfg = config.profiles.rime;
   yamkFormats = pkgs.formats.yaml { };
-
-  CustomRimeData = pkgs.stdenv.mkDerivation {
-    pname = "my-rime-data";
-    version = "1.0";
-
-    unpackPhase = "true";
-    installPhase = ''
-      mkdir -p $out/share/rime-data
-
-      cp -r ${pkgs.rime-wanxiang}/share/rime-data/* $out/share/rime-data/
-
-      # 写入自定义文件（如果有）
-      ${pkgs.lib.concatStringsSep "\n" (
-        map (file: "ln -s ${file} $out/share/rime-data/${file.name}") cfg._extraFiles
-      )}
-    '';
-  };
-
 in
 {
-  options.profiles.packages.rime = with lib; {
-
-    defaultCustomYaml = mkOption {
+  options.profiles.rime = {
+    defaultCustomYaml = lib.mkOption {
       type = yamkFormats.type;
       default = { };
       description = "Default custom YAML configuration.";
     };
-    fcitx5CustomYaml = mkOption {
+
+    fcitx5CustomYaml = lib.mkOption {
       type = yamkFormats.type;
       default = { };
       description = "Custom YAML configuration for Fcitx5.";
     };
-    squirrelCustomYaml = mkOption {
+
+    squirrelCustomYaml = lib.mkOption {
       type = yamkFormats.type;
       default = { };
       description = "Custom YAML configuration for Squirrel.";
     };
-    _extraFiles = mkOption {
+
+    themes = {
+      dark = lib.mkOption {
+        type = lib.types.str;
+        default = "macOS-dark";
+        description = "The dark theme name to use.";
+      };
+      light = lib.mkOption {
+        type = lib.types.str;
+        default = "macOS-light";
+        description = "The light theme name to use.";
+      };
+    };
+
+    data-package = lib.mkOption {
+      type = lib.types.package;
       readOnly = true;
-      default =
-        let
-          genIfNotEmpty = name: value: lib.optional (value != { }) (yamkFormats.generate name value);
-        in
-        lib.flatten (
+      description = "The generated Rime data package containing custom configurations.";
+    };
+  };
+
+  config = {
+    profiles.rime.data-package =
+      let
+        genIfNotEmpty =
+          name: value:
+          lib.optional (value != { }) {
+            inherit name;
+            path = yamkFormats.generate name value;
+          };
+
+        extraFiles = lib.flatten (
           lib.mapAttrsToList genIfNotEmpty {
             "squirrel.custom.yaml" = cfg.squirrelCustomYaml;
             "default.custom.yaml" = cfg.defaultCustomYaml;
             "fcitx5.custom.yaml" = cfg.fcitx5CustomYaml;
           }
         );
-      description = "Extra files to be included in the Rime data package.";
-    };
-    data-package = mkOption {
-      default = CustomRimeData;
-      description = "The Rime data package.";
-    };
-    patch = {
-      type = yamkFormats.type;
-      default = { };
-    };
-  };
+      in
+      pkgs.stdenv.mkDerivation {
+        pname = "my-rime-data";
+        version = "1.0";
 
+        unpackPhase = "true";
+        installPhase = ''
+          mkdir -p $out/share/rime-data
+
+          cp -r ${pkgs.rime-wanxiang}/share/rime-data/* $out/share/rime-data/
+
+          ${lib.concatStringsSep "\n" (
+            map (file: "ln -sf ${file.path} $out/share/rime-data/${file.name}") extraFiles
+          )}
+        '';
+      };
+  };
 }

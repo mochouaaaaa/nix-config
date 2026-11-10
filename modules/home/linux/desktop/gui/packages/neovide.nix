@@ -17,14 +17,14 @@ in
 
       (lib.mkIf (cfg.niri.enable) {
 
-        programs.niri = {
-          settings.window-rules = [
+        wayland.windowManager.niri.settings = {
+          _children = [
             {
-              opacity = 0.85;
-              matches = [
+              window-rule._children = [
                 {
-                  app-id = "^(neovide)$";
+                  match._props.app-id = "^(neovide)$";
                 }
+                { opacity = 0.85; }
               ];
             }
           ];

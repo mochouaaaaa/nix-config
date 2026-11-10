@@ -53,7 +53,7 @@ in
             fractal
             # fluffychat
           ]
-          ++ lib.optionals cfg.dingding.enable [ nur.repos.xddxdd.dingtalk ]
+          ++ lib.optionals cfg.dingding.enable [ nur.repos.so1ve.dingtalk ]
           ++ lib.optionals cfg.feishu.enable [ feishu ]
           ++ lib.optionals cfg.qq.enable [ qq ]
           ++ lib.optionals cfg.wechat.enable [ wechat-uos ]

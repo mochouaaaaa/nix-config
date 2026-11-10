@@ -12,14 +12,17 @@
       with pkgs;
       [
         # insomnia # REST client
+        cartero
         # api client
         hoppscotch
-        materialgram
+        # navicat-premium
+        dbeaver-bin
       ]
       ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
         tiny-rdm-wrapper
-        telegram-desktop
+        # telegram-desktop
         wireshark # network analyzer
+        materialgram
       ];
   };
 }
