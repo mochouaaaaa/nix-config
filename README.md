@@ -2,8 +2,6 @@
 
 个人 Nix 配置仓库，基于 **Nix Flakes、flake-parts 与 import-tree** 构建，采用模块化（Dendritic）组织方式，集中管理 NixOS、nix-darwin 与 Home Manager 配置。
 
-> 当前仓库以 `mochou@nixos` 为主要 Host 配置。模块按功能组织，Host 负责选择并组合所需模块。
-
 ## 设计目标
 
 - **模块化组织**：按功能拆分配置，避免把所有系统设置堆在单一 Host 文件中。
@@ -31,7 +29,6 @@
 
 ~~~text
 .
-├── config.nix              # 本地用户与仓库级变量
 ├── flake.nix               # Flake 入口、inputs 与模块导入
 ├── flake.lock              # 锁定的 Flake inputs
 ├── justfile                # 常用开发、检查和部署命令
@@ -90,7 +87,7 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 
 - 敏感配置使用 agenix / agenix-rekey 管理。请勿将明文密钥、密码、令牌或解密后的秘密提交到仓库。
 - 系统持久化通过 preservation 模块管理。Host 可选择启用持久化配置，功能模块也可以按需声明自身需要保留的数据。
-- **config.nix** 可能包含本机相关变量；新增文档或示例时不要复制其中的个人凭据或密码哈希。
+- **modules/core/var.nix** 可能包含本机相关变量；新增文档或示例时不要复制其中的个人凭据或密码哈希。
 
 ## 环境准备
 
