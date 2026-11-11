@@ -10,6 +10,5 @@
 | `devshells.nix` | 项目开发环境 |
 | `formatter.nix` | `nix fmt` 使用的格式化器 |
 | `checks.nix` | `nix flake check` 的 derivation 检查 |
-| `nix-settings.nix` | NixOS、Darwin、Home Manager 的 Nix 客户端设置模块 |
 
 主机配置由 `modules/hosts.nix` 自动发现；系统选项仍应放在对应功能模块或 `hosts/<username>@<platform>/` 中。
