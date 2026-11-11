@@ -18,14 +18,18 @@
       programs.deadnix.enable = true;
       programs.statix.enable = true;
 
-      settings.global.excludes = [
-        ".direnv/**"
-        "result"
-        "result/**"
-        ".git/**"
+      settings.global = {
+        "no-cache" = true;
+        excludes = [
+          ".git/**"
+          ".direnv/**"
+          "result"
+          "result/**"
+          "flake.lock"
 
-        "secrets/**"
-      ];
+          "secrets/**"
+        ];
+      };
     };
 
     # Git Commit Hook
