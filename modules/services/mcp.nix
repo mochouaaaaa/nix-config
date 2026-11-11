@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.service = { pkgs, ... }: {
+  flake.modules.homeManager.service = _: {
 
     # programs = {
     #   mcp = {

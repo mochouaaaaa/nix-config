@@ -5,7 +5,7 @@
       bash = {
         enable = true;
         package = pkgs.bashInteractive.override {
-          readline = pkgs.readline;
+          inherit (pkgs) readline;
         };
       };
       zsh = {

@@ -6,7 +6,7 @@
     }:
     {
 
-      profiles.preservation.directories  = [
+      profiles.preservation.directories = [
         "/var/lib/qemu"
       ];
 

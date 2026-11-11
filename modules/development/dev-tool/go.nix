@@ -1,7 +1,17 @@
 {
-  flake.modules.homeManager.development =
+
+  flake.modules.homeManager."desktop.common" = { self, pkgs, ... }: {
+    imports = [
+      self.modules.homeManager.development-go
+    ];
+    home.packages = [
+      pkgs.goland
+    ];
+
+  };
+
+  flake.modules.homeManager.development-go =
     {
-      lib,
       pkgs,
       config,
       ...
@@ -14,11 +24,6 @@
           "${config.home.homeDirectory}/Code/Projects/golang";
     in
     {
-
-      options.programs.go.GOPATH = lib.mkOption {
-        type = lib.types.nullOr lib.types.path;
-        default = null;
-      };
 
       config = {
 

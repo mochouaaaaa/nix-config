@@ -44,7 +44,7 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.programs.firefox.enable)
+        lib.optionals config.home-manager.users.${username}.programs.firefox.enable
           [
             ".config/mozilla"
             ".cache/mozilla"

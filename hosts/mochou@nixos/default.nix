@@ -10,7 +10,8 @@
 
   imports = [
     self.modules.nixos.preservation
-    self.modules.nixos."desktop.hyprland"
+    # self.modules.nixos."desktop.hyprland"
+    self.modules.nixos."desktop.niri"
 
     # Host services are intentionally independent of the desktop environment.
     self.modules.nixos."services.proxy"

@@ -7,19 +7,19 @@
     {
       options.profiles.rime = {
         defaultCustomYaml = lib.mkOption {
-          type = yamkFormats.type;
+          inherit (yamkFormats) type;
           default = { };
           description = "Default custom YAML configuration.";
         };
 
         fcitx5CustomYaml = lib.mkOption {
-          type = yamkFormats.type;
+          inherit (yamkFormats) type;
           default = { };
           description = "Custom YAML configuration for Fcitx5.";
         };
 
         squirrelCustomYaml = lib.mkOption {
-          type = yamkFormats.type;
+          inherit (yamkFormats) type;
           default = { };
           description = "Custom YAML configuration for Squirrel.";
         };

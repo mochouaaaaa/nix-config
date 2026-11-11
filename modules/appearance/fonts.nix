@@ -63,7 +63,7 @@
             source-han-serif
           ];
 
-          fonts.fontconfig = lib.optionalAttrs (pkgs.stdenv.hostPlatform.isLinux) {
+          fonts.fontconfig = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
             defaultFonts = {
               serif = [
                 cfg.default
@@ -71,7 +71,7 @@
               ];
               sansSerif = [ cfg.sansSerif ];
               monospace = [ cfg.monospace ];
-              emoji = cfg.emoji;
+              inherit (cfg) emoji;
             };
           };
         }

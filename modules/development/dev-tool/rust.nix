@@ -1,19 +1,20 @@
 {
-  flake.modules.homeManager.development = { pkgs, config, ... }: {
+
+  flake.modules.homeManager."desktop.common" = { self, ... }: {
+    imports = [
+      self.modules.homeManager.development-rust
+    ];
+  };
+
+  flake.modules.homeManager.development-rust = { pkgs, config, ... }: {
 
     home.packages = [
       pkgs.rustup
     ];
 
-    programs.zsh.envExtra = ''
-      export CARGO_HOME="${config.xdg.dataHome}/cargo"
-      export RUSTUP_HOME="${config.xdg.dataHome}/rustup"
-    '';
-
-    programs = {
-      cargo = {
-        enable = false;
-      };
+    home.sessionVariables = {
+      CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
     };
 
   };

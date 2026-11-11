@@ -77,7 +77,7 @@
               name = "${config.profiles.fonts.default}";
               size = 16;
             };
-            extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" (cfg.extraConfig));
+            extraConfig = lib.mkOrder 900 (lib.concatStringsSep "\n" cfg.extraConfig);
             enableGitIntegration = true;
             shellIntegration = {
               enableZshIntegration = config.programs.zsh.enable;

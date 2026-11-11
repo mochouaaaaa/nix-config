@@ -105,14 +105,14 @@
               type = "udp_server";
               args = {
                 entry = "sequence";
-                listen = cfg.listen;
+                inherit (cfg) listen;
               };
             }
             {
               type = "tcp_server";
               args = {
                 entry = "sequence";
-                listen = cfg.listen;
+                inherit (cfg) listen;
               };
             }
 

@@ -8,7 +8,7 @@
     in
     {
       xdg.configFile."rules/swiftlint.yml" = lib.mkIf (settings != { }) {
-        source = (settingsFormat.generate "swiftlint.yml" settings);
+        source = settingsFormat.generate "swiftlint.yml" settings;
       };
     };
 }

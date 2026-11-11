@@ -1,15 +1,47 @@
 {
 
-  flake.modules.homeManager."desktop.common" = { pkgs, config, ... }: {
-
-    programs.mpv = {
-      scripts = [
-        pkgs.mpvScripts.mpris
+  flake.modules.homeManager."desktop.common" =
+    {
+      self,
+      pkgs,
+      config,
+      ...
+    }:
+    {
+      imports = [
+        self.modules.homeManager.programs-mpv
       ];
-    };
-    xdg.mimeApps.defaultApplicationPackages = [ config.programs.mpv.package ];
 
-  };
+      programs = {
+        mpv = {
+          scripts = [
+            pkgs.mpvScripts.mpris
+          ];
+        };
+        imv = {
+          enable = true;
+          settings = {
+            binds = {
+              "<h>" = "prev";
+              "<l>" = "next";
+              "<j>" = "zoom -1";
+              "<k>" = "zoom 1";
+              "<Space>" = "next";
+
+              "<0>" = "zoom actual";
+
+              "<f>" = "fullscreen";
+              "<r>" = "rotate by 90";
+            };
+          };
+        };
+      };
+      xdg.mimeApps.defaultApplicationPackages = [
+        config.programs.mpv.package
+        config.programs.imv.package
+      ];
+
+    };
 
   flake.modules.homeManager.programs-mpv = { pkgs, ... }: {
 

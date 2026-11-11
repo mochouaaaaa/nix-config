@@ -26,7 +26,7 @@
 
         settings = lib.mkOption {
           default = { };
-          type = formatYaml.type;
+          inherit (formatYaml) type;
         };
 
       };

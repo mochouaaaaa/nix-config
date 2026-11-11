@@ -6,15 +6,6 @@
       config,
       ...
     }:
-    let
-      # homeExpr =
-      #   if isNixos then
-      #     "(builtins.getFlake (toString ./.)).nixosConfigurations.\"${nixosSystemName}\".options.home-manager.users.type.getSubOptions []"
-      #   else if isNixDarwin then
-      #     "(builtins.getFlake (toString ./.)).darwinConfigurations.\"${nixDarwinSystemName}\".options.home-manager.users.type.getSubOptions []"
-      #   else
-      #     "(builtins.getFlake (toString ./.)).homeConfigurations.\"${homeManagerName}\".options";
-    in
     {
 
       programs = {

@@ -18,7 +18,7 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.services.remmina.enable)
+        lib.optionals config.home-manager.users.${username}.services.remmina.enable
           [
             # ======================================
             # Remote

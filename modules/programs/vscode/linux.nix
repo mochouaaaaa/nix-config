@@ -60,7 +60,7 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.programs.vscode.enable)
+        lib.optionals config.home-manager.users.${username}.programs.vscode.enable
           [
             # vscode
             ".vscode"

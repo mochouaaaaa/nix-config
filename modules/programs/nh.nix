@@ -5,7 +5,7 @@
       enable = true;
       flake = "${config.home.homeDirectory}/nix";
       clean = {
-        enable = enable;
+        inherit enable;
         dates = "weekly";
         extraArgs = "--keep-since 7d --keep 5";
       };

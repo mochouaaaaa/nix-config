@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.development = { pkgs, config, ... }: {
+  flake.modules.homeManager.development = _: {
 
     home.packages = [
       # pkgs.nodejs

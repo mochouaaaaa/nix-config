@@ -94,7 +94,7 @@
             (lib.concatMapStrings (u: "${toString u.uid}:${toString (100000 + u.uid * 65536)}:65536\n"))
           ];
         in
-        lib.optionalAttrs (config.services.userborn.enable) {
+        lib.optionalAttrs config.services.userborn.enable {
           "subuid" = {
             text = autosubs;
             # mode = "0444";

@@ -64,7 +64,7 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.programs.chromium.enable)
+        lib.optionals config.home-manager.users.${username}.programs.chromium.enable
           [
             ".config/chromium"
             ".cache/chromium"

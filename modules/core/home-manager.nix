@@ -19,7 +19,7 @@
 
         users.${username} = {
           home = {
-            username = username;
+            inherit username;
             homeDirectory = "/home/${username}";
           };
         };

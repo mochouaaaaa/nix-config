@@ -17,7 +17,7 @@ let
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      rev = nixpkgsInput.rev;
+      inherit (nixpkgsInput) rev;
     };
 
     channel.enable = false;
@@ -126,7 +126,7 @@ in
             "auto-allocate-uids"
           ];
         }
-        // lib.optionalAttrs (pkgs.stdenv.isAarch64) {
+        // lib.optionalAttrs pkgs.stdenv.isAarch64 {
           extra-platforms = "x86_64-darwin";
         };
       };

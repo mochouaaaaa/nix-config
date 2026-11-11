@@ -35,7 +35,7 @@
     services.dbus.packages = [ pkgs.gcr_3 ];
   };
 
-  flake.modules.darwin.services = { pkgs, ... }: {
+  flake.modules.darwin.services = _: {
     # services.gpg-agent.pinentry.package = pkgs.pinentry_mac;
   };
 }

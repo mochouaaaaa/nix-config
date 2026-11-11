@@ -86,7 +86,7 @@
                 {
                   name = "Shortcuts";
                   exact_match = true;
-                  remap = lib.mkMerge (cfg.global);
+                  remap = lib.mkMerge cfg.global;
                 }
               ];
           };

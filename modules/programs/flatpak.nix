@@ -72,7 +72,7 @@
       ];
 
       profiles.preservation =
-        lib.optionalAttrs (config.home-manager.users.${username}.services.flatpak.enable)
+        lib.optionalAttrs config.home-manager.users.${username}.services.flatpak.enable
           {
             users.${username}.directories = [
               ".local/share/containers"

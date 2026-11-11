@@ -50,7 +50,7 @@ let
     inherit inputs self;
     inherit (host) username platform;
     hostName = host.name;
-    myvars = config.myvars;
+    inherit (config) myvars;
   };
 
   # Standalone HM 使用的 nixpkgs
@@ -66,7 +66,7 @@ in
   flake = {
     # NixOS / NixOS-WSL
     nixosConfigurations = lib.mapAttrs (
-      name: host:
+      _name: host:
       inputs.nixpkgs.lib.nixosSystem {
         specialArgs = hostArgs host;
 
@@ -85,7 +85,7 @@ in
 
     # Darwin
     darwinConfigurations = lib.mapAttrs (
-      name: host:
+      _name: host:
       inputs.nix-darwin.lib.darwinSystem {
         specialArgs = hostArgs host;
 
@@ -102,7 +102,7 @@ in
 
     # Standalone Home Manager
     homeConfigurations = lib.mapAttrs (
-      name: host:
+      _name: host:
       inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = mkHomePkgs "x86_64-linux";
 

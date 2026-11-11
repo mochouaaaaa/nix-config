@@ -141,7 +141,7 @@
     }:
     {
       profiles.preservation =
-        lib.optionalAttrs (config.home-manager.users.${username}.programs.git.enable)
+        lib.optionalAttrs config.home-manager.users.${username}.programs.git.enable
           {
             users.${username}.directories = [
               ".config/github-copilot"

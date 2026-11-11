@@ -1,10 +1,18 @@
 {
 
-  flake.modules.homeManager.development-python = { pkgs, ... }: {
-    home.packages = [ ];
+  flake.modules.homeManager."desktop.common" = { self, pkgs, ... }: {
+
+    imports = [
+      self.modules.homeManager.development-python
+    ];
+
+    home.packages = [
+      pkgs.pycharm
+    ];
+
   };
 
-  flake.modules.homeManager.development = { lib, pkgs, ... }: {
+  flake.modules.homeManager.development-python = { lib, pkgs, ... }: {
 
     home.packages = [
       pkgs.playwright-driver.browsers
@@ -168,7 +176,7 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.programs.uv.enable)
+        lib.optionals config.home-manager.users.${username}.programs.uv.enable
           [
             ".local/share/uv"
           ];

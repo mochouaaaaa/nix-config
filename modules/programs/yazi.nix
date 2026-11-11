@@ -20,7 +20,7 @@
           chafa
           ueberzugpp
         ]
-        ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
           wl-clipboard
           evince
         ];
@@ -35,17 +35,17 @@
           enableBashIntegration = false;
           enableFishIntegration = false;
           plugins = with pkgs.yaziPlugins; {
-            git = git;
-            chmod = chmod;
-            ouch = ouch;
-            full-border = full-border;
-            duckdb = duckdb;
-            piper = piper;
-            vcs-files = vcs-files;
-            jump-to-char = jump-to-char;
-            smart-enter = smart-enter;
-            smart-filter = smart-filter;
-            smart-paste = smart-paste;
+            inherit git;
+            inherit chmod;
+            inherit ouch;
+            inherit full-border;
+            inherit duckdb;
+            inherit piper;
+            inherit vcs-files;
+            inherit jump-to-char;
+            inherit smart-enter;
+            inherit smart-filter;
+            inherit smart-paste;
           };
           theme = {
             git = {
@@ -63,7 +63,7 @@
             };
           };
         };
-        zsh.initContent = lib.optionalString (yazi.enable) ''
+        zsh.initContent = lib.optionalString yazi.enable ''
           if [[ -n "$YAZI_ID" ]]; then
               function _yazi_cd() {
                   ya emit cd "$PWD"

@@ -11,6 +11,17 @@
       ...
     }:
     {
+
+      devShell = {
+        packages = [
+          pkgs.age
+        ];
+        env = {
+          AGENIX_REKEY_ADD_TO_GIT = true;
+        };
+        nativeBuildInputs = [ config.agenix-rekey.package ];
+      };
+
       packages.agenix = config.agenix-rekey.package;
 
       agenix-rekey.nixosConfigurations = inputs.self.nixosConfigurations;
@@ -18,12 +29,6 @@
       agenix-rekey.homeConfigurations = inputs.self.homeConfigurations;
       agenix-rekey.collectHomeManagerConfigurations = true;
 
-      devShells.agenix = pkgs.mkShell {
-        nativeBuildInputs = [ config.agenix-rekey.package ];
-        env.AGENIX_REKEY_ADD_TO_GIT = true;
-
-        packages = [ pkgs.age ];
-      };
     };
 
 }

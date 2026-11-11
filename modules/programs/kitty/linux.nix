@@ -38,7 +38,7 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.programs.kitty.enable)
+        lib.optionals config.home-manager.users.${username}.programs.kitty.enable
           [
             ".config/kitty"
           ];

@@ -9,7 +9,10 @@
         enable = lib.mkEnableOption "KVM tuning (nested virtualization and optional MSR handling)";
 
         cpuVendor = lib.mkOption {
-          type = lib.types.enum [ "amd" "intel" ];
+          type = lib.types.enum [
+            "amd"
+            "intel"
+          ];
           default = "amd";
           description = "CPU vendor used to select the KVM kernel module.";
         };

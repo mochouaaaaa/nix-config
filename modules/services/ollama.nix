@@ -30,7 +30,7 @@
       ];
 
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.services.ollama.enable)
+        lib.optionals config.home-manager.users.${username}.services.ollama.enable
           [
             ".ollama"
           ];

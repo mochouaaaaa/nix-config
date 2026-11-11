@@ -9,30 +9,34 @@ let
 in
 {
 
+  flake.modules.homeManager.nixpkgs = { self, ... }: {
+    nixpkgs = {
+      inherit config;
+      overlays = [ self.overlays.home-manager ];
+    };
+  };
+
   flake.modules.nixos.core =
+    { self, username, ... }:
     {
-      self,
-      username,
-      ...
-    }:
-    {
+      home-manager.users.${username}.imports = [
+        self.modules.homeManager.nixpkgs
+      ];
 
       nixpkgs = {
-        config = config;
+        inherit config;
         overlays = [ self.overlays.nixos ];
       };
 
-      home-manager.users.${username} = {
-        nixpkgs = {
-          config = config;
-          overlays = [ self.overlays.home-manager ];
-        };
-      };
     };
 
-  flake.modules.darwin.core = { self, ... }: {
+  flake.modules.darwin.core = { self, username, ... }: {
+    home-manager.users.${username}.imports = [
+      self.modules.homeManager.nixpkgs
+    ];
+
     nixpkgs = {
-      config = config;
+      inherit config;
       overlays = [ self.overlays.darwin ];
     };
   };

@@ -2,7 +2,6 @@
   flake.modules.homeManager.programs-neovim =
     {
       pkgs,
-      osConfig,
       username,
       ...
     }:

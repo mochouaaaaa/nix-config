@@ -4,7 +4,7 @@
     home.packages = [
       pkgs.dbeaver-bin
     ]
-    ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       pkgs.tiny-rdm
     ];
 
