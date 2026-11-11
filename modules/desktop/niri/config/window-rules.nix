@@ -20,7 +20,7 @@
           window-rule._children = [
             {
               match._props = {
-                app-id = "^(org.gnome.Nautilus|nm-connection-editor)$";
+                app-id = "^(mpv|imv|org.gnome.Nautilus|org.gnome.Loupe|org.gnome.FileRoller|nm-connection-editor)$";
               };
             }
             {

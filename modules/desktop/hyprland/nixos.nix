@@ -14,7 +14,6 @@
     {
       imports = [
         self.modules.nixos."desktop.common"
-        self.modules.nixos."desktop.greeter.noctalia"
       ];
 
       programs.hyprland = {

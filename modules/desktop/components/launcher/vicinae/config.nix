@@ -1,6 +1,4 @@
 { inputs, ... }:
-let
-in
 {
   flake.modules.homeManager."desktop.launcher.vicinae" = { pkgs, config, ... }: {
 
@@ -108,7 +106,7 @@ in
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.programs.vicinae.enable)
+        lib.optionals config.home-manager.users.${username}.programs.vicinae.enable
           [
             ".local/state/vicinae"
             ".local/share/vicinae"

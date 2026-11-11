@@ -70,7 +70,7 @@
         };
       };
 
-      programs.emacs.extraConfig = lib.optionalString (config.programs.emacs.enable) ''
+      programs.emacs.extraConfig = lib.optionalString config.programs.emacs.enable ''
         (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
         (load-theme 'noctalia t)
       '';
@@ -159,42 +159,41 @@
           theme = {
             custom_palette = "summer-scene-light-fs";
             mode = "auto";
-            pure_black_dark = false;
+            pure_black_dark = true;
             source = "wallpaper";
             wallpaper_scheme = "m3-fruit-salad";
             enable_community_templates = true;
             templates = {
               builtin_ids = [
-                "alacritty"
-                "btop"
-                "cava"
                 "gtk3"
                 "gtk4"
                 "kcolorscheme"
-                "kitty"
                 "qt"
-                "wezterm"
-              ];
+              ]
+              ++ lib.optional config.programs.alacritty.enable "alacritty"
+              ++ lib.optional config.programs.cava.enable "cava"
+              ++ lib.optional config.programs.kitty.enable "kitty"
+              ++ lib.optional config.programs.wezterm.enable "wezterm"
+              ++ lib.optional config.programs.btop.enable "btop";
               community_ids = [
                 "feishin"
                 "spicetify"
-                "chromium-based"
                 "pywalfox"
-                "zen-browser"
-                "discord"
                 "telegram"
-                "obsidian"
-                "vscode"
-                "zed"
                 "steam"
-                "vicinae"
-                "obs"
                 "fcitx5"
-                "bat"
-                "fzf"
-                "lazygit"
-                "yazi"
-              ];
+              ]
+              ++ lib.optional config.programs.chromium.enable "chromium"
+              ++ lib.optional config.programs.yazi.enable "yazi"
+              ++ lib.optional config.programs.lazygit.enable "lazygit"
+              ++ lib.optional config.programs.fzf.enable "fzf"
+              ++ lib.optional config.programs.bat.enable "bat"
+              ++ lib.optional config.programs.vicinae.enable "vicinae"
+              ++ lib.optional config.programs.zed-editor.enable "zed"
+              ++ lib.optional config.programs.vscode.enable "vscode"
+              ++ lib.optional config.programs.obsidian.enable "obsidian"
+              ++ lib.optional config.programs.discord.enable "discord"
+              ++ lib.optional config.programs.obs-studio.enable "obs-studio";
             };
           };
         };

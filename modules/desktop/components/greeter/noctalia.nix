@@ -1,4 +1,17 @@
 {
+
+  flake.modules.nixos."desktop.hyprland" = { self, ... }: {
+    imports = [
+      self.modules.nixos."desktop.greeter.noctalia"
+    ];
+  };
+
+  flake.modules.nixos."desktop.niri" = { self, ... }: {
+    imports = [
+      self.modules.nixos."desktop.greeter.noctalia"
+    ];
+  };
+
   flake.modules.nixos."desktop.greeter.noctalia" =
     {
       pkgs,

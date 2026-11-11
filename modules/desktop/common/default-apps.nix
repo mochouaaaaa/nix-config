@@ -5,7 +5,7 @@
       # 按功能分组的包，便于维护
       documentViewers = [
         pkgs.evince # PDF/PostScript 查看器
-        pkgs.loupe # 图片查看器
+        # pkgs.loupe # 图片查看器
       ];
 
       fileManagers = [
@@ -29,10 +29,12 @@
     ];
   };
 
-  flake.modules.homeManager."desktop.kde" = {
+  flake.modules.homeManager."desktop.niri" = {
     imports = [
       self.modules.homeManager._default-apps
     ];
+    wayland.windowManager.niri.settings = {
+    };
   };
 
   flake.modules.homeManager."desktop.gnome" = {
