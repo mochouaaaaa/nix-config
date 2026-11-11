@@ -13,6 +13,7 @@
 
   flake.modules.nixos."desktop.common" = { self, username, ... }: {
     imports = [
+      self.modules.nixos.appearance
       self.modules.nixos.hardware
       self.modules.nixos."hardware.audio"
       self.modules.nixos."hardware.bluetooth"

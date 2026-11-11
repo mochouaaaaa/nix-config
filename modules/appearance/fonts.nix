@@ -3,6 +3,39 @@
     {
       lib,
       pkgs,
+      ...
+    }:
+    {
+
+      config = lib.mkMerge [
+        {
+          home.packages = with pkgs; [
+            inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
+            maple-mono.opentype
+            inter
+
+            # Icon fonts
+            fira-code
+            nerd-fonts.symbols-only
+
+            # General purpose fonts from former os/fonts.nix
+            noto-fonts
+            noto-fonts-cjk-sans
+            source-sans
+            source-serif
+            source-han-sans
+            source-han-serif
+          ];
+        }
+
+      ];
+
+    };
+
+  flake.modules.homeManager."desktop.common" =
+    {
+      lib,
+      pkgs,
       config,
       ...
     }:
@@ -12,11 +45,6 @@
     {
 
       options.profiles.fonts = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Whether to enable font configuration.";
-        };
         default = lib.mkOption {
           type = lib.types.str;
           default = "Monaco Nerd Font";
@@ -43,60 +71,43 @@
         };
       };
 
-      config = lib.mkMerge [
-        {
-          home.packages = with pkgs; [
-            inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
-            maple-mono.opentype
-            inter
+      config = {
+        home.packages = [
+          inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
+        ];
+        fonts.fontconfig = {
+          enable = true;
+          antialiasing = true;
 
-            # Icon fonts
-            fira-code
-            nerd-fonts.symbols-only
-
-            # General purpose fonts from former os/fonts.nix
-            noto-fonts
-            noto-fonts-cjk-sans
-            source-sans
-            source-serif
-            source-han-sans
-            source-han-serif
-          ];
-
-          fonts.fontconfig = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-            defaultFonts = {
-              serif = [
-                cfg.default
-                cfg.serif
-              ];
-              sansSerif = [ cfg.sansSerif ];
-              monospace = [ cfg.monospace ];
-              inherit (cfg) emoji;
-            };
+          defaultFonts = {
+            serif = [
+              cfg.default
+              cfg.serif
+            ];
+            sansSerif = [ cfg.sansSerif ];
+            monospace = [ cfg.monospace ];
+            inherit (cfg) emoji;
           };
-        }
-        (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-          home.packages = [
-            inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
-          ];
-          fonts.fontconfig = {
-            enable = true;
-            antialiasing = true;
-          };
-          # xdg.dataFile = {
-          #   "fonts".source = "/run/current-system/sw/share/X11/fonts";
-          # };
-        })
+        };
 
-      ];
-
+        # xdg.dataFile = {
+        #   "fonts".source = "/run/current-system/sw/share/X11/fonts";
+        # };
+      };
     };
 
-  flake.modules.nixos.default =
+  flake.modules.nixos."desktop.common" = { pkgs, ... }: {
+    fonts.packages = [
+      inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
+    ];
+  };
+
+  flake.modules.nixos.appearance =
     {
       lib,
-      pkgs,
       options,
+
+      username,
       ...
     }:
     {
@@ -106,9 +117,6 @@
           fonts = {
             fontDir.enable = true;
             enableDefaultPackages = false;
-            packages = [
-              inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
-            ];
             fontconfig = {
               useEmbeddedBitmaps = true;
               defaultFonts = {
@@ -128,10 +136,9 @@
           };
         }
         (lib.mkIf (options ? home-manager) {
-          home-manager.sharedModules = [
+          home-manager.users.${username}.imports = [
             {
               profiles.fonts = {
-                enable = lib.mkForce false;
                 default = lib.mkForce "Monaco Fira Nerd";
               };
             }
