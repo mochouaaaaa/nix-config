@@ -7,7 +7,6 @@
       self.modules.homeManager.shortcuts
       self.modules.homeManager."desktop.launcher.vicinae"
       self.modules.homeManager."desktop.programs"
-      # self.modules.homeManager."desktop.gui-tools"
     ];
   };
 
