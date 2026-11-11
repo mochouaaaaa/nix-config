@@ -13,11 +13,11 @@
   perSystem =
     { system, ... }:
     {
-      _module.args.pkgs = import (
-        if system == "x86_64-darwin" then inputs.nixpkgs-darwin else inputs.nixpkgs
-      ) {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      _module.args.pkgs =
+        import (if system == "x86_64-darwin" then inputs.nixpkgs-darwin else inputs.nixpkgs)
+          {
+            inherit system;
+            config.allowUnfree = true;
+          };
     };
 }

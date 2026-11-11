@@ -1,12 +1,8 @@
-{
-  inputs,
-  self,
-  ...
-}:
+_:
 
 {
   perSystem =
-    { pkgs, system, ... }:
+    { pkgs, ... }:
     {
       packages = {
         # 自定义包

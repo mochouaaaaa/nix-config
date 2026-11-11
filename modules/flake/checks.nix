@@ -1,6 +1,6 @@
 {
   perSystem =
-    { pkgs, config, ... }:
+    { config, ... }:
     {
       checks = {
         # 确保默认开发环境可以构建
