@@ -1,7 +1,7 @@
 {
   self,
   username,
-  platform,
+  hostName,
   system,
   ...
 }:
@@ -20,7 +20,7 @@
     self.modules.nixos."services.postgresql"
   ];
 
-  networking.hostName = platform;
+  networking.hostName = hostName;
   nixpkgs.hostPlatform = system;
 
   profiles.hardware.kvm = {
