@@ -2,7 +2,7 @@
 
   flake.modules.homeManager.darwin = { lib, ... }: {
     imports = [
-      self.modules.homeManager.programs-mpv
+      self.modules.homeManager."programs.mpv"
     ];
 
     programs.mpv.enable = lib.mkForce false;
