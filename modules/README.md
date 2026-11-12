@@ -27,16 +27,17 @@ modules/
 
 ## 模块命名
 
-模块文件的路径用于组织代码；导入时使用文件内注册的模块名。例如：
+模块文件的路径只用于组织源码；对外注册的 aspect 名称统一采用小写 kebab-case，并按功能域使用点号分层。模块类保持 flake-parts 的标准名称（`nixos`、`darwin`、`homeManager`），模块名以注册声明为准。例如：
 
 ```nix
 self.modules.nixos."desktop.hyprland"
 self.modules.homeManager."desktop.hyprland"
 self.modules.nixos."services.proxy"
 self.modules.homeManager.programs
+self.modules.homeManager."desktop.default-apps"
 ```
 
-带点号的模块名必须使用引号。不要根据文件路径猜测模块名，应以对应文件中的 `flake.modules` 声明为准。
+带点号的模块名必须作为单个属性名加引号；单段名称可直接使用标识符。不要使用 `_default-apps` 这类以下划线开头的临时名称作为公开模块名，也不要根据文件路径猜测模块名，应以对应文件中的 `flake.modules` 声明为准。
 
 ## 桌面环境组合
 
