@@ -1,7 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.common" = { self, pkgs, ... }: {
-
+  flake.modules.homeManager.development = { self, pkgs, ... }: {
     imports = [
       self.modules.homeManager."development.python"
     ];
@@ -9,7 +8,6 @@
     home.packages = [
       pkgs.pycharm
     ];
-
   };
 
   flake.modules.homeManager."development.python" = { lib, pkgs, ... }: {
