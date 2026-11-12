@@ -45,7 +45,7 @@
   };
 
   flake.modules.homeManager."desktop.kde" = {
-    profiles.packages.terminal.kitty.extraConfig = [ "# hide_window_decorations yes" ];
+    profiles.terminal.kitty.extraConfig = [ "# hide_window_decorations yes" ];
   };
 
 }
