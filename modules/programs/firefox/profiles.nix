@@ -279,10 +279,6 @@
 
     in
     {
-      imports = [
-        self.modules.homeManager."appearance.font-options"
-      ];
-
       programs.firefox = {
         enable = true;
         languagePacks = [ "zh-CN" ];
