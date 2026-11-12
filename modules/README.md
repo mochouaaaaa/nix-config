@@ -63,13 +63,13 @@ Home Manager 保留现有策略：Darwin 跟随系统 nixpkgs；NixOS 和 standa
 
 NixOS 使用所选 nixpkgs input 的 `lib.nixosSystem` 构造系统；内嵌 Home Manager 保持 `useGlobalPkgs = false`，并通过 `pkgsPath` 使用稳定版 nixpkgs。Darwin 通过 nix-darwin 的 `nixpkgs.source` 选择系统包源，Home Manager 保持 `useGlobalPkgs = true`，跟随 Darwin 系统包集。Standalone Home Manager 则直接从 `nixpkgs-stable` 导入 pkgs。
 
-主机配置负责声明磁盘、引导、网络等机器差异；通用功能应放在 `modules/`，不要复制到主机目录。不要使用 `builtins.getEnv` 隐式决定系统配置。
+主机配置负责声明磁盘、引导、网络等机器差异；通用功能应放在 `modules/`，不要复制到主机目录。不要使用 `builtins.getEnv` 隐式决定目标系统或 nixpkgs 来源；`NIX_CONFIG_CHECK` 仅用于显式切换轻量级检查模式。
 
 ## 修改后检查
 
 ```bash
 nix fmt
-nix flake check --no-build --impure --show-trace
+NIX_CONFIG_CHECK=1 nix flake check --no-build --impure --show-trace
 nix eval '.#nixosConfigurations."mochou@nixos".config.programs.hyprland.enable'
 ```
 
