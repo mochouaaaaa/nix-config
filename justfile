@@ -80,7 +80,7 @@ lint:
 
 [group('quality')]
 check:
-    {{NIX_ALLOW}} nix flake check "{{FLAKE}}" --no-build --impure --show-trace
+    NIX_CONFIG_CHECK=1 {{NIX_ALLOW}} nix flake check "{{FLAKE}}" --no-build --impure --show-trace
 
 [group('quality')]
 check-build:
