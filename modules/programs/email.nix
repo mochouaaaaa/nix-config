@@ -17,7 +17,7 @@
     in
     {
 
-      imports = [ self.modules.homeManager.programs-email ];
+      imports = [ self.modules.homeManager."programs.email" ];
 
       home.file.".thunderbird/${username}/chrome/thunderbird-gnome-theme".source =
         thunderbird-gnome-theme;
@@ -26,7 +26,7 @@
 
     };
 
-  flake.modules.homeManager.programs-email =
+  flake.modules.homeManager."programs.email" =
     {
       username,
       ...
