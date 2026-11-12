@@ -7,6 +7,10 @@ let
   };
 in
 {
+  # Shared system-level Home Manager integration settings.
+  flake.modules.nixos.home-manager-backup = homeManagerIntegration;
+  flake.modules.darwin.home-manager-backup = homeManagerIntegration;
+
   flake.modules.nixos.core =
     {
       self,
@@ -17,7 +21,7 @@ in
       ...
     }:
     {
-      imports = [ homeManagerIntegration ];
+      imports = [ self.modules.nixos.home-manager-backup ];
 
       home-manager = {
         # Home Manager shares the system package set; its version is selected
