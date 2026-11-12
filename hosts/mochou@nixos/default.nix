@@ -25,7 +25,7 @@
         age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECNEOhSUgaHrFy8WYaHcFTTyeBDaS2bNXj/mE7RCkGo";
       }
     ];
-    users.\${username} = {
+    users.${username} = {
       imports = [
         self.modules.homeManager.agenix
         self.modules.homeManager.core
