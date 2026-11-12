@@ -2,7 +2,6 @@
 {
   flake.modules.homeManager."desktop.common" = {
     imports = [
-      self.modules.homeManager.workstation
       self.modules.homeManager.rime
       self.modules.homeManager.appearance
       self.modules.homeManager.shortcuts
