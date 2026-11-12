@@ -9,7 +9,7 @@
     }:
     {
       imports = [
-        self.modules.homeManager.programs-mpv
+        self.modules.homeManager."programs.mpv"
       ];
 
       programs = {
@@ -43,7 +43,7 @@
 
     };
 
-  flake.modules.homeManager.programs-mpv = { pkgs, ... }: {
+  flake.modules.homeManager."programs.mpv" = { pkgs, ... }: {
 
     programs.mpv = {
       enable = true;
