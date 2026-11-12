@@ -25,6 +25,8 @@
         mimeApps.enable = true;
 
         portal = {
+          enable = true;
+
           config = {
             common = {
               default = [ "gtk" ];
