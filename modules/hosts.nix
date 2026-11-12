@@ -105,7 +105,6 @@ let
       inherit (host)
         username
         hostName
-        platform
         system
         nixpkgsInput
         homeManagerNixpkgsInput
