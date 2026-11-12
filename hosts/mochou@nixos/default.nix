@@ -11,8 +11,8 @@
 
   imports = [
     self.modules.nixos.preservation
-    # self.modules.nixos."desktop.hyprland"
-    self.modules.nixos."desktop.niri"
+    self.modules.nixos."desktop.hyprland"
+    # self.modules.nixos."desktop.niri"
 
     self.modules.nixos."services.proxy"
     self.modules.nixos."services.mysql"
