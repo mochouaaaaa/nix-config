@@ -50,7 +50,6 @@
         enable = true;
         enableBashIntegration = false;
         enableZshIntegration = false;
-        enableNushellIntegration = false;
         tmux = {
           enableShellIntegration = true;
           shellIntegrationOptions = [ "-p 90%,80%" ];
