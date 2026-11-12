@@ -1,3 +1,11 @@
+let
+  homeManagerIntegration = {
+    home-manager = {
+      backupFileExtension = "home-manager.backup";
+      overwriteBackup = true;
+    };
+  };
+in
 {
   flake.modules.nixos.core =
     {
@@ -9,14 +17,13 @@
       ...
     }:
     {
+      imports = [ homeManagerIntegration ];
+
       home-manager = {
         # Home Manager shares the system package set; its version is selected
         # independently through the host's "home-manager" flake input.
         useGlobalPkgs = true;
         useUserPackages = false;
-
-        backupFileExtension = "home-manager.backup";
-        overwriteBackup = true;
 
         users.${username} = {
           home = {
