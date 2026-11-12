@@ -20,6 +20,13 @@
       enable = true;
       systemd.enable = true;
       settings = {
+        desktop_widgets = {
+          enabled = false;
+        };
+        control_center = {
+          sidebar = "full";
+          sidebar_section = "full";
+        };
         accessibility = {
           high_contrast = false;
           ui_scale = 1.0;

@@ -14,25 +14,29 @@
 
   flake.modules.nixos."desktop.greeter.noctalia" =
     {
+      lib,
       pkgs,
       ...
     }:
     {
 
-      services.displayManager.noctalia-greeter = {
-        enable = true;
-        cursorTheme = {
-          name = "Bibata-Modern-Ice";
-          package = pkgs.bibata-cursors;
-        };
-        settings = {
-          cursor = {
-            theme = "Bibata-Modern-Ice";
-            size = 24;
-            path = "${pkgs.bibata-cursors}/share/icons";
+      services.displayManager = {
+        gdm.enable = lib.mkForce false;
+        noctalia-greeter = {
+          enable = true;
+          cursorTheme = {
+            name = "Bibata-Modern-Ice";
+            package = pkgs.bibata-cursors;
           };
-          keyboard = {
-            layout = "us";
+          settings = {
+            cursor = {
+              theme = "Bibata-Modern-Ice";
+              size = 24;
+              path = "${pkgs.bibata-cursors}/share/icons";
+            };
+            keyboard = {
+              layout = "us";
+            };
           };
         };
       };

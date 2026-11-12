@@ -12,12 +12,17 @@
           fill_mode = "fit";
           per_monitor_directories = false;
           transition = [
-            "fade"
-            "wipe"
+            "diamond"
             "disc"
-            "stripes"
-            "zoom"
+            "fade"
+            "golden"
             "honeycomb"
+            "melt"
+            "pixel"
+            "stripes"
+            "vortex"
+            "wipe"
+            "zoom"
           ];
           transition_duration = 1500.0;
           transition_on_startup = false;
