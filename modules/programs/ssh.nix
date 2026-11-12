@@ -34,7 +34,9 @@
 
     programs.ssh = {
       matchBlocks."github.com" = {
-        useKeychain = "yes";
+        extraOptions = {
+          UseKeychain = "yes";
+        };
       };
     };
 
