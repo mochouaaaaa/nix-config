@@ -78,7 +78,6 @@
 
   flake.modules.nixos.appearance =
     {
-      self,
       lib,
       options,
       username,
@@ -109,12 +108,7 @@
           };
         }
         (lib.mkIf (options ? home-manager) {
-          home-manager.users.${username}.imports = [
-            self.modules.homeManager."appearance.font-options"
-            {
-              profiles.fonts.default = lib.mkForce "Monaco Fira Nerd";
-            }
-          ];
+          home-manager.users.${username}.profiles.fonts.default = lib.mkForce "Monaco Fira Nerd";
         })
       ];
     };
