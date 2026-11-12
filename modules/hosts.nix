@@ -35,11 +35,15 @@ let
     in
     {
       username = builtins.elemAt parts 0;
-      inherit platform system name;
+      inherit platform pkgsSystem name;
       path = hostsDir + "/${name}";
     };
 
-  hosts = lib.mapAttrs (name: _: parseHost name) hostNames;
+  parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
+
+  # Force validation for every discovered directory, including platforms that
+  # would otherwise be silently excluded from all configuration outputs.
+  hosts = builtins.deepSeq (map (host: host.system) (lib.attrValues parsedHosts)) parsedHosts;
 
   selectHosts = platforms: lib.filterAttrs (_: host: builtins.elem host.platform platforms) hosts;
 
@@ -54,7 +58,7 @@ let
 
   hostArgs = host: {
     inherit inputs self;
-    inherit (host) username platform system;
+    inherit (host) username platform pkgsSystem;
     hostName = host.name;
     inherit (config) myvars;
   };
@@ -106,7 +110,7 @@ in
     homeConfigurations = lib.mapAttrs (
       _name: host:
       inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = mkHomePkgs host.system;
+        pkgs = mkHomePkgs host.pkgsSystem;
 
         extraSpecialArgs = hostArgs host;
 
