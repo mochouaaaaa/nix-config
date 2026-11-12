@@ -13,7 +13,6 @@
 
       programs.zsh = {
         autosuggestion.enable = true;
-        fastSyntaxHighlighting.enable = true;
         initContent = lib.mkAfter ''
           source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
           source ${./p10k.zsh}
@@ -26,7 +25,13 @@
 
           # source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
         '';
-        plugins = [ ];
+        plugins = [
+          {
+            name = "fast-syntax-highlighting";
+            src = pkgs.zsh-fast-syntax-highlighting;
+            file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
+          }
+        ];
       };
 
     };
