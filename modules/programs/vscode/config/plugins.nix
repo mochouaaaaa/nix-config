@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.programs-vscode =
+  flake.modules.homeManager."programs.vscode" =
     { pkgs, ... }:
     let
       inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
