@@ -71,8 +71,6 @@ let
     {
       username = builtins.elemAt parts 0;
       hostName = builtins.elemAt parts 1;
-      # Keep the old argument available for existing modules; it now means hostname.
-      platform = builtins.elemAt parts 1;
       inherit name class system nixosWsl;
 
       nixpkgsInput = if nixpkgsInput == null then null else checkInput nixpkgsInput;
