@@ -34,6 +34,6 @@
   flake.modules.darwin.programs =
     { lib, pkgs, ... }:
     lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-darwin") {
-      homebrew.casks = [ "visual-studio-code" ];
+      # homebrew.casks = [ "visual-studio-code" ];
     };
 }
