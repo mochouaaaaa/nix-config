@@ -10,7 +10,7 @@
     ];
   };
 
-  flake.modules.nixos."desktop.common" = { self, username, ... }: {
+  flake.modules.nixos."desktop.common" = { self, pkgs, username, ... }: {
     imports = [
       self.modules.nixos.appearance
       self.modules.nixos.hardware
@@ -22,7 +22,10 @@
 
     # Enable the system portal service; Home Manager supplies the user's
     # compositor-specific portal configuration and backend packages.
-    xdg.portal.enable = true;
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
 
     home-manager.users.${username}.imports = [
       self.modules.homeManager."desktop.common"
