@@ -27,17 +27,21 @@ modules/
 
 ## 模块命名
 
-模块文件的路径只用于组织源码；对外注册的 aspect 名称统一采用小写 kebab-case，并按功能域使用点号分层。模块类保持 flake-parts 的标准名称（`nixos`、`darwin`、`homeManager`），模块名以注册声明为准。例如：
+模块文件的路径只用于组织源码；对外注册的 aspect 名称统一采用小写 kebab-case；有明确功能域的模块统一使用 `域.功能` 点号分层，避免把域名和功能名用连字符拼在一起。聚合入口（如 `programs`、`development`、`desktop.common`）可以保留短名称。模块类保持 flake-parts 的标准名称（`nixos`、`darwin`、`homeManager`），模块名以注册声明为准。例如：
 
 ```nix
 self.modules.nixos."desktop.hyprland"
 self.modules.homeManager."desktop.hyprland"
 self.modules.nixos."services.proxy"
 self.modules.homeManager.programs
+self.modules.homeManager."programs.mpv"
+self.modules.homeManager."programs.email"
+self.modules.homeManager."services.ollama"
+self.modules.homeManager."core.session-variables"
 self.modules.homeManager."desktop.default-apps"
 ```
 
-带点号的模块名必须作为单个属性名加引号；单段名称可直接使用标识符。不要使用 `_default-apps` 这类以下划线开头的临时名称作为公开模块名，也不要根据文件路径猜测模块名，应以对应文件中的 `flake.modules` 声明为准。
+带点号的模块名必须作为单个属性名加引号；单段聚合名称可直接使用标识符。不要使用 `programs-mpv`、`services-ollama` 这类把域名与功能名混在一起的公开名称，也不要使用 `_default-apps` 这类临时名称。不要根据文件路径猜测模块名，应以对应文件中的 `flake.modules` 声明为准。
 
 ## 桌面环境组合
 
@@ -47,7 +51,7 @@ self.modules.homeManager."desktop.default-apps"
 
 ## 主机约定
 
-主机目录名采用 `<username>@<platform>`，例如 `mochou@nixos`。`modules/hosts.nix` 集中维护 platform 到包集架构的 `pkgsSystem` 映射；新增平台时必须同步登记，未登记的平台会在 flake 求值时直接报错，避免主机目录被静默忽略。Standalone Home Manager 使用该映射选择 nixpkgs，不再在主机组装逻辑中硬编码 `x86_64-linux`。主机配置负责：
+主机目录名采用 `<username>@<platform>`，例如 `mochou@nixos`。`modules/hosts.nix` 集中维护 platform 元数据，包括输出类别（NixOS、Darwin 或 standalone Home Manager）和包集架构 `system`；新增平台时必须登记，未登记的平台会在 flake 求值时直接报错，避免主机目录被静默忽略。一个 platform key 对应一种架构；同一 OS 家族需要支持另一架构时，新增明确的 platform key。Standalone Home Manager 使用该映射选择 nixpkgs，不再在主机组装逻辑中硬编码 `x86_64-linux`。主机配置负责：
 
 - 声明 `nixpkgs.hostPlatform`、磁盘、引导、网络等机器差异；`pkgsSystem` 是包集架构元数据，不替代主机模块中的 `nixpkgs.hostPlatform`；
 - 导入桌面入口和主机需要的服务；
@@ -61,6 +65,7 @@ self.modules.homeManager."desktop.default-apps"
 ```bash
 nix fmt
 nix flake check --no-build --impure --show-trace
+# host-evaluations 会评估所有 NixOS、Darwin 与 standalone Home Manager 主机
 nix eval '.#nixosConfigurations."mochou@nixos".config.programs.hyprland.enable'
 ```
 
