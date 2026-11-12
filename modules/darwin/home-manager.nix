@@ -1,9 +1,22 @@
 {
-  flake.modules.darwin.home-manager = {
-    # Reuse nix-darwin's pkgs (nixpkgs-darwin 26.05) instead of letting
-    # Home Manager instantiate its follows=nixpkgs unstable input on Intel Mac.
-    nixpkgs.config.allowUnfree = true;
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-  };
+  flake.modules.darwin.home-manager =
+    {
+      inputs,
+      lib,
+      homeManagerNixpkgsInput,
+      ...
+    }:
+    {
+      nixpkgs.config.allowUnfree = true;
+
+      # Keep Home Manager's package set independent from the OS package set.
+      home-manager.useGlobalPkgs = false;
+      home-manager.useUserPackages = true;
+
+      home-manager.sharedModules = [
+        {
+          _module.args.pkgsPath = lib.mkForce inputs.${homeManagerNixpkgsInput}.outPath;
+        }
+      ];
+    };
 }
