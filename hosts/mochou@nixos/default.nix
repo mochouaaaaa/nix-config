@@ -40,9 +40,9 @@
       imports = [
         self.modules.homeManager.agenix
         self.modules.homeManager.core
-        self.modules.homeManager.linux
         self.modules.homeManager.programs
-        self.modules.homeManager.development
+        self.modules.homeManager.workstation
+        self.modules.homeManager.linux
       ];
     };
   };
