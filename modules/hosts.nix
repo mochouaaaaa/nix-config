@@ -9,13 +9,14 @@
 let
   hostsDir = ../hosts;
 
-  # Keep host platform identifiers and their package-set systems in one place.
-  # Add a distinct platform key when introducing another architecture.
-  platformSystems = {
-    nixos = "x86_64-linux";
-    nixos-wsl = "x86_64-linux";
-    darwin = "x86_64-darwin";
-    wsl = "x86_64-linux";
+  # Platform metadata is the single source of truth for host output class and
+  # package-set architecture. Add a distinct key when an OS family needs another
+  # architecture.
+  platforms = {
+    nixos = { class = "nixos"; system = "x86_64-linux"; };
+    nixos-wsl = { class = "nixos"; system = "x86_64-linux"; };
+    darwin = { class = "darwin"; system = "x86_64-darwin"; };
+    wsl = { class = "home"; system = "x86_64-linux"; };
   };
 
   # Automatically discover host directories.
@@ -27,15 +28,17 @@ let
       parts = lib.splitString "@" name;
       valid = builtins.length parts == 2 && builtins.all (part: part != "") parts;
       platform = if valid then builtins.elemAt parts 1 else null;
-      pkgsSystem =
+      platformInfo =
         if valid then
-          platformSystems.${platform} or (throw "Unsupported platform '${platform}' in host '${name}'. Add it to platformSystems in modules/hosts.nix.")
+          platforms.${platform} or (throw "Unsupported platform '${platform}' in host '${name}'. Add it to platforms in modules/hosts.nix.")
         else
           throw "Invalid host directory '${name}', expected <username>@<platform>";
     in
     {
       username = builtins.elemAt parts 0;
-      inherit platform pkgsSystem name;
+      inherit platform name;
+      inherit (platformInfo) class;
+      pkgsSystem = platformInfo.system;
       path = hostsDir + "/${name}";
     };
 
@@ -45,16 +48,11 @@ let
   # would otherwise be silently excluded from all configuration outputs.
   hosts = builtins.deepSeq (map (host: host.pkgsSystem) (lib.attrValues parsedHosts)) parsedHosts;
 
-  selectHosts = platforms: lib.filterAttrs (_: host: builtins.elem host.platform platforms) hosts;
+  selectHosts = class: lib.filterAttrs (_: host: host.class == class) hosts;
 
-  nixosHosts = selectHosts [
-    "nixos"
-    "nixos-wsl"
-  ];
-
-  darwinHosts = selectHosts [ "darwin" ];
-
-  homeHosts = selectHosts [ "wsl" ];
+  nixosHosts = selectHosts "nixos";
+  darwinHosts = selectHosts "darwin";
+  homeHosts = selectHosts "home";
 
   hostArgs = host: {
     inherit inputs self;
