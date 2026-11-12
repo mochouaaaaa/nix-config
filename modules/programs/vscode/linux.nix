@@ -1,17 +1,12 @@
 {
-  flake.modules.homeManager."desktop.common" =
+  flake.modules.homeManager.linux =
     {
-      self,
       lib,
       pkgs,
       config,
       ...
     }:
     {
-
-      imports = [
-        self.modules.homeManager."programs.vscode"
-      ];
 
       programs.vscode = {
         enable = true;
