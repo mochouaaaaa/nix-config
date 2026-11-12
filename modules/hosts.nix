@@ -13,10 +13,22 @@ let
   # package-set architecture. Add a distinct key when an OS family needs another
   # architecture.
   platforms = {
-    nixos = { class = "nixos"; system = "x86_64-linux"; };
-    nixos-wsl = { class = "nixos"; system = "x86_64-linux"; };
-    darwin = { class = "darwin"; system = "x86_64-darwin"; };
-    wsl = { class = "home"; system = "x86_64-linux"; };
+    nixos = {
+      class = "nixos";
+      system = "x86_64-linux";
+    };
+    nixos-wsl = {
+      class = "nixos";
+      system = "x86_64-linux";
+    };
+    darwin = {
+      class = "darwin";
+      system = "x86_64-darwin";
+    };
+    wsl = {
+      class = "home";
+      system = "x86_64-linux";
+    };
   };
 
   # Automatically discover host directories.
