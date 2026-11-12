@@ -1,42 +1,31 @@
 {
-  self,
-  username,
-  platform,
-  pkgsSystem,
-  ...
+  self, username, platform, system, ...
 }:
-
 {
   profiles.preservation.enable = true;
-
   imports = [
     self.modules.nixos.preservation
     # self.modules.nixos."desktop.hyprland"
     self.modules.nixos."desktop.niri"
-
-    # Host services are intentionally independent of the desktop environment.
     self.modules.nixos."services.proxy"
     self.modules.nixos."services.mysql"
     self.modules.nixos."services.redis"
     self.modules.nixos."services.postgresql"
   ];
-
   networking.hostName = platform;
-  nixpkgs.hostPlatform = pkgsSystem;
-
+  nixpkgs.hostPlatform = system;
   profiles.hardware.kvm = {
     enable = true;
     cpuVendor = "amd";
     ignoreMsrs = true;
   };
-
   home-manager = {
     sharedModules = [
       {
         age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECNEOhSUgaHrFy8WYaHcFTTyeBDaS2bNXj/mE7RCkGo";
       }
     ];
-    users.${username} = {
+    users.\${username} = {
       imports = [
         self.modules.homeManager.agenix
         self.modules.homeManager.core
