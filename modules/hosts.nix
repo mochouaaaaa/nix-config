@@ -52,12 +52,12 @@ let
 
     darwin = {
       nixpkgs = "nixpkgs-darwin";
-      homeManager = "nixpkgs-darwin";
+      homeManager = "system";
     };
 
     darwin-aarch64 = {
       nixpkgs = "nixpkgs";
-      homeManager = "nixpkgs";
+      homeManager = "system";
     };
 
     wsl = {
@@ -86,9 +86,16 @@ let
 
       nixpkgsInput = packageSetInfo.nixpkgs or null;
 
+      homeManagerInput = packageSetInfo.homeManager or "system";
+
       homeManagerNixpkgsInput =
-        packageSetInfo.homeManager
-          or (throw "Missing homeManager package set for platform '${platform}'.");
+        if homeManagerInput == "system" then
+          if nixpkgsInput == null then
+            throw "Platform '${platform}' must define homeManager explicitly because it has no system nixpkgs input."
+          else
+            nixpkgsInput
+        else
+          homeManagerInput;
 
       checkInput =
         inputName:
