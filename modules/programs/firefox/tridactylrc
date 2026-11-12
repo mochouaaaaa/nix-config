@@ -1,0 +1,92 @@
+
+" ==========================================
+" Tridactyl - Vim configuration
+" ==========================================
+
+" ---------- General ----------
+colors dark
+
+set searchengine google
+set newtab about:blank
+
+" Hint behavior
+set hintfiltermode vimperator-reflow
+
+" Clipboard
+set yankto clipboard
+set putfrom clipboard
+
+" ---------- Scrolling ----------
+bind j scrollline 5
+bind k scrollline -5
+
+bind h scrollpx -100
+bind l scrollpx 100
+
+bind gg scrollto 0
+bind G scrollto 100
+
+" Half-page scrolling
+bind <C-d> scrollpage 0.5
+bind <C-u> scrollpage -0.5
+
+" Full-page scrolling
+bind <C-f> scrollpage 1
+bind <C-b> scrollpage -1
+
+" ---------- Find ----------
+bind / fillcmdline find
+bind ? fillcmdline find --reverse
+
+bind n findnext
+bind N findnext --reverse
+
+" ---------- Hints ----------
+bind f hint
+bind F hint -t
+
+" ---------- Tabs ----------
+bind J tabprev
+bind K tabnext
+
+bind gt tabnext
+bind gT tabprev
+
+bind x tabclose
+bind X undo
+
+bind t fillcmdline tabopen
+bind T fillcmdline tabopen -b
+
+bind d tabclose
+
+" ---------- Navigation ----------
+bind H back
+bind L forward
+
+bind r reload
+bind R reloadhard
+
+bind u undo
+bind <C-r> redo
+
+" ---------- Clipboard ----------
+bind yy yank
+bind p open clipboard
+bind P tabopen clipboard
+
+" ---------- Search ----------
+bind o fillcmdline open
+bind O fillcmdline tabopen
+
+" ---------- External editor ----------
+" Use kitty + Neovim for editable text fields
+set editorcmd kitty -e nvim
+
+" Use Ctrl-i to open the external editor in insert mode
+bind --mode=insert <C-i> editor
+bind --mode=input <C-i> editor
+
+" ---------- Misc ----------
+bind <Esc> nohlsearch
+

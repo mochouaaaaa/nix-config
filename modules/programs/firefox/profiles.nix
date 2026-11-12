@@ -283,7 +283,6 @@
         enable = true;
 
         languagePacks = [ "zh-CN" ];
-        nativeMessagingHosts = [ ];
 
         profiles.${username} = {
           isDefault = true;

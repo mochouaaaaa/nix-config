@@ -76,7 +76,8 @@
             # nopecha-plugin
             rycee-addons.tampermonkey
             rycee-addons.ublock-origin
-            rycee-addons.vimium
+            # rycee-addons.vimium
+            rycee-addons.tridactyl
             # rycee-addons.xbrowsersync
             rycee-addons.duckduckgo-privacy-essentials
           ];
@@ -100,24 +101,50 @@
               "notifications"
               "file:///*"
             ];
-            #vim
-            "{d7742d87-e61d-4b78-b8a1-b469842139fa}".permissions = [
-              "tabs"
+            "tridactyl.vim@cmcaine.co.uk".permissions = [
+              "activeTab"
               "bookmarks"
-              "history"
-              "storage"
-              "sessions"
-              "notifications"
-              "scripting"
-              "favicon"
-              "webNavigation"
-              "search"
-              "clipboardRead"
+              "browsingData"
+              "contextMenus"
+              "contextualIdentities"
+              "cookies"
               "clipboardWrite"
+              "clipboardRead"
+              "downloads"
+              "find"
+              "history"
+              "search"
+              "sessions"
+              "storage"
+              "tabHide"
+              "tabs"
+              "topSites"
+              "management"
+              "nativeMessaging"
+              "webNavigation"
+              "webRequest"
+              "webRequestBlocking"
+              "proxy"
               "<all_urls>"
-              "file:///"
-              "file:///*/"
             ];
+            #vim
+            # "{d7742d87-e61d-4b78-b8a1-b469842139fa}".permissions = [
+            #   "tabs"
+            #   "bookmarks"
+            #   "history"
+            #   "storage"
+            #   "sessions"
+            #   "notifications"
+            #   "scripting"
+            #   "favicon"
+            #   "webNavigation"
+            #   "search"
+            #   "clipboardRead"
+            #   "clipboardWrite"
+            #   "<all_urls>"
+            #   "file:///"
+            #   "file:///*/"
+            # ];
             "addon@bewlybewly.com" = {
               force = true;
               # permissions = [
