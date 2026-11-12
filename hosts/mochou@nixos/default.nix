@@ -38,9 +38,7 @@
 
     users.${username} = {
       imports = [
-        self.modules.homeManager.agenix
-        self.modules.homeManager.core
-        self.modules.homeManager.programs
+        self.modules.homeManager.host
         self.modules.homeManager.linux
       ];
     };
