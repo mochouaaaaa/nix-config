@@ -3,10 +3,8 @@
     { config, ... }:
     {
       checks = {
-        # Verify formatting and the enabled Nix static-analysis tools.
-        formatting = config.treefmt.build.check config.treefmt.projectRoot;
-
-        # Ensure the default development environment can be built.
+        # treefmt-nix registers its formatting check automatically.
+        # Keep the additional project-specific build check here.
         devshell = config.devShells.default;
       };
     };
