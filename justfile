@@ -13,7 +13,7 @@ set shell := ["bash", "-cu"]
 # The repository containing this justfile.
 FLAKE := env_var_or_default("NH_FLAKE", justfile_directory())
 
-# Host directory name under hosts/<username>@<platform>/.
+# Host directory name under hosts/<username>@<hostname>/.
 # Override with NH_HOST when operating on another host.
 HOST := env_var_or_default("NH_HOST", "mochou@nixos")
 
