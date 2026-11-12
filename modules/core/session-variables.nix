@@ -2,7 +2,7 @@
 
   flake.modules.homeManager.darwin = {
     imports = [
-      self.modules.homeManager.session-variables
+      self.modules.homeManager."core.session-variables"
     ];
   };
 
@@ -13,7 +13,7 @@
     in
     {
       imports = [
-        self.modules.homeManager.session-variables
+        self.modules.homeManager."core.session-variables"
       ];
 
       home.sessionVariables = {
@@ -21,7 +21,7 @@
       };
     };
 
-  flake.modules.homeManager.session-variables =
+  flake.modules.homeManager."core.session-variables" =
     {
 
       config,
