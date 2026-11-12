@@ -13,7 +13,7 @@ let
 
   selectNixpkgs =
     class: system:
-    if class != "home" && system == "x86_64-darwin" then
+    if class == "darwin" && system == "x86_64-darwin" then
       "nixpkgs-darwin"
     else if class == "home" then
       null
@@ -34,7 +34,12 @@ let
           throw "Invalid host directory '${name}', expected <username>@<hostname>";
 
       hostClass = metadata.class or (throw "Missing 'class' in ${metadataPath}.");
-      system = metadata.system or (throw "Missing 'system' in ${metadataPath}.");
+      rawSystem = metadata.system or (throw "Missing 'system' in ${metadataPath}.");
+      system =
+        if builtins.isString rawSystem && rawSystem != "" then
+          rawSystem
+        else
+          throw "'system' in ${metadataPath} must be a non-empty string.";
 
       class =
         if builtins.elem hostClass [ "nixos" "darwin" "home" ] then
@@ -42,17 +47,10 @@ let
         else
           throw "Unsupported class '${hostClass}' in ${metadataPath}; expected nixos, darwin or home.";
 
-      nixosWsl = metadata.nixosWsl or false;
-
-      _validateSystem =
-        if builtins.isString system && system != "" then
-          true
-        else
-          throw "'system' in ${metadataPath} must be a non-empty string.";
-
-      _validateNixosWsl =
-        if builtins.isBool nixosWsl then
-          true
+      rawNixosWsl = metadata.nixosWsl or false;
+      nixosWsl =
+        if builtins.isBool rawNixosWsl then
+          rawNixosWsl
         else
           throw "'nixosWsl' in ${metadataPath} must be a boolean.";
 
@@ -132,7 +130,6 @@ let
       nixosWsl
       nixpkgsInput
       homeManagerNixpkgsInput
-      nixosWsl
       ;
   }) hosts;
 
