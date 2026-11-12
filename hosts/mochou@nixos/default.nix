@@ -2,6 +2,7 @@
   self,
   username,
   platform,
+  pkgsSystem,
   ...
 }:
 
@@ -18,11 +19,10 @@
     self.modules.nixos."services.mysql"
     self.modules.nixos."services.redis"
     self.modules.nixos."services.postgresql"
-
   ];
 
   networking.hostName = platform;
-  nixpkgs.hostPlatform = "x86_64-linux";
+  nixpkgs.hostPlatform = pkgsSystem;
 
   profiles.hardware.kvm = {
     enable = true;
@@ -46,5 +46,4 @@
       ];
     };
   };
-
 }
