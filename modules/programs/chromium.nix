@@ -1,7 +1,7 @@
 { self, ... }: {
 
   flake.modules.homeManager."desktop.common" = {
-    imports = [ self.modules.homeManager.programs-chromium ];
+    imports = [ self.modules.homeManager."programs.chromium" ];
 
     programs.chromium = {
       extensions = [
@@ -35,7 +35,7 @@
     };
   };
 
-  flake.modules.homeManager.programs-chromium = {
+  flake.modules.homeManager."programs.chromium" = {
 
     programs.chromium = {
       enable = true;
