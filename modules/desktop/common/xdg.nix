@@ -22,29 +22,22 @@
           extraConfig.SCREENSHOTS = "${config.xdg.userDirs.pictures}/Screenshots";
         };
 
-        configFile."mimeapps.list".force = true;
-
         mimeApps.enable = true;
 
         portal = {
-          # enable = lib.mkDefault true;
-
           config = {
             common = {
               default = [ "gtk" ];
               "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-              # 只在安装了 xdg-desktop-portal-gnome 的主机上保留
-              # "org.freedesktop.impl.portal.RemoteDesktop" = [ "gnome" ];
             };
           };
 
           xdgOpenUsePortal = true;
 
+          # The compositor-specific module adds its own portal backend.
           extraPortals = with pkgs; [
-            xdg-desktop-portal
             xdg-desktop-portal-gtk
           ];
-
         };
       };
     };
