@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.services-ollama = {
+  flake.modules.homeManager."services.ollama" = {
     services.ollama = {
       enable = true;
     };
@@ -26,7 +26,7 @@
     }:
     {
       home-manager.users.${username}.imports = [
-        self.modules.homeManager.services-ollama
+        self.modules.homeManager."services.ollama"
       ];
 
       profiles.preservation.users.${username}.directories =
