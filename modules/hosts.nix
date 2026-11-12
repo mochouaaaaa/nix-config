@@ -27,7 +27,7 @@ let
       parts = lib.splitString "@" name;
       valid = builtins.length parts == 2 && builtins.all (part: part != "") parts;
       platform = if valid then builtins.elemAt parts 1 else null;
-      system =
+      pkgsSystem =
         if valid then
           platformSystems.${platform} or (throw "Unsupported platform '${platform}' in host '${name}'. Add it to platformSystems in modules/hosts.nix.")
         else
@@ -43,7 +43,7 @@ let
 
   # Force validation for every discovered directory, including platforms that
   # would otherwise be silently excluded from all configuration outputs.
-  hosts = builtins.deepSeq (map (host: host.system) (lib.attrValues parsedHosts)) parsedHosts;
+  hosts = builtins.deepSeq (map (host: host.pkgsSystem) (lib.attrValues parsedHosts)) parsedHosts;
 
   selectHosts = platforms: lib.filterAttrs (_: host: builtins.elem host.platform platforms) hosts;
 
