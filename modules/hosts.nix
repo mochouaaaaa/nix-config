@@ -15,14 +15,16 @@ let
 
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
-  selectNixpkgs =
-    class: system:
-    if class == "darwin" && system == "x86_64-darwin" then
-      "nixpkgs-darwin"
-    else if class == "home" then
-      null
+  defaultOsNixpkgs =
+    system:
+    if system == "x86_64-darwin" then "nixpkgs-darwin" else "nixpkgs";
+
+  defaultHomeManagerNixpkgs =
+    system: osNixpkgsInput:
+    if lib.hasSuffix "-darwin" system && osNixpkgsInput != null then
+      osNixpkgsInput
     else
-      "nixpkgs";
+      "nixpkgs-stable";
 
   parseHost =
     name:
@@ -30,40 +32,59 @@ let
       parts = lib.splitString "@" name;
       valid = builtins.length parts == 2 && builtins.all (part: part != "") parts;
 
-      metadataPath = hostsDir + "/${name}/host.json";
+      configPath = hostsDir + "/${name}/nixpkgs.json";
       metadata =
         if valid then
-          builtins.fromJSON (builtins.readFile metadataPath)
+          builtins.fromJSON (builtins.readFile configPath)
         else
           throw "Invalid host directory '${name}', expected <username>@<hostname>";
 
-      hostClass = metadata.class or (throw "Missing 'class' in ${metadataPath}.");
-      rawSystem = metadata.system or (throw "Missing 'system' in ${metadataPath}.");
+      allowedFields = [ "system" "os" "home-manager" "nixosWsl" ];
+      unknownFields = builtins.filter (field: !(builtins.elem field allowedFields)) (
+        builtins.attrNames metadata
+      );
+
+      rawSystem = metadata.system or (throw "Missing 'system' in ${configPath}.");
       system =
         if builtins.isString rawSystem && rawSystem != "" then
           rawSystem
         else
-          throw "'system' in ${metadataPath} must be a non-empty string.";
+          throw "'system' in ${configPath} must be a non-empty string.";
+
+      rawOsNixpkgs = metadata.os or (defaultOsNixpkgs system);
+      osNixpkgsInput =
+        if rawOsNixpkgs == null then
+          null
+        else if builtins.isString rawOsNixpkgs && rawOsNixpkgs != "" then
+          rawOsNixpkgs
+        else
+          throw "'os' in ${configPath} must be a flake input name or null.";
 
       class =
-        if builtins.elem hostClass [ "nixos" "darwin" "home" ] then
-          hostClass
+        if osNixpkgsInput == null then
+          "home"
+        else if lib.hasSuffix "-linux" system then
+          "nixos"
+        else if lib.hasSuffix "-darwin" system then
+          "darwin"
         else
-          throw "Unsupported class '${hostClass}' in ${metadataPath}; expected nixos, darwin or home.";
+          throw "Cannot infer host configuration type from system '${system}' in ${configPath}.";
+
+      rawHomeManagerNixpkgs = metadata."home-manager" or (
+        defaultHomeManagerNixpkgs system osNixpkgsInput
+      );
+      homeManagerNixpkgsInput =
+        if builtins.isString rawHomeManagerNixpkgs && rawHomeManagerNixpkgs != "" then
+          rawHomeManagerNixpkgs
+        else
+          throw "'home-manager' in ${configPath} must be a non-empty flake input name.";
 
       rawNixosWsl = metadata.nixosWsl or false;
       nixosWsl =
         if builtins.isBool rawNixosWsl then
           rawNixosWsl
         else
-          throw "'nixosWsl' in ${metadataPath} must be a boolean.";
-
-      nixpkgsInput = selectNixpkgs class system;
-
-      # Preserve the existing package-set policy:
-      # NixOS and standalone HM use stable; Darwin HM follows the system source.
-      homeManagerNixpkgsInput =
-        if class == "darwin" then nixpkgsInput else "nixpkgs-stable";
+          throw "'nixosWsl' in ${configPath} must be a boolean.";
 
       checkInput =
         inputName:
@@ -71,17 +92,23 @@ let
           inputName
         else
           throw "Host '${name}' references missing flake input '${inputName}'.";
+
+      validatedOsNixpkgsInput =
+        if osNixpkgsInput == null then null else checkInput osNixpkgsInput;
     in
-    {
-      username = builtins.elemAt parts 0;
-      hostName = builtins.elemAt parts 1;
-      inherit name class system nixosWsl;
+    if unknownFields != [ ] then
+      throw "Unknown fields in ${configPath}: ${lib.concatStringsSep ", " unknownFields}"
+    else
+      {
+        username = builtins.elemAt parts 0;
+        hostName = builtins.elemAt parts 1;
+        inherit name class system nixosWsl;
 
-      nixpkgsInput = if nixpkgsInput == null then null else checkInput nixpkgsInput;
-      homeManagerNixpkgsInput = checkInput homeManagerNixpkgsInput;
+        osNixpkgsInput = validatedOsNixpkgsInput;
+        homeManagerNixpkgsInput = checkInput homeManagerNixpkgsInput;
 
-      path = hostsDir + "/${name}";
-    };
+        path = hostsDir + "/${name}";
+      };
 
   parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
 
@@ -89,7 +116,14 @@ let
   hosts = builtins.deepSeq (
     map
       (host: {
-        inherit (host) class system nixosWsl nixpkgsInput homeManagerNixpkgsInput;
+        inherit
+          (host)
+          class
+          system
+          nixosWsl
+          osNixpkgsInput
+          homeManagerNixpkgsInput
+          ;
       })
       (lib.attrValues parsedHosts)
   ) parsedHosts;
@@ -108,7 +142,7 @@ let
         username
         hostName
         system
-        nixpkgsInput
+        osNixpkgsInput
         homeManagerNixpkgsInput
         ;
       inherit (config) myvars;
@@ -129,7 +163,7 @@ let
       class
       system
       nixosWsl
-      nixpkgsInput
+      osNixpkgsInput
       homeManagerNixpkgsInput
       ;
   }) hosts;
@@ -143,7 +177,7 @@ in
 
     nixosConfigurations = lib.optionalAttrs (!checkOnly) (lib.mapAttrs (
       _name: host:
-      inputs.${host.nixpkgsInput}.lib.nixosSystem {
+      inputs.${host.osNixpkgsInput}.lib.nixosSystem {
         specialArgs = hostArgs host;
 
         modules = [
@@ -166,8 +200,8 @@ in
 
         modules = [
           ({ lib, ... }: {
-            nixpkgs.source = lib.mkForce inputs.${host.nixpkgsInput}.outPath;
-            nixpkgs.flake.source = lib.mkForce inputs.${host.nixpkgsInput}.outPath;
+            nixpkgs.source = lib.mkForce inputs.${host.osNixpkgsInput}.outPath;
+            nixpkgs.flake.source = lib.mkForce inputs.${host.osNixpkgsInput}.outPath;
             nixpkgs.hostPlatform = host.system;
           })
 

@@ -8,7 +8,7 @@
 - **Host 组合**：通过 `hosts/<username>@<hostname>/` 描述主机，并由 Flake 自动发现。
 - **跨平台复用**：共享通用配置，同时保留 NixOS、Darwin 和 Home Manager 的平台边界。
 - **声明式管理**：使用 Nix Flakes 固定依赖，通过模块组合描述系统状态。
-- **可维护性**：提供统一的格式化、静态检查、Flake 检查和系统切换命令。
+- **可维护性**：提供统一的格式化、静态检查、Flake 求值和系统切换命令。
 
 ## 技术栈
 
@@ -34,7 +34,7 @@
 ├── justfile                # 常用开发、检查和部署命令
 ├── hosts/
 │   └── <username>@<hostname>/
-│       ├── host.json       # class 与目标 system
+│       ├── nixpkgs.json    # 目标架构与各配置使用的 nixpkgs input
 │       └── default.nix     # 单台主机的模块组合与主机级设置
 ├── lib/                    # 自定义 Nix helper
 ├── modules/
@@ -68,9 +68,29 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 
 ### Host 自动发现与组合
 
-**modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机通过 **host.json** 声明 **class**（**nixos**、**darwin** 或 **home**）和目标 **system**。
+**modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机只需通过 **nixpkgs.json** 声明目标 **system**，并可分别覆盖操作系统（`os`）与 Home Manager（`home-manager`）使用的 nixpkgs input；不需要单独维护 `class` 或 `host.json`。
 
-Flake 根据 **class** 生成 **nixosConfigurations**、**darwinConfigurations** 或独立的 **homeConfigurations**。系统 nixpkgs 源根据目标架构自动选择：Intel Darwin 使用 **nixpkgs-darwin**，其他系统默认使用 **nixpkgs**。每个 Host 的 **default.nix** 负责选择功能模块并设置主机级差异。
+`os` 默认根据架构选择：`x86_64-darwin` 使用 `nixpkgs-darwin`，其他架构使用 `nixpkgs`。`home-manager` 默认在 Darwin 上跟随 `os`，其他情况使用 `nixpkgs-stable`。省略字段时使用默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
+
+例如，NixOS 主机：
+
+~~~json
+{
+  "system": "x86_64-linux",
+  "os": "nixpkgs",
+  "home-manager": "nixpkgs-stable"
+}
+~~~
+
+Intel Darwin 主机可以只写：
+
+~~~json
+{
+  "system": "x86_64-darwin"
+}
+~~~
+
+此时 `os` 和 `home-manager` 都默认使用 `nixpkgs-darwin`。Apple Silicon Darwin 默认使用 `nixpkgs`。如果是 NixOS WSL 主机，可额外设置 `"nixosWsl": true`。
 
 ### 功能模块
 
@@ -170,9 +190,9 @@ just rekey-status
 ## 添加一台主机
 
 1. 在 **hosts/** 下创建符合 **<username>@<hostname>** 格式的目录。
-2. 添加 **host.json**，声明该主机的 **class** 和 **system**。
+2. 添加 `nixpkgs.json`，声明必需的 `system`；按需覆盖 `os` 和 `home-manager`。
 3. 添加该 Host 的 **default.nix**，导入所需的基础模块、功能模块和用户级模块。
-4. 如果是 NixOS WSL 主机，可在 **host.json** 中设置 **nixosWsl: true**。
+4. standalone Home Manager 主机将 `os` 设置为 `null`；NixOS WSL 主机可额外设置 `nixosWsl: true`。
 5. 使用 **just show** 查看输出，并执行对应的 eval / check 命令验证。
 
 示例目录：
@@ -180,7 +200,7 @@ just rekey-status
 ~~~text
 hosts/
 └── alice@work/
-    ├── host.json
+    ├── nixpkgs.json
     └── default.nix
 ~~~
 
