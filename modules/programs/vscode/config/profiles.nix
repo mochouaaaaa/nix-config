@@ -8,10 +8,6 @@
       ...
     }:
     {
-      imports = [
-        self.modules.homeManager."appearance.font-options"
-      ];
-
       programs = {
         vscode.profiles = {
           default = {
