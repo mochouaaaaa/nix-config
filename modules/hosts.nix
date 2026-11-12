@@ -24,21 +24,21 @@ let
       valid = builtins.length parts == 2 && builtins.all (part: part != "") parts;
       platform = if valid then builtins.elemAt parts 1 else null;
       platformInfo =
-        if valid then platforms.\${platform} or (throw "Unsupported platform '\${platform}' in host '\${name}'. Add it to platforms in modules/hosts.nix.")
-        else throw "Invalid host directory '\${name}', expected <username>@<platform>";
-      packageSetInfo = packageSets.\${platform} or (throw "Missing packageSets entry for platform '\${platform}' in modules/hosts.nix.");
+        if valid then platforms.${platform} or (throw "Unsupported platform '${platform}' in host '${name}'. Add it to platforms in modules/hosts.nix.")
+        else throw "Invalid host directory '${name}', expected <username>@<platform>";
+      packageSetInfo = packageSets.${platform} or (throw "Missing packageSets entry for platform '${platform}' in modules/hosts.nix.");
       nixpkgsInput = packageSetInfo.nixpkgs or null;
-      homeManagerNixpkgsInput = packageSetInfo.homeManager or (throw "Missing homeManager package set for platform '\${platform}'.");
+      homeManagerNixpkgsInput = packageSetInfo.homeManager or (throw "Missing homeManager package set for platform '${platform}'.");
       checkInput = inputName:
         if builtins.hasAttr inputName inputs then inputName
-        else throw "Platform '\${platform}' references missing flake input '\${inputName}'.";
+        else throw "Platform '${platform}' references missing flake input '${inputName}'.";
     in {
       username = builtins.elemAt parts 0;
       inherit platform name;
       inherit (platformInfo) class system;
       nixpkgsInput = if nixpkgsInput == null then null else checkInput nixpkgsInput;
       homeManagerNixpkgsInput = checkInput homeManagerNixpkgsInput;
-      path = hostsDir + "/\${name}";
+      path = hostsDir + "/${name}";
     };
   parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
   hosts = builtins.deepSeq
@@ -54,14 +54,14 @@ let
     hostName = host.name;
     inherit (config) myvars;
   };
-  mkHomePkgs = input: system: import inputs.\${input} {
+  mkHomePkgs = input: system: import inputs.${input} {
     inherit system;
     config.allowUnfree = true;
   };
 in {
   flake = {
     nixosConfigurations = lib.mapAttrs (_name: host:
-      inputs.\${host.nixpkgsInput}.lib.nixosSystem {
+      inputs.${host.nixpkgsInput}.lib.nixosSystem {
         specialArgs = hostArgs host;
         modules = [
           inputs.home-manager.nixosModules.home-manager
@@ -79,8 +79,8 @@ in {
         specialArgs = hostArgs host;
         modules = [
           ({ lib, ... }: {
-            nixpkgs.source = lib.mkForce inputs.\${host.nixpkgsInput}.outPath;
-            nixpkgs.flake.source = lib.mkForce inputs.\${host.nixpkgsInput}.outPath;
+            nixpkgs.source = lib.mkForce inputs.${host.nixpkgsInput}.outPath;
+            nixpkgs.flake.source = lib.mkForce inputs.${host.nixpkgsInput}.outPath;
             nixpkgs.hostPlatform = host.system;
           })
           inputs.home-manager.darwinModules.home-manager
