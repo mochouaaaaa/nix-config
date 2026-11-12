@@ -7,15 +7,15 @@
       useUserPackages = false;
       sharedModules = [
         {
-          _module.args.pkgsPath = lib.mkForce inputs.\${homeManagerNixpkgsInput}.outPath;
+          _module.args.pkgsPath = lib.mkForce inputs.${homeManagerNixpkgsInput}.outPath;
         }
       ];
       backupFileExtension = "home-manager.backup";
       overwriteBackup = true;
-      users.\${username} = {
+      users.${username} = {
         home = {
           inherit username;
-          homeDirectory = "/home/\${username}";
+          homeDirectory = "/home/${username}";
         };
       };
       extraSpecialArgs = {
