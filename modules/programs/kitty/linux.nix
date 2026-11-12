@@ -41,7 +41,7 @@
     };
 
   flake.modules.homeManager."desktop.gnome" = {
-    profiles.packages.terminal.kitty.extraConfig = [ "background_opacity 1" ];
+    profiles.terminal.kitty.extraConfig = [ "background_opacity 1" ];
   };
 
   flake.modules.homeManager."desktop.kde" = {
