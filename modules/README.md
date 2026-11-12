@@ -73,6 +73,6 @@ nix flake check --no-build --impure --show-trace
 nix eval '.#nixosConfigurations."mochou@nixos".config.programs.hyprland.enable'
 ```
 
-`host-evaluations` 只检查轻量级主机元数据，不会强制求值完整系统或 Home Manager derivation。它不会因为检查过程而触发主机配置中的外部 package flake。正常构建系统时，仍会按需求值实际使用的包。
+`just check` 会设置 `NIX_CONFIG_CHECK=1`，在该模式下暂时不导出 `nixosConfigurations`、`darwinConfigurations` 和 `homeConfigurations`，因为 Nix 自身的 `nix flake check` 会强制求值 NixOS toplevel。此模式下的 `host-evaluations` 只检查轻量级主机元数据，不会遍历主机 packages，也不会触发 `mochou_nur`。正常执行 build/switch 时不设置该变量，所有主机输出和包仍按原样启用。直接运行检查时请使用 `NIX_CONFIG_CHECK=1 nix flake check --no-build --impure`。
 
 `nix flake check --no-build` 只做评估/检查，不代表系统闭包已经成功构建；实际部署前仍应执行对应主机的 build。
