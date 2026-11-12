@@ -40,7 +40,7 @@ modules/
 主机目录名采用 `<username>@<platform>`，例如 `mochou@nixos`。主机发现和元数据集中维护在 `modules/hosts.nix`，分为两个独立映射：
 
 - `platforms` 只描述输出类别（NixOS、Darwin 或 standalone Home Manager）和目标架构 `system`；
-- `packageSets` 为每个平台分别指定系统层 `nixpkgs` input 和 Home Manager 的 `homeManager` input。
+- `packageSets` 为每个平台指定系统层 `nixpkgs` input 和 Home Manager 的 `homeManager` input；`homeManager = "system"` 表示 HM 跟随系统包集。
 
 同一操作系统家族不需要因为 nixpkgs 来源不同而重复定义平台。需要支持另一架构时才新增 platform key，例如 `darwin-aarch64`。新增平台时必须同时登记平台元数据和包集映射；未登记的平台、缺失的包集或不存在的 flake input 都会在求值时直接报错。
 
