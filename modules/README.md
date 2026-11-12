@@ -22,7 +22,7 @@ modules/
 ├── security/       # 密钥、权限、持久化、安全策略
 ├── appearance/     # 字体、主题、光标
 ├── darwin/         # macOS 专属系统能力
-└── hosts.nix       # 自动发现 hosts/<username>@<platform>/
+└── hosts.nix       # 自动发现 hosts/<username>@<hostname>/
 ```
 
 ## 模块命名
@@ -37,25 +37,33 @@ modules/
 
 ## 主机与 nixpkgs 选择
 
-主机目录名采用 `<username>@<platform>`，例如 `mochou@nixos`。主机发现和元数据集中维护在 `modules/hosts.nix`，分为两个独立映射：
+主机目录采用 `<username>@<hostname>` 命名，例如 `mochou@nixos`、`mochou@work` 或 `mochou@home`。目录后缀只是主机名，不代表操作系统或平台类型。
 
-- `platforms` 只描述输出类别（NixOS、Darwin 或 standalone Home Manager）和目标架构 `system`；
-- `packageSets` 为每个平台指定系统层 `nixpkgs` input 和 Home Manager 的 `homeManager` input；`homeManager = "system"` 表示 HM 跟随系统包集。
+每台主机目录下通过 `host.json` 声明配置类别和目标架构：
 
-同一操作系统家族不需要因为 nixpkgs 来源不同而重复定义平台。需要支持另一架构时才新增 platform key，例如 `darwin-aarch64`。新增平台时必须同时登记平台元数据和包集映射；未登记的平台、缺失的包集或不存在的 flake input 都会在求值时直接报错。
+```json
+{
+  "class": "nixos",
+  "system": "x86_64-linux"
+}
+```
 
-当前策略：
+支持的 `class` 为 `nixos`、`darwin` 和 `home`（standalone Home Manager）。`system` 声明目标系统架构，不取决于执行 Flake 检查的机器架构。
 
-| Platform | 系统 nixpkgs | Home Manager nixpkgs |
+系统 nixpkgs 源根据目标架构自动选择：
+
+| class | system | 系统 nixpkgs |
 | --- | --- | --- |
-| `nixos` / `nixos-wsl` | `nixpkgs`（unstable） | `nixpkgs-stable` |
-| `darwin`（Intel） | `nixpkgs-darwin` | 跟随系统包集 |
-| `darwin-aarch64` | `nixpkgs`（unstable） | 跟随系统包集 |
-| `wsl`（standalone HM） | — | `nixpkgs-stable` |
+| `nixos` | Linux 架构 | `nixpkgs` |
+| `darwin` | `x86_64-darwin` | `nixpkgs-darwin` |
+| `darwin` | 其他 Darwin 架构 | `nixpkgs` |
+| `home` | 任意支持架构 | 不使用系统 nixpkgs |
 
-NixOS 使用所选 nixpkgs input 的 `lib.nixosSystem` 构造系统；内嵌 Home Manager 保持 `useGlobalPkgs = false`，并通过 `pkgsPath` 使用独立选择的 nixpkgs source。Darwin 通过 nix-darwin 的 `nixpkgs.source` 选择系统包源，Home Manager 保持 `useGlobalPkgs = true`，跟随 Darwin 系统包集。Standalone Home Manager 则直接从 `homeManager` 指定的 input 导入 pkgs。
+Home Manager 保留现有策略：Darwin 跟随系统 nixpkgs；NixOS 和 standalone Home Manager 使用 `nixpkgs-stable`。新增主机只需添加目录和 `host.json`，不需要修改中央平台映射表。
 
-主机配置负责声明 `nixpkgs.hostPlatform`、磁盘、引导、网络等机器差异；`system` 是目标架构，不代表 nixpkgs 来源。通用功能应放在 `modules/`，不要复制到主机目录。不要使用 `builtins.getEnv` 隐式决定系统配置。
+NixOS 使用所选 nixpkgs input 的 `lib.nixosSystem` 构造系统；内嵌 Home Manager 保持 `useGlobalPkgs = false`，并通过 `pkgsPath` 使用稳定版 nixpkgs。Darwin 通过 nix-darwin 的 `nixpkgs.source` 选择系统包源，Home Manager 保持 `useGlobalPkgs = true`，跟随 Darwin 系统包集。Standalone Home Manager 则直接从 `nixpkgs-stable` 导入 pkgs。
+
+主机配置负责声明磁盘、引导、网络等机器差异；通用功能应放在 `modules/`，不要复制到主机目录。不要使用 `builtins.getEnv` 隐式决定系统配置。
 
 ## 修改后检查
 
@@ -64,5 +72,7 @@ nix fmt
 nix flake check --no-build --impure --show-trace
 nix eval '.#nixosConfigurations."mochou@nixos".config.programs.hyprland.enable'
 ```
+
+`host-evaluations` 只检查轻量级主机元数据，不会强制求值完整系统或 Home Manager derivation。它不会因为检查过程而触发主机配置中的外部 package flake。正常构建系统时，仍会按需求值实际使用的包。
 
 `nix flake check --no-build` 只做评估/检查，不代表系统闭包已经成功构建；实际部署前仍应执行对应主机的 build。
