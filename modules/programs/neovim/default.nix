@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
 
   flake.modules.homeManager."programs.neovim" =
     {
@@ -26,14 +26,15 @@
             require("config.lazy")
           '';
           extraWrapperArgs = with pkgs; [
-            "--suffix"
-            "LIBRARY_PATH"
+            "--prefix"
+            "LD_LIBRARY_PATH"
             ":"
-            "${lib.makeLibraryPath [
+            (lib.makeLibraryPath [
               stdenv.cc.cc
               zlib
               sqlite
-            ]}"
+              openssl
+            ])
           ];
           extraLuaPackages = ps: [
             ps.magick

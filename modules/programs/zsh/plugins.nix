@@ -18,18 +18,17 @@
           source ${./p10k.zsh}
 
           # source ${fzf-tab-source}/fzf-tab-source.plugin.zsh
-          # source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-
-          # source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-          # ZSH_AUTOSUGGEST_STRATEGY=(history)
-
-          # source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
         '';
         plugins = [
           {
             name = "fast-syntax-highlighting";
             src = pkgs.zsh-fast-syntax-highlighting;
             file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
+          }
+          {
+            name = "zsh-fzf-tab";
+            src = pkgs.zsh-fzf-tab;
+            file = "share/fzf-tab/fzf-tab.plugin.zsh";
           }
         ];
       };
