@@ -9,6 +9,15 @@
       ...
     }:
     {
+      imports = [
+        {
+          home-manager = {
+            backupFileExtension = "home-manager.backup";
+            overwriteBackup = true;
+          };
+        }
+      ];
+
       # Home Manager shares nix-darwin's package set.
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
