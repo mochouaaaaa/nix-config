@@ -3,7 +3,7 @@
   flake.modules.homeManager."desktop.common" = { self, pkgs, ... }: {
 
     imports = [
-      self.modules.homeManager.development-python
+      self.modules.homeManager."development.python"
     ];
 
     home.packages = [
@@ -12,7 +12,7 @@
 
   };
 
-  flake.modules.homeManager.development-python = { lib, pkgs, ... }: {
+  flake.modules.homeManager."development.python" = { lib, pkgs, ... }: {
 
     home.packages = [
       pkgs.playwright-driver.browsers
