@@ -9,7 +9,7 @@
   flake.modules.homeManager.darwin =
     { lib, config, ... }:
     let
-      cfg = config.profiles.packages.terminal.kitty;
+      cfg = config.profiles.terminal.kitty;
     in
     {
       programs.kitty = {
@@ -20,7 +20,7 @@
         ];
       };
 
-      profiles.packages.terminal.kitty = {
+      profiles.terminal.kitty = {
         extraConfig = [
           "mouse_map        cmd+left click ungrabbed mouse_handle_click link"
         ];
