@@ -34,6 +34,7 @@
 ├── justfile                # 常用开发、检查和部署命令
 ├── hosts/
 │   └── <username>@<hostname>/
+│       ├── host.json       # class 与目标 system
 │       └── default.nix     # 单台主机的模块组合与主机级设置
 ├── lib/                    # 自定义 Nix helper
 ├── modules/
