@@ -8,6 +8,7 @@
 
   flake.modules.homeManager.darwin =
     {
+      self,
       config,
       ...
     }:
@@ -15,6 +16,7 @@
       rime-data = config.profiles.rime.data-package;
     in
     {
+      imports = [ self.modules.homeManager.rime ];
 
       home.file = {
         "Library/Rime" = {
