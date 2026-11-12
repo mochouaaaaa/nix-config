@@ -47,9 +47,9 @@ self.modules.homeManager."desktop.default-apps"
 
 ## 主机约定
 
-主机目录名采用 `<username>@<platform>`，例如 `mochou@nixos`。主机配置负责：
+主机目录名采用 `<username>@<platform>`，例如 `mochou@nixos`。`modules/hosts.nix` 集中维护 platform 到包集架构的 `pkgsSystem` 映射；新增平台时必须同步登记，未登记的平台会在 flake 求值时直接报错，避免主机目录被静默忽略。Standalone Home Manager 使用该映射选择 nixpkgs，不再在主机组装逻辑中硬编码 `x86_64-linux`。主机配置负责：
 
-- 声明 `nixpkgs.hostPlatform`、磁盘、引导、网络等机器差异；
+- 声明 `nixpkgs.hostPlatform`、磁盘、引导、网络等机器差异；`pkgsSystem` 是包集架构元数据，不替代主机模块中的 `nixpkgs.hostPlatform`；
 - 导入桌面入口和主机需要的服务；
 - 声明硬件 profile 参数；
 - 设置 Home Manager 用户目录及主机专属参数。
