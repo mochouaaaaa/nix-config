@@ -1,14 +1,10 @@
 {
-  flake.modules.homeManager."desktop.common" =
-    { self, config, ... }:
+  flake.modules.homeManager.linux =
+    { config, ... }:
     let
       cfg = config.profiles.terminal.kitty;
     in
     {
-
-      imports = [
-        self.modules.homeManager."programs.kitty"
-      ];
 
       profiles.terminal.kitty = {
         extraConfig = [
