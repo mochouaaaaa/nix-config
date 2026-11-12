@@ -208,7 +208,10 @@ in
 
             inputs.home-manager.darwinModules.home-manager
             self.modules.darwin.core
+            self.modules.darwin.env
+            self.modules.darwin.homebrew
             self.modules.darwin.agenix
+            self.modules.darwin.services
             self.modules.darwin.home-manager
 
             (inputs.import-tree host.path)
