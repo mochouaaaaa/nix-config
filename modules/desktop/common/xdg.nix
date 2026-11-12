@@ -35,11 +35,6 @@
           };
 
           xdgOpenUsePortal = true;
-
-          # The compositor-specific module adds its own portal backend.
-          extraPortals = with pkgs; [
-            xdg-desktop-portal-gtk
-          ];
         };
       };
     };
