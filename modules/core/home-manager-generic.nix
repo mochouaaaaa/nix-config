@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.non-linux = {
+  flake.modules.homeManager."platform.non-linux" = {
     targets.genericLinux.enable = true;
   };
 }
