@@ -10,7 +10,7 @@
     {
 
       imports = [
-        self.modules.homeManager.programs-vscode
+        self.modules.homeManager."programs.vscode"
       ];
 
       programs.vscode = {
