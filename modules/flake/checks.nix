@@ -3,10 +3,11 @@
     { config, ... }:
     {
       checks = {
-        # 确保默认开发环境可以构建
-        devshell = config.devShells.default;
+        # Verify formatting and the enabled Nix static-analysis tools.
+        formatting = config.treefmt.build.check;
 
-        # 其他自定义检查可以放这里
+        # Ensure the default development environment can be built.
+        devshell = config.devShells.default;
       };
     };
 }
