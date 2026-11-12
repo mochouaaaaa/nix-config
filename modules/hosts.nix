@@ -9,105 +9,59 @@
 let
   hostsDir = ../hosts;
 
-  # Platform metadata describes only the configuration class and target system.
-  # Package-set selection is kept separate so hosts can mix nixpkgs revisions.
-  platforms = {
-    nixos = {
-      class = "nixos";
-      system = "x86_64-linux";
-    };
-
-    nixos-wsl = {
-      class = "nixos";
-      system = "x86_64-linux";
-    };
-
-    darwin = {
-      class = "darwin";
-      system = "x86_64-darwin";
-    };
-
-    darwin-aarch64 = {
-      class = "darwin";
-      system = "aarch64-darwin";
-    };
-
-    wsl = {
-      class = "home";
-      system = "x86_64-linux";
-    };
-  };
-
-  # Select package sources independently for the OS and Home Manager.
-  packageSets = {
-    nixos = {
-      nixpkgs = "nixpkgs";
-      homeManager = "nixpkgs-stable";
-    };
-
-    nixos-wsl = {
-      nixpkgs = "nixpkgs";
-      homeManager = "nixpkgs-stable";
-    };
-
-    darwin = {
-      nixpkgs = "nixpkgs-darwin";
-      homeManager = "system";
-    };
-
-    darwin-aarch64 = {
-      nixpkgs = "nixpkgs";
-      homeManager = "system";
-    };
-
-    wsl = {
-      homeManager = "nixpkgs-stable";
-    };
-  };
-
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
+
+  selectNixpkgs =
+    class: system:
+    if class != "home" && system == "x86_64-darwin" then
+      "nixpkgs-darwin"
+    else if class == "home" then
+      null
+    else
+      "nixpkgs";
 
   parseHost =
     name:
     let
       parts = lib.splitString "@" name;
       valid = builtins.length parts == 2 && builtins.all (part: part != "") parts;
-      platform = if valid then builtins.elemAt parts 1 else null;
 
-      platformInfo =
+      metadataPath = hostsDir + "/${name}/host.json";
+      metadata =
         if valid then
-          platforms.${platform} or (throw "Unsupported platform '${platform}' in host '${name}'. Add it to platforms in modules/hosts.nix.")
+          builtins.fromJSON (builtins.readFile metadataPath)
         else
-          throw "Invalid host directory '${name}', expected <username>@<platform>";
+          throw "Invalid host directory '${name}', expected <username>@<hostname>";
 
-      packageSetInfo =
-        packageSets.${platform}
-          or (throw "Missing packageSets entry for platform '${platform}' in modules/hosts.nix.");
+      hostClass = metadata.class or (throw "Missing 'class' in ${metadataPath}.");
+      system = metadata.system or (throw "Missing 'system' in ${metadataPath}.");
 
-      nixpkgsInput = packageSetInfo.nixpkgs or null;
+      class =
+        if builtins.elem hostClass [ "nixos" "darwin" "home" ] then
+          hostClass
+        else
+          throw "Unsupported class '${hostClass}' in ${metadataPath}; expected nixos, darwin or home.";
 
-      homeManagerInput = packageSetInfo.homeManager or "system";
+      nixpkgsInput = selectNixpkgs class system;
 
+      # Preserve the existing package-set policy:
+      # NixOS and standalone HM use stable; Darwin HM follows the system source.
       homeManagerNixpkgsInput =
-        if homeManagerInput == "system" then
-          if nixpkgsInput == null then
-            throw "Platform '${platform}' must define homeManager explicitly because it has no system nixpkgs input."
-          else
-            nixpkgsInput
-        else
-          homeManagerInput;
+        if class == "darwin" then nixpkgsInput else "nixpkgs-stable";
 
       checkInput =
         inputName:
         if builtins.hasAttr inputName inputs then
           inputName
         else
-          throw "Platform '${platform}' references missing flake input '${inputName}'.";
+          throw "Host '${name}' references missing flake input '${inputName}'.";
     in
     {
       username = builtins.elemAt parts 0;
-      inherit platform name;
-      inherit (platformInfo) class system;
+      hostName = builtins.elemAt parts 1;
+      # Keep the old argument available for existing modules; it now means hostname.
+      platform = builtins.elemAt parts 1;
+      inherit name class system;
 
       nixpkgsInput = if nixpkgsInput == null then null else checkInput nixpkgsInput;
       homeManagerNixpkgsInput = checkInput homeManagerNixpkgsInput;
@@ -117,7 +71,7 @@ let
 
   parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
 
-  # Force validation for every discovered host and its package-set inputs.
+  # Validate only host metadata and input names; never force host configurations here.
   hosts = builtins.deepSeq (
     map
       (host: {
@@ -138,12 +92,12 @@ let
       inherit inputs self;
       inherit (host)
         username
+        hostName
         platform
         system
         nixpkgsInput
         homeManagerNixpkgsInput
         ;
-      hostName = host.name;
       inherit (config) myvars;
     };
 
@@ -154,9 +108,25 @@ let
       config.allowUnfree = true;
     };
 
+  hostMetadata = lib.mapAttrs (_: host: {
+    inherit
+      (host)
+      username
+      hostName
+      class
+      system
+      nixpkgsInput
+      homeManagerNixpkgsInput
+      ;
+  }) hosts;
+
 in
 {
   flake = {
+    # A lightweight registry consumed by host-evaluations. It contains no
+    # evaluated NixOS/Darwin/Home Manager configuration or package derivations.
+    lib.hostMetadata = hostMetadata;
+
     nixosConfigurations = lib.mapAttrs (
       _name: host:
       inputs.${host.nixpkgsInput}.lib.nixosSystem {
@@ -167,9 +137,6 @@ in
           self.modules.nixos.core
           self.modules.nixos."services.base"
           self.modules.nixos.agenix
-        ]
-        ++ lib.optional (host.platform == "nixos-wsl") inputs.nixos-wsl.nixosModules.default
-        ++ [
           (inputs.import-tree host.path)
         ];
       }
