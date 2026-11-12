@@ -9,51 +9,56 @@
 let
   hostsDir = ../hosts;
 
-  # 自动发现所有主机目录
+  # Keep host platform identifiers and their package-set systems in one place.
+  # Add a distinct platform key when introducing another architecture.
+  platformSystems = {
+    nixos = "x86_64-linux";
+    nixos-wsl = "x86_64-linux";
+    darwin = "x86_64-darwin";
+    wsl = "x86_64-linux";
+  };
+
+  # Automatically discover host directories.
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
-  # 解析 username@platform
   parseHost =
     name:
     let
       parts = lib.splitString "@" name;
       valid = builtins.length parts == 2 && builtins.all (part: part != "") parts;
+      platform = if valid then builtins.elemAt parts 1 else null;
+      system =
+        if valid then
+          platformSystems.${platform} or (throw "Unsupported platform '${platform}' in host '${name}'. Add it to platformSystems in modules/hosts.nix.")
+        else
+          throw "Invalid host directory '${name}', expected <username>@<platform>";
     in
-    assert lib.assertMsg valid "Invalid host directory '${name}', expected username@platform";
-
     {
       username = builtins.elemAt parts 0;
-      platform = builtins.elemAt parts 1;
-      inherit name;
+      inherit platform system name;
       path = hostsDir + "/${name}";
     };
 
   hosts = lib.mapAttrs (name: _: parseHost name) hostNames;
 
-  # 根据平台筛选主机
   selectHosts = platforms: lib.filterAttrs (_: host: builtins.elem host.platform platforms) hosts;
 
-  # NixOS 和 NixOS-WSL
   nixosHosts = selectHosts [
     "nixos"
     "nixos-wsl"
   ];
 
-  # Darwin
   darwinHosts = selectHosts [ "darwin" ];
 
-  # Standalone Home Manager
   homeHosts = selectHosts [ "wsl" ];
 
-  # 公共主机参数
   hostArgs = host: {
     inherit inputs self;
-    inherit (host) username platform;
+    inherit (host) username platform system;
     hostName = host.name;
     inherit (config) myvars;
   };
 
-  # Standalone HM 使用的 nixpkgs
   mkHomePkgs =
     system:
     import inputs.nixpkgs {
@@ -64,7 +69,6 @@ let
 in
 {
   flake = {
-    # NixOS / NixOS-WSL
     nixosConfigurations = lib.mapAttrs (
       _name: host:
       inputs.nixpkgs.lib.nixosSystem {
@@ -83,7 +87,6 @@ in
       }
     ) nixosHosts;
 
-    # Darwin
     darwinConfigurations = lib.mapAttrs (
       _name: host:
       inputs.nix-darwin.lib.darwinSystem {
@@ -100,11 +103,10 @@ in
       }
     ) darwinHosts;
 
-    # Standalone Home Manager
     homeConfigurations = lib.mapAttrs (
       _name: host:
       inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = mkHomePkgs "x86_64-linux";
+        pkgs = mkHomePkgs host.system;
 
         extraSpecialArgs = hostArgs host;
 
