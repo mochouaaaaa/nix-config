@@ -21,6 +21,26 @@
         packages = [
           pkgs.nur.repos.rycee.firefox-addons.bitwarden
         ];
+        settings = {
+          # bitwarden
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}".permissions = [
+            "<all_urls>"
+            "*://*/*"
+            "alarms"
+            "clipboardRead"
+            "clipboardWrite"
+            "contextMenus"
+            "idle"
+            "storage"
+            "tabs"
+            "unlimitedStorage"
+            "webNavigation"
+            "webRequest"
+            "webRequestBlocking"
+            "notifications"
+            "file:///*"
+          ];
+        };
       };
     };
 
