@@ -10,12 +10,7 @@
     }:
     {
       imports = [
-        {
-          home-manager = {
-            backupFileExtension = "home-manager.backup";
-            overwriteBackup = true;
-          };
-        }
+        self.modules.darwin.home-manager-backup
       ];
 
       # Home Manager shares nix-darwin's package set.
