@@ -42,6 +42,20 @@ let
         else
           throw "Unsupported class '${hostClass}' in ${metadataPath}; expected nixos, darwin or home.";
 
+      nixosWsl = metadata.nixosWsl or false;
+
+      _validateSystem =
+        if builtins.isString system && system != "" then
+          true
+        else
+          throw "'system' in ${metadataPath} must be a non-empty string.";
+
+      _validateNixosWsl =
+        if builtins.isBool nixosWsl then
+          true
+        else
+          throw "'nixosWsl' in ${metadataPath} must be a boolean.";
+
       nixpkgsInput = selectNixpkgs class system;
 
       # Preserve the existing package-set policy:
@@ -61,7 +75,7 @@ let
       hostName = builtins.elemAt parts 1;
       # Keep the old argument available for existing modules; it now means hostname.
       platform = builtins.elemAt parts 1;
-      inherit name class system;
+      inherit name class system nixosWsl;
 
       nixpkgsInput = if nixpkgsInput == null then null else checkInput nixpkgsInput;
       homeManagerNixpkgsInput = checkInput homeManagerNixpkgsInput;
@@ -75,7 +89,7 @@ let
   hosts = builtins.deepSeq (
     map
       (host: {
-        inherit (host) class system nixpkgsInput homeManagerNixpkgsInput;
+        inherit (host) class system nixosWsl nixpkgsInput homeManagerNixpkgsInput;
       })
       (lib.attrValues parsedHosts)
   ) parsedHosts;
@@ -115,8 +129,10 @@ let
       hostName
       class
       system
+      nixosWsl
       nixpkgsInput
       homeManagerNixpkgsInput
+      nixosWsl
       ;
   }) hosts;
 
@@ -137,6 +153,9 @@ in
           self.modules.nixos.core
           self.modules.nixos."services.base"
           self.modules.nixos.agenix
+        ]
+        ++ lib.optional host.nixosWsl inputs.nixos-wsl.nixosModules.default
+        ++ [
           (inputs.import-tree host.path)
         ];
       }
