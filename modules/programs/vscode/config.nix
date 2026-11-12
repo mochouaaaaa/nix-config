@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.programs-vscode = { pkgs, ... }: {
+  flake.modules.homeManager."programs.vscode" = { pkgs, ... }: {
 
     programs = {
       vscode = {
