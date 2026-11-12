@@ -1,7 +1,7 @@
 {
 
   flake.modules.homeManager.darwin = { lib, ... }: {
-    package = null;
+    programs.neovide.package = null;
     settings = {
       frame = lib.mkForce "transparent";
     };
