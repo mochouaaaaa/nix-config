@@ -120,7 +120,7 @@ nixos-repl:
 # Inspect which desktop NixOS module is selected in the host's default.nix.
 [group('nixos')]
 desktop:
-    @grep -nE 'modules\\.nixos\\."?desktop\\.' "{{FLAKE}}/hosts/{{HOST}}/default.nix" || true
+    @grep -nE 'modules\.nixos\."?desktop\.' "{{FLAKE}}/hosts/{{HOST}}/default.nix" || true
 
 # ---------------------------------------------------------------------------
 # Home Manager
