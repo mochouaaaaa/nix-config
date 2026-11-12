@@ -1,8 +1,4 @@
-{ self, ... }: {
-
-  flake.modules.homeManager."desktop.common" = {
-    imports = [ self.modules.homeManager."programs.neovim" ];
-  };
+{ ... }: {
 
   flake.modules.homeManager."programs.neovim" =
     {
