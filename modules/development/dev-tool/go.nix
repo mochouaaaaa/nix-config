@@ -1,13 +1,12 @@
 {
 
-  flake.modules.homeManager."desktop.common" = { self, pkgs, ... }: {
+  flake.modules.homeManager.development = { self, pkgs, ... }: {
     imports = [
       self.modules.homeManager."development.go"
     ];
     home.packages = [
       pkgs.goland
     ];
-
   };
 
   flake.modules.homeManager."development.go" =
