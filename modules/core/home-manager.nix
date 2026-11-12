@@ -30,4 +30,13 @@
         };
       };
     };
+
+  flake.modules.homeManager.host = { self, ... }: {
+    imports = [
+      self.modules.homeManager.agenix
+      self.modules.homeManager.core
+      self.modules.homeManager.programs
+      self.modules.homeManager.workstation
+    ];
+  };
 }
