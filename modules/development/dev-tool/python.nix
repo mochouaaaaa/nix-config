@@ -1,26 +1,26 @@
 {
 
-  flake.modules.homeManager.development = { self, pkgs, ... }: {
+  flake.modules.homeManager.development = { self, ... }: {
     imports = [
       self.modules.homeManager."development.python"
     ];
-
-    home.packages = [
-      pkgs.pycharm
-    ];
   };
 
-  flake.modules.homeManager."development.python" = { lib, pkgs, ... }: {
-
+  flake.modules.homeManager.linux = { lib, pkgs, ... }: {
     home.packages = [
+      pkgs.pycharm
       pkgs.playwright-driver.browsers
     ];
 
+    programs.zsh.initContent = lib.mkAfter ''
+      export PLAYWRIGHT_BROWSERS_PATH="${pkgs.playwright-driver.browsers}";
+      export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD="1";
+    '';
+  };
+
+  flake.modules.homeManager."development.python" = { pkgs, ... }: {
+
     programs = {
-      zsh.initContent = lib.mkAfter ''
-        export PLAYWRIGHT_BROWSERS_PATH="${pkgs.playwright-driver.browsers}";
-        export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD="1";
-      '';
       ty = {
         enable = true;
         # package = inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.ty;
