@@ -33,11 +33,7 @@
   flake.modules.homeManager.darwin = {
 
     programs.ssh = {
-      matchBlocks."github.com" = {
-        extraOptions = {
-          UseKeychain = "yes";
-        };
-      };
+      settings."github.com".UseKeychain = "yes";
     };
 
   };
