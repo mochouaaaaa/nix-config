@@ -31,7 +31,7 @@ default:
 
 [group('flake')]
 show:
-    nix flake show "{{FLAKE}}" --impure
+    {{NIX_ALLOW}} nix flake show "{{FLAKE}}" --impure
 
 [group('flake')]
 lock:
@@ -80,7 +80,7 @@ lint:
 
 [group('quality')]
 check:
-    nix flake check "{{FLAKE}}" --no-build --impure --show-trace
+    {{NIX_ALLOW}} nix flake check "{{FLAKE}}" --no-build --impure --show-trace
 
 [group('quality')]
 check-build:
@@ -95,7 +95,7 @@ validate: fmt-check lint check
 
 [group('nixos')]
 nixos-eval:
-    nix eval "{{FLAKE}}#nixosConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
+    {{NIX_ALLOW}} nix eval "{{FLAKE}}#nixosConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
 
 [group('nixos')]
 nixos-build:
@@ -115,7 +115,7 @@ nixos-test:
 
 [group('nixos')]
 nixos-repl:
-    nixos-rebuild repl --flake .#{{HOST}} --impure
+    {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
 # Inspect which desktop NixOS module is selected in the host's default.nix.
 [group('nixos')]
@@ -145,7 +145,7 @@ hm-logs:
 
 [group('darwin')]
 darwin-eval:
-    nix eval "{{FLAKE}}#darwinConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
+    {{NIX_ALLOW}} nix eval "{{FLAKE}}#darwinConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
 
 [group('darwin')]
 darwin-build:
@@ -157,7 +157,7 @@ darwin-switch:
 
 [group('darwin')]
 darwin-repl:
-    nix repl "{{FLAKE}}" --impure
+    {{NIX_ALLOW}} nix repl "{{FLAKE}}" --impure
 
 # ---------------------------------------------------------------------------
 # Store maintenance
