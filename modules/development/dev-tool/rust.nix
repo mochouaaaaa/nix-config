@@ -2,11 +2,11 @@
 
   flake.modules.homeManager."desktop.common" = { self, ... }: {
     imports = [
-      self.modules.homeManager.development-rust
+      self.modules.homeManager."development.rust"
     ];
   };
 
-  flake.modules.homeManager.development-rust = { pkgs, config, ... }: {
+  flake.modules.homeManager."development.rust" = { pkgs, config, ... }: {
 
     home.packages = [
       pkgs.rustup
