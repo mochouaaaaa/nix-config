@@ -1,6 +1,7 @@
 {
   flake.modules.homeManager."desktop.common" =
     {
+      lib,
       config,
       pkgs,
       ...
@@ -25,7 +26,7 @@
         mimeApps.enable = true;
 
         portal = {
-          enable = true;
+          enable = lib.mkForce true;
 
           config = {
             common = {

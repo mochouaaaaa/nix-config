@@ -13,8 +13,9 @@ in
     ];
 
     # Darwin 专用 overlay
-    darwin = _final: _prev: {
-    };
+    darwin = lib.composeManyExtensions [
+      (import ../../pkgs/lix.nix)
+    ];
 
     # Home Manager 专用 overlay（如果确实需要独立于系统 pkgs）
     home-manager = lib.composeManyExtensions [
