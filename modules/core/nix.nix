@@ -44,6 +44,7 @@ let
       builders-use-substitutes = true;
 
       # 下载行为
+      tarball-ttl = 0;
       connect-timeout = 5;
       download-attempts = 3;
 
