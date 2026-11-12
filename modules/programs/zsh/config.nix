@@ -14,9 +14,6 @@
         #   autoload -U compinit && compinit -d /tmp/zcompdump-$(whoami)-$ZSH_VERSION
         # '';
         enableCompletion = true;
-        fastSyntaxHighlighting = {
-          enable = true;
-        };
         dotDir = "${config.xdg.configHome}/zsh";
         history = {
           path = "$HOME/.zsh_history";
