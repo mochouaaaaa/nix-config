@@ -1,6 +1,7 @@
 {
   flake.modules.homeManager.programs =
     {
+      self,
       lib,
       pkgs,
       config,
@@ -278,15 +279,16 @@
 
     in
     {
+      imports = [
+        self.modules.homeManager."appearance.font-options"
+      ];
 
       programs.firefox = {
         enable = true;
-
         languagePacks = [ "zh-CN" ];
 
         profiles.${username} = {
           isDefault = true;
-
           containersForce = true;
           containers = {
             nix = {
@@ -308,9 +310,6 @@
               color = "red";
             };
           };
-          # extraConfig = ''
-          #   user_pref("privacy.userContext.longPressBehavior", 2);
-          # '';
 
           settings = settings // {
             "privacy.userContext.enabled" = true;
@@ -321,10 +320,10 @@
           handlers = {
             mimeTypes = {
               "application/pdf" = {
-                action = 1; # 直接下载而不预览
+                action = 1;
               };
               "application/zip" = {
-                action = 1; # 总是询问
+                action = 1;
               };
             };
           };
@@ -333,7 +332,6 @@
             default = "DuckDuckGo (no CSDN)";
             force = true;
             engines = searchEngines;
-
             order = [
               "DuckDuckGo (no CSDN)"
               "Google (no CSDN)"
@@ -344,7 +342,5 @@
           };
         };
       };
-
     };
-
 }

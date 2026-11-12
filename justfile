@@ -3,19 +3,22 @@
 #   just                 Show available recipes
 #   just check           Evaluate flake outputs without building derivations
 #   just nixos-switch    Switch the configured NixOS host
+#   just darwin-switch   Switch the configured Darwin host
 #
 # Override defaults when needed:
 #   NH_FLAKE=/path/to/nix just check
 #   NH_HOST=mochou@nixos just nixos-switch
+#   NH_DARWIN_HOST=mochou@darwin just darwin-switch
 
 set shell := ["bash", "-cu"]
 
 # The repository containing this justfile.
 FLAKE := env_var_or_default("NH_FLAKE", justfile_directory())
 
-# Host directory name under hosts/<username>@<hostname>/.
-# Override with NH_HOST when operating on another host.
+# Host directory names under hosts/<username>@<hostname>/.
+# NH_HOST is used by NixOS recipes; Darwin has its own independent default.
 HOST := env_var_or_default("NH_HOST", "mochou@nixos")
+DARWIN_HOST := env_var_or_default("NH_DARWIN_HOST", "mochou@darwin")
 
 # These are only needed by configurations that intentionally allow
 # unfree/insecure packages. They are passed to Nix commands with --impure.
@@ -145,15 +148,15 @@ hm-logs:
 
 [group('darwin')]
 darwin-eval:
-    {{NIX_ALLOW}} nix eval "{{FLAKE}}#darwinConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
+    {{NIX_ALLOW}} nix eval "{{FLAKE}}#darwinConfigurations.\"{{DARWIN_HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
 
 [group('darwin')]
 darwin-build:
-    {{NIX_ALLOW}} nh darwin build "{{FLAKE}}" -H "{{HOST}}" -- --impure
+    {{NIX_ALLOW}} nh darwin build "{{FLAKE}}" -H "{{DARWIN_HOST}}" -- --impure
 
 [group('darwin')]
 darwin-switch:
-    {{NIX_ALLOW}} nh darwin switch "{{FLAKE}}" -H "{{HOST}}" -- --impure
+    {{NIX_ALLOW}} nh darwin switch "{{FLAKE}}" -H "{{DARWIN_HOST}}" -- --impure
 
 [group('darwin')]
 darwin-repl:
@@ -203,4 +206,3 @@ rekey:
 [group('dev')]
 rekey-status:
     cd "{{FLAKE}}" && git status --short
-
