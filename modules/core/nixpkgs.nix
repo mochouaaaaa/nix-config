@@ -14,10 +14,6 @@ in
   };
 
   flake.modules.nixos.core = { self, username, ... }: {
-    home-manager.users.${username}.imports = [
-      self.modules.homeManager.nixpkgs
-    ];
-
     nixpkgs = {
       inherit config;
       overlays = [ self.overlays.nixos ];
@@ -25,10 +21,6 @@ in
   };
 
   flake.modules.darwin.core = { self, username, ... }: {
-    home-manager.users.${username}.imports = [
-      self.modules.homeManager.nixpkgs
-    ];
-
     nixpkgs = {
       inherit config;
       overlays = [ self.overlays.darwin ];
