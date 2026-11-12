@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.common" = { self, ... }: {
+  flake.modules.homeManager.development = { self, ... }: {
     imports = [
       self.modules.homeManager."development.rust"
     ];
