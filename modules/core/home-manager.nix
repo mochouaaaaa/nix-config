@@ -5,6 +5,7 @@
       inputs,
       lib,
       username,
+      hostName,
       myvars,
       homeManagerNixpkgsInput,
       ...
