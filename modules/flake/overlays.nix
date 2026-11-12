@@ -1,31 +1,35 @@
 { inputs, ... }:
 let
   lib = inputs.nixpkgs.lib;
+
+  # Overlays shared by NixOS, Darwin, and standalone Home Manager.
+  common = lib.composeManyExtensions [
+    inputs.nur.overlays.default
+    inputs.vscode-extensions.overlays.default
+    (_final: prev: {
+      nodejs = prev.nodejs_24;
+      nodejs_22 = prev.nodejs_24;
+      inherit (prev) nodejs_24;
+    })
+  ];
 in
 {
   flake.overlays = {
-    default = _final: _prev: {
-    };
+    default = _final: _prev: { };
 
-    # NixOS 专用 overlay
+    # NixOS and its embedded Home Manager share the system package set.
     nixos = lib.composeManyExtensions [
+      common
       (import ../../pkgs/lix.nix)
     ];
 
-    # Darwin 专用 overlay
+    # nix-darwin and its embedded Home Manager share the system package set.
     darwin = lib.composeManyExtensions [
+      common
       (import ../../pkgs/lix.nix)
     ];
 
-    # Home Manager 专用 overlay（如果确实需要独立于系统 pkgs）
-    home-manager = lib.composeManyExtensions [
-      inputs.nur.overlays.default
-      inputs.vscode-extensions.overlays.default
-      (_final: prev: {
-        nodejs = prev.nodejs_24; # 或 nodejs_22，选一个
-        nodejs_22 = prev.nodejs_24; # 如果某些包硬编码了 nodejs_22
-        inherit (prev) nodejs_24;
-      })
-    ];
+    # Standalone Home Manager uses its own package set.
+    home-manager = common;
   };
 }
