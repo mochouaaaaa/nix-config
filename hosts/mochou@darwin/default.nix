@@ -6,7 +6,6 @@
   ...
 }:
 {
-
   imports = [
     self.modules.darwin.default
   ];
@@ -26,8 +25,9 @@
         self.modules.homeManager.agenix
         self.modules.homeManager.core
         self.modules.homeManager.programs
+        self.modules.homeManager.workstation
+        self.modules.homeManager.darwin
       ];
     };
-
   };
 }
