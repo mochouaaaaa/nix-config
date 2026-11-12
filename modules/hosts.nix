@@ -9,20 +9,15 @@
 let
   hostsDir = ../hosts;
 
-  # nix flake check normally forces every nixosConfigurations toplevel.
-  # The repository's lightweight check opts out of host outputs explicitly.
+  # Keep the lightweight metadata check independent from full system evaluation.
   checkOnly = builtins.getEnv "NIX_CONFIG_CHECK" == "1";
 
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
-  defaultOsNixpkgs = system: if system == "x86_64-darwin" then "nixpkgs-darwin" else "nixpkgs";
+  defaultOs = system:
+    if lib.hasSuffix "-darwin" system then "nix-darwin" else "nixpkgs";
 
-  defaultHomeManagerNixpkgs =
-    system: osNixpkgsInput:
-    if lib.hasSuffix "-darwin" system && osNixpkgsInput != null then
-      osNixpkgsInput
-    else
-      "nixpkgs-stable";
+  defaultHomeManager = _: "home-manager";
 
   parseHost =
     name:
@@ -54,17 +49,17 @@ let
         else
           throw "'system' in ${configPath} must be a non-empty string.";
 
-      rawOsNixpkgs = metadata.os or (defaultOsNixpkgs system);
-      osNixpkgsInput =
-        if rawOsNixpkgs == null then
+      rawOs = metadata.os or (defaultOs system);
+      osInput =
+        if rawOs == null then
           null
-        else if builtins.isString rawOsNixpkgs && rawOsNixpkgs != "" then
-          rawOsNixpkgs
+        else if builtins.isString rawOs && rawOs != "" then
+          rawOs
         else
           throw "'os' in ${configPath} must be a flake input name or null.";
 
       class =
-        if osNixpkgsInput == null then
+        if osInput == null then
           "home"
         else if lib.hasSuffix "-linux" system then
           "nixos"
@@ -73,11 +68,10 @@ let
         else
           throw "Cannot infer host configuration type from system '${system}' in ${configPath}.";
 
-      rawHomeManagerNixpkgs =
-        metadata."home-manager" or (defaultHomeManagerNixpkgs system osNixpkgsInput);
-      homeManagerNixpkgsInput =
-        if builtins.isString rawHomeManagerNixpkgs && rawHomeManagerNixpkgs != "" then
-          rawHomeManagerNixpkgs
+      rawHomeManager = metadata."home-manager" or (defaultHomeManager system);
+      homeManagerInput =
+        if builtins.isString rawHomeManager && rawHomeManager != "" then
+          rawHomeManager
         else
           throw "'home-manager' in ${configPath} must be a non-empty flake input name.";
 
@@ -95,7 +89,39 @@ let
         else
           throw "Host '${name}' references missing flake input '${inputName}'.";
 
-      validatedOsNixpkgsInput = if osNixpkgsInput == null then null else checkInput osNixpkgsInput;
+      validatedOsInput = if osInput == null then null else checkInput osInput;
+      validatedHomeManagerInput = checkInput homeManagerInput;
+
+      systemConstructor =
+        if class == "nixos" then "nixosSystem"
+        else if class == "darwin" then "darwinSystem"
+        else null;
+
+      checkedOsInput =
+        if validatedOsInput == null then null
+        else if builtins.hasAttr "lib" inputs.${validatedOsInput}
+          && builtins.hasAttr systemConstructor inputs.${validatedOsInput}.lib then
+          validatedOsInput
+        else
+          throw "Flake input '${validatedOsInput}' for host '${name}' must provide lib.${systemConstructor}.";
+
+      homeManagerModuleSet =
+        if class == "nixos" then "nixosModules"
+        else if class == "darwin" then "darwinModules"
+        else null;
+
+      checkedHomeManagerInput =
+        if homeManagerModuleSet == null then
+          if builtins.hasAttr "lib" inputs.${validatedHomeManagerInput}
+            && builtins.hasAttr "homeManagerConfiguration" inputs.${validatedHomeManagerInput}.lib then
+            validatedHomeManagerInput
+          else
+            throw "Home Manager input '${validatedHomeManagerInput}' must provide lib.homeManagerConfiguration."
+        else if builtins.hasAttr homeManagerModuleSet inputs.${validatedHomeManagerInput}
+          && builtins.hasAttr "home-manager" inputs.${validatedHomeManagerInput}.${homeManagerModuleSet} then
+          validatedHomeManagerInput
+        else
+          throw "Home Manager input '${validatedHomeManagerInput}' must provide ${homeManagerModuleSet}.home-manager.";
     in
     if unknownFields != [ ] then
       throw "Unknown fields in ${configPath}: ${lib.concatStringsSep ", " unknownFields}"
@@ -103,30 +129,17 @@ let
       {
         username = builtins.elemAt parts 0;
         hostName = builtins.elemAt parts 1;
-        inherit
-          name
-          class
-          system
-          nixosWsl
-          ;
-
-        osNixpkgsInput = validatedOsNixpkgsInput;
-        homeManagerNixpkgsInput = checkInput homeManagerNixpkgsInput;
-
+        inherit name class system nixosWsl;
+        osInput = checkedOsInput;
+        homeManagerInput = checkedHomeManagerInput;
         path = hostsDir + "/${name}";
       };
 
   parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
 
-  # Validate only host metadata and input names; never force host configurations here.
+  # Validate host metadata and input interfaces without evaluating configurations.
   hosts = builtins.deepSeq (map (host: {
-    inherit (host)
-      class
-      system
-      nixosWsl
-      osNixpkgsInput
-      homeManagerNixpkgsInput
-      ;
+    inherit (host) class system nixosWsl osInput homeManagerInput;
   }) (lib.attrValues parsedHosts)) parsedHosts;
 
   selectHosts = class: lib.filterAttrs (_: host: host.class == class) hosts;
@@ -137,50 +150,27 @@ let
 
   hostArgs = host: {
     inherit inputs self;
-    inherit (host)
-      username
-      hostName
-      system
-      osNixpkgsInput
-      homeManagerNixpkgsInput
-      ;
+    inherit (host) username hostName system osInput;
     inherit (config) myvars;
   };
 
-  mkHomePkgs =
-    input: system:
-    import inputs.${input} {
-      inherit system;
-      config.allowUnfree = true;
-    };
-
   hostMetadata = lib.mapAttrs (_: host: {
-    inherit (host)
-      username
-      hostName
-      class
-      system
-      nixosWsl
-      osNixpkgsInput
-      homeManagerNixpkgsInput
-      ;
+    inherit (host) username hostName class system nixosWsl osInput homeManagerInput;
   }) hosts;
 
 in
 {
   flake = {
-    # A lightweight registry consumed by host-evaluations. It contains no
-    # evaluated NixOS/Darwin/Home Manager configuration or package derivations.
     lib.hostMetadata = hostMetadata;
 
     nixosConfigurations = lib.optionalAttrs (!checkOnly) (
       lib.mapAttrs (
         _name: host:
-        inputs.${host.osNixpkgsInput}.lib.nixosSystem {
+        inputs.${host.osInput}.lib.nixosSystem {
           specialArgs = hostArgs host;
 
           modules = [
-            inputs.home-manager.nixosModules.home-manager
+            inputs.${host.homeManagerInput}.nixosModules.home-manager
             self.modules.nixos.core
             self.modules.nixos."services.base"
             self.modules.nixos.agenix
@@ -196,17 +186,15 @@ in
     darwinConfigurations = lib.optionalAttrs (!checkOnly) (
       lib.mapAttrs (
         _name: host:
-        inputs.nix-darwin.lib.darwinSystem {
+        inputs.${host.osInput}.lib.darwinSystem {
           specialArgs = hostArgs host;
 
           modules = [
-            ({ lib, ... }: {
-              nixpkgs.source = lib.mkForce inputs.${host.osNixpkgsInput}.outPath;
-              nixpkgs.flake.source = lib.mkForce inputs.${host.osNixpkgsInput}.outPath;
+            ({ ... }: {
               nixpkgs.hostPlatform = host.system;
             })
 
-            inputs.home-manager.darwinModules.home-manager
+            inputs.${host.homeManagerInput}.darwinModules.home-manager
             self.modules.darwin.core
             self.modules.darwin.env
             self.modules.darwin.homebrew
@@ -223,17 +211,18 @@ in
     homeConfigurations = lib.optionalAttrs (!checkOnly) (
       lib.mapAttrs (
         _name: host:
-        inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = mkHomePkgs host.homeManagerNixpkgsInput host.system;
+        inputs.${host.homeManagerInput}.lib.homeManagerConfiguration {
+          pkgs = import inputs.nixpkgs {
+            inherit (host) system;
+            config.allowUnfree = true;
+          };
 
           extraSpecialArgs = hostArgs host;
 
           modules = [
             self.modules.homeManager.agenix
             self.modules.homeManager.nix-settings
-
             (inputs.import-tree host.path)
-
             { programs.home-manager.enable = true; }
           ];
         }

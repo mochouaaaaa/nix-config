@@ -1,5 +1,5 @@
 {
   "system": "x86_64-darwin",
-  "os": "nixpkgs-darwin",
+  "os": "nix-darwin",
   "home-manager": "home-manager-darwin"
 }

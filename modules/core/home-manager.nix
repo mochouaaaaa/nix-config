@@ -3,24 +3,17 @@
     {
       self,
       inputs,
-      lib,
       username,
       hostName,
       myvars,
-      homeManagerNixpkgsInput,
       ...
     }:
     {
       home-manager = {
-        useGlobalPkgs = false;
+        # Home Manager shares the system package set; its version is selected
+        # independently through the host's "home-manager" flake input.
+        useGlobalPkgs = true;
         useUserPackages = false;
-
-        # Use the host-selected nixpkgs source for Home Manager's private pkgs.
-        sharedModules = [
-          {
-            _module.args.pkgsPath = lib.mkForce inputs.${homeManagerNixpkgsInput}.outPath;
-          }
-        ];
 
         backupFileExtension = "home-manager.backup";
         overwriteBackup = true;
@@ -33,14 +26,7 @@
         };
 
         extraSpecialArgs = {
-          inherit
-            inputs
-            self
-            username
-            hostName
-            myvars
-            homeManagerNixpkgsInput
-            ;
+          inherit inputs self username hostName myvars;
         };
       };
     };

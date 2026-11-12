@@ -93,11 +93,11 @@ in
       lib,
       pkgs,
       username,
-      osNixpkgsInput,
+      osInput,
       ...
     }:
     {
-      nix = lib.recursiveUpdate (mkNixConfig inputs.${osNixpkgsInput} pkgs username) {
+      nix = lib.recursiveUpdate (mkNixConfig (if pkgs.stdenv.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}) pkgs username) {
         optimise.dates = "weekly";
         settings = {
           experimental-features = lib.mkForce [
@@ -115,12 +115,12 @@ in
       lib,
       pkgs,
       username,
-      osNixpkgsInput,
+      osInput,
       ...
     }:
     {
 
-      nix = lib.recursiveUpdate (mkNixConfig inputs.${osNixpkgsInput} pkgs username) {
+      nix = lib.recursiveUpdate (mkNixConfig (if pkgs.stdenv.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}) pkgs username) {
         settings = {
           sandbox = "relaxed";
           experimental-features = lib.mkForce [
