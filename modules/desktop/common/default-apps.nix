@@ -27,11 +27,8 @@
 
           # Documents and images
           "application/pdf" = "org.gnome.Evince.desktop";
-          "image/*" = "imv.desktop";
 
           # Media
-          "audio/*" = "mpv.desktop";
-          "video/*" = "mpv.desktop";
           "application/ogg" = "mpv.desktop";
           "application/x-ogg" = "mpv.desktop";
 
