@@ -4,7 +4,6 @@
       self,
       inputs,
       lib,
-      platform,
       username,
       myvars,
       homeManagerNixpkgsInput,
@@ -37,7 +36,7 @@
             inputs
             self
             username
-            platform
+            hostName
             myvars
             homeManagerNixpkgsInput
             ;
