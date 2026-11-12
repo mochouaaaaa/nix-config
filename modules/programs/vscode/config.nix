@@ -24,12 +24,16 @@
 
   };
 
-  # Install VS Code with Homebrew on macOS; Home Manager only manages its config.
-  flake.modules.homeManager.darwin = {
-    programs.vscode.package = null;
-  };
+  # Install VS Code with Homebrew on Intel macOS; Home Manager only manages its config.
+  flake.modules.homeManager.darwin =
+    { lib, pkgs, ... }:
+    lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-darwin") {
+      programs.vscode.package = null;
+    };
 
-  flake.modules.darwin.programs = {
-    homebrew.casks = [ "visual-studio-code" ];
-  };
+  flake.modules.darwin.programs =
+    { lib, pkgs, ... }:
+    lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-darwin") {
+      homebrew.casks = [ "visual-studio-code" ];
+    };
 }
