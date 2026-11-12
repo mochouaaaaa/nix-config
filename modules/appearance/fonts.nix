@@ -31,7 +31,6 @@
 
   flake.modules.homeManager."desktop.common" =
     {
-      self,
       lib,
       pkgs,
       config,
@@ -41,10 +40,6 @@
       cfg = config.profiles.fonts;
     in
     {
-      imports = [
-        self.modules.homeManager."appearance.font-options"
-      ];
-
       config = {
         home.packages = [
           inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
