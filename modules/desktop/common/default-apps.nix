@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.modules.homeManager._default-apps =
+  flake.modules.homeManager."desktop.default-apps" =
     { pkgs, ... }:
     let
       documentViewers = [
@@ -61,25 +61,25 @@
 
   flake.modules.homeManager."desktop.hyprland" = {
     imports = [
-      self.modules.homeManager._default-apps
+      self.modules.homeManager."desktop.default-apps"
     ];
   };
 
   flake.modules.homeManager."desktop.niri" = {
     imports = [
-      self.modules.homeManager._default-apps
+      self.modules.homeManager."desktop.default-apps"
     ];
   };
 
   flake.modules.homeManager."desktop.gnome" = {
     imports = [
-      self.modules.homeManager._default-apps
+      self.modules.homeManager."desktop.default-apps"
     ];
   };
 
   flake.modules.homeManager."desktop.kde" = {
     imports = [
-      self.modules.homeManager._default-apps
+      self.modules.homeManager."desktop.default-apps"
     ];
   };
 }
