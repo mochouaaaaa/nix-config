@@ -9,6 +9,10 @@
 let
   hostsDir = ../hosts;
 
+  # nix flake check normally forces every nixosConfigurations toplevel.
+  # The repository's lightweight check opts out of host outputs explicitly.
+  checkOnly = builtins.getEnv "NIX_CONFIG_CHECK" == "1";
+
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
   selectNixpkgs =
@@ -137,7 +141,7 @@ in
     # evaluated NixOS/Darwin/Home Manager configuration or package derivations.
     lib.hostMetadata = hostMetadata;
 
-    nixosConfigurations = lib.mapAttrs (
+    nixosConfigurations = lib.optionalAttrs (!checkOnly) (lib.mapAttrs (
       _name: host:
       inputs.${host.nixpkgsInput}.lib.nixosSystem {
         specialArgs = hostArgs host;
@@ -153,9 +157,9 @@ in
           (inputs.import-tree host.path)
         ];
       }
-    ) nixosHosts;
+    ) nixosHosts);
 
-    darwinConfigurations = lib.mapAttrs (
+    darwinConfigurations = lib.optionalAttrs (!checkOnly) (lib.mapAttrs (
       _name: host:
       inputs.nix-darwin.lib.darwinSystem {
         specialArgs = hostArgs host;
@@ -175,9 +179,9 @@ in
           (inputs.import-tree host.path)
         ];
       }
-    ) darwinHosts;
+    ) darwinHosts);
 
-    homeConfigurations = lib.mapAttrs (
+    homeConfigurations = lib.optionalAttrs (!checkOnly) (lib.mapAttrs (
       _name: host:
       inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = mkHomePkgs host.homeManagerNixpkgsInput host.system;
@@ -193,6 +197,6 @@ in
           { programs.home-manager.enable = true; }
         ];
       }
-    ) homeHosts;
+    ) homeHosts);
   };
 }
