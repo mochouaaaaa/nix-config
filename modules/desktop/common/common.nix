@@ -20,6 +20,10 @@
 
     services.geoclue2.enable = true;
 
+    # Enable the system portal service; Home Manager supplies the user's
+    # compositor-specific portal configuration and backend packages.
+    xdg.portal.enable = true;
+
     home-manager.users.${username}.imports = [
       self.modules.homeManager."desktop.common"
     ];
