@@ -47,13 +47,13 @@ in
       };
     };
 
+  # Shared Home Manager foundations only. Select a role explicitly in each host.
   flake.modules.homeManager.host = { self, ... }: {
     imports = [
       self.modules.homeManager.agenix
       self.modules.homeManager.core
       self.modules.homeManager."appearance.font-options"
       self.modules.homeManager."programs.kitty-options"
-      self.modules.homeManager.programs
     ];
   };
 }
