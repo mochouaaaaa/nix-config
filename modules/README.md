@@ -74,7 +74,7 @@ modules/
 
 显式指定字段时覆盖对应默认值。Standalone Home Manager（`os: null`）默认使用 `nixpkgs-stable`。如果是 NixOS WSL 主机，可额外设置 `nixosWsl: true`。所有指定的 input 名称都会在主机元数据求值时验证是否存在于 Flake inputs。
 
-NixOS 使用所选 OS nixpkgs input 的 `lib.nixosSystem` 构造系统；内嵌 Home Manager 保持 `useGlobalPkgs = false`，并通过 `pkgsPath` 使用选定的 Home Manager nixpkgs。Darwin 通过 nix-darwin 的 `nixpkgs.source` 选择 OS 包源，内嵌 Home Manager 使用独立选择的 Home Manager 包源。Standalone Home Manager 则直接从所选 Home Manager nixpkgs 导入 pkgs。
+NixOS 使用所选 OS nixpkgs input 的 `lib.nixosSystem` 构造系统。Home Manager 的集成策略由 `core/home-manager/integration.nix` 维护；各主机的 nixpkgs input 与包源选择由主机 `nixpkgs.json` 和 hosts 解析逻辑负责，Core 不硬编码 stable/unstable 的分配。Darwin 通过 nix-darwin 的 `nixpkgs.source` 选择 OS 包源；Standalone Home Manager 则从主机元数据选择的 Home Manager nixpkgs 导入 pkgs。
 
 主机配置负责声明磁盘、引导、网络等机器差异；通用功能应放在 `modules/`，不要复制到主机目录。不要使用 `builtins.getEnv` 隐式决定目标系统或 nixpkgs 来源；`NIX_CONFIG_CHECK` 仅用于显式切换轻量级检查模式。
 
