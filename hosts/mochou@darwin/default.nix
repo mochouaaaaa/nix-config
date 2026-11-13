@@ -8,6 +8,7 @@
 {
   imports = [
     self.modules.darwin.default
+    self.modules.darwin."services.virtualisation.orbstack"
   ];
 
   networking.hostName = hostName;

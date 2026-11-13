@@ -16,6 +16,7 @@
       self.modules.nixos.hardware
       self.modules.nixos."hardware.audio"
       self.modules.nixos."hardware.bluetooth"
+      self.modules.nixos."security.desktop"
     ];
 
     services.geoclue2.enable = true;

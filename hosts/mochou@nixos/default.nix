@@ -22,6 +22,7 @@
     self.modules.nixos."services.console"
     self.modules.nixos."services.uptermd"
     self.modules.nixos."services.proxy"
+    self.modules.nixos."services.ollama"
     self.modules.nixos."services.mysql"
     self.modules.nixos."services.redis"
     self.modules.nixos."services.postgresql"

@@ -1,12 +1,8 @@
 {
-  flake.modules.homeManager."services.ollama" = {
+  # Ollama is an optional host service, not part of every desktop environment.
+  flake.modules.homeManager."services.ollama" = { pkgs, ... }: {
     services.ollama = {
       enable = true;
-    };
-  };
-
-  flake.modules.homeManager."desktop.common" = { pkgs, ... }: {
-    services.ollama = {
       package = pkgs.ollama-rocm;
       acceleration = "rocm";
       environmentVariables = {
@@ -15,30 +11,20 @@
     };
   };
 
-  flake.modules.nixos."desktop.common" =
-    {
-      self,
-      lib,
-      config,
-
-      username,
-      ...
-    }:
+  flake.modules.nixos."services.ollama" =
+    { self, lib, config, username, ... }:
     {
       home-manager.users.${username}.imports = [
         self.modules.homeManager."services.ollama"
       ];
 
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.services.ollama.enable
-          [
-            ".ollama"
-          ];
-
+        lib.optionals config.home-manager.users.${username}.services.ollama.enable [
+          ".ollama"
+        ];
     };
 
   flake.modules.homeManager.darwin = { lib, ... }: {
     services.ollama.enable = lib.mkForce false;
   };
-
 }

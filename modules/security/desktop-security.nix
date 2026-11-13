@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."desktop.common" = {
+  flake.modules.nixos."security.desktop" = {
     security = {
       polkit.enable = true;
 
