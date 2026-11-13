@@ -38,9 +38,9 @@
                   is_random="${lib.boolToString config.programs.noctalia.settings.wallpaper.automation.enabled}"
 
                   if [ "$mode" = "dark" ]; then
-                    [ "$is_random" = "false" ] && noctalia msg wallpaper-set DP-1 ${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png
+                    [ "$is_random" = "false" ] && noctalia msg wallpaper-set "${config.home.homeDirectory}/Pictures/Wallpapers/zhizi.png"
                   else
-                    [ "$is_random" = "false" ] && noctalia msg wallpaper-set DP-1 ${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png
+                    [ "$is_random" = "false" ] && noctalia msg wallpaper-set "${config.home.homeDirectory}/Pictures/Wallpapers/Dynamic-Wallpapers/Light/Summer-Scene-Light.png"
                   fi
                 '';
               in
