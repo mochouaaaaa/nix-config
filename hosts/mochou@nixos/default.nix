@@ -14,7 +14,7 @@
     self.modules.nixos.preservation
     self.modules.nixos."desktop.hyprland"
     self.modules.nixos."programs.flatpak"
-    self.modules.nixos."programs.db-clients"
+    self.modules.nixos."desktop.programs.database"
     self.modules.nixos.boot-loader-limine
     self.modules.nixos."hardware.hid-apple"
     self.modules.nixos."profiles.zram"

@@ -11,6 +11,8 @@
       self.modules.homeManager."programs.vscode"
       self.modules.homeManager."programs.kitty"
       self.modules.homeManager."desktop.programs.browsers"
+      self.modules.homeManager."desktop.programs.database"
     ];
+    profiles.database-clients.enable = true;
   };
 }
