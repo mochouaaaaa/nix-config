@@ -21,6 +21,7 @@ Service modules live under `modules/services/` and use dotted module names such 
 
 Home Manager application groups are registered independently:
 
+- `desktop.programs.browsers`
 - `desktop.programs.audio`
 - `desktop.programs.security`
 - `desktop.programs.communication`
