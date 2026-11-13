@@ -51,6 +51,7 @@
     users.${username} = {
       imports = [
         self.modules.homeManager.host
+        self.modules.homeManager.workstation
         self.modules.homeManager.linux
         self.modules.homeManager."programs.codex"
         self.modules.homeManager."desktop.programs.audio"
