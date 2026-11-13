@@ -5,6 +5,9 @@
       lib,
       pkgs,
       config,
+      username,
+      hostName,
+      class,
       ...
     }:
     {
@@ -23,16 +26,20 @@
               "nix.serverSettings" =
                 let
                   flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
-                  hostName = "${username}@${hostName}";
+                  hostId = "${username}@${hostName}";
                   hostExpr =
                     if class == "nixos" then
-                      "${flakeExpr}nixosConfigurations.\"${hostName}\""
+                      "${flakeExpr}nixosConfigurations.\"${hostId}\""
                     else if class == "darwin" then
-                      "${flakeExpr}darwinConfigurations.\"${hostName}\""
+                      "${flakeExpr}darwinConfigurations.\"${hostId}\""
                     else
-                      "${flakeExpr}homeConfigurations.\"${hostName}\"";
+                      "${flakeExpr}homeConfigurations.\"${hostId}\"";
                   optionsExpr = "${hostExpr}.options";
-                  nixpkgsExpr = "${hostExpr}.pkgs";
+                  nixpkgsExpr =
+                    if class == "home" then
+                      "import <nixpkgs> { }"
+                    else
+                      "${hostExpr}.pkgs";
                   systemOptionName =
                     if class == "nixos" then "nixos"
                     else if class == "darwin" then "nix-darwin"
