@@ -18,7 +18,7 @@
     '';
   };
 
-  flake.modules.homeManager."development.python" = { pkgs, ... }: {
+  flake.modules.homeManager."development.python" = { ... }: {
 
     programs = {
       ty = {
@@ -47,12 +47,32 @@
           per-file-ignores = {
             "__init__.py" = [ "F401" ];
           };
+          indent-width = 4;
           lint = {
+            select = [
+              "E4"
+              "E7"
+              "E9"
+              "F"
+              "C90"
+            ];
             ignore = [
               "E402"
               "F403"
               "F405"
             ];
+            fixable = [ "ALL" ];
+            unfixable = [ ];
+            dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$";
+          };
+          format = {
+            exclude = [ "*.pyi" ];
+            quote-style = "double";
+            indent-style = "space";
+            skip-magic-trailing-comma = false;
+            line-ending = "auto";
+            docstring-code-format = false;
+            docstring-code-line-length = "dynamic";
           };
         };
       };
@@ -64,104 +84,9 @@
       };
     };
 
-    xdg.configFile."ruff/pyproject.toml".source =
-      let
-        settingsFormat = pkgs.formats.toml { };
-
-        settings = {
-          tool.basedpyright = {
-            pythonPlatform = "all";
-            typeCheckingMode = "standard";
-            useLibraryCodeForTypes = true;
-
-            disableLanguageServices = false;
-
-            reportAssignmentType = "none";
-            reportAttributeAccessIssue = "none";
-            reportMissingImports = true;
-            reportMissingTypeStubs = false;
-          };
-
-          tool.uv = {
-            package-installation = "isolated";
-            cache-builds = true;
-          };
-
-          tool.uv.venv = {
-            in-project = true;
-          };
-
-          tool.ruff = {
-            # Same as Black
-            line-length = 120;
-            indent-width = 4;
-          };
-
-          tool.ruff.lint = {
-            # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
-            # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
-            # McCabe complexity (`C901`) by default.
-
-            select = [
-              "E4"
-              "E7"
-              "E9"
-              "F"
-              "C90"
-            ];
-
-            ignore = [
-              "E402"
-              "F403"
-              "F405"
-            ];
-
-            # Allow fix for all enabled rules (when `--fix`) is provided.
-            fixable = [ "ALL" ];
-            unfixable = [ ];
-
-            # Allow unused variables when underscore-prefixed.
-            dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$";
-
-          };
-
-          tool.ruff.format = {
-            exclude = [ "*.pyi" ];
-            # Like Black, use double quotes for strings.
-            quote-style = "double";
-            # Like Black, indent with spaces, rather than tabs.
-            indent-style = "space";
-            # Like Black, respect magic trailing commas.
-            skip-magic-trailing-comma = false;
-            # Like Black, automatically detect the appropriate line ending.
-            line-ending = "auto";
-            # Enable auto-formatting of code examples in docstrings. Markdown,
-            # reStructuredText code/literal blocks and doctests are all supported.
-            #
-            # This is currently disabled by default, but it is planned for this
-            # to be opt-out in the future.
-            docstring-code-format = false;
-            # Set the line length limit used when formatting code snippets in
-            # docstrings.
-            #
-            # This only has an effect when the `docstring-code-format` setting is
-            # enabled.
-            docstring-code-line-length = "dynamic";
-          };
-
-          tool.pyright = {
-            venvPath = ".";
-            venv = ".venv";
-          };
-
-          tool.pytest.ini_options = {
-            pythonpath = [ "." ];
-            DJANGO_SETTINGS_MODULE = "django_ninjia.settings";
-          };
-
-        };
-      in
-      settingsFormat.generate "pyproject.toml" settings;
+    # Keep machine-wide Ruff defaults in Ruff's own Home Manager module.
+    # Project-specific type-checker and pytest settings belong in each project's
+    # pyproject.toml or pyrightconfig.json, not in Ruff's configuration file.
 
   };
 

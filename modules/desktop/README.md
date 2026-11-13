@@ -7,7 +7,7 @@ Desktop modules use dotted names within their module class:
 - `self.modules.nixos."desktop.hyprland"` is the NixOS entry point.
 - Each NixOS desktop entry automatically adds its matching Home Manager module to the host's `username` Home Manager user.
 - `desktop.common`, `desktop.greeter.noctalia`, `desktop.shell.noctalia`, and `desktop.launcher.vicinae` are reusable components.
-- `desktop.niri`, `desktop.gnome`, and `desktop.kde` remain separate desktop entries. Niri and GNOME use GDM; KDE uses SDDM.
+- `desktop.niri`, `desktop.gnome`, and `desktop.kde` remain separate desktop entries. Hyprland and Niri use the Noctalia Greeter; GNOME uses GDM and KDE uses SDDM.
 
 NixOS and Home Manager remain separate module classes. The NixOS desktop entry composes them by extending only `home-manager.users.<username>.imports`; it does not inject the desktop into every Home Manager user.
 
