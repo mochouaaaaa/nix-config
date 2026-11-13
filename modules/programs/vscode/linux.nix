@@ -9,7 +9,6 @@
     {
 
       programs.vscode = {
-        enable = true;
         package = pkgs.vscode-fhs;
 
         profiles.default = {
@@ -37,8 +36,6 @@
               };
               meta.license = lib.licenses.gpl3Plus;
             })
-          ];
-          keybindings = [
           ];
         };
       };
