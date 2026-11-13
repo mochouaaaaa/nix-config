@@ -12,6 +12,7 @@
         [
           # db
           duckdb
+          sqlite
           # pdf
           # zathura
           # markdown
