@@ -46,26 +46,25 @@
 
   };
 
-  flake.modules.nixos."desktop.common" = { username, ... }: {
-
-    profiles.preservation.users.${username}.directories = [
-      # ======================================
-      # Security
-      # ======================================
-      {
-        directory = ".config/Bitwarden";
-        mode = "0700";
-      }
-      {
-        directory = ".local/share/authenticator";
-        mode = "0755";
-      }
-      {
-        directory = ".local/share/io.ente.auth";
-        mode = "0755";
-      }
-    ];
-
-  };
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      pkgs,
+      config,
+      username,
+      ...
+    }:
+    let
+      homePackages = config.home-manager.users.${username}.home.packages or [ ];
+    in
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals (lib.elem pkgs.bitwarden-desktop homePackages) [
+          {
+            directory = ".config/Bitwarden";
+            mode = "0700";
+          }
+        ];
+    };
 
 }
