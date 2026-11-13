@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.homebrew = {
+  flake.modules.darwin."system.defaults" = {
     system = {
       # keyboard settings is not very useful on macOS
       # the most important thing is to remap option key to alt key globally,

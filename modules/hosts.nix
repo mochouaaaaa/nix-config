@@ -197,6 +197,7 @@ in
             inputs.${host.homeManagerInput}.darwinModules.home-manager
             self.modules.darwin.core
             self.modules.darwin.env
+            self.modules.darwin."system.defaults"
             self.modules.darwin.homebrew
             self.modules.darwin.agenix
             self.modules.darwin.services

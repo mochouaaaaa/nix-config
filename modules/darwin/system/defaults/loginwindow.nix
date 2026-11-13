@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.homebrew = {
+  flake.modules.darwin."system.defaults" = {
     system = {
       defaults = {
         loginwindow = {
