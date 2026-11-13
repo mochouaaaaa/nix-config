@@ -25,8 +25,6 @@
         vscode = {
           profiles = {
             default = {
-              keybindings = [
-              ];
               extensions = with pkgs.vscode-extensions; [
                 # base extensions
                 formulahendry.code-runner
@@ -62,7 +60,7 @@
 
                 # theme
                 # Vogadero.auto-theme
-                # vscode-icons-team.vscode-icons
+                vscode-icons-team.vscode-icons
                 zhuangtongfa.material-theme
 
                 # shell
