@@ -20,34 +20,51 @@
               };
               "nix.enableLanguageServer" = true;
               "nix.serverPath" = "${lib.getExe pkgs.nixd}";
-              "nix.serverSettings" = {
-                "nixd" = {
-                  "formatting" = {
-                    "command" = [ "${lib.getExe pkgs.nixfmt}" ];
+              "nix.serverSettings" =
+                let
+                  flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
+                  hostName = "${username}@${hostName}";
+                  hostExpr =
+                    if class == "nixos" then
+                      "${flakeExpr}nixosConfigurations.\"${hostName}\""
+                    else if class == "darwin" then
+                      "${flakeExpr}darwinConfigurations.\"${hostName}\""
+                    else
+                      "${flakeExpr}homeConfigurations.\"${hostName}\"";
+                  optionsExpr = "${hostExpr}.options";
+                  nixpkgsExpr = "${hostExpr}.pkgs";
+                  systemOptionName =
+                    if class == "nixos" then "nixos"
+                    else if class == "darwin" then "nix-darwin"
+                    else null;
+                  nixdOptions =
+                    if systemOptionName == null then
+                      {
+                        "home-manager" = {
+                          expr = optionsExpr;
+                        };
+                      }
+                    else
+                      {
+                        "${systemOptionName}" = {
+                          expr = optionsExpr;
+                        };
+                        "home-manager" = {
+                          expr = "${optionsExpr}.home-manager.users.type.getSubOptions []";
+                        };
+                      };
+                in
+                {
+                  "nixd" = {
+                    "nixpkgs" = {
+                      "expr" = nixpkgsExpr;
+                    };
+                    "formatting" = {
+                      "command" = [ "${lib.getExe pkgs.nixfmt}" ];
+                    };
+                    "options" = nixdOptions;
                   };
-                  "pkgs" = {
-                    "expr" = "import <nixpkgs> { }";
-                  };
-                  "pkgs-stable" = {
-                    "expr" = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs-stable {}";
-                  };
-                  "pkgs-unstable" = {
-                    "expr" = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs {}";
-                  };
-                  # "options" = {
-                  #   "nixos" = {
-                  #     "expr" =
-                  #       "(builtins.getFlake (toString ./.)).nixosConfigurations.\"${nixDarwinSystemName}\".options";
-                  #   };
-                  #   "home-manager" = {
-                  #     "expr" = "${homeExpr}";
-                  #   };
-                  #   "nix-darwin" = {
-                  #     "expr" = "(builtins.getFlake (toString ./.)).darwinConfigurations.\"${nixosSystemName}\".options";
-                  #   };
-                  # };
                 };
-              };
               "nix.hiddenLanguageServerErrors" = [
                 "textDocument/definition"
               ];
