@@ -1,12 +1,11 @@
 {
-
+  self,
   system,
   hostName,
   username,
   ...
 }:
 {
-
   networking.hostName = hostName;
   nixpkgs.hostPlatform = system;
 
@@ -19,4 +18,19 @@
   networking.resolvconf.enable = false;
 
   programs.nix-ld.enable = true;
+
+  home-manager = {
+    sharedModules = [
+      {
+        age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGZ/55qfEl93PzcMW3rGAAtClPYFloVkMpwvxVUr6Xyu";
+      }
+    ];
+  };
+
+  users.${username} = {
+    imports = [
+      self.modules.homeManager.host
+      self.modules.homeManager.linux
+    ];
+  };
 }
