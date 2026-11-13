@@ -57,7 +57,7 @@ in
       ];
     };
 
-  # Host type is provided by modules/hosts.nix through Home Manager specialArgs.
+  # Platform-specific nixd namespaces are explicit at the module declaration.
   flake.modules.homeManager.darwin = mkNixdConfig {
     configuration = "darwinConfigurations";
     systemOptionName = "nix-darwin";
