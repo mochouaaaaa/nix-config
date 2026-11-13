@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.common" = {
+  flake.modules.homeManager."desktop.programs" = {
     services.remmina = {
       enable = true;
       systemdService = {

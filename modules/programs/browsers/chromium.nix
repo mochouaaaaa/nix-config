@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.modules.homeManager."desktop.common" = {
+  flake.modules.homeManager."desktop.programs" = {
     imports = [ self.modules.homeManager."programs.chromium" ];
 
     programs.chromium = {

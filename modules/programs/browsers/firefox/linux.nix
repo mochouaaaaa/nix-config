@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.common" =
+  flake.modules.homeManager."desktop.programs" =
     {
       lib,
       config,

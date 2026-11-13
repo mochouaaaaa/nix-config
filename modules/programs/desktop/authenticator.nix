@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.common" = { pkgs, ... }: {
+  flake.modules.homeManager."desktop.programs" = { pkgs, ... }: {
     home.packages = [
       pkgs.ente-auth
       pkgs.authenticator
