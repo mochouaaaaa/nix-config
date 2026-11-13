@@ -43,8 +43,7 @@
         EnvironmentFile = config.age.secrets.next_dns_server.path;
       };
 
-      systemd.services = lib.mkIf config.services.mihomo.enable {
-        mihomo-config = {
+      systemd.services.mihomo-config = lib.mkIf config.services.mihomo.enable {
           description = "Generate Mihomo configuration";
   
           serviceConfig = {
@@ -71,14 +70,13 @@
               output.chmod(0o600)
             '';
           };
-        };
-  
-        mihomo = {
+      };
+
+      systemd.services.mihomo = lib.mkIf config.services.mihomo.enable {
           requires = [ "mihomo-config.service" ];
           after = [ "mihomo-config.service" ];
   
           serviceConfig.LoadCredential = lib.mkForce "config.yaml:/run/mihomo-config/config.yaml";
-        };
       };
 
     };
