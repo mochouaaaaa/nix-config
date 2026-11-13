@@ -58,7 +58,7 @@
 
     };
 
-  flake.modules.nixos."desktop.common" =
+  flake.modules.nixos."programs.flatpak" =
     {
       self,
       lib,
