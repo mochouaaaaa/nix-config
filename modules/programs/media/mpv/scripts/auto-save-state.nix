@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.media" = {
+  flake.modules.homeManager."programs.mpv.auto-save-state" = {
 
     xdg.configFile."mpv/scripts/auto-save-state.lua" = {
       text = ''
