@@ -1,9 +1,4 @@
-{ self, ... }: {
-
-  flake.modules.nixos."desktop.common" = {
-    imports = [ self.modules.nixos.boot-loader-limine ];
-  };
-
+{ ... }: {
   flake.modules.nixos.boot-loader-limine =
     {
       lib,

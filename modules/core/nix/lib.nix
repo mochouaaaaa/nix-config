@@ -3,7 +3,7 @@
 let
   mkMyLib =
     lib:
-    import ../../lib {
+    import ../../../lib {
       inherit lib inputs;
     };
 in

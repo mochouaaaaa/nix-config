@@ -1,7 +1,7 @@
 {
-  flake.modules.nixos.hardware-wifi-tuning = {
+  flake.modules.nixos."hardware.wifi-tuning" = {
     boot.extraModprobeConfig = ''
-      options bt_coex_active=0 swcrypto=1 11n_disable=8
+      options iwlwifi bt_coex_active=0 swcrypto=1 11n_disable=8
     '';
   };
 }

@@ -3,11 +3,10 @@
     environment = {
       localBinInPath = true;
       systemPackages = with pkgs; [
-        uwsm
-        lsof # list open files
-        psmisc # killall/pstree/prtstat/fuser/...
-        pciutils # lspci
-        usbutils # lsusb
+        lsof
+        psmisc
+        pciutils
+        usbutils
         ntfs3g
       ];
     };

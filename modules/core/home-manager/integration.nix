@@ -7,7 +7,6 @@ let
   };
 in
 {
-  # Shared system-level Home Manager integration settings.
   flake.modules.nixos.home-manager-backup = homeManagerIntegration;
   flake.modules.darwin.home-manager-backup = homeManagerIntegration;
 
@@ -25,16 +24,14 @@ in
       imports = [ self.modules.nixos.home-manager-backup ];
 
       home-manager = {
-        # Home Manager shares the system package set; its version is selected
-        # independently through the host's "home-manager" flake input.
+        # Keep the package-set integration policy here. Host input selection
+        # remains the responsibility of hosts/<host>/nixpkgs.json.
         useGlobalPkgs = true;
         useUserPackages = false;
 
-        users.${username} = {
-          home = {
-            inherit username;
-            homeDirectory = "/home/${username}";
-          };
+        users.${username}.home = {
+          inherit username;
+          homeDirectory = "/home/${username}";
         };
 
         extraSpecialArgs = {

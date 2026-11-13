@@ -12,6 +12,9 @@
   imports = [
     self.modules.nixos.preservation
     self.modules.nixos."desktop.hyprland"
+    self.modules.nixos.boot-loader-limine
+    self.modules.nixos."hardware.hid-apple"
+    self.modules.nixos."profiles.zram"
     # self.modules.nixos."desktop.niri"
 
     self.modules.nixos."services.proxy"

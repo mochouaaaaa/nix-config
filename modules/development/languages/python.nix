@@ -88,7 +88,7 @@
           };
 
           tool.uv.venv = {
-            in-poject = true;
+            in-project = true;
           };
 
           tool.ruff = {

@@ -27,7 +27,6 @@
       "vfio-pci"
       "ext4"
     ];
-    extraModprobeConfig = "options kvm_amd nested=1"; # for amd cpu
     extraModulePackages = [ ];
     supportedFilesystems = [
       "ext4"

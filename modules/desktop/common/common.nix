@@ -20,6 +20,8 @@
 
     services.geoclue2.enable = true;
 
+    environment.systemPackages = [ pkgs.uwsm ];
+
     # Enable the system portal service; Home Manager supplies the user's
     # compositor-specific portal configuration and backend packages.
     xdg.portal = {

@@ -7,8 +7,16 @@
 ```text
 modules/
 ├── flake/          # flake-parts 输出、systems、overlays、checks、devShell
-├── core/           # NixOS/Darwin/HM 基础能力、用户、locale、session
-├── hardware/       # 音频、蓝牙、固件、设备调优
+├── core/           # 系统基础能力，按职责分组
+│   ├── boot/
+│   ├── compat/
+│   ├── dotfiles/
+│   ├── home-manager/
+│   ├── nix/
+│   ├── profiles/
+│   ├── session/
+│   └── system/
+├── hardware/       # 音频、蓝牙、输入设备、设备调优与嵌入式硬件
 ├── desktop/        # 桌面环境、通用桌面能力及可组合组件
 │   ├── common/
 │   ├── components/
@@ -18,7 +26,7 @@ modules/
 │   └── kde/
 ├── services/       # 系统服务，按网络、数据库、虚拟化等继续分组
 ├── programs/       # 用户应用和工具
-├── development/    # 开发语言与工具链
+├── development/    # 开发语言与工具链\n│   ├── languages/\n│   └── tools/
 ├── security/       # 密钥、权限、持久化、安全策略
 ├── appearance/     # 字体、主题、光标
 ├── darwin/         # macOS 专属系统能力

@@ -1,6 +1,5 @@
 {
   flake.modules.homeManager.development = { pkgs, config, ... }: {
-
     home.packages = with pkgs; [
       (writeShellApplication {
         name = "nixify";
@@ -13,11 +12,7 @@
           if [[ ! -e shell.nix ]] && [[ ! -e default.nix ]]; then
             cat > default.nix <<'EOF'
           with import <nixpkgs> {};
-          mkShell {
-            nativeBuildInputs = [
-              bashInteractive
-            ];
-          }
+          mkShell { nativeBuildInputs = [ bashInteractive ]; }
           EOF
             ''${EDITOR:-nvim} default.nix
           fi
@@ -42,23 +37,15 @@
         echo -e "\033[93m All direnv related files have been removed. \033[0m"
       '')
     ];
-
-    programs = {
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-
-        enableZshIntegration = config.programs.zsh.enable;
-        enableBashIntegration = config.programs.bash.enable;
-      };
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = config.programs.zsh.enable;
+      enableBashIntegration = config.programs.bash.enable;
     };
-
   };
 
   flake.modules.nixos.preservation = { username, ... }: {
-    profiles.preservation.users.${username}.directories = [
-      ".local/share/direnv"
-    ];
+    profiles.preservation.users.${username}.directories = [ ".local/share/direnv" ];
   };
-
 }
