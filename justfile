@@ -141,7 +141,7 @@ nixos-repl:
 [group('nixos')]
 [linux]
 desktop:
-    @nix eval --raw --apply 'modules: builtins.concatStringsSep "\n" (builtins.filter (name: builtins.match "desktop\\.(hyprland|niri|gnome|kde)$" name != null) (builtins.attrNames modules))' "{{FLAKE}}#modules.nixos" | while IFS= read -r module; do \
+    @nix eval --raw --apply 'modules: builtins.concatStringsSep "\n" (builtins.filter (name: builtins.match "desktop\\.[^.]+$" name != null && name != "desktop.common") (builtins.attrNames modules))' "{{FLAKE}}#modules.nixos" | while IFS= read -r module; do \
         if awk '!/^[[:space:]]*#/' "{{FLAKE}}/hosts/{{HOST}}/default.nix" | grep -Fq "self.modules.nixos.\"$module\""; then \
             printf '%s  (current)\n' "$module"; \
         else \
