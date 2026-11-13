@@ -19,6 +19,7 @@ _: {
           package = pkgs.neovim-unwrapped;
           defaultEditor = true;
           initLua = ''
+            vim.g.IS_NIX      = true
             vim.g.is_linux    = ${toLus isLinux}
             vim.g.is_darwin   = ${toLus isNixDarwin}
 
