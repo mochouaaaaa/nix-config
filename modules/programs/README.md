@@ -29,3 +29,7 @@ file does not change its `flake.modules.*` interface or the host composition.
   `desktop.common` by default.
 - Keep files that are loaded through relative paths (for example
   `tridactylrc` and `p10k.zsh`) alongside their owning module.
+
+## Nested program modules
+
+A program's reusable configuration should be owned by that program rather than by a broad desktop profile. For example, `programs.mpv` imports its own ModernZ options, playback-state script and locale resources; `desktop.programs.media` only selects MPV as part of the host's media application set.
