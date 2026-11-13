@@ -1,15 +1,21 @@
 let
   mkNixdConfig =
-    {
-      configuration,
-      systemOptionName,
-    }:
+    { configuration }:
     {
       username,
       hostName,
+      class,
       ...
     }:
     let
+      systemOptionName =
+        if class == "nixos" then
+          "nixos"
+        else if class == "darwin" then
+          "nix-darwin"
+        else
+          throw "Unsupported host class for nixd: ${class}";
+
       flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
       hostExpr = "${flakeExpr}${configuration}.\"${username}@${hostName}\"";
       optionsExpr = "${hostExpr}.options";
@@ -57,15 +63,12 @@ in
       ];
     };
 
-  # Platform selection is handled by the Home Manager module graph.
-  # Read the final package set and options from the corresponding host output.
+  # Host type is provided by modules/hosts.nix through Home Manager specialArgs.
   flake.modules.homeManager.darwin = mkNixdConfig {
     configuration = "darwinConfigurations";
-    systemOptionName = "nix-darwin";
   };
 
   flake.modules.homeManager.linux = mkNixdConfig {
     configuration = "nixosConfigurations";
-    systemOptionName = "nixos";
   };
 }
