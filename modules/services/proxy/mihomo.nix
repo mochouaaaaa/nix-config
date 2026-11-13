@@ -15,6 +15,10 @@
             configFile = ./mihomo.yaml;
             processesInfo = true;
           };
+
+          profiles.preservation.directories = [
+            "/var/lib/private/mihomo"
+          ];
         }
 
         (lib.mkIf config.services.mihomo.tunMode {
