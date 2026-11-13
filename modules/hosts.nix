@@ -150,7 +150,7 @@ let
 
   hostArgs = host: {
     inherit inputs self;
-    inherit (host) username hostName system osInput;
+    inherit (host) username hostName system osInput class;
     inherit (config) myvars;
   };
 
