@@ -7,7 +7,4 @@
     services.ddccontrol.enable = true;
   };
 
-  flake.modules.nixos."desktop.common" = { self, ... }: {
-    imports = [ self.modules.nixos."services.brightness" ];
-  };
 }
