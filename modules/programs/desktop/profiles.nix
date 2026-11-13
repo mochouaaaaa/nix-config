@@ -1,6 +1,7 @@
 {
   flake.modules.homeManager."desktop.programs" = { self, ... }: {
     imports = [
+      self.modules.homeManager."desktop.programs.browsers"
       self.modules.homeManager."desktop.programs.audio"
       self.modules.homeManager."desktop.programs.security"
       self.modules.homeManager."desktop.programs.communication"

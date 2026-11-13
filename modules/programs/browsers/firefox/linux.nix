@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs" =
+  flake.modules.homeManager."desktop.programs.browsers" =
     {
       lib,
       config,
@@ -11,7 +11,7 @@
     {
       programs.firefox = {
         package = pkgs.firefox-bin;
-        configPath = "${config.xdg.configHome}/mozilla/firefox";
+        configPath = ".mozilla/firefox";
         profiles.${username} = {
           settings = {
             # "ui.key.menuAccessKey" = 0;
@@ -46,6 +46,7 @@
       profiles.preservation.users.${username}.directories =
         lib.optionals config.home-manager.users.${username}.programs.firefox.enable
           [
+            ".mozilla"
             ".config/mozilla"
             ".cache/mozilla"
           ];

@@ -30,6 +30,7 @@
       programs = {
         yazi = {
           enable = true;
+          shellWrapperName = "yy";
           extraPackages = yaziRuntimeDeps;
           plugins = with pkgs.yaziPlugins; {
             inherit git;

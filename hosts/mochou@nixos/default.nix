@@ -50,6 +50,7 @@
         self.modules.homeManager.host
         self.modules.homeManager.linux
         self.modules.homeManager."desktop.programs.audio"
+        self.modules.homeManager."desktop.programs.browsers"
         self.modules.homeManager."desktop.programs.security"
         self.modules.homeManager."desktop.programs.communication"
         self.modules.homeManager."desktop.programs.email"

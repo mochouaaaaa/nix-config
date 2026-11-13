@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.programs" =
+  flake.modules.homeManager."desktop.programs.media" =
     {
       self,
       pkgs,
