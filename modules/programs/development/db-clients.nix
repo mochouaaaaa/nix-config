@@ -44,7 +44,7 @@
   #   imports = [ self.modules.homeManager."programs.db-clients" ];
   # };
 
-  flake.modules.nixos."desktop.common" =
+  flake.modules.nixos."programs.db-clients" =
     {
       self,
       lib,
