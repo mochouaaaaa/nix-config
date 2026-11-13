@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.media" = {
+  flake.modules.homeManager."programs.mpv.modernz" = {
 
     xdg.configFile."mpv/script-opts/modernz.json" = {
       text = ''
