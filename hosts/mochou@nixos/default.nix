@@ -20,6 +20,7 @@
 
     self.modules.nixos."services.dns"
     self.modules.nixos."services.console"
+    self.modules.nixos."services.brightness"
     self.modules.nixos."services.uptermd"
     self.modules.nixos."services.proxy"
     self.modules.nixos."programs.evolution"
