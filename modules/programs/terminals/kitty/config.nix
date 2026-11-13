@@ -1,14 +1,7 @@
 {
-  flake.modules.homeManager."programs.kitty" =
-    {
-      lib,
-      pkgs,
-      config,
-      ...
-    }:
+  flake.modules.homeManager."programs.kitty-options" =
+    { lib, pkgs, ... }:
     let
-      cfg = config.profiles.terminal.kitty;
-
       kitty-icon = pkgs.fetchFromGitHub {
         owner = "DinkDonk";
         repo = "kitty-icon";
@@ -17,7 +10,6 @@
       };
     in
     {
-
       options.profiles.terminal = {
         kitty = with lib; {
           enable = mkOption {
@@ -37,6 +29,20 @@
           };
         };
       };
+    };
+
+{
+  flake.modules.homeManager."programs.kitty" =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+    let
+      cfg = config.profiles.terminal.kitty;
+    in
+    {
 
       config = {
         profiles.terminal.kitty.extraConfig = lib.mkBefore [
