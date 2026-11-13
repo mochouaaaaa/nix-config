@@ -26,7 +26,9 @@ modules/
 │   └── kde/
 ├── services/       # 系统服务，按网络、数据库、虚拟化等继续分组
 ├── programs/       # 用户应用和工具
-├── development/    # 开发语言与工具链\n│   ├── languages/\n│   └── tools/
+├── development/    # 开发语言与工具链
+│   ├── languages/
+│   └── tools/
 ├── security/       # 密钥、权限、持久化、安全策略
 ├── appearance/     # 字体、主题、光标
 ├── darwin/         # macOS 专属系统能力
