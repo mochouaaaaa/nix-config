@@ -111,9 +111,6 @@
         '';
       };
 
-        profiles.preservation.directories = [
-          "/var/lib/private/mihomo"
-        ];
       };
     };
 }
