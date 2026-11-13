@@ -11,7 +11,7 @@
     {
       programs.firefox = {
         package = pkgs.firefox-bin;
-        configPath = ".mozilla/firefox";
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
         profiles.${username} = {
           settings = {
             # "ui.key.menuAccessKey" = 0;
