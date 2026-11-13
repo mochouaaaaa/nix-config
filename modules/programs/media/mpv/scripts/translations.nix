@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.media" =
+  flake.modules.homeManager."programs.mpv.translations" =
     { pkgs, ... }:
     let
       translations = pkgs.fetchurl {
