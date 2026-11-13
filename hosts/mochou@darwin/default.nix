@@ -25,6 +25,7 @@
       imports = [
         self.modules.homeManager.host
         self.modules.homeManager.darwin
+        self.modules.homeManager."programs.codex"
       ];
     };
   };
