@@ -1,16 +1,15 @@
 let
   mkNixdConfig =
-    { configuration }:
+    {
+      configuration,
+      systemOptionName,
+    }:
     {
       username,
       hostName,
-      class,
       ...
     }:
     let
-      systemOptionName =
-        if class == "darwin" then "nix-darwin" else class;
-
       flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
       hostExpr = "${flakeExpr}${configuration}.\"${username}@${hostName}\"";
       optionsExpr = "${hostExpr}.options";
@@ -61,9 +60,11 @@ in
   # Host type is provided by modules/hosts.nix through Home Manager specialArgs.
   flake.modules.homeManager.darwin = mkNixdConfig {
     configuration = "darwinConfigurations";
+    systemOptionName = "nix-darwin";
   };
 
   flake.modules.homeManager.linux = mkNixdConfig {
     configuration = "nixosConfigurations";
+    systemOptionName = "nixos";
   };
 }
