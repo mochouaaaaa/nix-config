@@ -3,9 +3,16 @@
     programs.codex.enable = true;
   };
 
-  flake.modules.nixos.preservation = { username, ... }: {
-    profiles.preservation.users.${username}.directories = [
-      ".codex"
-    ];
-  };
+  flake.modules.nixos.preservation =
+    {
+      username,
+      lib,
+      config,
+      ...
+    }:
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optional config.home-manager.users.${username}.programs.codex.enable
+          ".codex";
+    };
 }
