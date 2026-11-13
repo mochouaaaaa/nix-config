@@ -44,7 +44,7 @@
       };
 
       systemd.services = lib.mkIf config.services.mihomo.enable {
-        systemd.services.mihomo-config = {
+        mihomo-config = {
           description = "Generate Mihomo configuration";
   
           serviceConfig = {
@@ -73,7 +73,7 @@
           };
         };
   
-        systemd.services.mihomo = {
+        mihomo = {
           requires = [ "mihomo-config.service" ];
           after = [ "mihomo-config.service" ];
   
