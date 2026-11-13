@@ -78,6 +78,9 @@
               size = 16;
             };
             extraConfig = lib.mkOrder 500 (lib.concatStringsSep "\n" cfg.extraConfig);
+            mouseBindings = {
+              "ctrl+left click" = "ungrabbed mouse_handle_click link";
+            };
             enableGitIntegration = true;
             shellIntegration = {
               enableBashIntegration = true;

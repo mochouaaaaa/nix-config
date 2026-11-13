@@ -11,7 +11,6 @@
           "adjust_line_height 100%"
           "adjust_column_width 100%"
           "window_padding_width 0 4"
-          "mouse_map        ctrl+left click ungrabbed mouse_handle_click link"
         ];
       };
 

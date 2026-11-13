@@ -27,7 +27,7 @@
     in
     {
 
-      programs = rec {
+      programs = {
         yazi = {
           enable = true;
           extraPackages = yaziRuntimeDeps;
@@ -60,19 +60,14 @@
             };
           };
         };
-        kitty = {
-          keybindings = {
-            "cmd+r" = "send_text all \\x1b[57399;5u";
-          };
-        };
-        zsh.initContent = lib.optionalString yazi.enable ''
+
+        zsh.initContent = ''
           if [[ -n "$YAZI_ID" ]]; then
               function _yazi_cd() {
                   ya emit cd "$PWD"
               }
               add-zsh-hook zshexit _yazi_cd
           fi
-
 
           # Kitty: launch Yazi silently in the current shell
           function kitty-yazi-widget() {
@@ -88,11 +83,14 @@
 
           zle -N kitty-yazi-widget
           bindkey '\e[57399;5u' kitty-yazi-widget
-          # bindkey -M emacs '\e[57399;5u' kitty-yazi-widget
-          # bindkey -M viins '\e[57399;5u' kitty-yazi-widget
-          # bindkey -M vicmd '\e[57399;5u' kitty-yazi-widget
-
         '';
+      };
+      profiles.terminal.kitty = {
+        extraConfig = [
+          "map cmd+r send_text all \\x1b[57399;5u"
+          "map --when-focus-on var:IS_NVIM cmd+r"
+          "map --when-focus-on var:IS_TMUX cmd+r"
+        ];
       };
 
       xdg.configFile = config.profiles.dotfileLink "yazi";
