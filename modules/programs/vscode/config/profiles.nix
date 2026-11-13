@@ -7,8 +7,6 @@ let
     {
       lib,
       pkgs,
-      username,
-      hostName,
       ...
     }:
     let
@@ -33,7 +31,6 @@ in
 {
   flake.modules.homeManager."programs.vscode" =
     {
-      self,
       lib,
       pkgs,
       config,
@@ -54,7 +51,7 @@ in
               };
               "nix.enableLanguageServer" = true;
               "nix.serverPath" = "${lib.getExe pkgs.nixd}";
-"nix.hiddenLanguageServerErrors" = [
+              "nix.hiddenLanguageServerErrors" = [
                 "textDocument/definition"
               ];
 
