@@ -92,6 +92,10 @@ check-build:
 [group('quality')]
 validate: fmt-check lint check
 
+# Evaluate each configured host without building its system closure.
+[group('quality')]
+validate-hosts: nixos-eval darwin-eval
+
 # ---------------------------------------------------------------------------
 # NixOS
 # ---------------------------------------------------------------------------
