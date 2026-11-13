@@ -1,6 +1,5 @@
 {
   flake.modules.nixos."services.base" = {
-
     services.openssh = {
       enable = true;
       settings = {
@@ -15,36 +14,35 @@
     };
 
     programs.ssh.startAgent = false;
+  };
 
-    profiles.preservation = {
-      files = [
-        {
-          file = "/etc/ssh/ssh_host_rsa_key";
-          how = "symlink";
-          inInitrd = true;
-          configureParent = true;
-        }
-        {
-          file = "/etc/ssh/ssh_host_rsa_key.pub";
-          how = "symlink";
-          inInitrd = true;
-          configureParent = true;
-        }
-        {
-          file = "/etc/ssh/ssh_host_ed25519_key";
-          how = "symlink";
-          inInitrd = true;
-          configureParent = true;
-        }
-        {
-          file = "/etc/ssh/ssh_host_ed25519_key.pub";
-          how = "symlink";
-          inInitrd = true;
-          configureParent = true;
-        }
-      ];
-    };
-
+  flake.modules.nixos.preservation = {
+    profiles.preservation.files = [
+      {
+        file = "/etc/ssh/ssh_host_rsa_key";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+      {
+        file = "/etc/ssh/ssh_host_rsa_key.pub";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key.pub";
+        how = "symlink";
+        inInitrd = true;
+        configureParent = true;
+      }
+    ];
   };
 
   flake.modules.darwin.services = {
