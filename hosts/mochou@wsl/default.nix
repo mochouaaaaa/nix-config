@@ -31,6 +31,7 @@
     imports = [
       self.modules.homeManager.host
       self.modules.homeManager.linux
+      self.modules.homeManager.servers
     ];
   };
 }
