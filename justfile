@@ -137,12 +137,17 @@ nixos-test:
 nixos-repl:
     {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
-# List available NixOS desktop entry modules from the flake.
+# List available NixOS desktop entry modules and mark the host's selected desktop.
 [group('nixos')]
 [linux]
 desktop:
-    @nix eval --raw --apply 'modules: builtins.concatStringsSep "\\n" (builtins.filter (name: builtins.match "desktop\\.(hyprland|niri|gnome|kde)$" name != null) (builtins.attrNames modules))' "{{FLAKE}}#modules.nixos"
-
+    @nix eval --raw --apply 'modules: builtins.concatStringsSep "\n" (builtins.filter (name: builtins.match "desktop\\.(hyprland|niri|gnome|kde)$" name != null) (builtins.attrNames modules))' "{{FLAKE}}#modules.nixos" | while IFS= read -r module; do \
+        if awk '!/^[[:space:]]*#/' "{{FLAKE}}/hosts/{{HOST}}/default.nix" | grep -Fq "self.modules.nixos.\"$module\""; then \
+            printf '%s  (current)\n' "$module"; \
+        else \
+            printf '%s\n' "$module"; \
+        fi; \
+    done
 # ---------------------------------------------------------------------------
 # Home Manager
 # ---------------------------------------------------------------------------
