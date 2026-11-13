@@ -52,7 +52,6 @@ in
     imports = [
       self.modules.homeManager.agenix
       self.modules.homeManager.core
-      self.modules.homeManager."appearance.font-options"
       self.modules.homeManager."programs.kitty-options"
     ];
   };
