@@ -31,9 +31,6 @@
         yazi = {
           enable = true;
           extraPackages = yaziRuntimeDeps;
-          enableZshIntegration = false;
-          enableBashIntegration = false;
-          enableFishIntegration = false;
           plugins = with pkgs.yaziPlugins; {
             inherit git;
             inherit chmod;
@@ -63,6 +60,11 @@
             };
           };
         };
+        kitty = {
+          keybindings = {
+            "cmd+r" = "send_text all \\x1b[57399;5u";
+          };
+        };
         zsh.initContent = lib.optionalString yazi.enable ''
           if [[ -n "$YAZI_ID" ]]; then
               function _yazi_cd() {
@@ -70,6 +72,26 @@
               }
               add-zsh-hook zshexit _yazi_cd
           fi
+
+
+          # Kitty: launch Yazi silently in the current shell
+          function kitty-yazi-widget() {
+              if [[ -n "$BUFFER" ]]; then
+                  zle -M "Clear the command line before launching Yazi"
+                  return 1
+              fi
+
+              zle -I
+              command yazi
+              zle reset-prompt
+          }
+
+          zle -N kitty-yazi-widget
+          bindkey '\e[57399;5u' kitty-yazi-widget
+          # bindkey -M emacs '\e[57399;5u' kitty-yazi-widget
+          # bindkey -M viins '\e[57399;5u' kitty-yazi-widget
+          # bindkey -M vicmd '\e[57399;5u' kitty-yazi-widget
+
         '';
       };
 
