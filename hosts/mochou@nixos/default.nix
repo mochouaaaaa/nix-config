@@ -52,6 +52,7 @@
       imports = [
         self.modules.homeManager.host
         self.modules.homeManager.linux
+        self.modules.homeManager."programs.codex"
         self.modules.homeManager."desktop.programs.audio"
         self.modules.homeManager."desktop.programs.browsers"
         self.modules.homeManager."desktop.programs.security"
