@@ -43,40 +43,42 @@
         EnvironmentFile = config.age.secrets.next_dns_server.path;
       };
 
-      systemd.services.mihomo-config = {
-        description = "Generate Mihomo configuration";
-
-        serviceConfig = {
-          Type = "oneshot";
-          EnvironmentFile = config.age.secrets.subscription.path;
-
-          RuntimeDirectory = "mihomo-config";
-          RuntimeDirectoryMode = "0700";
-          RuntimeDirectoryPreserve = "yes";
-
-          ExecStart = pkgs.writeScript "mihomo-config-generator" ''
-            #!${pkgs.python3}/bin/python3
-            import os
-            from pathlib import Path
-
-            template = Path("${config.services.mihomo.configFile}")
-            output = Path("/run/mihomo-config/config.yaml")
-
-            subscription = os.environ["subscription"]
-            content = template.read_text()
-            content = content.replace("''${subscription}", subscription)
-
-            output.write_text(content)
-            output.chmod(0o600)
-          '';
+      systemd.services = lib.mkIf config.services.mihomo.enable {
+        systemd.services.mihomo-config = {
+          description = "Generate Mihomo configuration";
+  
+          serviceConfig = {
+            Type = "oneshot";
+            EnvironmentFile = config.age.secrets.subscription.path;
+  
+            RuntimeDirectory = "mihomo-config";
+            RuntimeDirectoryMode = "0700";
+            RuntimeDirectoryPreserve = "yes";
+  
+            ExecStart = pkgs.writeScript "mihomo-config-generator" ''
+              #!${pkgs.python3}/bin/python3
+              import os
+              from pathlib import Path
+  
+              template = Path("${config.services.mihomo.configFile}")
+              output = Path("/run/mihomo-config/config.yaml")
+  
+              subscription = os.environ["subscription"]
+              content = template.read_text()
+              content = content.replace("''${subscription}", subscription)
+  
+              output.write_text(content)
+              output.chmod(0o600)
+            '';
+          };
         };
-      };
-
-      systemd.services.mihomo = {
-        requires = [ "mihomo-config.service" ];
-        after = [ "mihomo-config.service" ];
-
-        serviceConfig.LoadCredential = lib.mkForce "config.yaml:/run/mihomo-config/config.yaml";
+  
+        systemd.services.mihomo = {
+          requires = [ "mihomo-config.service" ];
+          after = [ "mihomo-config.service" ];
+  
+          serviceConfig.LoadCredential = lib.mkForce "config.yaml:/run/mihomo-config/config.yaml";
+        };
       };
 
     };
