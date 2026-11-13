@@ -6,9 +6,12 @@
     ];
   };
 
+  flake.modules.homeManager.workstation = { pkgs, ... }: {
+    home.packages = [ pkgs.pycharm ];
+  };
+
   flake.modules.homeManager.linux = { lib, pkgs, ... }: {
     home.packages = [
-      pkgs.pycharm
       pkgs.playwright-driver.browsers
     ];
 
