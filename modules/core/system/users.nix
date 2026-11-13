@@ -13,9 +13,8 @@
     systemd.user.startServices = "sd-switch";
   };
 
-  flake.modules.nixos.core =
+  flake.modules.nixos.users =
     {
-      self,
       lib,
       pkgs,
       config,
@@ -24,7 +23,6 @@
       ...
     }:
     {
-      imports = [ self.modules.generic.zsh ];
       users = {
         mutableUsers = false;
         defaultUserShell = pkgs.zsh;
@@ -38,7 +36,9 @@
           uinput = { };
         };
       };
+
       services.userborn.passwordFilesLocation = "/var/lib/nixos";
+
       users.users."${username}" = {
         inherit (myvars) initialHashedPassword;
         home = "/home/${username}";
@@ -57,16 +57,18 @@
           "plugdev"
         ];
       };
+
       users.users.root = {
         inherit (myvars) initialHashedPassword;
         openssh.authorizedKeys.keys = config.users.users."${username}".openssh.authorizedKeys.keys;
       };
+
       environment.etc =
         let
           autosubs = lib.pipe config.users.users [
             lib.attrValues
             (lib.filter (u: u.uid != null && u.isNormalUser))
-            (lib.concatMapStrings (u: "${toString u.uid}:${toString (100000 + u.uid * 65536)}:65536\n"))
+            (lib.concatMapStrings (u: "${toString u.uid}:${toString (100000 + u.uid * 65536)}:65536\\n")
           ];
         in
         lib.optionalAttrs config.services.userborn.enable {
@@ -74,6 +76,13 @@
           subgid.text = autosubs;
         };
     };
+
+  flake.modules.nixos.core = { self, ... }: {
+    imports = [
+      self.modules.generic.zsh
+      self.modules.nixos.users
+    ];
+  };
 
   flake.modules.darwin.core = { self, username, ... }: {
     imports = [ self.modules.generic.zsh ];
