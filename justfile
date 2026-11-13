@@ -45,10 +45,12 @@ update:
     nix flake update "{{FLAKE}}"
 
 [group('flake')]
+[linux]
 update-linux:
     nix flake update "{{FLAKE}}" nixpkgs nixpkgs-stable home-manager nixos-wsl disko
 
 [group('flake')]
+[macos]
 update-darwin:
     nix flake update "{{FLAKE}}" nixpkgs-darwin nix-darwin home-manager-darwin
 
@@ -92,40 +94,52 @@ check-build:
 [group('quality')]
 validate: fmt-check lint check
 
-# Evaluate each configured host without building its system closure.
+# Evaluate the current platform's configured host without building its system closure.
 [group('quality')]
-validate-hosts: nixos-eval darwin-eval
+[linux]
+validate-hosts: nixos-eval
+
+[group('quality')]
+[macos]
+validate-hosts: darwin-eval
 
 # ---------------------------------------------------------------------------
 # NixOS
 # ---------------------------------------------------------------------------
 
 [group('nixos')]
+[linux]
 nixos-eval:
     {{NIX_ALLOW}} nix eval "{{FLAKE}}#nixosConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
 
 [group('nixos')]
+[linux]
 nixos-build:
     {{NIX_ALLOW}} nh os build "{{FLAKE}}" -H "{{HOST}}" -- --impure
 
 [group('nixos')]
+[linux]
 nixos-boot:
     {{NIX_ALLOW}} nh os boot "{{FLAKE}}" -H "{{HOST}}" -- --impure
 
 [group('nixos')]
+[linux]
 nixos-switch:
     {{NIX_ALLOW}} nh os switch "{{FLAKE}}" -H "{{HOST}}" -- --impure
 
 [group('nixos')]
+[linux]
 nixos-test:
     {{NIX_ALLOW}} nh os test "{{FLAKE}}" -H "{{HOST}}" -- --impure
 
 [group('nixos')]
+[linux]
 nixos-repl:
     {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
 # Inspect which desktop NixOS module is selected in the host's default.nix.
 [group('nixos')]
+[linux]
 desktop:
     @grep -nE 'modules\.nixos\."?desktop\.' "{{FLAKE}}/hosts/{{HOST}}/default.nix" || true
 
@@ -135,14 +149,17 @@ desktop:
 
 # Home Manager is activated as part of the NixOS switch in this architecture.
 [group('home-manager')]
+[linux]
 hm-restart:
     sudo systemctl restart "home-manager-$(id -un).service"
 
 [group('home-manager')]
+[linux]
 hm-status:
     systemctl status "home-manager-$(id -un).service" --no-pager
 
 [group('home-manager')]
+[linux]
 hm-logs:
     journalctl -u "home-manager-$(id -un).service" -b --no-pager -n 150
 
@@ -151,18 +168,22 @@ hm-logs:
 # ---------------------------------------------------------------------------
 
 [group('darwin')]
+[macos]
 darwin-eval:
     {{NIX_ALLOW}} nix eval "{{FLAKE}}#darwinConfigurations.\"{{DARWIN_HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
 
 [group('darwin')]
+[macos]
 darwin-build:
     {{NIX_ALLOW}} nh darwin build "{{FLAKE}}" -H "{{DARWIN_HOST}}" -- --impure
 
 [group('darwin')]
+[macos]
 darwin-switch:
     {{NIX_ALLOW}} nh darwin switch "{{FLAKE}}" -H "{{DARWIN_HOST}}" -- --impure
 
 [group('darwin')]
+[macos]
 darwin-repl:
     {{NIX_ALLOW}} nix repl "{{FLAKE}}" --impure
 
