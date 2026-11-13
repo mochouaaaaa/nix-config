@@ -9,12 +9,7 @@ let
     }:
     let
       systemOptionName =
-        if class == "nixos" then
-          "nixos"
-        else if class == "darwin" then
-          "nix-darwin"
-        else
-          throw "Unsupported host class for nixd: ${class}";
+        if class == "darwin" then "nix-darwin" else class;
 
       flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
       hostExpr = "${flakeExpr}${configuration}.\"${username}@${hostName}\"";
