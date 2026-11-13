@@ -1,8 +1,7 @@
 {
 
-  flake.modules.nixos."services.base" =
+  flake.modules.nixos."services.dns" =
     {
-      self,
       lib,
       config,
       pkgs,
@@ -14,7 +13,6 @@
     in
     {
 
-      imports = [ self.modules.nixos."services.dns" ];
 
       systemd.services.mosdns =
         let

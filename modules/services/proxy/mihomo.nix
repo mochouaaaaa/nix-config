@@ -7,7 +7,7 @@
       ...
     }:
     {
-      config = lib.mkMerge [
+      config = lib.mkIf config.profiles.services.proxy.enable (lib.mkMerge [
         {
           services.mihomo = {
             enable = true;
@@ -20,7 +20,7 @@
         (lib.mkIf config.services.mihomo.tunMode {
           networking.firewall.checkReversePath = lib.mkDefault "loose";
         })
-      ];
+      ]);
 
     };
 }

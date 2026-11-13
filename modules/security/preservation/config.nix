@@ -25,7 +25,7 @@
         preservation.preserveAt.${cfg.storagePath} = {
           inherit (cfg) directories;
           inherit (cfg) files;
-          users.${username} = cfg.users.${username};
+          users.${username} = cfg.users.${username} or { };
           # users.${username} = {
           #   commonMountOptions = cfg.users.commonMountOptions;
           #   directories = cfg.users.${username}.directories;
@@ -154,11 +154,11 @@
         systemd.services.systemd-machine-id-commit = {
           unitConfig.ConditionPathIsMountPoint = [
             ""
-            "/nix/persistence/etc/machine-id"
+            "${cfg.storagePath}/etc/machine-id"
           ];
           serviceConfig.ExecStart = [
             ""
-            "systemd-machine-id-setup --commit --root /nix/persistence"
+            "systemd-machine-id-setup --commit --root ${cfg.storagePath}"
           ];
         };
 

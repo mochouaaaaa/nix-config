@@ -1,7 +1,8 @@
 {
   flake.modules.nixos."services.proxy" =
-    { config, ... }:
+    { config, lib, ... }:
     {
+      config = lib.mkIf config.profiles.services.proxy.enable {
 
       services.dae = {
         enable = true;
@@ -110,9 +111,9 @@
         '';
       };
 
-      profiles.preservation.directories = [
-        "/var/lib/private/mihomo"
-      ];
-
+        profiles.preservation.directories = [
+          "/var/lib/private/mihomo"
+        ];
+      };
     };
 }

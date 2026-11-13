@@ -18,8 +18,5 @@
     };
   };
 
-  flake.modules.nixos."services.base" = { self, ... }: {
-    imports = [ self.modules.nixos."services.console" ];
-  };
 
 }

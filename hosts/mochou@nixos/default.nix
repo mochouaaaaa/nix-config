@@ -8,6 +8,7 @@
 
 {
   profiles.preservation.enable = true;
+  profiles.services.proxy.enable = true;
 
   imports = [
     self.modules.nixos.preservation
@@ -17,6 +18,9 @@
     self.modules.nixos."profiles.zram"
     # self.modules.nixos."desktop.niri"
 
+    self.modules.nixos."services.dns"
+    self.modules.nixos."services.console"
+    self.modules.nixos."services.uptermd"
     self.modules.nixos."services.proxy"
     self.modules.nixos."services.mysql"
     self.modules.nixos."services.redis"
