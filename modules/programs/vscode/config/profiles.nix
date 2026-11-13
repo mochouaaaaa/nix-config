@@ -1,41 +1,9 @@
-let
-  mkNixdConfig =
-    {
-      configuration,
-      systemOptionName,
-    }:
-    {
-      lib,
-      pkgs,
-      ...
-    }:
-    let
-      flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
-      hostExpr = "${flakeExpr}${configuration}.\"${username}@${hostName}\"";
-      optionsExpr = "${hostExpr}.options";
-      nixpkgsExpr = "${hostExpr}.pkgs";
-    in
-    {
-      programs.vscode.profiles.default.userSettings."nix.serverSettings" = {
-        nixd = {
-          nixpkgs.expr = nixpkgsExpr;
-          formatting.command = [ (lib.getExe pkgs.nixfmt) ];
-          options = {
-            "${systemOptionName}".expr = optionsExpr;
-            "home-manager".expr = "${optionsExpr}.home-manager.users.type.getSubOptions []";
-          };
-        };
-      };
-    };
-in
 {
   flake.modules.homeManager."programs.vscode" =
     {
       lib,
       pkgs,
       config,
-      username,
-      hostName,
       ...
     }:
     {
@@ -185,14 +153,4 @@ in
 
     };
 
-  # Keep platform-specific nixd option namespaces explicit.
-  flake.modules.homeManager.darwin = mkNixdConfig {
-    configuration = "darwinConfigurations";
-    systemOptionName = "nix-darwin";
-  };
-
-  flake.modules.homeManager.linux = mkNixdConfig {
-    configuration = "nixosConfigurations";
-    systemOptionName = "nixos";
-  };
 }
