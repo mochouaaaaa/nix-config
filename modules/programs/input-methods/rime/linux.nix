@@ -58,7 +58,7 @@
                   "TrayTextColor" = "#ffffff";
                   "PreferTextIcon" = "True";
                   "ShowLayoutNameInIcon" = "True";
-                  "UseInputMethodLangaugeToDisplayText" = "True"; # 保持原拼写错误
+                  "UseInputMethodLanguageToDisplayText" = "True"; # 保持原拼写错误
                   "Theme" = rimeConfig.themes.light;
                   "DarkTheme" = rimeConfig.themes.dark;
                   "UseDarkTheme" = "True";

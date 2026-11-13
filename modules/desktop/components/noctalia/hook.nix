@@ -14,7 +14,6 @@
               let
                 hook_startup = pkgs.writeShellScriptBin "hook_startup" ''
                   noctalia msg caffeine-enable
-                  hyprctl reload
                 '';
               in
               "${lib.getExe hook_startup}";

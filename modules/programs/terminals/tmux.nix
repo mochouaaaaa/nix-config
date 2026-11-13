@@ -102,10 +102,9 @@
             bind-key -n C-M-l if -F   "#{@pane-is-vim}" 'send-keys Escape "[108;141u"' 'split-window -h -c "#{pane_current_path}"'
             bind-key -n C-M-h if -F   "#{@pane-is-vim}" 'send-keys Escape "[104;141u"' 'split-window -h -c "#{pane_current_path}"'
 
-            tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
-            if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+            if-shell -b '[ "$(tmux -V | cut -d " " -f2 | cut -d. -f1)" -lt 3 ]' \
                 "bind-key -n 'C-\\' if -F \"#{@pane-is-vim}\" 'send-keys C-\\'  'select-pane -l'"
-            if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+            if-shell -b '[ "$(tmux -V | cut -d " " -f2 | cut -d. -f1)" -ge 3 ]' \
                 "bind-key -n 'C-\\' if -F \"#{@pane-is-vim}\" 'send-keys C-\\\\'  'select-pane -l'"
 
             #: }}}
@@ -179,13 +178,16 @@
                     name = "reset";
                     runtimeInputs = [
                       pkgs.ripgrep
+                      pkgs.coreutils
+                      pkgs.findutils
+                      pkgs.gnused
                     ];
                     text = ''
 
                       set -euo pipefail
 
                       # shellcheck disable=SC2016
-                      ripgrep -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' ${catppuccinPath}/**/*.conf | uniq | xargs -n1 -P0 tmux set -Ugq
+                      rg -Io 'set\s+-[aFgopqsuUw]+\s+"?@([^\s]+(\w|_))"?' -r '@$1' ${catppuccinPath}/**/*.conf | uniq | xargs -n1 -P0 tmux set -Ugq
 
                       modules=()
 

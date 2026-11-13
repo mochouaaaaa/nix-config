@@ -46,15 +46,15 @@ update:
 
 [group('flake')]
 update-linux:
-    nix flake update "{{FLAKE}}" nixpkgs nixpkgs-stable
+    nix flake update "{{FLAKE}}" nixpkgs nixpkgs-stable home-manager nixos-wsl disko
 
 [group('flake')]
 update-darwin:
-    nix flake update "{{FLAKE}}" nixpkgs-darwin nix-darwin
+    nix flake update "{{FLAKE}}" nixpkgs-darwin nix-darwin home-manager-darwin
 
 [group('flake')]
 update-desktop:
-    nix flake update "{{FLAKE}}" niri hyprland plasma-manager
+    nix flake update "{{FLAKE}}" plasma-manager
 
 [group('flake')]
 hosts:

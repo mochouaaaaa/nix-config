@@ -41,7 +41,7 @@
             "style/translucency" = true;
             "style/font_face" = "Monaco";
 
-            "app_options/com.apple.Spotligh" = ascii;
+            "app_options/com.apple.Spotlight" = ascii;
             "app_options/com.runningwithcrayons.Alfred" = ascii;
             "app_options/com.apple.Terminal" = ascii;
             "app_options/com.github.wez.wezterm" = ascii;

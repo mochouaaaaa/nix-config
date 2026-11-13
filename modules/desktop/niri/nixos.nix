@@ -20,9 +20,6 @@
         useNautilus = true;
       };
 
-      # Niri is exposed as a selectable Wayland session in GDM.
-      services.displayManager.gdm.enable = true;
-
       # Compose the matching Home Manager desktop only for the primary user.
       home-manager.users.${username}.imports = lib.optionals (config ? home-manager) [
         self.modules.homeManager."desktop.niri"
