@@ -47,8 +47,8 @@ let
     };
 in
 {
-  # Shared nixd binaries for every Home Manager host using Neovim.
-  flake.modules.homeManager.programs-neovim =
+  # Install nixd and nixfmt through the Neovim module already imported by hosts.
+  flake.modules.homeManager."programs.neovim" =
     { pkgs, ... }:
     {
       programs.neovim.extraPackages = with pkgs; [
