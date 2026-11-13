@@ -17,6 +17,7 @@ in
       inputs,
       username,
       hostName,
+      class,
       myvars,
       ...
     }:
@@ -37,7 +38,7 @@ in
         };
 
         extraSpecialArgs = {
-          inherit inputs self username hostName myvars;
+          inherit inputs self username hostName class myvars;
         };
       };
     };
