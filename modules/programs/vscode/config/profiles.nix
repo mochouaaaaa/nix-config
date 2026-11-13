@@ -97,6 +97,10 @@
               "editor.formatOnSave" = true;
               "editor.formatOnType" = true;
               "editor.formatOnSaveMode" = "file";
+              # debug
+              "debug.console.fontFamily" = "${config.profiles.fonts.default}";
+              "debug.console.fontSize" = 15;
+              "debug.console.historySuggestions" = false;
               "editor.tokenColorCustomizations" = {
                 "textMateRules" = [
                   {
@@ -139,10 +143,6 @@
                     };
                   }
                 ];
-                # debug
-                "debug.console.fontFamily" = "${config.profiles.fonts.default}";
-                "debug.console.fontSize" = 15;
-                "debug.console.historySuggestions" = false;
               };
 
             };
