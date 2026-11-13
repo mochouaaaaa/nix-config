@@ -27,7 +27,7 @@
     ];
   };
 
-  users.${username} = {
+  home-manager.users.${username} = {
     imports = [
       self.modules.homeManager.host
       self.modules.homeManager.linux
