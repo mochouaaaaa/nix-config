@@ -141,7 +141,7 @@ nixos-repl:
 [group('nixos')]
 [linux]
 desktop:
-    @nix eval --json --apply 'modules: builtins.filter (name: builtins.match "desktop\\.(hyprland|niri|gnome|kde)$" name != null) (builtins.attrNames modules)' "{{FLAKE}}#modules.nixos" | jq -r '.[]'
+    @nix eval --raw --apply 'modules: builtins.concatStringsSep "\\n" (builtins.filter (name: builtins.match "desktop\\.(hyprland|niri|gnome|kde)$" name != null) (builtins.attrNames modules))' "{{FLAKE}}#modules.nixos"
 
 # ---------------------------------------------------------------------------
 # Home Manager
