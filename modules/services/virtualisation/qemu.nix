@@ -7,7 +7,7 @@
     {
 
       profiles.preservation.directories = [
-        "/var/lib/qemu"
+        "/var/lib/libvirt"
       ];
 
       environment.systemPackages = with pkgs; [
