@@ -43,7 +43,13 @@
 
     };
 
-  flake.modules.homeManager."programs.mpv" = { pkgs, ... }: {
+  flake.modules.homeManager."programs.mpv" = { self, pkgs, ... }: {
+
+    imports = [
+      self.modules.homeManager."programs.mpv.modernz"
+      self.modules.homeManager."programs.mpv.auto-save-state"
+      self.modules.homeManager."programs.mpv.translations"
+    ];
 
     programs.mpv = {
       enable = true;
