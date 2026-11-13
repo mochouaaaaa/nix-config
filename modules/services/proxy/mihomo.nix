@@ -7,24 +7,26 @@
       ...
     }:
     {
-      config = lib.mkIf config.profiles.services.proxy.enable (lib.mkMerge [
-        {
-          services.mihomo = {
-            enable = true;
-            webui = pkgs.metacubexd;
-            configFile = ./mihomo.yaml;
-            processesInfo = true;
-          };
+      config = lib.mkIf config.profiles.services.proxy.enable (
+        lib.mkMerge [
+          {
+            services.mihomo = {
+              enable = true;
+              webui = pkgs.metacubexd;
+              configFile = ./mihomo.yaml;
+              processesInfo = true;
+            };
 
-          profiles.preservation.directories = [
-            "/var/lib/private/mihomo"
-          ];
-        }
+            profiles.preservation.directories = [
+              "/var/lib/private/mihomo"
+            ];
+          }
 
-        (lib.mkIf config.services.mihomo.tunMode {
-          networking.firewall.checkReversePath = lib.mkDefault "loose";
-        })
-      ]);
+          (lib.mkIf config.services.mihomo.tunMode {
+            networking.firewall.checkReversePath = lib.mkDefault "loose";
+          })
+        ]
+      );
 
     };
 }

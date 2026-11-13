@@ -18,7 +18,7 @@
     '';
   };
 
-  flake.modules.homeManager."development.python" = { ... }: {
+  flake.modules.homeManager."development.python" = _: {
 
     programs = {
       ty = {

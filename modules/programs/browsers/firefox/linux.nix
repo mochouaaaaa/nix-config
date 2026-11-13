@@ -29,7 +29,7 @@
         };
       };
 
-      xdg.mimeApps = lib.mkIf pkgs.stdenv.isLinux {
+      xdg.mimeApps = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         defaultApplicationPackages = [ config.programs.firefox.package ];
       };
 

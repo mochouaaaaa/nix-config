@@ -12,16 +12,23 @@
   };
 
   flake.modules.nixos."services.ollama" =
-    { self, lib, config, username, ... }:
+    {
+      self,
+      lib,
+      config,
+      username,
+      ...
+    }:
     {
       home-manager.users.${username}.imports = [
         self.modules.homeManager."services.ollama"
       ];
 
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.services.ollama.enable [
-          ".ollama"
-        ];
+        lib.optionals config.home-manager.users.${username}.services.ollama.enable
+          [
+            ".ollama"
+          ];
     };
 
   flake.modules.homeManager.darwin = { lib, ... }: {

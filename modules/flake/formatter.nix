@@ -5,7 +5,7 @@
     inputs.git-hooks-nix.flakeModule
   ];
 
-  perSystem = { config, ... }: {
+  perSystem = { lib, config, ... }: {
 
     devShell = {
       inputsFrom = [ config.pre-commit.devShell ];
@@ -36,7 +36,7 @@
     pre-commit.settings.hooks.treefmt = {
       enable = true;
       name = "treefmt";
-      entry = "${config.treefmt.build.wrapper}/bin/treefmt";
+      entry = "${lib.getExe config.treefmt.build.wrapper} --no-cache";
       language = "system";
       pass_filenames = true;
       files = "\\.nix$";

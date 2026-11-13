@@ -1,7 +1,6 @@
 {
   flake.modules.homeManager.programs =
     {
-      self,
       lib,
       pkgs,
       config,

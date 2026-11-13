@@ -97,16 +97,21 @@ in
       ...
     }:
     {
-      nix = lib.recursiveUpdate (mkNixConfig (if pkgs.stdenv.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}) pkgs username) {
-        optimise.dates = "weekly";
-        settings = {
-          experimental-features = lib.mkForce [
-            "flakes"
-            "nix-command"
-            "auto-allocate-uids"
-          ];
-        };
-      };
+      nix =
+        lib.recursiveUpdate
+          (mkNixConfig (
+            if pkgs.stdenv.hostPlatform.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}
+          ) pkgs username)
+          {
+            optimise.dates = "weekly";
+            settings = {
+              experimental-features = lib.mkForce [
+                "flakes"
+                "nix-command"
+                "auto-allocate-uids"
+              ];
+            };
+          };
 
     };
 
@@ -120,19 +125,24 @@ in
     }:
     {
 
-      nix = lib.recursiveUpdate (mkNixConfig (if pkgs.stdenv.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}) pkgs username) {
-        settings = {
-          sandbox = "relaxed";
-          experimental-features = lib.mkForce [
-            "flakes"
-            "nix-command"
-            "auto-allocate-uids"
-          ];
-        }
-        // lib.optionalAttrs pkgs.stdenv.isAarch64 {
-          extra-platforms = "x86_64-darwin";
-        };
-      };
+      nix =
+        lib.recursiveUpdate
+          (mkNixConfig (
+            if pkgs.stdenv.hostPlatform.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}
+          ) pkgs username)
+          {
+            settings = {
+              sandbox = "relaxed";
+              experimental-features = lib.mkForce [
+                "flakes"
+                "nix-command"
+                "auto-allocate-uids"
+              ];
+            }
+            // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
+              extra-platforms = "x86_64-darwin";
+            };
+          };
     };
 
 }

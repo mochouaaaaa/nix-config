@@ -21,9 +21,7 @@
         # treefmt-nix registers its formatting check automatically.
         devshell = config.devShells.default;
 
-        host-evaluations = pkgs.writeText "host-evaluations.json" (
-          builtins.toJSON checkedHostMetadata
-        );
+        host-evaluations = pkgs.writeText "host-evaluations.json" (builtins.toJSON checkedHostMetadata);
       };
     };
 }

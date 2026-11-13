@@ -5,14 +5,23 @@
   flake.modules.homeManager.linux = { pkgs, ... }: {
     home.packages = [ pkgs.goland ];
   };
-  flake.modules.homeManager."development.go" = { pkgs, config, ... }:
+  flake.modules.homeManager."development.go" =
+    { pkgs, config, ... }:
     let
-      goPath = if pkgs.stdenv.hostPlatform.isDarwin
-        then "/Volumes/Code/Projects/golang"
-        else "${config.home.homeDirectory}/Code/Projects/golang";
-    in {
+      goPath =
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          "/Volumes/Code/Projects/golang"
+        else
+          "${config.home.homeDirectory}/Code/Projects/golang";
+    in
+    {
       home.packages = with pkgs; [
-        gcc gopls gofumpt delve golangci-lint goimports-reviser
+        gcc
+        gopls
+        gofumpt
+        delve
+        golangci-lint
+        goimports-reviser
       ];
       programs.go = {
         enable = true;

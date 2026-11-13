@@ -13,7 +13,6 @@
     in
     {
 
-
       systemd.services.mosdns =
         let
           mosdns_config = formatYaml.generate "mosdns.yaml" cfg.settings;

@@ -13,14 +13,14 @@ in
     };
   };
 
-  flake.modules.nixos.core = { self, username, ... }: {
+  flake.modules.nixos.core = { self, ... }: {
     nixpkgs = {
       inherit config;
       overlays = [ self.overlays.nixos ];
     };
   };
 
-  flake.modules.darwin.core = { self, username, ... }: {
+  flake.modules.darwin.core = { self, ... }: {
     nixpkgs = {
       inherit config;
       overlays = [ self.overlays.darwin ];

@@ -31,7 +31,6 @@
 
   flake.modules.homeManager."desktop.common" =
     {
-      lib,
       pkgs,
       config,
       ...

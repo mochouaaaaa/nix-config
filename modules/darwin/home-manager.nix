@@ -20,7 +20,14 @@
 
       # Pass nix-darwin special arguments into Home Manager.
       home-manager.extraSpecialArgs = {
-        inherit inputs self username hostName class myvars;
+        inherit
+          inputs
+          self
+          username
+          hostName
+          class
+          myvars
+          ;
       };
     };
 }

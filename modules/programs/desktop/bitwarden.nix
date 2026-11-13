@@ -59,12 +59,13 @@
     in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (lib.elem pkgs.bitwarden-desktop homePackages) [
-          {
-            directory = ".config/Bitwarden";
-            mode = "0700";
-          }
-        ];
+        lib.optionals (lib.elem pkgs.bitwarden-desktop homePackages)
+          [
+            {
+              directory = ".config/Bitwarden";
+              mode = "0700";
+            }
+          ];
     };
 
 }

@@ -14,8 +14,7 @@ let
 
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
-  defaultOs = system:
-    if lib.hasSuffix "-darwin" system then "nix-darwin" else "nixpkgs";
+  defaultOs = system: if lib.hasSuffix "-darwin" system then "nix-darwin" else "nixpkgs";
 
   defaultHomeManager = _: "home-manager";
 
@@ -93,32 +92,45 @@ let
       validatedHomeManagerInput = checkInput homeManagerInput;
 
       systemConstructor =
-        if class == "nixos" then "nixosSystem"
-        else if class == "darwin" then "darwinSystem"
-        else null;
+        if class == "nixos" then
+          "nixosSystem"
+        else if class == "darwin" then
+          "darwinSystem"
+        else
+          null;
 
       checkedOsInput =
-        if validatedOsInput == null then null
-        else if builtins.hasAttr "lib" inputs.${validatedOsInput}
-          && builtins.hasAttr systemConstructor inputs.${validatedOsInput}.lib then
+        if validatedOsInput == null then
+          null
+        else if
+          builtins.hasAttr "lib" inputs.${validatedOsInput}
+          && builtins.hasAttr systemConstructor inputs.${validatedOsInput}.lib
+        then
           validatedOsInput
         else
           throw "Flake input '${validatedOsInput}' for host '${name}' must provide lib.${systemConstructor}.";
 
       homeManagerModuleSet =
-        if class == "nixos" then "nixosModules"
-        else if class == "darwin" then "darwinModules"
-        else null;
+        if class == "nixos" then
+          "nixosModules"
+        else if class == "darwin" then
+          "darwinModules"
+        else
+          null;
 
       checkedHomeManagerInput =
         if homeManagerModuleSet == null then
-          if builtins.hasAttr "lib" inputs.${validatedHomeManagerInput}
-            && builtins.hasAttr "homeManagerConfiguration" inputs.${validatedHomeManagerInput}.lib then
+          if
+            builtins.hasAttr "lib" inputs.${validatedHomeManagerInput}
+            && builtins.hasAttr "homeManagerConfiguration" inputs.${validatedHomeManagerInput}.lib
+          then
             validatedHomeManagerInput
           else
             throw "Home Manager input '${validatedHomeManagerInput}' must provide lib.homeManagerConfiguration."
-        else if builtins.hasAttr homeManagerModuleSet inputs.${validatedHomeManagerInput}
-          && builtins.hasAttr "home-manager" inputs.${validatedHomeManagerInput}.${homeManagerModuleSet} then
+        else if
+          builtins.hasAttr homeManagerModuleSet inputs.${validatedHomeManagerInput}
+          && builtins.hasAttr "home-manager" inputs.${validatedHomeManagerInput}.${homeManagerModuleSet}
+        then
           validatedHomeManagerInput
         else
           throw "Home Manager input '${validatedHomeManagerInput}' must provide ${homeManagerModuleSet}.home-manager.";
@@ -129,7 +141,12 @@ let
       {
         username = builtins.elemAt parts 0;
         hostName = builtins.elemAt parts 1;
-        inherit name class system nixosWsl;
+        inherit
+          name
+          class
+          system
+          nixosWsl
+          ;
         osInput = checkedOsInput;
         homeManagerInput = checkedHomeManagerInput;
         path = hostsDir + "/${name}";
@@ -139,7 +156,13 @@ let
 
   # Validate host metadata and input interfaces without evaluating configurations.
   hosts = builtins.deepSeq (map (host: {
-    inherit (host) class system nixosWsl osInput homeManagerInput;
+    inherit (host)
+      class
+      system
+      nixosWsl
+      osInput
+      homeManagerInput
+      ;
   }) (lib.attrValues parsedHosts)) parsedHosts;
 
   selectHosts = class: lib.filterAttrs (_: host: host.class == class) hosts;
@@ -150,12 +173,26 @@ let
 
   hostArgs = host: {
     inherit inputs self;
-    inherit (host) username hostName system osInput class;
+    inherit (host)
+      username
+      hostName
+      system
+      osInput
+      class
+      ;
     inherit (config) myvars;
   };
 
   hostMetadata = lib.mapAttrs (_: host: {
-    inherit (host) username hostName class system nixosWsl osInput homeManagerInput;
+    inherit (host)
+      username
+      hostName
+      class
+      system
+      nixosWsl
+      osInput
+      homeManagerInput
+      ;
   }) hosts;
 
 in
@@ -190,7 +227,7 @@ in
           specialArgs = hostArgs host;
 
           modules = [
-            ({ ... }: {
+            (_: {
               nixpkgs.hostPlatform = host.system;
             })
 

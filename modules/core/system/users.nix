@@ -14,7 +14,15 @@
   };
 
   flake.modules.nixos.core =
-    { self, lib, pkgs, config, myvars, username, ... }:
+    {
+      self,
+      lib,
+      pkgs,
+      config,
+      myvars,
+      username,
+      ...
+    }:
     {
       imports = [ self.modules.generic.zsh ];
       users = {
@@ -36,8 +44,17 @@
         home = "/home/${username}";
         isNormalUser = true;
         extraGroups = [
-          username "users" "networkmanager" "wheel" "wireshark"
-          "adbusers" "libvirtd" "input" "uinput" "video" "plugdev"
+          username
+          "users"
+          "networkmanager"
+          "wheel"
+          "wireshark"
+          "adbusers"
+          "libvirtd"
+          "input"
+          "uinput"
+          "video"
+          "plugdev"
         ];
       };
       users.users.root = {
