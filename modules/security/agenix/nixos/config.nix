@@ -10,6 +10,7 @@
       config,
       lib,
       pkgs,
+      hostName,
       ...
     }:
     {
@@ -24,8 +25,7 @@
         rekey = {
           masterIdentities = [ "${inputs.mysecrets}/master.age" ];
           storageMode = "local";
-          localStorageDir =
-            self.outPath + "/secrets/rekeyed/${config.networking.hostName}/${pkgs.stdenv.hostPlatform.system}";
+          localStorageDir = self.outPath + "/secrets/rekeyed/${config.networking.hostName}/${hostName}";
         };
 
         secrets = {
