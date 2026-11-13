@@ -1,5 +1,6 @@
 {
   "system": "x86_64-linux",
   "os": "nixpkgs",
-  "home-manager": "home-manager"
+  "home-manager": "home-manager",
+  "nixosWsl": true
 }
