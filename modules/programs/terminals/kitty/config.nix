@@ -31,7 +31,6 @@
       };
     };
 
-{
   flake.modules.homeManager."programs.kitty" =
     {
       lib,
