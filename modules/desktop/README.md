@@ -14,3 +14,20 @@ NixOS and Home Manager remain separate module classes. The NixOS desktop entry c
 Host-specific services (proxy and databases) belong in the host composition, not `desktop.common`. Hardware features such as audio and Bluetooth are explicit imports of each desktop entry. KDE also imports the Plasma Manager Home Manager module required by `programs.plasma`. Automatic login is intentionally left to the host configuration rather than enabled by a desktop profile. KVM tuning is opt-in through `profiles.hardware.kvm.enable` and configured by the host.
 
 Service modules live under `modules/services/` and use dotted module names such as `services.proxy`, `services.mysql`, and `services.virtualisation.qemu`. The host-level `services.base` module contains shared host services; it is not part of a desktop profile.
+
+## Optional desktop application profiles
+
+`desktop.common` contains shared desktop infrastructure only; it does not install the optional application suite.
+
+Home Manager application groups are registered independently:
+
+- `desktop.programs.audio`
+- `desktop.programs.security`
+- `desktop.programs.communication`
+- `desktop.programs.email`
+- `desktop.programs.media`
+- `desktop.programs.notes`
+- `desktop.programs.remote`
+- `desktop.programs.office`
+
+Import only the groups a host needs from its Home Manager user configuration. The compatibility module `desktop.programs` still imports every group for existing consumers. The `mochou@nixos` host explicitly selects all groups to preserve its existing application set; its Evolution system module is also selected at the host level rather than by `desktop.common`.

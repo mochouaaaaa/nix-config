@@ -12,7 +12,4 @@
     ];
   };
 
-  flake.modules.nixos."desktop.common" = { self, ... }: {
-    imports = [ self.modules.nixos."programs.evolution" ];
-  };
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs" = { pkgs, username, ... }: {
+  flake.modules.homeManager."desktop.programs.security" = { pkgs, username, ... }: {
     home.packages = [
       # pkgs.bitwarden-cli
       pkgs.bitwarden-desktop

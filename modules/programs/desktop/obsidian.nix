@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs" = { pkgs, ... }: {
+  flake.modules.homeManager."desktop.programs.notes" = { pkgs, ... }: {
     programs.obsidian = {
       enable = true;
       cli.enable = true;

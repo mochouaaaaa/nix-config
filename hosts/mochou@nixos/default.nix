@@ -22,6 +22,7 @@
     self.modules.nixos."services.console"
     self.modules.nixos."services.uptermd"
     self.modules.nixos."services.proxy"
+    self.modules.nixos."programs.evolution"
     self.modules.nixos."services.ollama"
     self.modules.nixos."services.mysql"
     self.modules.nixos."services.redis"
@@ -48,6 +49,14 @@
       imports = [
         self.modules.homeManager.host
         self.modules.homeManager.linux
+        self.modules.homeManager."desktop.programs.audio"
+        self.modules.homeManager."desktop.programs.security"
+        self.modules.homeManager."desktop.programs.communication"
+        self.modules.homeManager."desktop.programs.email"
+        self.modules.homeManager."desktop.programs.media"
+        self.modules.homeManager."desktop.programs.notes"
+        self.modules.homeManager."desktop.programs.remote"
+        self.modules.homeManager."desktop.programs.office"
       ];
     };
   };

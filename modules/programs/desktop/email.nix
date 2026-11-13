@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.modules.homeManager."desktop.programs" =
+  flake.modules.homeManager."desktop.programs.email" =
     {
       pkgs,
       config,
