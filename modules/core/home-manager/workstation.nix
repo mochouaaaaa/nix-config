@@ -12,7 +12,6 @@
       self.modules.homeManager."desktop.programs.api-clients"
       self.modules.homeManager."desktop.programs.browsers"
       self.modules.homeManager."desktop.programs.database"
-      self.modules.homeManager."desktop.programs.networking"
     ];
     profiles.database-clients.enable = true;
   };

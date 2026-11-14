@@ -1,7 +1,7 @@
 {
   # Wireshark is temporarily disabled on macOS.
-  flake.modules.homeManager."desktop.programs.networking" = { ... }: {
-    home.packages = [ ];
+  flake.modules.darwin."desktop.programs.networking" = {
+    homebrew.casks = [ "wireshark-app" ];
   };
 
   # On NixOS, use the system module so packet-capture capabilities and group
