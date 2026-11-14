@@ -23,14 +23,8 @@
 
         preservation.enable = true;
         preservation.preserveAt.${cfg.storagePath} = {
-          inherit (cfg) directories;
-          inherit (cfg) files;
+          inherit (cfg) directories files;
           users.${username} = cfg.users.${username} or { };
-          # users.${username} = {
-          #   commonMountOptions = cfg.users.commonMountOptions;
-          #   directories = cfg.users.${username}.directories;
-          #   files = cfg.users.files;
-          # };
         };
 
         profiles.preservation = {
