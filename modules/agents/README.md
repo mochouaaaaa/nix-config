@@ -4,6 +4,5 @@ This directory contains integrations for AI agents and agent-oriented developmen
 
 - `agents.antigravity`: Google Antigravity CLI coding agent.
 - `agents.codex`: OpenAI Codex Home Manager integration and NixOS persistence for the user's `.codex` data.
-- `agents.gemini`: Gemini CLI coding agent.
 
 Add future agent integrations here while keeping shared language runtimes and ordinary applications under their respective module domains.
