@@ -1,6 +1,9 @@
 {
   flake.modules.homeManager."agents.codex" = {
-    programs.codex.enable = true;
+    programs.codex = {
+      enable = true;
+      mutableSettings = true;
+    };
   };
 
   flake.modules.nixos.preservation =
