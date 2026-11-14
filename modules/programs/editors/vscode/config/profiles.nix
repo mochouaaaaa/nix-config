@@ -1,12 +1,15 @@
 {
   flake.modules.homeManager."programs.vscode" =
     {
+      self,
       lib,
       pkgs,
       config,
       ...
     }:
     {
+      imports = [ self.modules.homeManager."appearance.font-options" ];
+
       programs = {
         vscode.profiles = {
           default = {
