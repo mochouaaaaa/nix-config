@@ -10,21 +10,27 @@
       ...
     }:
     {
+
       home.activation.git_allowed_signers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         PUB_KEY="${config.home.homeDirectory}/.ssh/github.pub"
         PRIV_KEY="${config.home.homeDirectory}/.ssh/github"
         SIGNERS_FILE="${config.xdg.configHome}/git/allowed-signers"
 
-        mkdir -p "${config.xdg.configHome}/git"
+        $DRY_RUN_CMD mkdir -p "${config.xdg.configHome}/git"
 
         if [ ! -f "$PUB_KEY" ] && [ -f "$PRIV_KEY" ]; then
           echo "Detection: github.pub missing. Generating from private key..."
-          ${pkgs.openssh}/bin/ssh-keygen -y -f "$PRIV_KEY" > "$PUB_KEY"
-          chmod 644 "$PUB_KEY"
+
+          ${pkgs.openssh}/bin/ssh-keygen -y -f "$PRIV_KEY" \
+            | $DRY_RUN_CMD tee "$PUB_KEY" > /dev/null
+
+          $DRY_RUN_CMD chmod 644 "$PUB_KEY"
         fi
 
         if [ -f "$PUB_KEY" ]; then
-          echo "${myvars.useremail} $(cat "$PUB_KEY")" > "$SIGNERS_FILE"
+          PUB_KEY_CONTENT="$(cat "$PUB_KEY")"
+          printf '%s %s\n' "${myvars.useremail}" "$PUB_KEY_CONTENT" \
+            | $DRY_RUN_CMD tee "$SIGNERS_FILE" > /dev/null
         else
           echo "Warning: $PUB_KEY not found, skipping allowed-signers generation" >&2
         fi
