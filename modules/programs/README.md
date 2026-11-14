@@ -6,7 +6,8 @@ each file's `flake.modules.*` declarations.
 
 ## Layout
 
-- `cli/`: command-line tools and utilities, including Git and Codex.
+- `cli/`: command-line tools and utilities that do not have a more specific functional domain.
+- `git.nix`: shared Git configuration, exposed as `programs.git`; CLI roles may import it without making Git CLI-only in the module taxonomy.
 - `system/`: shared per-user system clients and baseline configuration, such
   as the SSH client.
 - `desktop/`: graphical applications grouped by use case, such as API clients,
@@ -18,7 +19,7 @@ each file's `flake.modules.*` declarations.
 - `shells/`: shell configuration.
 - `terminals/`: terminal emulators and multiplexers.
 
-Development language runtimes and toolchains live in `modules/development/`;
+AI Agent integrations live in `modules/agents/`. Development language runtimes and toolchains live in `modules/development/`;
 security-related configuration lives in `modules/security/`.
 
 ## Module boundaries

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."cli.codex" = {
+  flake.modules.homeManager."agents.codex" = {
     programs.codex.enable = true;
   };
 

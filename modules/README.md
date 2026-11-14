@@ -25,7 +25,8 @@ modules/
 │   ├── gnome/
 │   └── kde/
 ├── services/       # 系统服务，按网络、数据库、虚拟化等继续分组
-├── programs/       # 用户应用和工具
+├── programs/       # 通用用户程序与工具（Git、CLI、桌面应用等）
+├── agents/         # AI Agent 工具与运行环境
 ├── development/    # 开发语言与工具链
 │   ├── languages/
 │   └── tools/
@@ -34,6 +35,13 @@ modules/
 ├── darwin/         # macOS 专属系统能力
 └── hosts.nix       # 自动发现 hosts/<username>@<hostname>/
 ```
+
+## 功能域边界
+
+- `programs`: 通用用户程序，不按 CLI/GUI 使用形态限制；例如 Git 使用 `programs.git`。
+- `agents`: 具备 Agent 工作流的 AI 工具，例如 Codex 使用 `agents.codex`，后续可扩展其他 Agent。
+- `programs/cli`: 仅用于确实属于命令行工具集合、且没有更准确功能域的程序。
+- `system`、`security`、`desktop` 等命名空间分别表达系统基础、安全和桌面职责。
 
 ## 模块命名
 

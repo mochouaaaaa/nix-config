@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."cli.git" =
+  flake.modules.homeManager."programs.git" =
     {
       lib,
       pkgs,
