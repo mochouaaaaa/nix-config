@@ -10,7 +10,7 @@ let
       ...
     }:
     let
-      flakeExpr = "(builtins.getFlake ${builtins.toJSON (builtins.toString ../../../../..)}).";
+      flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
       hostExpr = "${flakeExpr}${configuration}.\"${username}@${hostName}\"";
       optionsExpr = "${hostExpr}.options";
       nixpkgsExpr = "${hostExpr}.pkgs";
