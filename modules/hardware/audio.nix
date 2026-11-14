@@ -1,15 +1,16 @@
 {
   flake.modules.nixos."hardware.audio" =
     {
+      lib,
+      config,
       pkgs,
       username,
       ...
     }:
     {
-      profiles.preservation.users.${username}.directories = [
-        ".config/pulse"
-        ".local/state/wireplumber"
-      ];
+      profiles.preservation.users.${username}.directories =
+        lib.optionals config.services.pipewire.pulse.enable [ ".config/pulse" ]
+        ++ lib.optionals config.services.pipewire.wireplumber.enable [ ".local/state/wireplumber" ];
 
       environment.systemPackages = with pkgs; [
         pamixer

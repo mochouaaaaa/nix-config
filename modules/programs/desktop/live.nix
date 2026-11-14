@@ -42,11 +42,15 @@
 
     };
 
-  flake.modules.nixos.preservation = { username, ... }: {
-    profiles.preservation.users.${username}.directories = [
-      ".config/obs-studio"
-      ".local/share/com.example.piliplus"
-    ];
-  };
+  flake.modules.nixos.preservation =
+    { lib, pkgs, config, username, ... }:
+    let
+      homePackages = config.home-manager.users.${username}.home.packages or [ ];
+    in
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals config.home-manager.users.${username}.programs.obs-studio.enable [ ".config/obs-studio" ]
+        ++ lib.optionals (lib.elem pkgs.piliplus homePackages) [ ".local/share/com.example.piliplus" ];
+    };
 
 }

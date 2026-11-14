@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.modules.nixos.common-keyring = { username, ... }: {
+  flake.modules.nixos.common-keyring = { lib, config, username, ... }: {
 
     services = {
       gnome = {
@@ -9,7 +9,7 @@
       };
     };
 
-    profiles.preservation.users.${username}.directories = [
+    profiles.preservation.users.${username}.directories = lib.optionals config.services.gnome.gnome-keyring.enable [
       {
         directory = ".local/share/keyrings";
         mode = "0700"; # 密钥环目录仅用户可访问

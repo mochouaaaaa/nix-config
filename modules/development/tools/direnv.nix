@@ -45,7 +45,8 @@
     };
   };
 
-  flake.modules.nixos.preservation = { username, ... }: {
-    profiles.preservation.users.${username}.directories = [ ".local/share/direnv" ];
+  flake.modules.nixos.preservation = { lib, config, username, ... }: {
+    profiles.preservation.users.${username}.directories =
+      lib.optionals config.home-manager.users.${username}.programs.direnv.enable [ ".local/share/direnv" ];
   };
 }

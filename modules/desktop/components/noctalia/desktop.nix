@@ -1,9 +1,7 @@
 {
-  flake.modules.nixos._preservation-noctalia = { username, ... }: {
-    profiles.preservation.users.${username}.directories = [
-      ".cache/noctalia"
-      ".local/state/noctalia"
-    ];
+  flake.modules.nixos._preservation-noctalia = { lib, config, username, ... }: {
+    profiles.preservation.users.${username}.directories =
+      lib.optionals config.home-manager.users.${username}.programs.noctalia.enable [ ".cache/noctalia" ".local/state/noctalia" ];
   };
 
   flake.modules.nixos."desktop.hyprland" = { self, ... }: {
