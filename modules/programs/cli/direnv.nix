@@ -42,7 +42,7 @@
           runtimeInputs = [ coreutils ];
           text = ''
             rm -rf -- .envrc .direnv default.nix flake.nix flake.lock
-            printf '%s\\n' "All direnv-related files have been removed."
+            echo "All direnv-related files have been removed."
           '';
         })
       ];
