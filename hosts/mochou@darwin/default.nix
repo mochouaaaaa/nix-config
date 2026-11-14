@@ -26,7 +26,7 @@
         self.modules.homeManager.host
         self.modules.homeManager.workstation
         self.modules.homeManager.darwin
-        self.modules.homeManager."programs.codex"
+        self.modules.homeManager."cli.codex"
       ];
     };
   };

@@ -1,6 +1,5 @@
 {
-  flake.modules.homeManager.programs = {
-
+  flake.modules.homeManager."system.ssh" = {
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -17,7 +16,7 @@
           ControlMaster = "no";
           ControlPath = "~/.ssh/master-%r@%n:%p";
           ControlPersist = "no";
-          ObscureKeystrokeTiming = "no"; # 从 extraOptions 移出，直接用指令名
+          ObscureKeystrokeTiming = "no";
         };
 
         "github.com" = {
@@ -27,15 +26,9 @@
         };
       };
     };
-
   };
 
   flake.modules.homeManager.darwin = {
-
-    programs.ssh = {
-      settings."github.com".UseKeychain = "yes";
-    };
-
+    programs.ssh.settings."github.com".UseKeychain = "yes";
   };
-
 }

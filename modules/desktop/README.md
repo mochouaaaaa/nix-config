@@ -22,6 +22,7 @@ Service modules live in `modules/services/` and use dotted module names such as 
 
 Home Manager application groups are registered independently:
 
+- `desktop.programs.api-clients` installs graphical API testing clients (Cartero and Hoppscotch).
 - `desktop.programs.browsers`
 - `desktop.programs.audio`
 - `desktop.programs.security`

@@ -1,15 +1,10 @@
 {
   flake.modules.homeManager.linux = { pkgs, config, ... }: {
-    programs.gpg = {
-      enable = true;
-      settings = {
-      };
-    };
+    programs.gpg.enable = true;
 
     services = {
-      ssh-agent = {
-        enable = false;
-      };
+      ssh-agent.enable = false;
+
       gpg-agent = {
         enable = true;
         enableSshSupport = true;
