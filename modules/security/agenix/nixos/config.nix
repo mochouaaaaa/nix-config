@@ -59,13 +59,14 @@
             #!${pkgs.python3}/bin/python3
             import os
             from pathlib import Path
+            from string import Template
 
             template = Path("${config.services.mihomo.configFile}")
             output = Path("/run/mihomo-config/config.yaml")
 
-            subscription = os.environ["subscription"]
+            envs = os.environ
             content = template.read_text()
-            content = content.replace("''${subscription}", subscription)
+            content = Template(content).safe_substitute(**envs)
 
             output.write_text(content)
             output.chmod(0o600)

@@ -31,12 +31,27 @@
             StartLimitBurst = 10;
           };
 
-          preStart = lib.optionalString (cfg.settings != null) ''
-            TEMP_FILE=$(mktemp)
-            ${pkgs.gnused}/bin/sed -E 's/\$([^{])/$$\1/g' ${mosdns_config} > "$TEMP_FILE"
-            ${lib.getExe pkgs.envsubst} < "$TEMP_FILE" > "$STATE_DIRECTORY/config.yaml"
-            chmod 644 "$STATE_DIRECTORY/config.yaml"
-          '';
+          preStart = "${pkgs.writeScript "config-generator" ''
+            #!${pkgs.python3}/bin/python3
+            import os
+            from pathlib import Path
+            from string import Template
+
+            envs = os.environ
+
+            state_dir = envs.get("STATE_DIRECTORY")
+            if not state_dir:
+                raise SystemExit("STATE_DIRECTORY is not set")
+
+            template = Path("${mosdns_config}")
+            output = Path(state_dir) / "config.yaml"
+
+            content = template.read_text()
+            content = Template(content).safe_substitute(**envs)
+
+            output.write_text(content)
+            output.chmod(0o644)
+          ''}";
 
           serviceConfig = {
             DynamicUser = true;
