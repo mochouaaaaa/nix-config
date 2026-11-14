@@ -3,13 +3,35 @@
     {
       lib,
       pkgs,
-      self,
       ...
     }:
     {
-      imports = [
-        self.modules.homeManager."appearance.font-options"
-      ];
+      options.profiles.fonts = {
+        default = lib.mkOption {
+          type = lib.types.str;
+          default = "Monaco Nerd Font";
+        };
+        serif = lib.mkOption {
+          type = lib.types.str;
+          default = "Source Han Serif";
+        };
+        sansSerif = lib.mkOption {
+          type = lib.types.str;
+          default = "Source Han Sans";
+        };
+        monospace = lib.mkOption {
+          type = lib.types.str;
+          default = "Maple Mono CN";
+        };
+        emoji = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [
+            "Apple Color Emoji"
+            "Symbols Nerd Font"
+            "Noto Color Emoji"
+          ];
+        };
+      };
 
       config = lib.mkMerge [
         {
