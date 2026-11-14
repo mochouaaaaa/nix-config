@@ -88,8 +88,8 @@
                   mktplcRef = {
                     name = "ty";
                     publisher = "astral-sh";
-                    version = "2026.16.0";
-                    hash = "sha256-rbP4ZdWO4kHvcKTR1tgBomzYj9yAagSGjZCPnHNIqZ0=";
+                    version = "2026.100.0";
+                    hash = "sha256-tDwUL4gcNbIhDoRIZIKVtqrIAF7MJ7Cjizb0sJNNeZI=";
                   };
                 })
 
