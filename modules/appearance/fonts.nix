@@ -3,9 +3,14 @@
     {
       lib,
       pkgs,
+      self,
       ...
     }:
     {
+      imports = [
+        self.modules.homeManager."appearance.font-options"
+      ];
+
       config = lib.mkMerge [
         {
           home.packages = with pkgs; [
