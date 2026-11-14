@@ -24,7 +24,6 @@
         package = pkgs.neovim-unwrapped;
         defaultEditor = true;
 
-      home.sessionVariables.EDITOR = lib.mkIf config.programs.neovim.enable "nvim";
         initLua = ''
           vim.g.IS_NIX      = true
           vim.g.is_linux    = ${toLus isLinux}
@@ -75,6 +74,8 @@
         withRuby = false;
         withNodeJs = true;
       };
+
+      home.sessionVariables.EDITOR = lib.mkIf config.programs.neovim.enable "nvim";
 
       xdg.configFile = config.profiles.dotfileLink "nvim";
     };
