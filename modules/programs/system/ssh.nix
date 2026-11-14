@@ -1,8 +1,9 @@
 {
-  flake.modules.homeManager."system.ssh" = {
+  flake.modules.homeManager."system.ssh" = { lib, config, ... }: {
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
+      includes = [ "~/.ssh/config.d/*.conf" ];
 
       settings = {
         "*" = {
@@ -26,6 +27,13 @@
         };
       };
     };
+
+    home.activation.createSshConfigDir = lib.mkIf config.programs.ssh.enable (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        $DRY_RUN_CMD mkdir -p "$HOME/.ssh/config.d"
+      ''
+    );
+
   };
 
   flake.modules.homeManager.darwin = {
