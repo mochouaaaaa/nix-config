@@ -10,8 +10,8 @@
     }:
     {
       programs.firefox = {
-        package = pkgs.firefox-bin;
-        configPath = "${config.xdg.configHome}/mozilla/firefox";
+        package = lib.mkIf pkgs.stdenv.hostPlatform.isLinux pkgs.firefox-bin;
+        configPath = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "${config.xdg.configHome}/mozilla/firefox";
         profiles.${username} = {
           settings = {
             # "ui.key.menuAccessKey" = 0;
