@@ -23,14 +23,7 @@
         };
       };
 
-      home.packages =
-        [ pkgs.yarn ]
-        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-          pkgs.antigravity-cli
-        ]
-        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-          pkgs.gemini-cli
-        ];
+      home.packages = [ pkgs.yarn ];
     };
 
   # Preserve global package-manager state only when installed through Home Manager.

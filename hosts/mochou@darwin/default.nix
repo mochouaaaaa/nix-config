@@ -27,6 +27,7 @@
         self.modules.homeManager.workstation
         self.modules.homeManager.darwin
         self.modules.homeManager."agents.codex"
+        self.modules.homeManager."agents.gemini"
       ];
     };
   };
