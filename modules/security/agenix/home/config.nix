@@ -9,6 +9,7 @@
     {
       config,
       lib,
+      pkgs,
 
       hostName,
       ...
@@ -24,7 +25,9 @@
           rekey = {
             masterIdentities = [ "${inputs.mysecrets}/master.age" ];
             storageMode = "local";
-            localStorageDir = self.outPath + "/secrets/rekeyed/home/${config.home.username}/${hostName}";
+            localStorageDir =
+              self.outPath
+              + "/secrets/rekeyed/home/${config.home.username}/${hostName}/${pkgs.stdenv.hostPlatform.system}";
           };
 
           secrets = {

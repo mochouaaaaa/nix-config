@@ -25,7 +25,8 @@
         rekey = {
           masterIdentities = [ "${inputs.mysecrets}/master.age" ];
           storageMode = "local";
-          localStorageDir = self.outPath + "/secrets/rekeyed/${config.networking.hostName}/${hostName}";
+          localStorageDir =
+            self.outPath + "/secrets/rekeyed/nixos/${hostName}/${pkgs.stdenv.hostPlatform.system}";
         };
 
         secrets = {

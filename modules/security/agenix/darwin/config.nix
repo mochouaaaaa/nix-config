@@ -5,7 +5,7 @@
 }:
 {
 
-  flake.modules.darwin.agenix = { config, hostName, ... }: {
+  flake.modules.darwin.agenix = { pkgs, hostName, ... }: {
     imports = [
       inputs.agenix.darwinModules.default
       inputs.agenix-rekey.darwinModules.default
@@ -17,7 +17,8 @@
       rekey = {
         masterIdentities = [ "${inputs.mysecrets}/master.age" ];
         storageMode = "local";
-        localStorageDir = self.outPath + "/secrets/rekeyed/${config.networking.hostName}/${hostName}";
+        localStorageDir =
+          self.outPath + "/secrets/rekeyed/darwin/${pkgs.stdenv.hostPlatform.system}/${hostName}";
       };
     };
 
