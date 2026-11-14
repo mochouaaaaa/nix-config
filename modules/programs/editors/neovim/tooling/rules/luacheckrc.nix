@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.programs = {
+  flake.modules.homeManager."cli.neovim.tooling.rules.luacheck" = {
     xdg.configFile."rules/.luacheckrc" = {
       force = true;
       text = ''

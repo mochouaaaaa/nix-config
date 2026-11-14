@@ -47,17 +47,13 @@ let
     };
 in
 {
-  # Install nixd and nixfmt through the Neovim module already imported by hosts.
-  flake.modules.homeManager."programs.neovim" =
-    { pkgs, ... }:
-    {
-      programs.neovim.extraPackages = with pkgs; [
-        nixd
-        nixfmt
-      ];
-    };
+  flake.modules.homeManager."cli.neovim.lsp.nixd" = { pkgs, ... }: {
+    programs.neovim.extraPackages = with pkgs; [
+      nixd
+      nixfmt
+    ];
+  };
 
-  # Platform-specific nixd namespaces are explicit at the module declaration.
   flake.modules.homeManager.darwin = mkNixdConfig {
     configuration = "darwinConfigurations";
     systemOptionName = "nix-darwin";

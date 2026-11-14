@@ -7,7 +7,7 @@
       self.modules.homeManager.cli
       self.modules.homeManager.development
       self.modules.homeManager."appearance.font-options"
-      self.modules.homeManager."programs.neovim"
+      self.modules.homeManager."cli.neovim"
       self.modules.homeManager."programs.vscode"
       self.modules.homeManager."programs.kitty"
       self.modules.homeManager."desktop.programs.browsers"

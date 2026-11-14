@@ -1,6 +1,5 @@
 {
-  flake.modules.homeManager."programs.neovim" = { pkgs, ... }: {
-
+  flake.modules.homeManager."cli.neovim.tooling.languages" = { pkgs, ... }: {
     home.packages = with pkgs; [
       # shell
       bash-language-server
@@ -35,8 +34,6 @@
       vue-language-server
       vscode-langservers-extracted
       stylelint
-
     ];
-
   };
 }

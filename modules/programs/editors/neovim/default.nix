@@ -1,6 +1,6 @@
-_: {
-
-  flake.modules.homeManager."programs.neovim" =
+{ self, ... }:
+{
+  flake.modules.homeManager."cli.neovim" =
     {
       lib,
       pkgs,
@@ -13,64 +13,67 @@ _: {
       isLinux = pkgs.stdenv.hostPlatform.isLinux;
     in
     {
-      programs = {
-        neovim = {
-          enable = true;
-          package = pkgs.neovim-unwrapped;
-          defaultEditor = true;
-          initLua = ''
-            vim.g.IS_NIX      = true
-            vim.g.is_linux    = ${toLus isLinux}
-            vim.g.is_darwin   = ${toLus isNixDarwin}
+      imports = [
+        self.modules.homeManager."cli.neovim.plugins"
+        self.modules.homeManager."cli.neovim.lsp"
+        self.modules.homeManager."cli.neovim.tooling"
+      ];
 
-            -- bootstrap lazy.nvim, LazyVim and your plugins
-            require("config.lazy")
-          '';
-          extraWrapperArgs = with pkgs; [
-            "--prefix"
-            "LD_LIBRARY_PATH"
-            ":"
-            (lib.makeLibraryPath [
-              stdenv.cc.cc
-              zlib
-              sqlite
-              openssl
-            ])
-          ];
-          extraLuaPackages = ps: [
-            ps.magick
-            ps.luarocks
-            ps.luacheck
-            ps.jsregexp
-          ];
-          extraPackages = with pkgs; [
-            fzf
-            fd
-            chafa
-            ffmpeg
-            ripgrep
-            imagemagick
+      programs.neovim = {
+        enable = true;
+        package = pkgs.neovim-unwrapped;
+        defaultEditor = true;
+        initLua = ''
+          vim.g.IS_NIX      = true
+          vim.g.is_linux    = ${toLus isLinux}
+          vim.g.is_darwin   = ${toLus isNixDarwin}
+
+          -- bootstrap lazy.nvim, LazyVim and your plugins
+          require("config.lazy")
+        '';
+        extraWrapperArgs = with pkgs; [
+          "--prefix"
+          "LD_LIBRARY_PATH"
+          ":"
+          (lib.makeLibraryPath [
+            stdenv.cc.cc
+            zlib
             sqlite
-            libgit2
-            mermaid-cli
-            diff-so-fancy
-            ghostscript
-            multimarkdown
-            icu
-            python313Packages.pylatexenc
-            lua51Packages.lua
-            lua51Packages.luarocks
-          ];
-          extraPython3Packages = ps: [
-            ps.pynvim
-          ];
-          withPython3 = true;
-          withRuby = false;
-          withNodeJs = true;
-        };
+            openssl
+          ])
+        ];
+        extraLuaPackages = ps: [
+          ps.magick
+          ps.luarocks
+          ps.luacheck
+          ps.jsregexp
+        ];
+        extraPackages = with pkgs; [
+          fzf
+          fd
+          chafa
+          ffmpeg
+          ripgrep
+          imagemagick
+          sqlite
+          libgit2
+          mermaid-cli
+          diff-so-fancy
+          ghostscript
+          multimarkdown
+          icu
+          python313Packages.pylatexenc
+          lua51Packages.lua
+          lua51Packages.luarocks
+        ];
+        extraPython3Packages = ps: [
+          ps.pynvim
+        ];
+        withPython3 = true;
+        withRuby = false;
+        withNodeJs = true;
       };
 
       xdg.configFile = config.profiles.dotfileLink "nvim";
     };
-
 }
