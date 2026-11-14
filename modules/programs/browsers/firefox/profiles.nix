@@ -1,6 +1,7 @@
 {
   flake.modules.homeManager."desktop.programs.browsers" =
     {
+      self,
       lib,
       pkgs,
       config,
@@ -278,6 +279,8 @@
 
     in
     {
+      imports = [ self.modules.homeManager."appearance.font-options" ];
+
       programs.firefox = {
         enable = true;
         languagePacks = [ "zh-CN" ];
