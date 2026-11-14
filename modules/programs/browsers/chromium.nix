@@ -16,6 +16,10 @@
 
   };
 
+  flake.modules.homeManager.darwin = { lib, ... }: {
+    programs.chromium.enable = lib.mkForce false;
+  };
+
   flake.modules.homeManager."desktop.gnome" = {
     programs.chromium.commandLineArgs = [
       "--gtk-version=4"
