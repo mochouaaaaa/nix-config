@@ -1,7 +1,9 @@
 {
-  flake.modules.homeManager."agents.codex" = {
+  flake.modules.homeManager."agents.codex" = { lib, pkgs, ... }: {
     programs.codex = {
       enable = true;
+    }
+    // lib.optionalAttrs (!pkgs.stdenv.hostPlatform.isDarwin) {
       mutableSettings = true;
     };
   };
