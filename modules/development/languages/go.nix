@@ -40,7 +40,6 @@
           GOBIN = "${goPath}/bin";
           GOMODCACHE = "${goPath}/pkg/mod";
           GOENV = "${goPath}/env";
-          GOENV_DISABLE_GOPATH = "1";
           GOPROXY = "https://goproxy.cn,direct";
           GOSUMDB = "sum.golang.google.cn";
           GOTELEMETRYDIR = "${goPath}/telemetry";
