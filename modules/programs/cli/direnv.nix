@@ -18,7 +18,11 @@
             if [[ ! -e shell.nix ]] && [[ ! -e default.nix ]]; then
               cat > default.nix <<'EOF'
             with import <nixpkgs> {};
-            mkShell { nativeBuildInputs = [ bashInteractive ]; }
+            mkShell { 
+                nativeBuildInputs = [ 
+                    bashInteractive
+                ]; 
+            }
             EOF
               ''${EDITOR:-nvim} default.nix
             fi
