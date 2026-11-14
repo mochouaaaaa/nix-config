@@ -7,9 +7,8 @@
       ...
     }:
     {
-
       programs.vscode = {
-        package = pkgs.vscode-fhs;
+        package = lib.mkDefault pkgs.vscode-fhs;
 
         profiles.default = {
           userSettings = {
@@ -40,7 +39,21 @@
         };
       };
 
-      xdg.mimeApps.defaultApplicationPackages = [ config.programs.vscode.package ];
+      xdg.mimeApps.defaultApplicationPackages =
+        lib.optionals (config.programs.vscode.package != null) [
+          config.programs.vscode.package
+        ];
+    };
+
+  flake.modules.homeManager.wsl =
+    { self, ... }:
+    {
+      imports = [
+        self.modules.homeManager."programs.vscode"
+        self.modules.homeManager.linux
+      ];
+
+      programs.vscode.package = null;
     };
 
   flake.modules.nixos.preservation =

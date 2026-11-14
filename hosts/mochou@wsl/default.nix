@@ -31,7 +31,7 @@
     imports = [
       self.modules.homeManager.host
       self.modules.homeManager.linux
-      self.modules.homeManager."programs.vscode"
+      self.modules.homeManager.wsl
       self.modules.homeManager.servers
     ];
   };
