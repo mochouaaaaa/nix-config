@@ -1,15 +1,13 @@
 {
   flake.modules.homeManager.programs = { config, ... }: {
-
-    programs.nh = rec {
+    programs.nh = {
       enable = true;
       flake = "${config.home.homeDirectory}/nix";
       clean = {
-        inherit enable;
+        enable = true;
         dates = "weekly";
         extraArgs = "--keep-since 7d --keep 5";
       };
     };
-
   };
 }
