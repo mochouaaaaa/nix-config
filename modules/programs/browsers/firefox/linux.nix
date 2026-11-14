@@ -25,9 +25,7 @@
             # "gnomeTheme.hideSingleTab" = true;
           };
         };
-      };
-
-      programs.firefox = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+      } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
         package = pkgs.firefox-bin;
         configPath = "${config.xdg.configHome}/mozilla/firefox";
       };
