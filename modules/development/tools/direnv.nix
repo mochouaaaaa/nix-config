@@ -37,6 +37,7 @@
         echo -e "\033[93m All direnv related files have been removed. \033[0m"
       '')
     ];
+
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
@@ -45,8 +46,16 @@
     };
   };
 
-  flake.modules.nixos.preservation = { lib, config, username, ... }: {
-    profiles.preservation.users.${username}.directories =
-      lib.optionals config.home-manager.users.${username}.programs.direnv.enable [ ".local/share/direnv" ];
-  };
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      config,
+      username,
+      ...
+    }:
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals config.home-manager.users.${username}.programs.direnv.enable
+          [ ".local/share/direnv" ];
+    };
 }

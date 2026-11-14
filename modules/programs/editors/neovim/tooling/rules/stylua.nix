@@ -1,5 +1,6 @@
 {
-  flake.modules.homeManager."cli.neovim.tooling.rules.stylua" = { pkgs, ... }:
+  flake.modules.homeManager."cli.neovim.tooling.rules.stylua" =
+    { pkgs, ... }:
     let
       settings = {
         indent_width = 4;
@@ -12,7 +13,6 @@
       };
     in
     {
-      xdg.configFile."rules/stylua.toml".source =
-        (pkgs.formats.toml { }).generate "stylua.toml" settings;
+      xdg.configFile."rules/stylua.toml".source = (pkgs.formats.toml { }).generate "stylua.toml" settings;
     };
 }

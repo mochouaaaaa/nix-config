@@ -25,11 +25,17 @@
 
   # GCR's D-Bus services are only needed on NixOS hosts that enable GPG.
   flake.modules.nixos."services.base" =
-    { lib, pkgs, config, username, ... }:
     {
-      services.dbus.packages = lib.optionals
-        config.home-manager.users.${username}.programs.gpg.enable
-        [ pkgs.gcr_3 ];
+      lib,
+      pkgs,
+      config,
+      username,
+      ...
+    }:
+    {
+      services.dbus.packages = lib.optionals config.home-manager.users.${username}.programs.gpg.enable [
+        pkgs.gcr_3
+      ];
     };
 
   # Keep Linux-specific GPG agent behavior in the platform role while exposing

@@ -43,13 +43,21 @@
     };
 
   flake.modules.nixos.preservation =
-    { lib, pkgs, config, username, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      username,
+      ...
+    }:
     let
       homePackages = config.home-manager.users.${username}.home.packages or [ ];
     in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.programs.obs-studio.enable [ ".config/obs-studio" ]
+        lib.optionals config.home-manager.users.${username}.programs.obs-studio.enable [
+          ".config/obs-studio"
+        ]
         ++ lib.optionals (lib.elem pkgs.piliplus homePackages) [ ".local/share/com.example.piliplus" ];
     };
 

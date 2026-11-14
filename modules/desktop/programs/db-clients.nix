@@ -23,8 +23,7 @@
       cfg = config.profiles.database-clients;
     in
     {
-      options.profiles.database-clients.enable =
-        lib.mkEnableOption "desktop database clients";
+      options.profiles.database-clients.enable = lib.mkEnableOption "desktop database clients";
 
       config = lib.mkIf cfg.enable {
         home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
@@ -45,8 +44,9 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.profiles.database-clients.enable [
-          ".config/TinyRDM"
-        ];
+        lib.optionals config.home-manager.users.${username}.profiles.database-clients.enable
+          [
+            ".config/TinyRDM"
+          ];
     };
 }

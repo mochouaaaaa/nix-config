@@ -2,9 +2,18 @@
   flake.modules.homeManager.development = { self, ... }: {
     imports = [ self.modules.homeManager."development.go" ];
   };
-  flake.modules.homeManager.workstation = { pkgs, ... }: {
-    home.packages = [ pkgs.goland ];
-  };
+
+  flake.modules.homeManager.workstation =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+    {
+      home.packages = lib.optional config.programs.go.enable pkgs.goland;
+    };
+
   flake.modules.homeManager."development.go" =
     { pkgs, config, ... }:
     let

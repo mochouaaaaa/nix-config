@@ -6,11 +6,19 @@
     ];
   };
 
-  flake.modules.homeManager.workstation = { pkgs, ... }: {
-    home.packages = [ pkgs.pycharm ];
-  };
+  flake.modules.homeManager.workstation =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+    {
+      home.packages = lib.optional config.programs.ty.enable pkgs.pycharm;
+    };
 
-  flake.modules.homeManager.linux = { lib, pkgs, ... }: {
+  flake.modules.homeManager."development.python" = { lib, pkgs, ... }: {
+
     home.packages = [
       pkgs.playwright-driver.browsers
     ];
@@ -19,9 +27,6 @@
       export PLAYWRIGHT_BROWSERS_PATH="${pkgs.playwright-driver.browsers}";
       export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD="1";
     '';
-  };
-
-  flake.modules.homeManager."development.python" = _: {
 
     programs = {
       ty = {

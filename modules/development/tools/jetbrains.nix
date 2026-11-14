@@ -4,11 +4,20 @@
       inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.jetbra-free
     ];
   };
-  flake.modules.nixos.preservation = { inputs, lib, pkgs, config, username, ... }:
+  flake.modules.nixos.preservation =
+    {
+      inputs,
+      lib,
+      pkgs,
+      config,
+      username,
+      ...
+    }:
     let
       homePackages = config.home-manager.users.${username}.home.packages or [ ];
       jetbra = inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.jetbra-free;
-    in {
+    in
+    {
       profiles.preservation.users.${username}.directories = lib.optionals (lib.elem jetbra homePackages) [
         ".config/JetBrains"
         ".cache/JetBrains"
