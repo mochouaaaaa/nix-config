@@ -15,10 +15,11 @@
           default = {
             userSettings = {
               # =========== language
-              "python.languageServer" = "None";
               "[nix]" = {
-                "editor.tabSize" = 4;
                 "editor.defaultFormatter" = "brettm12345.nixfmt-vscode";
+              };
+              "[json]" = {
+                "editor.defaultFormatter" = "vscode.json-language-features";
               };
               "nix.enableLanguageServer" = true;
               "nix.serverPath" = "${lib.getExe pkgs.nixd}";
@@ -46,9 +47,12 @@
               "files.watcherExclude" = {
                 "**/.git/objects/**" = true;
                 "**/.git/subtree-cache/**" = true;
-                "**/node_modules/*/**" = true;
+                "**/node_modules/**" = true;
                 "**/tmp/**" = true;
                 "**/bower_components/**" = true;
+                "**/.direnv/**" = true;
+                "**/.devenv/**" = true;
+                "**/.venv/**" = true;
               };
               "files.exclude" = {
                 "**/.git" = true;
@@ -96,9 +100,8 @@
               "editor.wordWrap" = "on";
               "editor.autoIndentOnPaste" = true;
               "editor.codeLensFontFamily" = "${config.profiles.fonts.default}";
-              "editor.defaultFormatter" = "vscode.json-language-features";
               "editor.formatOnSave" = true;
-              "editor.formatOnType" = true;
+              "editor.formatOnType" = false;
               "editor.formatOnSaveMode" = "file";
               # debug
               "debug.console.fontFamily" = "${config.profiles.fonts.default}";

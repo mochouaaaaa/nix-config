@@ -49,9 +49,9 @@
 
       programs.vscode.package = lib.mkDefault pkgs.vscode-fhs;
 
-      xdg.mimeApps.defaultApplicationPackages = [
-        config.programs.vscode.package
-      ];
+      xdg.mimeApps.defaultApplicationPackages =
+        lib.optional (config.programs.vscode.package != null)
+          config.programs.vscode.package;
     };
 
   flake.modules.homeManager.wsl =
