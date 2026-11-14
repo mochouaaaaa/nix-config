@@ -11,7 +11,7 @@ in
     xdg.portal = {
       config = {
         hyprland = {
-          default = [ "hyprland" ] ++ config.xdg.portal.config.common.default;
+          default = [ "hyprland" ] ++ [ config.xdg.portal.config.common.default ];
           "org.freedesktop.impl.portal.RemoteDesktop" = "hyprland";
           "org.freedesktop.impl.portal.Screenshot" = "hyprland";
           "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
@@ -26,7 +26,7 @@ in
       configPackages = [ config.wayland.windowManager.niri.portalPackage ];
       config = {
         niri = {
-          default = [ "niri" ] ++ config.xdg.portal.config.common.default;
+          default = [ "niri" ] ++ [ config.xdg.portal.config.common.default ];
         }
         // gnomePortalConfig;
       };
@@ -38,7 +38,7 @@ in
       extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
       config = {
         gnome = {
-          default = [ "gnome" ] ++ config.xdg.portal.config.common.default;
+          default = [ "gnome" ] ++ [ config.xdg.portal.config.common.default ];
         }
         // gnomePortalConfig;
       };
@@ -50,7 +50,7 @@ in
       extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
       config = {
         kde = {
-          default = [ "kde" ] ++ config.xdg.portal.config.common.default;
+          default = [ "kde" ] ++ [ config.xdg.portal.config.common.default ];
         };
       };
     };
