@@ -30,7 +30,7 @@
   home-manager.users.${username} = {
     imports = [
       self.modules.homeManager.host
-      self.modules.homeManager.linux
+      self.modules.homeManager.wsl
       self.modules.homeManager.servers
     ];
   };
