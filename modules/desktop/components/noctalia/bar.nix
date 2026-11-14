@@ -15,6 +15,9 @@
           media = {
             hide_when_no_media = true;
           };
+          privacy = {
+            hide_inactive = true;
+          };
         };
         bar = {
           order = [ "widgets" ];
@@ -32,7 +35,10 @@
             shadow = false;
             start = [ "workspaces" ];
             widget_spacing = 16;
-            center = [ "media" ];
+            center = [
+              "media"
+              "privacy"
+            ];
             end = [
               "tray"
               "notifications"

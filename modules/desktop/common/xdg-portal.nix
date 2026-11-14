@@ -7,9 +7,8 @@ let
   };
 in
 {
-  flake.modules.homeManager."desktop.hyprland" = { pkgs, config, ... }: {
+  flake.modules.homeManager."desktop.hyprland" = { config, ... }: {
     xdg.portal = {
-      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
       config = {
         hyprland = {
           default = [

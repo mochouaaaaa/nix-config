@@ -112,6 +112,12 @@
     };
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
+    hyprland.url = "github:hyprwm/Hyprland/v0.57.2";
+    hyprcapture = {
+      url = "github:gfhdhytghd/HyprCapture";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {

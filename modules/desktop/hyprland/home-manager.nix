@@ -4,6 +4,7 @@
       lib,
       pkgs,
       self,
+      inputs,
       config,
       ...
     }:
@@ -17,7 +18,7 @@
 
       programs = {
         swappy = {
-          enable = true;
+          enable = false;
           settings = {
             Default = {
               save_dir = "$XDG_PICTURES_DIR/Screenshots";
@@ -27,10 +28,8 @@
       };
 
       home.packages = with pkgs; [
-        slurp
-        gimp
-        grim
-        grimblast
+        libnotify
+        wl-clipboard-rs
       ];
 
       xdg.configFile = {
@@ -60,6 +59,9 @@
           variables = [ "--all" ];
           enableXdgAutostart = true;
         };
+        plugins = [
+          inputs.hyprcapture.packages.${pkgs.stdenv.hostPlatform.system}.hyprcapture
+        ];
         configType = "lua";
         extraConfig = lib.mkBefore ''
           require("init")
