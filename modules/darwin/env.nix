@@ -1,10 +1,11 @@
 {
   flake.modules.darwin.env = {
-    environment.variables = rec {
-      # Set clang -lresolv for the Xcode SDK.
-      SDKROOT = "$(xcrun --sdk macosx --show-sdk-path)";
-      CGO_CFLAGS = "-isysroot ${SDKROOT}";
-      CGO_LDFLAGS = "-isysroot ${SDKROOT}";
-    };
+    # Resolve the active Xcode SDK when the shell starts; environment.variables
+    # treats values as literals and does not evaluate command substitutions.
+    environment.extraInit = ''
+      export SDKROOT="$(/usr/bin/xcrun --sdk macosx --show-sdk-path)"
+      export CGO_CFLAGS="-isysroot $SDKROOT"
+      export CGO_LDFLAGS="-isysroot $SDKROOT"
+    '';
   };
 }
