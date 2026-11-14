@@ -22,20 +22,18 @@
         dotfileLink = mkOption {
           default =
             folderName:
-            builtins.listToAttrs (
-              let
-                dotfilesPath = "${config.profiles.dotfiles}/${folderName}";
-                dirContentsNames = builtins.attrNames (builtins.readDir dotfilesPath);
-              in
-              map (fileName: {
-                name = "${folderName}/${fileName}";
-                value = {
-                  force = true;
-                  source = lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}");
-                  recursive = true;
-                };
-              }) dirContentsNames
-            );
+            let
+              dotfilesPath = "${config.profiles.dotfiles}/${folderName}";
+            in
+            lib.mapAttrs' (
+              fileName: _:
+              lib.nameValuePair "${folderName}/${fileName}" {
+                force = true;
+                source = lib.mkForce (
+                  config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}"
+                );
+              }
+            ) (builtins.readDir dotfilesPath);
         };
 
       };
