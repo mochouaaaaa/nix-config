@@ -20,7 +20,6 @@
         };
 
         dotfileLink = mkOption {
-          # type = lib.types.defaultFunctor;
           default =
             folderName:
             builtins.listToAttrs (
@@ -33,6 +32,7 @@
                 value = {
                   force = true;
                   source = lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}");
+                  recursive = true;
                 };
               }) dirContentsNames
             );
