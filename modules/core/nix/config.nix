@@ -54,14 +54,6 @@ let
       use-xdg-base-directories = true;
       auto-optimise-store = true;
 
-      experimental-features = [
-        "flakes"
-        "nix-command"
-        "auto-allocate-uids"
-        "pipe-operators"
-        "ca-derivations"
-        "dynamic-derivations"
-      ];
       extra-deprecated-features = [
         "or-as-identifier"
         "broken-string-escape"
