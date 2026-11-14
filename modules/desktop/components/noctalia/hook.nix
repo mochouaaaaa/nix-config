@@ -14,6 +14,7 @@
               let
                 hook_startup = pkgs.writeShellScriptBin "hook_startup" ''
                   noctalia msg caffeine-enable
+                  ${lib.optionalString config.wayland.windowManager.hyprland.enable "hyprctl reload"}
                 '';
               in
               "${lib.getExe hook_startup}";
