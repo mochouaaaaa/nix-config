@@ -1,48 +1,57 @@
 {
+  # Shared Linux and WSL VS Code settings and extensions.
+  flake.modules.homeManager."programs.vscode.linux-config" =
+    {
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      programs.vscode.profiles.default = {
+        userSettings = {
+          "vscode-default-keybindings.removeOSKeybindings" = true;
+          "vscode-default-keybindings.macOSKeybindings" = true;
+          "qt-qml.doNotAskForQmllsDownload" = true;
+          "qt-qml.qmlls.customExePath" = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
+        };
+        extensions = [
+          (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+            mktplcRef = {
+              name = "vscode-default-keybindings";
+              publisher = "jbro";
+              version = "0.2.51";
+              hash = "sha256-SJ+YghLJMWqvNsvhMLLzyPgkAiy/g+WlobXBx0mUGLs=";
+            };
+          })
+          (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+            mktplcRef = {
+              name = "qt-qml";
+              publisher = "TheQtCompany";
+              version = "1.7.0";
+              hash = "sha256-QjfvZIcE4LcJU93YiYN/zykEluHtR7zVOwYiPL0k+cQ=";
+            };
+            meta.license = lib.licenses.gpl3Plus;
+          })
+        ];
+      };
+    };
+
   flake.modules.homeManager.linux =
     {
+      self,
       lib,
       pkgs,
       config,
       ...
     }:
     {
-      programs.vscode = {
-        package = lib.mkDefault pkgs.vscode-fhs;
+      imports = [ self.modules.homeManager."programs.vscode.linux-config" ];
 
-        profiles.default = {
-          userSettings = {
-            "vscode-default-keybindings.removeOSKeybindings" = true;
-            "vscode-default-keybindings.macOSKeybindings" = true;
-            "qt-qml.doNotAskForQmllsDownload" = true;
-            "qt-qml.qmlls.customExePath" = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
-          };
-          extensions = [
-            (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-              mktplcRef = {
-                name = "vscode-default-keybindings";
-                publisher = "jbro";
-                version = "0.2.51";
-                hash = "sha256-SJ+YghLJMWqvNsvhMLLzyPgkAiy/g+WlobXBx0mUGLs=";
-              };
-            })
-            (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-              mktplcRef = {
-                name = "qt-qml";
-                publisher = "TheQtCompany";
-                version = "1.7.0";
-                hash = "sha256-QjfvZIcE4LcJU93YiYN/zykEluHtR7zVOwYiPL0k+cQ=";
-              };
-              meta.license = lib.licenses.gpl3Plus;
-            })
-          ];
-        };
-      };
+      programs.vscode.package = lib.mkDefault pkgs.vscode-fhs;
 
-      xdg.mimeApps.defaultApplicationPackages =
-        lib.optionals (config.programs.vscode.package != null) [
-          config.programs.vscode.package
-        ];
+      xdg.mimeApps.defaultApplicationPackages = [
+        config.programs.vscode.package
+      ];
     };
 
   flake.modules.homeManager.wsl =
@@ -50,7 +59,7 @@
     {
       imports = [
         self.modules.homeManager."programs.vscode"
-        self.modules.homeManager.linux
+        self.modules.homeManager."programs.vscode.linux-config"
       ];
 
       programs.vscode.package = null;
