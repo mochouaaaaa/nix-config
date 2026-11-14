@@ -54,6 +54,7 @@
         self.modules.homeManager.host
         self.modules.homeManager.workstation
         self.modules.homeManager.linux
+        self.modules.homeManager."development.gui"
         self.modules.homeManager."agents.codex"
         self.modules.homeManager."agents.antigravity"
         self.modules.homeManager."desktop.programs.audio"
