@@ -81,6 +81,12 @@ let
         else
           throw "'nixosWsl' in ${configPath} must be a boolean.";
 
+      checkedNixosWsl =
+        if nixosWsl && class != "nixos" then
+          throw "'nixosWsl' in ${configPath} is only valid for NixOS hosts."
+        else
+          nixosWsl;
+
       checkInput =
         inputName:
         if builtins.hasAttr inputName inputs then
@@ -145,8 +151,8 @@ let
           name
           class
           system
-          nixosWsl
           ;
+        nixosWsl = checkedNixosWsl;
         osInput = checkedOsInput;
         homeManagerInput = checkedHomeManagerInput;
         path = hostsDir + "/${name}";

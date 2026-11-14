@@ -70,7 +70,7 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 
 **modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机只需通过 **nixpkgs.json** 声明目标 **system**，并可分别覆盖操作系统（`os`）与 Home Manager（`home-manager`）使用的 nixpkgs input；不需要单独维护 `class` 或 `host.json`。
 
-`os` 默认根据架构选择：`x86_64-darwin` 使用 `nixpkgs-darwin`，其他架构使用 `nixpkgs`。`home-manager` 默认在 Darwin 上跟随 `os`，其他情况使用 `nixpkgs-stable`。省略字段时使用默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
+`os` 默认在 Darwin 主机上使用 `nix-darwin`，其他架构使用 `nixpkgs`；`home-manager` 默认使用 `home-manager`。两个字段都可独立指定对应的 Flake input。省略字段时使用默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
 
 例如，NixOS 主机：
 
@@ -90,7 +90,7 @@ Intel Darwin 主机可以只写：
 }
 ~~~
 
-此时 `os` 和 `home-manager` 都默认使用 `nixpkgs-darwin`。Apple Silicon Darwin 默认使用 `nixpkgs`。如果是 NixOS WSL 主机，可额外设置 `"nixosWsl": true`。
+当前仓库的 Darwin 主机显式指定 `nix-darwin` 和 `home-manager-darwin`。新增主机时若省略 `home-manager`，则使用 `home-manager`；如需其他版本，应显式指定。`nixosWsl` 只适用于 NixOS 主机。
 
 ### 功能模块
 

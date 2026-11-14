@@ -6,6 +6,9 @@
       config,
       ...
     }:
+    let
+      fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";
+    in
     {
       programs = {
         vscode.profiles = {
@@ -90,18 +93,18 @@
               "editor.tabSize" = 4;
               "editor.lineHeight" = 24;
               "editor.fontSize" = 18;
-              "editor.fontFamily" = "${config.profiles.fonts.default}";
+              "editor.fontFamily" = fontFamily;
               "editor.codeActionsOnSave" = {
                 "source.organizeImports" = "explicit";
               };
               "editor.wordWrap" = "on";
               "editor.autoIndentOnPaste" = true;
-              "editor.codeLensFontFamily" = "${config.profiles.fonts.default}";
+              "editor.codeLensFontFamily" = fontFamily;
               "editor.formatOnSave" = true;
               "editor.formatOnType" = false;
               "editor.formatOnSaveMode" = "file";
               # debug
-              "debug.console.fontFamily" = "${config.profiles.fonts.default}";
+              "debug.console.fontFamily" = fontFamily;
               "debug.console.fontSize" = 15;
               "debug.console.historySuggestions" = false;
               "editor.tokenColorCustomizations" = {

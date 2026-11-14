@@ -38,6 +38,7 @@
 
       # Podman 的持久化目录（不是 Docker）
       profiles.preservation.directories = [
+        "/var/lib/cni"
         "/var/lib/containers"
       ];
     };

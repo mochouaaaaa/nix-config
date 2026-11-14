@@ -7,33 +7,38 @@
     };
   };
 
-  flake.modules.homeManager.programs = { config, ... }: {
-    programs.neovide = {
-      enable = false;
-      settings = {
-        fork = true;
-        frame = "none";
-        idle = true;
-        maximized = false;
-        neovim-bin = "${config.programs.neovim.package}/bin/nvim";
-        no-multigrid = false;
-        srgb = true;
-        tabs = true;
-        theme = "auto";
-        mouse-cursor-icon = "arrow";
-        title-hidden = true;
-        vsync = true;
-        wsl = false;
-        font = {
-          normal = [ "${config.profiles.fonts.default}" ]; # Will use the bundled Fira Code Nerd Font by default
-          size = 17;
-        };
-        box-drawing = {
-          mode = "native";
+  flake.modules.homeManager.programs =
+    { config, ... }:
+    let
+      fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";
+    in
+    {
+      programs.neovide = {
+        enable = false;
+        settings = {
+          fork = true;
+          frame = "none";
+          idle = true;
+          maximized = false;
+          neovim-bin = "${config.programs.neovim.package}/bin/nvim";
+          no-multigrid = false;
+          srgb = true;
+          tabs = true;
+          theme = "auto";
+          mouse-cursor-icon = "arrow";
+          title-hidden = true;
+          vsync = true;
+          wsl = false;
+          font = {
+            normal = [ fontFamily ]; # Will use the bundled Fira Code Nerd Font by default
+            size = 17;
+          };
+          box-drawing = {
+            mode = "native";
+          };
         };
       };
     };
-  };
 
   flake.modules.homeManager."desktop.common" = {
     programs.neovide = {

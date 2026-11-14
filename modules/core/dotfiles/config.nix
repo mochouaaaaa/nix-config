@@ -29,9 +29,7 @@
               fileName: _:
               lib.nameValuePair "${folderName}/${fileName}" {
                 force = true;
-                source = lib.mkForce (
-                  config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}"
-                );
+                source = lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}");
               }
             ) (builtins.readDir dotfilesPath);
         };

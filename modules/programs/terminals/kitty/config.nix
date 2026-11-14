@@ -40,6 +40,7 @@
     }:
     let
       cfg = config.profiles.terminal.kitty;
+      fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";
     in
     {
 
@@ -79,7 +80,7 @@
             enable = true;
             package = pkgs.kitty;
             font = {
-              name = "${config.profiles.fonts.default}";
+              name = fontFamily;
               size = 16;
             };
             extraConfig = lib.mkOrder 500 (lib.concatStringsSep "\n" cfg.extraConfig);

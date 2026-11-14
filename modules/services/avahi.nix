@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.base" = {
+  flake.modules.nixos."services.avahi" = {
 
     services.avahi = {
       enable = true;

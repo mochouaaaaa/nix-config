@@ -38,15 +38,7 @@
             }
             "/var/lib/systemd"
 
-            # containers
-            "/var/lib/cni"
-            "/var/lib/containers"
             ".var"
-
-            # virtualisation
-            "/var/lib/libvirt"
-            "/var/lib/lxc"
-            "/var/lib/lxd"
 
             # network
             "/var/lib/tailscale"

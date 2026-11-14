@@ -105,9 +105,9 @@
         "extensions.autodisablescopes" = 0;
 
         # Fonts
-        "font.name.serif.zh-CN" = config.profiles.fonts.serif;
-        "font.name.sans-serif.zh-CN" = config.profiles.fonts.default;
-        "font.name.monospace.zh-CN" = config.profiles.fonts.monospace;
+        "font.name.serif.zh-CN" = config.profiles.fonts.serif or "Source Han Serif";
+        "font.name.sans-serif.zh-CN" = config.profiles.fonts.default or "Monaco Nerd Font";
+        "font.name.monospace.zh-CN" = config.profiles.fonts.monospace or "Maple Mono CN";
 
         # Network and DNS
         "network.trr.mode" = 5;

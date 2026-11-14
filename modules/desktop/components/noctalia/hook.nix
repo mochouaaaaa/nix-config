@@ -19,17 +19,21 @@
               in
               "${lib.getExe hook_startup}";
 
-            session_locked = lib.getExe (pkgs.writeShellScriptBin "session_locked" ''
-              playerctl pause
-              noctalia msg bar-hide
-              noctalia msg caffeine-disable
-            '');
+            session_locked = lib.getExe (
+              pkgs.writeShellScriptBin "session_locked" ''
+                playerctl pause
+                noctalia msg bar-hide
+                noctalia msg caffeine-disable
+              ''
+            );
 
-            session_unlocked = lib.getExe (pkgs.writeShellScriptBin "session_unlocked" ''
-              noctalia msg bar-show
-              noctalia msg dpms-on
-              noctalia msg caffeine-enable
-            '');
+            session_unlocked = lib.getExe (
+              pkgs.writeShellScriptBin "session_unlocked" ''
+                noctalia msg bar-show
+                noctalia msg dpms-on
+                noctalia msg caffeine-enable
+              ''
+            );
 
             theme_mode_changed =
               let

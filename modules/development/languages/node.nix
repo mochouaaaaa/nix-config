@@ -5,7 +5,7 @@
   };
 
   flake.modules.homeManager."development.node" =
-    { lib, pkgs, config, ... }:
+    { pkgs, config, ... }:
     {
       # npm owns the Node.js package as well as the user-level npmrc.
       # Use one Node.js version for both the runtime and npm CLI.

@@ -22,6 +22,7 @@
     # self.modules.nixos."desktop.niri"
 
     self.modules.nixos."services.dns"
+    self.modules.nixos."services.avahi"
     self.modules.nixos."services.console"
     self.modules.nixos."services.brightness"
     self.modules.nixos."services.uptermd"
