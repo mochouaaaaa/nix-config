@@ -1,11 +1,5 @@
 {
   flake.modules.homeManager.programs = {
-
-    programs = {
-      television = {
-        enable = true;
-      };
-    };
-
+    programs.television.enable = true;
   };
 }
