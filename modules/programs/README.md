@@ -9,13 +9,21 @@ file does not change its `flake.modules.*` interface or the host composition.
 - `browsers/`: browser applications and browser-specific configuration.
 - `cli/`: command-line tools and shell utilities.
 - `development/`: developer tools, Git, SSH, database and API clients.
-- `desktop/`: desktop applications and communication tools.
+- `desktop/`: desktop applications grouped by use case, such as networking,
+  remote access, gaming, communication, media and office.
 - `editors/`: Neovim, VS Code and GUI editor integration.
 - `input-methods/`: input methods and keyboard remapping.
 - `media/`: media players and their scripts.
 - `shells/`: shell configuration.
-- `system/`: system-level program integration and platform package installation.
 - `terminals/`: terminal emulators and multiplexers.
+
+System integration belongs to the module class that owns the setting:
+Home Manager for per-user packages and configuration, NixOS for system
+packages and permissions, and nix-darwin for Homebrew casks. Keep those
+integrations alongside the application they serve rather than collecting
+unrelated applications in a generic `system/` directory. Desktop infrastructure
+that is not an individual application, such as Flatpak, belongs in
+`modules/desktop/`.
 
 ## Module boundaries
 

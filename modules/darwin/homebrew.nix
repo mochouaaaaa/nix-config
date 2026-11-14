@@ -2,7 +2,11 @@
   flake.modules.darwin.homebrew =
     { self, username, ... }:
     {
-      imports = [ self.modules.darwin.programs ];
+      imports = [
+        self.modules.darwin.programs
+        self.modules.darwin."desktop.programs.networking"
+        self.modules.darwin."desktop.programs.remote"
+      ];
 
       # Homebrew mirrors are only relevant when Homebrew is enabled.
       environment.variables = {
@@ -18,7 +22,7 @@
 
         onActivation = {
           autoUpdate = false; # Fetch the newest stable branch of Homebrew's git repo.
-          upgrade = false; # Upgrade outdated casks, formulae, and App Store apps.
+          upgrade = false; # Upgrade outdated formulae, casks, and App Store apps.
           # 'zap': uninstalls all formulae (and related files) not listed in the generated Brewfile.
           cleanup = "none";
         };

@@ -13,8 +13,9 @@
   imports = [
     self.modules.nixos.preservation
     self.modules.nixos."desktop.hyprland"
-    self.modules.nixos."programs.flatpak"
+    self.modules.nixos."desktop.flatpak"
     self.modules.nixos."desktop.programs.database"
+    self.modules.nixos."desktop.programs.networking"
     self.modules.nixos.boot-loader-limine
     self.modules.nixos."hardware.hid-apple"
     self.modules.nixos."profiles.zram"

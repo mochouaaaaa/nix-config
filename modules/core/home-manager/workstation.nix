@@ -12,6 +12,7 @@
       self.modules.homeManager."programs.kitty"
       self.modules.homeManager."desktop.programs.browsers"
       self.modules.homeManager."desktop.programs.database"
+      self.modules.homeManager."desktop.programs.networking"
     ];
     profiles.database-clients.enable = true;
   };
