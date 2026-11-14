@@ -6,7 +6,8 @@
     ];
   };
 
-  flake.modules.homeManager.workstation =
+  # GUI development applications are enabled only by Linux desktop hosts.
+  flake.modules.homeManager."development.gui" =
     {
       lib,
       pkgs,
@@ -14,7 +15,7 @@
       ...
     }:
     {
-      home.packages = lib.optional (config.programs.ty.enable && pkgs.stdenv.hostPlatform.isLinux) pkgs.pycharm;
+      home.packages = lib.optional config.programs.ty.enable pkgs.pycharm;
     };
 
   flake.modules.homeManager."development.python" = { lib, pkgs, ... }: {
