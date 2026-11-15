@@ -85,13 +85,20 @@
                 priority = 1;
                 name = "ESP";
                 start = "1M";
-                end = "513M";
+                end = "1025M";
                 type = "EF00";
                 content = {
                   type = "filesystem";
                   format = "vfat";
                   mountpoint = "/boot";
                   mountOptions = [ "umask=0077" ];
+                };
+              };
+
+              swap = {
+                size = "10G";
+                content = {
+                  type = "swap";
                 };
               };
 
@@ -142,8 +149,8 @@
 
       # The VM-specific options are applied to the Disko-generated guest.
       virtualisation.vmVariantWithDisko = vmConfig // {
-        # The host's swap UUID must never be used by the guest.
-        swapDevices = lib.mkForce [ ];
+        # Disko generates swapDevices from the 10 GiB swap partition.
+        # Do not override it here, otherwise the guest will not activate swap.
 
         # Keep the same ephemeral root model as the host, without using
         # the host's physical root partition.
