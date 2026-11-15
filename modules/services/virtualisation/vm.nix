@@ -44,6 +44,22 @@
           writable = false;
           cache = "never";
         };
+
+        # Disko generates swapDevices from the 10 GiB swap partition.
+        # Do not override it here, otherwise the guest will not activate swap.
+
+        # Keep the same ephemeral root model as the host, without using
+        # the host's physical root partition.
+        # qemu-vm derives guest fileSystems from virtualisation.fileSystems.
+        # With useDefaultFilesystems disabled, declare the tmpfs root here.
+        virtualisation.fileSystems."/" = {
+          device = "tmpfs";
+          fsType = "tmpfs";
+          options = [
+            "relatime"
+            "mode=755"
+          ];
+        };
       };
     in
     {
@@ -148,23 +164,8 @@
         };
       };
 
-      # The VM-specific options are applied to the Disko-generated guest.
-      virtualisation.vmVariantWithDisko = vmConfig // {
-        # Disko generates swapDevices from the 10 GiB swap partition.
-        # Do not override it here, otherwise the guest will not activate swap.
-
-        # Keep the same ephemeral root model as the host, without using
-        # the host's physical root partition.
-        # qemu-vm derives guest fileSystems from virtualisation.fileSystems.
-        # With useDefaultFilesystems disabled, declare the tmpfs root here.
-        virtualisation.fileSystems."/" = {
-          device = "tmpfs";
-          fsType = "tmpfs";
-          options = [
-            "relatime"
-            "mode=755"
-          ];
-        };
-      };
+      # Apply the VM-specific configuration as one module. Avoid a shallow
+      # attrset merge here: it would replace vmConfig.virtualisation entirely.
+      virtualisation.vmVariantWithDisko = vmConfig;
     };
 }
