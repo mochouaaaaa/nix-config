@@ -4,14 +4,16 @@
     let
       cfg = config.profiles.services.dns;
       proxyCfg = config.profiles.services.proxy;
+      # "reject" keeps the SOCKS dependency when Mihomo is off, so these
+      # upstreams fail instead of silently falling back to a direct connection.
       proxyArgs = lib.optionalAttrs (proxyCfg.mihomo.enable || cfg.proxyFallback == "reject") {
         socks5 = "${proxyCfg.mihomo.address}:${toString proxyCfg.mihomo.socks.port}";
       };
     in
     {
       profiles.services.dns = {
-      settings = {
-        plugins = lib.mkOrder 100 [
+        settings = {
+          plugins = lib.mkOrder 100 [
 
           # --- Google DNS (DoH/DoT/H3) ---
           {
@@ -105,7 +107,7 @@
             };
           }
 
-          # --- NextDNS ---
+          # --- NextDNS (always direct; independent from Mihomo) ---
           {
             tag = "nextdns";
             type = "forward";
@@ -235,7 +237,8 @@
             };
           }
 
-        ];
+          ];
+        };
       };
     };
   };
