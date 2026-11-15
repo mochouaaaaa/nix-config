@@ -70,7 +70,7 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 
 **modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机只需通过 **nixpkgs.json** 声明目标 **system**，并可分别覆盖操作系统（`os`）与 Home Manager（`home-manager`）使用的 nixpkgs input；不需要单独维护 `class` 或 `host.json`。
 
-`os` 默认根据架构选择：`x86_64-darwin` 使用 `nixpkgs-darwin`，其他架构使用 `nixpkgs`。`home-manager` 默认在 Darwin 上跟随 `os`，其他情况使用 `nixpkgs-stable`。省略字段时使用默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
+`os` 默认根据 `system` 后缀选择 Flake input：以 `-darwin` 结尾时使用 `nix-darwin`，其他情况使用 `nixpkgs`。这里的 `os` 是提供 `lib.nixosSystem` 或 `lib.darwinSystem` 构建接口的 Flake input，不是单纯的 nixpkgs 包源。`home-manager` 当前统一默认使用 `home-manager`；需要使用其他 Home Manager input 时，应在 `nixpkgs.json` 中显式指定。省略字段时使用代码中的默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
 
 例如，NixOS 主机：
 
@@ -78,7 +78,7 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 {
   "system": "x86_64-linux",
   "os": "nixpkgs",
-  "home-manager": "nixpkgs-stable"
+  "home-manager": "home-manager"
 }
 ~~~
 
@@ -90,7 +90,7 @@ Intel Darwin 主机可以只写：
 }
 ~~~
 
-此时 `os` 和 `home-manager` 都默认使用 `nixpkgs-darwin`。Apple Silicon Darwin 默认使用 `nixpkgs`。如果是 NixOS WSL 主机，可额外设置 `"nixosWsl": true`。
+此时 `os` 默认使用 `nix-darwin`，`home-manager` 默认使用 `home-manager`。Apple Silicon Darwin 的默认值相同；若要使用专门的 Darwin Home Manager input，应显式设置 `"home-manager": "home-manager-darwin"`。如果是 NixOS WSL 主机，可额外设置 `"nixosWsl": true`。
 
 ### 功能模块
 
@@ -136,10 +136,15 @@ just show
 just fmt          # 格式化 Flake
 just fmt-check    # 检查 Nix 格式
 just lint         # 运行 statix 与 deadnix
-just check        # 执行 nix flake check（不构建 derivations）
-just validate     # fmt-check + lint + check
-just check-build  # 执行包含构建检查的 flake check
+just check        # 轻量元数据检查（设置 NIX_CONFIG_CHECK=1，不求值完整 Host 配置）
+just validate     # fmt-check + lint + check；不等同于完整 Host 求值
+just validate-hosts # Linux 上求值默认 NixOS Host；macOS 上求值默认 Darwin Host
+just nixos-eval   # 显式求值指定 NixOS Host
+just darwin-eval  # 显式求值指定 Darwin Host
+just check-build  # 不设置 NIX_CONFIG_CHECK，执行包含 Flake 检查构建的 flake check
 ~~~
+
+> **检查范围说明：** 当前 `just check` 为避免完整系统配置求值而设置 `NIX_CONFIG_CHECK=1`。在该模式下，`modules/hosts.nix` 只导出 Host 元数据，跳过 `nixosConfigurations`、`darwinConfigurations` 和 `homeConfigurations`。因此 `just check` / `just validate` 不能证明各 Host 配置可成功求值。请按目标平台另外运行 `validate-hosts`、`nixos-eval` 或 `darwin-eval`；standalone Home Manager 配置目前没有对应的专用 just recipe，需要直接求值相应的 `homeConfigurations` 输出。
 
 ### NixOS
 
