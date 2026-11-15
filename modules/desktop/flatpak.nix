@@ -75,7 +75,10 @@
       ...
     }:
     let
-      hasFlatpak = options ? home-manager.users.${username}.services.flatpak.enable;
+      hasHomeManager = options ? home-manager.users;
+      homeManagerUserOptions =
+        if hasHomeManager then options.home-manager.users.type.getSubOptions [ ] else { };
+      hasFlatpak = homeManagerUserOptions ? services.flatpak.enable;
     in
     {
       profiles.preservation = lib.mkIf (
