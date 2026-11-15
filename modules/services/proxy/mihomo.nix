@@ -35,10 +35,6 @@
               processesInfo = true;
             };
 
-            profiles.preservation.directories = [
-              "/var/lib/private/mihomo"
-            ];
-
             systemd.services.mihomo-config = {
               description = "Generate Mihomo configuration";
 
@@ -93,4 +89,11 @@
         ])
       ];
     };
+
+  flake.modules.nixos.preservation = { lib, config, ... }: {
+    profiles.preservation.directories = lib.optionals config.services.mihomo.enable [
+      "/var/lib/private/mihomo"
+    ];
+  };
+
 }

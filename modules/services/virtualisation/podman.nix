@@ -36,10 +36,14 @@
         docker.enable = false;
       };
 
-      # Podman 的持久化目录（不是 Docker）
-      profiles.preservation.directories = [
-        "/var/lib/cni"
-        "/var/lib/containers"
-      ];
     };
+
+  flake.modules.nixos.preservation = { lib, config, ... }: {
+    # Podman 的持久化目录（不是 Docker）
+    profiles.preservation.directories = lib.optionals config.virtualisation.podman.enable [
+      "/var/lib/cni"
+      "/var/lib/containers"
+    ];
+  };
+
 }

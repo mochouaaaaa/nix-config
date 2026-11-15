@@ -41,10 +41,12 @@
         };
       };
 
-      profiles.preservation.directories = [
-        "/var/lib/noctalia-greeter"
-      ];
-
     };
+
+  flake.modules.nixos.preservation = {
+    profiles.preservation.directories = [
+      "/var/lib/noctalia-greeter"
+    ];
+  };
 
 }

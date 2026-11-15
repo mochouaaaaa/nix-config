@@ -1,27 +1,23 @@
 {
-  flake.modules.nixos._preservation-noctalia =
+  flake.modules.nixos.preservation =
     {
       lib,
       config,
+      options,
       username,
       ...
     }:
+    let
+      hasHM = options ? home-manager;
+    in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.programs.noctalia.enable
+        lib.optionals (config.home-manager.users.${username}.programs.noctalia.enable && hasHM)
           [
             ".cache/noctalia"
             ".local/state/noctalia"
           ];
     };
-
-  flake.modules.nixos."desktop.hyprland" = { self, ... }: {
-    imports = [ self.modules.nixos._preservation-noctalia ];
-  };
-
-  flake.modules.nixos."desktop.niri" = { self, ... }: {
-    imports = [ self.modules.nixos._preservation-noctalia ];
-  };
 
   flake.modules.homeManager."desktop.hyprland" = { mylib, ... }: {
     programs.noctalia = mylib.mkForceRecursive {
