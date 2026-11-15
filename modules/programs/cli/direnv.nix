@@ -9,7 +9,10 @@
       home.packages = with pkgs; [
         (writeShellApplication {
           name = "nixify";
-          runtimeInputs = [ direnv ];
+          runtimeInputs = [
+            direnv
+            coreutils
+          ];
           text = ''
             if [ ! -e ./.envrc ]; then
               echo "use nix" > .envrc
@@ -18,19 +21,22 @@
             if [[ ! -e shell.nix ]] && [[ ! -e default.nix ]]; then
               cat > default.nix <<'EOF'
             with import <nixpkgs> {};
-            mkShell { 
-                nativeBuildInputs = [ 
+            mkShell {
+                nativeBuildInputs = [
                     bashInteractive
-                ]; 
+                ];
             }
             EOF
-              ''${EDITOR:-nvim} default.nix
+              ${EDITOR:-nvim} default.nix
             fi
           '';
         })
         (writeShellApplication {
           name = "flakify";
-          runtimeInputs = [ direnv ];
+          runtimeInputs = [
+            direnv
+            nix
+          ];
           text = ''
             if [ ! -e flake.nix ]; then
               nix flake new -t github:nix-community/nix-direnv .
@@ -38,7 +44,7 @@
               echo "use flake" > .envrc
               direnv allow
             fi
-            ''${EDITOR:-nvim} flake.nix
+            ${EDITOR:-nvim} flake.nix
           '';
         })
         (writeShellApplication {
