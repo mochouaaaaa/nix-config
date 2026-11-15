@@ -33,6 +33,17 @@
       };
     };
 
+  # NixOS entry point for hosts that compose desktop program modules.
+  # The Home Manager role may also import this module; duplicate imports are
+  # harmless and keep the module independently composable.
+  flake.modules.nixos."desktop.programs.database" =
+    { self, username, ... }:
+    {
+      home-manager.users.${username}.imports = [
+        self.modules.homeManager."desktop.programs.database"
+      ];
+    };
+
   # Persistence is an optional integration, not a dependency of the
   # database-client module itself.
   flake.modules.nixos.preservation =
