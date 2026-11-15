@@ -143,24 +143,6 @@ let
         path = hostsDir + "/${name}";
       };
 
-    if unknownFields != [ ] then
-      throw "Unknown fields in ${configPath}: ${lib.concatStringsSep ", " unknownFields}"
-    else
-      {
-        username = builtins.elemAt parts 0;
-        hostName = builtins.elemAt parts 1;
-        inherit
-          name
-          class
-          system
-          ;
-        nixosWsl = checkedNixosWsl;
-        inherit nixosWslModule homeManagerNixpkgsInput nixosWslInputValidated;
-        osInput = checkedOsInput;
-        homeManagerInput = checkedHomeManagerInput;
-        path = hostsDir + "/${name}";
-      };
-
   parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
 
   # Force only lightweight metadata and interface checks, not host configurations.
