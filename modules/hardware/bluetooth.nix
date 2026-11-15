@@ -34,10 +34,6 @@
         };
       };
 
-      profiles.preservation.directories = [
-        "/var/lib/bluetooth"
-      ];
-
     };
 
 }
