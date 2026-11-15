@@ -31,6 +31,7 @@
             How to handle DNS upstreams that normally use Mihomo when Mihomo is disabled.
             - direct: connect to those upstreams directly.
             - reject: keep them routed through the unavailable Mihomo SOCKS endpoint.
+            NextDNS is always direct and is not affected by this setting.
           '';
         };
 
