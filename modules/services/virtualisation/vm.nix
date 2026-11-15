@@ -32,24 +32,8 @@
           source-han-serif
         ];
 
-        # Use harmless test credentials in the VM instead of host secrets.
-        environment.etc."mosdns-vm.env".text = ''
-          DNS_ID=vm-test
-          DNS_V41=45.90.28.0
-          DNS_V61=2a07:a8c0::
-          DNS_V42=45.90.30.0
-        '';
-
-        environment.etc."mihomo-vm.env".text = ''
-          subscription=https://example.invalid/subscription.yaml
-        '';
-
-        systemd.services.mosdns.serviceConfig.EnvironmentFile = lib.mkForce [
-          "/etc/mosdns-vm.env"
-        ];
-        systemd.services.mihomo-config.serviceConfig.EnvironmentFile = lib.mkForce [
-          "/etc/mihomo-vm.env"
-        ];
+        # Keep the EnvironmentFile paths provided by the agenix module.
+        # This lets the VM use the real encrypted secrets after decryption.
       };
     in
     {
