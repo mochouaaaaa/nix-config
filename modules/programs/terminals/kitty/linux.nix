@@ -28,12 +28,16 @@
     {
       lib,
       config,
+      options,
       username,
       ...
     }:
+    let
+      hasHm = options ? home-manager;
+    in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.programs.kitty.enable
+        lib.optionals (config.home-manager.users.${username}.programs.kitty.enable && hasHm)
           [
             ".config/kitty"
           ];
