@@ -36,13 +36,6 @@
         # agenix secrets instead of trying to decrypt them with a guest key.
         # Keep the share read-only: the guest must never modify host secrets.
         age.enable = lib.mkForce false;
-        virtualisation.sharedDirectories.agenix = {
-          source = "/run/agenix";
-          target = "/run/agenix";
-          writable = false;
-          cache = "never";
-        };
-
         # QEMU exposes the host directory through virtiofs; the guest must
         # explicitly mount that share at the path used by EnvironmentFile.
         fileSystems."/run/agenix" = {
@@ -54,6 +47,15 @@
     in
     {
       imports = [ inputs.disko.nixosModules.disko ];
+
+      # sharedDirectories configures the host-side QEMU launcher, not the
+      # guest variant. Export the host's decrypted agenix directory read-only.
+      virtualisation.sharedDirectories.agenix = {
+        source = "/run/agenix";
+        target = "/run/agenix";
+        writable = false;
+        cache = "never";
+      };
 
       # Disko's device definition belongs to the host module configuration.
       # Disable its automatic fileSystems generation here: these devices are
