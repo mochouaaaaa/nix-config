@@ -108,6 +108,13 @@
                   type = "btrfs";
                   extraArgs = [ "-f" ];
                   subvolumes = {
+                    # Mount the Btrfs top-level subvolume for filesystem
+                    # administration, snapshots, and send/receive operations.
+                    "/" = {
+                      mountpoint = "/btr_pool";
+                      mountOptions = [ "subvolid=5" ];
+                    };
+
                     "/nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
