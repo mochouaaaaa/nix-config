@@ -33,13 +33,9 @@
             secrets = {
               subscription = {
                 rekeyFile = ./subscription.age;
-                group = "vm-secrets";
-                mode = "0440";
               };
               next_dns_server = {
                 rekeyFile = ./next_dns_server.env;
-                group = "vm-secrets";
-                mode = "0440";
               };
             };
           };
