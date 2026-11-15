@@ -7,12 +7,12 @@
       # The proxy module supplies this optional endpoint when it is imported.
       # "reject" keeps the SOCKS dependency when Mihomo is off, rather than
       # silently falling back to a direct connection.
-      proxyArgs = lib.optionalAttrs (
-        cfg.mihomoSocksAddress != null
-        && (cfg.mihomoEnabled || cfg.proxyFallback == "reject")
-      ) {
-        socks5 = cfg.mihomoSocksAddress;
-      };
+      proxyArgs =
+        lib.optionalAttrs
+          (cfg.mihomoSocksAddress != null && (config.services.mihomo.enable || cfg.proxyFallback == "reject"))
+          {
+            socks5 = cfg.mihomoSocksAddress;
+          };
     in
     {
       profiles.services.dns = {

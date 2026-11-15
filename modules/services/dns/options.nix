@@ -48,13 +48,6 @@
           description = "Mihomo SOCKS endpoint supplied by the optional proxy module.";
         };
 
-        mihomoEnabled = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          internal = true;
-          description = "Whether the optional proxy module enables Mihomo.";
-        };
-
         settings = lib.mkOption {
           default = { };
           inherit (formatYaml) type;

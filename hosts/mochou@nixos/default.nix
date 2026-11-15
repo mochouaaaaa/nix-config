@@ -8,7 +8,6 @@
 
 {
   profiles.preservation.enable = true;
-  profiles.services.proxy.enable = false;
 
   imports = [
     self.modules.nixos.preservation
@@ -28,7 +27,7 @@
     self.modules.nixos."services.console"
     self.modules.nixos."services.brightness"
     self.modules.nixos."services.uptermd"
-    # self.modules.nixos."services.proxy"
+    self.modules.nixos."services.proxy"
     self.modules.nixos."programs.evolution"
     self.modules.nixos."services.ollama"
     self.modules.nixos."services.mysql"

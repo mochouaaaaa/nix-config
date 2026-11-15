@@ -1,30 +1,10 @@
 {
   flake.modules.nixos."services.proxy" =
     { config, lib, ... }:
-    let
-      cfg = config.profiles.services.proxy;
-    in
     {
       options.profiles.services.proxy = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Default enable switch for DAE and Mihomo.";
-        };
-
-        dae.enable = lib.mkOption {
-          type = lib.types.bool;
-          default = cfg.enable;
-          description = "Whether to enable DAE. Requires Mihomo.";
-        };
 
         mihomo = {
-          enable = lib.mkOption {
-            type = lib.types.bool;
-            default = cfg.enable;
-            description = "Whether to enable Mihomo.";
-          };
-
           subscriptionEnvironmentFile = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
             default = null;
@@ -73,7 +53,7 @@
 
       config.assertions = [
         {
-          assertion = !cfg.dae.enable || cfg.mihomo.enable;
+          assertion = !config.services.dae.enable || config.services.mihomo.enable;
           message = "profiles.services.proxy.dae.enable requires profiles.services.proxy.mihomo.enable.";
         }
       ];
