@@ -11,7 +11,6 @@
 
   imports = [
     self.modules.nixos.preservation
-    self.modules.nixos.agenix
     self.modules.nixos."services.virtualisation.vm"
     self.modules.nixos."desktop.hyprland"
     self.modules.nixos."desktop.flatpak"

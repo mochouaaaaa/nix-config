@@ -1,4 +1,9 @@
-{ config, ... }: {
+{ self, config, ... }: {
+
+  imports = [
+    self.modules.nixos.agenix
+  ];
+
   age = {
     rekey = {
       hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAHr1vGyGMSH/p7w+vAJIgvrr+z9TPvAfJJMJh1v+SUx";
