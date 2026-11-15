@@ -19,7 +19,6 @@
           type = lib.types.listOf lib.types.attrs;
           default = [ ];
           description = "Global shortcuts.";
-          apply = userValue: default ++ userValue;
         };
       };
 
