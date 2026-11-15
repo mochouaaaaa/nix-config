@@ -29,6 +29,7 @@
         groups = {
           "${username}" = { };
           docker = { };
+          keys = { };
           wireshark = { };
           adbusers = { };
           dialout = { };
@@ -55,6 +56,7 @@
           "uinput"
           "video"
           "plugdev"
+          "keys"
         ];
       };
 
