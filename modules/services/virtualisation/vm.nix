@@ -5,6 +5,7 @@
       lib,
       pkgs,
       self,
+      username,
       ...
     }:
     {
@@ -12,13 +13,10 @@
       virtualisation.vmVariant = {
         imports = [ self.modules.nixos.appearance ];
 
-        # Use the flake-pinned dotfiles input inside the guest. Host-local
-        # dotfiles paths are outside the VM filesystem and cannot be linked.
-        home-manager.sharedModules = [
-          {
-            profiles.dotfiles = lib.mkForce inputs.dotfiles;
-          }
-        ];
+        # The VM is built on the host, so path existence checks see the
+        # host filesystem. Force the guest Home Manager user to use the
+        # flake-pinned dotfiles input instead of any host-local checkout.
+        home-manager.users.${username}.profiles.dotfiles = lib.mkForce inputs.dotfiles;
 
         # The VM store is mounted read-only; install Home Manager packages
         # through users.users.<name>.packages instead of nix profile.
