@@ -8,7 +8,7 @@ let
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
   defaultOs = system: if lib.hasSuffix "-darwin" system then "nix-darwin" else "nixpkgs";
-  defaultHomeManager = _: "home-manager";
+  defaultHomeManager = system: if lib.hasSuffix "-darwin" system then "home-manager-darwin" else "home-manager";
 
   defaultHomeManagerNixpkgs =
     system: if system == "x86_64-darwin" then "nixpkgs-darwin" else "nixpkgs";
