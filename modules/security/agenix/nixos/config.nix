@@ -18,37 +18,31 @@
         inputs.agenix-rekey.nixosModules.default
       ];
 
-      config = lib.mkMerge [
-        {
-          services.openssh.enable = true;
+      config = {
+        services.openssh.enable = true;
 
-          age = {
-            rekey = {
-              masterIdentities = [ "${inputs.mysecrets}/master.age" ];
-              storageMode = "local";
-              localStorageDir =
-                self.outPath + "/secrets/rekeyed/nixos/${hostName}/${pkgs.stdenv.hostPlatform.system}";
-            };
-
-            secrets = {
-              subscription = {
-                rekeyFile = ./subscription.age;
-              };
-              next_dns_server = {
-                rekeyFile = ./next_dns_server.env;
-              };
-            };
+        age = {
+          rekey = {
+            masterIdentities = [ "${inputs.mysecrets}/master.age" ];
+            storageMode = "local";
+            localStorageDir =
+              self.outPath + "/secrets/rekeyed/nixos/${hostName}/${pkgs.stdenv.hostPlatform.system}";
           };
 
-          systemd.services.mosdns.serviceConfig = {
-            EnvironmentFile = config.age.secrets.next_dns_server.path;
+          secrets = {
+            subscription = {
+              rekeyFile = ./subscription.age;
+            };
+            next_dns_server = {
+              rekeyFile = ./next_dns_server.env;
+            };
           };
-        }
+        };
 
-        (lib.mkIf config.profiles.services.proxy.mihomo.enable {
-          profiles.services.proxy.mihomo.subscriptionEnvironmentFile = config.age.secrets.subscription.path;
-        })
-      ];
+        systemd.services.mosdns.serviceConfig = {
+          EnvironmentFile = config.age.secrets.next_dns_server.path;
+        };
+      };
     };
 
 }
