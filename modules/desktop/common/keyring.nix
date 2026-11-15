@@ -2,7 +2,6 @@
 
   flake.modules.nixos.preservation =
     {
-      lib,
       config,
       username,
       ...
