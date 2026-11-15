@@ -120,7 +120,7 @@ nixos-build:
 [group('nixos')]
 [linux]
 nixos-vm:
-    vm_path=$({{NIX_ALLOW}} nix build "{{FLAKE}}#nixosConfigurations.\\"{{HOST}}\\".config.system.build.vmWithDisko" --impure --no-link --print-out-paths); \
+    vm_path=$({{NIX_ALLOW}} nix build "{{FLAKE}}#nixosConfigurations.\"{{HOST}}\".config.system.build.vmWithDisko" --impure --no-link --print-out-paths); \
     "$vm_path/bin/disko-vm"
 
 [group('nixos')]
