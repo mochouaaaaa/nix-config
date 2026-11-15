@@ -120,7 +120,8 @@ nixos-build:
 [group('nixos')]
 [linux]
 nixos-vm:
-    {{NIX_ALLOW}} nixos-rebuild build-vm --flake "{{FLAKE}}#{{HOST}}" --impure
+    vm_path=$({{NIX_ALLOW}} nix build "{{FLAKE}}#nixosConfigurations.\\"{{HOST}}\\".config.system.build.vmWithDisko" --impure --no-link --print-out-paths); \
+    "$vm_path/bin/disko-vm"
 
 [group('nixos')]
 [linux]
