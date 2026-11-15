@@ -20,15 +20,6 @@
         home-manager.users.${username}.profiles.dotfiles = lib.mkForce inputs.dotfiles;
         home-manager.useUserPackages = lib.mkForce true;
 
-        virtualisation.forwardPorts = [
-          {
-            from = "host";
-            host.address = "127.0.0.1";
-            host.port = 2223;
-            guest.port = 22;
-          }
-        ];
-
         programs.hyprland.enable = lib.mkForce false;
         services.xserver.enable = lib.mkForce false;
         services.displayManager.noctalia-greeter.enable = lib.mkForce false;
@@ -70,6 +61,18 @@
       disko = {
         enableConfig = false;
         tests.efi = true;
+
+        # Extra configuration is imported by Disko's vmVariantWithDisko.
+        # Keep host-side port forwarding here so it reaches the generated VM.
+        tests.extraConfig.virtualisation.forwardPorts = [
+          {
+            from = "host";
+            host.address = "127.0.0.1";
+            host.port = 2223;
+            guest.port = 22;
+          }
+        ];
+
         devices.disk.main = {
           type = "disk";
           device = "/dev/vda";
