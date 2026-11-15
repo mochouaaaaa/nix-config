@@ -1,8 +1,14 @@
 {
   flake.modules.nixos."services.proxy" =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      options,
+      ...
+    }:
     let
       cfg = config.profiles.services.proxy;
+      hasMosdns = options ? profiles.services.dns;
     in
     {
       config = lib.mkIf cfg.dae.enable {
@@ -24,10 +30,15 @@
               mihomo: 'socks5://${cfg.mihomo.address}:${toString cfg.mihomo.socks.port}'
             }
 
-            # DNS：统一交给 MosDNS
+            # DNS：优先使用可选的 MosDNS，否则直接使用 AliDNS
             dns {
               upstream {
-                mosdns: 'tcp+udp://${config.profiles.services.dns.listen}'
+                ${lib.optionalString hasMosdns ''
+                  mosdns: 'tcp+udp://${config.profiles.services.dns.listen}'
+                ''}
+                ${lib.optionalString (!hasMosdns) ''
+                  alidns: 'udp://223.5.5.5:53'
+                ''}
               }
 
               routing {
@@ -38,8 +49,9 @@
                   qname(suffix: edge.mountaintoys.cn) -> reject
                   qname(suffix: h2.smtcdns.net) -> reject
 
-                  # 其他 DNS 请求统一交给 MosDNS
-                  fallback: mosdns
+                  # 其他 DNS 请求交给当前可用的上游
+                  ${lib.optionalString hasMosdns "fallback: mosdns"}
+                  ${lib.optionalString (!hasMosdns) "fallback: alidns"}
                 }
               }
             }
@@ -61,9 +73,8 @@
               pname(clash) -> must_direct
               pname(clash-meta) -> must_direct
 
-              # MosDNS 跳过 DAE DNS 二次接管，
-              # 但仍继续匹配下面的普通流量路由规则
-              pname(mosdns) -> must_rules
+              # MosDNS 跳过 DAE DNS 二次接管
+              ${lib.optionalString hasMosdns "pname(mosdns) -> must_rules"}
 
               # 系统及局域网相关服务
               pname(NetworkManager) -> direct
