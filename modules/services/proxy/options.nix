@@ -25,6 +25,12 @@
             description = "Whether to enable Mihomo.";
           };
 
+          subscriptionEnvironmentFile = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+            description = "Optional systemd EnvironmentFile containing Mihomo template variables such as subscription.";
+          };
+
           address = lib.mkOption {
             type = lib.types.str;
             default = "127.0.0.1";
