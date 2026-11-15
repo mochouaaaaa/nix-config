@@ -9,6 +9,7 @@
     }:
     let
       cfg = config.profiles.services.proxy.mihomo;
+      hasMosdns = options ? profiles.services.dns;
     in
     {
       config = lib.mkMerge [
@@ -50,7 +51,7 @@
                 Environment = [
                   "MIHOMO_HTTP_PORT=${toString cfg.http.port}"
                   "MIHOMO_SOCKS_PORT=${toString cfg.socks.port}"
-                  "MIHOMO_DNS_ENABLE=${if cfg.dns.enable then "true" else "false"}"
+                  "MIHOMO_DNS_ENABLE=${if !hasMosdns then "true" else "false"}"
                   "MIHOMO_DNS_LISTEN=${cfg.dns.listen}"
                   "MIHOMO_DNS_IPV6=${if cfg.dns.ipv6 then "true" else "false"}"
                 ];

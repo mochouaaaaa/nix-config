@@ -30,12 +30,6 @@
           };
 
           dns = {
-            enable = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-              description = "Whether to enable Mihomo's built-in DNS server.";
-            };
-
             listen = lib.mkOption {
               type = lib.types.str;
               default = ":53";
