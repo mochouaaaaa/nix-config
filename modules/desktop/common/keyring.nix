@@ -17,11 +17,7 @@
         ];
     };
 
-  flake.modules.nixos.common-keyring =
-    {
-      username,
-      ...
-    }:
+  flake.modules.nixos.common-keyring = { ... }:
     {
 
       services = {
