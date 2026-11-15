@@ -32,17 +32,19 @@
           source-han-serif
         ];
 
-        # test-vm runs on the host, so consume the host's already-decrypted
-        # agenix secrets instead of trying to decrypt them with a guest key.
-        # Keep the share read-only: the guest must never modify host secrets.
+        # The guest uses the host's already-decrypted Agenix secrets.
+        # A dedicated host-side virtiofsd exports them read-only through a
+        # root-owned socket, preserving the host secrets' root:root 0400 mode.
         age.enable = lib.mkForce false;
-        # qemu-vm.nix turns this into a host-side virtiofs export and
-        # generates the matching read-only guest mount automatically.
-        virtualisation.sharedDirectories.agenix = {
-          source = "/run/agenix";
-          target = "/run/agenix";
-          writable = false;
-          cache = "never";
+        virtualisation.qemu.options = [
+          "-chardev socket,id=agenix,path=/run/agenix-virtiofsd.sock"
+          "-device vhost-user-fs-pci,chardev=agenix,tag=agenix"
+        ];
+        virtualisation.fileSystems."/run/agenix" = {
+          device = "agenix";
+          fsType = "virtiofs";
+          neededForBoot = true;
+          options = [ "ro" ];
         };
 
         # Disko generates swapDevices from the 10 GiB swap partition.
@@ -64,6 +66,31 @@
     in
     {
       imports = [ inputs.disko.nixosModules.disko ];
+
+      # Run the Agenix export daemon as root, without relaxing the permissions
+      # of the host's decrypted secrets. The socket is connectable only by the
+      # VM launcher user; virtiofsd itself exports the tree read-only.
+      systemd.sockets.agenix-virtiofsd = {
+        wantedBy = [ "sockets.target" ];
+        socketConfig = {
+          ListenStream = "/run/agenix-virtiofsd.sock";
+          SocketUser = username;
+          SocketGroup = username;
+          SocketMode = "0600";
+          RemoveOnStop = true;
+        };
+      };
+
+      systemd.services.agenix-virtiofsd = {
+        description = "Read-only virtiofs export of host Agenix secrets";
+        serviceConfig = {
+          ExecStart = "${pkgs.virtiofsd}/bin/virtiofsd --fd=3 --shared-dir=/run/agenix --readonly --cache=never --no-announce-submounts --translate-uid=host:65534:0:1 --translate-gid=host:65534:0:1";
+          User = "root";
+          Group = "root";
+          Restart = "on-failure";
+          RestartSec = "1s";
+        };
+      };
 
       # Disko's device definition belongs to the host module configuration.
       # Disable its automatic fileSystems generation here: these devices are
