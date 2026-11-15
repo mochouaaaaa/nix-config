@@ -4,14 +4,11 @@
       lib,
       inputs,
       config,
-      options,
       username,
       ...
     }:
     let
       cfg = config.profiles.preservation;
-      hasPipewirePulse = options ? services.pipewire.pulse.enable;
-      hasWireplumber = options ? services.pipewire.wireplumber.enable;
     in
     {
       imports = [
@@ -113,8 +110,8 @@
               ".cache/cliphist"
 
             ]
-            ++ lib.optionals (hasPipewirePulse && config.services.pipewire.pulse.enable) [ ".config/pulse" ]
-            ++ lib.optionals (hasWireplumber && config.services.pipewire.wireplumber.enable) [ ".local/state/wireplumber" ];
+            ++ lib.optionals config.services.pipewire.pulse.enable [ ".config/pulse" ]
+            ++ lib.optionals config.services.pipewire.wireplumber.enable [ ".local/state/wireplumber" ];
 
             files = [
               ".zsh_history"
