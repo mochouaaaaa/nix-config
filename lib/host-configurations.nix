@@ -32,7 +32,6 @@ let
           inputs.${host.homeManagerInput}.nixosModules.home-manager
           self.modules.nixos.core
           self.modules.nixos."services.base"
-          self.modules.nixos.agenix
         ]
         ++ lib.optional host.nixosWsl host.nixosWslModule
         ++ [ (inputs.import-tree host.path) ];
@@ -56,7 +55,6 @@ let
           self.modules.darwin."system.defaults"
           self.modules.darwin.security
           self.modules.darwin.homebrew
-          self.modules.darwin.agenix
           self.modules.darwin.services
           self.modules.darwin.home-manager
           (inputs.import-tree host.path)
@@ -77,7 +75,6 @@ let
         extraSpecialArgs = hostArgs host;
 
         modules = [
-          self.modules.homeManager.agenix
           self.modules.homeManager.nix-settings
           (inputs.import-tree host.path)
           { programs.home-manager.enable = true; }
