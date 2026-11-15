@@ -7,7 +7,6 @@
   flake.modules.nixos.agenix =
     {
       config,
-      lib,
       pkgs,
       hostName,
       ...
@@ -41,5 +40,6 @@
       systemd.services.mosdns.serviceConfig = {
         EnvironmentFile = config.age.secrets.next_dns_server.path;
       };
+
     };
 }

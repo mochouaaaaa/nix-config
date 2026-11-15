@@ -25,7 +25,10 @@
         };
 
         proxyFallback = lib.mkOption {
-          type = lib.types.enum [ "direct" "reject" ];
+          type = lib.types.enum [
+            "direct"
+            "reject"
+          ];
           default = "direct";
           description = ''
             How to handle DNS upstreams that normally use Mihomo when Mihomo is disabled.

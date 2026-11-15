@@ -43,7 +43,8 @@ let
         else
           throw "'system' in ${configPath} must be a Linux or Darwin platform such as 'x86_64-linux'.";
 
-      rawOs = metadata.os or (throw "Missing 'os' in ${configPath}; use null for standalone Home Manager hosts.");
+      rawOs =
+        metadata.os or (throw "Missing 'os' in ${configPath}; use null for standalone Home Manager hosts.");
       osInput =
         if rawOs == null then
           null
@@ -82,7 +83,9 @@ let
         else
           nixosWsl;
 
-      nixosWslInputValidated = !checkedNixosWsl || builtins.hasAttr "nixos-wsl" inputs
+      nixosWslInputValidated =
+        !checkedNixosWsl
+        || builtins.hasAttr "nixos-wsl" inputs
         || throw "Host '${name}' references missing flake input 'nixos-wsl'.";
 
       nixosWslModule = if checkedNixosWsl then inputs."nixos-wsl".nixosModules.default else null;
@@ -95,7 +98,8 @@ let
           else
             null
         else
-          metadata."home-manager-nixpkgs" or (throw "Missing 'home-manager-nixpkgs' in ${configPath} for standalone Home Manager hosts.");
+          metadata."home-manager-nixpkgs"
+            or (throw "Missing 'home-manager-nixpkgs' in ${configPath} for standalone Home Manager hosts.");
 
       homeManagerNixpkgsInput =
         if class != "home" then

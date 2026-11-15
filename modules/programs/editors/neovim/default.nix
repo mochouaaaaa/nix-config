@@ -75,7 +75,6 @@
         withNodeJs = true;
       };
 
-
       xdg.configFile = config.profiles.dotfileLink "nvim";
     };
 }

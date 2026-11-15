@@ -36,7 +36,9 @@
 
                 serviceConfig = {
                   Type = "oneshot";
-                  EnvironmentFile = lib.optional (cfg.subscriptionEnvironmentFile != null) cfg.subscriptionEnvironmentFile;
+                  EnvironmentFile = lib.optional (
+                    cfg.subscriptionEnvironmentFile != null
+                  ) cfg.subscriptionEnvironmentFile;
 
                   Environment = [
                     "MIHOMO_HTTP_PORT=${toString cfg.http.port}"
