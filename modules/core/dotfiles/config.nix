@@ -1,4 +1,5 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   flake.modules.homeManager.core =
     {
       lib,
@@ -8,7 +9,6 @@
     }:
     {
       options.profiles = with lib; {
-
         dotfiles = mkOption {
           type = types.path;
           apply = toString;
@@ -24,17 +24,21 @@
             folderName:
             let
               dotfilesPath = "${config.profiles.dotfiles}/${folderName}";
+              isStorePath = lib.hasPrefix "${builtins.storeDir}/" config.profiles.dotfiles;
             in
             lib.mapAttrs' (
               fileName: _:
               lib.nameValuePair "${folderName}/${fileName}" {
                 force = true;
-                source = lib.mkForce (config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}");
+                source = lib.mkForce (
+                  if isStorePath then
+                    "${dotfilesPath}/${fileName}"
+                  else
+                    config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${fileName}"
+                );
               }
             ) (builtins.readDir dotfilesPath);
         };
-
       };
-
     };
 }
