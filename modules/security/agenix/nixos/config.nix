@@ -4,7 +4,6 @@
   ...
 }:
 {
-
   flake.modules.nixos.agenix =
     {
       config,
@@ -34,9 +33,13 @@
             secrets = {
               subscription = {
                 rekeyFile = ./subscription.age;
+                group = "keys";
+                mode = "0440";
               };
               next_dns_server = {
                 rekeyFile = ./next_dns_server.env;
+                group = "keys";
+                mode = "0440";
               };
             };
           };
