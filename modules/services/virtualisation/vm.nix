@@ -144,7 +144,9 @@
 
         # Keep the same ephemeral root model as the host, without using
         # the host's physical root partition.
-        fileSystems."/" = lib.mkForce {
+        # qemu-vm derives guest fileSystems from virtualisation.fileSystems.
+        # With useDefaultFilesystems disabled, declare the tmpfs root here.
+        virtualisation.fileSystems."/" = {
           device = "tmpfs";
           fsType = "tmpfs";
           options = [
