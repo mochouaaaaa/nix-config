@@ -53,6 +53,12 @@ modules/
 
 桌面入口只组合桌面所需能力。代理、数据库、开发工具等与桌面无关的服务应由主机或独立 profile 显式导入，避免切换桌面时意外启停服务。
 
+外观职责按使用范围拆分：
+
+- `appearance` 负责字体选项、字体包和 fontconfig 默认字体，不负责指针主题。
+- 通用桌面指针主题放在 `desktop/common/cursor.nix`，随桌面公共模块启用。
+- Hyprcursor 属于 Hyprland 专属能力，只在 `desktop/hyprland` 中启用；其他桌面不应被迫启用 Hyprcursor。
+
 ## 主机与 nixpkgs 选择
 
 主机目录采用 `<username>@<hostname>` 命名，例如 `mochou@nixos`、`mochou@work` 或 `mochou@home`。目录后缀只是主机名，不代表操作系统或平台类型。
