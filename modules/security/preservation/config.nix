@@ -44,6 +44,7 @@
             "/var/lib/tailscale"
             "/var/lib/NetworkManager"
             "/var/lib/iwd"
+            "/var/lib/bluetooth"
 
           ]
           ++ lib.optionals (!config.system.etc.overlay.enable) [
