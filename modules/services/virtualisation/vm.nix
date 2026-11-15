@@ -32,8 +32,16 @@
           source-han-serif
         ];
 
-        # Keep the EnvironmentFile paths provided by the agenix module.
-        # This lets the VM use the real encrypted secrets after decryption.
+        # test-vm runs on the host, so consume the host's already-decrypted
+        # agenix secrets instead of trying to decrypt them with a guest key.
+        # Keep the share read-only: the guest must never modify host secrets.
+        age.enable = lib.mkForce false;
+        virtualisation.sharedDirectories.agenix = {
+          source = "/run/agenix";
+          target = "/run/agenix";
+          writable = false;
+          cache = "never";
+        };
       };
     in
     {
