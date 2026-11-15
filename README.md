@@ -68,9 +68,9 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 
 ### Host 自动发现与组合
 
-**modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机只需通过 **nixpkgs.json** 声明目标 **system**，并可分别选择系统构造器（`os`）、Home Manager Flake（`home-manager`）和 standalone Home Manager 包源（`home-manager-nixpkgs`）；不需要单独维护 `class` 或 `host.json`。
+**modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机通过 **nixpkgs.json** 显式声明目标 `system`、系统构造器 `os` 和 Home Manager Flake `home-manager`；standalone Home Manager 主机还必须声明 `home-manager-nixpkgs`。不需要单独维护 `class` 或 `host.json`。
 
-`os` 默认在 Darwin 主机上使用 `nix-darwin`，其他架构使用 `nixpkgs`；`home-manager` 默认使用 `home-manager`。standalone Home Manager 的 `home-manager-nixpkgs` 默认在 `x86_64-darwin` 上使用 `nixpkgs-darwin`，其他架构使用 `nixpkgs`。省略字段时使用默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
+这些字段没有隐式默认值：`system`、`os` 和 `home-manager` 都是必填项。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置，此时 `home-manager-nixpkgs` 也必填；否则 `os` 必须是现有 Flake input 名称，系统类别根据 `system` 后缀自动判断（`-linux` 为 NixOS，`-darwin` 为 nix-darwin）。`home-manager-nixpkgs` 只允许用于 standalone Home Manager 主机，且必须指向现有 Flake input。
 
 例如，NixOS 主机：
 
@@ -78,7 +78,7 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 {
   "system": "x86_64-linux",
   "os": "nixpkgs",
-  "home-manager": "nixpkgs-stable"
+  "home-manager": "home-manager"
 }
 ~~~
 
@@ -190,7 +190,7 @@ just rekey-status
 ## 添加一台主机
 
 1. 在 **hosts/** 下创建符合 **<username>@<hostname>** 格式的目录。
-2. 添加 `nixpkgs.json`，声明必需的 `system`；按需覆盖 `os`、`home-manager`，standalone Home Manager 还可指定 `home-manager-nixpkgs`。
+2. 添加 `nixpkgs.json`，显式声明必需的 `system`、`os` 和 `home-manager`；standalone Home Manager 主机（`os: null`）还必须声明 `home-manager-nixpkgs`。
 3. 添加该 Host 的 **default.nix**，导入所需的基础模块、功能模块和用户级模块。
 4. standalone Home Manager 主机将 `os` 设置为 `null`；NixOS WSL 主机可额外设置 `nixosWsl: true`。
 5. 使用 **just show** 查看输出，并执行对应的 eval / check 命令验证。
