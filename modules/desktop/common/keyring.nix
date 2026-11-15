@@ -2,6 +2,7 @@
 
   flake.modules.nixos.preservation =
     {
+      lib,
       config,
       username,
       ...
@@ -18,8 +19,6 @@
 
   flake.modules.nixos.common-keyring =
     {
-      lib,
-      config,
       username,
       ...
     }:
