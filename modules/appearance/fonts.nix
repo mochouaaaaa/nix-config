@@ -33,69 +33,41 @@
         };
       };
 
-      config = lib.mkMerge [
-        {
-          home.packages = with pkgs; [
-            inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
-            maple-mono.opentype
-            inter
-
-            # Icon fonts
-            fira-code
-            nerd-fonts.symbols-only
-
-            # General purpose fonts from former os/fonts.nix
-            noto-fonts
-            noto-fonts-cjk-sans
-            source-sans
-            source-serif
-            source-han-sans
-            source-han-serif
-          ];
-        }
-      ];
-    };
-
-  flake.modules.homeManager."desktop.common" =
-    {
-      pkgs,
-      config,
-      ...
-    }:
-    let
-      cfg = config.profiles.fonts;
-    in
-    {
       config = {
-        home.packages = [
-          inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
+        home.packages = with pkgs; [
+          inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
+          maple-mono.opentype
+          inter
+
+          # Icon fonts
+          fira-code
+          nerd-fonts.symbols-only
+
+          # General purpose fonts from former os/fonts.nix
+          noto-fonts
+          noto-fonts-cjk-sans
+          source-sans
+          source-serif
+          source-han-sans
+          source-han-serif
         ];
+
         fonts.fontconfig = {
           enable = true;
           antialiasing = true;
 
           defaultFonts = {
             serif = [
-              cfg.default
-              cfg.serif
+              config.profiles.fonts.default
+              config.profiles.fonts.serif
             ];
-            sansSerif = [ cfg.sansSerif ];
-            monospace = [ cfg.monospace ];
-            inherit (cfg) emoji;
+            sansSerif = [ config.profiles.fonts.sansSerif ];
+            monospace = [ config.profiles.fonts.monospace ];
+            inherit (config.profiles.fonts) emoji;
           };
         };
-
-        # xdg.dataFile = {
-        #   "fonts".source = "/run/current-system/sw/share/X11/fonts";
-        # };
       };
     };
-
-  flake.modules.nixos."desktop.common" = { pkgs, ... }: {
-    fonts.packages = [
-      inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
-    ];
-  };
 
   flake.modules.nixos.appearance =
     {
@@ -108,6 +80,9 @@
       config = lib.mkMerge [
         {
           fonts = {
+            packages = [
+              inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
+            ];
             fontDir.enable = true;
             enableDefaultPackages = false;
             fontconfig = {
