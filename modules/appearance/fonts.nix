@@ -35,23 +35,27 @@
       };
 
       config = {
-        home.packages = with pkgs; [
-          inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
-          maple-mono.opentype
-          inter
+        home.packages =
+          (with pkgs; [
+            inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
+            maple-mono.opentype
+            inter
 
-          # Icon fonts
-          fira-code
-          nerd-fonts.symbols-only
+            # Icon fonts
+            fira-code
+            nerd-fonts.symbols-only
 
-          # General purpose fonts from former os/fonts.nix
-          noto-fonts
-          noto-fonts-cjk-sans
-          source-sans
-          source-serif
-          source-han-sans
-          source-han-serif
-        ];
+            # General purpose fonts from former os/fonts.nix
+            noto-fonts
+            noto-fonts-cjk-sans
+            source-sans
+            source-serif
+            source-han-sans
+            source-han-serif
+          ])
+          ++ lib.optionals pkgs.stdenv.isLinux [
+            inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
+          ];
 
         fonts.fontconfig = {
           enable = true;
