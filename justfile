@@ -119,6 +119,11 @@ nixos-build:
 
 [group('nixos')]
 [linux]
+nixos-vm:
+    {{NIX_ALLOW}} nixos-rebuild build-vm --flake "{{FLAKE}}#{{HOST}}" --impure
+
+[group('nixos')]
+[linux]
 nixos-boot:
     {{NIX_ALLOW}} nh os boot "{{FLAKE}}" -H "{{HOST}}" -- --impure
 

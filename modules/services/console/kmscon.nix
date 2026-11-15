@@ -9,7 +9,7 @@
 
     services.kmscon = {
       enable = true;
-      extraOptions = "xterm-256color";
+      extraOptions = "--term xterm-256color";
       config = {
         font-name = "Hack";
         font-size = 22;
