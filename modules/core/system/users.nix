@@ -30,7 +30,6 @@
           "${username}" = { };
           docker = { };
           keys = { };
-          vm-secrets = { };
           wireshark = { };
           adbusers = { };
           dialout = { };
@@ -57,8 +56,6 @@
           "uinput"
           "video"
           "plugdev"
-          "keys"
-          "vm-secrets"
         ];
       };
 
