@@ -7,7 +7,7 @@
       ...
     }:
     {
-      config = lib.mkIf config.profiles.services.proxy.enable (
+      config = lib.mkIf config.profiles.services.proxy.mihomo.enable (
         lib.mkMerge [
           {
             services.mihomo = {
