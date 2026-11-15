@@ -56,8 +56,6 @@
   flake.modules.nixos."desktop.flatpak" =
     {
       self,
-      lib,
-      config,
       username,
       ...
     }:
