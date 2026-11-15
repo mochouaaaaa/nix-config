@@ -10,7 +10,6 @@
         (writeShellApplication {
           name = "nixify";
           runtimeInputs = [
-            direnv
             coreutils
           ];
           text = ''
@@ -33,10 +32,7 @@
         })
         (writeShellApplication {
           name = "flakify";
-          runtimeInputs = [
-            direnv
-            nix
-          ];
+          runtimeInputs = [ ];
           text = ''
             if [ ! -e flake.nix ]; then
               nix flake new -t github:nix-community/nix-direnv .
