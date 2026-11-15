@@ -64,12 +64,13 @@
     {
       imports = [ inputs.disko.nixosModules.disko ];
 
-      # Build a bootable VM image from a disk layout isolated from the host.
-      # The layout mirrors the host's EFI + Btrfs subvolume arrangement.
-      virtualisation.vmVariantWithDisko = vmConfig // {
-        disko.tests.efi = true;
-
-        disko.devices.disk.main = {
+      # Disko's device definition belongs to the host module configuration.
+      # Disable its automatic fileSystems generation here: these devices are
+      # only used by vmVariantWithDisko to create an isolated VM disk image.
+      disko = {
+        enableConfig = false;
+        tests.efi = true;
+        devices.disk.main = {
           type = "disk";
           device = "/dev/vda";
           imageSize = "32G";
@@ -134,7 +135,10 @@
             };
           };
         };
+      };
 
+      # The VM-specific options are applied to the Disko-generated guest.
+      virtualisation.vmVariantWithDisko = vmConfig // {
         # The host's swap UUID must never be used by the guest.
         swapDevices = lib.mkForce [ ];
 
