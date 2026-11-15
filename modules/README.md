@@ -69,7 +69,7 @@ modules/
 {
   "system": "x86_64-linux",
   "os": "nixpkgs",
-  "home-manager": "nixpkgs-stable"
+  "home-manager": "home-manager"
 }
 ```
 
