@@ -23,8 +23,14 @@
           default =
             folderName:
             let
-              dotfilesPath = "${config.profiles.dotfiles}/${folderName}";
-              isStorePath = lib.hasPrefix "${builtins.storeDir}/" config.profiles.dotfiles;
+              localPath = "${config.profiles.dotfiles}/${folderName}";
+              inputPath = "${inputs.dotfiles}/${folderName}";
+              dotfilesPath =
+                if builtins.pathExists localPath then
+                  localPath
+                else
+                  inputPath;
+              isStorePath = lib.hasPrefix "${builtins.storeDir}/" dotfilesPath;
             in
             lib.mapAttrs' (
               fileName: _:
