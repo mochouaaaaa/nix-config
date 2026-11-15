@@ -28,7 +28,7 @@
           address = lib.mkOption {
             type = lib.types.str;
             default = "127.0.0.1";
-            description = "Mihomo address used by local proxy clients.";
+            description = "Mihomo address used by local proxy clients; keep it aligned with bind-address in mihomo.yaml.";
           };
 
           http.port = lib.mkOption {
