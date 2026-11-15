@@ -40,9 +40,9 @@
 
       };
 
-      lib.mkIf config.profiles.services.proxy.mihomo.enable {
+      config = lib.mkIf config.profiles.services.proxy.mihomo.enable {
         profiles.services.proxy.mihomo.subscriptionEnvironmentFile = config.age.secrets.subscription.path;
-      }
+      };
 
       systemd.services.mosdns.serviceConfig = {
         EnvironmentFile = config.age.secrets.next_dns_server.path;
