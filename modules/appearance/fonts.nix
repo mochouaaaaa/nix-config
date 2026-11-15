@@ -53,7 +53,7 @@
             source-han-sans
             source-han-serif
           ])
-          ++ lib.optionals pkgs.stdenv.isLinux [
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
             inputs.apple-emoji-font.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji-linux
           ];
 
