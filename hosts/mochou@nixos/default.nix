@@ -12,9 +12,9 @@
   profiles.preservation.enable = true;
 
   # Proxy is optional; only set its host default when the module is imported.
-  (lib.optionalAttrs (options ? profiles.services.proxy) {
+  config = lib.optionalAttrs (options ? profiles.services.proxy) {
     profiles.services.proxy.enable = true;
-  })
+  };
 
   imports = [
     self.modules.nixos.preservation
