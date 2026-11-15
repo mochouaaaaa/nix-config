@@ -1,6 +1,7 @@
 {
   flake.modules.nixos."services.virtualisation.vm" =
     {
+      inputs,
       lib,
       pkgs,
       self,
@@ -10,6 +11,14 @@
       # Keep VM builds in text mode without changing the host's desktop.
       virtualisation.vmVariant = {
         imports = [ self.modules.nixos.appearance ];
+
+        # Use the flake-pinned dotfiles input inside the guest. Host-local
+        # dotfiles paths are outside the VM filesystem and cannot be linked.
+        home-manager.sharedModules = [
+          {
+            profiles.dotfiles = lib.mkForce inputs.dotfiles;
+          }
+        ];
 
         # The VM store is mounted read-only; install Home Manager packages
         # through users.users.<name>.packages instead of nix profile.
