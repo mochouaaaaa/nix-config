@@ -31,7 +31,7 @@ modules/
 │   ├── languages/
 │   └── tools/
 ├── security/       # 密钥、权限、持久化、安全策略
-├── appearance/     # 字体与光标
+├── appearance/     # 字体与字体配置
 ├── darwin/         # macOS 专属系统能力
 └── hosts.nix       # 自动发现 hosts/<username>@<hostname>/
 ```
