@@ -128,7 +128,7 @@
         {
           layer-rule._children = [
             {
-              match._props.namespace = "^noctalia-wallpaper*";
+              match._props.namespace = "^noctalia-wallpaper";
             }
             { place-within-backdrop = true; }
           ];

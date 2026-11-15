@@ -17,11 +17,10 @@
             default = true;
             description = "Whether to enable kitty.";
           };
-          extraConfig = mkOption rec {
+          extraConfig = mkOption {
             type = types.listOf types.str;
             default = [ ];
             description = "Extra configuration lines for kitty.conf.";
-            apply = userValue: default ++ userValue;
           };
           icon = mkOption {
             type = types.path;

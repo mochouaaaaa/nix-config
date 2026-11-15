@@ -75,7 +75,6 @@
         withNodeJs = true;
       };
 
-      home.sessionVariables.EDITOR = lib.mkIf config.programs.neovim.enable "nvim";
 
       xdg.configFile = config.profiles.dotfileLink "nvim";
     };
