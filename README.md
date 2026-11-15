@@ -43,6 +43,7 @@
 │   ├── darwin/             # macOS 平台模块
 │   ├── desktop/            # 桌面环境与窗口管理器
 │   ├── development/        # 开发工具与开发环境
+│   ├── agents/             # AI Agent 工具与运行环境
 │   ├── flake/              # Flake 层模块与配置
 │   ├── hardware/           # 硬件相关配置
 │   ├── programs/           # 应用程序配置
