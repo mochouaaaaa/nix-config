@@ -42,6 +42,14 @@
           writable = false;
           cache = "never";
         };
+
+        # QEMU exposes the host directory through virtiofs; the guest must
+        # explicitly mount that share at the path used by EnvironmentFile.
+        fileSystems."/run/agenix" = {
+          device = "agenix";
+          fsType = "virtiofs";
+          options = [ "ro" ];
+        };
       };
     in
     {
