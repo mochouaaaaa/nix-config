@@ -7,12 +7,6 @@
 let
   hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
-  defaultOs = system: if lib.hasSuffix "-darwin" system then "nix-darwin" else "nixpkgs";
-  defaultHomeManager = system: if lib.hasSuffix "-darwin" system then "home-manager-darwin" else "home-manager";
-
-  defaultHomeManagerNixpkgs =
-    system: if system == "x86_64-darwin" then "nixpkgs-darwin" else "nixpkgs";
-
   parseHost =
     name:
     let
@@ -49,7 +43,7 @@ let
         else
           throw "'system' in ${configPath} must be a Linux or Darwin platform such as 'x86_64-linux'.";
 
-      rawOs = metadata.os or (defaultOs system);
+      rawOs = metadata.os or (throw "Missing 'os' in ${configPath}; use null for standalone Home Manager hosts.");
       osInput =
         if rawOs == null then
           null
@@ -68,7 +62,7 @@ let
         else
           throw "Cannot infer host configuration type from system '${system}' in ${configPath}.";
 
-      rawHomeManager = metadata."home-manager" or (defaultHomeManager system);
+      rawHomeManager = metadata."home-manager" or (throw "Missing 'home-manager' in ${configPath}.");
       homeManagerInput =
         if builtins.isString rawHomeManager && rawHomeManager != "" then
           rawHomeManager
@@ -110,7 +104,7 @@ let
           else
             null
         else
-          metadata."home-manager-nixpkgs" or (defaultHomeManagerNixpkgs system);
+          metadata."home-manager-nixpkgs" or (throw "Missing 'home-manager-nixpkgs' in ${configPath} for standalone Home Manager hosts.");
 
       homeManagerNixpkgsInput =
         if class != "home" then
@@ -130,50 +124,25 @@ let
       validatedOsInput = if osInput == null then null else checkInput osInput;
       validatedHomeManagerInput = checkInput homeManagerInput;
 
-      systemConstructor =
-        if class == "nixos" then
-          "nixosSystem"
-        else if class == "darwin" then
-          "darwinSystem"
-        else
-          null;
-
-      checkedOsInput =
-        if validatedOsInput == null then
-          null
-        else if
-          builtins.hasAttr "lib" inputs.${validatedOsInput}
-          && builtins.hasAttr systemConstructor inputs.${validatedOsInput}.lib
-        then
-          validatedOsInput
-        else
-          throw "Flake input '${validatedOsInput}' for host '${name}' must provide lib.${systemConstructor}.";
-
-      homeManagerModuleSet =
-        if class == "nixos" then
-          "nixosModules"
-        else if class == "darwin" then
-          "darwinModules"
-        else
-          null;
-
-      checkedHomeManagerInput =
-        if homeManagerModuleSet == null then
-          if
-            builtins.hasAttr "lib" inputs.${validatedHomeManagerInput}
-            && builtins.hasAttr "homeManagerConfiguration" inputs.${validatedHomeManagerInput}.lib
-          then
-            validatedHomeManagerInput
-          else
-            throw "Home Manager input '${validatedHomeManagerInput}' must provide lib.homeManagerConfiguration."
-        else if
-          builtins.hasAttr homeManagerModuleSet inputs.${validatedHomeManagerInput}
-          && builtins.hasAttr "home-manager" inputs.${validatedHomeManagerInput}.${homeManagerModuleSet}
-        then
-          validatedHomeManagerInput
-        else
-          throw "Home Manager input '${validatedHomeManagerInput}' must provide ${homeManagerModuleSet}.home-manager.";
     in
+    if unknownFields != [ ] then
+      throw "Unknown fields in ${configPath}: ${lib.concatStringsSep ", " unknownFields}"
+    else
+      {
+        username = builtins.elemAt parts 0;
+        hostName = builtins.elemAt parts 1;
+        inherit
+          name
+          class
+          system
+          ;
+        nixosWsl = checkedNixosWsl;
+        inherit nixosWslModule homeManagerNixpkgsInput nixosWslInputValidated;
+        osInput = validatedOsInput;
+        homeManagerInput = validatedHomeManagerInput;
+        path = hostsDir + "/${name}";
+      };
+
     if unknownFields != [ ] then
       throw "Unknown fields in ${configPath}: ${lib.concatStringsSep ", " unknownFields}"
     else
