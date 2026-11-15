@@ -33,20 +33,26 @@
       };
     };
 
-  # Keep the NixOS-specific persistence integration separate from installing
-  # GUI applications. The Home Manager workstation role owns the clients.
-  flake.modules.nixos."desktop.programs.database" =
+  # Persistence is an optional integration, not a dependency of the
+  # database-client module itself.
+  flake.modules.nixos.preservation =
     {
       lib,
       config,
+      options,
       username,
       ...
     }:
+    let
+      hasHomeManager = options ? home-manager;
+    in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.profiles.database-clients.enable
-          [
-            ".config/TinyRDM"
-          ];
+        lib.optionals (
+          hasHomeManager
+          && config.home-manager.users.${username}.profiles.database-clients.enable
+        ) [
+          ".config/TinyRDM"
+        ];
     };
 }
