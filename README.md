@@ -82,15 +82,17 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 }
 ~~~
 
-Intel Darwin 主机可以只写：
+Intel Darwin 主机示例：
 
 ~~~json
 {
-  "system": "x86_64-darwin"
+  "system": "x86_64-darwin",
+  "os": "nix-darwin",
+  "home-manager": "home-manager-darwin"
 }
 ~~~
 
-当前仓库的 Darwin 主机显式指定 `nix-darwin` 和 `home-manager-darwin`。新增主机时若省略 `home-manager`，则使用 `home-manager`；如需其他版本，应显式指定。`nixosWsl` 只适用于 NixOS 主机。
+当前仓库的 Darwin 主机显式指定对应的 `nix-darwin` 和 `home-manager-darwin` inputs。`nixosWsl` 是可选布尔值，只适用于 NixOS 主机；设为 `true` 时还必须存在 `nixos-wsl` Flake input。
 
 ### 功能模块
 
