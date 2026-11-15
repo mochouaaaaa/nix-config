@@ -70,20 +70,14 @@
     {
       lib,
       config,
-      options,
       username,
       ...
     }:
     let
-      hasHomeManager = options ? home-manager.users;
-      homeManagerUserOptions =
-        if hasHomeManager then options.home-manager.users.type.getSubOptions [ ] else { };
-      hasFlatpak = homeManagerUserOptions ? services.flatpak.enable;
+      flatpakEnabled = config.home-manager.users.${username}.services.flatpak.enable or false;
     in
     {
-      profiles.preservation = lib.mkIf (
-        hasFlatpak && config.home-manager.users.${username}.services.flatpak.enable
-      ) {
+      profiles.preservation = lib.mkIf flatpakEnabled {
         users.${username}.directories = [
           ".local/share/containers"
           ".local/share/flatpak"
