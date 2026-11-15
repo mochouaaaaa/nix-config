@@ -17,6 +17,10 @@
         # impermanence/preservation setup or its persistent storage mounts.
         profiles.preservation.enable = lib.mkForce false;
 
+        # Do not copy the host's fileSystems into the guest. qemu-vm.nix then
+        # provides its own virtual root filesystem and Nix store mounts.
+        virtualisation.fileSystems = lib.mkForce { };
+
         # The VM is built on the host, so path existence checks see the
         # host filesystem. Force the guest Home Manager user to use the
         # flake-pinned dotfiles input instead of any host-local checkout.
