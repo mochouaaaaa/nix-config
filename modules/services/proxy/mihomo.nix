@@ -13,6 +13,8 @@
       config = lib.mkIf cfg.enable (
         lib.mkMerge [
           {
+            profiles.services.proxy.mihomo.subscriptionEnvironmentFile = config.age.secrets.subscription.path;
+
             services.mihomo = {
               enable = true;
               webui = pkgs.metacubexd;
