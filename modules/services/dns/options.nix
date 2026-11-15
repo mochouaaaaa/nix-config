@@ -24,6 +24,16 @@
           default = "127.0.0.1:8338";
         };
 
+        proxyFallback = lib.mkOption {
+          type = lib.types.enum [ "direct" "reject" ];
+          default = "direct";
+          description = ''
+            How to handle DNS upstreams that normally use Mihomo when Mihomo is disabled.
+            - direct: connect to those upstreams directly.
+            - reject: keep them routed through the unavailable Mihomo SOCKS endpoint.
+          '';
+        };
+
         settings = lib.mkOption {
           default = { };
           inherit (formatYaml) type;
