@@ -108,7 +108,9 @@
               # Misc
               ".cache/cliphist"
 
-            ];
+            ]
+            ++ lib.optionals config.services.pipewire.pulse.enable [ ".config/pulse" ]
+            ++ lib.optionals config.services.pipewire.wireplumber.enable [ ".local/state/wireplumber" ];
 
             files = [
               ".zsh_history"
