@@ -1,7 +1,7 @@
 {
   flake.modules.homeManager."programs.mpv.modernz" = {
 
-    xdg.configFile."mpv/script-opts/modernz.json" = {
+    xdg.configFile."mpv/script-opts/modernz.conf" = {
       text = ''
         # Language and display
         # set language (for available options, see: https://github.com/Samillion/ModernZ/blob/main/docs/TRANSLATIONS.md)
