@@ -68,9 +68,9 @@ Flake inputs 中分别维护 Linux、稳定版 nixpkgs、Intel/macOS 对应的 n
 
 ### Host 自动发现与组合
 
-**modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机只需通过 **nixpkgs.json** 声明目标 **system**，并可分别覆盖操作系统（`os`）与 Home Manager（`home-manager`）使用的 nixpkgs input；不需要单独维护 `class` 或 `host.json`。
+**modules/hosts.nix** 扫描 **hosts/** 下的主机目录。目录名采用 **username@hostname**，其中后缀只是主机名（如 **nixos**、**work**、**home**），不代表操作系统类型。每个主机只需通过 **nixpkgs.json** 声明目标 **system**，并可分别选择系统构造器（`os`）、Home Manager Flake（`home-manager`）和 standalone Home Manager 包源（`home-manager-nixpkgs`）；不需要单独维护 `class` 或 `host.json`。
 
-`os` 默认在 Darwin 主机上使用 `nix-darwin`，其他架构使用 `nixpkgs`；`home-manager` 默认使用 `home-manager`。两个字段都可独立指定对应的 Flake input。省略字段时使用默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
+`os` 默认在 Darwin 主机上使用 `nix-darwin`，其他架构使用 `nixpkgs`；`home-manager` 默认使用 `home-manager`。standalone Home Manager 的 `home-manager-nixpkgs` 默认在 `x86_64-darwin` 上使用 `nixpkgs-darwin`，其他架构使用 `nixpkgs`。省略字段时使用默认值，显式指定时覆盖默认值。将 `os` 设为 `null` 表示该主机只生成 standalone Home Manager 配置；否则根据 `system` 后缀自动选择 NixOS（`-linux`）或 nix-darwin（`-darwin`）构建器。
 
 例如，NixOS 主机：
 
@@ -190,7 +190,7 @@ just rekey-status
 ## 添加一台主机
 
 1. 在 **hosts/** 下创建符合 **<username>@<hostname>** 格式的目录。
-2. 添加 `nixpkgs.json`，声明必需的 `system`；按需覆盖 `os` 和 `home-manager`。
+2. 添加 `nixpkgs.json`，声明必需的 `system`；按需覆盖 `os`、`home-manager`，standalone Home Manager 还可指定 `home-manager-nixpkgs`。
 3. 添加该 Host 的 **default.nix**，导入所需的基础模块、功能模块和用户级模块。
 4. standalone Home Manager 主机将 `os` 设置为 `null`；NixOS WSL 主机可额外设置 `nixosWsl: true`。
 5. 使用 **just show** 查看输出，并执行对应的 eval / check 命令验证。

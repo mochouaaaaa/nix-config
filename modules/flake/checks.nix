@@ -29,6 +29,10 @@
         ]
       ) hostMetadata;
 
+      homeHostsForSystem = lib.filterAttrs (
+        _name: host: host.system == system && host.class == "home"
+      ) hostMetadata;
+
       hostToplevelDrvPaths =
         if checkOnly then
           { }
@@ -46,6 +50,17 @@
               builtins.unsafeDiscardStringContext hostConfig.config.system.build.toplevel.drvPath
             )
           ) hostsForSystem;
+
+      homeActivationDrvPaths =
+        if checkOnly then
+          { }
+        else
+          lib.mapAttrs (
+            name: _host:
+            builtins.addErrorContext "while evaluating standalone Home Manager host '${name}' activation" (
+              builtins.unsafeDiscardStringContext inputs.self.homeConfigurations.${name}.activationPackage.drvPath
+            )
+          ) homeHostsForSystem;
     in
     {
       checks = {
@@ -58,6 +73,9 @@
         # Evaluating drvPath checks module options and assertions without building
         # the system closure. NIX_CONFIG_CHECK=1 keeps the metadata-only path fast.
         host-toplevels = pkgs.writeText "host-toplevels.json" (builtins.toJSON hostToplevelDrvPaths);
+      }
+      // lib.optionalAttrs (!checkOnly && builtins.attrNames homeHostsForSystem != [ ]) {
+        home-activations = pkgs.writeText "home-activations.json" (builtins.toJSON homeActivationDrvPaths);
       };
     };
 }

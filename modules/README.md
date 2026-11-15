@@ -62,6 +62,7 @@ modules/
 - `system`：必填，目标平台，例如 `x86_64-linux`。
 - `os`：可选，NixOS/nix-darwin 系统构造器所在的 Flake input；省略时 Linux 默认 `nixpkgs`，Darwin 默认 `nix-darwin`。设为 `null` 时只生成 standalone Home Manager 配置。
 - `home-manager`：可选，提供 Home Manager 模块和 `lib.homeManagerConfiguration` 的 Flake input；默认 `home-manager`。它不是 nixpkgs input。
+- `home-manager-nixpkgs`：可选，仅用于 standalone Home Manager，选择创建 `pkgs` 的 Flake input；`x86_64-darwin` 默认 `nixpkgs-darwin`，其他架构默认 `nixpkgs`。集成式 Home Manager 主机不应设置此字段。
 - `nixosWsl`：可选布尔值，WSL 主机设为 `true`。
 
 例如：
@@ -76,7 +77,7 @@ modules/
 
 当前实现中，NixOS 使用 `os` 指向的 input 提供的 `lib.nixosSystem`；Darwin 使用对应 input 的 `lib.darwinSystem`。集成式 Home Manager 模块来自 `home-manager` 指向的 Flake input，并通过该 input 的 `nixosModules.home-manager` 或 `darwinModules.home-manager` 导入。
 
-Standalone Home Manager 的 `pkgs` 当前由 `inputs.nixpkgs` 创建，并启用 `allowUnfree`；`home-manager` 字段只选择 Home Manager Flake 本身，不负责选择 standalone 的 nixpkgs。若未来需要每台 standalone 主机单独选择包源，应新增独立的 `home-manager-nixpkgs` 元数据字段，并在 `hosts.nix` 中实现和校验，不能复用 `home-manager` 字段表达两个不同概念。
+Standalone Home Manager 的 `pkgs` 由 `home-manager-nixpkgs` 选择，并启用 `allowUnfree`。省略该字段时，Intel Darwin 使用 `nixpkgs-darwin`，其他平台使用 `nixpkgs`；`home-manager` 仍只选择 Home Manager Flake 本身。
 
 所有指定的 input 名称都会在主机元数据求值时验证是否存在于 Flake inputs。主机配置负责声明磁盘、引导、网络等机器差异；通用功能应放在 `modules/`，不要复制到主机目录。不要使用 `builtins.getEnv` 隐式决定目标系统或 nixpkgs 来源；`NIX_CONFIG_CHECK` 仅用于显式切换轻量级检查模式。
 
