@@ -6,7 +6,6 @@
 let
 
   mkNixConfig = nixpkgsInput: pkgs: username: {
-
     package = lib.mkDefault (
       if (lib.hasAttr "lixPackageSets" pkgs) then pkgs.lixPackageSets.git.lix else pkgs.nix
     );
@@ -57,10 +56,25 @@ let
         "broken-string-indentation"
       ];
 
+      # Keep the flake's cache configuration in the system Nix config so
+      # evaluating this flake does not ask for approval on every invocation.
+      extra-substituters = [
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
+        "https://mirrors.ustc.edu.cn/nix-channels/store?priority=11"
+        "https://cache.nixos.org?priority=20"
+        "https://nix-community.cachix.org?priority=21"
+      ];
+
+      extra-trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+
       trusted-substituters = [
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
-        "https://cache.nixos.org?priority=12"
-        "https://nix-community.cachix.org?priority=13"
+        "https://mirrors.ustc.edu.cn/nix-channels/store?priority=11"
+        "https://cache.nixos.org?priority=20"
+        "https://nix-community.cachix.org?priority=21"
       ];
 
       trusted-public-keys = [
@@ -69,14 +83,11 @@ let
       ];
 
       trusted-users = [ username ];
-
     };
-
   };
 
 in
 {
-
   flake.modules.nixos.core =
     {
       lib,
@@ -101,7 +112,6 @@ in
               ];
             };
           };
-
     };
 
   flake.modules.darwin.core =
@@ -113,7 +123,6 @@ in
       ...
     }:
     {
-
       nix =
         lib.recursiveUpdate
           (mkNixConfig (
@@ -133,5 +142,4 @@ in
             };
           };
     };
-
 }
