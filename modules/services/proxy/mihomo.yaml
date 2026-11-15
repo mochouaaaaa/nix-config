@@ -35,8 +35,8 @@ proxies:
   - { name: "🇨🇳 直连 | 仅IPv6", type: direct, ip-version: ipv6 }
 
 # =============global base config==================
-mixed-port: 7890
-socks-port: 7891
+port: ${MIHOMO_HTTP_PORT}
+socks-port: ${MIHOMO_SOCKS_PORT}
 allow-lan: false
 ipv6: true
 mode: rule
@@ -69,9 +69,9 @@ dns_common:
   proxyServerDNS: &proxyServerDNS ["114.114.114.114#DIRECT", "223.5.5.5#DIRECT"]
 
 dns:
-  enable: false
-  listen: :53
-  ipv6: true
+  enable: ${MIHOMO_DNS_ENABLE}
+  listen: "${MIHOMO_DNS_LISTEN}"
+  ipv6: ${MIHOMO_DNS_IPV6}
   use-hosts: true
   cache-algorithm: arc
   use-system-hosts: true
