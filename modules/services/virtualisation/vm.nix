@@ -8,26 +8,16 @@
       username,
       ...
     }:
-    {
-      # Keep VM builds in text mode without changing the host's desktop.
-      virtualisation.vmVariant = {
+    let
+      vmConfig = {
         imports = [ self.modules.nixos.appearance ];
 
-        # The VM is a disposable test environment; do not inherit the host's
-        # impermanence/preservation setup or its persistent storage mounts.
+        # The VM is disposable; do not inherit the host's preservation setup.
         profiles.preservation.enable = lib.mkForce false;
 
-        # Do not copy the host's fileSystems into the guest. qemu-vm.nix then
-        # provides its own virtual root filesystem and Nix store mounts.
-        virtualisation.fileSystems = lib.mkForce { };
-
-        # The VM is built on the host, so path existence checks see the
-        # host filesystem. Force the guest Home Manager user to use the
-        # flake-pinned dotfiles input instead of any host-local checkout.
+        # The VM is built on the host, so force the guest Home Manager user
+        # to use the flake-pinned dotfiles input instead of host-local paths.
         home-manager.users.${username}.profiles.dotfiles = lib.mkForce inputs.dotfiles;
-
-        # The VM store is mounted read-only; install Home Manager packages
-        # through users.users.<name>.packages instead of nix profile.
         home-manager.useUserPackages = lib.mkForce true;
 
         virtualisation.forwardPorts = [
@@ -69,6 +59,95 @@
         systemd.services.mihomo-config.serviceConfig.EnvironmentFile = lib.mkForce [
           "/etc/mihomo-vm.env"
         ];
+      };
+    in
+    {
+      imports = [ inputs.disko.nixosModules.disko ];
+
+      # Build a bootable VM image from a disk layout isolated from the host.
+      # The layout mirrors the host's EFI + Btrfs subvolume arrangement.
+      virtualisation.vmVariantWithDisko = vmConfig // {
+        disko.tests.efi = true;
+
+        disko.devices.disk.main = {
+          type = "disk";
+          device = "/dev/vda";
+          imageSize = "32G";
+
+          content = {
+            type = "gpt";
+            partitions = {
+              ESP = {
+                priority = 1;
+                name = "ESP";
+                start = "1M";
+                end = "513M";
+                type = "EF00";
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  mountpoint = "/boot";
+                  mountOptions = [ "umask=0077" ];
+                };
+              };
+
+              root = {
+                size = "100%";
+                content = {
+                  type = "btrfs";
+                  extraArgs = [ "-f" ];
+                  subvolumes = {
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [
+                        "noatime"
+                        "compress-force=zstd"
+                      ];
+                    };
+
+                    "/@rootfs" = {
+                      mountpoint = "/nix/persistence";
+                      mountOptions = [
+                        "noatime"
+                        "compress-force=zstd"
+                      ];
+                    };
+
+                    "/@home" = {
+                      mountpoint = "/nix/persistence/home";
+                      mountOptions = [
+                        "noatime"
+                        "compress-force=zstd"
+                      ];
+                    };
+
+                    "/@var" = {
+                      mountpoint = "/nix/persistence/var";
+                      mountOptions = [
+                        "noatime"
+                        "compress-force=zstd"
+                      ];
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+
+        # The host's swap UUID must never be used by the guest.
+        swapDevices = lib.mkForce [ ];
+
+        # Keep the same ephemeral root model as the host, without using
+        # the host's physical root partition.
+        fileSystems."/" = lib.mkForce {
+          device = "tmpfs";
+          fsType = "tmpfs";
+          options = [
+            "relatime"
+            "mode=755"
+          ];
+        };
       };
     };
 }
