@@ -1,8 +1,11 @@
 {
   flake.modules.nixos."services.proxy" =
     { config, lib, ... }:
+    let
+      cfg = config.profiles.services.proxy;
+    in
     {
-      config = lib.mkIf config.profiles.services.proxy.enable {
+      config = lib.mkIf cfg.dae.enable {
 
         services.dae = {
           enable = true;
@@ -18,7 +21,7 @@
 
             # Mihomo SOCKS5 出口
             node {
-              mihomo: 'socks5://127.0.0.1:7891'
+              mihomo: 'socks5://${cfg.mihomo.address}:${toString cfg.mihomo.socks.port}'
             }
 
             # DNS：统一交给 MosDNS
