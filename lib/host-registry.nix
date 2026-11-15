@@ -82,17 +82,8 @@ let
         else
           nixosWsl;
 
-      nixosWslInputValidated =
-        if !checkedNixosWsl then
-          true
-        else if
-          builtins.hasAttr "nixos-wsl" inputs
-          && builtins.hasAttr "nixosModules" inputs."nixos-wsl"
-          && builtins.hasAttr "default" inputs."nixos-wsl".nixosModules
-        then
-          true
-        else
-          throw "Flake input 'nixos-wsl' for host '${name}' must provide nixosModules.default.";
+      nixosWslInputValidated = !checkedNixosWsl || builtins.hasAttr "nixos-wsl" inputs
+        || throw "Host '${name}' references missing flake input 'nixos-wsl'.";
 
       nixosWslModule = if checkedNixosWsl then inputs."nixos-wsl".nixosModules.default else null;
 
@@ -145,7 +136,7 @@ let
 
   parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
 
-  # Force only lightweight metadata and interface checks, not host configurations.
+  # Force only lightweight metadata and input-existence checks, not host configurations.
   hosts = builtins.deepSeq (map (host: {
     inherit (host)
       class
