@@ -51,6 +51,14 @@
           Type = "oneshot";
           EnvironmentFile = config.age.secrets.subscription.path;
 
+          Environment = [
+            "MIHOMO_HTTP_PORT=${toString config.profiles.services.proxy.mihomo.http.port}"
+            "MIHOMO_SOCKS_PORT=${toString config.profiles.services.proxy.mihomo.socks.port}"
+            "MIHOMO_DNS_ENABLE=${if config.profiles.services.proxy.mihomo.dns.enable then "true" else "false"}"
+            "MIHOMO_DNS_LISTEN=${config.profiles.services.proxy.mihomo.dns.listen}"
+            "MIHOMO_DNS_IPV6=${if config.profiles.services.proxy.mihomo.dns.ipv6 then "true" else "false"}"
+          ];
+
           RuntimeDirectory = "mihomo-config";
           RuntimeDirectoryMode = "0700";
           RuntimeDirectoryPreserve = "yes";
@@ -66,7 +74,7 @@
 
             envs = os.environ
             content = template.read_text()
-            content = Template(content).safe_substitute(**envs)
+            content = Template(content).substitute(**envs)
 
             output.write_text(content)
             output.chmod(0o600)
