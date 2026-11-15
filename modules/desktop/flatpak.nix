@@ -66,17 +66,31 @@
         self.modules.homeManager."desktop.flatpak"
       ];
 
-      profiles.preservation =
-        lib.optionalAttrs config.home-manager.users.${username}.services.flatpak.enable
-          {
-            users.${username}.directories = [
-              ".local/share/containers"
-              ".local/share/flatpak"
-              ".var/app"
-            ];
-            directories = [
-              "/var/lib/flatpak"
-            ];
-          };
+    };
+
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      config,
+      options,
+      username,
+      ...
+    }:
+    let
+      hasFlatpak = options ? home-manager.users.${username}.services.flatpak.enable;
+    in
+    {
+      profiles.preservation = lib.mkIf (
+        hasFlatpak && config.home-manager.users.${username}.services.flatpak.enable
+      ) {
+        users.${username}.directories = [
+          ".local/share/containers"
+          ".local/share/flatpak"
+          ".var/app"
+        ];
+        directories = [
+          "/var/lib/flatpak"
+        ];
+      };
     };
 }
