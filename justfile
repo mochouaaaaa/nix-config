@@ -34,7 +34,7 @@ default:
 
 [group('flake')]
 show:
-    {{NIX_ALLOW}} nix flake show "{{FLAKE}}" --impure
+    NIX_CONFIG_CHECK=1 {{NIX_ALLOW}} nix flake show "{{FLAKE}}" --impure
 
 [group('flake')]
 lock:

@@ -2,7 +2,6 @@
   self,
   username,
   hostName,
-  system,
   ...
 }:
 {
@@ -12,7 +11,6 @@
   ];
 
   networking.hostName = hostName;
-  nixpkgs.hostPlatform = system;
 
   home-manager = {
     sharedModules = [

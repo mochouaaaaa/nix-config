@@ -27,7 +27,7 @@
                 ];
             }
             EOF
-              ${EDITOR:-nvim} default.nix
+              ''${EDITOR:-nvim} default.nix
             fi
           '';
         })
@@ -44,7 +44,7 @@
               echo "use flake" > .envrc
               direnv allow
             fi
-            ${EDITOR:-nvim} flake.nix
+            ''${EDITOR:-nvim} flake.nix
           '';
         })
         (writeShellApplication {
