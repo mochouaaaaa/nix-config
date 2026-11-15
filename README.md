@@ -38,7 +38,7 @@
 │       └── default.nix     # 单台主机的模块组合与主机级设置
 ├── lib/                    # 自定义 Nix helper
 ├── modules/
-│   ├── appearance/         # 外观、字体与光标
+│   ├── appearance/         # 字体与字体配置
 │   ├── core/               # 基础系统与通用配置
 │   ├── darwin/             # macOS 平台模块
 │   ├── desktop/            # 桌面环境与窗口管理器
