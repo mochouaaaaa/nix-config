@@ -56,11 +56,10 @@
     in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (
-          hasHomeManager
-          && config.home-manager.users.${username}.profiles.database-clients.enable
-        ) [
-          ".config/TinyRDM"
-        ];
+        lib.optionals
+          (hasHomeManager && config.home-manager.users.${username}.profiles.database-clients.enable)
+          [
+            ".config/TinyRDM"
+          ];
     };
 }
