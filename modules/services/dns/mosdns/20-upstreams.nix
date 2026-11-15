@@ -1,6 +1,15 @@
 {
-  flake.modules.nixos."services.dns" = { lib, ... }: {
-    profiles.services.dns = {
+  flake.modules.nixos."services.dns" =
+    { config, lib, ... }:
+    let
+      cfg = config.profiles.services.dns;
+      proxyCfg = config.profiles.services.proxy;
+      proxyArgs = lib.optionalAttrs (proxyCfg.mihomo.enable || cfg.proxyFallback == "reject") {
+        socks5 = "${proxyCfg.mihomo.address}:${toString proxyCfg.mihomo.socks.port}";
+      };
+    in
+    {
+      profiles.services.dns = {
       settings = {
         plugins = lib.mkOrder 100 [
 
@@ -10,7 +19,7 @@
             type = "forward";
             args = {
               concurrent = 3;
-              socks5 = "127.0.0.1:7891";
+            } // proxyArgs // {
               upstreams = [
                 {
                   addr = "https://dns.google/dns-query";
@@ -81,7 +90,7 @@
             type = "forward";
             args = {
               concurrent = 3;
-              socks5 = "127.0.0.1:7891";
+            } // proxyArgs // {
               upstreams = [
                 {
                   addr = "https://1.1.1.1/dns-query";
@@ -102,7 +111,6 @@
             type = "forward";
             args = {
               concurrent = 2;
-              socks5 = "127.0.0.1:7891";
               upstreams = [
                 {
                   addr = "https://dns.nextdns.io/\${DNS_ID}";
@@ -129,7 +137,7 @@
             type = "forward";
             args = {
               concurrent = 2;
-              socks5 = "127.0.0.1:7891";
+            } // proxyArgs // {
               upstreams = [
                 {
                   addr = "https://dns11.quad9.net/dns-query";
