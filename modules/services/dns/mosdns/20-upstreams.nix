@@ -3,11 +3,15 @@
     { config, lib, ... }:
     let
       cfg = config.profiles.services.dns;
-      proxyCfg = config.profiles.services.proxy;
-      # "reject" keeps the SOCKS dependency when Mihomo is off, so these
-      # upstreams fail instead of silently falling back to a direct connection.
-      proxyArgs = lib.optionalAttrs (proxyCfg.mihomo.enable || cfg.proxyFallback == "reject") {
-        socks5 = "${proxyCfg.mihomo.address}:${toString proxyCfg.mihomo.socks.port}";
+      # DNS is a base service and must not require the proxy module to exist.
+      # The proxy module supplies this optional endpoint when it is imported.
+      # "reject" keeps the SOCKS dependency when Mihomo is off, rather than
+      # silently falling back to a direct connection.
+      proxyArgs = lib.optionalAttrs (
+        cfg.mihomoSocksAddress != null
+        && (cfg.mihomoEnabled || cfg.proxyFallback == "reject")
+      ) {
+        socks5 = cfg.mihomoSocksAddress;
       };
     in
     {

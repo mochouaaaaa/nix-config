@@ -31,11 +31,28 @@
           ];
           default = "direct";
           description = ''
-            How to handle DNS upstreams that normally use Mihomo when Mihomo is disabled.
+            How to handle proxy-capable DNS upstreams when Mihomo is disabled.
             - direct: connect to those upstreams directly.
-            - reject: keep them routed through the unavailable Mihomo SOCKS endpoint.
+            - reject: keep them routed through the configured Mihomo SOCKS endpoint.
+            If the proxy module is not imported, DNS remains independent and uses direct connections.
             NextDNS is always direct and is not affected by this setting.
           '';
+        };
+
+        # Optional integration point populated by the proxy module when both
+        # services are part of the same NixOS configuration.
+        mihomoSocksAddress = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+          internal = true;
+          description = "Mihomo SOCKS endpoint supplied by the optional proxy module.";
+        };
+
+        mihomoEnabled = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          internal = true;
+          description = "Whether the optional proxy module enables Mihomo.";
         };
 
         settings = lib.mkOption {

@@ -17,6 +17,15 @@
             lib.mkDefault config.age.secrets.subscription.path;
         })
 
+        # Keep the dependency one-way: DNS works without the proxy module,
+        # while an imported proxy module can optionally provide its endpoint.
+        (lib.optionalAttrs (options ? profiles.services.dns) {
+          profiles.services.dns = {
+            mihomoSocksAddress = "${cfg.address}:${toString cfg.socks.port}";
+            mihomoEnabled = cfg.enable;
+          };
+        })
+
         (lib.mkIf cfg.enable (
           lib.mkMerge [
             {
