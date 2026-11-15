@@ -12,7 +12,7 @@
     in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (config.home-manager.users.${username}.programs.noctalia.enable && hasHM)
+        lib.optionals (hasHM && config.home-manager.users.${username}.programs.noctalia.enable)
           [
             ".cache/noctalia"
             ".local/state/noctalia"
