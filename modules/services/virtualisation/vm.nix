@@ -84,7 +84,7 @@
       systemd.services.agenix-virtiofsd = {
         description = "Read-only virtiofs export of host Agenix secrets";
         serviceConfig = {
-          ExecStart = "${pkgs.virtiofsd}/bin/virtiofsd --fd=3 --shared-dir="$(${pkgs.coreutils}/bin/readlink -f /run/agenix)" --readonly --sandbox=none --seccomp=none --cache=never --no-announce-submounts --translate-uid=host:65534:0:1 --translate-gid=host:65534:0:1";
+          ExecStart = "${pkgs.virtiofsd}/bin/virtiofsd --fd=3 --shared-dir=\"$(${pkgs.coreutils}/bin/readlink -f /run/agenix)\" --readonly --sandbox=none --seccomp=none --cache=never --no-announce-submounts --translate-uid=host:65534:0:1 --translate-gid=host:65534:0:1";
           User = "root";
           Group = "root";
           Restart = "on-failure";
