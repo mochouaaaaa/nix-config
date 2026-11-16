@@ -6,6 +6,7 @@
     ];
 
     wayland.windowManager.niri.enable = true;
+    services.xremap.withNiri = true;
 
     services.cliphist.enable = true;
   };
