@@ -31,8 +31,8 @@
 
           dns = {
             listen = lib.mkOption {
-              type = lib.types.str;
-              default = ":53";
+              type = lib.types.nullOr lib.types.int;
+              default = 1053;
               description = "Mihomo DNS listen address.";
             };
 

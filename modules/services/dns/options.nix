@@ -39,6 +39,11 @@
           '';
         };
 
+        mihomoEnable = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Mihomo DNS enable.";
+        };
         # Optional integration point populated by the proxy module when both
         # services are part of the same NixOS configuration.
         mihomoSocksAddress = lib.mkOption {
@@ -46,6 +51,11 @@
           default = null;
           internal = true;
           description = "Mihomo SOCKS endpoint supplied by the optional proxy module.";
+        };
+        mihomoDNSListen = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+          description = "Mihomo DNS listen address.";
         };
 
         settings = lib.mkOption {

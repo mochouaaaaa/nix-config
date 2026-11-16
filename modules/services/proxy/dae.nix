@@ -10,7 +10,10 @@
       hasMosdns = options ? profiles.services.dns;
 
       customDNS =
-        if hasMosdns then "tcp+udp://${config.profiles.services.dns.listen}" else "udp://223.5.5.5:53";
+        if hasMosdns then
+          "${config.profiles.services.dns.listen}"
+        else
+          "${cfg.mihomo.address}:${toString cfg.mihomo.dns.listen}";
     in
     {
 
@@ -31,10 +34,9 @@
             mihomo: 'socks5://${cfg.mihomo.address}:${toString cfg.mihomo.socks.port}'
           }
 
-          # DNS：优先使用可选的 MosDNS，否则直接使用 AliDNS
           dns {
             upstream {
-              customDNS: '${customDNS}'
+              customDNS: 'tcp+udp://${customDNS}'
             }
 
             routing {

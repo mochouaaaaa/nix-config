@@ -8,11 +8,36 @@
       # "reject" keeps the SOCKS dependency when Mihomo is off, rather than
       # silently falling back to a direct connection.
       proxyArgs =
-        lib.optionalAttrs
-          (cfg.mihomoSocksAddress != null && (config.services.mihomo.enable || cfg.proxyFallback == "reject"))
-          {
-            socks5 = cfg.mihomoSocksAddress;
-          };
+        let
+          mihomoAvailable = config.services.mihomo.enable && cfg.mihomoEnable;
+          dnsListen = cfg.mihomoDNSListen;
+          dnsUsable = mihomoAvailable && dnsListen != null;
+          socksUsable = mihomoAvailable && cfg.mihomoSocksAddress != null;
+        in
+        if dnsUsable then
+          { addr = dnsListen; }
+        else if socksUsable then
+          { socks5 = cfg.mihomoSocksAddress; }
+        else
+          { };
+
+      mkUpstream =
+        u:
+        let
+          merged = u // proxyArgs;
+        in
+        if merged ? socks5 then
+          removeAttrs merged [ "enable_http3" ]
+        else if proxyArgs ? addr then
+          removeAttrs merged [
+            "dial_addr"
+            "enable_http3"
+          ]
+        else
+          merged;
+
+      mkForwardUpstreams =
+        rawUpstreams: if proxyArgs ? addr then [ proxyArgs ] else map mkUpstream rawUpstreams;
     in
     {
       profiles.services.dns = {
@@ -25,10 +50,7 @@
               type = "forward";
               args = {
                 concurrent = 3;
-              }
-              // proxyArgs
-              // {
-                upstreams = [
+                upstreams = mkForwardUpstreams [
                   {
                     addr = "https://dns.google/dns-query";
                     dial_addr = "2001:4860:4860::6464";
@@ -98,10 +120,7 @@
               type = "forward";
               args = {
                 concurrent = 3;
-              }
-              // proxyArgs
-              // {
-                upstreams = [
+                upstreams = mkForwardUpstreams [
                   {
                     addr = "https://1.1.1.1/dns-query";
                     dial_addr = "1.1.1.1";
@@ -121,7 +140,7 @@
               type = "forward";
               args = {
                 concurrent = 2;
-                upstreams = [
+                upstreams = mkForwardUpstreams [
                   {
                     addr = "https://dns.nextdns.io/\${DNS_ID}";
                     dial_addr = "\${DNS_V41}";
@@ -147,10 +166,7 @@
               type = "forward";
               args = {
                 concurrent = 2;
-              }
-              // proxyArgs
-              // {
-                upstreams = [
+                upstreams = mkForwardUpstreams [
                   {
                     addr = "https://dns11.quad9.net/dns-query";
                     dial_addr = "9.9.9.11";
