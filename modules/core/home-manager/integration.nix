@@ -12,6 +12,7 @@ in
 
   flake.modules.nixos.core =
     {
+      config,
       self,
       inputs,
       lib,
@@ -33,9 +34,13 @@ in
         useGlobalPkgs = homeManagerNixpkgsInput == null;
         useUserPackages = false;
 
-        sharedModules = lib.optional (homeManagerNixpkgsInput != null) {
-          _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
-        };
+        sharedModules =
+          lib.optionals (!config.home-manager.useGlobalPkgs) [
+            self.modules.homeManager.core
+          ]
+          ++ lib.optional (homeManagerNixpkgsInput != null) {
+            _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
+          };
 
         users.${username}.home = {
           inherit username;
@@ -65,7 +70,6 @@ in
   flake.modules.homeManager.host = { self, ... }: {
     imports = [
       self.modules.homeManager.agenix
-      self.modules.homeManager.core
       self.modules.homeManager."programs.kitty-options"
       self.modules.homeManager."system.ssh"
     ];
