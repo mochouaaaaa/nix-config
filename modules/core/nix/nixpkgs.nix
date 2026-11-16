@@ -6,12 +6,22 @@ let
   };
 in
 {
-  flake.modules.homeManager.core = { self, ... }: {
-    nixpkgs = {
-      inherit config;
-      overlays = [ self.overlays.home-manager ];
+  flake.modules.homeManager.core =
+    {
+      self,
+      lib,
+      osConfig,
+      ...
+    }:
+    {
+
+      config = lib.mkIf (osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
+        nixpkgs = {
+          inherit config;
+          overlays = [ self.overlays.home-manager ];
+        };
+      };
     };
-  };
 
   flake.modules.nixos.core = { self, ... }: {
     nixpkgs = {

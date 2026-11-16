@@ -16,9 +16,9 @@ let
   resolveHost =
     name: metadata:
     let
-      system = metadata.system;
+      inherit (metadata) system;
       osInput = metadata."system-input";
-      nixosWsl = metadata.nixosWsl;
+      inherit (metadata) nixosWsl;
 
       class =
         if system == "" then
@@ -39,17 +39,9 @@ let
 
       homeManagerInput = checkInput name metadata."home-manager-input";
 
-      nixosWslInput =
-        if nixosWsl then
-          checkInput name metadata."nixos-wsl-input"
-        else
-          null;
+      nixosWslInput = if nixosWsl then checkInput name metadata."nixos-wsl-input" else null;
 
-      nixosWslModule =
-        if nixosWsl then
-          inputs.${nixosWslInput}.nixosModules.default
-        else
-          null;
+      nixosWslModule = if nixosWsl then inputs.${nixosWslInput}.nixosModules.default else null;
 
       rawHomeManagerNixpkgs = metadata."home-manager-nixpkgs";
 

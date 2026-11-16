@@ -19,11 +19,13 @@ in
 
     # NixOS and its embedded Home Manager share the system package set.
     nixos = lib.composeManyExtensions [
+      common
       (import ../../pkgs/lix.nix)
     ];
 
     # nix-darwin and its embedded Home Manager share the system package set.
     darwin = lib.composeManyExtensions [
+      common
       (import ../../pkgs/lix.nix)
     ];
 

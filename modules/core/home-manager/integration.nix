@@ -31,7 +31,7 @@ in
         # An explicit Home Manager nixpkgs input selects a private package set.
         # Otherwise, reuse the system package set.
         useGlobalPkgs = homeManagerNixpkgsInput == null;
-        useUserPackages = false;
+        useUserPackages = true;
 
         sharedModules = lib.optional (homeManagerNixpkgsInput != null) {
           _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;

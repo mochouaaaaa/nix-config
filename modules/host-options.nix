@@ -58,9 +58,7 @@ let
 
   hostsDir = ../hosts;
 
-  hostDirectories = lib.filterAttrs (_: type: type == "directory") (
-    builtins.readDir hostsDir
-  );
+  hostDirectories = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 
   loadHostMetadata =
     name:
