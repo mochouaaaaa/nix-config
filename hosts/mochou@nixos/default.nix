@@ -14,7 +14,6 @@
     self.modules.nixos."services.virtualisation.vm"
     self.modules.nixos."desktop.hyprland"
     self.modules.nixos."desktop.flatpak"
-    self.modules.nixos."desktop.programs.database"
     self.modules.nixos."desktop.programs.networking"
     self.modules.nixos.boot-loader-limine
     self.modules.nixos."hardware.hid-apple"
