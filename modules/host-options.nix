@@ -31,7 +31,7 @@ let
         description = "Flake input providing the NixOS or nix-darwin system constructor.";
       };
 
-      "home-manager" = lib.mkOption {
+      "home-manager-input" = lib.mkOption {
         type = types.str;
         description = "Flake input providing the Home Manager module and library.";
       };
@@ -61,8 +61,7 @@ let
     let
       parts = lib.splitString "@" name;
       validName = builtins.length parts == 2 && builtins.all (part: part != "") parts;
-      hostDir = hostsDir + "/${name}";
-      configPath = hostDir + "/nixpkgs.json";
+      configPath = hostsDir + "/${name}/nixpkgs.json";
 
       metadata =
         if !validName then

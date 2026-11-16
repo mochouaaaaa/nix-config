@@ -1,147 +1,101 @@
 {
   inputs,
   lib,
+  hosts,
   hostsDir ? ../hosts,
 }:
 
 let
-  hostNames = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
+  checkInput =
+    name: inputName:
+    if builtins.isString inputName && inputName != "" && builtins.hasAttr inputName inputs then
+      inputName
+    else
+      throw "Host '${name}' references missing or invalid flake input '${toString inputName}'.";
 
   parseHost =
-    name:
+    name: metadata:
     let
-      parts = lib.splitString "@" name;
-      validName = builtins.length parts == 2 && builtins.all (part: part != "") parts;
-      configPath = hostsDir + "/${name}/nixpkgs.json";
+      system = metadata.system;
+      validSystem =
+        builtins.isString system
+        && builtins.match "[A-Za-z0-9_]+-(linux|darwin)" system != null;
 
-      metadata =
-        if !validName then
-          throw "Invalid host directory '${name}', expected <username>@<hostname>"
+      checkedSystem =
+        if validSystem then
+          system
         else
-          let
-            parsed = builtins.fromJSON (builtins.readFile configPath);
-          in
-          if builtins.isAttrs parsed then parsed else throw "${configPath} must contain a JSON object.";
+          throw "Host '${name}' must specify a Linux or Darwin platform such as 'x86_64-linux'.";
 
-      allowedFields = [
-        "system"
-        "system-input"
-        "home-manager"
-        "home-manager-nixpkgs"
-        "nixosWsl"
-      ];
-      unknownFields = builtins.filter (field: !(builtins.elem field allowedFields)) (
-        builtins.attrNames metadata
-      );
-
-      rawSystem = metadata.system or (throw "Missing 'system' in ${configPath}.");
-      system =
-        if
-          builtins.isString rawSystem && builtins.match "[A-Za-z0-9_]+-(linux|darwin)" rawSystem != null
-        then
-          rawSystem
-        else
-          throw "'system' in ${configPath} must be a Linux or Darwin platform such as 'x86_64-linux'.";
-
-      rawOs =
-        metadata."system-input" or "nixpkgs";
-      osInput =
-        if rawOs == null then
-          null
-        else if builtins.isString rawOs && rawOs != "" then
-          rawOs
-        else
-          throw "'system-input' in ${configPath} must be a flake input name or null.";
+      osInput = metadata."system-input";
 
       class =
         if osInput == null then
           "home"
-        else if lib.hasSuffix "-linux" system then
+        else if lib.hasSuffix "-linux" checkedSystem then
           "nixos"
-        else if lib.hasSuffix "-darwin" system then
+        else if lib.hasSuffix "-darwin" checkedSystem then
           "darwin"
         else
-          throw "Cannot infer host configuration type from system '${system}' in ${configPath}.";
+          throw "Cannot infer host configuration type from system '${checkedSystem}'.";
 
-      rawHomeManager = metadata."home-manager" or (throw "Missing 'home-manager' in ${configPath}.");
-      homeManagerInput =
-        if builtins.isString rawHomeManager && rawHomeManager != "" then
-          rawHomeManager
-        else
-          throw "'home-manager' in ${configPath} must be a non-empty flake input name.";
+      homeManagerInput = checkInput name metadata."home-manager-input";
 
-      rawNixosWsl = metadata.nixosWsl or false;
       nixosWsl =
-        if builtins.isBool rawNixosWsl then
-          rawNixosWsl
+        if metadata.nixosWsl && class != "nixos" then
+          throw "Host '${name}' sets 'nixosWsl', which is only valid for NixOS hosts."
         else
-          throw "'nixosWsl' in ${configPath} must be a boolean.";
-
-      checkedNixosWsl =
-        if nixosWsl && class != "nixos" then
-          throw "'nixosWsl' in ${configPath} is only valid for NixOS hosts."
-        else
-          nixosWsl;
+          metadata.nixosWsl;
 
       nixosWslInputValidated =
-        !checkedNixosWsl
+        !nixosWsl
         || builtins.hasAttr "nixos-wsl" inputs
         || throw "Host '${name}' references missing flake input 'nixos-wsl'.";
 
-      nixosWslModule = if checkedNixosWsl then inputs."nixos-wsl".nixosModules.default else null;
+      nixosWslModule = if nixosWsl then inputs."nixos-wsl".nixosModules.default else null;
 
-      hasHomeManagerNixpkgs = builtins.hasAttr "home-manager-nixpkgs" metadata;
-      rawHomeManagerNixpkgs =
-        if class != "home" then
-          if hasHomeManagerNixpkgs then
-            throw "'home-manager-nixpkgs' in ${configPath} is only valid for standalone Home Manager hosts."
-          else
-            null
-        else
-          metadata."home-manager-nixpkgs"
-            or (throw "Missing 'home-manager-nixpkgs' in ${configPath} for standalone Home Manager hosts.");
+      rawHomeManagerNixpkgs = metadata."home-manager-nixpkgs";
 
       homeManagerNixpkgsInput =
         if class != "home" then
-          null
-        else if builtins.isString rawHomeManagerNixpkgs && rawHomeManagerNixpkgs != "" then
-          checkInput rawHomeManagerNixpkgs
+          if rawHomeManagerNixpkgs != null then
+            throw "'home-manager-nixpkgs' is only valid for standalone Home Manager hosts ('${name}')."
+          else
+            null
         else
-          throw "'home-manager-nixpkgs' in ${configPath} must be a non-empty flake input name.";
+          checkInput name (
+            if rawHomeManagerNixpkgs == null then
+              throw "Standalone Home Manager host '${name}' must specify 'home-manager-nixpkgs'."
+            else
+              rawHomeManagerNixpkgs
+          );
 
-      checkInput =
-        inputName:
-        if builtins.hasAttr inputName inputs then
-          inputName
-        else
-          throw "Host '${name}' references missing flake input '${inputName}'.";
-
-      validatedOsInput = if osInput == null then null else checkInput osInput;
-      validatedHomeManagerInput = checkInput homeManagerInput;
-
+      validatedOsInput = if osInput == null then null else checkInput name osInput;
     in
-    if unknownFields != [ ] then
-      throw "Unknown fields in ${configPath}: ${lib.concatStringsSep ", " unknownFields}"
-    else
-      {
-        username = builtins.elemAt parts 0;
-        hostName = builtins.elemAt parts 1;
-        inherit
-          name
-          class
-          system
-          ;
-        nixosWsl = checkedNixosWsl;
-        inherit nixosWslModule homeManagerNixpkgsInput nixosWslInputValidated;
-        osInput = validatedOsInput;
-        homeManagerInput = validatedHomeManagerInput;
-        path = hostsDir + "/${name}";
-      };
+    {
+      inherit
+        name
+        class
+        checkedSystem
+        nixosWsl
+        nixosWslModule
+        nixosWslInputValidated
+        homeManagerNixpkgsInput
+        ;
+      inherit (metadata)
+        username
+        hostName
+        ;
+      system = checkedSystem;
+      osInput = validatedOsInput;
+      inherit homeManagerInput;
+      path = hostsDir + "/${name}";
+    };
 
-  parsedHosts = lib.mapAttrs (name: _: parseHost name) hostNames;
+  parsedHosts = lib.mapAttrs parseHost hosts;
 
   # Force only lightweight metadata and input-existence checks, not host configurations.
-  hosts = builtins.deepSeq (map (host: {
+  checkedHosts = builtins.deepSeq (map (host: {
     inherit (host)
       class
       system
@@ -153,7 +107,7 @@ let
       ;
   }) (lib.attrValues parsedHosts)) parsedHosts;
 
-  selectHosts = class: lib.filterAttrs (_: host: host.class == class) hosts;
+  selectHosts = class: lib.filterAttrs (_: host: host.class == class) checkedHosts;
 
   hostMetadata = lib.mapAttrs (_: host: {
     inherit (host)
@@ -166,13 +120,13 @@ let
       homeManagerInput
       homeManagerNixpkgsInput
       ;
-  }) hosts;
+  }) checkedHosts;
 in
 {
   inherit
     hostMetadata
-    hosts
     ;
+  hosts = checkedHosts;
   nixosHosts = selectHosts "nixos";
   darwinHosts = selectHosts "darwin";
   homeHosts = selectHosts "home";

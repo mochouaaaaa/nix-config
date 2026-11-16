@@ -1,6 +1,6 @@
 {
   "system": "x86_64-linux",
   "system-input": "nixpkgs",
-  "home-manager": "home-manager",
+  "home-manager-input": "home-manager",
   "nixosWsl": true
 }
