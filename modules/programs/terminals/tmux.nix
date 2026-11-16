@@ -6,10 +6,21 @@
       config,
       ...
     }:
+    let
+      kittyHooks = lib.optionalString config.programs.kitty.enable ''
+        # --- Kitty remote-control integration ---
+        # Start/attach: mark the terminal window as hosting a tmux session.
+        set-hook -g after-new-session 'run-shell "kitty @ set-user-vars IS_TMUX=1"'
+        set-hook -g client-attached    'run-shell "kitty @ set-user-vars IS_TMUX=1"'
+        # Close/detach: clear the tmux marker.
+        set-hook -g session-closed     'run-shell "kitty @ set-user-vars IS_TMUX"'
+        set-hook -g client-detached    'run-shell "kitty @ set-user-vars IS_TMUX"'
+      '';
+    in
     {
 
       programs = {
-        zsh.initContent = ''
+        zsh.initContent = lib.optionalString config.programs.kitty.enable ''
           function zshexit() {
               if [ -n "$TMUX" ]; then
                   # notify-send "Tmux" "Session Closed via Zsh"
@@ -153,16 +164,7 @@
             set -g status-interval 5
             #: }}}
 
-            # --- 启动与连接 (Attach/New) ---
-            # 当创建一个新会话并自动连接时触发
-            set-hook -g after-new-session  'run-shell "kitty @ set-user-vars IS_TMUX=1"'
-            # 当连接（Attach）到一个已存在的会话时触发
-            set-hook -g client-attached    'run-shell "kitty @ set-user-vars IS_TMUX=1"'
-            # --- 退出与断开 (Detach/Exit) ---
-            set-hook -g session-closed     'run-shell "kitty @ set-user-vars IS_TMUX"'
-            # 当你按下 手动断开连接（Detach）但保留后台会话时触发
-            set-hook -g client-detached    'run-shell "kitty @ set-user-vars IS_TMUX"'
-
+            ${kittyHooks}
           '';
           plugins = with pkgs.tmuxPlugins; [
             {

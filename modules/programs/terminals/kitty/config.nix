@@ -43,7 +43,7 @@
     in
     {
 
-      config = {
+      config = lib.mkIf cfg.enable {
         profiles.terminal.kitty.extraConfig = lib.mkBefore [
           "globinclude config/*.conf"
           "\n"

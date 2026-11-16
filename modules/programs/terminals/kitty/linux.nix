@@ -1,27 +1,27 @@
 {
   flake.modules.homeManager.linux =
-    { config, ... }:
+    { lib, config, ... }:
     let
       cfg = config.profiles.terminal.kitty;
     in
     {
-
-      profiles.terminal.kitty = {
-        extraConfig = [
-          "adjust_line_height 100%"
-          "adjust_column_width 100%"
-          "window_padding_width 0 4"
-        ];
-      };
-
-      xdg = {
-        configFile = {
-          "kitty/kitty.app.png".source = "${cfg.icon}/kitty-dark.png";
+      config = lib.mkIf config.programs.kitty.enable {
+        profiles.terminal.kitty = {
+          extraConfig = [
+            "adjust_line_height 100%"
+            "adjust_column_width 100%"
+            "window_padding_width 0 4"
+          ];
         };
 
-        mimeApps.defaultApplicationPackages = [ config.programs.kitty.package ];
-      };
+        xdg = {
+          configFile = {
+            "kitty/kitty.app.png".source = "${cfg.icon}/kitty-dark.png";
+          };
 
+          mimeApps.defaultApplicationPackages = [ config.programs.kitty.package ];
+        };
+      };
     };
 
   flake.modules.nixos.preservation =
