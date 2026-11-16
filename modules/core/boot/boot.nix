@@ -25,5 +25,10 @@
         };
 
       };
+
+      services.bootvine = {
+        enable = true;
+      };
+
     };
 }
