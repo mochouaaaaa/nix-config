@@ -6,7 +6,7 @@ let
   };
 in
 {
-  flake.modules.homeManager.nixpkgs = { self, ... }: {
+  flake.modules.homeManager.core = { self, ... }: {
     nixpkgs = {
       inherit config;
       overlays = [ self.overlays.home-manager ];
