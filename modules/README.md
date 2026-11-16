@@ -1,13 +1,22 @@
 # Modules 架构
 
-本仓库采用 **Dendritic Pattern + flake-parts + import-tree**。`modules/` 按功能组织源文件，模块通过 `flake.modules.<class>.<name>` 注册；主机目录只负责选择功能模块和声明机器差异。
+本仓库采用 **Dendritic Pattern + flake-parts + import-tree**。`modules/` 按功能域组织源文件；模块通过 `flake.modules.<class>.<name>` 注册，Host 只负责组合所需模块并声明机器差异。
 
-## 目录约定
+模块类遵循 flake-parts 约定：
+
+- `nixos`：NixOS 系统模块。
+- `darwin`：nix-darwin 系统模块。
+- `homeManager`：Home Manager 用户环境模块。
+
+一个源文件可以注册多个模块类，也可以注册多个 aspect。源码路径用于组织文件，不等同于公开的模块 ID。
+
+## 目录结构
 
 ```text
 modules/
-├── flake/          # flake-parts 输出、systems、overlays、checks、devShell
-├── core/           # 系统基础能力，按职责分组
+├── agents/         # AI Agent 工作流集成
+├── appearance/     # 字体与字体外观
+├── core/           # 系统基础能力、会话、Nix 与 Home Manager 集成
 │   ├── boot/
 │   ├── compat/
 │   ├── dotfiles/
@@ -16,62 +25,89 @@ modules/
 │   ├── profiles/
 │   ├── session/
 │   └── system/
-├── hardware/       # 音频、蓝牙、输入设备、设备调优与嵌入式硬件
-├── desktop/        # 桌面环境、通用桌面能力及可组合组件
+├── darwin/         # macOS 专属系统设置
+├── desktop/        # 桌面环境与可组合桌面能力
 │   ├── common/
 │   ├── components/
-│   ├── hyprland/
-│   ├── niri/
 │   ├── gnome/
-│   └── kde/
-├── services/       # 系统服务，按网络、数据库、虚拟化等继续分组
-├── programs/       # 通用用户程序与工具（Git、CLI、桌面应用等）
-├── agents/         # AI Agent 工具与运行环境
+│   ├── hyprland/
+│   ├── kde/
+│   ├── niri/
+│   └── programs/
 ├── development/    # 开发语言与工具链
 │   ├── languages/
 │   └── tools/
-├── security/       # 密钥、权限、持久化、安全策略
-├── appearance/     # 字体与字体配置
-├── darwin/         # macOS 专属系统能力
-└── hosts.nix       # 自动发现 hosts/<username>@<hostname>/
+├── flake/          # Flake 全局输出、perSystem、checks 与开发环境
+├── hardware/       # 音频、蓝牙、输入设备与硬件调优
+├── programs/       # 用户程序与工具
+│   ├── browsers/
+│   ├── cli/
+│   ├── desktop/
+│   ├── editors/
+│   ├── input-methods/
+│   ├── media/
+│   ├── shells/
+│   ├── system/
+│   └── terminals/
+├── security/       # 密钥、安全策略与持久化
+├── services/       # 系统服务
+└── hosts.nix       # Host 自动发现与 Flake 配置输出
 ```
+
+各功能域的补充说明：
+
+- [agents/](./agents/README.md)：Agent 工具集成与数据持久化。
+- [desktop/](./desktop/README.md)：桌面入口、公共能力与应用 profile 的组合方式。
+- [flake/](./flake/README.md)：Flake outputs、开发环境、格式化与 checks。
+- [programs/](./programs/README.md)：用户程序的目录边界与平台职责。
 
 ## 功能域边界
 
-- `programs`: 通用用户程序，不按 CLI/GUI 使用形态限制；例如 Git 使用 `programs.git`。
-- `agents`: 具备 Agent 工作流的 AI 工具，例如 Codex 使用 `agents.codex`，后续可扩展其他 Agent。
-- `programs/cli`: 仅用于确实属于命令行工具集合、且没有更准确功能域的程序。
-- `system`、`security`、`desktop` 等命名空间分别表达系统基础、安全和桌面职责。
+| 功能域 | 职责 | 示例 |
+| --- | --- | --- |
+| `core` | 系统基础设置、Nix、会话与 Home Manager 集成 | `core.nix`、`core.home-manager` |
+| `hardware` | 硬件能力与设备调优 | `hardware.audio`、`hardware.bluetooth` |
+| `desktop` | 桌面会话、合成器与桌面公共组件 | `desktop.hyprland`、`desktop.common` |
+| `programs` | 用户应用和通用工具 | `programs.git`、`programs.cli.*` |
+| `agents` | Agent 工作流工具 | `agents.codex`、`agents.antigravity` |
+| `development` | 语言运行时与开发工具链 | `development.languages.*` |
+| `services` | 系统级服务 | `services.proxy`、`services.mysql` |
+| `security` | 密钥、安全策略与持久化 | agenix、preservation |
+| `darwin` | macOS 专属系统配置 | Homebrew、系统 defaults |
+| `appearance` | 字体包、fontconfig 与字体选项 | `appearance` |
 
-## 模块命名
+边界判断以功能职责为准，而不是软件是否带 GUI：Git 属于 `programs.git`；Agent 集成单独放在 `agents`；桌面会话和合成器放在 `desktop`；桌面应用选择则由应用 profile 负责。
 
-模块文件的路径只用于组织源码；对外注册的 aspect 名称统一采用小写 kebab-case；有明确功能域的模块统一使用 `域.功能` 点号分层，避免把域名和功能名用连字符拼在一起。聚合入口（如 `programs`、`development`、`desktop.common`）可以保留短名称。模块类保持 flake-parts 的标准名称（`nixos`、`darwin`、`homeManager`），模块名以注册声明为准。
+## 模块命名与组合
 
-## 桌面环境组合
+- 源码路径用于分类和拆分实现；对外 aspect 名称统一采用小写 kebab-case。
+- 有明确功能域的 aspect 使用点号分层，例如 `desktop.launcher.vicinae`、`services.virtualisation.qemu`。
+- 聚合入口可以保留短名称，例如 `desktop.common`、`programs.git`。
+- 模块类使用标准名称 `nixos`、`darwin` 和 `homeManager`。
+- 不同模块类拥有不同选项系统；需要组合 NixOS 与 Home Manager 时，应在 NixOS 模块中只为目标用户添加对应 HM 模块，不要把 NixOS 选项写入 HM 模块。
 
-桌面模块分为 NixOS 和 Home Manager 两个模块类，因为二者的选项系统不同。桌面入口可以负责把对应 HM 模块注入到 `home-manager.users.<user>.imports`，从而让主机只导入一个桌面入口，而不是分别导入 NixOS/HM 两份配置。
+桌面入口可以负责导入自己的公共能力，并将匹配的 Home Manager 桌面模块注入 Host 主用户。与桌面无关的代理、数据库和开发服务应由 Host 或独立 profile 显式选择，避免切换桌面时产生意外副作用。
 
-桌面入口只组合桌面所需能力。代理、数据库、开发工具等与桌面无关的服务应由主机或独立 profile 显式导入，避免切换桌面时意外启停服务。
+## 外观职责
 
-外观职责按使用范围拆分：
+- `appearance` 负责字体选项、字体包和 fontconfig 默认字体。
+- 通用桌面指针主题由 `desktop.common` 的 cursor 组件管理。
+- Hyprcursor 是 Hyprland 专属能力，不应由其他桌面入口隐式启用。
+- 桌面公共模块只组合多种桌面都需要的能力；桌面 Shell、Greeter、Launcher 和可选应用组保持独立组件。
 
-- `appearance` 负责字体选项、字体包和 fontconfig 默认字体，不负责指针主题。
-- 通用桌面指针主题放在 `desktop/common/cursor.nix`，随桌面公共模块启用。
-- Hyprcursor 属于 Hyprland 专属能力，只在 `desktop/hyprland` 中启用；其他桌面不应被迫启用 Hyprcursor。
+## Host 与 nixpkgs 选择
 
-## 主机与 nixpkgs 选择
-
-主机目录采用 `<username>@<hostname>` 命名，例如 `mochou@nixos`、`mochou@work` 或 `mochou@home`。目录后缀只是主机名，不代表操作系统或平台类型。
+Host 目录采用 `<username>@<hostname>` 命名，例如 `mochou@nixos`、`mochou@wsl` 和 `mochou@darwin`。后缀只代表主机名，不用于推断操作系统或平台。
 
 每台主机在 `nixpkgs.json` 中声明目标架构和 Flake input：
 
 - `system`：必填，目标平台，例如 `x86_64-linux`。
-- `os`：必填，NixOS/nix-darwin 系统构造器所在的 Flake input；设为 `null` 时只生成 standalone Home Manager 配置。
-- `home-manager`：必填，提供 Home Manager 模块和 `lib.homeManagerConfiguration` 的 Flake input。它不是 nixpkgs input。
-- `home-manager-nixpkgs`：仅用于 standalone Home Manager，且必填；选择创建 `pkgs` 的 Flake input。集成式 Home Manager 主机不允许设置此字段。
-- `nixosWsl`：可选布尔值，WSL 主机设为 `true`；仅适用于 NixOS 主机，并要求 Flake inputs 中存在 `nixos-wsl`。
+- `os`：必填，系统构造器所在的 Flake input；设为 `null` 时表示 standalone Home Manager Host。
+- `home-manager`：必填，提供 Home Manager 模块和 `lib.homeManagerConfiguration` 的 Flake input。
+- `home-manager-nixpkgs`：仅用于 standalone Home Manager，必填，用于选择创建 `pkgs` 的 Flake input；集成式 Home Manager Host 不应设置此字段。
+- `nixosWsl`：可选布尔值；WSL Host 设为 `true`，仅适用于 NixOS，并要求 Flake inputs 中存在 `nixos-wsl`。
 
-例如：
+NixOS Host 示例：
 
 ```json
 {
@@ -81,20 +117,43 @@ modules/
 }
 ```
 
-当前实现中，NixOS 使用 `os` 指向的 input 提供的 `lib.nixosSystem`；Darwin 使用对应 input 的 `lib.darwinSystem`。集成式 Home Manager 模块来自 `home-manager` 指向的 Flake input，并通过该 input 的 `nixosModules.home-manager` 或 `darwinModules.home-manager` 导入。
+Darwin Host 示例：
 
-Standalone Home Manager 的 `pkgs` 由必填的 `home-manager-nixpkgs` 选择，并启用 `allowUnfree`。该字段没有架构相关的隐式默认值；`home-manager` 仍只选择 Home Manager Flake 本身。
-
-所有指定的 input 名称都会在主机元数据求值时验证是否存在于 Flake inputs。主机配置负责声明磁盘、引导、网络等机器差异；通用功能应放在 `modules/`，不要复制到主机目录。不要使用 `builtins.getEnv` 隐式决定目标系统或 nixpkgs 来源；`NIX_CONFIG_CHECK` 仅用于显式切换轻量级检查模式。
-
-## 修改后检查
-
-```bash
-nix fmt
-NIX_CONFIG_CHECK=1 nix flake check --no-build --impure --show-trace
-nix eval '.#nixosConfigurations."mochou@nixos".config.programs.hyprland.enable'
+```json
+{
+  "system": "x86_64-darwin",
+  "os": "nix-darwin",
+  "home-manager": "home-manager-darwin"
+}
 ```
 
-`just check` 会设置 `NIX_CONFIG_CHECK=1`，在该模式下暂时不导出 `nixosConfigurations`、`darwinConfigurations` 和 `homeConfigurations`，因为 Nix 自身的 `nix flake check` 会强制求值 NixOS toplevel。此模式下的 `host-evaluations` 只检查轻量级主机元数据，不会遍历主机 packages，也不会触发 `mochou_nur`。正常执行 build/switch 时不设置该变量，所有主机输出和包仍按原样启用。直接运行检查时请使用 `NIX_CONFIG_CHECK=1 nix flake check --no-build --impure`。
+Host 注册表会验证元数据中引用的 input 是否存在。NixOS 使用对应 input 的 `lib.nixosSystem`，Darwin 使用 `lib.darwinSystem`；集成式 Home Manager 则通过对应 input 的 NixOS 或 Darwin 模块导入。Standalone Home Manager 的 `pkgs` 由 `home-manager-nixpkgs` 选择，并启用 `allowUnfree`。
 
-`nix flake check --no-build` 只做评估/检查，不代表系统闭包已经成功构建；实际部署前仍应执行对应主机的 build。
+主机配置负责磁盘、引导、网络、硬件和机器级差异；通用能力应放在 `modules/`。不要使用 `builtins.getEnv` 隐式决定目标系统或 nixpkgs 来源。检查模式只通过显式的 `NIX_CONFIG_CHECK` 开关启用。
+
+## Flake 检查模式
+
+`modules/flake/checks.nix` 提供轻量检查和完整 Host 求值两条路径：
+
+- 普通 `nix flake check --no-build` 会求值匹配当前 system 的 NixOS / Darwin toplevel，以及 standalone Home Manager activation package 的 derivation path，但不会构建系统闭包。
+- 设置 `NIX_CONFIG_CHECK=1` 后，检查只验证 Host 元数据，不导出并求值完整系统 toplevel 和 Home Manager activation。
+- treefmt 的格式检查和开发环境 derivation 仍由 Flake checks 管理。
+
+常用命令：
+
+```bash
+just fmt
+just fmt-check
+just lint
+just check
+just validate
+
+# 显式检查 Host 元数据
+NIX_CONFIG_CHECK=1 nix flake check --no-build --impure --show-trace
+
+# 求值具体 Host
+just nixos-eval
+just darwin-eval
+```
+
+`nix flake check --no-build` 只做求值与检查，不代表系统闭包已经成功构建；实际部署前仍应执行对应 Host 的 build。
