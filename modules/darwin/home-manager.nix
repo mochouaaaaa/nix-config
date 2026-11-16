@@ -24,6 +24,7 @@
       home-manager.sharedModules = lib.optional (homeManagerNixpkgsInput != null) {
         _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
         nixpkgs.config.allowUnfree = true;
+        nixpkgs.overlays = [ self.overlays.home-manager ];
       };
 
       # Pass nix-darwin special arguments into Home Manager.
