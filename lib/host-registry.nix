@@ -72,6 +72,7 @@ let
         name
         class
         nixosWsl
+        nixosWslInput
         nixosWslModule
         homeManagerNixpkgsInput
         ;
@@ -93,6 +94,7 @@ let
       class
       system
       nixosWsl
+      nixosWslInput
       osInput
       homeManagerInput
       homeManagerNixpkgsInput
