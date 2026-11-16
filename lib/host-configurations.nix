@@ -78,7 +78,6 @@ let
 
         modules = [
           self.modules.homeManager.nix-settings
-          self.modules.homeManager.core
           (inputs.import-tree host.path)
           { programs.home-manager.enable = true; }
         ];

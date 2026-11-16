@@ -1,7 +1,6 @@
 {
   flake.modules.darwin.home-manager =
     {
-      config,
       inputs,
       lib,
       self,
@@ -22,13 +21,9 @@
       home-manager.useGlobalPkgs = homeManagerNixpkgsInput == null;
       home-manager.useUserPackages = true;
 
-      home-manager.sharedModules =
-        lib.optionals (!config.home-manager.useGlobalPkgs) [
-          self.modules.homeManager.core
-        ]
-        ++ lib.optional (homeManagerNixpkgsInput != null) {
-          _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
-        };
+      home-manager.sharedModules = lib.optional (homeManagerNixpkgsInput != null) {
+        _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
+      };
 
       # Pass nix-darwin special arguments into Home Manager.
       home-manager.extraSpecialArgs = {
