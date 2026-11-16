@@ -1,3 +1,19 @@
+let
+  mkTinyRdm =
+    pkgs:
+    pkgs.symlinkJoin {
+      name = "tiny-rdm";
+      paths = [ pkgs.tiny-rdm ];
+
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+
+      postBuild = ''
+        wrapProgram $out/bin/tiny-rdm \
+          --set GDK_BACKEND x11 \
+          --set GDK_DPI_SCALE 1.5
+      '';
+    };
+in
 {
   flake.modules.homeManager."desktop.programs.database" =
     {
@@ -6,18 +22,7 @@
       ...
     }:
     let
-      tiny-rdm = pkgs.symlinkJoin {
-        name = "tiny-rdm";
-        paths = [ pkgs.tiny-rdm ];
-
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-
-        postBuild = ''
-          wrapProgram $out/bin/tiny-rdm \
-            --set GDK_BACKEND x11 \
-            --set GDK_DPI_SCALE 1.5
-        '';
-      };
+      tiny-rdm = mkTinyRdm pkgs;
     in
     {
       home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
@@ -26,26 +31,24 @@
       ];
     };
 
-  # Preserve TinyRDM data only when the application is part of the user's
-  # effective Home Manager package set.
+  # Preserve TinyRDM data only when its package is in the user's effective
+  # Home Manager package set.
   flake.modules.nixos.preservation =
     {
       lib,
+      pkgs,
       config,
-      options,
       username,
       ...
     }:
     let
-      hasHomeManager = options ? home-manager;
-      homePackages = config.home-manager.users.${username}.home.packages;
-      hasTinyRdm = lib.any (package: lib.getName package == "tiny-rdm") homePackages;
+      homePackages = config.home-manager.users.${username}.home.packages or [ ];
+      tiny-rdm = mkTinyRdm pkgs;
     in
     {
-      config = lib.mkIf (hasHomeManager && hasTinyRdm) {
-        profiles.preservation.users.${username}.directories = [
+      profiles.preservation.users.${username}.directories =
+        lib.optionals (lib.elem tiny-rdm homePackages) [
           ".config/TinyRDM"
         ];
-      };
     };
 }
