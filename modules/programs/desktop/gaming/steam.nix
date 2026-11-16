@@ -31,10 +31,9 @@
       ...
     }:
     {
-      profiles.preservation.users.${username}.directories =
-        lib.optionals config.programs.steam.enable [
-          ".local/share/Steam"
-          ".steam"
-        ];
+      profiles.preservation.users.${username}.directories = lib.optionals config.programs.steam.enable [
+        ".local/share/Steam"
+        ".steam"
+      ];
     };
 }

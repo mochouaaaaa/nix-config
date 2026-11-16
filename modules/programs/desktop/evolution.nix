@@ -20,10 +20,11 @@
     }:
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals config.programs.evolution.enable [
-          ".config/evolution"
-          ".local/share/evolution"
-          ".cache/evolution"
-        ];
+        lib.optionals config.programs.evolution.enable
+          [
+            ".config/evolution"
+            ".local/share/evolution"
+            ".cache/evolution"
+          ];
     };
 }
