@@ -1,18 +1,7 @@
 {
   flake.modules.nixos."desktop.programs.gaming" =
+    { pkgs, ... }:
     {
-      lib,
-      pkgs,
-      config,
-      username,
-      ...
-    }:
-    {
-      profiles.preservation.users.${username}.directories = lib.optionals config.programs.steam.enable [
-        ".local/share/Steam"
-        ".steam"
-      ];
-
       hardware.steam-hardware.enable = true;
 
       programs.steam = {
@@ -32,5 +21,20 @@
           keyutils
         ];
       };
+    };
+
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      config,
+      username,
+      ...
+    }:
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals config.programs.steam.enable [
+          ".local/share/Steam"
+          ".steam"
+        ];
     };
 }
