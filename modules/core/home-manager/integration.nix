@@ -14,6 +14,8 @@ in
     {
       self,
       inputs,
+      pkgs,
+
       username,
       hostName,
       class,
@@ -43,6 +45,12 @@ in
             class
             myvars
             ;
+
+          pkgsStable = import inputs.nixpkgs-stable {
+            inherit (pkgs.stdenv.hostPlatform) system;
+            config.allowUnfree = true;
+          };
+
         };
       };
     };

@@ -30,6 +30,8 @@ in
     ];
 
     # Standalone Home Manager uses its own package set.
-    home-manager = common;
+    home-manager = lib.composeManyExtensions [
+      common
+    ];
   };
 }
