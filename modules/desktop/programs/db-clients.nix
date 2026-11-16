@@ -26,13 +26,26 @@
       ];
     };
 
-  # Keep application data persistent independently of the Home Manager
-  # module's import graph.
+  # Preserve TinyRDM data only when the application is part of the user's
+  # effective Home Manager package set.
   flake.modules.nixos.preservation =
-    { username, ... }:
     {
-      profiles.preservation.users.${username}.directories = [
-        ".config/TinyRDM"
-      ];
+      lib,
+      config,
+      options,
+      username,
+      ...
+    }:
+    let
+      hasHomeManager = options ? home-manager;
+      homePackages = config.home-manager.users.${username}.home.packages;
+      hasTinyRdm = lib.any (package: lib.getName package == "tiny-rdm") homePackages;
+    in
+    {
+      config = lib.mkIf (hasHomeManager && hasTinyRdm) {
+        profiles.preservation.users.${username}.directories = [
+          ".config/TinyRDM"
+        ];
+      };
     };
 }
