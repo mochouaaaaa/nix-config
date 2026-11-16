@@ -24,21 +24,6 @@
           default = "127.0.0.1:8338";
         };
 
-        proxyFallback = lib.mkOption {
-          type = lib.types.enum [
-            "direct"
-            "reject"
-          ];
-          default = "direct";
-          description = ''
-            How to handle proxy-capable DNS upstreams when Mihomo is disabled.
-            - direct: connect to those upstreams directly.
-            - reject: keep them routed through the configured Mihomo SOCKS endpoint.
-            If the proxy module is not imported, DNS remains independent and uses direct connections.
-            NextDNS is always direct and is not affected by this setting.
-          '';
-        };
-
         mihomoEnable = lib.mkOption {
           type = lib.types.bool;
           default = false;
