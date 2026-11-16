@@ -86,13 +86,15 @@
           zle -N kitty-yazi-widget
           bindkey '\e[57399;5u' kitty-yazi-widget
         '';
-      };
-      profiles.terminal.kitty = {
-        extraConfig = [
-          "map cmd+r send_text all \\x1b[57399;5u"
-          "map --when-focus-on var:IS_NVIM cmd+r"
-          "map --when-focus-on var:IS_TMUX cmd+r"
-        ];
+
+        kitty = {
+          extraConfig = ''
+            "map cmd+r send_text all \\x1b[57399;5u"
+            "map --when-focus-on var:IS_NVIM cmd+r"
+            "map --when-focus-on var:IS_TMUX cmd+r"
+          '';
+        };
+
       };
 
       xdg.configFile = config.profiles.dotfileLink "yazi";
