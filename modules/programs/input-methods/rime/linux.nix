@@ -110,4 +110,23 @@
         };
 
     };
+
+  # Fcitx5-Rime keeps user dictionaries and per-user data outside the Nix store.
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      config,
+      username,
+      ...
+    }:
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals
+          (
+            config.home-manager.users.${username}.i18n.inputMethod.enable
+            && config.home-manager.users.${username}.i18n.inputMethod.type == "fcitx5"
+          )
+          [ ".local/share/fcitx5/rime" ];
+    };
+
 }

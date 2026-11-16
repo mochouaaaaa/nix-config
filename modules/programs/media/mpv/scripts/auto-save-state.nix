@@ -81,4 +81,19 @@
     };
 
   };
+
+  # mpv 0.41 stores watch-later state under ~/.local/state/mpv by default.
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      config,
+      username,
+      ...
+    }:
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals config.home-manager.users.${username}.programs.mpv.enable
+          [ ".local/state/mpv" ];
+    };
+
 }
