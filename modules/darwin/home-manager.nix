@@ -34,6 +34,7 @@
           hostName
           class
           myvars
+          homeManagerNixpkgsInput
           ;
       };
     };
