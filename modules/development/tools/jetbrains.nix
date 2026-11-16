@@ -14,7 +14,7 @@
       ...
     }:
     let
-      homePackages = config.home-manager.users.${username}.home.packages or [ ];
+      homePackages = config.home-manager.users.${username}.home.packages;
       jetbra = inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.jetbra-free;
     in
     {
