@@ -1,8 +1,6 @@
 {
   flake.modules.homeManager."programs.git" =
     {
-      lib,
-      pkgs,
       config,
 
       username,

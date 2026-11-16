@@ -47,8 +47,9 @@ in
     in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (lib.elem tiny-rdm homePackages) [
-          ".config/TinyRDM"
-        ];
+        lib.optionals (lib.elem tiny-rdm homePackages)
+          [
+            ".config/TinyRDM"
+          ];
     };
 }
