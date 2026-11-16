@@ -4,7 +4,7 @@
   ...
 }:
 {
-
+  
   flake.modules.homeManager.agenix =
     {
       config,
@@ -37,12 +37,12 @@
             fittencode = {
               rekeyFile = ./fittencode.age;
               path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
-              mode = "644";
+              mode = "600";
             };
             gemini_env = {
               rekeyFile = ./gemini_env.age;
               path = "${config.home.homeDirectory}/.gemini/.env";
-              mode = "644";
+              mode = "600";
             };
             github_token = {
               rekeyFile = ./github_token.age;
@@ -70,6 +70,7 @@
         };
 
       };
+
     };
 
 }
