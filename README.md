@@ -10,9 +10,11 @@
   <a href="https://github.com/nix-community/home-manager">
     <img alt="Home Manager" src="https://img.shields.io/badge/Home%20Manager-enabled-6B8EAD?style=for-the-badge">
   </a>
+  <!--
   <a href="https://github.com/mochouaaaaa/nix-config/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/mochouaaaaa/nix-config?style=for-the-badge&logo=github">
   </a>
+  -->
 </p>
 
 这是我的个人 Nix 配置仓库，使用 **Nix Flakes、flake-parts、import-tree 和 Dendritic Pattern** 管理多台设备的系统与用户环境。
@@ -42,12 +44,12 @@ Host 目录名采用 `<username>@<hostname>` 格式，后缀只是主机名，�
 | 类别 | 组件 / 能力 |
 | --- | --- |
 | **System Configuration** | [NixOS](https://nixos.org/)、[nix-darwin](https://github.com/nix-darwin/nix-darwin)、[Home Manager](https://github.com/nix-community/home-manager) |
-| **Desktop / Compositor** | [Hyprland](https://hypr.land/)，并保留 Niri 桌面模块 |
-| **Desktop Shell** | [Noctalia](https://github.com/noctalia-dev/noctalia) |
+| **Desktop / Compositor** | [Hyprland](https://hypr.land/)，并保留 Niri、GNOME 与 KDE 桌面入口 |
+| **Desktop Shell & Greeter** | [Noctalia](https://github.com/noctalia-dev/noctalia) |
 | **Application Launcher** | [Vicinae](https://github.com/vicinaehq/vicinae) |
 | **Terminal** | [Kitty](https://github.com/kovidgoyal/kitty) |
 | **Input Method** | Rime |
-| **Development** | CLI 开发工具链、[Visual Studio Code](https://code.visualstudio.com/) |
+| **Development** | CLI 开发工具链、[Visual Studio Code](https://code.visualstudio.com/)、Neovim |
 | **Applications** | 浏览器、数据库客户端、音频、通信、邮件、媒体、笔记、远程连接与办公软件 |
 | **Secrets** | [agenix](https://github.com/ryantm/agenix) + [agenix-rekey](https://github.com/oddlama/agenix-rekey) |
 | **Persistence** | [preservation](https://github.com/nix-community/preservation) |
@@ -109,13 +111,13 @@ Darwin Host：
 │   ├── appearance/         # 字体与外观配置
 │   ├── core/               # 系统基础能力与 Home Manager profiles
 │   ├── darwin/             # macOS 专属配置
-│   ├── desktop/            # 桌面环境与桌面应用组件
+│   ├── desktop/            # 桌面环境、Shell、启动器与桌面组件
 │   ├── development/        # 开发语言与工具
-│   ├── flake/              # Flake checks、devShell 等
-│   ├── hardware/           # 硬件相关配置
-│   ├── programs/           # 应用与命令行程序
-│   ├── security/           # 安全相关配置
-│   └── services/           # 系统服务
+│   ├── flake/              # Flake outputs、checks 与 devShell
+│   ├── hardware/           # 音频、蓝牙、输入设备与硬件调优
+│   ├── programs/            # 用户应用与命令行程序
+│   ├── security/            # 密钥、权限与持久化
+│   └── services/            # 系统服务
 ├── pkgs/                   # 自定义包
 └── secrets/                # 加密秘密与 rekey 数据
 ```
