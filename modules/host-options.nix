@@ -62,7 +62,7 @@ let
     builtins.readDir hostsDir
   );
 
-  parseHost =
+  loadHostMetadata =
     name:
     let
       parts = lib.splitString "@" name;
@@ -84,7 +84,7 @@ let
         hostName = builtins.elemAt parts 1;
       };
 
-  hosts = lib.mapAttrs (name: _: parseHost name) hostDirectories;
+  hosts = lib.mapAttrs (name: _: loadHostMetadata name) hostDirectories;
 in
 {
   options.hosts = lib.mkOption {

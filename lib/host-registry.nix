@@ -13,7 +13,7 @@ let
     else
       throw "Host '${name}' references missing or invalid flake input '${toString inputName}'.";
 
-  parseHost =
+  resolveHost =
     name: metadata:
     let
       system = metadata.system;
@@ -86,7 +86,7 @@ let
       path = hostsDir + "/${name}";
     };
 
-  parsedHosts = lib.mapAttrs parseHost hosts;
+  parsedHosts = lib.mapAttrs resolveHost hosts;
 
   # Force only lightweight metadata and input-existence checks, not host configurations.
   checkedHosts = builtins.deepSeq (map (host: {
