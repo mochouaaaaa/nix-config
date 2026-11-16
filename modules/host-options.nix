@@ -8,12 +8,6 @@ let
 
   hostType = types.submodule {
     options = {
-      name = lib.mkOption {
-        type = types.str;
-        readOnly = true;
-        description = "Host directory name.";
-      };
-
       username = lib.mkOption {
         type = types.str;
         readOnly = true;
@@ -26,20 +20,15 @@ let
         description = "Hostname parsed from the Host directory name.";
       };
 
-      path = lib.mkOption {
-        type = types.path;
-        readOnly = true;
-        description = "Path to the Host configuration directory.";
-      };
-
       system = lib.mkOption {
         type = types.str;
         description = "Target system platform, such as x86_64-linux.";
       };
 
-      os = lib.mkOption {
+      "system-input" = lib.mkOption {
         type = types.nullOr types.str;
-        description = "Flake input providing the system constructor, or null for standalone Home Manager.";
+        default = null;
+        description = "Flake input providing the NixOS or nix-darwin system constructor.";
       };
 
       "home-manager" = lib.mkOption {
@@ -50,12 +39,12 @@ let
       "home-manager-nixpkgs" = lib.mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = "Optional Flake input providing nixpkgs for standalone Home Manager.";
+        description = "Flake input providing nixpkgs for standalone Home Manager.";
       };
 
       nixosWsl = lib.mkOption {
-        type = types.nullOr types.bool;
-        default = null;
+        type = types.bool;
+        default = false;
         description = "Whether this NixOS Host uses NixOS-WSL.";
       };
     };
@@ -72,23 +61,22 @@ let
     let
       parts = lib.splitString "@" name;
       validName = builtins.length parts == 2 && builtins.all (part: part != "") parts;
-      configPath = hostsDir + "/${name}/nixpkgs.json";
+      hostDir = hostsDir + "/${name}";
+      configPath = hostDir + "/nixpkgs.json";
 
-      parsed =
+      metadata =
         if !validName then
-          throw "Invalid host directory '${name}', expected <username>@<hostname>."
+          throw "Invalid Host directory '${name}', expected <username>@<hostname>."
         else
-          builtins.fromJSON (builtins.readFile configPath);
+          lib.importJSON configPath;
     in
-    if !builtins.isAttrs parsed then
+    if !builtins.isAttrs metadata then
       throw "${configPath} must contain a JSON object."
     else
-      parsed
+      metadata
       // {
-        inherit name;
         username = builtins.elemAt parts 0;
         hostName = builtins.elemAt parts 1;
-        path = hostsDir + "/${name}";
       };
 
   hosts = lib.mapAttrs (name: _: parseHost name) hostDirectories;

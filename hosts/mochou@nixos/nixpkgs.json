@@ -1,5 +1,5 @@
 {
   "system": "x86_64-linux",
-  "os": "nixpkgs",
+  "system-input": "nixpkgs",
   "home-manager": "home-manager"
 }
