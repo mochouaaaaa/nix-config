@@ -21,7 +21,9 @@ let
       nixosWsl = metadata.nixosWsl;
 
       class =
-        if nixosWsl then
+        if system == "" then
+          throw "Host '${name}' must specify a non-empty system."
+        else if nixosWsl then
           if osInput == null then
             throw "NixOS-WSL Host '${name}' must specify 'system-input'."
           else if !lib.hasSuffix "-linux" system then
