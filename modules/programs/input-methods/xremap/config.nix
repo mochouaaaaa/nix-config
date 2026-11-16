@@ -28,8 +28,8 @@
           enable = true;
           watch = true;
           # debug = true;
-          withWlroots = config.wayland.windowManager.hyprland.enable;
-          withNiri = config.wayland.windowManager.niri.enable;
+          withWlroots = false;
+          withNiri = false;
 
           withHypr = false;
           config = {
