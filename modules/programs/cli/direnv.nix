@@ -26,7 +26,7 @@
                 ];
             }
             EOF
-              ''${EDITOR:-nvim} default.nix
+              `${EDITOR:-nvim} default.nix
             fi
           '';
         })
@@ -40,15 +40,7 @@
               echo "use flake" > .envrc
               direnv allow
             fi
-            ''${EDITOR:-nvim} flake.nix
-          '';
-        })
-        (writeShellApplication {
-          name = "direnv-clean";
-          runtimeInputs = [ coreutils ];
-          text = ''
-            rm -rf -- .envrc .direnv default.nix flake.nix flake.lock
-            echo "All direnv-related files have been removed."
+            `${EDITOR:-nvim} flake.nix
           '';
         })
       ];
