@@ -71,6 +71,7 @@ let
         pkgs = import inputs.${host.homeManagerNixpkgsInput} {
           inherit (host) system;
           config.allowUnfree = true;
+          overlays = [ self.overlays.home-manager ];
         };
 
         extraSpecialArgs = hostArgs host;
