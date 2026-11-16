@@ -14,9 +14,11 @@ in
     {
       self,
       inputs,
+      lib,
       pkgs,
 
       username,
+      homeManagerNixpkgsInput,
       hostName,
       class,
       myvars,
@@ -26,10 +28,15 @@ in
       imports = [ self.modules.nixos.home-manager-backup ];
 
       home-manager = {
-        # Keep the package-set integration policy here. Host input selection
-        # remains the responsibility of hosts/<host>/nixpkgs.json.
-        useGlobalPkgs = true;
+        # An explicit Home Manager nixpkgs input selects a private package set.
+        # Otherwise, reuse the system package set.
+        useGlobalPkgs = homeManagerNixpkgsInput == null;
         useUserPackages = false;
+
+        sharedModules = lib.optional (homeManagerNixpkgsInput != null) {
+          _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
+          nixpkgs.config.allowUnfree = true;
+        };
 
         users.${username}.home = {
           inherit username;

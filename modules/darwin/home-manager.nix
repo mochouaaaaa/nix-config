@@ -2,8 +2,10 @@
   flake.modules.darwin.home-manager =
     {
       inputs,
+      lib,
       self,
       username,
+      homeManagerNixpkgsInput,
       hostName,
       class,
       myvars,
@@ -14,9 +16,15 @@
         self.modules.darwin.home-manager-backup
       ];
 
-      # Home Manager shares nix-darwin's package set.
-      home-manager.useGlobalPkgs = true;
+      # An explicit Home Manager nixpkgs input selects a private package set.
+      # Otherwise, reuse nix-darwin's package set.
+      home-manager.useGlobalPkgs = homeManagerNixpkgsInput == null;
       home-manager.useUserPackages = true;
+
+      home-manager.sharedModules = lib.optional (homeManagerNixpkgsInput != null) {
+        _module.args.pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
+        nixpkgs.config.allowUnfree = true;
+      };
 
       # Pass nix-darwin special arguments into Home Manager.
       home-manager.extraSpecialArgs = {

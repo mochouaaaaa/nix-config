@@ -54,18 +54,13 @@ let
       rawHomeManagerNixpkgs = metadata."home-manager-nixpkgs";
 
       homeManagerNixpkgsInput =
-        if class != "home" then
-          if rawHomeManagerNixpkgs != null then
-            throw "'home-manager-nixpkgs' is only valid for standalone Home Manager hosts ('${name}')."
+        if rawHomeManagerNixpkgs == null then
+          if class == "home" then
+            throw "Standalone Home Manager host '${name}' must specify 'home-manager-nixpkgs'."
           else
             null
         else
-          checkInput name (
-            if rawHomeManagerNixpkgs == null then
-              throw "Standalone Home Manager host '${name}' must specify 'home-manager-nixpkgs'."
-            else
-              rawHomeManagerNixpkgs
-          );
+          checkInput name rawHomeManagerNixpkgs;
 
       validatedOsInput = if osInput == null then null else checkInput name osInput;
     in

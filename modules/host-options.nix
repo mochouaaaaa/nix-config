@@ -39,7 +39,7 @@ let
       "home-manager-nixpkgs" = lib.mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = "Flake input providing nixpkgs for standalone Home Manager.";
+        description = "Optional Flake input providing an independent Home Manager package set; null inherits the system package set.";
       };
 
       "nixos-wsl-input" = lib.mkOption {

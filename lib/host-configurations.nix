@@ -18,6 +18,7 @@ let
       system
       osInput
       class
+      homeManagerNixpkgsInput
       ;
     inherit (config) myvars;
   };
