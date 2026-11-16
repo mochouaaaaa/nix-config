@@ -20,7 +20,7 @@
       ...
     }:
     let
-      homePackages = config.home-manager.users.${username}.home.packages or [ ];
+      homePackages = config.home-manager.users.${username}.home.packages;
     in
     {
       profiles.preservation.users.${username}.directories =
