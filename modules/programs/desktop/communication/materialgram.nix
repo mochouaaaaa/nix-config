@@ -18,10 +18,11 @@
     in
     {
       profiles.preservation.users.${username}.directories =
-        lib.optionals (lib.elem pkgs.materialgram homePackages) [
-          ".local/share/materialgram"
-          ".local/share/TelegramDesktop"
-        ];
+        lib.optionals (lib.elem pkgs.materialgram homePackages)
+          [
+            ".local/share/materialgram"
+            ".local/share/TelegramDesktop"
+          ];
     };
 
 }
