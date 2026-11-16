@@ -9,13 +9,12 @@
       cfg = config.profiles.shortcuts;
     in
     {
-
       imports = [
         inputs.xremap-flake.homeManagerModules.default
       ];
 
       options.profiles.shortcuts = {
-        global = lib.mkOption rec {
+        global = lib.mkOption {
           type = lib.types.listOf lib.types.attrs;
           default = [ ];
           description = "Global shortcuts.";
@@ -23,15 +22,14 @@
       };
 
       config = {
-
         services.xremap = {
           enable = true;
           watch = true;
-          # debug = true;
-          withWlroots = false;
-          withNiri = false;
-
+          # Select build features from the enabled Home Manager desktop modules.
+          withWlroots = config.wayland.windowManager.hyprland.enable;
+          withNiri = config.wayland.windowManager.niri.enable;
           withHypr = false;
+
           config = {
             modmap = [
               {
@@ -39,7 +37,7 @@
                 remap = {
                   "CapsLock" = "Esc";
                   "Esc" = "CapsLock";
-                }; # globally remap CapsLock to Esc
+                };
               }
             ];
             keymap =
@@ -81,30 +79,23 @@
                   };
                 }
               ]
-              ++ (lib.optionals ((lib.lists.length cfg.global) > 0)) [
+              ++ (lib.optionals ((lib.lists.length cfg.global) > 0) [
                 {
                   name = "Shortcuts";
                   exact_match = true;
                   remap = lib.mkMerge cfg.global;
                 }
-              ];
+              ]);
           };
         };
-
       };
-
     };
 
   flake.modules.homeManager."desktop.kde" = {
-    services.xremap = {
-      withKDE = true;
-    };
+    services.xremap.withKDE = true;
   };
 
   flake.modules.homeManager."desktop.gnome" = {
-    services.xremap = {
-      withGnome = true;
-    };
+    services.xremap.withGnome = true;
   };
-
 }
