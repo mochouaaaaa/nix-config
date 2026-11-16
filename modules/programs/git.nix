@@ -1,6 +1,8 @@
 {
   flake.modules.homeManager."programs.git" =
     {
+      lib,
+      pkgs,
       config,
 
       username,
@@ -82,6 +84,8 @@
             trim.bases = "develop,master,main";
             push.autoSetupRemote = true;
             pull.rebase = true;
+
+            gpg.ssh.allowedSignersFile = "${config.xdg.configHome}/git/allowed-signers";
 
             url = {
               "ssh://git@github.com/${myvars.githubUsername}" = {
