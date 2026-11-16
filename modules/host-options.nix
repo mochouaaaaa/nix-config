@@ -27,7 +27,7 @@ let
 
       "system-input" = lib.mkOption {
         type = types.nullOr types.str;
-        default = null;
+        default = "nixpkgs";
         description = "Flake input providing the NixOS or nix-darwin system constructor.";
       };
 

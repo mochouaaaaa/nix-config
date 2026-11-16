@@ -25,7 +25,7 @@ let
 
       allowedFields = [
         "system"
-        "os"
+        "system-input"
         "home-manager"
         "home-manager-nixpkgs"
         "nixosWsl"
@@ -44,14 +44,14 @@ let
           throw "'system' in ${configPath} must be a Linux or Darwin platform such as 'x86_64-linux'.";
 
       rawOs =
-        metadata.os or (throw "Missing 'os' in ${configPath}; use null for standalone Home Manager hosts.");
+        metadata."system-input" or "nixpkgs";
       osInput =
         if rawOs == null then
           null
         else if builtins.isString rawOs && rawOs != "" then
           rawOs
         else
-          throw "'os' in ${configPath} must be a flake input name or null.";
+          throw "'system-input' in ${configPath} must be a flake input name or null.";
 
       class =
         if osInput == null then
