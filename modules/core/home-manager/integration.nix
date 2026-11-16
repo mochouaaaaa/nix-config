@@ -50,7 +50,6 @@ in
             hostName
             class
             myvars
-            homeManagerNixpkgsInput
             ;
 
           pkgsStable = import inputs.nixpkgs-stable {
