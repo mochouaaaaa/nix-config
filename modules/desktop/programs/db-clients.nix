@@ -3,7 +3,6 @@
     {
       lib,
       pkgs,
-      config,
       ...
     }:
     let
@@ -19,44 +18,21 @@
             --set GDK_DPI_SCALE 1.5
         '';
       };
-
-      cfg = config.profiles.database-clients;
     in
     {
-      options.profiles.database-clients.enable = lib.mkEnableOption "desktop database clients";
-
-      config = lib.mkIf cfg.enable {
-        home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-          pkgs.dbeaver-bin
-          tiny-rdm
-        ];
-      };
+      home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+        pkgs.dbeaver-bin
+        tiny-rdm
+      ];
     };
 
-  # Persistence is an optional NixOS integration. Import the Home Manager
-  # module here so its custom option is declared even outside workstation.
+  # Keep application data persistent independently of the Home Manager
+  # module's import graph.
   flake.modules.nixos.preservation =
+    { username, ... }:
     {
-      lib,
-      config,
-      options,
-      self,
-      username,
-      ...
-    }:
-    let
-      hasHomeManager = options ? home-manager;
-    in
-    {
-      config = lib.mkIf hasHomeManager {
-        home-manager.users.${username}.imports = [
-          self.modules.homeManager."desktop.programs.database"
-        ];
-
-        profiles.preservation.users.${username}.directories =
-          lib.optionals config.home-manager.users.${username}.profiles.database-clients.enable [
-            ".config/TinyRDM"
-          ];
-      };
+      profiles.preservation.users.${username}.directories = [
+        ".config/TinyRDM"
+      ];
     };
 }
