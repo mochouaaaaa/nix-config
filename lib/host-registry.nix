@@ -76,7 +76,6 @@ let
       inherit
         name
         class
-        checkedSystem
         nixosWsl
         nixosWslModule
         nixosWslInputValidated
