@@ -15,6 +15,7 @@
       ];
 
       services.cliphist.enable = true;
+      services.xremap.withWlroots = true;
 
       programs = {
         swappy = {
