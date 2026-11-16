@@ -5,7 +5,7 @@
     <img alt="GitHub repository" src="https://img.shields.io/badge/Nix%20Flakes-Declarative%20Systems-7EBAE4?style=for-the-badge&logo=nixos&logoColor=white">
   </a>
   <a href="https://nixos.org/">
-    <img alt="NixOS" src="https://img.shields.io/badge/NixOS-26.05-5277C3?style=for-the-badge&logo=nixos&logoColor=white">
+    <img alt="NixOS" src="https://img.shields.io/badge/NixOS-Declarative-5277C3?style=for-the-badge&logo=nixos&logoColor=white">
   </a>
   <a href="https://github.com/nix-community/home-manager">
     <img alt="Home Manager" src="https://img.shields.io/badge/Home%20Manager-enabled-6B8EAD?style=for-the-badge">
