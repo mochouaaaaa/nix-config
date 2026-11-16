@@ -9,13 +9,11 @@
       ...
     }:
     {
-
       imports = [
         self.modules.homeManager."desktop.shell.noctalia"
       ];
 
       services.cliphist.enable = true;
-      services.xremap.withWlroots = true;
 
       programs = {
         swappy = {
@@ -82,6 +80,5 @@
           })
         '';
       };
-
     };
 }
