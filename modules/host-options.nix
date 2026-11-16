@@ -42,6 +42,12 @@ let
         description = "Flake input providing nixpkgs for standalone Home Manager.";
       };
 
+      "nixos-wsl-input" = lib.mkOption {
+        type = types.nullOr types.str;
+        default = "nixos-wsl";
+        description = "Flake input providing the NixOS-WSL module.";
+      };
+
       nixosWsl = lib.mkOption {
         type = types.bool;
         default = false;

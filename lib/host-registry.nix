@@ -17,42 +17,37 @@ let
     name: metadata:
     let
       system = metadata.system;
-      validSystem =
-        builtins.isString system
-        && builtins.match "[A-Za-z0-9_]+-(linux|darwin)" system != null;
-
-      checkedSystem =
-        if validSystem then
-          system
-        else
-          throw "Host '${name}' must specify a Linux or Darwin platform such as 'x86_64-linux'.";
-
       osInput = metadata."system-input";
+      nixosWsl = metadata.nixosWsl;
 
       class =
-        if osInput == null then
+        if nixosWsl then
+          if osInput == null then
+            throw "NixOS-WSL Host '${name}' must specify 'system-input'."
+          else if !lib.hasSuffix "-linux" system then
+            throw "NixOS-WSL Host '${name}' must target a Linux system."
+          else
+            "nixos"
+        else if osInput == null then
           "home"
-        else if lib.hasSuffix "-linux" checkedSystem then
-          "nixos"
-        else if lib.hasSuffix "-darwin" checkedSystem then
+        else if lib.hasSuffix "-darwin" system then
           "darwin"
         else
-          throw "Cannot infer host configuration type from system '${checkedSystem}'.";
+          "nixos";
 
       homeManagerInput = checkInput name metadata."home-manager-input";
 
-      nixosWsl =
-        if metadata.nixosWsl && class != "nixos" then
-          throw "Host '${name}' sets 'nixosWsl', which is only valid for NixOS hosts."
+      nixosWslInput =
+        if nixosWsl then
+          checkInput name metadata."nixos-wsl-input"
         else
-          metadata.nixosWsl;
+          null;
 
-      nixosWslInputValidated =
-        !nixosWsl
-        || builtins.hasAttr "nixos-wsl" inputs
-        || throw "Host '${name}' references missing flake input 'nixos-wsl'.";
-
-      nixosWslModule = if nixosWsl then inputs."nixos-wsl".nixosModules.default else null;
+      nixosWslModule =
+        if nixosWsl then
+          inputs.${nixosWslInput}.nixosModules.default
+        else
+          null;
 
       rawHomeManagerNixpkgs = metadata."home-manager-nixpkgs";
 
@@ -78,14 +73,13 @@ let
         class
         nixosWsl
         nixosWslModule
-        nixosWslInputValidated
         homeManagerNixpkgsInput
         ;
       inherit (metadata)
         username
         hostName
         ;
-      system = checkedSystem;
+      inherit system;
       osInput = validatedOsInput;
       inherit homeManagerInput;
       path = hostsDir + "/${name}";
@@ -99,7 +93,6 @@ let
       class
       system
       nixosWsl
-      nixosWslInputValidated
       osInput
       homeManagerInput
       homeManagerNixpkgsInput
