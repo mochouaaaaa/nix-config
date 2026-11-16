@@ -33,21 +33,14 @@
       };
     };
 
-  # NixOS-side toggle for hosts that expose the database-client role.
-  # The Home Manager module itself is imported by the workstation role.
-  flake.modules.nixos."desktop.programs.database" =
-    { username, ... }:
-    {
-      home-manager.users.${username}.profiles.database-clients.enable = true;
-    };
-
-  # Persistence is an optional integration, not a dependency of the
-  # database-client module itself.
+  # Persistence is an optional NixOS integration. Import the Home Manager
+  # module here so its custom option is declared even outside workstation.
   flake.modules.nixos.preservation =
     {
       lib,
       config,
       options,
+      self,
       username,
       ...
     }:
@@ -55,11 +48,15 @@
       hasHomeManager = options ? home-manager;
     in
     {
-      profiles.preservation.users.${username}.directories =
-        lib.optionals
-          (hasHomeManager && config.home-manager.users.${username}.profiles.database-clients.enable)
-          [
+      config = lib.mkIf hasHomeManager {
+        home-manager.users.${username}.imports = [
+          self.modules.homeManager."desktop.programs.database"
+        ];
+
+        profiles.preservation.users.${username}.directories =
+          lib.optionals config.home-manager.users.${username}.profiles.database-clients.enable [
             ".config/TinyRDM"
           ];
+      };
     };
 }
