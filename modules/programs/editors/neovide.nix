@@ -40,7 +40,7 @@
       };
     };
 
-  flake.modules.homeManager."desktop.common" = {
+  flake.modules.homeManager."desktop.user" = {
     programs.neovide = {
       settings = {
         wayland-app-id = "org.neovim.Neovide";
