@@ -6,11 +6,6 @@
   ...
 }:
 {
-
-  imports = [
-
-  ];
-
   networking.hostName = hostName;
   nixpkgs.hostPlatform = system;
 
@@ -24,20 +19,10 @@
 
   programs.nix-ld.enable = true;
 
-  home-manager = {
-    sharedModules = [
-      {
-        age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGZ/55qfEl93PzcMW3rGAAtClPYFloVkMpwvxVUr6Xyu";
-      }
-    ];
-  };
-
-  home-manager.users.${username} = {
-    imports = [
-      self.modules.homeManager.host
-      self.modules.homeManager.linux
-      self.modules.homeManager.wsl
-      self.modules.homeManager.servers
-    ];
-  };
+  home-manager.users.${username}.imports = [
+    self.modules.homeManager.host
+    self.modules.homeManager.linux
+    self.modules.homeManager.wsl
+    self.modules.homeManager.servers
+  ];
 }
