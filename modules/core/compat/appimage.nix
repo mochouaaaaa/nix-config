@@ -20,7 +20,7 @@
       };
     };
 
-  flake.modules.nixos."desktop.common" = {
+  flake.modules.nixos."desktop.base" = {
     imports = [
       self.modules.nixos.core-appimage
     ];
