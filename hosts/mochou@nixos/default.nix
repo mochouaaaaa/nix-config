@@ -47,13 +47,6 @@
     self.modules.homeManager."development.gui"
     self.modules.homeManager."agents.codex"
     self.modules.homeManager."agents.antigravity"
-    self.modules.homeManager."desktop.programs.audio"
-    self.modules.homeManager."desktop.programs.security"
-    self.modules.homeManager."desktop.programs.communication"
-    self.modules.homeManager."desktop.programs.email"
-    self.modules.homeManager."desktop.programs.media"
-    self.modules.homeManager."desktop.programs.notes"
-    self.modules.homeManager."desktop.programs.remote"
-    self.modules.homeManager."desktop.programs.office"
+    self.modules.homeManager."desktop.programs"
   ];
 }
