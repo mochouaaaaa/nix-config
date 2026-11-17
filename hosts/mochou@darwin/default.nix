@@ -12,20 +12,10 @@
 
   networking.hostName = hostName;
 
-  home-manager = {
-    sharedModules = [
-      {
-        age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJyTnhFwOTyrb2gMvEyV6I83L7Xrek8bnzcg2FW6UahY";
-      }
-    ];
-
-    users.${username} = {
-      imports = [
-        self.modules.homeManager.host
-        self.modules.homeManager.workstation
-        self.modules.homeManager.darwin
-        self.modules.homeManager."agents.codex"
-      ];
-    };
-  };
+  home-manager.users.${username}.imports = [
+    self.modules.homeManager.host
+    self.modules.homeManager.workstation
+    self.modules.homeManager.darwin
+    self.modules.homeManager."agents.codex"
+  ];
 }
