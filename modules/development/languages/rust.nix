@@ -1,8 +1,4 @@
 {
-  flake.modules.homeManager.development = { self, ... }: {
-    imports = [ self.modules.homeManager."development.rust" ];
-  };
-
   flake.modules.homeManager."development.rust" = { pkgs, config, ... }: {
     home.packages = [ pkgs.rustup ];
     home.sessionVariables = {
