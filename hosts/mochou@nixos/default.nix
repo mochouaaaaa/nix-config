@@ -40,30 +40,20 @@
     ignoreMsrs = true;
   };
 
-  home-manager = {
-    sharedModules = [
-      {
-        age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECNEOhSUgaHrFy8WYaHcFTTyeBDaS2bNXj/mE7RCkGo";
-      }
-    ];
-
-    users.${username} = {
-      imports = [
-        self.modules.homeManager.host
-        self.modules.homeManager.workstation
-        self.modules.homeManager.linux
-        self.modules.homeManager."development.gui"
-        self.modules.homeManager."agents.codex"
-        self.modules.homeManager."agents.antigravity"
-        self.modules.homeManager."desktop.programs.audio"
-        self.modules.homeManager."desktop.programs.security"
-        self.modules.homeManager."desktop.programs.communication"
-        self.modules.homeManager."desktop.programs.email"
-        self.modules.homeManager."desktop.programs.media"
-        self.modules.homeManager."desktop.programs.notes"
-        self.modules.homeManager."desktop.programs.remote"
-        self.modules.homeManager."desktop.programs.office"
-      ];
-    };
-  };
+  home-manager.users.${username}.imports = [
+    self.modules.homeManager.host
+    self.modules.homeManager.workstation
+    self.modules.homeManager.linux
+    self.modules.homeManager."development.gui"
+    self.modules.homeManager."agents.codex"
+    self.modules.homeManager."agents.antigravity"
+    self.modules.homeManager."desktop.programs.audio"
+    self.modules.homeManager."desktop.programs.security"
+    self.modules.homeManager."desktop.programs.communication"
+    self.modules.homeManager."desktop.programs.email"
+    self.modules.homeManager."desktop.programs.media"
+    self.modules.homeManager."desktop.programs.notes"
+    self.modules.homeManager."desktop.programs.remote"
+    self.modules.homeManager."desktop.programs.office"
+  ];
 }
