@@ -28,9 +28,7 @@
     self.modules.nixos."services.proxy"
     self.modules.nixos."programs.evolution"
     self.modules.nixos."services.ollama"
-    self.modules.nixos."services.mysql"
-    self.modules.nixos."services.redis"
-    self.modules.nixos."services.postgresql"
+    self.modules.nixos."services.databases"
   ];
 
   networking.hostName = hostName;
