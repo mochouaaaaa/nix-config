@@ -15,6 +15,8 @@
   home-manager.users.${username}.imports = [
     self.modules.homeManager.host
     self.modules.homeManager.workstation
+    self.modules.homeManager."desktop.programs.api-clients"
+    self.modules.homeManager."desktop.programs.browsers"
     self.modules.homeManager.darwin
     self.modules.homeManager."agents.codex"
   ];
