@@ -193,11 +193,11 @@ or an intentional reinstall, never for routine updates.
 
 #### Routine deployment and updates
 
-All remote deployments and updates use
-[deploy-rs](https://github.com/serokell/deploy-rs):
+All remote deployments and updates use the `deploy-rs` input locked by this
+Flake. Its upstream CLI is re-exported as the local `deploy-rs` app:
 
 ```bash
-nix run github:serokell/deploy-rs -- .#mochou@vm
+nix run .#deploy-rs -- .#mochou@vm
 ```
 
 The `deploy.nodes."mochou@vm"` definition in the Flake selects the NixOS
