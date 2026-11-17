@@ -35,17 +35,18 @@
       };
     in
     {
-      apps = lib.optionalAttrs (
-        builtins.elem system [
-          "x86_64-linux"
-          "aarch64-linux"
-          "aarch64-darwin"
-        ]
-      ) {
-        install-vm = {
-          type = "app";
-          program = "${installVm}/bin/install-vm";
-        };
-      };
+      apps =
+        lib.optionalAttrs
+          (builtins.elem system [
+            "x86_64-linux"
+            "aarch64-linux"
+            "aarch64-darwin"
+          ])
+          {
+            install-vm = {
+              type = "app";
+              program = "${installVm}/bin/install-vm";
+            };
+          };
     };
 }

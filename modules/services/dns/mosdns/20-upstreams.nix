@@ -144,12 +144,12 @@
                   {
                     addr = "https://dns.nextdns.io/\${DNS_ID}";
                     dial_addr = "\${DNS_V41}";
-                    # enable_http3 = true;
+                    enable_http3 = true;
                   }
                   {
                     addr = "https://dns.nextdns.io/\${DNS_ID}";
                     dial_addr = "\${DNS_V61}";
-                    # enable_http3 = true;
+                    enable_http3 = true;
                   }
                   {
                     addr = "tls://\${DNS_ID}.dns.nextdns.io";

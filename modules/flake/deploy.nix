@@ -13,6 +13,7 @@
 
     profiles.system = {
       user = "root";
+      activationTimeout = 1800;
       path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."mochou@vm";
     };
   };
@@ -20,8 +21,9 @@
   perSystem =
     { system, ... }:
     {
-      devShell.packages = lib.optional (builtins.hasAttr system inputs.deploy-rs.packages)
-        inputs.deploy-rs.packages.${system}.deploy-rs;
+      devShell.packages =
+        lib.optional (builtins.hasAttr system inputs.deploy-rs.packages)
+          inputs.deploy-rs.packages.${system}.deploy-rs;
 
       checks = lib.optionalAttrs (builtins.getEnv "NIX_CONFIG_CHECK" != "1") (
         inputs.deploy-rs.lib.${system}.deployChecks self.deploy
