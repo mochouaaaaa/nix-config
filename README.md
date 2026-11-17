@@ -184,6 +184,25 @@ another machine. The deployed host allows root SSH key authentication only;
 add your client public key to `users.users.mochou.openssh.authorizedKeys.keys`
 in `hosts/mochou@vm/default.nix` before deployment.
 
+#### Routine updates
+
+After the initial installation, deploy configuration changes without running Disko:
+
+```bash
+nix run .#deploy-vm
+```
+
+The app builds locally and switches the remote VM over SSH. It defaults to
+`root@192.168.122.246`; override the target when the VM's address changes:
+
+```bash
+DEPLOY_HOST=root@<VM_IP> nix run .#deploy-vm
+```
+
+This command does not repartition or format the VM disk. It requires the
+deployment SSH key to be authorized for root on the target.
+
+
 ### macOS (nix-darwin)
 
 默认 Darwin Host 为 `mochou@darwin`：
