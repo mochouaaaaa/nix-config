@@ -410,8 +410,8 @@ group_common:
     }
 
   group_common_auto: &group_common_auto {
-      # type: smart,
-      type: url-test,
+      type: smart,
+      # type: url-test,
       interval: 600,
       timeout: 3000,
       max-failed-times: 3,
@@ -423,7 +423,7 @@ group_common:
       exclude-type: "DIRECT",
       icon: "https://cdn.jsdmirror.com/gh/AIsouler/MyClash@main/Icons/svg/Auto.svg",
       hidden: true,
-      # uselightgbm: true
+      uselightgbm: true,
     }
 
   group_common_load:
