@@ -44,8 +44,4 @@
     # Add the SSH public key of the machine that will run nixos-anywhere.
   ];
 
-  users.users.${username}.extraGroups = [
-    "networkmanager"
-    "wheel"
-  ];
 }
