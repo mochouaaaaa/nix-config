@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.linux =
-    { config, ... }:
+    { lib, config, ... }:
     let
       cfg = config.profiles.terminal.kitty;
     in
@@ -16,10 +16,14 @@
 
       xdg = {
         configFile = {
-          "kitty/kitty.app.png".source = "${cfg.icon}/kitty-dark.png";
+          "kitty/kitty.app.png" = lib.mkIf cfg.enable {
+            source = "${cfg.icon}/kitty-dark.png";
+          };
         };
 
-        mimeApps.defaultApplicationPackages = [ config.programs.kitty.package ];
+        mimeApps.defaultApplicationPackages = lib.optionals cfg.enable [
+          config.programs.kitty.package
+        ];
       };
 
     };
