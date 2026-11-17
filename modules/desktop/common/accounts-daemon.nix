@@ -1,8 +1,5 @@
 {
-
-  flake.modules.nixos."desktop.common" = {
-
+  flake.modules.nixos."desktop.base" = {
     services.accounts-daemon.enable = true;
-
   };
 }
