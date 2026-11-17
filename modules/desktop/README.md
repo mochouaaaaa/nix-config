@@ -48,9 +48,8 @@ Optional graphical applications are selected independently from the desktop sess
 - `desktop.programs.notes`
 - `desktop.programs.remote`
 - `desktop.programs.office`
-- `desktop.programs.networking`
 
-The compatibility aggregate `desktop.programs`, implemented in `modules/programs/desktop/profiles.nix`, imports the application groups above. Hosts can instead import only the groups they need.
+The compatibility aggregate `desktop.programs`, implemented in `modules/programs/desktop/profiles.nix`, imports the Home Manager application groups listed above. Hosts can instead import only the groups they need. Networking integration is intentionally separate: `desktop.programs.networking` is registered only for NixOS and Darwin, so it must be imported through the matching system module class rather than Home Manager.
 
 Database clients are registered separately as `desktop.programs.database`; they are not included in the compatibility aggregate. The API client group currently includes Hoppscotch and, on non-Darwin systems, Cartero.
 
