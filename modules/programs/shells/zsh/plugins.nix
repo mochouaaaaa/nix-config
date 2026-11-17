@@ -31,9 +31,9 @@
             file = "share/fzf-tab/fzf-tab.plugin.zsh";
           }
           {
-            name = "fzf-history-search";
+            name = "zsh-fzf-history-search";
             src = pkgs.zsh-fzf-history-search;
-            file = "share/zsh-fzf-history-search/zsh-fzf-history-search.zsh";
+            file = "share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh";
           }
         ];
       };
