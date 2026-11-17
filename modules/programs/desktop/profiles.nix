@@ -11,7 +11,6 @@
       self.modules.homeManager."desktop.programs.notes"
       self.modules.homeManager."desktop.programs.remote"
       self.modules.homeManager."desktop.programs.office"
-      self.modules.homeManager."desktop.programs.networking"
     ];
   };
 }
