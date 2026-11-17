@@ -166,58 +166,45 @@ NH_HOST=mochou@wsl just nixos-switch
 
 ### Minimal VM deployment
 
-`mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio disk at
-`/dev/vda`, a 1 GiB EFI System Partition, a Btrfs data partition with persistent
-subvolumes for `/nix` and Preservation data, and a tmpfs root filesystem.
-Boot a NixOS installer in the VM, enable SSH in the installer environment,
-and make sure the installer accepts your deployment SSH key before running:
+`mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio
+disk at `/dev/vda`, a 1 GiB EFI System Partition, a Btrfs data partition with
+persistent subvolumes for `/nix` and Preservation data, and a tmpfs root
+filesystem.
 
-```bash
-nix run github:nix-community/nixos-anywhere -- \
-  --flake .#mochou@vm \
-  --target-host root@<VM_IP>
-```
+#### Initial installation
 
-**Warning:** Disko repartitions and formats the target VM disk. This command
-destroys existing data on `/dev/vda`. Do not point it at the Mac host or
-another machine. The deployed host allows root SSH key authentication only;
-add your client public key to `users.users.mochou.openssh.authorizedKeys.keys`
-in `hosts/mochou@vm/default.nix` before deployment.
-
-#### Routine updates
-
-For the initial installation (or an intentional reinstall), use the dedicated app:
+Boot a NixOS installer in the VM, enable SSH in the installer environment, and
+make sure the installer accepts your deployment SSH key. Then run:
 
 ```bash
 nix run .#install-vm
 ```
 
-It defaults to `root@192.168.122.246`; override the target when needed:
+The app defaults to `root@192.168.122.246`; override the target when needed:
 
 ```bash
 INSTALL_HOST=root@<VM_IP> nix run .#install-vm
 ```
 
-The app asks you to type the target host before proceeding because nixos-anywhere
-runs Disko and can destroy all data on the target disk. It is only for initial
-installation or intentional reinstall; do not run it for routine updates.
+**Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
+VM disk. This destroys existing data on `/dev/vda`. The installer asks you to
+type the target host before proceeding. Use it only for initial installation
+or an intentional reinstall, never for routine updates.
 
-After installation, deploy configuration changes without running Disko:
+#### Routine deployment and updates
 
-```bash
-nix run .#deploy-vm
-```
-
-The app builds locally and switches the remote VM over SSH. It defaults to
-`root@192.168.122.246`; override the target when the VM's address changes:
+All remote deployments and updates use
+[deploy-rs](https://github.com/serokell/deploy-rs):
 
 ```bash
-DEPLOY_HOST=root@<VM_IP> nix run .#deploy-vm
+nix run github:serokell/deploy-rs -- .#mochou@vm
 ```
 
-This command does not repartition or format the VM disk. It requires the
-deployment SSH key to be authorized for root on the target.
-
+The `deploy.nodes."mochou@vm"` definition in the Flake selects the NixOS
+configuration and connects as `root` to `192.168.122.246`. deploy-rs builds
+and transfers the system closure, then activates the `system` profile. Its
+automatic rollback and magic rollback safeguards remain enabled. Ensure the
+deployment SSH key is authorized for root on the target.
 
 ### macOS (nix-darwin)
 
