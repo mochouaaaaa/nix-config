@@ -28,6 +28,7 @@
     import-tree.url = "github:vic/import-tree";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    deploy-rs.url = "github:serokell/deploy-rs";
 
     agenix.url = "github:ryantm/agenix";
     agenix-rekey.url = "github:oddlama/agenix-rekey";

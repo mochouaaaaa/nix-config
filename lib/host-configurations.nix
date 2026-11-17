@@ -77,7 +77,6 @@ let
         extraSpecialArgs = hostArgs host;
 
         modules = [
-          self.modules.homeManager.nix-settings
           (inputs.import-tree host.path)
           { programs.home-manager.enable = true; }
         ];
