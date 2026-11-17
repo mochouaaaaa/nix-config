@@ -1,11 +1,4 @@
 {
-
-  flake.modules.homeManager.development = { self, ... }: {
-    imports = [
-      self.modules.homeManager."development.python"
-    ];
-  };
-
   # GUI development applications are enabled only by Linux desktop hosts.
   flake.modules.homeManager."development.gui" =
     {
