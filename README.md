@@ -193,11 +193,17 @@ or an intentional reinstall, never for routine updates.
 
 #### Routine deployment and updates
 
-All remote deployments and updates use the `deploy-rs` input locked by this
-Flake. Its upstream CLI is re-exported as the local `deploy-rs` app:
+The locked `deploy-rs` CLI is included in the repository's development shell.
+Enter it with `just dev`, then deploy:
 
 ```bash
-nix run .#deploy-rs -- .#mochou@vm
+deploy .#mochou@vm
+```
+
+You can also run the command without entering an interactive shell:
+
+```bash
+nix develop -c deploy .#mochou@vm
 ```
 
 The `deploy.nodes."mochou@vm"` definition in the Flake selects the NixOS
