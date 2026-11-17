@@ -32,6 +32,7 @@
 | Host | 平台 | 系统构建器 | 主要用途 |
 | --- | --- | --- | --- |
 | `mochou@nixos` | `x86_64-linux` | NixOS | 主力 Linux 桌面，Hyprland |
+| `mochou@vm` | `x86_64-linux` | NixOS | 最小化 UEFI 虚拟机，Disko + ext4 |
 | `mochou@wsl` | `x86_64-linux` | NixOS-WSL | Windows Subsystem for Linux |
 | `mochou@darwin` | `x86_64-darwin` | nix-darwin | macOS 用户与系统配置 |
 
@@ -162,6 +163,25 @@ just nixos-repl     # 打开 NixOS REPL
 NH_HOST=mochou@wsl just nixos-eval
 NH_HOST=mochou@wsl just nixos-switch
 ```
+
+### Minimal VM deployment
+
+`mochou@vm` is a small UEFI guest for QEMU/UTM. It uses a virtio disk at
+`/dev/vda`, a 1 GiB EFI System Partition, and an ext4 root filesystem.
+Boot a NixOS installer in the VM, enable SSH in the installer environment,
+and make sure the installer accepts your deployment SSH key before running:
+
+```bash
+nix run github:nix-community/nixos-anywhere -- \
+  --flake .#mochou@vm \
+  --target-host root@<VM_IP>
+```
+
+**Warning:** Disko repartitions and formats the target VM disk. This command
+destroys existing data on `/dev/vda`. Do not point it at the Mac host or
+another machine. The deployed host allows root SSH key authentication only;
+add your client public key to `users.users.mochou.openssh.authorizedKeys.keys`
+in `hosts/mochou@vm/default.nix` before deployment.
 
 ### macOS (nix-darwin)
 
