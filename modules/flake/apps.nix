@@ -13,7 +13,7 @@
     let
       deployVm = pkgs.writeShellApplication {
         name = "deploy-vm";
-        runtimeInputs = [ pkgs.nixos-rebuild ];
+        runtimeInputs = [ pkgs.nixos-rebuild-ng ];
         text = ''
           target_host="''${DEPLOY_HOST:-root@192.168.122.246}"
 
