@@ -66,7 +66,7 @@ modules/
 | 功能域 | 职责 | 示例 |
 | --- | --- | --- |
 | `core` | 系统基础设置、Nix、会话与 Home Manager 集成 | `core.nix`、`core.home-manager` |
-| `hardware` | 硬件能力与设备调优 | `hardware.audio`、`hardware.bluetooth` |
+| `hardware` | 硬件能力与设备调优 | `hardware.audio`、`hardware.bluetooth`、`hardware.desktop` |
 | `desktop` | 桌面会话、合成器与桌面公共组件 | `desktop.hyprland`、`desktop.common` |
 | `programs` | 用户应用和通用工具 | `programs.git`、`programs.cli.*` |
 | `agents` | Agent 工作流工具 | `agents.codex`、`agents.antigravity` |
@@ -76,8 +76,6 @@ modules/
 | `darwin` | macOS 专属系统配置 | Homebrew、系统 defaults |
 | `appearance` | 字体包、fontconfig 与字体选项 | `appearance` |
 
-边界判断以功能职责为准，而不是软件是否带 GUI：Git 属于 `programs.git`；Agent 集成单独放在 `agents`；桌面会话和合成器放在 `desktop`；桌面应用选择则由应用 profile 负责。
-
 ## 模块命名与组合
 
 - 源码路径用于分类和拆分实现；对外 aspect 名称统一采用小写 kebab-case。
@@ -86,7 +84,7 @@ modules/
 - 模块类使用标准名称 `nixos`、`darwin` 和 `homeManager`。
 - 不同模块类拥有不同选项系统；需要组合 NixOS 与 Home Manager 时，应在 NixOS 模块中只为目标用户添加对应 HM 模块，不要把 NixOS 选项写入 HM 模块。
 
-桌面入口可以负责导入自己的公共能力，并将匹配的 Home Manager 桌面模块注入 Host 主用户。与桌面无关的代理、数据库和开发服务应由 Host 或独立 profile 显式选择，避免切换桌面时产生意外副作用。
+聚合模块通过 `imports` 组合职责单一的模块；底层模块仍保留独立注册 ID，Host 可以直接导入细粒度模块，或选择聚合入口。例如，`hardware.desktop` 组合 `hardware.audio` 与 `hardware.bluetooth`，而两个基础模块仍可单独导入。桌面入口可以负责导入自己的公共能力，并将匹配的 Home Manager 桌面模块注入 Host 主用户。与桌面无关的代理、数据库和开发服务应由 Host 或独立 profile 显式选择，避免切换桌面时产生意外副作用。
 
 ## 外观职责
 
