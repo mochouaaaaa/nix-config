@@ -99,6 +99,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-anywhere = {
+      url = "github:nix-community/nixos-anywhere";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # flatpak
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixpak = {
