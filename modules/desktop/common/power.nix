@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."desktop.common" = {
+  flake.modules.nixos."desktop.base" = {
     services = {
       sysprof.enable = true;
       power-profiles-daemon.enable = true;
