@@ -36,6 +36,10 @@
   # key-only; the core users module mirrors the user's authorized keys to root.
   services.openssh.settings.PermitRootLogin = "prohibit-password";
 
+  users.users.${username}.openssh.authorizedKeys.keys = [
+    # Add the SSH public key of the machine that will run nixos-anywhere.
+  ];
+
   users.users.${username}.extraGroups = [
     "networkmanager"
     "wheel"
