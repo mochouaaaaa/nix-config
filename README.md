@@ -201,8 +201,8 @@ nix run github:serokell/deploy-rs -- .#mochou@vm
 ```
 
 The `deploy.nodes."mochou@vm"` definition in the Flake selects the NixOS
-configuration and connects as `root` to `192.168.122.246`. deploy-rs builds
-and transfers the system closure, then activates the `system` profile. Its
+configuration and connects as `root` to `192.168.122.246`. The system closure
+is built on the target VM and deploy-rs activates the `system` profile. Its
 automatic rollback and magic rollback safeguards remain enabled. Ensure the
 deployment SSH key is authorized for root on the target.
 
