@@ -1,5 +1,4 @@
 {
-
   flake.modules.nixos.preservation = { lib, config, ... }: {
     profiles.preservation.directories = lib.optionals config.virtualisation.libvirtd.enable [
       "/var/lib/libvirt"
@@ -9,9 +8,11 @@
   flake.modules.nixos."services.virtualisation.qemu" =
     {
       pkgs,
+      username,
       ...
     }:
     {
+      users.users.${username}.extraGroups = [ "libvirtd" ];
 
       environment.systemPackages = with pkgs; [
         virt-manager
