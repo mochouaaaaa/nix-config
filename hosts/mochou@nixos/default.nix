@@ -29,6 +29,8 @@
     self.modules.nixos."programs.evolution"
     self.modules.nixos."services.ollama"
     self.modules.nixos."services.databases"
+
+    self.modules.nixos."services.virtualisation.qemu"
   ];
 
   networking.hostName = hostName;
