@@ -56,7 +56,7 @@ in
     };
   };
 
-  flake.modules.homeManager."desktop.common" = { pkgs, ... }: {
+  flake.modules.homeManager."desktop.user" = { pkgs, ... }: {
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 }
