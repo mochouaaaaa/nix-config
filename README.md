@@ -186,7 +186,23 @@ in `hosts/mochou@vm/default.nix` before deployment.
 
 #### Routine updates
 
-After the initial installation, deploy configuration changes without running Disko:
+For the initial installation (or an intentional reinstall), use the dedicated app:
+
+```bash
+nix run .#install-vm
+```
+
+It defaults to `root@192.168.122.246`; override the target when needed:
+
+```bash
+INSTALL_HOST=root@<VM_IP> nix run .#install-vm
+```
+
+The app asks you to type the target host before proceeding because nixos-anywhere
+runs Disko and can destroy all data on the target disk. It is only for initial
+installation or intentional reinstall; do not run it for routine updates.
+
+After installation, deploy configuration changes without running Disko:
 
 ```bash
 nix run .#deploy-vm
