@@ -80,7 +80,13 @@
               requires = [ "mihomo-config.service" ];
               after = [ "mihomo-config.service" ];
 
-              serviceConfig.LoadCredential = lib.mkForce "config.yaml:/run/mihomo-config/config.yaml";
+              serviceConfig = {
+                LoadCredential = lib.mkForce "config.yaml:/run/mihomo-config/config.yaml";
+                RestrictAddressFamilies = [
+                  "AF_UNIX"
+                  "AF_NETLINK"
+                ];
+              };
             };
           }
 

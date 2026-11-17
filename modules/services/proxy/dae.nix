@@ -75,6 +75,17 @@
             pname(caddy) -> direct
             pname(kdeconnectd) -> direct
             pname(qbittorrent) -> direct
+            pname(cloudflared) -> direct
+
+            domain(suffix: cm.steampowered.com) -> direct
+            domain(suffix: steamserver.net) -> direct
+            domain(geosite: steam@cn) -> direct
+            domain(suffix: bing.com) -> direct
+
+            # 国内服务直连
+            domain(geosite: epicgames@cn) -> direct
+            domain(geosite: cloudflare@cn) -> direct
+            domain(geosite: microsoft@cn) -> direct
 
 
             # ==========================================
@@ -82,7 +93,10 @@
             # ==========================================
 
             # 私有地址及局域网直连
-            dip(geoip:private) -> direct
+            # dip(geoip:private) -> direct
+            dip(192.168.1.0/24) -> direct
+            dip(192.168.122.0/24) -> direct
+
 
             # 中国大陆 IP 直连
             dip(geoip:cn) -> direct
