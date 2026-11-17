@@ -15,7 +15,7 @@
         name = "deploy-vm";
         runtimeInputs = [ pkgs.nixos-rebuild ];
         text = ''
-          target_host="${DEPLOY_HOST:-root@192.168.122.246}"
+          target_host="''${DEPLOY_HOST:-root@192.168.122.246}"
 
           export NIXPKGS_ALLOW_UNFREE=1
           export NIXPKGS_ALLOW_INSECURE=1
