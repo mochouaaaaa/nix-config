@@ -41,7 +41,7 @@
   services.openssh.settings.PermitRootLogin = "prohibit-password";
 
   users.users.${username}.openssh.authorizedKeys.keys = [
-    # Add the SSH public key of the machine that will run nixos-anywhere.
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECNEOhSUgaHrFy8WYaHcFTTyeBDaS2bNXj/mE7RCkGo nn.mochou+github@gmail.com"
   ];
 
 }
