@@ -32,7 +32,7 @@
 | Host | 平台 | 系统构建器 | 主要用途 |
 | --- | --- | --- | --- |
 | `mochou@nixos` | `x86_64-linux` | NixOS | 主力 Linux 桌面，Hyprland |
-| `mochou@vm` | `x86_64-linux` | NixOS | 最小化 UEFI 虚拟机，Disko + ext4 |
+| `mochou@vm` | `x86_64-linux` | NixOS | 无状态 UEFI 虚拟机，Disko + Btrfs + Preservation |
 | `mochou@wsl` | `x86_64-linux` | NixOS-WSL | Windows Subsystem for Linux |
 | `mochou@darwin` | `x86_64-darwin` | nix-darwin | macOS 用户与系统配置 |
 
@@ -166,8 +166,9 @@ NH_HOST=mochou@wsl just nixos-switch
 
 ### Minimal VM deployment
 
-`mochou@vm` is a small UEFI guest for QEMU/UTM. It uses a virtio disk at
-`/dev/vda`, a 1 GiB EFI System Partition, and an ext4 root filesystem.
+`mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio disk at
+`/dev/vda`, a 1 GiB EFI System Partition, a Btrfs data partition with persistent
+subvolumes for `/nix` and Preservation data, and a tmpfs root filesystem.
 Boot a NixOS installer in the VM, enable SSH in the installer environment,
 and make sure the installer accepts your deployment SSH key before running:
 

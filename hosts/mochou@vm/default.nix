@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   username,
   hostName,
   system,
@@ -8,7 +9,10 @@
 {
   imports = [
     inputs.disko.nixosModules.disko
+    self.modules.nixos.preservation
   ];
+
+  profiles.preservation.enable = true;
 
   networking.hostName = hostName;
   networking.networkmanager.enable = true;
@@ -44,5 +48,4 @@
     "networkmanager"
     "wheel"
   ];
-
 }
