@@ -880,11 +880,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1793959066,
-        "narHash": "sha256-/rGYIH6Z22fzDnBnb00mfiKXRq5XoDjyBBAobTcsFOQ=",
+        "lastModified": 1794880135,
+        "narHash": "sha256-nU6lX3/VtOYNhybRkki4R6KEGIoWG0xEU3VvFkXbSUw=",
         "owner": "mochouaaaaa",
         "repo": "nur-packages",
-        "rev": "1dc23a625057eb8cf5a899ee2f36ebffc96d1832",
+        "rev": "7e2d58633a90ae6e39a422f674b64ea92cc6660a",
         "type": "github"
       },
       "original": {
