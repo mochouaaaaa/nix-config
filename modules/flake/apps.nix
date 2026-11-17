@@ -35,22 +35,17 @@
       };
     in
     {
-      apps =
-        (lib.optionalAttrs (
-          builtins.elem system [
-            "x86_64-linux"
-            "aarch64-linux"
-            "aarch64-darwin"
-          ]
-        ) {
-          install-vm = {
-            type = "app";
-            program = "${installVm}/bin/install-vm";
-          };
-        })
-        // (lib.optionalAttrs (builtins.hasAttr system inputs.deploy-rs.apps) {
-          # Re-export the app from the locked deploy-rs input.
-          deploy-rs = inputs.deploy-rs.apps.${system}.deploy-rs;
-        });
+      apps = lib.optionalAttrs (
+        builtins.elem system [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+        ]
+      ) {
+        install-vm = {
+          type = "app";
+          program = "${installVm}/bin/install-vm";
+        };
+      };
     };
 }
