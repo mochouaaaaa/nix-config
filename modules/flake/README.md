@@ -9,6 +9,7 @@
 | `systems.nix` | 声明支持的构建平台，并为 perSystem 输出选择对应的 nixpkgs package set。 |
 | `overlays.nix` | 导出通用、NixOS、Darwin 与 standalone Home Manager 使用的 overlays。 |
 | `packages.nix` | 定义 perSystem packages 输出；默认包目前为 `hello`。 |
+| `apps.nix` | 提供 x86_64-linux 下的 `deploy-vm` 远程 NixOS 部署入口。 |
 | `devshells.nix` | 定义可扩展的默认开发 Shell，以及基础开发工具。 |
 | `formatter.nix` | 集成 treefmt-nix 与 git-hooks-nix，配置 `nix fmt` 和提交前格式检查。 |
 | `checks.nix` | 定义 Flake checks，包括开发环境、格式检查与 Host 元数据 / 求值检查。 |
