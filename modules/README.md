@@ -58,6 +58,7 @@ modules/
 
 - [agents/](./agents/README.md)：Agent 工具集成与数据持久化。
 - [desktop/](./desktop/README.md)：桌面入口、公共能力与应用 profile 的组合方式。
+- [development/](./development/README.md)：开发语言原子模块、工具链聚合入口与 GUI IDE 选择。
 - [flake/](./flake/README.md)：Flake outputs、开发环境、格式化与 checks。
 - [programs/](./programs/README.md)：用户程序的目录边界与平台职责。
 
@@ -70,7 +71,7 @@ modules/
 | `desktop` | 桌面会话、合成器与可组合桌面能力 | `desktop.hyprland`、`desktop.base`、`desktop.hardware`、`desktop.common`、`homeManager.desktop.user` |
 | `programs` | 用户应用和通用工具 | `programs.git`、`programs.cli.*` |
 | `agents` | Agent 工作流工具 | `agents.codex`、`agents.antigravity` |
-| `development` | 语言运行时与开发工具链 | `development.languages.*` |
+| `development` | 语言运行时与开发工具链 | `development.go`、`development.node`、`development.python`、`development.rust`、`development.languages`、`development`、`development.gui` |
 | `services` | 系统级服务 | `services.proxy`、`services.mysql` |
 | `security` | 密钥、安全策略与持久化 | agenix、preservation |
 | `darwin` | macOS 专属系统配置 | Homebrew、系统 defaults |
