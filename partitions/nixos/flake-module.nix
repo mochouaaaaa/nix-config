@@ -24,5 +24,10 @@ let
   };
 in
 {
+
+  imports = [
+    inputs.home-manager.flakeModules.home-manager
+  ];
+
   flake.nixosConfigurations = configurations.nixosConfigurations;
 }

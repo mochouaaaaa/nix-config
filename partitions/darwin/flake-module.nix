@@ -24,5 +24,9 @@ let
   };
 in
 {
+  imports = [
+    inputs.home-manager-darwin.flakeModules.home-manager
+  ];
+
   flake.darwinConfigurations = configurations.darwinConfigurations;
 }

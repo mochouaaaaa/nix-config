@@ -31,11 +31,6 @@
     agenix.url = "github:ryantm/agenix";
     agenix-rekey.url = "github:oddlama/agenix-rekey";
 
-    # home-manager, used for managing user configuration
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     dotfiles = {
       url = "github:mochouaaaaa/dotfile/master";
       flake = false;
@@ -50,9 +45,6 @@
     };
 
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    # for macos
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
     nixos-anywhere = {
       url = "github:nix-community/nixos-anywhere";
@@ -76,7 +68,6 @@
       imports = [
         inputs.flake-parts.flakeModules.partitions
         inputs.flake-parts.flakeModules.modules
-        inputs.home-manager.flakeModules.home-manager
 
         (inputs.import-tree ./modules)
       ];
