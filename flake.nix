@@ -152,11 +152,27 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        inputs.flake-parts.flakeModules.partitions
         inputs.flake-parts.flakeModules.modules
         inputs.home-manager.flakeModules.home-manager
 
         (inputs.import-tree ./modules)
       ];
+
+      partitionedAttrs = {
+        nixosConfigurations = "nixos";
+        darwinConfigurations = "darwin";
+      };
+
+      partitions.nixos = {
+        extraInputsFlake = ./partitions/nixos;
+        module.imports = [ ./partitions/nixos/flake-module.nix ];
+      };
+
+      partitions.darwin = {
+        extraInputsFlake = ./partitions/darwin;
+        module.imports = [ ./partitions/darwin/flake-module.nix ];
+      };
 
     };
 
