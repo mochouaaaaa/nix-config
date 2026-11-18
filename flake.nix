@@ -64,7 +64,7 @@
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      { config, lib, ... }:
+      { config, ... }:
       {
         imports = [
           inputs.flake-parts.flakeModules.partitions
@@ -80,7 +80,10 @@
           let
             nixos = config.partitions.nixos.module.flake;
             darwin = config.partitions.darwin.module.flake;
-            merge = attr: lib.recursiveUpdate (nixos.${attr} or { }) (darwin.${attr} or { });
+
+            # Platform system sets are disjoint, so merge only at the system level.
+            # Recursive merging would descend into derivation attribute sets.
+            merge = attr: (nixos.${attr} or { }) // (darwin.${attr} or { });
           in
           {
             packages = merge "packages";
