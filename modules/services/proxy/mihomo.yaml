@@ -801,6 +801,7 @@ proxy-groups:
 rules:
   # Rule-set bootstrap
   - DOMAIN,cdn.jsdmirror.com,直连
+  - DOMAIN,cdn.jsdelivr.net,直连
 
   # Private networks first
   - RULE-SET,Lan,直连,no-resolve
