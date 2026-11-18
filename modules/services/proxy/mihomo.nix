@@ -13,8 +13,8 @@
     {
       config = lib.mkMerge [
         (lib.mkIf (options ? age) {
-          # profiles.services.proxy.mihomo.subscriptionEnvironmentFile =
-          #   lib.mkDefault config.age.secrets.subscription.path;
+          profiles.services.proxy.mihomo.subscriptionEnvironmentFile =
+            lib.mkDefault config.age.secrets.subscription.path;
         })
 
         # Keep the dependency one-way: DNS works without the proxy module,
