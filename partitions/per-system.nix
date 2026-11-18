@@ -41,7 +41,8 @@
         system != "x86_64-darwin"
         && builtins.hasAttr system inputs.deploy-rs.packages;
 
-      checkOnly = builtins.getEnv "NIX_CONFIG_CHECK" == "1";
+      # Keep ordinary flake inspection lightweight. Full host and deploy checks are opt-in.
+      checkOnly = builtins.getEnv "NIX_CONFIG_FULL_CHECK" != "1";
 
       # Validate only the lightweight host registry. Evaluating system toplevel
       # or Home Manager activation derivations would traverse host packages and
@@ -195,7 +196,7 @@
         }
         // lib.optionalAttrs (!checkOnly && builtins.attrNames hostsForSystem != [ ]) {
           # Evaluating drvPath checks module options and assertions without building
-          # the system closure. NIX_CONFIG_CHECK=1 keeps the metadata-only path fast.
+          # the system closure. NIX_CONFIG_FULL_CHECK=1 enables this expensive evaluation.
           host-toplevels = pkgs.writeText "host-toplevels.json" (builtins.toJSON hostToplevelDrvPaths);
         }
         // lib.optionalAttrs (!checkOnly && builtins.attrNames homeHostsForSystem != [ ]) {

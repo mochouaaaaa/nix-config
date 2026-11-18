@@ -89,7 +89,7 @@ check:
 
 [group('quality')]
 check-build:
-    {{NIX_ALLOW}} nix flake check "{{FLAKE}}" --impure --show-trace
+    NIX_CONFIG_FULL_CHECK=1 {{NIX_ALLOW}} nix flake check "{{FLAKE}}" --impure --show-trace
 
 [group('quality')]
 validate: fmt-check lint check

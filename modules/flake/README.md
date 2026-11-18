@@ -52,7 +52,7 @@ formatter 使用 treefmt-nix 管理 Nix 格式化和静态检查，并将 git-ho
 - `home-activations`：在完整检查模式下求值 standalone Home Manager activation derivation path。
 - `deploy`：在支持 deploy-rs 的系统上生成部署检查。
 
-设置 `NIX_CONFIG_CHECK=1` 时，检查只验证 Host 元数据，不触发完整系统 toplevel、standalone Home Manager activation 或 deploy checks 的求值。正常的 `nix flake check --no-build` 会执行更完整的 Host 求值，但仍不会实际构建系统闭包。
+默认检查（包括 `nix flake show` 和 `nix flake check --no-build`）只验证 Host 元数据，不触发完整系统 toplevel、standalone Home Manager activation 或 deploy checks 的求值。需要执行这些较重的检查时，显式设置 `NIX_CONFIG_FULL_CHECK=1`；它会求值 Host toplevel、standalone Home Manager activation 和 deploy-rs checks，但不会自动构建系统闭包。
 
 常用入口：
 
