@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   ...
 }:
 {
@@ -13,7 +14,7 @@
 
       checks =
         if deploySupported && builtins.getEnv "NIX_CONFIG_CHECK" != "1" then
-          inputs.deploy-rs.lib.${system}.deployChecks inputs.self.deploy
+          inputs.deploy-rs.lib.${system}.deployChecks self.deploy
         else
           { };
     };
