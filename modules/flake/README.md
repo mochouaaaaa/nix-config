@@ -84,6 +84,6 @@ The flake-parts partition module separates host configuration evaluation and pla
 - Root inputs remain for shared Flake infrastructure and cross-platform tooling. In particular, `nixpkgs-darwin` remains at the root because `perSystem` uses it to provide packages for Intel macOS; the Darwin partition also pins its own package set for host evaluation.
 - `deploy-rs` and `nixos-anywhere` remain shared so a Darwin workstation can still run deployment and installation tools for NixOS.
 
-The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock path:./partitions/nixos` and `nix flake lock path:./partitions/darwin` respectively.
+The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock ./partitions/nixos` and `nix flake lock ./partitions/darwin` respectively.
 
 The Host registry is input-independent and validates metadata. Each partition resolves only the inputs needed to instantiate its own Host configurations.
