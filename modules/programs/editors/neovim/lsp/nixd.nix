@@ -34,8 +34,11 @@ let
                 [${builtins.toJSON systemOptionName}] = {
                   expr = ${builtins.toJSON optionsExpr},
                 },
-                ["home-manager"] = {
+                home_manager = {
                   expr = ${builtins.toJSON homeManagerOptionsExpr},
+                },
+                flake_parts = {
+                  expr = string.format('let flake = %s; in flake.debug.options // flake.currentSystem.options', flake_expr)
                 },
               },
             },
@@ -56,7 +59,7 @@ in
 
   flake.modules.homeManager.darwin = mkNixdConfig {
     configuration = "darwinConfigurations";
-    systemOptionName = "nix-darwin";
+    systemOptionName = "darwin";
   };
 
   flake.modules.homeManager.linux = mkNixdConfig {
