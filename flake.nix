@@ -72,6 +72,22 @@
         (inputs.import-tree ./modules)
       ];
 
+      systems = [ ];
+
+      flake =
+        let
+          nixos = config.partitions.nixos.module.flake;
+          darwin = config.partitions.darwin.module.flake;
+          merge = attr: lib.recursiveUpdate (nixos.${attr} or { }) (darwin.${attr} or { });
+        in
+        {
+          packages = merge "packages";
+          apps = merge "apps";
+          checks = merge "checks";
+          devShells = merge "devShells";
+          formatter = merge "formatter";
+        };
+
       partitionedAttrs = {
         nixosConfigurations = "nixos";
         darwinConfigurations = "darwin";
@@ -87,6 +103,6 @@
         module.imports = [ ./partitions/darwin/flake-module.nix ];
       };
 
-    };
+    });
 
 }
