@@ -56,5 +56,5 @@
     };
   };
 
-  outputs = _: { };
+  outputs = inputs: { inherit inputs; };
 }
