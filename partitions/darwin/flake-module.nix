@@ -14,7 +14,13 @@ let
   };
 
   configurations = import ../../lib/host-configurations.nix {
-    inherit config inputs lib self registry;
+    inherit
+      config
+      inputs
+      lib
+      self
+      registry
+      ;
   };
 in
 {
