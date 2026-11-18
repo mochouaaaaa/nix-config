@@ -34,7 +34,7 @@ let
           self.modules.nixos.core
           self.modules.nixos."services.base"
         ]
-        ++ lib.optional host.nixosWsl host.nixosWslModule
+        ++ lib.optional host.nixosWsl inputs.${host.nixosWslInput}.nixosModules.default
         ++ [ (inputs.import-tree host.path) ];
       }
     ) registry.nixosHosts
