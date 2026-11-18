@@ -19,7 +19,7 @@
         name = "install-vm";
         runtimeInputs = [ inputs.nixos-anywhere.packages.${system}.nixos-anywhere ];
         text = ''
-          target_host="${INSTALL_HOST:-root@192.168.122.246}"
+          target_host="''${INSTALL_HOST:-root@192.168.122.246}"
 
           printf '\nWARNING: nixos-anywhere will repartition and format the target disk.\n'
           printf 'Target: %s\n' "$target_host"
@@ -210,3 +210,4 @@
         );
       };
     };
+}
