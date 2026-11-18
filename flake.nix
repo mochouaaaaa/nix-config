@@ -49,6 +49,8 @@
       url = "github:mochouaaaaa/nur-packages";
     };
 
+    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     # for macos
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
