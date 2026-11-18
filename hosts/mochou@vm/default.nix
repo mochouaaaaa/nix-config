@@ -12,7 +12,7 @@
     self.modules.nixos.preservation
     self.modules.nixos.agenix
     self.modules.nixos."services.dns"
-
+    self.modules.nixos."services.databases"
   ];
 
   profiles.preservation.enable = true;

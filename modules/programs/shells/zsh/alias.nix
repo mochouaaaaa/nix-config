@@ -48,21 +48,31 @@
             '';
           })
         ];
+
         shellAliases = {
           du = lib.getExe pkgs.dust;
           ".." = "cd ..";
-
-          desktop = "cd ${config.xdg.userDirs.desktop}";
-          downloads = "cd ${config.xdg.userDirs.download}";
-          documents = "cd ${config.xdg.userDirs.documents}";
-          videos = "cd ${config.xdg.userDirs.videos}";
-          music = "cd ${config.xdg.userDirs.music}";
-          pictures = "cd ${config.xdg.userDirs.pictures}";
-        }
-        // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
-          movies = "cd $HOME/Movies";
         };
       };
+      programs.zsh = {
+        siteFunctions = {
+          mkcd = ''
+            mkdir --parents "$1" && cd "$1"
+          '';
+        };
+        dirHashes = {
+          desktop = "${config.xdg.userDirs.desktop}";
+          downloads = "${config.xdg.userDirs.download}";
+          documents = "${config.xdg.userDirs.documents}";
+          videos = "${config.xdg.userDirs.videos}";
+          music = "${config.xdg.userDirs.music}";
+          pictures = "${config.xdg.userDirs.pictures}";
+        }
+        // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+          movies = "$HOME/Movies";
+        };
+      };
+
     };
 
 }
