@@ -1,8 +1,9 @@
-{ inputs, ... }: {
+{
   flake.modules.homeManager.appearance =
     {
       lib,
       pkgs,
+      inputs,
       config,
       ...
     }:
@@ -79,6 +80,7 @@
       lib,
       options,
       pkgs,
+      inputs,
       username,
       ...
     }:
@@ -115,7 +117,7 @@
       ];
     };
 
-  flake.modules.darwin.default = { pkgs, ... }: {
+  flake.modules.darwin.default = { inputs, pkgs, ... }: {
     fonts.packages = with pkgs; [
       inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
       maple-mono.CN

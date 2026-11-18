@@ -22,7 +22,6 @@
   inputs = {
     # Official NixOS package source, using nixos's unstable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
@@ -32,11 +31,6 @@
     agenix.url = "github:ryantm/agenix";
     agenix-rekey.url = "github:oddlama/agenix-rekey";
 
-    # home-manager, used for managing user configuration
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     dotfiles = {
       url = "github:mochouaaaaa/dotfile/master";
       flake = false;
@@ -50,45 +44,7 @@
       url = "github:mochouaaaaa/nur-packages";
     };
 
-    # for macos
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
-    home-manager-darwin = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
-    nix-darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-26.05";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
-
-    # for wsl
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # for linux
-    apple-emoji-font.url = "github:zhdsmy/apple-emoji";
-    # spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    # nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
-
-    # keymap replaced
-    xremap-flake.url = "github:xremap/nix-flake";
-
-    preservation = {
-      url = "github:nix-community/preservation";
-    };
-
-    # generate iso/qcow2/docker/... image from nixos configuration
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko = {
-      url = "github:nix-community/disko/348768c1b765fa1b781e72f46e133c6dad1af597";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     nixos-anywhere = {
       url = "github:nix-community/nixos-anywhere";
@@ -97,48 +53,6 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # flatpak
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-    nixpak = {
-      url = "github:nixpak/nixpak";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    vicinae-extensions = {
-      url = "github:vicinaehq/extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    hyprland.url = "github:hyprwm/Hyprland/v0.57.2";
-    hyprcapture = {
-      url = "github:gfhdhytghd/HyprCapture";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        # home-manager.follows = "home-manager";
-      };
-    };
-
-    # desktop components
-    dank-material-shell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.4";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # kde
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
     };
 
     mysecrets = {
@@ -152,11 +66,26 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        inputs.flake-parts.flakeModules.partitions
         inputs.flake-parts.flakeModules.modules
-        inputs.home-manager.flakeModules.home-manager
 
         (inputs.import-tree ./modules)
       ];
+
+      partitionedAttrs = {
+        nixosConfigurations = "nixos";
+        darwinConfigurations = "darwin";
+      };
+
+      partitions.nixos = {
+        extraInputsFlake = ./partitions/nixos;
+        module.imports = [ ./partitions/nixos/flake-module.nix ];
+      };
+
+      partitions.darwin = {
+        extraInputsFlake = ./partitions/darwin;
+        module.imports = [ ./partitions/darwin/flake-module.nix ];
+      };
 
     };
 

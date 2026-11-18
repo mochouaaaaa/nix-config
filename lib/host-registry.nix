@@ -1,17 +1,16 @@
 {
-  inputs,
   lib,
   hosts,
   hostsDir ? ../hosts,
 }:
 
 let
-  checkInput =
+  checkInputName =
     name: inputName:
-    if builtins.isString inputName && inputName != "" && builtins.hasAttr inputName inputs then
+    if builtins.isString inputName && inputName != "" then
       inputName
     else
-      throw "Host '${name}' references missing or invalid flake input '${toString inputName}'.";
+      throw "Host '${name}' references an invalid flake input '${toString inputName}'.";
 
   resolveHost =
     name: metadata:
@@ -37,11 +36,9 @@ let
         else
           "nixos";
 
-      homeManagerInput = checkInput name metadata."home-manager-input";
+      homeManagerInput = checkInputName name metadata."home-manager-input";
 
-      nixosWslInput = if nixosWsl then checkInput name metadata."nixos-wsl-input" else null;
-
-      nixosWslModule = if nixosWsl then inputs.${nixosWslInput}.nixosModules.default else null;
+      nixosWslInput = if nixosWsl then checkInputName name metadata."nixos-wsl-input" else null;
 
       rawHomeManagerNixpkgs = metadata."home-manager-nixpkgs";
 
@@ -52,9 +49,9 @@ let
           else
             null
         else
-          checkInput name rawHomeManagerNixpkgs;
+          checkInputName name rawHomeManagerNixpkgs;
 
-      validatedOsInput = if osInput == null then null else checkInput name osInput;
+      validatedOsInput = if osInput == null then null else checkInputName name osInput;
     in
     {
       inherit
@@ -62,7 +59,6 @@ let
         class
         nixosWsl
         nixosWslInput
-        nixosWslModule
         homeManagerNixpkgsInput
         ;
       inherit (metadata)
@@ -77,7 +73,8 @@ let
 
   parsedHosts = lib.mapAttrs resolveHost hosts;
 
-  # Force only lightweight metadata and input-existence checks, not host configurations.
+  # Registry metadata is input-independent; each platform partition validates
+  # and resolves only the inputs needed by the Hosts it constructs.
   checkedHosts = builtins.deepSeq (map (host: {
     inherit (host)
       class
@@ -106,9 +103,7 @@ let
   }) checkedHosts;
 in
 {
-  inherit
-    hostMetadata
-    ;
+  inherit hostMetadata;
   hosts = checkedHosts;
   nixosHosts = selectHosts "nixos";
   darwinHosts = selectHosts "darwin";

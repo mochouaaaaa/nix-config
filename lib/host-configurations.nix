@@ -10,6 +10,13 @@ let
   # Keep the fast metadata-only check independent from system evaluation.
   checkOnly = builtins.getEnv "NIX_CONFIG_CHECK" == "1";
 
+  requireInput =
+    host: inputName:
+    if builtins.hasAttr inputName inputs then
+      inputName
+    else
+      throw "Host '${host.name}' references missing flake input '${inputName}' in its platform partition.";
+
   hostArgs = host: {
     inherit inputs self;
     inherit (host)
@@ -26,15 +33,15 @@ let
   nixosConfigurations = lib.optionalAttrs (!checkOnly) (
     lib.mapAttrs (
       _name: host:
-      inputs.${host.osInput}.lib.nixosSystem {
+      inputs.${requireInput host host.osInput}.lib.nixosSystem {
         specialArgs = hostArgs host;
 
         modules = [
-          inputs.${host.homeManagerInput}.nixosModules.home-manager
+          inputs.${requireInput host host.homeManagerInput}.nixosModules.home-manager
           self.modules.nixos.core
           self.modules.nixos."services.base"
         ]
-        ++ lib.optional host.nixosWsl host.nixosWslModule
+        ++ lib.optional host.nixosWsl inputs.${requireInput host host.nixosWslInput}.nixosModules.default
         ++ [ (inputs.import-tree host.path) ];
       }
     ) registry.nixosHosts
@@ -43,14 +50,14 @@ let
   darwinConfigurations = lib.optionalAttrs (!checkOnly) (
     lib.mapAttrs (
       _name: host:
-      inputs.${host.osInput}.lib.darwinSystem {
+      inputs.${requireInput host host.osInput}.lib.darwinSystem {
         specialArgs = hostArgs host;
 
         modules = [
           (_: {
             nixpkgs.hostPlatform = host.system;
           })
-          inputs.${host.homeManagerInput}.darwinModules.home-manager
+          inputs.${requireInput host host.homeManagerInput}.darwinModules.home-manager
           self.modules.darwin.core
           self.modules.darwin.env
           self.modules.darwin."system.defaults"
@@ -67,8 +74,8 @@ let
   homeConfigurations = lib.optionalAttrs (!checkOnly) (
     lib.mapAttrs (
       _name: host:
-      inputs.${host.homeManagerInput}.lib.homeManagerConfiguration {
-        pkgs = import inputs.${host.homeManagerNixpkgsInput} {
+      inputs.${requireInput host host.homeManagerInput}.lib.homeManagerConfiguration {
+        pkgs = import inputs.${requireInput host host.homeManagerNixpkgsInput} {
           inherit (host) system;
           config.allowUnfree = true;
           overlays = [ self.overlays.home-manager ];
