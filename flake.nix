@@ -59,50 +59,51 @@
       url = "git+ssh://git@github.com/mochouaaaaa/secrets.git?shallow=1";
       flake = false;
     };
-
   };
 
   outputs =
     inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.flake-parts.flakeModules.partitions
-        inputs.flake-parts.flakeModules.modules
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { config, lib, ... }:
+      {
+        imports = [
+          inputs.flake-parts.flakeModules.partitions
+          inputs.flake-parts.flakeModules.modules
 
-        (inputs.import-tree ./modules)
-      ];
+          (inputs.import-tree ./modules)
+        ];
 
-      systems = [ ];
+        # Per-system outputs are evaluated independently in the platform partitions.
+        systems = [ ];
 
-      flake =
-        let
-          nixos = config.partitions.nixos.module.flake;
-          darwin = config.partitions.darwin.module.flake;
-          merge = attr: lib.recursiveUpdate (nixos.${attr} or { }) (darwin.${attr} or { });
-        in
-        {
-          packages = merge "packages";
-          apps = merge "apps";
-          checks = merge "checks";
-          devShells = merge "devShells";
-          formatter = merge "formatter";
+        flake =
+          let
+            nixos = config.partitions.nixos.module.flake;
+            darwin = config.partitions.darwin.module.flake;
+            merge = attr: lib.recursiveUpdate (nixos.${attr} or { }) (darwin.${attr} or { });
+          in
+          {
+            packages = merge "packages";
+            apps = merge "apps";
+            checks = merge "checks";
+            devShells = merge "devShells";
+            formatter = merge "formatter";
+          };
+
+        partitionedAttrs = {
+          nixosConfigurations = "nixos";
+          darwinConfigurations = "darwin";
         };
 
-      partitionedAttrs = {
-        nixosConfigurations = "nixos";
-        darwinConfigurations = "darwin";
-      };
+        partitions.nixos = {
+          extraInputsFlake = ./partitions/nixos;
+          module.imports = [ ./partitions/nixos/flake-module.nix ];
+        };
 
-      partitions.nixos = {
-        extraInputsFlake = ./partitions/nixos;
-        module.imports = [ ./partitions/nixos/flake-module.nix ];
-      };
-
-      partitions.darwin = {
-        extraInputsFlake = ./partitions/darwin;
-        module.imports = [ ./partitions/darwin/flake-module.nix ];
-      };
-
-    });
-
+        partitions.darwin = {
+          extraInputsFlake = ./partitions/darwin;
+          module.imports = [ ./partitions/darwin/flake-module.nix ];
+        };
+      }
+    );
 }
