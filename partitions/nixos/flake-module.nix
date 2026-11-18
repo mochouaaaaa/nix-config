@@ -27,6 +27,7 @@ in
 
   imports = [
     inputs.home-manager.flakeModules.home-manager
+    ./per-system.nix
   ];
 
   flake.nixosConfigurations = configurations.nixosConfigurations;
