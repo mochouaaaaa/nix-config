@@ -33,7 +33,6 @@
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     hyprland.url = "github:hyprwm/Hyprland/v0.57.2";
     hyprcapture = {
       url = "github:gfhdhytghd/HyprCapture";
