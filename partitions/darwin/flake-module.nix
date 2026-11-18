@@ -26,6 +26,7 @@ in
 {
   imports = [
     inputs.home-manager-darwin.flakeModules.home-manager
+    ./per-system.nix
   ];
 
   flake.darwinConfigurations = configurations.darwinConfigurations;
