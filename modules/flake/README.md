@@ -10,7 +10,8 @@
 | `overlays.nix` | 导出通用、NixOS、Darwin 与 standalone Home Manager 使用的 overlays。 |
 | `packages.nix` | 定义 perSystem packages 输出；默认包目前为 `hello`。 |
 | `apps.nix` | 提供 `install-vm` 初次安装入口。 |
-| `deploy.nix` | 声明 `deploy.nodes` 与 deploy-rs 部署检查，并将锁定的 deploy-rs CLI 加入默认 devShell。 |
+| `deploy.nix` | 声明根级 `deploy.nodes`。 |
+| `deploy-per-system.nix` | 为各平台定义 deploy-rs 检查与开发工具。 |
 | `devshells.nix` | 定义可扩展的默认开发 Shell，以及基础开发工具。 |
 | `formatter.nix` | 集成 treefmt-nix 与 git-hooks-nix，配置 `nix fmt` 和提交前格式检查。 |
 | `checks.nix` | 定义 Flake checks，包括开发环境、格式检查与 Host 元数据 / 求值检查。 |
@@ -39,7 +40,7 @@ NixOS partition 使用自己的 `nixpkgs`，Darwin partition 使用 `nixpkgs-dar
 
 ## Development shell 与 formatter
 
-默认 devShell 提供 `just`、`statix` 和 `deadnix`；部署模块还会将 Flake 锁定的 deploy-rs CLI 加入其中。devShell 通过可合并选项允许其他模块扩展：
+默认 devShell 提供 `just`、`statix` 和 `deadnix`；部署模块还会将 Flake 锁定的 deploy-rs CLI 加入默认开发环境。devShell 通过可合并选项允许其他模块扩展：
 
 - `devShell.packages`
 - `devShell.nativeBuildInputs`
@@ -65,7 +66,7 @@ NixOS partition 使用自己的 `nixpkgs`，Darwin partition 使用 `nixpkgs-dar
 ```bash
 just dev
 # 在开发环境中执行远程部署：
- deploy .#mochou@vm
+deploy .#mochou@vm
 just fmt
 just fmt-check
 just lint
@@ -84,6 +85,6 @@ The flake-parts partition module separates host configuration evaluation and pla
 - Root inputs remain for shared Flake infrastructure and cross-platform tooling. `nixpkgs-darwin` is isolated in the Darwin partition and is used by its `perSystem` package set.
 - `deploy-rs` and `nixos-anywhere` remain shared so a Darwin workstation can still run deployment and installation tools for NixOS.
 
-The root evaluation sets `systems = [ ]` and merges the public per-system outputs from both partition evaluations. The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock ./partitions/nixos` and `nix flake lock ./partitions/darwin` respectively.
+The root evaluation sets `systems = [ ]`. Each platform partition evaluates the shared per-system modules with its own system list and package set, then the root Flake merges the public `packages`, `apps`, `checks`, `devShells`, and `formatter` outputs. The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock ./partitions/nixos` and `nix flake lock ./partitions/darwin` respectively.
 
 The Host registry is input-independent and validates metadata. Each partition resolves only the inputs needed to instantiate its own Host configurations.
