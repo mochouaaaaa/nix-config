@@ -1,6 +1,6 @@
 # Flake 基础设施模块
 
-`modules/flake/` 存放 flake-parts 层面的全局配置与 `perSystem` 输出，不放 NixOS、Darwin 或 Home Manager 的具体系统选项。模块由 `import-tree` 自动导入，并共同组成 Flake 的开发、构建和检查接口。
+`modules/flake/` 只存放根级 Flake 配置与平台无关的全局定义，不再存放 perSystem 功能模块。平台相关的系统列表、package set 和公共 perSystem 功能分别由 partition 负责求值。
 
 ## 模块一览
 
@@ -8,24 +8,16 @@
 | --- | --- |
 | `systems.nix` | 禁用根级 perSystem 求值；平台系统列表与 package set 由各 partition 声明。 |
 | `overlays.nix` | 导出通用、NixOS、Darwin 与 standalone Home Manager 使用的 overlays。 |
-| `packages.nix` | 定义 perSystem packages 输出；默认包目前为 `hello`。 |
-| `apps.nix` | 提供 `install-vm` 初次安装入口。 |
 | `deploy.nix` | 声明根级 `deploy.nodes`。 |
-| `deploy-per-system.nix` | 为各平台定义 deploy-rs 检查与开发工具。 |
-| `devshells.nix` | 定义可扩展的默认开发 Shell，以及基础开发工具。 |
-| `formatter.nix` | 集成 treefmt-nix 与 git-hooks-nix，配置 `nix fmt` 和提交前格式检查。 |
-| `checks.nix` | 定义 Flake checks，包括开发环境、格式检查与 Host 元数据 / 求值检查。 |
 
 ## Systems 与 package sets
 
-根级 Flake 不再执行 `perSystem`。`partitions/nixos/per-system.nix` 和 `partitions/darwin/per-system.nix` 分别声明平台及 package set：
+根级 Flake 设置 `systems = [ ]`，不执行 perSystem 求值。平台系统列表和 package set 分别定义在：
 
-- `x86_64-linux`
-- `aarch64-linux`
-- `x86_64-darwin`
-- `aarch64-darwin`
+- `partitions/nixos/per-system.nix`：`x86_64-linux`、`aarch64-linux`，使用 partition 自己的 `nixpkgs`。
+- `partitions/darwin/per-system.nix`：`x86_64-darwin`、`aarch64-darwin`，使用 partition 自己的 `nixpkgs-darwin`。
 
-NixOS partition 使用自己的 `nixpkgs`，Darwin partition 使用 `nixpkgs-darwin`。两边分别生成 `packages`、`apps`、`checks`、`devShells` 和 `formatter`，根 Flake 再合并这些公开输出。此选择不改变各 Host 在 `hosts/*/nixpkgs.json` 中声明的系统构造器。
+两个平台都导入 `partitions/per-system.nix`。公共 packages、apps、devShell、formatter、checks 和 deploy-rs perSystem 定义直接集中在该文件中；Agenix-Rekey 的公共配置继续由 `modules/security/agenix/config.nix` 提供。每个 partition 使用自己的系统列表和 package set 独立求值，根 Flake 再合并公开输出。
 
 ## Overlays
 
@@ -40,7 +32,7 @@ NixOS partition 使用自己的 `nixpkgs`，Darwin partition 使用 `nixpkgs-dar
 
 ## Development shell 与 formatter
 
-默认 devShell 提供 `just`、`statix` 和 `deadnix`；部署模块还会将 Flake 锁定的 deploy-rs CLI 加入默认开发环境。devShell 通过可合并选项允许其他模块扩展：
+默认 devShell 提供 `just`、`statix` 和 `deadnix`，并集成 deploy-rs CLI、treefmt-nix 和 git-hooks-nix。devShell 通过可合并选项允许其他模块扩展：
 
 - `devShell.packages`
 - `devShell.nativeBuildInputs`
@@ -48,24 +40,24 @@ NixOS partition 使用自己的 `nixpkgs`，Darwin partition 使用 `nixpkgs-dar
 - `devShell.env`
 - `devShell.shellHook`
 
-`formatter.nix` 使用 treefmt-nix 管理 Nix 格式化和静态检查，并将 git-hooks-nix 的 pre-commit devShell 集成到默认开发环境。当前配置启用 nixfmt、deadnix 和 statix；格式化排除项包括锁文件、秘密目录和构建结果。
+formatter 使用 treefmt-nix 管理 Nix 格式化和静态检查，并将 git-hooks-nix 的 pre-commit devShell 集成到默认开发环境。当前配置启用 nixfmt、deadnix 和 statix；格式化排除项包括锁文件、秘密目录和构建结果。
 
 ## Checks
 
-`checks.nix` 为每个系统生成开发环境和 Host 检查：
+每个平台系统生成以下检查：
 
 - `devshell`：确保默认开发环境可构建。
 - `host-evaluations`：将 Host 注册表元数据序列化为检查输出。
 - `host-toplevels`：在完整检查模式下求值当前平台的 NixOS / Darwin toplevel derivation path。
 - `home-activations`：在完整检查模式下求值 standalone Home Manager activation derivation path。
+- `deploy`：在支持 deploy-rs 的系统上生成部署检查。
 
-设置 `NIX_CONFIG_CHECK=1` 时，检查只验证 Host 元数据，不触发完整系统 toplevel 或 standalone Home Manager activation 的求值。该模式用于轻量级验证；正常的 `nix flake check --no-build` 会执行更完整的 Host 求值，但仍不会实际构建系统闭包。
+设置 `NIX_CONFIG_CHECK=1` 时，检查只验证 Host 元数据，不触发完整系统 toplevel、standalone Home Manager activation 或 deploy checks 的求值。正常的 `nix flake check --no-build` 会执行更完整的 Host 求值，但仍不会实际构建系统闭包。
 
 常用入口：
 
 ```bash
 just dev
-# 在开发环境中执行远程部署：
 deploy .#mochou@vm
 just fmt
 just fmt-check
@@ -82,9 +74,9 @@ The flake-parts partition module separates host configuration evaluation and pla
 
 - `partitions/nixos` owns NixOS inputs and exports `nixosConfigurations`.
 - `partitions/darwin` owns nix-darwin and Darwin Home Manager inputs and exports `darwinConfigurations`.
-- Root inputs remain for shared Flake infrastructure and cross-platform tooling. `nixpkgs-darwin` is isolated in the Darwin partition and is used by its `perSystem` package set.
+- Root inputs remain for shared Flake infrastructure and cross-platform tooling. `nixpkgs-darwin` is isolated in the Darwin partition.
 - `deploy-rs` and `nixos-anywhere` remain shared so a Darwin workstation can still run deployment and installation tools for NixOS.
 
-The root evaluation sets `systems = [ ]`. Each platform partition evaluates the shared per-system modules with its own system list and package set, then the root Flake merges the public `packages`, `apps`, `checks`, `devShells`, and `formatter` outputs. The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock ./partitions/nixos` and `nix flake lock ./partitions/darwin` respectively.
+The root evaluation sets `systems = [ ]`. Both platform partitions import `partitions/per-system.nix`, which contains the shared packages, apps, development shell, formatter, checks and deploy-rs perSystem definitions. The shared Agenix-Rekey configuration is imported there as well. Each partition evaluates these definitions with its own system list and package set, then the root Flake merges the public `packages`, `apps`, `checks`, `devShells`, and `formatter` outputs. The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock ./partitions/nixos` and `nix flake lock ./partitions/darwin` respectively.
 
 The Host registry is input-independent and validates metadata. Each partition resolves only the inputs needed to instantiate its own Host configurations.
