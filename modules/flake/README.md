@@ -6,7 +6,7 @@
 
 | 文件 | 职责 |
 | --- | --- |
-| `systems.nix` | 声明支持的构建平台，并为 perSystem 输出选择对应的 nixpkgs package set。 |
+| `systems.nix` | 禁用根级 perSystem 求值；平台系统列表与 package set 由各 partition 声明。 |
 | `overlays.nix` | 导出通用、NixOS、Darwin 与 standalone Home Manager 使用的 overlays。 |
 | `packages.nix` | 定义 perSystem packages 输出；默认包目前为 `hello`。 |
 | `apps.nix` | 提供 `install-vm` 初次安装入口。 |
@@ -17,14 +17,14 @@
 
 ## Systems 与 package sets
 
-`systems.nix` 声明以下 perSystem 平台：
+根级 Flake 不再执行 `perSystem`。`partitions/nixos/per-system.nix` 和 `partitions/darwin/per-system.nix` 分别声明平台及 package set：
 
 - `x86_64-linux`
 - `aarch64-linux`
 - `x86_64-darwin`
 - `aarch64-darwin`
 
-perSystem 默认使用主 `nixpkgs` input；由于当前 unstable package set 不再支持 Intel macOS，`x86_64-darwin` 会改用专用的 `nixpkgs-darwin` input。此选择针对 Flake 的 perSystem 输出，不改变各 Host 在 `hosts/*/nixpkgs.json` 中声明的系统构造器。
+NixOS partition 使用自己的 `nixpkgs`，Darwin partition 使用 `nixpkgs-darwin`。两边分别生成 `packages`、`apps`、`checks`、`devShells` 和 `formatter`，根 Flake 再合并这些公开输出。此选择不改变各 Host 在 `hosts/*/nixpkgs.json` 中声明的系统构造器。
 
 ## Overlays
 
@@ -81,9 +81,9 @@ The flake-parts partition module separates host configuration evaluation and pla
 
 - `partitions/nixos` owns NixOS inputs and exports `nixosConfigurations`.
 - `partitions/darwin` owns nix-darwin and Darwin Home Manager inputs and exports `darwinConfigurations`.
-- Root inputs remain for shared Flake infrastructure and cross-platform tooling. In particular, `nixpkgs-darwin` remains at the root because `perSystem` uses it to provide packages for Intel macOS; the Darwin partition also pins its own package set for host evaluation.
+- Root inputs remain for shared Flake infrastructure and cross-platform tooling. `nixpkgs-darwin` is isolated in the Darwin partition and is used by its `perSystem` package set.
 - `deploy-rs` and `nixos-anywhere` remain shared so a Darwin workstation can still run deployment and installation tools for NixOS.
 
-The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock ./partitions/nixos` and `nix flake lock ./partitions/darwin` respectively.
+The root evaluation sets `systems = [ ]` and merges the public per-system outputs from both partition evaluations. The platform subflakes have independent lock graphs. After changing their inputs, refresh the locks from the repository root with `nix flake lock`; if Nix does not refresh a nested partition lock automatically, run `nix flake lock ./partitions/nixos` and `nix flake lock ./partitions/darwin` respectively.
 
 The Host registry is input-independent and validates metadata. Each partition resolves only the inputs needed to instantiate its own Host configurations.
