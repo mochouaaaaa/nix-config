@@ -76,7 +76,7 @@
             fi
           '';
           kitty = {
-            enable = true;
+            enable = cfg.enable;
             package = pkgs.kitty;
             font = {
               name = fontFamily;
@@ -98,7 +98,7 @@
         xdg.configFile = {
           "kitty/kitty.conf" = {
             force = true;
-            enable = true;
+            enable = cfg.enable;
           };
         }
         // config.profiles.dotfileLink "kitty";

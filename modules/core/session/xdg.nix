@@ -2,6 +2,7 @@
   flake.modules.homeManager.core = { config, ... }: {
     xdg = {
       enable = true;
+      localBinInPath = true;
       cacheHome = "${config.home.homeDirectory}/.cache";
       configHome = "${config.home.homeDirectory}/.config";
       dataHome = "${config.home.homeDirectory}/.local/share";

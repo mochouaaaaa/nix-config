@@ -30,11 +30,9 @@
           "${username}" = { };
           docker = { };
           keys = { };
-          wireshark = { };
           adbusers = { };
           dialout = { };
           plugdev = { };
-          uinput = { };
         };
       };
 
@@ -49,12 +47,7 @@
           "users"
           "networkmanager"
           "wheel"
-          "wireshark"
           "adbusers"
-          "libvirtd"
-          "input"
-          "uinput"
-          "video"
           "plugdev"
         ];
       };

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."desktop.common" = {
+  flake.modules.nixos."desktop.base" = {
     services.printing.enable = true;
 
     services.udev.extraRules = ''

@@ -1,5 +1,4 @@
 {
-
   flake.modules.nixos.preservation = { lib, config, ... }: {
     profiles.preservation.directories = lib.optionals config.virtualisation.libvirtd.enable [
       "/var/lib/libvirt"
@@ -9,13 +8,16 @@
   flake.modules.nixos."services.virtualisation.qemu" =
     {
       pkgs,
+      username,
       ...
     }:
     {
+      users.users.${username}.extraGroups = [ "libvirtd" ];
 
       environment.systemPackages = with pkgs; [
         virt-manager
         virt-viewer
+        libvirt
         swtpm
         # 如果需要跑非 x86_64 架构，才加 qemu；否则 qemu_kvm 已够
         # qemu

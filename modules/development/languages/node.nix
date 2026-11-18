@@ -1,9 +1,4 @@
 {
-  # Node.js is part of the shared development language toolchain.
-  flake.modules.homeManager.development = { self, ... }: {
-    imports = [ self.modules.homeManager."development.node" ];
-  };
-
   flake.modules.homeManager."development.node" =
     { pkgs, config, ... }:
     {

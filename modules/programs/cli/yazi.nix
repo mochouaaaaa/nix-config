@@ -89,9 +89,9 @@
 
         kitty = {
           extraConfig = ''
-            "map cmd+r send_text all \\x1b[57399;5u"
-            "map --when-focus-on var:IS_NVIM cmd+r"
-            "map --when-focus-on var:IS_TMUX cmd+r"
+            map cmd+r send_text all \x1b[57399;5u
+            map --when-focus-on var:IS_NVIM cmd+r
+            map --when-focus-on var:IS_TMUX cmd+r
           '';
         };
 

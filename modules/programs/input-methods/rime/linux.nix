@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.common" =
+  flake.modules.homeManager."desktop.user" =
     { pkgs, config, ... }:
     let
       rimeConfig = config.profiles.rime;

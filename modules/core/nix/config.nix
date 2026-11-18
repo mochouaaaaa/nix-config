@@ -1,14 +1,11 @@
 {
   inputs,
-  lib,
   ...
 }:
 let
 
   mkNixConfig = nixpkgsInput: pkgs: username: {
-    package = lib.mkDefault (
-      if (lib.hasAttr "lixPackageSets" pkgs) then pkgs.lixPackageSets.git.lix else pkgs.nix
-    );
+    package = pkgs.nix;
 
     nixPath = [ "nixpkgs=${nixpkgsInput}" ];
 
@@ -50,19 +47,21 @@ let
       use-xdg-base-directories = true;
       auto-optimise-store = true;
 
-      extra-deprecated-features = [
-        "or-as-identifier"
-        "broken-string-escape"
-        "broken-string-indentation"
+      accept-flake-config = true;
+      experimental-features = [
+        "flakes"
+        "nix-command"
+        "auto-allocate-uids"
+        "pipe-operators"
+        "ca-derivations"
+        "dynamic-derivations"
       ];
 
-      # Keep the flake's cache configuration in the system Nix config so
-      # evaluating this flake does not ask for approval on every invocation.
       extra-substituters = [
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
-        "https://mirrors.ustc.edu.cn/nix-channels/store?priority=11"
-        "https://cache.nixos.org?priority=20"
-        "https://nix-community.cachix.org?priority=21"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
       ];
 
       extra-trusted-public-keys = [
@@ -88,6 +87,7 @@ let
 
 in
 {
+
   flake.modules.nixos.core =
     {
       lib,
@@ -97,22 +97,28 @@ in
       ...
     }:
     {
-      nix =
-        lib.recursiveUpdate
-          (mkNixConfig (
-            if pkgs.stdenv.hostPlatform.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}
-          ) pkgs username)
-          {
-            optimise.dates = "weekly";
-            settings = {
-              experimental-features = lib.mkForce [
-                "flakes"
-                "nix-command"
-                "auto-allocate-uids"
-              ];
-            };
-          };
+      nix = lib.recursiveUpdate (mkNixConfig inputs.${osInput} pkgs username) {
+        optimise.dates = "weekly";
+      };
     };
+
+  flake.modules.common.lix = { lib, pkgs, ... }: {
+    nix = {
+      package = lib.mkForce pkgs.lixPackageSets.git.lix;
+      settings = {
+        extra-deprecated-features = [
+          "or-as-identifier"
+          "broken-string-escape"
+          "broken-string-indentation"
+        ];
+        experimental-features = lib.mkForce [
+          "flakes"
+          "nix-command"
+          "auto-allocate-uids"
+        ];
+      };
+    };
+  };
 
   flake.modules.darwin.core =
     {
@@ -123,23 +129,13 @@ in
       ...
     }:
     {
-      nix =
-        lib.recursiveUpdate
-          (mkNixConfig (
-            if pkgs.stdenv.hostPlatform.isDarwin then inputs.${osInput}.inputs.nixpkgs else inputs.${osInput}
-          ) pkgs username)
-          {
-            settings = {
-              sandbox = "relaxed";
-              experimental-features = lib.mkForce [
-                "flakes"
-                "nix-command"
-                "auto-allocate-uids"
-              ];
-            }
-            // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
-              extra-platforms = "x86_64-darwin";
-            };
-          };
+      nix = lib.recursiveUpdate (mkNixConfig inputs.${osInput} pkgs username) {
+        settings = {
+          sandbox = "relaxed";
+        }
+        // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
+          extra-platforms = "x86_64-darwin";
+        };
+      };
     };
 }

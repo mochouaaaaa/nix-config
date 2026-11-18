@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."desktop.common" = { pkgs, ... }: {
+  flake.modules.nixos."desktop.base" = { pkgs, ... }: {
     services.xserver = {
       enable = true;
       excludePackages = with pkgs; [

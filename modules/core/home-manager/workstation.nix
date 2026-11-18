@@ -8,8 +8,6 @@
       self.modules.homeManager.development
       self.modules.homeManager."programs.vscode"
       self.modules.homeManager."programs.kitty"
-      self.modules.homeManager."desktop.programs.api-clients"
-      self.modules.homeManager."desktop.programs.browsers"
       self.modules.homeManager."desktop.programs.database"
     ];
   };

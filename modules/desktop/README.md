@@ -17,17 +17,22 @@ Hyprland and Niri also import the Noctalia Greeter component. GNOME uses GDM, wh
 
 ## Shared components
 
-| Module ID | Responsibility |
-| --- | --- |
-| `desktop.common` | Shared system and user desktop foundations; imports appearance, hardware audio/Bluetooth, desktop security, Rime, shortcuts and the Vicinae launcher as appropriate to each module class. |
-| `desktop.greeter.noctalia` | Noctalia Greeter integration used by Hyprland and Niri. |
-| `desktop.shell.noctalia` | Noctalia desktop shell configuration, split into focused component modules. |
-| `desktop.launcher.vicinae` | Vicinae launcher configuration and keymap. |
-| `desktop.flatpak` | Explicit per-user Flatpak client integration and NixOS-to-Home-Manager composition. |
+| Module ID | Module class | Responsibility |
+| --- | --- | --- |
+| `desktop.common` | NixOS + Home Manager | Compatibility aggregate; combines `desktop.base`, `desktop.hardware` and `homeManager.desktop.user` for existing desktop entries. |
+| `desktop.base` | NixOS | General desktop system foundations: appearance, desktop security, geolocation, UWSM, XDG portal, printing, power services, X server defaults, graphics integration, and related compatibility settings. |
+| `desktop.hardware` | NixOS | General hardware configuration plus the `hardware.desktop` bundle (audio and Bluetooth). |
+| `homeManager.desktop.user` | Home Manager | User desktop settings: Rime, appearance, shortcuts, Vicinae, cursor, XDG user directories and portal defaults, MPRIS, and Neovide Wayland integration. |
+| `desktop.greeter.noctalia` | NixOS | Noctalia Greeter integration used by Hyprland and Niri. |
+| `desktop.shell.noctalia` | Home Manager | Noctalia desktop shell configuration, split into focused component modules. |
+| `desktop.launcher.vicinae` | Home Manager | Vicinae launcher configuration and keymap. |
+| `desktop.flatpak` | NixOS + Home Manager | Explicit per-user Flatpak client integration and NixOS-to-Home-Manager composition. |
+
+For a normal desktop Host, keep importing `desktop.common`. A Host that needs a narrower composition can import `desktop.base` and/or `desktop.hardware` independently, and add `homeManager.desktop.user` to the intended Home Manager user's imports when user-level desktop settings are wanted. The atomic modules remain independently available; the compatibility aggregate does not replace them.
 
 The Noctalia shell and greeter are separate components. The desktop entry selects the greeter where required; the shell is independently composed by the relevant Home Manager setup.
 
-Hardware features such as audio and Bluetooth are imported by `desktop.common`. Host-specific services such as proxy, databases and other server workloads do not belong in `desktop.common`; import them from the Host or a dedicated role instead. KVM tuning remains opt-in through the hardware profile.
+Host-specific services such as proxy, databases and other server workloads do not belong in the desktop foundations; import them from the Host or a dedicated role instead. KVM tuning remains opt-in through the hardware profile.
 
 ## Desktop application profiles
 
@@ -43,9 +48,8 @@ Optional graphical applications are selected independently from the desktop sess
 - `desktop.programs.notes`
 - `desktop.programs.remote`
 - `desktop.programs.office`
-- `desktop.programs.networking`
 
-The compatibility aggregate `desktop.programs`, implemented in `modules/programs/desktop/profiles.nix`, imports the application groups above. Hosts can instead import only the groups they need.
+The compatibility aggregate `desktop.programs`, implemented in `modules/programs/desktop/profiles.nix`, imports the Home Manager application groups listed above. Hosts can instead import only the groups they need. Networking integration is intentionally separate: `desktop.programs.networking` is registered only for NixOS and Darwin, so it must be imported through the matching system module class rather than Home Manager.
 
 Database clients are registered separately as `desktop.programs.database`; they are not included in the compatibility aggregate. The API client group currently includes Hoppscotch and, on non-Darwin systems, Cartero.
 

@@ -4,12 +4,12 @@
     homebrew.casks = [ "wireshark-app" ];
   };
 
-  # On NixOS, use the system module so packet-capture capabilities and group
-  # permissions are configured by NixOS.
+  # Keep packet-capture permissions with the optional Wireshark feature.
   flake.modules.nixos."desktop.programs.networking" =
     { username, ... }:
     {
       programs.wireshark.enable = true;
+      users.groups.wireshark = { };
       users.users.${username}.extraGroups = [ "wireshark" ];
     };
 }

@@ -34,7 +34,7 @@
 | `mochou@nixos` | `x86_64-linux` | NixOS | 主力 Linux 桌面，Hyprland |
 | `mochou@vm` | `x86_64-linux` | NixOS | 无状态 UEFI 虚拟机，Disko + Btrfs + Preservation |
 | `mochou@wsl` | `x86_64-linux` | NixOS-WSL | Windows Subsystem for Linux |
-| `mochou@darwin` | `x86_64-darwin` | nix-darwin | macOS 用户与系统配置 |
+| `mochou@darwin` | `x86_64-darwin` | nix-darwin | macOS 用户与系统环境 |
 
 Host 目录名采用 `<username>@<hostname>` 格式，后缀只是主机名，不代表操作系统类型。主机清单及对应元数据位于 [hosts/](./hosts/)。
 
@@ -166,23 +166,54 @@ NH_HOST=mochou@wsl just nixos-switch
 
 ### Minimal VM deployment
 
-`mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio disk at
-`/dev/vda`, a 1 GiB EFI System Partition, a Btrfs data partition with persistent
-subvolumes for `/nix` and Preservation data, and a tmpfs root filesystem.
-Boot a NixOS installer in the VM, enable SSH in the installer environment,
-and make sure the installer accepts your deployment SSH key before running:
+`mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio
+disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB swap, a Btrfs data
+partition with persistent subvolumes for `/nix` and Preservation data, and a
+tmpfs root filesystem.
+
+#### Initial installation
+
+See [docs/installation.md](./docs/installation.md) for the full installation
+procedure, including SSH preparation, destructive-disk confirmation, and
+using a locally downloaded kexec image when the target cannot access GitHub.
+
+The short form is:
 
 ```bash
-nix run github:nix-community/nixos-anywhere -- \
-  --flake .#mochou@vm \
-  --target-host root@<VM_IP>
+nix run .#install-vm
 ```
 
-**Warning:** Disko repartitions and formats the target VM disk. This command
-destroys existing data on `/dev/vda`. Do not point it at the Mac host or
-another machine. The deployed host allows root SSH key authentication only;
-add your client public key to `users.users.mochou.openssh.authorizedKeys.keys`
-in `hosts/mochou@vm/default.nix` before deployment.
+The app defaults to `root@192.168.122.246`; override the target when needed:
+
+```bash
+INSTALL_HOST=root@<VM_IP> nix run .#install-vm
+```
+
+**Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
+VM disk. This destroys existing data on `/dev/vda`. The installer asks you to
+type the target host before proceeding. Use it only for initial installation
+or an intentional reinstall, never for routine updates.
+
+#### Routine deployment and updates
+
+The locked `deploy-rs` CLI is included in the repository's development shell.
+Enter it with `just dev`, then deploy the intended node/profile:
+
+```bash
+deploy '<node-selector>'
+```
+
+You can also run the command without entering an interactive shell:
+
+```bash
+nix develop -c deploy '<node-selector>'
+```
+
+The `deploy.nodes."mochou@vm"` definition in the Flake connects as `root`.
+The system closure is built on the deployment side and copied to the target
+over SSH before the `system` profile is activated. The target does not need
+Internet access to fetch Nix build dependencies, but it must be reachable over
+SSH. Ensure the deployment SSH key is authorized for root on the target.
 
 ### macOS (nix-darwin)
 

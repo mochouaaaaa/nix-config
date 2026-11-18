@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."desktop.common" =
+  flake.modules.nixos."desktop.base" =
     { lib, config, ... }:
     {
       config = lib.mkIf (config ? home-manager && config.home-manager.useUserPackages) {

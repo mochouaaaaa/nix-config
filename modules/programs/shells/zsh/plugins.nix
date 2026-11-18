@@ -25,11 +25,6 @@
             src = pkgs.zsh-fast-syntax-highlighting;
             file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
           }
-          {
-            name = "zsh-fzf-tab";
-            src = pkgs.zsh-fzf-tab;
-            file = "share/fzf-tab/fzf-tab.plugin.zsh";
-          }
         ];
       };
 
