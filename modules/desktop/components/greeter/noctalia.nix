@@ -12,6 +12,14 @@
     ];
   };
 
+  flake.modules.nixos."desktop.umbriel" =
+    { self, ... }:
+    {
+      imports = [
+        self.modules.nixos."desktop.greeter.noctalia"
+      ];
+    };
+
   flake.modules.nixos."desktop.greeter.noctalia" =
     {
       lib,
