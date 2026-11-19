@@ -91,6 +91,10 @@
       };
     };
 
+  flake.modules.homeManager."desktop.umbriel" = { lib, ... }: {
+    services.xremap.withWlroots = lib.mkForce true;
+  };
+
   flake.modules.homeManager."desktop.kde" = {
     services.xremap.withKDE = true;
   };
