@@ -20,7 +20,7 @@
           window-rule._children = [
             {
               match._props = {
-                app-id = "^(mpv|imv|org.gnome.Nautilus|org.gnome.Loupe|org.gnome.FileRoller|nm-connection-editor)$";
+                app-id = "^(mpv|imv|org.gnome.Nautilus|org.remmina.Remmina|wemeetapp|.virt-manager-wrapped|org.gnome.Loupe|org.gnome.FileRoller|nm-connection-editor)$";
               };
             }
             {
@@ -42,7 +42,33 @@
               };
             }
             {
+              match._props = {
+                app-id = "io.github.kukuruzka165.materialgram";
+                title = "媒体查看器";
+              };
+            }
+            {
               open-floating = true;
+            }
+          ];
+        }
+
+        {
+          window-rule._children = [
+            {
+              match._props = {
+                app-id = "firefox";
+                title = "我的足迹";
+              };
+            }
+            {
+              open-floating = true;
+              default-column-width = {
+                fixed = 1180;
+              };
+              default-window-height = {
+                fixed = 730;
+              };
             }
           ];
         }

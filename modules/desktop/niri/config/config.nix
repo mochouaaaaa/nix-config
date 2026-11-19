@@ -62,7 +62,7 @@
             keyboard = {
               xkb.layout = "us";
               repeat-delay = 200;
-              repeat-rate = 40;
+              repeat-rate = 50;
             };
 
             touchpad = {

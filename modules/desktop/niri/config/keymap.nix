@@ -32,6 +32,9 @@
         "Ctrl+Alt+Return" = default-params // {
           fullscreen-window = [ ];
         };
+        "Mod+Ctrl+f" = default-params // {
+          toggle-window-floating = [ ];
+        };
 
         "Mod+Ctrl+a" = {
           screenshot._props.show-pointer = true;
