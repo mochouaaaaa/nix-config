@@ -49,7 +49,6 @@
       }
       // config.profiles.dotfileLink "hypr";
 
-      wayland.systemd.target = "hyprland-session.target";
       home.pointerCursor.hyprcursor.enable = true;
 
       wayland.windowManager.hyprland = {
