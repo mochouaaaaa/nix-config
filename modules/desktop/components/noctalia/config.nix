@@ -51,4 +51,30 @@
 
   };
 
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      config,
+      options,
+      username,
+      ...
+    }:
+    let
+      hasHM = options ? home-manager;
+    in
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals (hasHM && config.home-manager.users.${username}.programs.noctalia.enable)
+          [
+            # ".cache/noctalia"
+            ".local/state/noctalia/chromium-based"
+            ".local/state/noctalia/clipboard"
+            ".local/state/noctalia/community-palettes"
+            ".local/state/noctalia/community-templates"
+            ".local/state/noctalia/notification_history_assets"
+            ".local/state/noctalia/plugin-cache"
+            ".local/state/noctalia/plugins"
+          ];
+    };
+
 }

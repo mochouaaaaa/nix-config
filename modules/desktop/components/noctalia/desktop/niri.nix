@@ -1,42 +1,4 @@
 {
-  flake.modules.nixos.preservation =
-    {
-      lib,
-      config,
-      options,
-      username,
-      ...
-    }:
-    let
-      hasHM = options ? home-manager;
-    in
-    {
-      profiles.preservation.users.${username}.directories =
-        lib.optionals (hasHM && config.home-manager.users.${username}.programs.noctalia.enable)
-          [
-            ".cache/noctalia"
-            ".local/state/noctalia"
-          ];
-    };
-
-  flake.modules.homeManager."desktop.hyprland" = { mylib, ... }: {
-    programs.noctalia = mylib.mkForceRecursive {
-      settings = {
-        bar = {
-          widgets = {
-            concave_edge_corners = true;
-          };
-        };
-        theme = {
-          templates = {
-            builtin_ids = [
-              "hyprland"
-            ];
-          };
-        };
-      };
-    };
-  };
 
   flake.modules.homeManager."desktop.niri" = { mylib, ... }: {
     programs.noctalia = mylib.mkForceRecursive {
@@ -52,6 +14,9 @@
               "niri"
             ];
           };
+        };
+        backdrop = {
+          enabled = true;
         };
         shell = {
           niri_overview_close_on_launch_enabled = true;
@@ -125,6 +90,17 @@
           };
         }
 
+        {
+          window-rule._children = [
+            {
+              match._props = {
+                app-id = "dev.noctalia.Noctalia";
+              };
+            }
+            { open-floating = true; }
+          ];
+        }
+
         # Noctalia wallpaper
         {
           layer-rule._children = [
@@ -156,6 +132,6 @@
         }
       ];
     };
-
   };
+
 }
