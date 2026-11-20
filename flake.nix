@@ -118,6 +118,8 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    luciole.url = "github:noctalia-dev/luciole";
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
