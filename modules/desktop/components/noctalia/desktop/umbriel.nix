@@ -1,12 +1,20 @@
 {
 
-  flake.modules.homeManager."desktop.umbriel" = { mylib, ... }: {
+  flake.modules.homeManager."desktop.umbriel" = { config, mylib, ... }: {
     programs.noctalia = mylib.mkForceRecursive {
       systemd.enable = false;
       settings = {
         bar.widgets = {
           radius = 0;
         };
+        theme = {
+          templates = {
+            builtin_ids = [
+              "umbriel"
+            ];
+          };
+        };
+
         shell = {
           umbriel_audio_provider_enabled = true;
           umbriel_overview_close_on_launch_enabled = true;
@@ -15,6 +23,7 @@
       };
     };
     programs.umbriel.settings = {
+      include.optional.files = [ "${config.xdg.configHome}/umbriel/noctalia.toml" ];
       general = {
         autostart = [ "noctalia" ];
       };
