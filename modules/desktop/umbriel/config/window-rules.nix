@@ -101,6 +101,7 @@
           "^imv$"
           "^equibop$"
           "^swappy$"
+          "dev.noctalia.UmbrielSharePicker"
         ];
         default_floating = true;
       }
