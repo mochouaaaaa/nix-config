@@ -55,9 +55,9 @@
         };
       };
 
-      profiles.terminal.kitty.extraConfig = lib.mkAfter [
-        "include themes/noctalia.conf"
-      ];
+      programs.kitty.extraConfig = lib.mkAfter ''
+        include themes/noctalia.conf
+      '';
 
       programs.helix.settings = {
         theme = "noctalia";
@@ -183,6 +183,8 @@
                 "steam"
                 "fcitx5"
               ]
+              ++ lib.optional config.programs.codex.enable "codex"
+              ++ lib.optional config.programs.antigravity-cli.enable "antigravity"
               ++ lib.optional config.programs.chromium.enable "chromium"
               ++ lib.optional config.programs.yazi.enable "yazi"
               ++ lib.optional config.programs.lazygit.enable "lazygit"
@@ -193,7 +195,7 @@
               ++ lib.optional config.programs.vscode.enable "vscode"
               ++ lib.optional config.programs.obsidian.enable "obsidian"
               ++ lib.optional config.programs.discord.enable "discord"
-              ++ lib.optional config.programs.obs-studio.enable "obs-studio";
+              ++ lib.optional config.programs.obs-studio.enable "obs";
             };
           };
         };
