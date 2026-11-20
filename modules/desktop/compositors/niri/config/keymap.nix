@@ -55,10 +55,10 @@
 
         "Mod+Escape".toggle-keyboard-shortcuts-inhibit = [ ];
 
-        "Ctrl+Shift+left".set-column-width = "-10%";
-        "Ctrl+Shift+right".set-column-width = "+10%";
-        "Ctrl+Shift+up".set-window-height = "-2%";
-        "Ctrl+Shift+down".set-window-height = "+2%";
+        "Mod+Shift+h".set-column-width = "-10%";
+        "Mod+Shift+l".set-column-width = "+10%";
+        "Mod+Shift+j".set-window-height = "-2%";
+        "Mod+Shift+k".set-window-height = "+2%";
 
         "Alt+h".focus-column-left = [ ];
         "Alt+l".focus-column-right = [ ];
