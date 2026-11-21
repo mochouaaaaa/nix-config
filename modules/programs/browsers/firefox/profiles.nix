@@ -278,6 +278,9 @@
 
     in
     {
+
+      services.psd.enable = true;
+
       programs.firefox = {
         enable = true;
         languagePacks = [ "zh-CN" ];

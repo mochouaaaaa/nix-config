@@ -42,7 +42,7 @@
   flake.modules.homeManager."programs.chromium" = {
 
     programs.chromium = {
-      enable = true;
+      enable = false;
       extensions = [
         { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; } # duckduckgo
         { id = "ffabmkklhbepgcgfonabamgnfafbdlkn"; } # gzip github

@@ -58,7 +58,6 @@
             shellIntegration = {
               enableBashIntegration = true;
               enableZshIntegration = true;
-              mode = "enabled";
             };
           };
         };
