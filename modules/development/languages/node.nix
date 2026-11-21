@@ -4,17 +4,20 @@
     {
       # npm owns the Node.js package as well as the user-level npmrc.
       # Use one Node.js version for both the runtime and npm CLI.
-      programs.npm = {
-        enable = true;
-        package = pkgs.nodejs;
-        settings = {
-          color = true;
-          include = [
-            "dev"
-            "prod"
-          ];
-          init-license = "MIT";
-          prefix = "${config.home.homeDirectory}/.npm";
+      programs = {
+        npm = {
+          enable = true;
+          package = pkgs.nodejs;
+          settings = {
+            registry = "https://registry.npmmirror.com";
+            color = true;
+            include = [
+              "dev"
+              "prod"
+            ];
+            init-license = "MIT";
+            prefix = "${config.home.homeDirectory}/.npm";
+          };
         };
       };
 
