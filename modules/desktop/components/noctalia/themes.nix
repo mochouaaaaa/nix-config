@@ -55,6 +55,20 @@
         };
       };
 
+      programs.bat.config = {
+        theme = "noctalia";
+      };
+      xdg.configFile."bat/themes".enable = false;
+
+      programs.btop.settings = {
+        color_theme = "noctalia";
+        theme_background = true;
+      };
+
+      programs.zsh.initContent = ''
+        source ${config.xdg.configHome}/fzf/themes/noctalia.sh
+      '';
+
       programs.kitty.extraConfig = lib.mkAfter ''
         include themes/noctalia.conf
       '';
@@ -188,6 +202,7 @@
               ++ lib.optional config.programs.chromium.enable "chromium"
               ++ lib.optional config.programs.yazi.enable "yazi"
               ++ lib.optional config.programs.lazygit.enable "lazygit"
+              ++ lib.optional config.programs.lazydocker.enable "lazydocker"
               ++ lib.optional config.programs.fzf.enable "fzf"
               ++ lib.optional config.programs.bat.enable "bat"
               ++ lib.optional config.programs.vicinae.enable "vicinae"

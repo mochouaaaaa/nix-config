@@ -8,52 +8,20 @@
     }:
     {
 
-      xdg.configFile."niri/blur.kdl".text = ''
-        blur {
-            passes 2        // more passes = stronger blur (default: 3)
-            offset 3.0      // sample distance per pass (default: 3.0)
-            noise 0.03      // grain overlay (default: 0.02)
-            saturation 1  // color saturation boost (default: 1.5)
-        }
-
-        // layer-rule {
-        //     match namespace="vicinae"
-        //     baba-is-float true
-        // }
-
-
-        window-rule {
-            draw-border-with-background false
-            clip-to-geometry true
-
-            background-effect {
-                xray false
-                blur true
-            }
-        }
-
-        layer-rule {
-            match namespace="vicinae"
-
-            place-within-backdrop true
-
-            background-effect {
-                xray false
-                blur true
-            }
-        }
-
-      '';
+      xdg.configFile."niri/blur.kdl" = {
+        enable = false;
+        text = "";
+      };
 
       wayland.windowManager.niri = {
         settings = {
           _children = [
-            {
-              include = {
-                _props.optional = true;
-                _args = [ "blur.kdl" ];
-              };
-            }
+            # {
+            #   include = {
+            #     _props.optional = true;
+            #     _args = [ "blur.kdl" ];
+            #   };
+            # }
           ];
 
           xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;

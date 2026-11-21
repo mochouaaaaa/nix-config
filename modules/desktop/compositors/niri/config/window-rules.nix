@@ -15,6 +15,14 @@
             }
           ];
         }
+        {
+          window-rule._children = [
+            {
+              draw-border-with-background = false;
+              clip-to-geometry = true;
+            }
+          ];
+        }
 
         {
           window-rule._children = [

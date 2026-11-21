@@ -1,11 +1,26 @@
 { self, ... }:
 {
-  flake.modules.homeManager."desktop.user" = {
+  flake.modules.homeManager."desktop.user" = { pkgs, myvars, ... }: {
+
     imports = [
       self.modules.homeManager.rime
       self.modules.homeManager.appearance
       self.modules.homeManager.shortcuts
       self.modules.homeManager."desktop.launcher.vicinae"
     ];
+
+    config = {
+      home.file =
+        let
+          face = pkgs.fetchurl {
+            url = "https://github.com/${myvars.githubUsername}.png";
+            hash = "sha256-xNnccpACVHCXLHs7rWYLdyAKGSbRcG2/u1U4PDECKbw=";
+          };
+        in
+        {
+          ".face".source = face;
+        };
+    };
+
   };
 }

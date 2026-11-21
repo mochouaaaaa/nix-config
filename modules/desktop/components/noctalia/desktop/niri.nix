@@ -16,7 +16,7 @@
           };
         };
         backdrop = {
-          enabled = true;
+          enabled = false;
         };
         shell = {
           niri_overview_close_on_launch_enabled = true;
@@ -81,6 +81,13 @@
           # ];
         };
       overview.workspace-shadow.off = { };
+      # You can also fine-tune the blur effect globally.
+      blur = {
+        passes = 2; # // more passes = stronger blur (default: 3)
+        offset = 3.0; # // sample distance per pass (default: 3.0)
+        noise = 0.03; # // grain overlay (default: 0.02)
+        saturation = 1.0; # // color saturation boost (default: 1.5)
+      };
       _children = [
 
         {
@@ -98,6 +105,43 @@
               };
             }
             { open-floating = true; }
+          ];
+        }
+
+        {
+          window-rule._children = [
+            {
+              background-effect = {
+                blur = true;
+                xray = false;
+              };
+            }
+          ];
+        }
+
+        {
+          layer-rule._children = [
+            {
+              match._props.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$";
+            }
+            {
+              background-effect = {
+                xray = false;
+                #  blur =false
+              };
+            }
+          ];
+        }
+
+        {
+          layer-rule._children = [
+            { match._props.namespace = "noctalia-window-switcher"; }
+            {
+              background-effect = {
+                blur = true;
+                xray = false;
+              };
+            }
           ];
         }
 

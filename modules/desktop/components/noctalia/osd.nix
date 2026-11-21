@@ -11,6 +11,7 @@
           orientation = "horizontal";
           position = "bottom_center";
           position_vertical = "bottom_center";
+          follow_focused_output = true;
           scale = 1.0;
           kinds = {
             bluetooth = true;

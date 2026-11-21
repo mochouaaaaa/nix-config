@@ -56,10 +56,10 @@
           "Mod+4".focus-workspace = [ 4 ];
           "Mod+5".focus-workspace = [ 5 ];
 
-          "Mod+Shift+h".move-column-left = { };
-          "Mod+Shift+l".move-column-right = { };
-          "Mod+Shift+j".move-window-down = { };
-          "Mod+Shift+k".move-window-up = { };
+          "Ctrl+Alt+h".move-column-left = { };
+          "Ctrl+Alt+l".move-column-right = { };
+          "Ctrl+Alt+j".move-window-down = { };
+          "Ctrl+Alt+k".move-window-up = { };
 
           "Mod+Shift+1".move-window-to-workspace = [ 1 ];
           "Mod+Shift+2".move-window-to-workspace = [ 2 ];

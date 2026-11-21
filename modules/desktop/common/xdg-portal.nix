@@ -7,7 +7,7 @@ let
   };
 in
 {
-  flake.modules.homeManager."desktop.hyprland" = { config, ... }: {
+  flake.modules.homeManager."desktop.hyprland1" = { config, ... }: {
     xdg.portal = {
       config = {
         hyprland = {
@@ -20,7 +20,7 @@ in
     };
   };
 
-  flake.modules.homeManager."desktop.niri" = { pkgs, config, ... }: {
+  flake.modules.homeManager."desktop.niri1" = { pkgs, config, ... }: {
     xdg.portal = {
       extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
       configPackages = [ config.wayland.windowManager.niri.portalPackage ];
@@ -33,7 +33,7 @@ in
     };
   };
 
-  flake.modules.homeManager."desktop.gnome" = { pkgs, config, ... }: {
+  flake.modules.homeManager."desktop.gnome1" = { pkgs, config, ... }: {
     xdg.portal = {
       extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
       config = {
@@ -45,7 +45,7 @@ in
     };
   };
 
-  flake.modules.homeManager."desktop.kde" = { pkgs, config, ... }: {
+  flake.modules.homeManager."desktop.kde1" = { pkgs, config, ... }: {
     xdg.portal = {
       extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
       config = {
