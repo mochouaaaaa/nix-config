@@ -20,7 +20,7 @@
           pkgs.openssh
         ];
         text = ''
-          target_host="${INSTALL_HOST:-root@192.168.122.246}"
+          target_host="''${INSTALL_HOST:-root@192.168.122.246}"
 
           printf '\nWARNING: nixos-anywhere will repartition and format the target disk.\n'
           printf 'Target: %s\n' "$target_host"
@@ -45,20 +45,20 @@
 
           mapfile -t disks <<< "$disk_info"
           printf '\nAvailable disks:\n'
-          for index in "${!disks[@]}"; do
-            IFS=$'\t' read -r device size model <<< "${disks[$index]}"
+          for index in "''${!disks[@]}"; do
+            IFS=$'\t' read -r device size model <<< "''${disks[$index]}"
             printf '  %d) %-24s %-10s %s\n' "$((index + 1))" "$device" "$size" "$model"
           done
 
-          read -r -p "Select the disk to erase [1-${#disks[@]}]: " disk_selection
+          read -r -p "Select the disk to erase [1-''${#disks[@]}]: " disk_selection
           if [[ ! "$disk_selection" =~ ^[0-9]+$ ]] ||
-            (( disk_selection < 1 || disk_selection > ${#disks[@]} )); then
+            (( disk_selection < 1 || disk_selection > ''${#disks[@]} )); then
             printf 'Invalid disk selection; installation cancelled.\n' >&2
             exit 1
           fi
 
           IFS=$'\t' read -r selected_device selected_size selected_model \
-            <<< "${disks[$((disk_selection - 1))]}"
+            <<< "''${disks[$((disk_selection - 1))]}"
 
           disk_id="$(
             ssh "$target_host" "
