@@ -62,7 +62,7 @@
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
-        mise.enable = true;
+        mise.enable = config.programs.mise.enable;
         enableZshIntegration = config.programs.zsh.enable;
         enableBashIntegration = config.programs.bash.enable;
         enableGitIntegration = config.programs.git.enable;
