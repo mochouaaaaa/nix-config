@@ -143,7 +143,7 @@ INSTALL_DISK_DEVICE=/dev/disk/by-id/<EXPECTED_DISK_ID> \
 
 nixos-anywhere 默认会从 nix-community/nixos-images 的 GitHub Release 下载 kexec 安装包。如果目标机无法访问 GitHub，可以在部署机上通过可用的网络、代理或可信镜像下载同一个安装包，再通过 `--kexec` 指定本地文件。nixos-anywhere 会先将该文件上传到目标机，然后使用它启动临时 NixOS 安装环境。
 
-### 4.1 下载到部署机
+### 5.1 下载到部署机
 
 本次安装日志中默认请求的文件是：
 
@@ -172,7 +172,7 @@ sha256sum .cache/nixos-anywhere/nixos-kexec-installer-noninteractive-x86_64-linu
 
 应从对应的官方 [nixos-images Release](https://github.com/nix-community/nixos-images/releases) 获取该资产的校验值，并与本地 `sha256sum` 输出比对。不要仅凭文件名或下载成功就信任镜像文件。
 
-### 4.2 使用本地文件启动安装
+### 5.2 使用本地文件启动安装
 
 在仓库根目录执行：
 
@@ -290,7 +290,7 @@ deploy '.#mochou@vm'
 
 仓库内相关文件：
 
-- `modules/flake/apps.nix)：`install-vm` App、目标地址覆盖和破坏性确认。
+- `modules/flake/apps.nix`：`install-vm` App、目标地址覆盖和破坏性确认。
 - `hosts/mochou@vm/default.nix`：NixOS Host 组合与 SSH 配置。
 - `hosts/mochou@vm/disk-config.nix`：目标磁盘分区、文件系统和 Btrfs 子卷。
 - `modules/flake/deploy.nix`：安装完成后的 deploy-rs 日常部署配置。
