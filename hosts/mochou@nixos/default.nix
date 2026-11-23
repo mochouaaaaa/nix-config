@@ -22,7 +22,7 @@
     self.modules.nixos."hardware.hid-apple"
     self.modules.nixos."profiles.zram"
 
-    self.modules.nixos."services.dns"
+    self.modules.nixos."services.dns.mosdns"
     self.modules.nixos."services.avahi"
     self.modules.nixos."services.console"
     self.modules.nixos."services.brightness"
