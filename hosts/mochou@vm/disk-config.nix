@@ -5,9 +5,7 @@ in
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = lib.mkDefault (
-      if installDiskDevice != "" then installDiskDevice else "/dev/vda"
-    );
+    device = lib.mkDefault (if installDiskDevice != "" then installDiskDevice else "/dev/vda");
 
     content = {
       type = "gpt";
