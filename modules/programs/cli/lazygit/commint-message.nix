@@ -1,8 +1,6 @@
 {
-  flake.modules.homeManager.programs = { pkgs, lib, ... }: {
+  flake.modules.homeManager."programs.lazygit" = { lib, pkgs, ... }: {
     programs.lazygit = {
-      enable = true;
-      shellWrapperName = "lazygit";
       settings = {
         customCommands = [
           {
@@ -98,4 +96,5 @@
       };
     };
   };
+
 }
