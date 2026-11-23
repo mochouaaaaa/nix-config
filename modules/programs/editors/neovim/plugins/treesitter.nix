@@ -4,10 +4,12 @@
       (nvim-treesitter.withPlugins (p: [
         p.nix
         p.lua
-        p.go
-        p.python
-        p.rust
+        p.yaml
         p.markdown
+        p.json5
+        p.bash
+        p.latex
+        p.regex
       ]))
     ];
   };

@@ -45,11 +45,27 @@
         })
       ];
 
+      programs.mise = {
+        enable = false;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+        globalConfig = {
+          env = {
+            MISE_NIX_ALLOW_LOCAL_FLAKES = "true";
+          };
+          settings = {
+            all_compile = false;
+          };
+        };
+      };
+
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
+        mise.enable = true;
         enableZshIntegration = config.programs.zsh.enable;
         enableBashIntegration = config.programs.bash.enable;
+        enableGitIntegration = config.programs.git.enable;
       };
     };
 

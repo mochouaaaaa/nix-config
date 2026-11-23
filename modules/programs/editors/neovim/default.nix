@@ -48,9 +48,12 @@
           ps.luarocks
           ps.luacheck
           ps.jsregexp
+          ps.nvim-web-devicons
         ];
         extraPackages = with pkgs; [
           fzf
+          viu
+          ast-grep
           fd
           chafa
           ffmpeg
@@ -66,13 +69,10 @@
           python313Packages.pylatexenc
           lua51Packages.lua
           lua51Packages.luarocks
+          prettier
+          tree-sitter
         ];
-        extraPython3Packages = ps: [
-          ps.pynvim
-        ];
-        withPython3 = true;
         withRuby = false;
-        withNodeJs = true;
       };
 
       xdg.configFile = config.profiles.dotfileLink "nvim";

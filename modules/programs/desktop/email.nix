@@ -28,10 +28,38 @@
 
   flake.modules.homeManager."programs.email" =
     {
+      lib,
       username,
       ...
     }:
+    let
+      emailAccounts = {
+        ${username} = {
+          address = "mm.mochou@gmail.com";
+          userName = "mm.mochou@gmail.com";
+          realName = "mochou";
+
+          flavor = "gmail.com";
+          primary = true;
+          thunderbird.enable = true;
+
+          imap = {
+            host = "imap.gmail.com";
+            port = 993;
+            tls.enable = true;
+          };
+
+          smtp = {
+            host = "smtp.gmail.com";
+            port = 465;
+            tls.enable = true;
+          };
+        };
+      };
+    in
     {
+
+      accounts.email.accounts = lib.mapAttrs (_: account: account) emailAccounts;
 
       programs.thunderbird = {
         enable = true;
@@ -40,13 +68,13 @@
           isDefault = true;
           withExternalGnupg = true;
 
-          userChrome = ''
-            @import "thunderbird-gnome-theme/userChrome.css";
-            @import "thunderbird-gnome-theme/theme/colors/dark.css";
-          '';
-          userContent = ''
-            @import "thunderbird-gnome-theme/userContent.css";
-          '';
+          # userChrome = ''
+          #   @import "thunderbird-gnome-theme/userChrome.css";
+          #   @import "thunderbird-gnome-theme/theme/colors/dark.css";
+          # '';
+          # userContent = ''
+          #   @import "thunderbird-gnome-theme/userContent.css";
+          # '';
 
           settings = {
             # 启用 userChrome/userContent
@@ -96,4 +124,20 @@
       };
 
     };
+
+  flake.modules.nixos.preservation =
+    {
+      lib,
+      config,
+      username,
+      ...
+    }:
+    {
+      profiles.preservation.users.${username}.directories =
+        lib.optionals config.home-manager.users.${username}.programs.thunderbird.enable
+          [
+            ".thunderbird/"
+          ];
+    };
+
 }

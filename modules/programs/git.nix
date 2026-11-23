@@ -2,6 +2,7 @@
   flake.modules.homeManager."programs.git" =
     {
       config,
+      pkgs,
 
       username,
       myvars,
@@ -102,5 +103,18 @@
           };
         };
       };
+
+      programs.neovim = {
+        plugins = with pkgs.vimPlugins; [
+          (nvim-treesitter.withPlugins (p: [
+            p.git_config
+            p.gitcommit
+            p.git_rebase
+            p.gitignore
+            p.gitattributes
+          ]))
+        ];
+      };
+
     };
 }

@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager."cli.neovim.tooling.languages" = { pkgs, ... }: {
-    home.packages = with pkgs; [
+    programs.neovim.extraPackages = with pkgs; [
       # shell
       bash-language-server
       shfmt
@@ -11,7 +11,7 @@
       luajitPackages.luacheck
 
       # markdown
-      marksman
+      markdown-toc
       markdownlint-cli2
 
       # filetypes
@@ -23,17 +23,6 @@
       # TOML
       taplo
 
-      # docker
-      dockerfile-language-server
-      docker-compose-language-service
-
-      # js/ts
-      vtsls
-      typescript
-      emmet-ls
-      vue-language-server
-      vscode-langservers-extracted
-      stylelint
     ];
   };
 }

@@ -79,26 +79,6 @@
                 # lua
                 sumneko.lua
 
-                # python
-                ms-python.python
-                ms-python.pylint
-                ms-python.debugpy
-                batisteo.vscode-django
-                (buildVscodeMarketplaceExtension {
-                  mktplcRef = {
-                    name = "ty";
-                    publisher = "astral-sh";
-                    version = "2026.100.0";
-                    hash = "sha256-tDwUL4gcNbIhDoRIZIKVtqrIAF7MJ7Cjizb0sJNNeZI=";
-                  };
-                })
-
-                # golang
-                golang.go
-
-                # js
-                bradlc.vscode-tailwindcss
-
                 # just
                 nefrob.vscode-just-syntax
               ];

@@ -9,6 +9,8 @@
       ...
     }:
     {
+      services.psd.enable = false;
+
       programs.firefox = {
         profiles.${username} = {
           settings = {
