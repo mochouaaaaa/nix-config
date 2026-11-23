@@ -35,6 +35,23 @@
         })
         (lib.mkMerge [
           {
+            environment.systemPackages = [
+              (pkgs.makeDesktopItem {
+                name = "mihomo-webui";
+                desktopName = "Mihomo WebUI";
+                genericName = "Proxy Dashboard";
+                comment = "Launch Mihomo WebUI";
+                exec = ''firefox --new-window "http://127.0.0.1:9090/ui"'';
+                icon = "network-vpn";
+                terminal = false;
+                type = "Application";
+                categories = [
+                  "Network"
+                  "Monitor"
+                ];
+              })
+            ];
+
             services.mihomo = {
               enable = true;
               webui = pkgs.metacubexd;

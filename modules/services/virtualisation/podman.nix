@@ -64,6 +64,7 @@
         (lib.mkIf (config ? home-manager) {
           home-manager.users.${username} = {
             home.shellAliases.lazydocker = ''DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock" lazydocker'';
+
             programs.lazydocker = {
               enable = true;
             };
