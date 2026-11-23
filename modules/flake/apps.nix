@@ -61,14 +61,16 @@
             <<< "''${disks[$((disk_selection - 1))]}"
 
           disk_id="$(
-            ssh "$target_host" "
-              for id in /dev/disk/by-id/*; do
-                [ -L \"\$id\" ] || continue
-                [ \"\$(readlink -f \"\$id\")\" = \"$selected_device\" ] || continue
-                case \"\$id\" in *-part[0-9]*) continue ;; esac
-                printf '%s\\n' \"\$id\"
-              done | sort | head -n1
-            "
+            printf '%s\n' "$selected_device" |
+            ssh "$target_host" '
+            read -r selected_device
+            for id in /dev/disk/by-id/*; do
+                [ -L "$id" ] || continue
+                [ "$(readlink -f "$id")" = "$selected_device" ] || continue
+                case "$id" in *-part[0-9]*) continue ;; esac
+                printf "%s\n" "$id"
+            done | sort | head -n1
+            '
           )"
 
           if [[ -n "$disk_id" ]]; then
@@ -113,5 +115,5 @@
               program = "${installVm}/bin/install-vm";
             };
           };
-    }
+    };
 }
