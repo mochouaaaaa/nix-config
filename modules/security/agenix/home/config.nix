@@ -34,16 +34,16 @@
             wallhavenApiKey = {
               rekeyFile = ./wallhavenApiKey.age;
             };
-            fittencode = {
-              rekeyFile = ./fittencode.age;
-              path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
-              mode = "600";
-            };
-            gemini_env = {
-              rekeyFile = ./gemini_env.age;
-              path = "${config.home.homeDirectory}/.gemini/.env";
-              mode = "600";
-            };
+            # fittencode = {
+            #   rekeyFile = ./fittencode.age;
+            #   path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
+            #   mode = "600";
+            # };
+            # gemini_env = {
+            #   rekeyFile = ./gemini_env.age;
+            #   path = "${config.home.homeDirectory}/.gemini/.env";
+            #   mode = "600";
+            # };
             github_token = {
               rekeyFile = ./github_token.age;
             };
