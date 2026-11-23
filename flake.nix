@@ -118,6 +118,8 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    luciole.url = "github:noctalia-dev/luciole";
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
@@ -130,6 +132,13 @@
     dank-material-shell = {
       url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.4";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    cosmic-manager = {
+      url = "github:HeitorAugustoLN/cosmic-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     # kde

@@ -66,7 +66,6 @@ in
     imports = [
       self.modules.homeManager.agenix
       self.modules.homeManager.core
-      self.modules.homeManager."programs.kitty-options"
       self.modules.homeManager."system.ssh"
     ];
   };

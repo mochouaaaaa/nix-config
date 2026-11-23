@@ -1,7 +1,11 @@
+{ lib, ... }:
+let
+  installDiskDevice = builtins.getEnv "INSTALL_DISK_DEVICE";
+in
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/vda";
+    device = lib.mkDefault (if installDiskDevice != "" then installDiskDevice else "/dev/vda");
 
     content = {
       type = "gpt";

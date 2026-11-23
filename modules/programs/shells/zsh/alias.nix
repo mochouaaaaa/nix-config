@@ -55,11 +55,6 @@
         };
       };
       programs.zsh = {
-        siteFunctions = {
-          mkcd = ''
-            mkdir --parents "$1" && cd "$1"
-          '';
-        };
         dirHashes = {
           desktop = "${config.xdg.userDirs.desktop}";
           downloads = "${config.xdg.userDirs.download}";

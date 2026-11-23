@@ -115,7 +115,6 @@
 
             files = [
               ".zsh_history"
-              ".zsh_history.new"
             ];
           };
 

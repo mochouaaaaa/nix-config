@@ -1,27 +1,38 @@
 {
   flake.modules.homeManager.linux =
-    { lib, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
     let
-      cfg = config.profiles.terminal.kitty;
+      kitty-icon = pkgs.fetchFromGitHub {
+        owner = "DinkDonk";
+        repo = "kitty-icon";
+        rev = "main";
+        hash = "sha256-f+uiesvd0Vdoef6X2kqmbd+4CX2TXdkUGwZdzaKg5bY=";
+      };
+
     in
     {
 
-      profiles.terminal.kitty = {
-        extraConfig = [
-          "adjust_line_height 100%"
-          "adjust_column_width 100%"
-          "window_padding_width 0 4"
-        ];
+      programs.kitty = {
+        extraConfig = ''
+          adjust_line_height 100%
+          adjust_column_width 100%
+          window_padding_width 0 4
+        '';
       };
 
       xdg = {
         configFile = {
-          "kitty/kitty.app.png" = lib.mkIf cfg.enable {
-            source = "${cfg.icon}/kitty-dark.png";
+          "kitty/kitty.app.png" = lib.mkIf config.programs.kitty.enable {
+            source = "${kitty-icon}/kitty-dark.png";
           };
         };
 
-        mimeApps.defaultApplicationPackages = lib.optionals cfg.enable [
+        mimeApps.defaultApplicationPackages = lib.optionals config.programs.kitty.enable [
           config.programs.kitty.package
         ];
       };
@@ -48,11 +59,11 @@
     };
 
   flake.modules.homeManager."desktop.gnome" = {
-    profiles.terminal.kitty.extraConfig = [ "background_opacity 1" ];
+    programs.kitty.extraConfig = "background_opacity 1";
   };
 
   flake.modules.homeManager."desktop.kde" = {
-    profiles.terminal.kitty.extraConfig = [ "# hide_window_decorations yes" ];
+    programs.kitty.extraConfig = "# hide_window_decorations yes";
   };
 
 }

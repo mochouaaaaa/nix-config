@@ -7,6 +7,8 @@
           clipboard_enabled = false;
           clipboard_keep_from_closed_apps = false;
           polkit_agent = true;
+          password_style = "random";
+          polkit_colorize_icons = true;
           popup_shadows = false;
           screenshot = {
             confirm_region = true;

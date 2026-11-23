@@ -10,10 +10,4 @@
     ];
   };
 
-  # Compatibility entry used by the workstation role.
-  flake.modules.homeManager.development = {
-    imports = [
-      self.modules.homeManager."development.languages"
-    ];
-  };
 }

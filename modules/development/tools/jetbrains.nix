@@ -4,6 +4,7 @@
       inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.jetbra-free
     ];
   };
+
   flake.modules.nixos.preservation =
     {
       inputs,

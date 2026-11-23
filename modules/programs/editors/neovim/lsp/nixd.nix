@@ -10,8 +10,8 @@ let
       ...
     }:
     let
-      flakeExpr = "(builtins.getFlake (builtins.toString ./.)).";
-      hostExpr = "${flakeExpr}${configuration}.\"${username}@${hostName}\"";
+      flakeExpr = "(builtins.getFlake (toString ./.))";
+      hostExpr = "${flakeExpr}.${configuration}.\"${username}@${hostName}\"";
       optionsExpr = "${hostExpr}.options";
       nixpkgsExpr = "${hostExpr}.pkgs";
       homeManagerOptionsExpr = "${optionsExpr}.home-manager.users.type.getSubOptions []";
@@ -34,8 +34,11 @@ let
                 [${builtins.toJSON systemOptionName}] = {
                   expr = ${builtins.toJSON optionsExpr},
                 },
-                ["home-manager"] = {
+                home_manager = {
                   expr = ${builtins.toJSON homeManagerOptionsExpr},
+                },
+                flake_parts = {
+                  expr = string.format('let flake = %s; in flake.debug.options // flake.currentSystem.options', '${flakeExpr}')
                 },
               },
             },
@@ -56,7 +59,7 @@ in
 
   flake.modules.homeManager.darwin = mkNixdConfig {
     configuration = "darwinConfigurations";
-    systemOptionName = "nix-darwin";
+    systemOptionName = "darwin";
   };
 
   flake.modules.homeManager.linux = mkNixdConfig {

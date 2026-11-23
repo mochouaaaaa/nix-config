@@ -13,6 +13,49 @@
 
   flake.modules.homeManager."development.python" = { lib, pkgs, ... }: {
 
+    programs.neovim = {
+      extraPython3Packages = ps: [
+        ps.pynvim
+      ];
+      withPython3 = true;
+      plugins = with pkgs.vimPlugins; [
+        (nvim-treesitter.withPlugins (p: [
+          # p.python
+          p.ninja
+          p.rst
+        ]))
+      ];
+    };
+
+    programs = {
+      vscode = {
+        profiles = {
+          default = {
+            extensions =
+              let
+                inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
+              in
+              with pkgs.vscode-extensions;
+              [
+                # python
+                ms-python.python
+                ms-python.pylint
+                ms-python.debugpy
+                batisteo.vscode-django
+                (buildVscodeMarketplaceExtension {
+                  mktplcRef = {
+                    name = "ty";
+                    publisher = "astral-sh";
+                    version = "2026.100.0";
+                    hash = "sha256-tDwUL4gcNbIhDoRIZIKVtqrIAF7MJ7Cjizb0sJNNeZI=";
+                  };
+                })
+              ];
+          };
+        };
+      };
+    };
+
     home.packages = [
       pkgs.playwright-driver.browsers
     ];

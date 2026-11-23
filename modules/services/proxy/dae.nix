@@ -2,6 +2,7 @@
   flake.modules.nixos."services.proxy" =
     {
       config,
+      lib,
       options,
       ...
     }:
@@ -14,6 +15,9 @@
           "${config.profiles.services.dns.listen}"
         else
           "${cfg.mihomo.address}:${toString cfg.mihomo.dns.listen}";
+
+      ifNames = lib.filter (n: n != "lo") (lib.attrNames config.networking.interfaces);
+      lanInterfaceStr = lib.concatStringsSep "," ifNames;
     in
     {
 
@@ -24,6 +28,7 @@
           global {
             log_level: warning
             wan_interface: auto
+            # lan_interface: '${lanInterfaceStr}'
             dial_mode: domain++
             auto_config_kernel_parameter: true
             disable_waiting_network: true

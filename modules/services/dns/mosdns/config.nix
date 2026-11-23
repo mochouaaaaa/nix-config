@@ -1,124 +1,171 @@
 {
-  flake.modules.nixos."services.dns" =
-    { lib, config, ... }:
+  flake.modules.nixos."services.dns.mosdns" =
+    {
+      lib,
+      pkgs,
+      self,
+      config,
+      ...
+    }:
     let
-      cfg = config.profiles.services.dns;
+      formatYaml = pkgs.formats.yaml { };
+
+      cfg = config.profiles.services.dns.mosdns;
+      cfgDNS = config.profiles.services.dns;
     in
     {
 
-      environment.systemPackages = [
-        cfg.package
-      ];
+      imports = [ self.modules.nixos."services.dns" ];
 
-      profiles.services.dns = {
-        settings = {
-          api = {
-            http = "${cfg.webapi}";
-          };
-          log = {
-            level = "warn";
-            production = false;
-          };
+      options.profiles.services.dns.mosdns = {
 
-          plugins = lib.mkAfter [
-            {
-              tag = "pre_sequence";
-              type = "sequence";
-              args = [
-                # 拒绝 HTTPS/SVCB
-                {
-                  matches = "qtype 65";
-                  exec = "$reject_qtype65";
-                }
-                # 拒绝空域名
-                {
-                  matches = "qname keyword::";
-                  exec = "$reject_null_domain";
-                }
-                # 广告域名拦截
-                {
-                  matches = "qname $geosite_ads-all";
-                  exec = "$reject_ad";
-                }
-                # 局域网 PTR 查询优先处理
-                {
-                  matches = "ptr_ip $geoip_private";
-                  exec = "$query_lan";
-                }
-                # 其他 PTR 查询
-                {
-                  matches = "qtype 12";
-                  exec = "$query_other";
-                }
-                # ANY 查询
-                {
-                  matches = "qtype 255";
-                  exec = "$query_other";
-                }
-                # 已有响应则进入对应处理流程
-                {
-                  exec = "jump has_resp_pre";
-                }
-              ];
-            }
-
-            {
-              tag = "main_sequence";
-              type = "sequence";
-              args = [
-                { exec = "$cache_wan"; }
-                { exec = "jump has_resp_main"; }
-                {
-                  matches = "qname $geosite_gfw";
-                  exec = "$query_nocn";
-                }
-                { exec = "jump has_resp_main"; }
-                {
-                  matches = "qname $geosite_location-!cn";
-                  exec = "$query_nocn";
-                }
-                { exec = "jump has_resp_main"; }
-                {
-                  matches = "qname $geosite_cn";
-                  exec = "$query_cn";
-                }
-                { exec = "jump has_resp_main"; }
-                # Fallback 兜底
-                { exec = "$no_ecs"; }
-                { exec = "$query_fallback"; }
-                { exec = "jump has_resp_main"; }
-              ];
-            }
-
-            {
-              tag = "sequence";
-              type = "sequence";
-              args = [
-                { exec = "metrics_collector metrics"; }
-                { exec = "$pre_sequence"; }
-                { exec = "$main_sequence"; }
-              ];
-            }
-
-            # 在同一端口启动 udp 和 tcp 服务器。
-            {
-              type = "udp_server";
-              args = {
-                entry = "sequence";
-                inherit (cfg) listen;
-              };
-            }
-            {
-              type = "tcp_server";
-              args = {
-                entry = "sequence";
-                inherit (cfg) listen;
-              };
-            }
-
-          ];
+        webapi = lib.mkOption {
+          type = lib.types.str;
+          default = "127.0.0.1:8338";
         };
-      };
-    };
 
+        settings = lib.mkOption {
+          default = { };
+          description = "Structured plugin lists for mosdns.";
+          type = lib.types.submodule {
+            freeformType = formatYaml.type;
+
+            options =
+              let
+                mkPluginListOption =
+                  description:
+                  lib.mkOption {
+                    type = with lib.types; listOf attrs;
+                    default = [ ];
+                    inherit description;
+                  };
+              in
+              {
+                rules = mkPluginListOption "DNS matching and routing rules.";
+                upstreams = mkPluginListOption "Upstream DNS servers and forwarding targets.";
+                cache-ecs = mkPluginListOption "Cache and EDNS Client Subnet (ECS) plugins.";
+                fallback = mkPluginListOption "Fallback plugins.";
+                sequences = mkPluginListOption "Named execution sequences.";
+                query = mkPluginListOption "Query-stage processing plugins.";
+                filters = mkPluginListOption "Domain, IP, or query/response filter plugins.";
+                response = mkPluginListOption "Response-stage processing plugins.";
+                pre_sequence = mkPluginListOption "Pre-sequence processing plugins.";
+
+                plugins = lib.mkOption {
+                  type = with lib.types; listOf attrs;
+                  default = lib.concatLists [
+                    cfg.settings.rules
+                    cfg.settings.upstreams
+                    cfg.settings.cache-ecs
+                    cfg.settings.fallback
+                    cfg.settings.sequences
+                    cfg.settings.query
+                    cfg.settings.filters
+                    cfg.settings.response
+                    cfg.settings.pre_sequence
+                    [
+                      {
+                        type = "udp_server";
+                        args = {
+                          entry = "sequence";
+                          inherit (cfgDNS) listen;
+                        };
+                      }
+                      {
+                        type = "tcp_server";
+                        args = {
+                          entry = "sequence";
+                          inherit (cfgDNS) listen;
+                        };
+                      }
+                    ]
+                  ];
+                  readOnly = true;
+                  description = "Effective DNS listen address.";
+                };
+              };
+          };
+        };
+
+      };
+
+      config =
+        let
+
+          mosdnsSettings = {
+            # api = {
+            #   http = "${cfg.webapi}";
+            # };
+            log = {
+              level = "warn";
+              production = false;
+            };
+            plugins = cfg.settings.plugins;
+          };
+        in
+        {
+
+          networking.firewall.allowedTCPPorts = [ 8335 ];
+
+          systemd.services.mosdns =
+            let
+              modsndYaml = formatYaml.generate "mosdns.yaml" mosdnsSettings;
+
+              args = lib.concatStringsSep " " [
+                "-d /var/lib/mosdns/"
+                "-c /var/lib/mosdns/config.yaml"
+              ];
+            in
+            {
+              description = "mosdns: Network-level blocker";
+              unitConfig = {
+                StartLimitIntervalSec = 5;
+                StartLimitBurst = 10;
+              };
+
+              preStart = "${pkgs.writeScript "config-generator" ''
+                #!${pkgs.python3}/bin/python3
+                import os
+                from pathlib import Path
+                from string import Template
+
+                envs = os.environ
+
+                state_dir = envs.get("STATE_DIRECTORY")
+                if not state_dir:
+                    raise SystemExit("STATE_DIRECTORY is not set")
+
+                template = Path("${modsndYaml}")
+                output = Path(state_dir) / "config.yaml"
+
+                content = template.read_text()
+                content = Template(content).safe_substitute(**envs)
+
+                output.write_text(content)
+                output.chmod(0o644)
+              ''}";
+
+              serviceConfig = {
+                DynamicUser = true;
+                ExecStart = "${lib.getExe pkgs.mosdns} start ${args}";
+                AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+                CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+                Restart = "always";
+                RestartSec = 10;
+
+                RuntimeDirectory = "mosdns";
+                StateDirectory = "mosdns";
+                StateDirectoryMode = "0700";
+                StandardOutput = "append:/var/log/mosdns.log";
+                StandardError = "inherit";
+              };
+              after = [ "network.target" ];
+              before = [ "nss-lookup.target" ];
+              wants = [ "nss-lookup.target" ];
+              wantedBy = [ "multi-user.target" ];
+            };
+
+        };
+
+    };
 }

@@ -35,6 +35,23 @@
         })
         (lib.mkMerge [
           {
+            environment.systemPackages = [
+              (pkgs.makeDesktopItem {
+                name = "mihomo-webui";
+                desktopName = "Mihomo WebUI";
+                genericName = "Proxy Dashboard";
+                comment = "Launch Mihomo WebUI";
+                exec = ''firefox --new-window "http://127.0.0.1:9090/ui"'';
+                icon = "network-vpn";
+                terminal = false;
+                type = "Application";
+                categories = [
+                  "Network"
+                  "Monitor"
+                ];
+              })
+            ];
+
             services.mihomo = {
               enable = true;
               webui = pkgs.metacubexd;
@@ -44,15 +61,27 @@
 
             systemd.services.mihomo-config = {
               description = "Generate Mihomo configuration";
+              restartTriggers = [
+                config.services.mihomo.configFile
+                (builtins.toJSON {
+                  inherit (cfg) address;
+                  subscription = cfg.subscriptionEnvironmentFile;
+                  httpPort = cfg.http.port;
+                  socksPort = cfg.socks.port;
+                  dnsPort = cfg.dns.listen;
+                })
+              ];
 
               serviceConfig = {
                 Type = "oneshot";
+                RemainAfterExit = true;
                 EnvironmentFile = lib.optional (
                   cfg.subscriptionEnvironmentFile != null
                 ) cfg.subscriptionEnvironmentFile;
 
                 Environment = [
                   "MIHOMO_HTTP_PORT=${toString cfg.http.port}"
+                  "MIHOMO_ALL_ADDRESS=${cfg.address}"
                   "MIHOMO_SOCKS_PORT=${toString cfg.socks.port}"
                   "MIHOMO_DNS_ENABLE=true"
                   "MIHOMO_DNS_LISTEN=${cfg.address}:${toString cfg.dns.listen}"
@@ -82,9 +111,33 @@
               };
             };
 
+            networking.firewall =
+              lib.mkIf
+                (
+                  !(lib.elem cfg.address [
+                    "127.0.0.1"
+                    "::1"
+                    "localhost"
+                  ])
+                )
+                {
+                  allowedTCPPorts = lib.unique [
+                    cfg.http.port
+                    cfg.socks.port
+                  ];
+
+                  allowedUDPPorts = lib.unique [
+                    cfg.http.port
+                    cfg.socks.port
+                  ];
+                };
+
             systemd.services.mihomo = {
               requires = [ "mihomo-config.service" ];
               after = [ "mihomo-config.service" ];
+              restartTriggers = [
+                config.services.mihomo.configFile
+              ];
 
               serviceConfig = {
                 LoadCredential = lib.mkForce "config.yaml:/run/mihomo-config/config.yaml";

@@ -7,10 +7,7 @@
   };
 
   flake.modules.homeManager.darwin =
-    { lib, config, ... }:
-    let
-      cfg = config.profiles.terminal.kitty;
-    in
+    { lib, ... }:
     {
       programs.kitty = {
         package = lib.mkForce null;
@@ -19,9 +16,9 @@
           "--listen-on=unix:/tmp/mykitty.sock"
         ];
       };
-      xdg.configFile = {
-        "kitty/kitty.app.icns".source = "${cfg.icon}/kitty-dark.icns";
-      };
+      # xdg.configFile = {
+      #   "kitty/kitty.app.icns".source = "${cfg.icon}/kitty-dark.icns";
+      # };
 
     };
 }

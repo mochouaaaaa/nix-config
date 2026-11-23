@@ -9,13 +9,14 @@
     {
       programs.noctalia = {
         settings = {
-          hooks = {
+          hooks = rec {
             started =
               let
                 hook_startup = pkgs.writeShellScriptBin "hook_startup" ''
                   noctalia msg caffeine-enable
                   ${lib.optionalString config.wayland.windowManager.hyprland.enable "hyprctl reload"}
                   noctalia msg theme-mode-set auto
+                  ${theme_mode_changed}
                 '';
               in
               "${lib.getExe hook_startup}";

@@ -27,18 +27,44 @@
         gofumpt
         delve
         golangci-lint
-        goimports-reviser
+        # goimports-reviser
       ];
+
+      programs.neovim = {
+        plugins = with pkgs.vimPlugins; [
+          (nvim-treesitter.withPlugins (p: [
+            p.go
+            p.gomod
+            p.gowork
+            p.gosum
+          ]))
+        ];
+      };
+
+      programs = {
+        vscode = {
+          profiles = {
+            default = {
+              extensions = with pkgs.vscode-extensions; [
+                # golang
+                golang.go
+              ];
+            };
+          };
+        };
+      };
+
       programs.go = {
         enable = true;
         env = {
           GOPATH = goPath;
           GOBIN = "${goPath}/bin";
           GOMODCACHE = "${goPath}/pkg/mod";
-          GOENV = "${goPath}/env";
+          # GOENV = "${goPath}/env";
           GOPROXY = "https://goproxy.cn,direct";
           GOSUMDB = "sum.golang.google.cn";
-          GOTELEMETRYDIR = "${goPath}/telemetry";
+          GOTELEMETRY = "off";
+          # GOTELEMETRYDIR = "${goPath}/telemetry";
         };
       };
     };

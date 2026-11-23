@@ -278,6 +278,7 @@
 
     in
     {
+
       programs.firefox = {
         enable = true;
         languagePacks = [ "zh-CN" ];
