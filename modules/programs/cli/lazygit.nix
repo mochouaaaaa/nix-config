@@ -36,25 +36,36 @@
                     DIFF_TRIMMED=$(printf "%s" "$DIFF" | head -c 16000)
 
                     PROMPT=$(
-                        cat <<EOF
+                    cat <<'EOF'
                     You are a git commit message generator.
-                    Analyze the staged git diff below and write a concise Conventional Commits message (e.g. feat:, fix:, refactor:, chore:, docs:).
-                    Rules:
+                    Analyze the staged git diff and write a concise Conventional Commits message.
+
+                    Type selection rules (choose the most accurate one):
+                    - feat: adding new functionality, new options/features, or new workflows (even in config or scripts).
+                    - fix: fixing a bug, error, crash, or broken behavior.
+                    - refactor: restructuring code or configuration without changing external behavior or adding features.
+                    - chore: maintenance, dependencies, formatting, or minor tweaks with no functional change.
+                    - docs: documentation or comments only.
+
+                    Formatting rules:
                     - Output ONLY the commit message text. Do NOT wrap in markdown code blocks or backticks.
-                    - First line: clear summary in imperative mood, ideally <= 72 characters.
-                    - Add a short body only if there are multiple distinct changes or non-obvious context.
+                    - First line: <type>(<scope>): <concise summary in imperative mood>, ideally <= 72 characters.
+                    - Describe the actual purpose/effect (e.g. "disable thinking and cap output tokens..."), not just "add options".
+                    - Add a blank line followed by short bullet points ONLY if there are multiple distinct changes.
 
                     Staged diff:
-                    $DIFF_TRIMMED
                     EOF
                     )
+                    PROMPT="$PROMPT"$'\n'"$DIFF_TRIMMED"
 
                     PAYLOAD=$(jq -n --arg model "$MODEL" --arg prompt "$PROMPT" '{
                       model: $model,
                       prompt: $prompt,
                       stream: false,
+                      think: false,
                       options: {
-                        temperature: 0.2
+                        temperature: 0.2,
+                        num_predict: 120
                       }
                     }')
 
