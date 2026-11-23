@@ -79,7 +79,67 @@ uid=0(root) gid=0(root) groups=0(root)
 
 如果这里失败，先修复 SSH 公钥认证、root 登录权限或 SSH 启动脚本，不要继续安装。
 
-## 4. 目标机无法访问 GitHub：使用本地 kexec 包
+## 4. 磁盘核验（安装前必须完成）
+
+安装器会通过 SSH 执行 `lsblk` 并列出目标机的整块磁盘，供你选择；**它不会替你判断哪块磁盘是系统盘，也不能仅凭磁盘大小推断目标盘是否正确**。在输入第二次磁盘确认之前，必须独立核对目标磁盘。
+
+先在部署机查看目标机的磁盘、分区和挂载关系：
+
+```bash
+ssh root@<TARGET_IP> '
+  echo "=== block devices ==="
+  lsblk -e7 -o NAME,PATH,SIZE,TYPE,FSTYPE,MOUNTPOINTS,MODEL,SERIAL,WWN
+  echo "=== root filesystem source ==="
+  findmnt -no SOURCE /
+  echo "=== root device ancestry ==="
+  root_source=$(findmnt -no SOURCE /)
+  lsblk -s -o NAME,PATH,SIZE,TYPE,FSTYPE,MOUNTPOINTS,MODEL,SERIAL "$root_source"
+'
+```
+
+确认以下信息：
+
+1. SSH 地址确实是准备重装的那台机器，而不是部署机或其他 VM。
+2. 目标盘的容量、型号、序列号/WWN 与虚拟机或物理机配置相符。
+3. 通过 `findmnt /` 和 `lsblk -s` 确认当前根文件系统位于哪块物理磁盘；若根文件系统在 LVM、device-mapper、RAID 或加密设备上，应沿设备依赖关系继续核对底层磁盘。
+4. 确认目标磁盘上没有需要保留的系统、数据分区或其他 VM 磁盘。
+
+如果系统提供稳定的设备标识，检查 `/dev/disk/by-id`：
+
+```bash
+ssh root@<TARGET_IP> '
+  ls -l /dev/disk/by-id/ 2>/dev/null || true
+  udevadm info --query=property --name=/dev/vda 2>/dev/null |
+    grep -E "^(ID_MODEL|ID_SERIAL|ID_WWN)=" || true
+'
+```
+
+优先使用指向整块磁盘（而不是 `-partN` 分区）的 `/dev/disk/by-id/...` 路径。安装器若提示：
+
+```text
+WARNING: no /dev/disk/by-id link found; using /dev/vda.
+```
+
+表示目标机没有找到对应的稳定 by-id 链接，程序将回退到 `/dev/vda`。这在设备名明确固定的 virtio VM 中可能是预期情况；对物理机或多磁盘机器，不要未经核验就接受回退路径，应先确认设备映射和硬件标识。
+
+安装器会要求先输入完整目标 SSH 地址，再选择磁盘，最后再次输入所选磁盘路径。**第二次确认前再次检查屏幕上的 Device、Size、Model，并与上面的核验结果对照。** 任一信息不一致就中止（不要输入确认文本，按 `Ctrl-C` 退出）。
+
+### 验证 Disko 设备参数是否传入
+
+当前 Host 的 Disko 配置通过 `INSTALL_DISK_DEVICE` 环境变量选择设备；未设置时默认使用 `/dev/vda`。在首次安装或修改安装器后，先做纯求值验证：
+
+```bash
+INSTALL_DISK_DEVICE=/dev/disk/by-id/<EXPECTED_DISK_ID> \
+  nix eval --impure --raw \
+  '.#nixosConfigurations."mochou@vm".config.disko.devices.disk.main.device'
+```
+
+预期输出必须与设置的设备路径完全一致。若仍输出 `/dev/vda` 或求值报错，停止安装并先修复环境变量传递；不要依赖安装器的磁盘选择提示来推断 Disko 最终会操作哪块盘。
+
+> [!CAUTION]
+> Disko 会按配置重新分区并格式化选中的磁盘。确认前不要只看“列表中只有一块盘”就继续；目标机可能还有未显示为普通磁盘的存储层，或根文件系统可能通过 LVM/RAID 映射到其他设备。
+
+## 5. 目标机无法访问 GitHub：使用本地 kexec 包
 
 nixos-anywhere 默认会从 nix-community/nixos-images 的 GitHub Release 下载 kexec 安装包。如果目标机无法访问 GitHub，可以在部署机上通过可用的网络、代理或可信镜像下载同一个安装包，再通过 `--kexec` 指定本地文件。nixos-anywhere 会先将该文件上传到目标机，然后使用它启动临时 NixOS 安装环境。
 
@@ -136,7 +196,7 @@ INSTALL_HOST=root@<TARGET_IP> \
 > [!IMPORTANT]
 > 本地 kexec 文件只解决“目标机下载 GitHub 引导镜像”这一环节。它不代表整个安装过程完全离线：部署机仍需具备 Flake inputs、所需源代码和构建依赖（可通过网络或本地缓存取得），并完成目标系统构建；随后通过 SSH 将所需闭包传给目标机。目标机不需要访问公共互联网，但必须能与部署机通信。
 
-## 5. 安装过程与验证
+## 6. 安装过程与验证
 
 nixos-anywhere 默认依次执行以下阶段：
 
@@ -167,7 +227,66 @@ ssh root@<TARGET_IP> 'journalctl -b -u <UNIT_NAME> --no-pager -n 100'
 
 安装完成后，日常系统更新应使用仓库配置的 deploy-rs 流程，不要再次运行 `install-vm`。重新运行安装 App 会再次执行 Disko 并清空目标磁盘。
 
-## 6. 相关文件与上游文档
+## 7. 安装后磁盘与系统验证
+
+首次启动后，不要只确认 SSH 能连通；应核对磁盘布局是否与 Disko 配置一致：
+
+```bash
+ssh root@<TARGET_IP> '
+  echo "=== NixOS version ==="
+  nixos-version
+  echo "=== partitions and filesystems ==="
+  lsblk -o NAME,PATH,SIZE,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINTS
+  echo "=== mounted filesystems ==="
+  findmnt / /boot /nix /nix/persistence /nix/persistence/home /nix/persistence/var
+  echo "=== swap ==="
+  swapon --show
+  echo "=== btrfs subvolumes ==="
+  btrfs subvolume list /btr_pool
+  echo "=== failed units ==="
+  systemctl --failed
+'
+```
+
+按当前 `hosts/mochou@vm/disk-config.nix`，应重点确认：
+
+- GPT 分区表包含约 1 GiB EFI 分区、10 GiB swap 分区和占用剩余空间的 Btrfs 分区。
+- EFI 分区为 FAT32，并挂载到 `/boot`。
+- swap 分区已启用。
+- Btrfs 包含 `@rootfs`、`@home`、`@var` 和 `nix` 子卷；对应挂载点应符合 Host 的文件系统配置。
+- 根目录按该 Host 的无状态设计使用 tmpfs；不要因为 `/` 没有直接显示为 Btrfs 就判断安装失败。
+
+若某个挂载点不存在或输出与预期不符，先检查 `lsblk`、`findmnt`、`btrfs subvolume list` 和 `journalctl -b`，不要直接再次运行安装器。
+
+### 关于 /etc/nixos
+
+此 Host 由仓库 Flake 中的 `nixosConfigurations."mochou@vm"` 构建。安装后不一定会生成传统的 `/etc/nixos/configuration.nix` 或 `hardware-configuration.nix`；没有这些文件不代表系统没有配置。配置源是部署机上的仓库及其 Flake inputs，后续修改应在仓库中完成，再通过 deploy-rs 部署。不要为了让 `/etc/nixos` 看起来完整而手动创建一份与 Flake 配置脱节的配置。
+
+### 日常远程部署与更新
+
+初次安装完成后，日常更新使用 deploy-rs，不要重复运行 `install-vm`。先检查 `modules/flake/deploy.nix` 中 `mochou@vm` 的 `hostname`，必须与目标机当前 IP 一致；当前仓库默认值为 `192.168.122.246`。如果目标机 IP 已变更（例如本次安装使用其他地址），先更新该字段。
+
+部署机进入仓库开发环境：
+
+```bash
+just dev
+```
+
+先执行 dry activation：
+
+```bash
+deploy --dry-activate '.#mochou@vm'
+```
+
+确认目标地址、构建结果和激活计划正确后，再正式部署：
+
+```bash
+deploy '.#mochou@vm'
+```
+
+`deploy-rs` 当前配置为本地构建（`remoteBuild = false`），再经 SSH 将系统闭包传输到目标机。部署前确认 root SSH 认证可用。日常更新流程是先同步仓库并检查本地改动，再执行 dry activation 和正式部署；不要用重新安装代替系统更新。
+
+## 8. 相关文件与上游文档
 
 仓库内相关文件：
 
