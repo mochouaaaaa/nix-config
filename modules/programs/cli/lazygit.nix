@@ -22,7 +22,7 @@
                     coreutils
                   ];
                   text = ''
-                    MODEL="''${OLLAMA_COMMIT_MODEL:-"qwen2.5-coder:7b-instruct-q8_0"}"
+                    MODEL="''${OLLAMA_COMMIT_MODEL:-"qwen3.5:9b"}"
                     OLLAMA_URL="''${OLLAMA_HOST:-"http://localhost:11434"}/api/generate"
 
                     # 检查是否有暂存区改动
