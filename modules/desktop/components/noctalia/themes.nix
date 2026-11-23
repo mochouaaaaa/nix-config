@@ -205,6 +205,7 @@
               ++ lib.optional config.programs.lazydocker.enable "lazydocker"
               ++ lib.optional config.programs.fzf.enable "fzf"
               ++ lib.optional config.programs.bat.enable "bat"
+              ++ lib.optional config.programs.thunderbird.enable "thunderbird"
               ++ lib.optional config.programs.vicinae.enable "vicinae"
               ++ lib.optional config.programs.zed-editor.enable "zed"
               ++ lib.optional config.programs.vscode.enable "vscode"
