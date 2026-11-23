@@ -18,6 +18,6 @@
     {
       profiles.preservation.users.${username}.directories =
         lib.optional config.home-manager.users.${username}.programs.codex.enable
-          ".codex";
+          ".config/codex";
     };
 }
