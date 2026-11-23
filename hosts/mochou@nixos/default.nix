@@ -13,12 +13,14 @@
     self.modules.nixos.preservation
     self.modules.nixos."services.virtualisation.vm"
     self.modules.nixos."desktop.hyprland"
+    # self.modules.nixos."desktop.niri"
+    # self.modules.nixos."desktop.umbriel"
+    # self.modules.nixos."desktop.cosmic"
     self.modules.nixos."desktop.flatpak"
     self.modules.nixos."desktop.programs.networking"
     self.modules.nixos.boot-loader-limine
     self.modules.nixos."hardware.hid-apple"
     self.modules.nixos."profiles.zram"
-    # self.modules.nixos."desktop.niri"
 
     self.modules.nixos."services.dns"
     self.modules.nixos."services.avahi"
@@ -28,8 +30,12 @@
     self.modules.nixos."services.proxy"
     self.modules.nixos."programs.evolution"
     self.modules.nixos."services.ollama"
-    self.modules.nixos."services.databases"
 
+    # self.modules.nixos."services.databases"
+    self.modules.nixos."services.postgresql"
+    self.modules.nixos."services.redis"
+
+    self.modules.nixos."services.virtualisation.podman"
     self.modules.nixos."services.virtualisation.qemu"
   ];
 
@@ -46,7 +52,6 @@
     self.modules.homeManager.host
     self.modules.homeManager.workstation
     self.modules.homeManager.linux
-    self.modules.homeManager."development.gui"
     self.modules.homeManager."agents.codex"
     self.modules.homeManager."agents.antigravity"
     self.modules.homeManager."desktop.programs"
