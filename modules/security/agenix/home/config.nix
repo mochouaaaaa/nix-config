@@ -50,6 +50,12 @@
             vicinae_github = {
               rekeyFile = ./vicinae-github.age;
             };
+            codestral = {
+              rekeyFile = ./codestral.age;
+            };
+            gemini = {
+              rekeyFile = ./gemini.age;
+            };
           };
 
         };
@@ -60,6 +66,9 @@
             if [[ -r "$GITHUB_TOKEN_FILE" ]]; then
               export GITHUB_TOKEN="$(<"$GITHUB_TOKEN_FILE")"
             fi
+
+            export CODESTRAL_API_KEY="$(<${config.age.secrets.codestral.path})"
+            export GEMINI_API_KEY="$(<${config.age.secrets.gemini.path})"
           '';
         };
 
