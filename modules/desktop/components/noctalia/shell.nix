@@ -10,6 +10,11 @@
           password_style = "random";
           polkit_colorize_icons = true;
           popup_shadows = false;
+          settings_expand_all_groups = true;
+          settings_window_translucent = true;
+          shadow = {
+            alpha = 0.65;
+          };
           screenshot = {
             confirm_region = true;
             remember_last_region = true;
