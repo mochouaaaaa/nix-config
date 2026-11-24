@@ -102,7 +102,7 @@
         "browser.gesture.swipe.right" = "";
 
         # Extensions
-        "extensions.autodisablescopes" = 0;
+        "extensions.autoDisableScopes" = 0;
 
         # Fonts
         "font.name.serif.zh-CN" = config.profiles.fonts.serif or "Source Han Serif";
@@ -163,6 +163,22 @@
                 {
                   name = "q";
                   value = "{searchTerms} -site:csdn.net";
+                }
+                {
+                  name = "kl";
+                  value = "sg-en";
+                }
+                {
+                  name = "kp";
+                  value = "-1";
+                }
+                {
+                  name = "kae";
+                  value = "-1";
+                }
+                {
+                  name = "kac";
+                  value = "1";
                 }
               ];
             }
