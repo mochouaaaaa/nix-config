@@ -60,11 +60,7 @@
 
           programs = {
             zsh.envExtra = lib.mkBefore ''
-              GITHUB_TOKEN_FILE="${config.age.secrets.github_token.path}"
-              if [[ -r "$GITHUB_TOKEN_FILE" ]]; then
-                export GITHUB_TOKEN="$(<"$GITHUB_TOKEN_FILE")"
-              fi
-
+              export GITHUB_TOKEN="$(<"${config.age.secrets.github_token.path}")"
               export CODESTRAL_API_KEY="$(<${config.age.secrets.codestral.path})"
               export GEMINI_API_KEY="$(<${config.age.secrets.gemini.path})"
             '';
