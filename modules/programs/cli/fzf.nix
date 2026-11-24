@@ -1,5 +1,35 @@
 {
-  flake.modules.homeManager.programs = { pkgs, ... }: {
+
+  flake.modules.homeManager."programs.fzf.26-11" =
+    { lib, options, ... }:
+    let
+      hasFzfHistory = lib.hasAttrByPath [
+        "programs"
+        "fzf"
+        "historyWidget"
+      ] options;
+
+    in
+    {
+      config = lib.optionalAttrs hasFzfHistory {
+        programs.fzf.historyWidget = {
+          options = [
+            "--layout=reverse"
+            "--no-sort"
+            "--exact"
+            "--preview 'echo {}'"
+            "--preview-window=down:3:hidden:wrap"
+            "--bind '?:toggle-preview'"
+            "--border"
+            "--cycle"
+          ];
+        };
+      };
+    };
+
+  flake.modules.homeManager.programs = { pkgs, self, ... }: {
+
+    imports = [ self.modules.homeManager."programs.fzf.26-11" ];
 
     programs = {
       zsh = {
@@ -85,18 +115,6 @@
           "--select-1"
           "--exit-0"
         ];
-        historyWidget = {
-          options = [
-            "--layout=reverse"
-            "--no-sort"
-            "--exact"
-            "--preview 'echo {}'"
-            "--preview-window=down:3:hidden:wrap"
-            "--bind '?:toggle-preview'"
-            "--border"
-            "--cycle"
-          ];
-        };
         tmux = {
           enableShellIntegration = true;
           shellIntegrationOptions = [ "-p 90%,80%" ];

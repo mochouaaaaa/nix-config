@@ -1,11 +1,30 @@
 {
+
+  flake.modules.homeManager."programs.direnv.26-11" =
+    { lib, options, ... }:
+    let
+      hasDirenvenableGitIntegration = lib.hasAttrByPath [
+        "programs"
+        "direnv"
+        "enableGitIntegration"
+      ] options;
+    in
+    {
+      config = lib.optionalAttrs hasDirenvenableGitIntegration {
+        programs.direnv.enableGitIntegration = true;
+      };
+    };
+
   flake.modules.homeManager."cli.direnv" =
     {
       pkgs,
+      self,
       config,
       ...
     }:
     {
+      imports = [ self.modules.homeManager."programs.direnv.26-11" ];
+
       home.packages = with pkgs; [
         (writeShellApplication {
           name = "nixify";
@@ -65,7 +84,6 @@
         mise.enable = config.programs.mise.enable;
         enableZshIntegration = config.programs.zsh.enable;
         enableBashIntegration = config.programs.bash.enable;
-        enableGitIntegration = config.programs.git.enable;
       };
     };
 
