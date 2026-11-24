@@ -64,7 +64,6 @@ in
   # Shared Home Manager foundations only. Select a role explicitly in each host.
   flake.modules.homeManager.host = { self, ... }: {
     imports = [
-      self.modules.homeManager.agenix
       self.modules.homeManager.core
       self.modules.homeManager."system.ssh"
     ];

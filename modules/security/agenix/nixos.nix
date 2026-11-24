@@ -1,20 +1,24 @@
 {
-  self,
-  inputs,
-  ...
-}:
-{
   flake.modules.nixos.agenix =
     {
+      self,
+      inputs,
       config,
       pkgs,
       hostName,
       ...
     }:
+    let
+      inherit (inputs) mysecrets;
+    in
     {
       imports = [
         inputs.agenix.nixosModules.default
         inputs.agenix-rekey.nixosModules.default
+      ];
+
+      home-manager.sharedModules = [
+        self.modules.homeManager.agenix
       ];
 
       services.openssh.enable = true;
@@ -29,10 +33,10 @@
 
         secrets = {
           subscription = {
-            rekeyFile = ./subscription.age;
+            rekeyFile = "${mysecrets}/nixos/subscription.age";
           };
           next_dns_server = {
-            rekeyFile = ./next_dns_server.env;
+            rekeyFile = "${mysecrets}/nixos/next_dns_server.env";
           };
         };
       };
