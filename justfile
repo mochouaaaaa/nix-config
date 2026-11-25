@@ -15,8 +15,7 @@ set shell := ["bash", "-cu"]
 # The repository containing this justfile.
 FLAKE := env_var_or_default("NH_FLAKE", justfile_directory())
 
-# Host names under hosts/. Conventional hosts use <username>@<hostname>;
-# named infrastructure hosts declare username and hostName in nixpkgs.json.
+# Host directory names under hosts/ use the <username>@<hostname> convention.
 # NH_HOST is used by NixOS recipes; Darwin has its own independent default.
 HOST := env_var_or_default("NH_HOST", "mochou@nixos")
 DARWIN_HOST := env_var_or_default("NH_DARWIN_HOST", "mochou@darwin")
