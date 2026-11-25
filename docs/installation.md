@@ -264,7 +264,7 @@ ssh root@<TARGET_IP> '
 
 ### 日常远程部署与更新
 
-初次安装完成后，日常更新使用 deploy-rs，不要重复运行 `install-vm`。先检查 `modules/flake/deploy.nix` 中 `mochou@vm` 的 `hostname`，必须与目标机当前 IP 一致；当前仓库默认值为 `192.168.122.246`。如果目标机 IP 已变更（例如本次安装使用其他地址），先更新该字段。
+初次安装完成后，日常更新使用 deploy-rs，不要重复运行 `install-vm`。先检查 `modules/flake/deploy.nix` 中 `mochou@vm` 的 `hostname`，必须与目标机当前 IP 一致。当前 VM 使用的地址为 `192.168.122.62`；如果目标机 IP 发生变化，先更新该字段，再执行部署。
 
 部署机进入仓库开发环境：
 
@@ -272,19 +272,31 @@ ssh root@<TARGET_IP> '
 just dev
 ```
 
-先执行 dry activation：
+先确认 Flake 中的部署节点和目标地址：
 
 ```bash
-deploy --dry-activate '.#mochou@vm'
+nix eval --json .#deploy.nodes --apply 'nodes: builtins.mapAttrs (_: node: node.hostname) nodes'
+```
+
+确认输出中的 `mochou@vm` 指向预期目标机，并测试 root SSH 连接：
+
+```bash
+ssh -o BatchMode=yes root@192.168.122.62 'hostname; nixos-version'
+```
+
+先执行 dry activation。节点名包含 `@`，需要将节点名作为带引号的 Nix 属性名，并明确指定 `system` profile：
+
+```bash
+deploy --dry-activate '.#"mochou@vm".system'
 ```
 
 确认目标地址、构建结果和激活计划正确后，再正式部署：
 
 ```bash
-deploy '.#mochou@vm'
+deploy '.#"mochou@vm".system'
 ```
 
-`deploy-rs` 当前配置为本地构建（`remoteBuild = false`），再经 SSH 将系统闭包传输到目标机。部署前确认 root SSH 认证可用。日常更新流程是先同步仓库并检查本地改动，再执行 dry activation 和正式部署；不要用重新安装代替系统更新。
+`deploy-rs` 当前配置为本地构建（`remoteBuild = false`），再经 SSH 将系统闭包传输到目标机。部署机必须能够构建目标 `x86_64-linux` 系统；macOS 部署机需要可用的 Linux builder。部署前确认 root SSH 公钥认证可用。日常更新流程是先同步仓库并检查本地改动，再核对部署节点地址、执行 dry activation，最后正式部署；不要用重新安装代替系统更新。
 
 ## 8. 相关文件与上游文档
 
