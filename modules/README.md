@@ -1,6 +1,6 @@
-# Modules 架构
+# 模块架构
 
-本仓库采用 **Dendritic Pattern + flake-parts + import-tree**。`modules/` 按功能域组织源文件；模块通过 `flake.modules.<class>.<name>` 注册，Host 只负责组合所需模块并声明机器差异。
+本仓库采用 **Dendritic Pattern + flake-parts + import-tree**。`modules/` 按功能域组织源文件；模块通过 `flake.modules.<class>.<name>` 注册，Host 负责组合所需模块并声明机器差异。
 
 模块类遵循 flake-parts 约定：
 
@@ -37,7 +37,7 @@ modules/
 ├── development/    # 开发语言与工具链
 │   ├── languages/
 │   └── tools/
-├── flake/          # Flake 全局输出、perSystem、checks 与开发环境
+├── flake/          # Flake 全局输出、perSystem、检查与开发环境
 ├── hardware/       # 音频、蓝牙、输入设备与硬件调优
 ├── programs/       # 用户程序与工具
 │   ├── browsers/
@@ -57,11 +57,11 @@ modules/
 各功能域的补充说明：
 
 - [agents/](./agents/README.md)：Agent 工具集成与数据持久化。
-- [desktop/](./desktop/README.md)：桌面入口、公共能力与应用 profile 的组合方式。
-- [development/](./development/README.md)：开发语言原子模块、工具链聚合入口与 GUI IDE 选择。
-- [flake/](./flake/README.md)：Flake outputs、开发环境、格式化与 checks。
+- [desktop/](./desktop/README.md)：桌面入口、公共能力与应用配置组的组合方式。
+- [development/](./development/README.md)：开发语言原子模块、工具链聚合入口与图形 IDE 选择。
+- [flake/](./flake/README.md)：Flake 输出、开发环境、格式化与检查。
 - [programs/](./programs/README.md)：用户程序的目录边界与平台职责。
-- [security/agenix/](./security/agenix/README.md)：Agenix 集成边界、专用开发环境与 rekey 工作流。
+- [security/agenix/](./security/agenix/README.md)：Agenix 集成边界、专用开发环境与密钥重新加密流程。
 
 ## 功能域边界
 
@@ -74,7 +74,7 @@ modules/
 | `agents` | Agent 工作流工具 | `agents.codex`、`agents.antigravity` |
 | `development` | 语言运行时与开发工具链 | `development.go`、`development.node`、`development.python`、`development.rust`、`development.languages`、`development`、`development.gui` |
 | `services` | 系统级服务 | `services.proxy`、`services.mysql`、`services.postgresql`、`services.redis`、`services.databases` |
-| `security` | 密钥、安全策略与持久化 | agenix、preservation |
+| `security` | 密钥、安全策略与持久化 | Agenix、Preservation |
 | `darwin` | macOS 专属系统配置 | Homebrew、系统 defaults |
 | `appearance` | 字体包、fontconfig 与字体选项 | `appearance` |
 
@@ -86,7 +86,7 @@ modules/
 - 模块类使用标准名称 `nixos`、`darwin` 和 `homeManager`。
 - 不同模块类拥有不同选项系统；需要组合 NixOS 与 Home Manager 时，应在 NixOS 模块中只为目标用户添加对应 HM 模块，不要把 NixOS 选项写入 HM 模块。
 
-聚合模块通过 `imports` 组合职责单一的模块；底层模块仍保留独立注册 ID，Host 可以直接导入细粒度模块，或选择聚合入口。例如，`hardware.desktop` 组合 `hardware.audio` 与 `hardware.bluetooth`，而两个基础模块仍可单独导入。桌面能力进一步拆分为 NixOS 的 `desktop.base`、`desktop.hardware` 和 Home Manager 的 `homeManager.desktop.user`；`desktop.common` 保留为兼容聚合入口。数据库服务同样保留 `services.mysql`、`services.postgresql` 和 `services.redis` 三个独立入口；NixOS Host 可按需选择 `services.databases` 一次启用三者。该聚合入口不代表所有 Host 都应启用数据库。桌面入口可以负责导入自己的公共能力，并将匹配的 Home Manager 桌面模块注入 Host 主用户。与桌面无关的代理、数据库和开发服务应由 Host 或独立 profile 显式选择，避免切换桌面时产生意外副作用。
+聚合模块通过 `imports` 组合职责单一的模块；底层模块仍保留独立注册 ID，Host 可以直接导入细粒度模块，或选择聚合入口。例如，`hardware.desktop` 组合 `hardware.audio` 与 `hardware.bluetooth`，两个基础模块仍可单独导入。桌面能力进一步拆分为 NixOS 的 `desktop.base`、`desktop.hardware` 和 Home Manager 的 `homeManager.desktop.user`；`desktop.common` 保留为兼容聚合入口。数据库服务保留 `services.mysql`、`services.postgresql` 和 `services.redis` 三个独立入口；NixOS Host 可按需选择 `services.databases` 一次启用三者。该聚合入口不代表所有 Host 都应启用数据库。桌面入口可以导入公共能力，并将匹配的 Home Manager 桌面模块注入 Host 主用户。与桌面无关的代理、数据库和开发服务应由 Host 或独立 profile 显式选择，避免切换桌面时产生意外副作用。
 
 ## 外观职责
 
@@ -105,7 +105,7 @@ Host 目录采用 `<username>@<hostname>` 命名，例如 `mochou@nixos`、`moch
 - `os`：必填，系统构造器所在的 Flake input；设为 `null` 时表示 standalone Home Manager Host。
 - `home-manager`：必填，提供 Home Manager 模块和 `lib.homeManagerConfiguration` 的 Flake input。
 - `home-manager-nixpkgs`：仅用于 standalone Home Manager，必填，用于选择创建 `pkgs` 的 Flake input；集成式 Home Manager Host 不应设置此字段。
-- `nixosWsl`：可选布尔值；WSL Host 设为 `true`，仅适用于 NixOS，并要求 Flake inputs 中存在 `nixos-wsl`。
+- `nixosWsl`：可选布尔值；WSL Host 设为 `true)，仅适用于 NixOS，并要求 Flake inputs 中存在 `nixos-wsl`。
 
 NixOS Host 示例：
 
@@ -135,9 +135,10 @@ Host 注册表会验证元数据中引用的 input 是否存在。NixOS 使用�
 
 `modules/flake/checks.nix` 提供轻量检查和完整 Host 求值两条路径：
 
-- 普通 `nix flake check --no-build` 会求值匹配当前 system 的 NixOS / Darwin toplevel，以及 standalone Home Manager activation package 的 derivation path，但不会构建系统闭包。
-- 设置 `NIX_CONFIG_CHECK=1` 后，检查只验证 Host 元数据，不导出并求值完整系统 toplevel 和 Home Manager activation。
-- treefmt 的格式检查和开发环境 derivation 仍由 Flake checks 管理。
+- `just check` 设置 `NIX_CONFIG_CHECK=1)，对所有声明的平台执行轻量检查，主要验证 Host 元数据，不求值完整系统 toplevel 或 Home Manager activation。
+- 普通 `nix flake check --no-build` 不设置该开关，会求值与当前平台匹配的 NixOS / Darwin toplevel，以及 standalone Home Manager activation package 的 derivation path，但不会构建系统闭包。
+- `just check-build` 执行带构建的 Flake checks；其范围由当前运行平台决定。
+- treefmt 的格式检查和开发环境 derivation 也由 Flake checks 管理。
 
 常用命令：
 
@@ -151,9 +152,9 @@ just validate
 # 显式检查 Host 元数据
 NIX_CONFIG_CHECK=1 nix flake check --no-build --impure --show-trace
 
-# 求值具体 Host
-just nixos-eval
-just darwin-eval
+# 求值当前平台选择的 Host
+NH_HOST=mochou@nixos just eval
+NH_HOST=mochou@darwin just eval
 ```
 
 `nix flake check --no-build` 只做求值与检查，不代表系统闭包已经成功构建；实际部署前仍应执行对应 Host 的 build。
