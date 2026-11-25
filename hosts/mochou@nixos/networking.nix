@@ -55,6 +55,13 @@
     interfaces.enp6s0.useDHCP = lib.mkForce true;
     interfaces.wlp5s0.useDHCP = lib.mkForce true;
 
+    networking = {
+      bridges.br0.interfaces = [
+        "enp6s0"
+      ];
+      interfaces.br0.useDHCP = true;
+    };
+
   };
 
 }
