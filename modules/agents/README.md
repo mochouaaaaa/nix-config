@@ -1,28 +1,28 @@
-# Agent modules
+# Agent 模块
 
-`modules/agents/` contains Home Manager integrations for AI coding agents and agent-oriented development tools. These modules are separate from ordinary applications because they configure an agent workflow and may also declare persistence for agent state.
+`modules/agents/` 存放 AI 编程 Agent 和面向 Agent 的开发工具的 Home Manager 集成。它们与普通应用分开管理，因为这些模块不仅配置应用本身，也可能声明 Agent 状态数据的持久化规则。
 
-## Available modules
+## 可用模块
 
-| Module ID | Implementation | Responsibility |
+| 模块 ID | 实现文件 | 职责 |
 | --- | --- | --- |
-| `agents.antigravity` | `antigravity.nix` | Enables the Antigravity CLI integration and keeps its settings mutable. |
-| `agents.codex` | `codex.nix` | Enables the Home Manager Codex program; mutable settings are enabled on non-Darwin systems. |
+| `agents.antigravity` | `antigravity.nix` | 启用 Antigravity CLI 集成，并允许其设置由用户修改。 |
+| `agents.codex` | `codex.nix` | 启用 Home Manager 的 Codex 程序；非 Darwin 平台允许用户修改设置。 |
 
-## Persistence
+## 数据持久化
 
-The NixOS preservation aspect in these files conditionally keeps each agent's user data when its corresponding Home Manager program is enabled:
+这些文件中的 NixOS preservation aspect 会在对应 Home Manager 程序启用时，有条件地保留 Agent 的用户数据：
 
-- Antigravity: `.antigravity-ide`
-- Codex: `.codex`
+- Antigravity：`.antigravity-ide`
+- Codex：`.codex`
 
-The persistence declarations are separate from the Home Manager program modules. They do not enable either agent by themselves.
+持久化声明与 Home Manager 程序模块相互独立。单独导入持久化声明不会启用对应的 Agent。
 
-## Boundaries
+## 模块边界
 
-- Put agent-specific installation and settings here.
-- Put shared language runtimes and development toolchains in `modules/development/`.
-- Put ordinary applications and command-line utilities in `modules/programs/`.
-- Keep credentials and API tokens in the repository's encrypted secret-management flow; do not put plaintext secrets in module files.
+- Agent 专属的安装和设置放在此目录。
+- 共享语言运行时和开发工具链放在 `modules/development/`。
+- 普通应用和命令行工具放在 `modules/programs/`。
+- 凭据和 API Token 必须通过仓库的加密密钥管理流程保存，不要将明文密钥写入模块文件。
 
-Add future agent integrations here when they own a distinct agent workflow or state directory.
+新增 Agent 集成时，只有当它拥有独立的 Agent 工作流或状态目录时，才应在此目录增加对应模块。
