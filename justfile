@@ -144,6 +144,10 @@ nixos-repl:
     {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
 [group('nixos')]
+install-vm ip="192.168.122.246":
+    INSTALL_HOST="root@{{ip}}" nix run "{{FLAKE}}#install-vm" --
+
+[group('nixos')]
 deploy-dry ip="192.168.122.62":
     cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#"mochou@vm".system'
 
