@@ -166,10 +166,10 @@ NH_HOST=mochou@wsl just nixos-switch
 
 ### Remote deployment host
 
-`mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio
-disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB swap, a Btrfs data
-partition with persistent subvolumes for `/nix` and Preservation data, and a
-tmpfs root filesystem.
+`remote` is the dedicated NixOS Host used as the target for remote
+installation and deployment. Its current hardware profile is a QEMU/UTM UEFI
+guest with a virtio disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB
+swap, Btrfs persistence subvolumes, and a tmpfs root filesystem.
 
 #### Initial installation
 
@@ -180,7 +180,7 @@ using a locally downloaded kexec image when the target cannot access GitHub.
 The short form is:
 
 ```bash
-just remote_install
+just remote_install [IP]
 ```
 
 The app defaults to `root@192.168.122.246`; override the target when needed:
@@ -197,16 +197,11 @@ or an intentional reinstall, never for routine updates.
 #### Routine deployment and updates
 
 The locked `deploy-rs` CLI is included in the repository's development shell.
-Enter it with `just dev`, then deploy the intended node/profile:
+Use the Just recipes to keep the remote node and profile explicit:
 
 ```bash
-deploy '<node-selector>'
-```
-
-You can also run the command without entering an interactive shell:
-
-```bash
-nix develop -c deploy '<node-selector>'
+just remote_deploy_dry [IP]  # preview activation
+just remote_deploy [IP]      # deploy and activate
 ```
 
 The `deploy.nodes.remote` definition in the Flake connects as `root`. Use
