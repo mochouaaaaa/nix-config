@@ -142,5 +142,5 @@
               program = "${installVm}/bin/install-vm";
             };
           };
-    }
+    };
 }
