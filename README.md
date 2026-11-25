@@ -136,7 +136,7 @@ NH_FLAKE=/path/to/nix-config just check
 NH_HOST=mochou@wsl just eval
 ```
 
-`FLAKE` 默认指向当前 Justfile 所在目录，可通过环境变量 `NH_FLAKE` 覆盖。`HOST` 根据运行平台默认选择 `mochou@nixos` 或 `mochou@darwin)，可通过 `NH_HOST` 指定其他 Host。
+`FLAKE` 默认指向当前 Justfile 所在目录，可通过环境变量 `NH_FLAKE` 覆盖。`HOST` 根据运行平台默认选择 `mochou@nixos` 或 `mochou@darwin`，可通过 `NH_HOST` 指定其他主机。
 
 ### Flake 输入管理
 
