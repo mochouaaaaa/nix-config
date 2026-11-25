@@ -60,6 +60,7 @@ update-platform:
 
 # Update the Plasma desktop manager input.
 [group('flake')]
+[linux]
 update-desktop:
     nix flake update "{{FLAKE}}" plasma-manager
 
