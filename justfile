@@ -143,6 +143,14 @@ nixos-test:
 nixos-repl:
     {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
+[group('nixos')]
+deploy-dry ip="192.168.122.62":
+    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#"mochou@vm".system'
+
+[group('nixos')]
+deploy ip="192.168.122.62":
+    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" '.#"mochou@vm".system'
+
 # List available NixOS desktop entry modules and mark the host's selected desktop.
 [group('nixos')]
 [linux]
