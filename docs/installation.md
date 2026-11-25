@@ -11,9 +11,15 @@
 
 - Flake Host：`mochou@vm`
 - 系统架构：`x86_64-linux`
-- 安装 App：`nix run .#install-vm`
+- Just 快捷命令：`just install-vm [IP]`
+- 底层安装 App：`nix run .#install-vm`
 - 默认 SSH 目标：`root@192.168.122.246`
 - 磁盘设备：`/dev/vda`（由 `hosts/mochou@vm/disk-config.nix` 声明）
+
+远程安装与远程部署是不同操作：
+
+- **远程安装**使用 `just install-vm [IP]`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
+- **远程部署**使用 `just deploy-dry [IP]` 预演、`just deploy [IP]` 正式更新已有 NixOS，不会执行 Disko，不应拿来替代重装。
 
 当前 Disko 配置在目标磁盘上创建 GPT 分区：
 
@@ -174,7 +180,21 @@ sha256sum .cache/nixos-anywhere/nixos-kexec-installer-noninteractive-x86_64-linu
 
 ### 5.2 使用本地文件启动安装
 
-在仓库根目录执行：
+在仓库根目录执行远程安装 Just 命令：
+
+```bash
+just install-vm <TARGET_IP>
+```
+
+例如：
+
+```bash
+just install-vm 192.168.122.62
+```
+
+该命令默认使用 `root@192.168.122.246`；传入 IP 后会覆盖目标地址。它调用仓库的 `install-vm` App，仍会要求确认目标 SSH 地址、选择磁盘并再次输入磁盘路径。**这是真正的远程安装，不是日常系统部署；确认后 Disko 会销毁目标磁盘上的原有数据。**
+
+如果需要使用本地 kexec 文件或传入其他 nixos-anywhere 参数，可以继续直接调用底层 App：
 
 ```bash
 INSTALL_HOST=root@<TARGET_IP> \
