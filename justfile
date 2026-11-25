@@ -147,17 +147,17 @@ nixos-repl:
 remote_install ip="192.168.122.246":
     INSTALL_HOST="root@{{ip}}" nix run "{{FLAKE}}#install-vm" --
 
-[group('nixos')]
+[group('remote_deploy')]
 [linux]
 remote_deploy_dry ip="192.168.122.62":
     cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#remote.system'
 
-[group('nixos')]
+[group('remote_deploy')]
 [linux]
 remote_deploy ip="192.168.122.62":
     cd "{{FLAKE}}" && deploy --hostname "{{ip}}" '.#remote.system'
 
-[group('nixos')]
+[group('remote_deploy')]
 [macos]
 remote_deploy:
     set -euo pipefail; \
