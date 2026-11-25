@@ -66,21 +66,34 @@ let
       parts = lib.splitString "@" name;
       validName = builtins.length parts == 2 && builtins.all (part: part != "") parts;
       configPath = hostsDir + "/${name}/nixpkgs.json";
-
-      metadata =
-        if !validName then
-          throw "Invalid Host directory '${name}', expected <username>@<hostname>."
-        else
-          lib.importJSON configPath;
+      metadata = lib.importJSON configPath;
     in
     if !builtins.isAttrs metadata then
       throw "${configPath} must contain a JSON object."
     else
-      metadata
-      // {
-        username = builtins.elemAt parts 0;
-        hostName = builtins.elemAt parts 1;
-      };
+      let
+        identity =
+          if validName then
+            {
+              username = builtins.elemAt parts 0;
+              hostName = builtins.elemAt parts 1;
+            }
+          else if
+            builtins.isString (metadata.username or null)
+            && metadata.username != ""
+            && builtins.isString (metadata.hostName or null)
+            && metadata.hostName != ""
+          then
+            {
+              inherit (metadata)
+                username
+                hostName
+                ;
+            }
+          else
+            throw "Host directory '${name}' must use <username>@<hostname> or define non-empty 'username' and 'hostName' in nixpkgs.json.";
+      in
+      metadata // identity;
 
   hosts = lib.mapAttrs (name: _: loadHostMetadata name) hostDirectories;
 in
