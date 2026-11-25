@@ -2,23 +2,22 @@
 # Usage:
 #   just                 Show available recipes
 #   just check           Evaluate flake outputs without building derivations
-#   just nixos-switch    Switch the configured NixOS host
-#   just darwin-switch   Switch the configured Darwin host
+#   just eval            Evaluate the current platform's system configuration
+#   just build           Build the current platform's system
+#   just switch          Switch the current platform's system
 #
 # Override defaults when needed:
 #   NH_FLAKE=/path/to/nix just check
-#   NH_HOST=mochou@nixos just nixos-switch
-#   NH_DARWIN_HOST=mochou@darwin just darwin-switch
+#   NH_HOST=mochou@nixos just switch
+#   NH_HOST=mochou@darwin just switch
 
 set shell := ["bash", "-cu"]
 
 # The repository containing this justfile.
 FLAKE := env_var_or_default("NH_FLAKE", justfile_directory())
 
-# Host directory names under hosts/ use the <username>@<hostname> convention.
-# NH_HOST is used by NixOS recipes; Darwin has its own independent default.
-HOST := env_var_or_default("NH_HOST", "mochou@nixos")
-DARWIN_HOST := env_var_or_default("NH_DARWIN_HOST", "mochou@darwin")
+# Use one host selector on both platforms. Only the default differs.
+HOST := env_var_or_default("NH_HOST", if os() == "macos" { "mochou@darwin" } else { "mochou@nixos" })
 
 # These are only needed by configurations that intentionally allow
 # unfree/insecure packages. They are passed to Nix commands with --impure.
@@ -44,14 +43,15 @@ lock:
 update:
     nix flake update "{{FLAKE}}"
 
+# Update the platform-specific input set under one recipe name.
 [group('flake')]
 [linux]
-update-linux:
+update-platform:
     nix flake update "{{FLAKE}}" nixpkgs nixpkgs-stable home-manager nixos-wsl disko
 
 [group('flake')]
 [macos]
-update-darwin:
+update-platform:
     nix flake update "{{FLAKE}}" nixpkgs-darwin nix-darwin home-manager-darwin
 
 [group('flake')]
@@ -94,80 +94,100 @@ check-build:
 [group('quality')]
 validate: fmt-check lint check
 
-# Evaluate the current platform's configured host without building its system closure.
+# Evaluate the configured host on the current platform.
 [group('quality')]
 [linux]
-validate-hosts: nixos-eval
-
-[group('quality')]
 [macos]
-validate-hosts: darwin-eval
+validate-hosts: eval
 
 # ---------------------------------------------------------------------------
-# NixOS
+# System configuration
 # ---------------------------------------------------------------------------
 
-[group('nixos')]
+# Shared recipe names and arguments; only the platform-specific command differs.
+[group('system')]
 [linux]
-nixos-eval:
+eval:
     {{NIX_ALLOW}} nix eval "{{FLAKE}}#nixosConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
 
-[group('nixos')]
+[group('system')]
+[macos]
+eval:
+    {{NIX_ALLOW}} nix eval "{{FLAKE}}#darwinConfigurations.\"{{HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
+
+[group('system')]
 [linux]
-nixos-build:
+build:
     {{NIX_ALLOW}} nh os build "{{FLAKE}}" -H "{{HOST}}" -- --impure
 
-[group('nixos')]
+[group('system')]
+[macos]
+build:
+    {{NIX_ALLOW}} nh darwin build "{{FLAKE}}" -H "{{HOST}}" -- --impure
+
+[group('system')]
 [linux]
-nixos-vm:
+switch:
+    {{NIX_ALLOW}} nh os switch "{{FLAKE}}" -H "{{HOST}}" -- --impure
+
+[group('system')]
+[macos]
+switch:
+    {{NIX_ALLOW}} nh darwin switch "{{FLAKE}}" -H "{{HOST}}" -- --impure
+
+[group('system')]
+[linux]
+boot:
+    {{NIX_ALLOW}} nh os boot "{{FLAKE}}" -H "{{HOST}}" -- --impure
+
+[group('system')]
+[linux]
+test:
+    {{NIX_ALLOW}} nh os test "{{FLAKE}}" -H "{{HOST}}" -- --impure
+
+[group('system')]
+[linux]
+vm:
     vm_path=$({{NIX_ALLOW}} nix build "{{FLAKE}}#nixosConfigurations.\"{{HOST}}\".config.system.build.vmWithDisko" --impure --no-link --print-out-paths); \
     "$vm_path/bin/disko-vm"
 
-[group('nixos')]
+[group('system')]
 [linux]
-nixos-boot:
-    {{NIX_ALLOW}} nh os boot "{{FLAKE}}" -H "{{HOST}}" -- --impure
-
-[group('nixos')]
-[linux]
-nixos-switch:
-    {{NIX_ALLOW}} nh os switch "{{FLAKE}}" -H "{{HOST}}" -- --impure
-
-[group('nixos')]
-[linux]
-nixos-test:
-    {{NIX_ALLOW}} nh os test "{{FLAKE}}" -H "{{HOST}}" -- --impure
-
-[group('nixos')]
-[linux]
-nixos-repl:
+repl:
     {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
+[group('system')]
+[macos]
+repl:
+    {{NIX_ALLOW}} nix repl "{{FLAKE}}" --impure
+
+# ---------------------------------------------------------------------------
+# Remote deployment
+# ---------------------------------------------------------------------------
 
 [group('remote')]
+[linux]
 remote_install ip port:
     INSTALL_HOST="root@{{ip}}" \
     INSTALL_SSH_PORT="{{port}}" \
     nix run "{{FLAKE}}#install-vm" --
 
-# Remote deployment:
-# - Linux: ip is the target NixOS machine's reachable IP address or hostname.
-#   Override the default with: just remote_deploy ip="192.168.122.62"
-# - Darwin: pass the target IP/hostname and SSH port as positional arguments.
-#   The Flake target remains nixosConfigurations."mochou@remote".
+# Keep the same positional arguments on both platforms.
+# Linux deploy-rs uses SSH options for the requested port; Darwin builds
+# directly on the remote NixOS store and activates the resulting toplevel.
 [group('remote')]
 [linux]
-remote_deploy_dry ip="192.168.122.62":
-    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#remote.system'
+remote_deploy ip="192.168.122.62" port="22":
+    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --ssh-opts="-p {{port}}" '.#remote.system'
 
 [group('remote')]
 [linux]
-remote_deploy ip="192.168.122.62":
-    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" '.#remote.system'
+remote_deploy_dry ip="192.168.122.62" port="22":
+    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --ssh-opts="-p {{port}}" --dry-activate '.#remote.system'
 
 [group('remote')]
 [macos]
-remote_deploy ip port:
+remote_deploy ip="192.168.122.62" port="22":
     set -euo pipefail; \
     target="mochou@{{ip}}"; \
     toplevel=$(NIX_SSHOPTS="-p {{port}}" {{NIX_ALLOW}} nix build \
@@ -183,17 +203,36 @@ remote_deploy ip port:
          sudo '$toplevel/bin/switch-to-configuration' switch"; \
     echo "Remote NixOS deployment completed."
 
+[group('remote')]
+[macos]
+remote_deploy_dry ip="192.168.122.62" port="22":
+    set -euo pipefail; \
+    target="mochou@{{ip}}"; \
+    toplevel=$(NIX_SSHOPTS="-p {{port}}" {{NIX_ALLOW}} nix build \
+        "{{FLAKE}}#nixosConfigurations.\"mochou@remote\".config.system.build.toplevel" \
+        --eval-store auto \
+        --store "ssh-ng://$target" \
+        --impure \
+        --no-link \
+        --print-out-paths); \
+    echo "Build completed: $toplevel"; \
+    ssh -p "{{port}}" -t "$target" \
+        "sudo nix-env --profile /nix/var/nix/profiles/system --set '$toplevel' && \
+         sudo '$toplevel/bin/switch-to-configuration' dry-activate"; \
+    echo "Remote NixOS dry activation completed."
+
 # List available NixOS desktop entry modules and mark the host's selected desktop.
 [group('nixos')]
 [linux]
 desktop:
-    @nix eval --raw --apply 'modules: builtins.concatStringsSep "\n" (builtins.filter (name: builtins.match "desktop\\.[^.]+$" name != null && name != "desktop.common") (builtins.attrNames modules))' "{{FLAKE}}#modules.nixos" | while IFS= read -r module || [ -n "$module" ]; do \
+    @nix eval --raw --apply 'modules: builtins.concatStringsSep "\\n" (builtins.filter (name: builtins.match "desktop\\\\.[^.]+$" name != null && name != "desktop.common") (builtins.attrNames modules))' "{{FLAKE}}#modules.nixos" | while IFS= read -r module || [ -n "$module" ]; do \
         if awk '!/^[[:space:]]*#/' "{{FLAKE}}/hosts/{{HOST}}/default.nix" | grep -Fq "self.modules.nixos.\"$module\""; then \
-            printf '%s  (current)\n' "$module"; \
+            printf '%s  (current)\\n' "$module"; \
         else \
-            printf '%s\n' "$module"; \
+            printf '%s\\n' "$module"; \
         fi; \
     done
+
 # ---------------------------------------------------------------------------
 # Home Manager
 # ---------------------------------------------------------------------------
@@ -213,30 +252,6 @@ hm-status:
 [linux]
 hm-logs:
     journalctl -u "home-manager-$(id -un).service" -b --no-pager -n 150
-
-# ---------------------------------------------------------------------------
-# nix-darwin
-# ---------------------------------------------------------------------------
-
-[group('darwin')]
-[macos]
-darwin-eval:
-    {{NIX_ALLOW}} nix eval "{{FLAKE}}#darwinConfigurations.\"{{DARWIN_HOST}}\".config.system.build.toplevel.drvPath" --impure --show-trace
-
-[group('darwin')]
-[macos]
-darwin-build:
-    {{NIX_ALLOW}} nh darwin build "{{FLAKE}}" -H "{{DARWIN_HOST}}" -- --impure
-
-[group('darwin')]
-[macos]
-darwin-switch:
-    {{NIX_ALLOW}} nh darwin switch "{{FLAKE}}" -H "{{DARWIN_HOST}}" -- --impure
-
-[group('darwin')]
-[macos]
-darwin-repl:
-    {{NIX_ALLOW}} nix repl "{{FLAKE}}" --impure
 
 # ---------------------------------------------------------------------------
 # Store maintenance
@@ -269,7 +284,7 @@ store-optimize:
 
 # ---------------------------------------------------------------------------
 # Development / secrets
-# --------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
 [group('dev')]
 dev:
