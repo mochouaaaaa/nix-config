@@ -18,7 +18,7 @@
         else
           inputs.nixos-anywhere.packages.${system}.nixos-anywhere;
 
-      installVm = pkgs.writeShellApplication {
+      remoteInstall = pkgs.writeShellApplication {
         name = "remote_install";
         runtimeInputs = [
           nixosAnywhere
@@ -138,7 +138,7 @@
           {
             remote_install = {
               type = "app";
-              program = "${installVm}/bin/remote_install";
+              program = "${remoteInstall}/bin/remote_install";
               meta.description = "Install the remote NixOS host using nixos-anywhere";
             };
           };
