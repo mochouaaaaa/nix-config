@@ -153,8 +153,8 @@ remote_install ip port:
 # Remote deployment:
 # - Linux: ip is the target NixOS machine's reachable IP address or hostname.
 #   Override the default with: just remote_deploy ip="192.168.122.62"
-# - Darwin: target is the SSH config alias (currently "remote"); the Flake
-#   target is fixed to nixosConfigurations."mochou@remote".
+# - Darwin: pass the target IP/hostname and SSH port as positional arguments.
+#   The Flake target remains nixosConfigurations."mochou@remote".
 [group('remote')]
 [linux]
 remote_deploy_dry ip="192.168.122.62":
@@ -167,10 +167,10 @@ remote_deploy ip="192.168.122.62":
 
 [group('remote')]
 [macos]
-remote_deploy:
+remote_deploy ip port:
     set -euo pipefail; \
-    target="remote"; \
-    toplevel=$({{NIX_ALLOW}} nix build \
+    target="mochou@{{ip}}"; \
+    toplevel=$(NIX_SSHOPTS="-p {{port}}" {{NIX_ALLOW}} nix build \
         "{{FLAKE}}#nixosConfigurations.\"mochou@remote\".config.system.build.toplevel" \
         --eval-store auto \
         --store "ssh-ng://$target" \
@@ -178,7 +178,7 @@ remote_deploy:
         --no-link \
         --print-out-paths); \
     echo "Build completed: $toplevel"; \
-    ssh -t "$target" \
+    ssh -p "{{port}}" -t "$target" \
         "sudo nix-env --profile /nix/var/nix/profiles/system --set '$toplevel' && \
          sudo '$toplevel/bin/switch-to-configuration' switch"; \
     echo "Remote NixOS deployment completed."
