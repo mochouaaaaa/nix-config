@@ -23,7 +23,6 @@
         runtimeInputs = [
           nixosAnywhere
           pkgs.jq
-          pkgs.openssh
         ];
         text = ''
           target_host="''${INSTALL_HOST:-root@192.168.122.246}"
