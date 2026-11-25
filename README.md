@@ -1,8 +1,8 @@
-# Mochou's Nix Configuration
+# Mochou 的 Nix 配置
 
 <p align="center">
   <a href="https://github.com/mochouaaaaa/nix-config">
-    <img alt="GitHub repository" src="https://img.shields.io/badge/Nix%20Flakes-Declarative%20Systems-7EBAE4?style=for-the-badge&logo=nixos&logoColor=white">
+    <img alt="Nix Flakes 声明式系统配置" src="https://img.shields.io/badge/Nix%20Flakes-Declarative%20Systems-7EBAE4?style=for-the-badge&logo=nixos&logoColor=white">
   </a>
   <a href="https://nixos.org/">
     <img alt="NixOS" src="https://img.shields.io/badge/NixOS-Declarative-5277C3?style=for-the-badge&logo=nixos&logoColor=white">
@@ -10,11 +10,6 @@
   <a href="https://github.com/nix-community/home-manager">
     <img alt="Home Manager" src="https://img.shields.io/badge/Home%20Manager-enabled-6B8EAD?style=for-the-badge">
   </a>
-  <!--
-  <a href="https://github.com/mochouaaaaa/nix-config/stargazers">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/mochouaaaaa/nix-config?style=for-the-badge&logo=github">
-  </a>
-  -->
 </p>
 
 这是我的个人 Nix 配置仓库，使用 **Nix Flakes、flake-parts、import-tree 和 Dendritic Pattern** 管理多台设备的系统与用户环境。
@@ -38,25 +33,25 @@
 
 Host 目录名统一采用 `<username>@<hostname>` 格式。主机清单及对应元数据位于 [hosts/](./hosts/)。
 
-## Components
+## 组件概览
 
 以下列出当前配置中具有代表性的组件；具体启用范围由各 Host 导入的模块决定。
 
 | 类别 | 组件 / 能力 |
 | --- | --- |
-| **System Configuration** | [NixOS](https://nixos.org/)、[nix-darwin](https://github.com/nix-darwin/nix-darwin)、[Home Manager](https://github.com/nix-community/home-manager) |
-| **Desktop / Compositor** | [Hyprland](https://hypr.land/)，并保留 Niri、GNOME 与 KDE 桌面入口 |
-| **Desktop Shell & Greeter** | [Noctalia](https://github.com/noctalia-dev/noctalia) |
-| **Application Launcher** | [Vicinae](https://github.com/vicinaehq/vicinae) |
-| **Terminal** | [Kitty](https://github.com/kovidgoyal/kitty) |
-| **Input Method** | Rime |
-| **Development** | CLI 开发工具链、[Visual Studio Code](https://code.visualstudio.com/)、Neovim |
-| **Applications** | 浏览器、数据库客户端、音频、通信、邮件、媒体、笔记、远程连接与办公软件 |
-| **Secrets** | [agenix](https://github.com/ryantm/agenix) + [agenix-rekey](https://github.com/oddlama/agenix-rekey) |
-| **Persistence** | [preservation](https://github.com/nix-community/preservation) |
-| **Flake Architecture** | [flake-parts](https://github.com/hercules-ci/flake-parts) + [import-tree](https://github.com/vic/import-tree) |
+| **系统配置** | [NixOS](https://nixos.org/)、[nix-darwin](https://github.com/nix-darwin/nix-darwin)、[Home Manager](https://github.com/nix-community/home-manager) |
+| **桌面环境与合成器** | [Hyprland](https://hypr.land/)，并保留 Niri、GNOME 与 KDE 桌面入口 |
+| **桌面 Shell 与登录管理器** | [Noctalia](https://github.com/noctalia-dev/noctalia) |
+| **应用启动器** | [Vicinae](https://github.com/vicinaehq/vicinae) |
+| **终端模拟器** | [Kitty](https://github.com/kovidgoyal/kitty) |
+| **输入法** | Rime |
+| **开发环境** | 命令行开发工具链、[Visual Studio Code](https://code.visualstudio.com/)、Neovim |
+| **应用程序** | 浏览器、数据库客户端、音频、通信、邮件、媒体、笔记、远程连接与办公软件 |
+| **密钥管理** | [agenix](https://github.com/ryantm/agenix) + [agenix-rekey](https://github.com/oddlama/agenix-rekey) |
+| **持久化** | [preservation](https://github.com/nix-community/preservation) |
+| **Flake 架构** | [flake-parts](https://github.com/hercules-ci/flake-parts) + [import-tree](https://github.com/vic/import-tree) |
 
-## Architecture
+## 架构说明
 
 ### Flake 与模块组织
 
@@ -70,7 +65,7 @@ Host 目录名统一采用 `<username>@<hostname>` 格式。主机清单及对�
 
 [modules/hosts.nix](./modules/hosts.nix) 使用主机注册表扫描 `hosts/` 下的目录。Host 目录名统一采用 `<username>@<hostname>` 命名。每个 Host 通过该文件声明目标架构和构建器，不需要额外维护 `class` 或 `host.json`。
 
-例如，NixOS Host：
+NixOS Host 示例：
 
 ```json
 {
@@ -80,7 +75,7 @@ Host 目录名统一采用 `<username>@<hostname>` 格式。主机清单及对�
 }
 ```
 
-Darwin Host：
+Darwin Host 示例：
 
 ```json
 {
@@ -92,13 +87,13 @@ Darwin Host：
 
 其中 `system`、`os` 和 `home-manager` 是必填字段。将 `os` 设为 `null` 表示 standalone Home Manager Host，此时还必须提供 `home-manager-nixpkgs`。WSL Host 可以设置 `nixosWsl: true`，并要求 Flake inputs 中存在 `nixos-wsl`。
 
-### Secrets & Persistence
+### 密钥与持久化
 
 - 使用 agenix / agenix-rekey 管理加密秘密；不要提交明文密码、令牌、私钥或解密后的秘密。
 - NixOS 持久化由 preservation 管理。Host 决定是否启用持久化，功能模块按需声明自身需要保留的目录和文件。
 - 加密文件仍然属于敏感配置管理的一部分。添加或调整接收者、密钥和 rekey 配置时，应确认目标主机与用户的访问范围。
 
-## Repository Layout
+## 仓库目录
 
 ```text
 .
@@ -123,65 +118,109 @@ Darwin Host：
 └── secrets/                # 加密秘密与 rekey 数据
 ```
 
-## Deployment
+## Just 命令
 
-> [!WARNING]
-> 这是面向个人设备的配置，不是通用安装器。Host 配置包含个人用户名、硬件、网络、磁盘布局和秘密管理相关设置。不要直接将现有 Host 部署到其他机器；请先检查并替换硬件配置、用户信息、密钥接收者、网络参数和持久化策略。
+仓库使用 [Just](https://github.com/casey/just) 统一管理开发、检查、系统构建、部署和维护任务。直接运行 `just` 或 `just --list` 可以查看当前平台可用的命令。
 
-### Requirements
-
-- Nix，启用 `nix-command` 与 Flakes。
-- [just](https://github.com/casey/just)，用于调用仓库任务。
-- [nh](https://github.com/nix-community/nh)，用于 NixOS / nix-darwin 构建与切换。
-- 格式与静态检查工具由开发环境提供。
-
-克隆仓库后，先查看任务列表并进入开发环境：
+### 基本用法与变量
 
 ```bash
-just
-just dev
-just show
+just                         # 列出当前平台可用的任务
+just dev                     # 进入通用开发环境
+just show                    # 查看 Flake 输出
+just hosts                   # 列出已注册的 Host
+just host-config             # 查看当前 Host 的配置入口
+
+# 指定 Flake 目录或 Host
+NH_FLAKE=/path/to/nix-config just check
+NH_HOST=mochou@wsl just eval
 ```
 
-### NixOS
+`FLAKE` 默认指向当前 Justfile 所在目录，可通过环境变量 `NH_FLAKE` 覆盖。`HOST` 根据运行平台默认选择 `mochou@nixos` 或 `mochou@darwin)，可通过 `NH_HOST` 指定其他 Host。
 
-默认 NixOS Host 为 `mochou@nixos`：
+### Flake 输入管理
 
 ```bash
-just nixos-eval     # 仅求值系统 toplevel
-just nixos-build    # 构建系统
-just nixos-boot     # 构建并设置下次启动使用的系统
-just nixos-switch   # 构建并切换到新系统
-just nixos-test     # 测试切换
-just nixos-vm       # 构建并启动 VM
-just nixos-repl     # 打开 NixOS REPL
+just lock                    # 根据当前输入约束更新 flake.lock
+just update                  # 更新全部 Flake inputs
+just update-platform         # 更新当前平台相关 inputs
+just update-desktop          # 更新 Plasma 桌面相关 input（Linux）
 ```
 
-切换其他 Host：
+### 格式化与检查
 
 ```bash
-NH_HOST=mochou@wsl just nixos-eval
-NH_HOST=mochou@wsl just nixos-switch
+just fmt                     # 使用 Flake 配置的格式化工具处理 Nix 文件
+just fmt-check               # 检查 Nix 文件格式，不修改文件
+just lint                    # 运行 statix 和 deadnix
+just check                   # 执行轻量级 Flake 检查，不构建 derivations
+just check-build             # 执行 Flake 检查并构建检查所需 derivations
+just validate                # 依次执行 fmt-check、lint 和 check
+just validate-hosts          # 求值当前平台选中的 Host
 ```
 
-### Remote deployment host
+`just check` 会设置 `NIX_CONFIG_CHECK=1`，主要验证 Flake 与 Host 元数据，不会求值完整系统 toplevel，也不会构建系统闭包。需要验证具体 Host 时，执行 `just eval`；部署前应进一步执行 `just build`。
 
-`mochou@remote` is the dedicated NixOS Host used as the target for remote
-installation and deployment. The name has two distinct parts:
+### 系统求值、构建与切换
 
-- `mochou@remote` is the NixOS Flake Host identifier and corresponds to
-  `hosts/mochou@remote/`.
-- `remote` (without the username) is the SSH client alias defined in the
-  deployment machine's `~/.ssh/config`. It tells SSH/Nix how to reach the
-  target machine; it is not an IP address or a special Nix keyword.
+NixOS 与 Darwin 使用相同的任务名称，Just 根据运行平台选择对应实现。
 
-The current target is a QEMU/UTM UEFI guest. Its connection details are kept in
-the deployment machine's SSH config rather than repeated in the Just recipe.
+| 命令 | NixOS（Linux） | nix-darwin（macOS） |
+| --- | --- | --- |
+| `just eval` | 求值当前 Host 的 NixOS toplevel | 求值当前 Host 的 Darwin toplevel |
+| `just build` | 构建系统，不激活 | 构建系统，不激活 |
+| `just switch` | 构建并立即切换系统 | 构建并立即切换系统 |
+| `just repl` | 打开 NixOS rebuild REPL | 打开加载当前 Flake 的 Nix REPL |
 
-#### SSH alias configuration
+NixOS 另外提供以下任务：
 
-On the deployment machine, define the alias (adjust the address and port to
-match your network):
+```bash
+just boot                     # 构建系统并设为下次启动默认项
+just test                     # 临时激活系统，用于测试
+just vm                       # 构建并启动带 Disko 磁盘配置的 VM
+just desktop                  # 列出可用桌面模块并标记当前 Host 使用项
+```
+
+例如，切换到 WSL Host：
+
+```bash
+NH_HOST=mochou@wsl just eval
+NH_HOST=mochou@wsl just switch
+```
+
+### Agenix 密钥维护环境
+
+Agenix 使用独立的开发环境，不会把 `age`、`agenix-rekey` 或 `AGENIX_REKEY_ADD_TO_GIT` 注入通用开发环境。
+
+```bash
+just agenix                   # 进入 Agenix 专用开发环境
+```
+
+进入环境后，在 Flake 根目录执行：
+
+```bash
+agenix-rekey                 # 重新加密已配置的 Secret
+```
+
+也可以不进入交互式环境，直接执行：
+
+```bash
+nix develop .#agenix --command agenix-rekey
+```
+
+rekey 只负责重新加密配置的 Secret，不负责部署或激活 NixOS / Darwin 系统。执行后应检查 Git 工作区和差异，确认没有明文秘密或不应提交的文件。
+
+### 远程安装与部署
+
+远程目标是 NixOS Host `mochou@remote`。安装与日常部署是不同操作：
+
+- `just remote_install` 使用 nixos-anywhere 执行首次安装或有意重装，会运行 Disko 并重新分区、格式化目标磁盘。
+- `just remote_deploy` 更新现有系统，不执行磁盘重新分区。
+- Linux 使用 deploy-rs；macOS 通过 SSH Store 在远程构建系统闭包并激活。
+
+#### SSH 连接配置
+
+在部署机器的 `~/.ssh/config` 中配置目标别名（地址和端口按实际网络调整）：
 
 ```sshconfig
 Host remote
@@ -190,177 +229,93 @@ Host remote
     Port 2222
 ```
 
-Here, `Host remote` is the alias used by the commands below; `HostName`,
-`User`, and `Port` are the actual destination address, login account, and
-SSH port. The port belongs in SSH config. Do not append `:2222` to
-`ssh-ng://remote` or pass it as part of the SSH alias.
-
-Verify that the alias works before deploying:
+验证连接：
 
 ```bash
 ssh remote
 nix store ping --store ssh-ng://remote
 ```
 
-#### Initial installation
-
-See [docs/installation.md](./docs/installation.md) for the full installation
-procedure, including SSH preparation, destructive-disk confirmation, and
-using a locally downloaded kexec image when the target cannot access GitHub.
-
-The short form is:
+#### 首次安装或重装
 
 ```bash
-just remote_install
+just remote_install ip="192.168.122.62" port="22"
 ```
 
-The installer defaults to `root@192.168.122.246`; override the target IP as
-needed:
+该操作具有破坏性，会由 Disko 重新分区和格式化目标磁盘。详细步骤见 [docs/installation.md](./docs/installation.md)。不要将其用于日常系统更新。
+
+#### 日常部署
+
+Linux：
 
 ```bash
-just remote_install ip="192.168.122.62"
+just remote_deploy_dry                 # 预演部署，不永久切换
+just remote_deploy_dry ip="192.168.1.7" port="22"
+just remote_deploy                     # 部署并激活
+just remote_deploy ip="192.168.1.7" port="22"
 ```
 
-**Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
-VM disk. This destroys existing data on `/dev/vda`. Use it only for initial
-installation or an intentional reinstall, never for routine updates.
-
-#### Routine deployment and updates
-
-The `remote_deploy` recipe is platform-specific: Just selects the recipe
-matching the machine running the command. Linux uses deploy-rs; macOS builds
-through the SSH Store and activates the resulting system on the remote host.
-Both deploy the same Flake Host, `mochou@remote`.
-
-**Linux (deploy-rs):**
+macOS：
 
 ```bash
-just remote_deploy_dry                 # dry activation preview
-just remote_deploy_dry ip="192.168.1.7"
-just remote_deploy                     # deploy and activate
-just remote_deploy ip="192.168.1.7"
+just remote_deploy                     # 通过 SSH Store 构建并激活远程 NixOS
+just remote_deploy ip="192.168.1.7" port="22"
 ```
 
-The optional `ip` parameter is the target address passed to deploy-rs. The
-deploy-rs node connects as `root`; ensure the corresponding SSH access is
-authorized on the target.
+macOS 远程部署使用 `mochou@<IP>` 作为 SSH 目标，并要求 SSH 用户能够通过 `sudo` 执行系统激活命令。更多说明见 [docs/remote-deployment.md](./docs/remote-deployment.md)。
 
-**macOS (SSH Store):**
+### Home Manager 服务（Linux）
+
+当前架构下，Home Manager 作为 NixOS 系统切换的一部分运行，并提供以下 systemd 服务管理命令：
 
 ```bash
-just remote_deploy
+just hm-restart                # 重启当前用户的 Home Manager 服务
+just hm-status                 # 查看服务状态
+just hm-logs                   # 查看本次启动的最近服务日志
 ```
 
-There are no recipe parameters on macOS. The recipe uses the SSH alias
-`remote` from `~/.ssh/config`, evaluates
-`nixosConfigurations."mochou@remote"`, builds the system closure using
-`ssh-ng://remote`, then connects to the target to update the NixOS system
-profile and run `switch-to-configuration switch`. The SSH login user
-(`mochou` in the example above) must be able to run the activation commands
-with `sudo`.
-
-Do not confuse `remote_install` with `remote_deploy`: installation
-repartitions the disk, while routine deployment updates the existing system.
-
-For the recipe definitions and troubleshooting notes, see
-[docs/remote-deployment.md](./docs/remote-deployment.md).
-
-
-`mochou@remote` is the dedicated NixOS Host used as the target for remote
-installation and deployment. Its current hardware profile is a QEMU/UTM UEFI
-guest with a virtio disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB
-swap, Btrfs persistence subvolumes, and a tmpfs root filesystem.
-
-#### Initial installation
-
-See [docs/installation.md](./docs/installation.md) for the full installation
-procedure, including SSH preparation, destructive-disk confirmation, and
-using a locally downloaded kexec image when the target cannot access GitHub.
-
-The short form is:
+### Nix Store 维护
 
 ```bash
-just remote_install [IP]
+just gc                        # 清理用户与系统配置中超过 7 天的垃圾
+just gc-user                   # 清理用户级垃圾
+just gc-system                 # 清理系统级垃圾（需要 sudo）
+just gc-roots                  # 查看自动 GC Roots
+just store-verify              # 校验 Nix Store 路径完整性
+just store-optimize            # 对 Nix Store 文件进行去重
 ```
 
-The app defaults to `root@192.168.122.246`; override the target when needed:
+### 命令分组与平台差异
+
+Just 任务按用途分组，包括 `flake`、`quality`、`system`、`remote`、`home-manager`、`store`、`devShell` 和 `agenix`。带有平台限定的任务只会在对应系统上出现；NixOS 与 Darwin 共用的任务保持相同名称和参数。
+
+完整任务定义以仓库根目录的 [justfile](./justfile) 为准。
+
+## 部署前须知
+
+> [!WARNING]
+> 这是面向个人设备的配置，不是通用安装器。Host 配置包含个人用户名、硬件、网络、磁盘布局和秘密管理相关设置。不要直接将现有 Host 部署到其他机器；请先检查并替换硬件配置、用户信息、密钥接收者、网络参数和持久化策略。
+
+### 基本要求
+
+- Nix，并启用 `nix-command` 与 Flakes。
+- [Just](https://github.com/casey/just)，用于调用仓库任务。
+- [nh](https://github.com/nix-community/nh)，用于 NixOS / nix-darwin 构建与切换。
+- 格式化与静态检查工具由开发环境提供。
+
+克隆仓库后，建议先查看任务列表并进入通用开发环境：
 
 ```bash
-just remote_install <TARGET_IP>
+just
+just dev
+just show
 ```
 
-**Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
-VM disk. This destroys existing data on `/dev/vda`. The installer asks you to
-type the target host before proceeding. Use it only for initial installation
-or an intentional reinstall, never for routine updates.
-
-#### Routine deployment and updates
-
-The locked `deploy-rs` CLI is included in the repository's development shell.
-Use the Just recipes to keep the remote node and profile explicit:
-
-```bash
-just remote_deploy_dry [IP]  # preview activation
-just remote_deploy [IP]      # deploy and activate
-```
-
-The `deploy.nodes.remote` definition in the Flake connects as `root`. Use
-`just remote_deploy_dry [IP]` to preview an update and `just remote_deploy [IP]`
-to activate it. `just remote_install [IP]` is a separate, destructive
-nixos-anywhere installation operation.
-The system closure is built on the deployment side and copied to the target
-over SSH before the `system` profile is activated. The target does not need
-Internet access to fetch Nix build dependencies, but it must be reachable over
-SSH. Ensure the deployment SSH key is authorized for root on the target.
-
-### macOS (nix-darwin)
-
-默认 Darwin Host 为 `mochou@darwin`：
-
-```bash
-just darwin-eval
-just darwin-build
-just darwin-switch
-just darwin-repl
-```
-
-指定其他 Darwin Host：
-
-```bash
-NH_DARWIN_HOST=<username>@<hostname> just darwin-switch
-```
-
-### Flake Inputs
-
-```bash
-just lock            # 更新 flake.lock
-just update          # 更新全部 inputs
-just update-linux    # 更新 Linux 相关 inputs
-just update-darwin   # 更新 Darwin 相关 inputs
-just update-desktop  # 更新桌面环境相关 inputs
-```
-
-## Validation & Development
-
-仓库提供统一的格式化、静态分析、Flake 检查与 Host 求值任务。
-
-```bash
-just fmt          # 格式化 Nix 文件
-just fmt-check    # 检查 Nix 格式
-just lint         # 运行 statix 与 deadnix
-just check        # 轻量级 Flake 检查，不构建 derivations
-just validate     # fmt-check + lint + check
-just check-build  # 执行包含构建检查的 flake check
-just --list       # 列出所有任务
-```
-
-`just check` 设置 `NIX_CONFIG_CHECK=1`，主要验证 Flake 与 Host 元数据，不会求值完整系统 toplevel，也不会构建系统闭包。需要验证具体 Host 时，执行对应的 `just nixos-eval` 或 `just darwin-eval`；部署前应进一步执行 build。完整行为说明见 [modules/README.md](./modules/README.md)。
-
-## References
+## 参考资料
 
 - [NixOS](https://nixos.org/)
 - [Nix Flakes](https://nix.dev/concepts/flakes.html)
-- [NixOS & Flakes Book](https://nixos-and-flakes.thiscute.world/)
+- [NixOS 与 Flakes 指南](https://nixos-and-flakes.thiscute.world/)
 - [Dendritic Pattern](https://github.com/mightyiam/dendritic)
 
 ---
