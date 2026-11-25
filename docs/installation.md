@@ -11,14 +11,14 @@
 
 - Flake Host：`mochou@remote`
 - 系统架构：`x86_64-linux`
-- Just 快捷命令：`just remote_install <TARGET_IP> <SSH_PORT> <SSH_PORT>`
+- Just 快捷命令：`just remote_install <TARGET_IP> <SSH_PORT>`
 - 底层安装 App：`nix run .#remote_install`
 - 默认 SSH 目标：`root@192.168.122.246`
 - 磁盘设备：`/dev/vda`（由 `hosts/mochou@remote/disk-config.nix` 声明）
 
 远程安装与远程部署是不同操作：
 
-- **远程安装**使用 `just remote_install <TARGET_IP> <SSH_PORT> <SSH_PORT>`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
+- **远程安装**使用 `just remote_install <TARGET_IP> <SSH_PORT>`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
 - **远程部署**使用 `just remote_deploy_dry [IP]` 预演、`just remote_deploy [IP]` 正式更新已有 NixOS，不会执行 Disko，不应拿来替代重装。
 
 当前 Disko 配置在目标磁盘上创建 GPT 分区：
@@ -189,7 +189,7 @@ just remote_install <TARGET_IP> <SSH_PORT>
 例如：
 
 ```bash
-just remote_install 192.168.122.62
+just remote_install 192.168.122.62 22
 ```
 
 该 Just 配方要求显式提供目标 IP 和 SSH 端口，例如 `just remote_install 192.168.122.62 22`。它会将目标转换为 `root@<TARGET_IP>`，并把端口传给仓库的 `remote_install` App；App 本身在未设置环境变量时的默认 SSH 目标是 `root@192.168.122.246`。配方仍会要求确认目标 SSH 地址、选择磁盘并再次输入磁盘路径。**这是真正的远程安装，不是日常系统部署；确认后 Disko 会销毁目标磁盘上的原有数据。**
