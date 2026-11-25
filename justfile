@@ -306,17 +306,22 @@ store-optimize:
 # Development / secrets
 # ---------------------------------------------------------------------------
 
-# Enter the development shell defined by this Flake.
+# Enter the general development shell defined by this Flake.
 [group('dev')]
 dev:
-    nix develop "{{FLAKE}}"
+    cd "{{FLAKE}}" && nix develop "{{FLAKE}}"
 
-# Run agenix-rekey from the Flake root to re-encrypt configured secrets.
-[group('dev')]
+# Enter the dedicated Agenix environment with age and agenix-rekey available.
+[group('agenix')]
+agenix:
+    cd "{{FLAKE}}" && nix develop "{{FLAKE}}#agenix"
+
+# Re-encrypt configured secrets inside the dedicated Agenix environment.
+[group('agenix')]
 rekey:
-    cd "{{FLAKE}}" && agenix-rekey
+    cd "{{FLAKE}}" && nix develop "{{FLAKE}}#agenix" --command agenix-rekey
 
 # Show Git working-tree changes, including generated or rekeyed secret files.
-[group('dev')]
+[group('agenix')]
 rekey-status:
     cd "{{FLAKE}}" && git status --short
