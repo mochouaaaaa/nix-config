@@ -317,12 +317,3 @@ dev:
 agenix:
     cd "{{FLAKE}}" && nix develop "{{FLAKE}}#agenix"
 
-# Re-encrypt configured secrets inside the dedicated Agenix environment.
-[group('agenix')]
-rekey:
-    cd "{{FLAKE}}" && nix develop "{{FLAKE}}#agenix" --command agenix-rekey
-
-# Show Git working-tree changes, including generated or rekeyed secret files.
-[group('agenix')]
-rekey-status:
-    cd "{{FLAKE}}" && git status --short
