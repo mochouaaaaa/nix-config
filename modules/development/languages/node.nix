@@ -92,6 +92,6 @@
       profiles.preservation.users.${username}.directories =
         lib.optionals (lib.elem pkgs.nodejs homePackages) [ ".npm" ]
         ++ lib.optionals (lib.elem pkgs.yarn homePackages) [ ".yarn" ]
-        ++ lib.optionals pnpm.enable [ pnpm.pnpmHome ];
+        ++ lib.optionals pnpm.enable [ ".local/share/pnpm" ];
     };
 }
