@@ -37,9 +37,9 @@ perSystem 默认使用主 `nixpkgs` input；由于当前 unstable package set �
 
 公共 overlay 汇总 NUR、VS Code 扩展集合，以及仓库统一的 Node.js 版本选择。NixOS 和 nix-darwin 的 Home Manager 集成配置与各自系统共享 package set；standalone Home Manager 使用独立 overlay。
 
-## Development shell 与 formatter
+## 开发环境与格式化
 
-默认 `devShells.default` 只提供通用开发工具 `just`、`statix` 和 `deadnix`；部署模块还会将 Flake 锁定的 deploy-rs CLI 加入其中。功能专用工具应注册为独立的命名 devShell，不应污染默认环境。默认 devShell 通过可合并选项允许其他模块扩展：
+默认 `devShells.default` 提供通用开发工具 `just`、`statix` 和 `deadnix`；部署模块还会将 Flake 锁定的 deploy-rs CLI 加入其中。功能专用工具应注册为独立的命名 devShell，不应污染默认环境。默认 devShell 通过可合并选项允许其他模块扩展：
 
 - `devShell.packages`
 - `devShell.nativeBuildInputs`
@@ -49,7 +49,7 @@ perSystem 默认使用主 `nixpkgs` input；由于当前 unstable package set �
 
 `formatter.nix` 使用 treefmt-nix 管理 Nix 格式化和静态检查，并将 git-hooks-nix 的 pre-commit devShell 集成到默认开发环境。当前配置启用 nixfmt、deadnix 和 statix；格式化排除项包括锁文件、秘密目录和构建结果。
 
-## Checks
+## 检查
 
 `checks.nix` 为每个系统生成开发环境和 Host 检查：
 
@@ -60,20 +60,28 @@ perSystem 默认使用主 `nixpkgs` input；由于当前 unstable package set �
 
 设置 `NIX_CONFIG_CHECK=1` 时，检查只验证 Host 元数据，不触发完整系统 toplevel 或 standalone Home Manager activation 的求值。该模式用于轻量级验证；正常的 `nix flake check --no-build` 会执行更完整的 Host 求值，但仍不会实际构建系统闭包。
 
-常用入口：
+## 常用命令
 
 ```bash
+# 默认开发环境
 just dev
-just agenix       # 进入 Agenix 专用环境
-just rekey        # 在 Agenix 环境中执行密钥重新加密
-# 使用 Just 命令预演和执行远程部署：
- just remote_deploy_dry
- just remote_deploy
+
+# Agenix 专用环境
+just agenix
+
+# 格式化、静态检查和 Flake 检查
 just fmt
 just fmt-check
 just lint
 just check
 just check-build
+just validate
 ```
 
-Host 自动发现与元数据规则见 [../README.md](../README.md)。
+Agenix 密钥重新加密不由 Just 单独配方执行。进入专用环境后运行 `agenix rekey -a`；也可以直接执行：
+
+```bash
+nix develop .#agenix --command agenix rekey -a
+```
+
+远程部署命令及平台差异见 [远程部署说明](../../docs/remote-deployment.md)。Host 自动发现与元数据规则见 [模块架构说明](../README.md)。
