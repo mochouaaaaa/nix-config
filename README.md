@@ -32,11 +32,11 @@
 | Host | 平台 | 系统构建器 | 主要用途 |
 | --- | --- | --- | --- |
 | `mochou@nixos` | `x86_64-linux` | NixOS | 主力 Linux 桌面，Hyprland |
-| `remote` | `x86_64-linux` | NixOS | 专用远程安装与部署目标，QEMU/UTM、Disko + Btrfs + Preservation |
+| `mochou@remote` | `x86_64-linux` | NixOS | 专用远程安装与部署目标，QEMU/UTM、Disko + Btrfs + Preservation |
 | `mochou@wsl` | `x86_64-linux` | NixOS-WSL | Windows Subsystem for Linux |
 | `mochou@darwin` | `x86_64-darwin` | nix-darwin | macOS 用户与系统环境 |
 
-常规 Host 目录名采用 `<username>@<hostname>` 格式；专用基础设施 Host 也可以使用语义化目录名，并在 `nixpkgs.json` 中显式声明 `username` 和 `hostName`。主机清单及对应元数据位于 [hosts/](./hosts/)。
+Host 目录名统一采用 `<username>@<hostname>` 格式。主机清单及对应元数据位于 [hosts/](./hosts/)。
 
 ## Components
 
@@ -68,7 +68,7 @@
 
 ### Host 自动发现
 
-[modules/hosts.nix](./modules/hosts.nix) 使用主机注册表扫描 `hosts/` 下的目录。常规 Host 使用 `<username>@<hostname>` 命名；语义化命名的 Host（例如 `remote`）在 `nixpkgs.json` 中显式声明 `username` 和 `hostName`。每个 Host 通过该文件声明目标架构和构建器，不需要额外维护 `class` 或 `host.json`。
+[modules/hosts.nix](./modules/hosts.nix) 使用主机注册表扫描 `hosts/` 下的目录。Host 目录名统一采用 `<username>@<hostname>` 命名。每个 Host 通过该文件声明目标架构和构建器，不需要额外维护 `class` 或 `host.json`。
 
 例如，NixOS Host：
 
@@ -166,7 +166,7 @@ NH_HOST=mochou@wsl just nixos-switch
 
 ### Remote deployment host
 
-`remote` is the dedicated NixOS Host used as the target for remote
+`mochou@remote` is the dedicated NixOS Host used as the target for remote
 installation and deployment. Its current hardware profile is a QEMU/UTM UEFI
 guest with a virtio disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB
 swap, Btrfs persistence subvolumes, and a tmpfs root filesystem.
