@@ -27,7 +27,7 @@
 
 ## 桌面应用分组
 
-`modules/programs/desktop/profiles.nix` 注册兼容性聚合入口 `desktop.programs`。它会导入 API 客户端、浏览器、音频、安全、通信、邮件、媒体、笔记、远程访问、办公和网络等独立的 `desktop.programs.*` 分组。
+`modules/programs/desktop/profiles.nix` 注册兼容性聚合入口 `desktop.programs`。它会导入 API 客户端、浏览器、音频、安全、通信、邮件、媒体、笔记、远程访问和办公等独立的 `desktop.programs.*` 分组。
 
 需要精简应用集合的 Host 应导入单独分组，而不是聚合入口。数据库客户端单独维护在 `modules/desktop/programs/db-clients.nix`，注册为 `desktop.programs.database`；API 客户端也在 `modules/desktop/programs/` 下实现。
 
