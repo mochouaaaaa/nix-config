@@ -162,16 +162,16 @@ remote_deploy ip="192.168.122.62":
 remote_deploy:
     set -euo pipefail
     target="remote"
-    toplevel=$({{NIX_ALLOW}} nix build \\
-        "{{FLAKE}}#nixosConfigurations.\\"mochou@remote\\".config.system.build.toplevel" \\
-        --eval-store auto \\
-        --store "ssh-ng://$target" \\
-        --impure \\
-        --no-link \\
+    toplevel=$({{NIX_ALLOW}} nix build \
+        "{{FLAKE}}#nixosConfigurations.\"mochou@remote\".config.system.build.toplevel" \
+        --eval-store auto \
+        --store "ssh-ng://$target" \
+        --impure \
+        --no-link \
         --print-out-paths)
     echo "Build completed: $toplevel"
-    ssh -t "$target" \\
-        "sudo nix-env --profile /nix/var/nix/profiles/system --set '$toplevel' && \\
+    ssh -t "$target" \
+        "sudo nix-env --profile /nix/var/nix/profiles/system --set '$toplevel' && \
          sudo '$toplevel/bin/switch-to-configuration' switch"
     echo "Remote NixOS deployment completed."
 
