@@ -1,6 +1,6 @@
 # NixOS 安装指南
 
-本文记录使用仓库内的 `install-vm` App，通过 SSH 将现有 Ubuntu/Linux 主机安装为 `mochou@vm` NixOS Host 的流程，并重点说明目标机器无法访问 GitHub 时如何提供本地 kexec 安装包。
+本文记录使用仓库内的 `install-vm` App，通过 SSH 将现有 Ubuntu/Linux 主机安装为 `remote` NixOS Host 的流程，并重点说明目标机器无法访问 GitHub 时如何提供本地 kexec 安装包。
 
 > [!CAUTION]
 > 安装会运行 Host 对应的 Disko 配置，重新分区并格式化目标磁盘。目标磁盘上的 Ubuntu、EFI、/boot、LVM、文件和其他数据都会被销毁。执行前必须核对 SSH 地址和磁盘设备，确认目标机没有需要保留的数据。
@@ -9,17 +9,17 @@
 
 当前安装入口：
 
-- Flake Host：`mochou@vm`
+- Flake Host：`remote`
 - 系统架构：`x86_64-linux`
-- Just 快捷命令：`just install-vm [IP]`
+- Just 快捷命令：`just remote_install [IP]`
 - 底层安装 App：`nix run .#install-vm`
 - 默认 SSH 目标：`root@192.168.122.246`
-- 磁盘设备：`/dev/vda`（由 `hosts/mochou@vm/disk-config.nix` 声明）
+- 磁盘设备：`/dev/vda`（由 `hosts/remote/disk-config.nix` 声明）
 
 远程安装与远程部署是不同操作：
 
-- **远程安装**使用 `just install-vm [IP]`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
-- **远程部署**使用 `just deploy-dry [IP]` 预演、`just deploy [IP]` 正式更新已有 NixOS，不会执行 Disko，不应拿来替代重装。
+- **远程安装**使用 `just remote_install [IP]`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
+- **远程部署**使用 `just remote_deploy_dry [IP]` 预演、`just remote_deploy [IP]` 正式更新已有 NixOS，不会执行 Disko，不应拿来替代重装。
 
 当前 Disko 配置在目标磁盘上创建 GPT 分区：
 
@@ -137,7 +137,7 @@ WARNING: no /dev/disk/by-id link found; using /dev/vda.
 ```bash
 INSTALL_DISK_DEVICE=/dev/disk/by-id/<EXPECTED_DISK_ID> \
   nix eval --impure --raw \
-  '.#nixosConfigurations."mochou@vm".config.disko.devices.disk.main.device'
+  '.#nixosConfigurations."remote".config.disko.devices.disk.main.device'
 ```
 
 预期输出必须与设置的设备路径完全一致。若仍输出 `/dev/vda` 或求值报错，停止安装并先修复环境变量传递；不要依赖安装器的磁盘选择提示来推断 Disko 最终会操作哪块盘。
@@ -183,13 +183,13 @@ sha256sum .cache/nixos-anywhere/nixos-kexec-installer-noninteractive-x86_64-linu
 在仓库根目录执行远程安装 Just 命令：
 
 ```bash
-just install-vm <TARGET_IP>
+just remote_install <TARGET_IP>
 ```
 
 例如：
 
 ```bash
-just install-vm 192.168.122.62
+just remote_install 192.168.122.62
 ```
 
 该命令默认使用 `root@192.168.122.246`；传入 IP 后会覆盖目标地址。它调用仓库的 `install-vm` App，仍会要求确认目标 SSH 地址、选择磁盘并再次输入磁盘路径。**这是真正的远程安装，不是日常系统部署；确认后 Disko 会销毁目标磁盘上的原有数据。**
@@ -222,7 +222,7 @@ nixos-anywhere 默认依次执行以下阶段：
 
 1. `kexec`：通过 SSH 上传并启动临时 NixOS 安装环境。
 2. `disko`：按 Host 的 Disko 配置销毁旧分区并创建新文件系统。
-3. `install`：安装 Flake 中的 `mochou@vm` 系统配置。
+3. `install`：安装 Flake 中的 `remote` 系统配置。
 4. `reboot`：卸载安装文件系统并重启目标机。
 
 安装期间不要关闭部署机或目标 VM。kexec 后 SSH 连接可能中断，工具会等待临时安装环境启动后重新连接。
@@ -268,7 +268,7 @@ ssh root@<TARGET_IP> '
 '
 ```
 
-按当前 `hosts/mochou@vm/disk-config.nix`，应重点确认：
+按当前 `hosts/remote/disk-config.nix`，应重点确认：
 
 - GPT 分区表包含约 1 GiB EFI 分区、10 GiB swap 分区和占用剩余空间的 Btrfs 分区。
 - EFI 分区为 FAT32，并挂载到 `/boot`。
@@ -280,7 +280,7 @@ ssh root@<TARGET_IP> '
 
 ### 关于 /etc/nixos
 
-此 Host 由仓库 Flake 中的 `nixosConfigurations."mochou@vm"` 构建。安装后不一定会生成传统的 `/etc/nixos/configuration.nix` 或 `hardware-configuration.nix`；没有这些文件不代表系统没有配置。配置源是部署机上的仓库及其 Flake inputs，后续修改应在仓库中完成，再通过 deploy-rs 部署。不要为了让 `/etc/nixos` 看起来完整而手动创建一份与 Flake 配置脱节的配置。
+此 Host 由仓库 Flake 中的 `nixosConfigurations."remote"` 构建。安装后不一定会生成传统的 `/etc/nixos/configuration.nix` 或 `hardware-configuration.nix`；没有这些文件不代表系统没有配置。配置源是部署机上的仓库及其 Flake inputs，后续修改应在仓库中完成，再通过 deploy-rs 部署。不要为了让 `/etc/nixos` 看起来完整而手动创建一份与 Flake 配置脱节的配置。
 
 ### 日常远程部署与更新
 
@@ -289,23 +289,23 @@ ssh root@<TARGET_IP> '
 先执行 dry activation：
 
 ```bash
-just deploy-dry
+just remote_deploy_dry
 ```
 
 确认目标地址、构建结果和激活计划正确后，再正式部署：
 
 ```bash
-just deploy
+just remote_deploy
 ```
 
 目标机 IP 变化时，可以直接把 IP 作为参数传入，不需要修改 `modules/flake/deploy.nix`：
 
 ```bash
-just deploy-dry 192.168.122.80
-just deploy 192.168.122.80
+just remote_deploy_dry 192.168.122.80
+just remote_deploy 192.168.122.80
 ```
 
-这两个 recipe 内部使用 deploy-rs 的 `--hostname` 参数覆盖 Flake 节点的 hostname，节点和 profile 固定为 `mochou@vm` 的 `system`。也可以显式使用命名参数，例如 `just deploy ip=192.168.122.80`。
+这两个 recipe 内部使用 deploy-rs 的 `--hostname` 参数覆盖 Flake 节点的 hostname，节点和 profile 固定为 `remote` 的 `system`。也可以显式使用命名参数，例如 `just remote_deploy ip=192.168.122.80`。
 
 部署前建议确认 root SSH 公钥认证和目标主机身份：
 
@@ -320,8 +320,8 @@ ssh -o BatchMode=yes root@192.168.122.62 'hostname; nixos-version'
 仓库内相关文件：
 
 - `modules/flake/apps.nix`：`install-vm` App、目标地址覆盖和破坏性确认。
-- `hosts/mochou@vm/default.nix`：NixOS Host 组合与 SSH 配置。
-- `hosts/mochou@vm/disk-config.nix`：目标磁盘分区、文件系统和 Btrfs 子卷。
+- `hosts/remote/default.nix`：NixOS Host 组合与 SSH 配置。
+- `hosts/remote/disk-config.nix`：目标磁盘分区、文件系统和 Btrfs 子卷。
 - `modules/flake/deploy.nix`：安装完成后的 deploy-rs 日常部署配置。
 
 上游文档：
