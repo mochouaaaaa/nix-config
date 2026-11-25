@@ -308,12 +308,12 @@ store-optimize:
 # ---------------------------------------------------------------------------
 
 # Enter the general development shell defined by this Flake.
-[group('dev')]
+[group('devShell')]
 dev:
     nix develop "{{FLAKE}}"
 
 # Enter the dedicated Agenix environment with age and agenix-rekey available.
-[group('agenix')]
+[group('devShell')]
 agenix:
     nix develop "{{FLAKE}}#agenix"
 
