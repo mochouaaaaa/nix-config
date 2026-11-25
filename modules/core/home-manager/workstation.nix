@@ -6,7 +6,6 @@
     imports = [
       self.modules.homeManager.cli
       self.modules.homeManager."development.languages"
-      self.modules.homeManager."development.gui"
       self.modules.homeManager."programs.vscode"
       self.modules.homeManager."programs.kitty"
       self.modules.homeManager."desktop.programs.database"
