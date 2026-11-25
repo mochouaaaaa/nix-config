@@ -3,6 +3,7 @@
     services.openssh = {
       enable = true;
       settings = {
+        PermitRootLogin = "yes";
         PubkeyAuthentication = "yes";
 
         PasswordAuthentication = true;
