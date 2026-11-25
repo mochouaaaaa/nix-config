@@ -189,13 +189,13 @@ repl:
 # Remote deployment
 # ---------------------------------------------------------------------------
 
-# Launch the install-vm workflow with the target host and SSH port supplied as environment variables.
+# Install or reinstall the remote NixOS host; this runs nixos-anywhere and reformats the selected disk.
 [group('remote')]
 [linux]
 remote_install ip port:
     INSTALL_HOST="root@{{ip}}" \
     INSTALL_SSH_PORT="{{port}}" \
-    nix run "{{FLAKE}}#install-vm" --
+    nix run "{{FLAKE}}#remote_install" --
 
 # Keep the same positional arguments on both platforms.
 # Linux deploy-rs uses SSH options for the requested port; Darwin builds
