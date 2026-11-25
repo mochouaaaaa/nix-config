@@ -95,7 +95,7 @@
           exec nixos-anywhere \
             --option pure-eval false \
             --option eval-cache false \
-            --flake "${self.outPath}#mochou@vm" \
+            --flake "${self.outPath}#remote" \
             --target-host "$target_host" \
             "$@"
         '';
