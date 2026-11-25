@@ -1,6 +1,6 @@
 # NixOS 安装指南
 
-本文记录使用仓库内的 `install-vm` App，通过 SSH 将现有 Ubuntu/Linux 主机安装为 `mochou@remote` NixOS Host 的流程，并重点说明目标机器无法访问 GitHub 时如何提供本地 kexec 安装包。
+本文记录使用仓库内的 `remote_install` App，通过 SSH 将现有 Ubuntu/Linux 主机安装为 `mochou@remote` NixOS Host 的流程，并重点说明目标机器无法访问 GitHub 时如何提供本地 kexec 安装包。
 
 > [!CAUTION]
 > 安装会运行 Host 对应的 Disko 配置，重新分区并格式化目标磁盘。目标磁盘上的 Ubuntu、EFI、/boot、LVM、文件和其他数据都会被销毁。执行前必须核对 SSH 地址和磁盘设备，确认目标机没有需要保留的数据。
@@ -12,7 +12,7 @@
 - Flake Host：`mochou@remote`
 - 系统架构：`x86_64-linux`
 - Just 快捷命令：`just remote_install [IP]`
-- 底层安装 App：`nix run .#install-vm`
+- 底层安装 App：`nix run .#remote_install`
 - 默认 SSH 目标：`root@192.168.122.246`
 - 磁盘设备：`/dev/vda`（由 `hosts/mochou@remote/disk-config.nix` 声明）
 
@@ -192,13 +192,13 @@ just remote_install <TARGET_IP>
 just remote_install 192.168.122.62
 ```
 
-该命令默认使用 `root@192.168.122.246`；传入 IP 后会覆盖目标地址。它调用仓库的 `install-vm` App，仍会要求确认目标 SSH 地址、选择磁盘并再次输入磁盘路径。**这是真正的远程安装，不是日常系统部署；确认后 Disko 会销毁目标磁盘上的原有数据。**
+该命令默认使用 `root@192.168.122.246`；传入 IP 后会覆盖目标地址。它调用仓库的 `remote_install` App，仍会要求确认目标 SSH 地址、选择磁盘并再次输入磁盘路径。**这是真正的远程安装，不是日常系统部署；确认后 Disko 会销毁目标磁盘上的原有数据。**
 
 如果需要使用本地 kexec 文件或传入其他 nixos-anywhere 参数，可以继续直接调用底层 App：
 
 ```bash
 INSTALL_HOST=root@<TARGET_IP> \
-  nix run .#install-vm -- \
+  nix run .#remote_install -- \
   --kexec "$PWD/.cache/nixos-anywhere/nixos-kexec-installer-noninteractive-x86_64-linux.tar.gz" \
   --build-on local \
   --no-substitute-on-destination
@@ -211,7 +211,7 @@ INSTALL_HOST=root@<TARGET_IP> \
 - `--build-on local`：要求在部署机侧构建安装所需的系统闭包。部署机必须能构建 `x86_64-linux`；如果不能，应先配置 Linux builder 或换用 Linux 部署机。
 - `--no-substitute-on-destination`：不要求目标机从其 substituters 获取缺失的闭包。
 
-仓库的 `install-vm` App 会打印目标地址，并要求输入完整 SSH 目标进行二次确认。核对无误后，输入提示中的完整目标地址继续。
+仓库的 `remote_install` App 会打印目标地址，并要求输入完整 SSH 目标进行二次确认。核对无误后，输入提示中的完整目标地址继续。
 
 > [!IMPORTANT]
 > 本地 kexec 文件只解决“目标机下载 GitHub 引导镜像”这一环节。它不代表整个安装过程完全离线：部署机仍需具备 Flake inputs、所需源代码和构建依赖（可通过网络或本地缓存取得），并完成目标系统构建；随后通过 SSH 将所需闭包传给目标机。目标机不需要访问公共互联网，但必须能与部署机通信。
@@ -245,7 +245,7 @@ ssh root@<TARGET_IP> 'systemctl --failed'
 ssh root@<TARGET_IP> 'journalctl -b -u <UNIT_NAME> --no-pager -n 100'
 ```
 
-安装完成后，日常系统更新应使用仓库配置的 deploy-rs 流程，不要再次运行 `install-vm`。重新运行安装 App 会再次执行 Disko 并清空目标磁盘。
+安装完成后，日常系统更新应使用仓库配置的 deploy-rs 流程，不要再次运行 `remote_install`。重新运行安装 App 会再次执行 Disko 并清空目标磁盘。
 
 ## 7. 安装后磁盘与系统验证
 
@@ -284,7 +284,7 @@ ssh root@<TARGET_IP> '
 
 ### 日常远程部署与更新
 
-初次安装完成后，日常更新使用 deploy-rs，不要重复运行 `install-vm`。仓库提供了两个 Just 快捷命令，默认目标 IP 为 `192.168.122.62`：
+初次安装完成后，日常更新使用 deploy-rs，不要重复运行 `remote_install`。仓库提供了两个 Just 快捷命令，默认目标 IP 为 `192.168.122.62`：
 
 先执行 dry activation：
 
@@ -319,7 +319,7 @@ ssh -o BatchMode=yes root@192.168.122.62 'hostname; nixos-version'
 
 仓库内相关文件：
 
-- `modules/flake/apps.nix`：`install-vm` App、目标地址覆盖和破坏性确认。
+- `modules/flake/apps.nix`：`remote_install` App、目标地址覆盖和破坏性确认。
 - `hosts/mochou@remote/default.nix`：NixOS Host 组合与 SSH 配置。
 - `hosts/mochou@remote/disk-config.nix`：目标磁盘分区、文件系统和 Btrfs 子卷。
 - `modules/flake/deploy.nix`：安装完成后的 deploy-rs 日常部署配置。
