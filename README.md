@@ -32,11 +32,11 @@
 | Host | 平台 | 系统构建器 | 主要用途 |
 | --- | --- | --- | --- |
 | `mochou@nixos` | `x86_64-linux` | NixOS | 主力 Linux 桌面，Hyprland |
-| `mochou@vm` | `x86_64-linux` | NixOS | 无状态 UEFI 虚拟机，Disko + Btrfs + Preservation |
+| `remote` | `x86_64-linux` | NixOS | 专用远程安装与部署目标，QEMU/UTM、Disko + Btrfs + Preservation |
 | `mochou@wsl` | `x86_64-linux` | NixOS-WSL | Windows Subsystem for Linux |
 | `mochou@darwin` | `x86_64-darwin` | nix-darwin | macOS 用户与系统环境 |
 
-Host 目录名采用 `<username>@<hostname>` 格式，后缀只是主机名，不代表操作系统类型。主机清单及对应元数据位于 [hosts/](./hosts/)。
+常规 Host 目录名采用 `<username>@<hostname>` 格式；专用基础设施 Host 也可以使用语义化目录名，并在 `nixpkgs.json` 中显式声明 `username` 和 `hostName`。主机清单及对应元数据位于 [hosts/](./hosts/)。
 
 ## Components
 
@@ -68,7 +68,7 @@ Host 目录名采用 `<username>@<hostname>` 格式，后缀只是主机名，�
 
 ### Host 自动发现
 
-[modules/hosts.nix](./modules/hosts.nix) 使用主机注册表扫描 `hosts/<username>@<hostname>/`。每个 Host 通过 `nixpkgs.json` 声明目标架构和构建器，不需要额外维护 `class` 或 `host.json`。
+[modules/hosts.nix](./modules/hosts.nix) 使用主机注册表扫描 `hosts/` 下的目录。常规 Host 使用 `<username>@<hostname>` 命名；语义化命名的 Host（例如 `remote`）在 `nixpkgs.json` 中显式声明 `username` 和 `hostName`。每个 Host 通过该文件声明目标架构和构建器，不需要额外维护 `class` 或 `host.json`。
 
 例如，NixOS Host：
 
@@ -164,7 +164,7 @@ NH_HOST=mochou@wsl just nixos-eval
 NH_HOST=mochou@wsl just nixos-switch
 ```
 
-### Minimal VM deployment
+### Remote deployment host
 
 `mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio
 disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB swap, a Btrfs data
@@ -180,13 +180,13 @@ using a locally downloaded kexec image when the target cannot access GitHub.
 The short form is:
 
 ```bash
-nix run .#install-vm
+just remote_install
 ```
 
 The app defaults to `root@192.168.122.246`; override the target when needed:
 
 ```bash
-INSTALL_HOST=root@<VM_IP> nix run .#install-vm
+just remote_install <TARGET_IP>
 ```
 
 **Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
@@ -209,7 +209,10 @@ You can also run the command without entering an interactive shell:
 nix develop -c deploy '<node-selector>'
 ```
 
-The `deploy.nodes."mochou@vm"` definition in the Flake connects as `root`.
+The `deploy.nodes.remote` definition in the Flake connects as `root`. Use
+`just remote_deploy_dry [IP]` to preview an update and `just remote_deploy [IP]`
+to activate it. `just remote_install [IP]` is a separate, destructive
+nixos-anywhere installation operation.
 The system closure is built on the deployment side and copied to the target
 over SSH before the `system` profile is activated. The target does not need
 Internet access to fetch Nix build dependencies, but it must be reachable over
