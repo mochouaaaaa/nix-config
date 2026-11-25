@@ -199,13 +199,13 @@ just agenix                   # 进入 Agenix 专用开发环境
 进入环境后，在 Flake 根目录执行：
 
 ```bash
-agenix-rekey                 # 重新加密已配置的 Secret
+agenix rekey -a               # 重新加密已配置的 Secret
 ```
 
 也可以不进入交互式环境，直接执行：
 
 ```bash
-nix develop .#agenix --command agenix-rekey
+nix develop .#agenix --command agenix rekey -a
 ```
 
 rekey 只负责重新加密配置的 Secret，不负责部署或激活 NixOS / Darwin 系统。执行后应检查 Git 工作区和差异，确认没有明文秘密或不应提交的文件。
