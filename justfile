@@ -143,26 +143,29 @@ nixos-test:
 nixos-repl:
     {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
-[group('nixos')]
-remote_install ip="192.168.122.246":
-    INSTALL_HOST="root@{{ip}}" nix run "{{FLAKE}}#install-vm" --
+
+[group('remote')]
+remote_install ip port:
+    INSTALL_HOST="root@{{ip}}" \
+    INSTALL_SSH_PORT="{{port}}" \
+    nix run "{{FLAKE}}#install-vm" --
 
 # Remote deployment:
 # - Linux: ip is the target NixOS machine's reachable IP address or hostname.
 #   Override the default with: just remote_deploy ip="192.168.122.62"
 # - Darwin: target is the SSH config alias (currently "remote"); the Flake
 #   target is fixed to nixosConfigurations."mochou@remote".
-[group('remote_deploy')]
+[group('remote')]
 [linux]
 remote_deploy_dry ip="192.168.122.62":
     cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#remote.system'
 
-[group('remote_deploy')]
+[group('remote')]
 [linux]
 remote_deploy ip="192.168.122.62":
     cd "{{FLAKE}}" && deploy --hostname "{{ip}}" '.#remote.system'
 
-[group('remote_deploy')]
+[group('remote')]
 [macos]
 remote_deploy:
     set -euo pipefail; \

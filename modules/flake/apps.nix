@@ -14,7 +14,7 @@
     let
       nixosAnywhere =
         if system == "x86_64-darwin" then
-          pkgs.callPackage "${inputs.nixos-anywhere}/src" { }
+          pkgs.nixos-anywhere
         else
           inputs.nixos-anywhere.packages.${system}.nixos-anywhere;
 
