@@ -7,7 +7,6 @@
   perSystem =
     {
       pkgs,
-      config,
       ...
     }:
     let
