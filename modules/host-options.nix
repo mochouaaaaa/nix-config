@@ -11,13 +11,13 @@ let
       username = lib.mkOption {
         type = types.str;
         readOnly = true;
-        description = "Username parsed from the Host directory name.";
+        description = "Username parsed from the Host directory name or read from nixpkgs.json identity metadata.";
       };
 
       hostName = lib.mkOption {
         type = types.str;
         readOnly = true;
-        description = "Hostname parsed from the Host directory name.";
+        description = "Hostname parsed from the Host directory name or read from nixpkgs.json identity metadata.";
       };
 
       system = lib.mkOption {
