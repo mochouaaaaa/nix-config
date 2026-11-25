@@ -15,7 +15,8 @@ set shell := ["bash", "-cu"]
 # The repository containing this justfile.
 FLAKE := env_var_or_default("NH_FLAKE", justfile_directory())
 
-# Host directory names under hosts/<username>@<hostname>/.
+# Host names under hosts/. Conventional hosts use <username>@<hostname>;
+# named infrastructure hosts declare username and hostName in nixpkgs.json.
 # NH_HOST is used by NixOS recipes; Darwin has its own independent default.
 HOST := env_var_or_default("NH_HOST", "mochou@nixos")
 DARWIN_HOST := env_var_or_default("NH_DARWIN_HOST", "mochou@darwin")
@@ -144,16 +145,16 @@ nixos-repl:
     {{NIX_ALLOW}} nixos-rebuild repl --flake "{{FLAKE}}#{{HOST}}" --impure
 
 [group('nixos')]
-install-vm ip="192.168.122.246":
+remote_install ip="192.168.122.246":
     INSTALL_HOST="root@{{ip}}" nix run "{{FLAKE}}#install-vm" --
 
 [group('nixos')]
-deploy-dry ip="192.168.122.62":
-    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#"mochou@vm".system'
+remote_deploy_dry ip="192.168.122.62":
+    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#remote.system'
 
 [group('nixos')]
-deploy ip="192.168.122.62":
-    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" '.#"mochou@vm".system'
+remote_deploy ip="192.168.122.62":
+    cd "{{FLAKE}}" && deploy --hostname "{{ip}}" '.#remote.system'
 
 # List available NixOS desktop entry modules and mark the host's selected desktop.
 [group('nixos')]
