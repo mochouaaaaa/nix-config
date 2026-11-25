@@ -14,11 +14,9 @@
 set shell := ["bash", "-cu"]
 
 # Root directory of the Flake; NH_FLAKE can point recipes at another checkout.
-# The repository containing this justfile.
 FLAKE := env_var_or_default("NH_FLAKE", justfile_directory())
 
 # Host selected by system recipes; NH_HOST overrides the platform-specific default.
-# Use one host selector on both platforms. Only the default differs.
 HOST := env_var_or_default("NH_HOST", if os() == "macos" { "mochou@darwin" } else { "mochou@nixos" })
 
 # These are only needed by configurations that intentionally allow
@@ -26,7 +24,6 @@ HOST := env_var_or_default("NH_HOST", if os() == "macos" { "mochou@darwin" } els
 NIX_ALLOW := "NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_INSECURE=1"
 
 # Show all recipes available on the current platform.
-# Default recipe.
 default:
     @just --list
 
@@ -49,7 +46,6 @@ lock:
 update:
     nix flake update "{{FLAKE}}"
 
-# Update the platform-specific input set under one recipe name.
 # Update the inputs used by the NixOS/Linux configurations.
 [group('flake')]
 [linux]
@@ -112,7 +108,6 @@ check-build:
 validate: fmt-check lint check
 
 # Evaluate the selected host configuration for the current platform.
-# This is a host-level check in addition to the Flake-wide checks.
 # Validate the selected host by evaluating its system toplevel derivation.
 [group('quality')]
 [linux]
@@ -123,7 +118,6 @@ validate-hosts: eval
 # System configuration
 # ---------------------------------------------------------------------------
 
-# Shared recipe names and arguments; only the platform-specific command differs.
 # Evaluate the selected NixOS toplevel and print its derivation path; do not build it.
 [group('system')]
 [linux]
@@ -238,7 +232,6 @@ remote_deploy ip="192.168.122.62" port="22":
     echo "Remote NixOS deployment completed."
 
 
-# List available NixOS desktop entry modules and mark the host's selected desktop.
 # List available NixOS desktop modules and mark the module selected by the current host.
 [group('nixos')]
 [linux]
