@@ -17,16 +17,6 @@
     in
     {
 
-      devShell = {
-        packages = [
-          pkgs.age
-        ];
-        env = {
-          AGENIX_REKEY_ADD_TO_GIT = true;
-        };
-        nativeBuildInputs = [ config.agenix-rekey.package ];
-      };
-
       packages.agenix = config.agenix-rekey.package;
 
       # agenix-rekey.nixosConfigurations = inputs.self.nixosConfigurations;
