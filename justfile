@@ -148,12 +148,32 @@ remote_install ip="192.168.122.246":
     INSTALL_HOST="root@{{ip}}" nix run "{{FLAKE}}#install-vm" --
 
 [group('nixos')]
+[linux]
 remote_deploy_dry ip="192.168.122.62":
     cd "{{FLAKE}}" && deploy --hostname "{{ip}}" --dry-activate '.#remote.system'
 
 [group('nixos')]
+[linux]
 remote_deploy ip="192.168.122.62":
     cd "{{FLAKE}}" && deploy --hostname "{{ip}}" '.#remote.system'
+
+[group('nixos')]
+[macos]
+remote_deploy:
+    set -euo pipefail
+    target="remote"
+    toplevel=$({{NIX_ALLOW}} nix build \\
+        "{{FLAKE}}#nixosConfigurations.\\"mochou@remote\\".config.system.build.toplevel" \\
+        --eval-store auto \\
+        --store "ssh-ng://$target" \\
+        --impure \\
+        --no-link \\
+        --print-out-paths)
+    echo "Build completed: $toplevel"
+    ssh -t "$target" \\
+        "sudo nix-env --profile /nix/var/nix/profiles/system --set '$toplevel' && \\
+         sudo '$toplevel/bin/switch-to-configuration' switch"
+    echo "Remote NixOS deployment completed."
 
 # List available NixOS desktop entry modules and mark the host's selected desktop.
 [group('nixos')]
