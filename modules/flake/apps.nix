@@ -19,7 +19,7 @@
           inputs.nixos-anywhere.packages.${system}.nixos-anywhere;
 
       installVm = pkgs.writeShellApplication {
-        name = "install-vm";
+        name = "remote_install";
         runtimeInputs = [
           nixosAnywhere
           pkgs.jq
@@ -136,9 +136,10 @@
             "aarch64-darwin"
           ])
           {
-            install-vm = {
+            remote_install = {
               type = "app";
-              program = "${installVm}/bin/install-vm";
+              program = "${installVm}/bin/remote_install";
+              meta.description = "Install the remote NixOS host using nixos-anywhere";
             };
           };
     };
