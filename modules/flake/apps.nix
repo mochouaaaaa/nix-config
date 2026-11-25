@@ -26,12 +26,12 @@
           pkgs.openssh
         ];
         text = ''
-          target_host="${INSTALL_HOST:-root@192.168.122.246}"
+          target_host="''${INSTALL_HOST:-root@192.168.122.246}"
 
           # Resolve the effective SSH port from ssh_config unless explicitly overridden.
           ssh_config="$(ssh -G "$target_host")"
-          ssh_port="${INSTALL_SSH_PORT:-$(awk '$1 == "port" { print $2; exit }' <<< "$ssh_config")}"
-          post_kexec_ssh_port="${INSTALL_POST_KEXEC_SSH_PORT:-$ssh_port}"
+          ssh_port="''${INSTALL_SSH_PORT:-$(awk '$1 == "port" { print $2; exit }' <<< "$ssh_config")}"
+          post_kexec_ssh_port="''${INSTALL_POST_KEXEC_SSH_PORT:-$ssh_port}"
 
           for port in "$ssh_port" "$post_kexec_ssh_port"; do
             if [[ ! "$port" =~ ^[0-9]+$ ]] || (( 10#$port < 1 || 10#$port > 65535 )); then
@@ -55,7 +55,7 @@
 
           printf '\nDetecting disks on %s...\n' "$target_host"
           disk_info="$(
-            ssh "${ssh_args[@]}" "$target_host" \
+            ssh "''${ssh_args[@]}" "$target_host" \
               'lsblk --json --nodeps --paths --output PATH,SIZE,MODEL,TYPE' |
               jq -r '.blockdevices[] | select(.type == "disk") | [.path, .size, (.model // "")] | @tsv'
           )"
@@ -67,24 +67,24 @@
 
           mapfile -t disks <<< "$disk_info"
           printf '\nAvailable disks:\n'
-          for index in "${!disks[@]}"; do
-            IFS=$'\t' read -r device size model <<< "${disks[$index]}"
+          for index in "''${!disks[@]}"; do
+            IFS=$'\t' read -r device size model <<< "''${disks[$index]}"
             printf '  %d) %-24s %-10s %s\n' "$((index + 1))" "$device" "$size" "$model"
           done
 
-          read -r -p "Select the disk to erase [1-${#disks[@]}]: " disk_selection
+          read -r -p "Select the disk to erase [1-''${#disks[@]}]: " disk_selection
           if [[ ! "$disk_selection" =~ ^[0-9]+$ ]] ||
-            (( disk_selection < 1 || disk_selection > ${#disks[@]} )); then
+            (( disk_selection < 1 || disk_selection > ''${#disks[@]} )); then
             printf 'Invalid disk selection; installation cancelled.\n' >&2
             exit 1
           fi
 
           IFS=$'\t' read -r selected_device selected_size selected_model \
-            <<< "${disks[$((disk_selection - 1))]}"
+            <<< "''${disks[$((disk_selection - 1))]}"
 
           disk_id="$(
             printf '%s\n' "$selected_device" |
-              ssh "${ssh_args[@]}" "$target_host" '
+              ssh "''${ssh_args[@]}" "$target_host" '
                 read -r selected_device
                 for id in /dev/disk/by-id/*; do
                   [ -L "$id" ] || continue
@@ -123,7 +123,7 @@
             --post-kexec-ssh-port "$post_kexec_ssh_port"
           )
 
-          exec nixos-anywhere "${nixos_anywhere_args[@]}" "$@"
+          exec nixos-anywhere "''${nixos_anywhere_args[@]}" "$@"
         '';
       };
     in
