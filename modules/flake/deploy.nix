@@ -5,7 +5,7 @@
 }:
 {
   flake.deploy.nodes."mochou@vm" = {
-    hostname = "192.168.122.246";
+    hostname = "192.168.122.62";
     sshUser = "root";
     remoteBuild = false;
     fastConnection = true;
