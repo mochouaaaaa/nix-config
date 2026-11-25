@@ -3,11 +3,15 @@
   flake.modules.darwin.agenix =
     {
       self,
+      lib,
       pkgs,
       inputs,
       hostName,
       ...
     }:
+    let
+      inherit (inputs) mysecrets;
+    in
     {
       imports = [
         inputs.agenix.darwinModules.default
@@ -22,7 +26,12 @@
 
       age = {
         rekey = {
-          masterIdentities = [ "${inputs.mysecrets}/master.age" ];
+          masterIdentities = [
+            {
+              identity = "${mysecrets}/master.age";
+              pubkey = lib.strings.trim (builtins.readFile "${mysecrets}/master.pub");
+            }
+          ];
           storageMode = "local";
           localStorageDir =
             self.outPath + "/secrets/rekeyed/darwin/${pkgs.stdenv.hostPlatform.system}/${hostName}";

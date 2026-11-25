@@ -4,6 +4,7 @@
       self,
       inputs,
       config,
+      lib,
       pkgs,
       hostName,
       ...
@@ -25,7 +26,12 @@
 
       age = {
         rekey = {
-          masterIdentities = [ "${inputs.mysecrets}/master.age" ];
+          masterIdentities = [
+            {
+              identity = "${mysecrets}/master.age";
+              pubkey = lib.strings.trim (builtins.readFile "${mysecrets}/master.pub");
+            }
+          ];
           storageMode = "local";
           localStorageDir =
             self.outPath + "/secrets/rekeyed/nixos/${hostName}/${pkgs.stdenv.hostPlatform.system}";

@@ -7,7 +7,6 @@
       lib,
       pkgs,
       inputs,
-
       hostName,
       ...
     }:
@@ -24,7 +23,12 @@
         {
           age = {
             rekey = {
-              masterIdentities = [ "${mysecrets}/master.age" ];
+              masterIdentities = [
+                {
+                  identity = "${mysecrets}/master.age";
+                  pubkey = lib.strings.trim (builtins.readFile "${mysecrets}/master.pub");
+                }
+              ];
               storageMode = "local";
               localStorageDir =
                 self.outPath
@@ -32,11 +36,10 @@
             };
 
             secrets = {
-              # fittencode = {
-              #   rekeyFile = "${mysecrets}/home/fittencode.age";
-              #   path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
-              #   mode = "600";
-              # };
+              fittencode = {
+                rekeyFile = "${mysecrets}/home/fittencode.age";
+                path = "${config.xdg.dataHome}/nvim/fittencode/api_key.json";
+              };
               # gemini_env = {
               #   rekeyFile = "${mysecrets}/home/gemini_env.age";
               #   path = "${config.home.homeDirectory}/.gemini/.env";
