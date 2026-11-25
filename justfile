@@ -50,7 +50,7 @@ update:
 [group('flake')]
 [linux]
 update-platform:
-    nix flake update "{{FLAKE}}" nixpkgs nixpkgs-stable home-manager nixos-wsl disko
+    nix flake update "{{FLAKE}}" nixpkgs nixpkgs-stable home-manager nixos-wsl disko preservation
 
 # Update the inputs used by the nix-darwin/macOS configurations.
 [group('flake')]
