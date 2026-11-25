@@ -203,23 +203,6 @@ remote_deploy ip="192.168.122.62" port="22":
          sudo '$toplevel/bin/switch-to-configuration' switch"; \
     echo "Remote NixOS deployment completed."
 
-[group('remote')]
-[macos]
-remote_deploy_dry ip="192.168.122.62" port="22":
-    set -euo pipefail; \
-    target="mochou@{{ip}}"; \
-    toplevel=$(NIX_SSHOPTS="-p {{port}}" {{NIX_ALLOW}} nix build \
-        "{{FLAKE}}#nixosConfigurations.\"mochou@remote\".config.system.build.toplevel" \
-        --eval-store auto \
-        --store "ssh-ng://$target" \
-        --impure \
-        --no-link \
-        --print-out-paths); \
-    echo "Build completed: $toplevel"; \
-    ssh -p "{{port}}" -t "$target" \
-        "sudo nix-env --profile /nix/var/nix/profiles/system --set '$toplevel' && \
-         sudo '$toplevel/bin/switch-to-configuration' dry-activate"; \
-    echo "Remote NixOS dry activation completed."
 
 # List available NixOS desktop entry modules and mark the host's selected desktop.
 [group('nixos')]
