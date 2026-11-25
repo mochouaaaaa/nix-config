@@ -167,6 +167,106 @@ NH_HOST=mochou@wsl just nixos-switch
 ### Remote deployment host
 
 `mochou@remote` is the dedicated NixOS Host used as the target for remote
+installation and deployment. The name has two distinct parts:
+
+- `mochou@remote` is the NixOS Flake Host identifier and corresponds to
+  `hosts/mochou@remote/`.
+- `remote` (without the username) is the SSH client alias defined in the
+  deployment machine's `~/.ssh/config`. It tells SSH/Nix how to reach the
+  target machine; it is not an IP address or a special Nix keyword.
+
+The current target is a QEMU/UTM UEFI guest. Its connection details are kept in
+the deployment machine's SSH config rather than repeated in the Just recipe.
+
+#### SSH alias configuration
+
+On the deployment machine, define the alias (adjust the address and port to
+match your network):
+
+```sshconfig
+Host remote
+    HostName 192.168.1.7
+    User mochou
+    Port 2222
+```
+
+Here, `Host remote` is the alias used by the commands below; `HostName`,
+`User`, and `Port` are the actual destination address, login account, and
+SSH port. The port belongs in SSH config. Do not append `:2222` to
+`ssh-ng://remote` or pass it as part of the SSH alias.
+
+Verify that the alias works before deploying:
+
+```bash
+ssh remote
+nix store ping --store ssh-ng://remote
+```
+
+#### Initial installation
+
+See [docs/installation.md](./docs/installation.md) for the full installation
+procedure, including SSH preparation, destructive-disk confirmation, and
+using a locally downloaded kexec image when the target cannot access GitHub.
+
+The short form is:
+
+```bash
+just remote_install
+```
+
+The installer defaults to `root@192.168.122.246`; override the target IP as
+needed:
+
+```bash
+just remote_install ip="192.168.122.62"
+```
+
+**Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
+VM disk. This destroys existing data on `/dev/vda`. Use it only for initial
+installation or an intentional reinstall, never for routine updates.
+
+#### Routine deployment and updates
+
+The `remote_deploy` recipe is platform-specific: Just selects the recipe
+matching the machine running the command. Linux uses deploy-rs; macOS builds
+through the SSH Store and activates the resulting system on the remote host.
+Both deploy the same Flake Host, `mochou@remote`.
+
+**Linux (deploy-rs):**
+
+```bash
+just remote_deploy_dry                 # dry activation preview
+just remote_deploy_dry ip="192.168.1.7"
+just remote_deploy                     # deploy and activate
+just remote_deploy ip="192.168.1.7"
+```
+
+The optional `ip` parameter is the target address passed to deploy-rs. The
+deploy-rs node connects as `root`; ensure the corresponding SSH access is
+authorized on the target.
+
+**macOS (SSH Store):**
+
+```bash
+just remote_deploy
+```
+
+There are no recipe parameters on macOS. The recipe uses the SSH alias
+`remote` from `~/.ssh/config`, evaluates
+`nixosConfigurations."mochou@remote"`, builds the system closure using
+`ssh-ng://remote`, then connects to the target to update the NixOS system
+profile and run `switch-to-configuration switch`. The SSH login user
+(`mochou` in the example above) must be able to run the activation commands
+with `sudo`.
+
+Do not confuse `remote_install` with `remote_deploy`: installation
+repartitions the disk, while routine deployment updates the existing system.
+
+For the recipe definitions and troubleshooting notes, see
+[docs/remote-deployment.md](./docs/remote-deployment.md).
+
+
+`mochou@remote` is the dedicated NixOS Host used as the target for remote
 installation and deployment. Its current hardware profile is a QEMU/UTM UEFI
 guest with a virtio disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB
 swap, Btrfs persistence subvolumes, and a tmpfs root filesystem.
