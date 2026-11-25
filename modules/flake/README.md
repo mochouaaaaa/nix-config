@@ -9,7 +9,7 @@
 | `systems.nix` | 声明支持的构建平台，并为 perSystem 输出选择对应的 nixpkgs package set。 |
 | `overlays.nix` | 导出通用、NixOS、Darwin 与 standalone Home Manager 使用的 overlays。 |
 | `packages.nix` | 定义 perSystem packages 输出；默认包目前为 `hello`。 |
-| `apps.nix` | 提供 `remote_install` Flake App，供 `just remote_install` 执行首次安装或重装。 |
+| `apps.nix` | 提供 `remote_install` Flake App，供 `just remote_install <TARGET_IP> <SSH_PORT>` 执行首次安装或重装。 |
 | `deploy.nix` | 声明 `deploy.nodes` 与 deploy-rs 部署检查，并将锁定的 deploy-rs CLI 加入默认 devShell。 |
 | `devshells.nix` | 定义可扩展的默认开发 Shell，以及基础开发工具；功能专用环境由对应功能模块单独注册。 |
 | `formatter.nix` | 集成 treefmt-nix 与 git-hooks-nix，配置 `nix fmt` 和提交前格式检查。 |
