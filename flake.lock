@@ -1019,10 +1019,10 @@
     "mysecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1772047036,
-        "narHash": "sha256-BxJFUR+eIlcS8bxEPgFJjYh0Fr4rcYkEP6XDEB66H8c=",
+        "lastModified": 1795573574,
+        "narHash": "sha256-0qnpide48xTWS/YcSkD+/Nz19DFn22XfmsG470a6AjU=",
         "ref": "refs/heads/master",
-        "rev": "9983148d8f0c94e8cd7d1f51d293bacf0f94abcc",
+        "rev": "20ce1536b1ac2463b92e43886d5f7696d7a3fb1f",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/mochouaaaaa/secrets.git"
