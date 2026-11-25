@@ -5,8 +5,6 @@
       devShells.agenix = pkgs.mkShell {
         name = "agenix";
 
-        inputsFrom = [ config.devShells.default ];
-
         packages = [
           pkgs.age
         ];
