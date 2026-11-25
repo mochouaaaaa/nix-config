@@ -13,7 +13,7 @@
     profiles.system = {
       user = "root";
       activationTimeout = 1800;
-      path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.remote;
+      path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."mochou@remote";
     };
   };
 
