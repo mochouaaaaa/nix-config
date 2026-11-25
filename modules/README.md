@@ -61,6 +61,7 @@ modules/
 - [development/](./development/README.md)：开发语言原子模块、工具链聚合入口与 GUI IDE 选择。
 - [flake/](./flake/README.md)：Flake outputs、开发环境、格式化与 checks。
 - [programs/](./programs/README.md)：用户程序的目录边界与平台职责。
+- [security/agenix/](./security/agenix/README.md)：Agenix 集成边界、专用开发环境与 rekey 工作流。
 
 ## 功能域边界
 

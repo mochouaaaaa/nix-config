@@ -45,13 +45,14 @@ let
           },
         })
 
-        vim.lsp.enable("nixd")
+        -- vim.lsp.enable("nixd")
       '';
     };
 in
 {
   flake.modules.homeManager."cli.neovim.lsp.nixd" = { pkgs, ... }: {
     programs.neovim.extraPackages = with pkgs; [
+      nil
       nixd
       nixfmt
     ];

@@ -1,14 +1,29 @@
 {
-  flake.modules.homeManager."development.node" =
-    { pkgs, ... }:
+
+  flake.modules.homeManager."programs.node.26-11" =
+    { lib, options, ... }:
+    let
+      hasPnpm = lib.hasAttrByPath [
+        "programs"
+        "pnpm"
+      ] options;
+    in
     {
-      # npm owns the Node.js package as well as the user-level npmrc.
-      # Use one Node.js version for both the runtime and npm CLI.
-      programs = {
-        pnpm = {
-          enable = true;
+      config = lib.optionalAttrs hasPnpm {
+        # npm owns the Node.js package as well as the user-level npmrc.
+        # Use one Node.js version for both the runtime and npm CLI.
+        programs = {
+          pnpm = {
+            enable = true;
+          };
         };
       };
+    };
+
+  flake.modules.homeManager."development.node" =
+    { pkgs, self, ... }:
+    {
+      imports = [ self.modules.homeManager."programs.node.26-11" ];
 
       programs = {
         vscode = {
@@ -77,6 +92,6 @@
       profiles.preservation.users.${username}.directories =
         lib.optionals (lib.elem pkgs.nodejs homePackages) [ ".npm" ]
         ++ lib.optionals (lib.elem pkgs.yarn homePackages) [ ".yarn" ]
-        ++ lib.optionals pnpm.enable [ pnpm.pnpmHome ];
+        ++ lib.optionals pnpm.enable [ ".local/share/pnpm" ];
     };
 }

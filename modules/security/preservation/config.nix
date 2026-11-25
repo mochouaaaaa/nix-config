@@ -15,141 +15,140 @@
         inputs.preservation.nixosModules.default
       ];
 
-      config = lib.mkIf cfg.enable {
+      system.etc.overlay.enable = true;
+      system.nixos-init.enable = config.system.etc.overlay.enable;
+      services.userborn.enable = config.system.etc.overlay.enable;
 
-        system.etc.overlay.enable = true;
-        system.nixos-init.enable = config.system.etc.overlay.enable;
-        services.userborn.enable = config.system.etc.overlay.enable;
+      preservation.enable = true;
+      preservation.preserveAt.${cfg.storagePath} = {
+        inherit (cfg) directories files;
+        users.${username} = cfg.users.${username} or { };
+      };
 
-        preservation.enable = true;
-        preservation.preserveAt.${cfg.storagePath} = {
-          inherit (cfg) directories files;
-          users.${username} = cfg.users.${username} or { };
-        };
+      profiles.preservation = {
+        directories = [
+          "/var/lib/sbctl" # lanzaboote - secure boot
 
-        profiles.preservation = {
+          # system-core
+          {
+            directory = "/var/lib/nixos";
+            inInitrd = true;
+          }
+          "/var/lib/systemd"
+
+          # network
+          "/var/lib/tailscale"
+          "/var/lib/NetworkManager"
+          "/var/lib/iwd"
+          "/var/lib/bluetooth"
+
+        ]
+        ++ lib.optionals (!config.system.etc.overlay.enable) [
+          "/etc/NetworkManager/system-connections"
+          "/etc/ssh"
+        ];
+
+        files = [
+          {
+            file = "/etc/machine-id";
+            inInitrd = true;
+          }
+        ];
+
+        users.${username} = {
+          commonMountOptions = [ "x-gvfs-hide" ];
           directories = [
-            "/var/lib/sbctl" # lanzaboote - secure boot
+            ".icons"
 
-            # system-core
+            # XDG Directories
+            "Downloads"
+            "Music"
+            "Pictures"
+            "Public"
+            "Documents"
+            "Videos"
+
+            # Work / dotfiles
+            "Code"
+            "nix"
+            ".config/dotfile"
+            ".tmux"
+            "tmp"
+
+            # Nix / Home Manager Profiles
+            # ".local/state/home-manager"
+            # ".local/state/nix/profiles"
+            # ".local/share/nix"
+            # ".cache/nix"
+            # ".cache/nixpkgs-review"
+
+            # IDE / Editors
+            ".wakatime"
+
+            # Language config
+            ".local/bin"
+
+            # Security
             {
-              directory = "/var/lib/nixos";
-              inInitrd = true;
+              directory = ".config/agenix";
+              mode = "0700";
             }
-            "/var/lib/systemd"
+            {
+              directory = ".gnupg";
+              mode = "0700";
+            }
+            {
+              directory = ".ssh";
+              mode = "0700";
+            }
+            {
+              directory = ".pki";
+              mode = "0700";
+            }
 
-            ".var"
-
-            # network
-            "/var/lib/tailscale"
-            "/var/lib/NetworkManager"
-            "/var/lib/iwd"
-            "/var/lib/bluetooth"
+            # Misc
+            ".cache/cliphist"
 
           ]
-          ++ lib.optionals (!config.system.etc.overlay.enable) [
-            "/etc/NetworkManager/system-connections"
-            "/etc/ssh"
-          ];
+          ++ lib.optionals config.services.pipewire.pulse.enable [ ".config/pulse" ]
+          ++ lib.optionals config.services.pipewire.wireplumber.enable [ ".local/state/wireplumber" ];
 
           files = [
-            {
-              file = "/etc/machine-id";
-              inInitrd = true;
-            }
-          ];
-
-          users.${username} = {
-            commonMountOptions = [ "x-gvfs-hide" ];
-            directories = [
-              ".icons"
-
-              # XDG Directories
-              "Downloads"
-              "Music"
-              "Pictures"
-              "Public"
-              "Documents"
-              "Videos"
-
-              # Work / dotfiles
-              "Code"
-              "nix"
-              ".config/dotfile"
-              ".tmux"
-              "tmp"
-
-              # Nix / Home Manager Profiles
-              # ".local/state/home-manager"
-              # ".local/state/nix/profiles"
-              # ".local/share/nix"
-              # ".cache/nix"
-              # ".cache/nixpkgs-review"
-
-              # IDE / Editors
-              ".wakatime"
-
-              # Language config
-              ".local/bin"
-
-              # Security
-              {
-                directory = ".gnupg";
-                mode = "0700";
-              }
-              {
-                directory = ".ssh";
-                mode = "0700";
-              }
-              {
-                directory = ".pki";
-                mode = "0700";
-              }
-
-              # Misc
-              ".cache/cliphist"
-
-            ]
-            ++ lib.optionals config.services.pipewire.pulse.enable [ ".config/pulse" ]
-            ++ lib.optionals config.services.pipewire.wireplumber.enable [ ".local/state/wireplumber" ];
-
-            files = [
-              ".zsh_history"
-            ];
-          };
-
-        };
-
-        systemd.tmpfiles.settings.preservation =
-          let
-            permission = {
-              user = username;
-              group = "users";
-              mode = "0755";
-            };
-          in
-          {
-            "/home/${username}/.config".d = permission;
-            "/home/${username}/.cache".d = permission;
-            "/home/${username}/.local".d = permission;
-            "/home/${username}/.local/share".d = permission;
-            "/home/${username}/.local/state".d = permission;
-            "/home/${username}/.local/state/nix".d = permission;
-          };
-
-        systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
-
-        systemd.services.systemd-machine-id-commit = {
-          unitConfig.ConditionPathIsMountPoint = [
-            ""
-            "${cfg.storagePath}/etc/machine-id"
-          ];
-          serviceConfig.ExecStart = [
-            ""
-            "systemd-machine-id-setup --commit --root ${cfg.storagePath}"
+            ".zsh_history"
           ];
         };
 
       };
+
+      systemd.tmpfiles.settings.preservation =
+        let
+          permission = {
+            user = username;
+            group = "users";
+            mode = "0755";
+          };
+        in
+        {
+          "/home/${username}/.config".d = permission;
+          "/home/${username}/.cache".d = permission;
+          "/home/${username}/.local".d = permission;
+          "/home/${username}/.local/share".d = permission;
+          "/home/${username}/.local/state".d = permission;
+          "/home/${username}/.local/state/nix".d = permission;
+        };
+
+      systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
+
+      systemd.services.systemd-machine-id-commit = {
+        unitConfig.ConditionPathIsMountPoint = [
+          ""
+          "${cfg.storagePath}/etc/machine-id"
+        ];
+        serviceConfig.ExecStart = [
+          ""
+          "systemd-machine-id-setup --commit --root ${cfg.storagePath}"
+        ];
+      };
+
     };
 }

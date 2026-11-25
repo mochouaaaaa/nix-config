@@ -10,6 +10,11 @@
             locked_timeout = 600; # 锁屏后，空闲 600 秒（10分钟）熄屏
           };
         };
+        brightness = {
+          enable_ddcutil = true;
+          minimum_brightness = 0.3;
+          sync_all_monitors = true;
+        };
       };
     };
   };

@@ -4,22 +4,33 @@
       pkgs,
       lib,
       config,
-      options,
       ...
     }:
     let
       cfg = config.profiles.services.proxy.mihomo;
+
+      hasSubscription = lib.hasAttrByPath [
+        "age"
+        "secrets"
+        "subscription"
+      ] config;
+
+      hasProfilesDNS = lib.hasAttrByPath [
+        "profiles"
+        "services"
+        "dns"
+      ] config;
     in
     {
       config = lib.mkMerge [
-        (lib.mkIf (options ? age) {
+        (lib.mkIf hasSubscription {
           profiles.services.proxy.mihomo.subscriptionEnvironmentFile =
             lib.mkDefault config.age.secrets.subscription.path;
         })
 
         # Keep the dependency one-way: DNS works without the proxy module,
         # while an imported proxy module can optionally provide its endpoint.
-        (lib.optionalAttrs (options ? profiles.services.dns) {
+        (lib.mkIf hasProfilesDNS {
           profiles.services.dns = {
             mihomoSocksAddress = "${cfg.address}:${toString cfg.socks.port}";
             mihomoDNSListen = "${cfg.address}:${toString cfg.dns.listen}";

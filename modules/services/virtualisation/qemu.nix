@@ -23,6 +23,10 @@
         # qemu
       ];
 
+      networking.firewall.trustedInterfaces = [
+        "virbr0"
+      ];
+
       virtualisation = {
         spiceUSBRedirection.enable = true;
         libvirtd = {
@@ -33,6 +37,7 @@
             swtpm.enable = true;
             vhostUserPackages = [ pkgs.virtiofsd ];
           };
+          onShutdown = "suspend";
         };
       };
 

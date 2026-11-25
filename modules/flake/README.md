@@ -9,9 +9,9 @@
 | `systems.nix` | 声明支持的构建平台，并为 perSystem 输出选择对应的 nixpkgs package set。 |
 | `overlays.nix` | 导出通用、NixOS、Darwin 与 standalone Home Manager 使用的 overlays。 |
 | `packages.nix` | 定义 perSystem packages 输出；默认包目前为 `hello`。 |
-| `apps.nix` | 提供 `install-vm` 初次安装入口。 |
+| `apps.nix` | 提供 `remote_install` Flake App，供 `just remote_install` 执行首次安装或重装。 |
 | `deploy.nix` | 声明 `deploy.nodes` 与 deploy-rs 部署检查，并将锁定的 deploy-rs CLI 加入默认 devShell。 |
-| `devshells.nix` | 定义可扩展的默认开发 Shell，以及基础开发工具。 |
+| `devshells.nix` | 定义可扩展的默认开发 Shell，以及基础开发工具；功能专用环境由对应功能模块单独注册。 |
 | `formatter.nix` | 集成 treefmt-nix 与 git-hooks-nix，配置 `nix fmt` 和提交前格式检查。 |
 | `checks.nix` | 定义 Flake checks，包括开发环境、格式检查与 Host 元数据 / 求值检查。 |
 
@@ -39,7 +39,7 @@ perSystem 默认使用主 `nixpkgs` input；由于当前 unstable package set �
 
 ## Development shell 与 formatter
 
-默认 devShell 提供 `just`、`statix` 和 `deadnix`；部署模块还会将 Flake 锁定的 deploy-rs CLI 加入其中。devShell 通过可合并选项允许其他模块扩展：
+默认 `devShells.default` 只提供通用开发工具 `just`、`statix` 和 `deadnix`；部署模块还会将 Flake 锁定的 deploy-rs CLI 加入其中。功能专用工具应注册为独立的命名 devShell，不应污染默认环境。默认 devShell 通过可合并选项允许其他模块扩展：
 
 - `devShell.packages`
 - `devShell.nativeBuildInputs`
@@ -64,8 +64,11 @@ perSystem 默认使用主 `nixpkgs` input；由于当前 unstable package set �
 
 ```bash
 just dev
-# 在开发环境中执行远程部署：
- deploy .#mochou@vm
+just agenix       # 进入 Agenix 专用环境
+just rekey        # 在 Agenix 环境中执行密钥重新加密
+# 使用 Just 命令预演和执行远程部署：
+ just remote_deploy_dry
+ just remote_deploy
 just fmt
 just fmt-check
 just lint

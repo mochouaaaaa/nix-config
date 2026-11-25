@@ -32,11 +32,11 @@
 | Host | 平台 | 系统构建器 | 主要用途 |
 | --- | --- | --- | --- |
 | `mochou@nixos` | `x86_64-linux` | NixOS | 主力 Linux 桌面，Hyprland |
-| `mochou@vm` | `x86_64-linux` | NixOS | 无状态 UEFI 虚拟机，Disko + Btrfs + Preservation |
+| `mochou@remote` | `x86_64-linux` | NixOS | 专用远程安装与部署目标，QEMU/UTM、Disko + Btrfs + Preservation |
 | `mochou@wsl` | `x86_64-linux` | NixOS-WSL | Windows Subsystem for Linux |
 | `mochou@darwin` | `x86_64-darwin` | nix-darwin | macOS 用户与系统环境 |
 
-Host 目录名采用 `<username>@<hostname>` 格式，后缀只是主机名，不代表操作系统类型。主机清单及对应元数据位于 [hosts/](./hosts/)。
+Host 目录名统一采用 `<username>@<hostname>` 格式。主机清单及对应元数据位于 [hosts/](./hosts/)。
 
 ## Components
 
@@ -68,7 +68,7 @@ Host 目录名采用 `<username>@<hostname>` 格式，后缀只是主机名，�
 
 ### Host 自动发现
 
-[modules/hosts.nix](./modules/hosts.nix) 使用主机注册表扫描 `hosts/<username>@<hostname>/`。每个 Host 通过 `nixpkgs.json` 声明目标架构和构建器，不需要额外维护 `class` 或 `host.json`。
+[modules/hosts.nix](./modules/hosts.nix) 使用主机注册表扫描 `hosts/` 下的目录。Host 目录名统一采用 `<username>@<hostname>` 命名。每个 Host 通过该文件声明目标架构和构建器，不需要额外维护 `class` 或 `host.json`。
 
 例如，NixOS Host：
 
@@ -164,12 +164,43 @@ NH_HOST=mochou@wsl just nixos-eval
 NH_HOST=mochou@wsl just nixos-switch
 ```
 
-### Minimal VM deployment
+### Remote deployment host
 
-`mochou@vm` is a small stateless UEFI guest for QEMU/UTM. It uses a virtio
-disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB swap, a Btrfs data
-partition with persistent subvolumes for `/nix` and Preservation data, and a
-tmpfs root filesystem.
+`mochou@remote` is the dedicated NixOS Host used as the target for remote
+installation and deployment. The name has two distinct parts:
+
+- `mochou@remote` is the NixOS Flake Host identifier and corresponds to
+  `hosts/mochou@remote/`.
+- `remote` (without the username) is the SSH client alias defined in the
+  deployment machine's `~/.ssh/config`. It tells SSH/Nix how to reach the
+  target machine; it is not an IP address or a special Nix keyword.
+
+The current target is a QEMU/UTM UEFI guest. Its connection details are kept in
+the deployment machine's SSH config rather than repeated in the Just recipe.
+
+#### SSH alias configuration
+
+On the deployment machine, define the alias (adjust the address and port to
+match your network):
+
+```sshconfig
+Host remote
+    HostName 192.168.1.7
+    User mochou
+    Port 2222
+```
+
+Here, `Host remote` is the alias used by the commands below; `HostName`,
+`User`, and `Port` are the actual destination address, login account, and
+SSH port. The port belongs in SSH config. Do not append `:2222` to
+`ssh-ng://remote` or pass it as part of the SSH alias.
+
+Verify that the alias works before deploying:
+
+```bash
+ssh remote
+nix store ping --store ssh-ng://remote
+```
 
 #### Initial installation
 
@@ -180,13 +211,82 @@ using a locally downloaded kexec image when the target cannot access GitHub.
 The short form is:
 
 ```bash
-nix run .#install-vm
+just remote_install
+```
+
+The installer defaults to `root@192.168.122.246`; override the target IP as
+needed:
+
+```bash
+just remote_install ip="192.168.122.62"
+```
+
+**Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
+VM disk. This destroys existing data on `/dev/vda`. Use it only for initial
+installation or an intentional reinstall, never for routine updates.
+
+#### Routine deployment and updates
+
+The `remote_deploy` recipe is platform-specific: Just selects the recipe
+matching the machine running the command. Linux uses deploy-rs; macOS builds
+through the SSH Store and activates the resulting system on the remote host.
+Both deploy the same Flake Host, `mochou@remote`.
+
+**Linux (deploy-rs):**
+
+```bash
+just remote_deploy_dry                 # dry activation preview
+just remote_deploy_dry ip="192.168.1.7"
+just remote_deploy                     # deploy and activate
+just remote_deploy ip="192.168.1.7"
+```
+
+The optional `ip` parameter is the target address passed to deploy-rs. The
+deploy-rs node connects as `root`; ensure the corresponding SSH access is
+authorized on the target.
+
+**macOS (SSH Store):**
+
+```bash
+just remote_deploy
+```
+
+There are no recipe parameters on macOS. The recipe uses the SSH alias
+`remote` from `~/.ssh/config`, evaluates
+`nixosConfigurations."mochou@remote"`, builds the system closure using
+`ssh-ng://remote`, then connects to the target to update the NixOS system
+profile and run `switch-to-configuration switch`. The SSH login user
+(`mochou` in the example above) must be able to run the activation commands
+with `sudo`.
+
+Do not confuse `remote_install` with `remote_deploy`: installation
+repartitions the disk, while routine deployment updates the existing system.
+
+For the recipe definitions and troubleshooting notes, see
+[docs/remote-deployment.md](./docs/remote-deployment.md).
+
+
+`mochou@remote` is the dedicated NixOS Host used as the target for remote
+installation and deployment. Its current hardware profile is a QEMU/UTM UEFI
+guest with a virtio disk at `/dev/vda`, a 1 GiB EFI System Partition, 10 GiB
+swap, Btrfs persistence subvolumes, and a tmpfs root filesystem.
+
+#### Initial installation
+
+See [docs/installation.md](./docs/installation.md) for the full installation
+procedure, including SSH preparation, destructive-disk confirmation, and
+using a locally downloaded kexec image when the target cannot access GitHub.
+
+The short form is:
+
+```bash
+just remote_install [IP]
 ```
 
 The app defaults to `root@192.168.122.246`; override the target when needed:
 
 ```bash
-INSTALL_HOST=root@<VM_IP> nix run .#install-vm
+just remote_install <TARGET_IP>
 ```
 
 **Warning:** `nixos-anywhere` runs Disko and repartitions/formats the target
@@ -197,19 +297,17 @@ or an intentional reinstall, never for routine updates.
 #### Routine deployment and updates
 
 The locked `deploy-rs` CLI is included in the repository's development shell.
-Enter it with `just dev`, then deploy the intended node/profile:
+Use the Just recipes to keep the remote node and profile explicit:
 
 ```bash
-deploy '<node-selector>'
+just remote_deploy_dry [IP]  # preview activation
+just remote_deploy [IP]      # deploy and activate
 ```
 
-You can also run the command without entering an interactive shell:
-
-```bash
-nix develop -c deploy '<node-selector>'
-```
-
-The `deploy.nodes."mochou@vm"` definition in the Flake connects as `root`.
+The `deploy.nodes.remote` definition in the Flake connects as `root`. Use
+`just remote_deploy_dry [IP]` to preview an update and `just remote_deploy [IP]`
+to activate it. `just remote_install [IP]` is a separate, destructive
+nixos-anywhere installation operation.
 The system closure is built on the deployment side and copied to the target
 over SSH before the `system` profile is activated. The target does not need
 Internet access to fetch Nix build dependencies, but it must be reachable over

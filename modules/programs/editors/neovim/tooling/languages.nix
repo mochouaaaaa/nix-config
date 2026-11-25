@@ -11,6 +11,7 @@
       luajitPackages.luacheck
 
       # markdown
+      marksman
       markdown-toc
       markdownlint-cli2
 
@@ -19,6 +20,7 @@
       prettierd
       eslint_d
       actionlint
+      vscode-json-languageserver
 
       # TOML
       taplo

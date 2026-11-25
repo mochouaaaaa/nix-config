@@ -4,11 +4,9 @@
 
     let
       inherit (lib) mkOption types;
-
     in
     {
       options.profiles.preservation = {
-        enable = lib.mkEnableOption "preservation";
         storagePath = mkOption {
           type = lib.types.str;
           default = "/nix/persistence";

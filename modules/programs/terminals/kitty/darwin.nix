@@ -11,6 +11,11 @@
     {
       programs.kitty = {
         package = lib.mkForce null;
+        autoThemeFiles = {
+          light = "Catppuccin-Latte";
+          dark = "Catppuccin-Mocha";
+          noPreference = "Catppuccin-Mocha";
+        };
         darwinLaunchOptions = [
           "--single-instance"
           "--listen-on=unix:/tmp/mykitty.sock"
