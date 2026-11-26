@@ -1019,10 +1019,10 @@
     "mysecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1795573574,
-        "narHash": "sha256-0qnpide48xTWS/YcSkD+/Nz19DFn22XfmsG470a6AjU=",
+        "lastModified": 1795674933,
+        "narHash": "sha256-YQf7Wz12FKZFLehAiC/wZhruTnz4YQnIN+o9xmOChS8=",
         "ref": "refs/heads/master",
-        "rev": "20ce1536b1ac2463b92e43886d5f7696d7a3fb1f",
+        "rev": "96cdd6f5beae048379e5d6d43eb780a6c2720a6d",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/mochouaaaaa/secrets.git"
@@ -1831,11 +1831,11 @@
         "vicinae": "vicinae"
       },
       "locked": {
-        "lastModified": 1793810868,
-        "narHash": "sha256-UR269g8GwB5jywGcxqViVscjl8gtvRO9XjtCoGnUbSs=",
+        "lastModified": 1795217763,
+        "narHash": "sha256-XMuPu1ycx4aXiBuxwabMSAMYGhimZaEvfkPSf0GgneY=",
         "owner": "vicinaehq",
         "repo": "extensions",
-        "rev": "181904331f5289b53ee3443f98cfa5441d399f35",
+        "rev": "85282aa0fee6a3b8563db89f1874833c9e33e231",
         "type": "github"
       },
       "original": {
