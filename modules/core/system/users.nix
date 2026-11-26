@@ -1,18 +1,4 @@
 {
-  flake.modules.generic.zsh = { pkgs, username, ... }: {
-    users.users.${username}.description = "${username}. up up up!";
-    programs.zsh = {
-      enable = true;
-      enableCompletion = false;
-      enableBashCompletion = false;
-    };
-    environment.shells = [ pkgs.zsh ];
-  };
-
-  # Home Manager applies this setting on platforms where systemd user services are enabled.
-  flake.modules.homeManager.core = {
-    systemd.user.startServices = "sd-switch";
-  };
 
   flake.modules.nixos.users =
     {
@@ -29,7 +15,6 @@
         defaultUserShell = pkgs.zsh;
         groups = {
           "${username}" = { };
-          docker = { };
           keys = { };
           adbusers = { };
           dialout = { };
@@ -74,13 +59,8 @@
 
   flake.modules.nixos.core = { self, ... }: {
     imports = [
-      self.modules.generic.zsh
       self.modules.nixos.users
     ];
   };
 
-  flake.modules.darwin.core = { self, username, ... }: {
-    imports = [ self.modules.generic.zsh ];
-    users.users."${username}".home = "/Users/${username}";
-  };
 }

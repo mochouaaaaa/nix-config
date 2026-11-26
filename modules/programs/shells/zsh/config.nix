@@ -1,4 +1,23 @@
 {
+
+  flake.modules.generic.zsh = { pkgs, username, ... }: {
+    users.users.${username}.description = "${username}. up up up!";
+    programs.zsh = {
+      enable = true;
+      enableCompletion = false;
+      enableBashCompletion = false;
+    };
+    environment.shells = [ pkgs.zsh ];
+  };
+
+  flake.modules.nixos.core = { self, ... }: {
+    imports = [ self.modules.generic.zsh ];
+  };
+
+  flake.modules.darwin.core = { self, ... }: {
+    imports = [ self.modules.generic.zsh ];
+  };
+
   flake.modules.homeManager.programs = { pkgs, config, ... }: {
 
     programs = {
