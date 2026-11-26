@@ -9,7 +9,8 @@
     environment.shells = [ pkgs.zsh ];
   };
 
-  flake.modules.homeManager.core = {
+  # sd-switch manages Home Manager's systemd user services on Linux only.
+  flake.modules.homeManager."linux-systemd" = {
     systemd.user.startServices = "sd-switch";
   };
 
@@ -75,6 +76,12 @@
     imports = [
       self.modules.generic.zsh
       self.modules.nixos.users
+    ];
+
+    # Inject Linux-only Home Manager behavior into every NixOS-managed user,
+    # including headless hosts that do not import a desktop/Linux HM role.
+    home-manager.sharedModules = [
+      self.modules.homeManager."linux-systemd"
     ];
   };
 
