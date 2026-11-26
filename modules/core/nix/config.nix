@@ -102,7 +102,8 @@ in
       };
     };
 
-  flake.modules.common.lix = { lib, pkgs, ... }: {
+  # Lix is provided by the NixOS overlay; keep this opt-in module NixOS-only.
+  flake.modules.nixos.lix = { lib, pkgs, ... }: {
     nix = {
       package = lib.mkForce pkgs.lixPackageSets.git.lix;
       settings = {
