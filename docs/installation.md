@@ -19,7 +19,7 @@
 远程安装与远程部署是不同操作：
 
 - **远程安装**使用 `just remote_install <TARGET_IP> <SSH_PORT>`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
-- **远程部署**使用 `just remote_deploy_dry [IP]` 预演、`just remote_deploy [IP]` 正式更新已有 NixOS，不会执行 Disko，不应拿来替代重装。
+- **远程部署**使用 `just remote_deploy_dry` 预演、`just remote_deploy` 正式更新已有 NixOS；可通过 `ip` 和 `port` 命名参数指定目标，不会执行 Disko，不应拿来替代重装。
 
 当前 Disko 配置在目标磁盘上创建 GPT 分区：
 
@@ -301,11 +301,11 @@ just remote_deploy
 目标机 IP 变化时，可以直接把 IP 作为参数传入，不需要修改 `modules/flake/deploy.nix`：
 
 ```bash
-just remote_deploy_dry 192.168.122.80
-just remote_deploy 192.168.122.80
+just remote_deploy_dry ip="192.168.122.80" port="22"
+just remote_deploy ip="192.168.122.80" port="22"
 ```
 
-这两个 recipe 内部使用 deploy-rs 的 `--hostname` 参数覆盖 Flake 节点的 hostname，节点和 profile 固定为 `remote` 的 `system`。也可以显式使用命名参数，例如 `just remote_deploy ip=192.168.122.80`。
+这两个 recipe 内部使用 deploy-rs 的 `--hostname` 参数覆盖 Flake 节点的 hostname，节点和 profile 固定为 `remote` 的 `system`。也可以显式使用命名参数，例如 `just remote_deploy ip="192.168.122.80" port="22"`。Linux 上的 dry activation 配方同样支持这两个命名参数。
 
 部署前建议确认 root SSH 公钥认证和目标主机身份：
 
