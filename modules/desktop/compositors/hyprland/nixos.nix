@@ -24,8 +24,10 @@
         package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
         portalPackage =
           inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-        withUWSM = false;
+        withUWSM = true;
       };
+
+      services.displayManager.noctalia-greeter.settings.session.default = "hyprland-uwsm";
 
       # Import the matching Home Manager desktop only for this host's primary user.
       # The NixOS and HM module classes remain separate; this module composes them.
