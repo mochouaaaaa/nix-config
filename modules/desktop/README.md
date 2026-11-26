@@ -1,64 +1,55 @@
-# 桌面模块组合
+# 桌面模块
 
-桌面入口是 NixOS 模块，负责将系统侧桌面环境与 Host 主用户对应的 Home Manager 模块组合起来。除非有明确的多桌面环境需求，否则每个 Host 应只选择一个桌面入口。
+本目录组织桌面会话、系统桌面基础能力和桌面组件。桌面入口是 NixOS 模块，并为 Host 主用户组合对应的 Home Manager 模块。
 
-## 桌面入口
+## 当前桌面入口
 
-| NixOS 模块 ID | Home Manager 模块 ID | 会话 |
+| NixOS 模块 ID | Home Manager 模块 ID | 桌面会话 |
 | --- | --- | --- |
 | `desktop.hyprland` | `desktop.hyprland` | Hyprland |
 | `desktop.niri` | `desktop.niri` | Niri |
-| `desktop.gnome` | `desktop.gnome` | GNOME |
 | `desktop.kde` | `desktop.kde` | KDE Plasma |
+| `desktop.cosmic` | `desktop.cosmic` | COSMIC |
+| `desktop.umbriel` | `desktop.umbriel` | Umbriel |
 
-每个入口都会导入 `desktop.common`，并且只将对应的 Home Manager 模块加入 `home-manager.users.<username>.imports`。NixOS 与 Home Manager 仍属于不同的模块类；这里的组合仅作用于 Host 的主用户，不会自动作用于所有 Home Manager 用户。
+上述入口均导入 NixOS 模块 `desktop.common`，并只为 Host 主用户导入对应的 Home Manager 桌面模块。NixOS 与 Home Manager 仍属于不同模块类；此处的组合不会自动作用于其他 Home Manager 用户。
 
-Hyprland 和 Niri 还会导入 Noctalia Greeter 组件。GNOME 使用 GDM，KDE 使用 SDDM。自动登录由 Host 自己配置，不在桌面入口中隐式启用。
+桌面入口负责会话本身及其必要的登录管理器配置。登录管理器和自动登录行为以对应入口及 Host 配置为准，不应从其他桌面入口推断。
 
-## 公共组件
+## 公共基础模块
 
 | 模块 ID | 模块类 | 职责 |
 | --- | --- | --- |
-| `desktop.common` | NixOS + Home Manager | 兼容性聚合入口；为现有桌面入口组合 `desktop.base`、`desktop.hardware` 和 `homeManager.desktop.user`。 |
-| `desktop.base` | NixOS | 桌面系统基础能力：外观、桌面安全、地理位置、UWSM、XDG Portal、打印、电源服务、X Server 默认值、图形集成及相关兼容设置。 |
-| `desktop.hardware` | NixOS | 通用硬件配置，以及包含音频和蓝牙的 `hardware.desktop` 组合。 |
-| `homeManager.desktop.user` | Home Manager | 用户桌面设置：Rime、外观、快捷键、Vicinae、光标、XDG 用户目录和 Portal 默认值、MPRIS、Neovide Wayland 集成。 |
-| `desktop.greeter.noctalia` | NixOS | Hyprland 和 Niri 使用的 Noctalia Greeter 集成。 |
-| `desktop.shell.noctalia` | Home Manager | Noctalia 桌面 Shell 配置，拆分为多个专注于单一职责的组件模块。 |
-| `desktop.launcher.vicinae` | Home Manager | Vicinae 启动器配置和按键映射。 |
-| `desktop.flatpak` | NixOS + Home Manager | 显式的用户级 Flatpak 客户端集成，以及 NixOS 到 Home Manager 的模块组合。 |
+| `desktop.common` | NixOS + Home Manager | 兼容性组合入口：NixOS 侧导入 `desktop.base`、`desktop.hardware`，并为主用户导入 Home Manager 的 `desktop.common`。 |
+| `desktop.base` | NixOS | 桌面系统基础能力，包括外观、安全、地理位置、UWSM 与 XDG Portal 基础配置。 |
+| `desktop.hardware` | NixOS | 导入通用硬件模块与 `hardware.desktop`，并配置图形桌面用户所需的设备组。 |
+| `desktop.user` | Home Manager | 用户桌面基础设置，包括输入法、外观、快捷键和 Vicinae 启动器。 |
 
-普通桌面 Host 继续导入 `desktop.common`。需要更精简组合的 Host 可以分别导入 `desktop.base` 和/或 `desktop.hardware`；需要用户级桌面设置时，再将 `homeManager.desktop.user` 加入目标 Home Manager 用户的 imports。底层原子模块始终可以独立使用，兼容性聚合入口不会取代它们。
+底层模块可以独立导入。需要精简桌面组合的 Host 可直接选择 `desktop.base`、`desktop.hardware` 和 `desktop.user`，而不是使用兼容性组合入口。
 
-Noctalia Shell 与 Greeter 是两个独立组件。桌面入口只在需要时选择 Greeter；Shell 则由相应的 Home Manager 配置独立组合。
+## 独立桌面组件
 
-代理、数据库等 Host 专属服务不属于桌面基础能力，应由 Host 或专用角色显式导入。KVM 调优仍通过硬件 profile 按需启用。
+| 模块 ID | 模块类 | 用途 |
+| --- | --- | --- |
+| `desktop.greeter.noctalia` | NixOS | Noctalia Greeter 登录界面集成。 |
+| `desktop.shell.noctalia` | Home Manager | Noctalia 桌面 Shell，由需要它的桌面会话显式导入。 |
+| `desktop.launcher.vicinae` | Home Manager | Vicinae 启动器及按键映射。 |
+| `desktop.flatpak` | NixOS + Home Manager | Flatpak 系统侧支持与用户级客户端组合。 |
 
-## 桌面应用配置组
+Greeter、Shell 和 Launcher 是不同组件，不会因为选择其中一个而自动启用其他组件。具体哪些桌面入口组合 Noctalia，应以对应的 NixOS 和 Home Manager 模块为准。
 
-可选图形应用与桌面会话独立选择，其 Home Manager 模块 ID 注册在 `desktop.programs.*` 下：
+## 桌面应用
 
-- `desktop.programs.api-clients`
-- `desktop.programs.browsers`
-- `desktop.programs.audio`
-- `desktop.programs.security`
-- `desktop.programs.communication`
-- `desktop.programs.email`
-- `desktop.programs.media`
-- `desktop.programs.notes`
-- `desktop.programs.remote`
-- `desktop.programs.office`
+可选图形应用与桌面会话分开管理，应用模块位于 `modules/programs/desktop/`，由 Host 或 Home Manager 角色按需导入。
 
-兼容性聚合入口 `desktop.programs` 位于 `modules/programs/desktop/profiles.nix`，会导入上面列出的 Home Manager 应用组。Host 也可以只导入实际需要的分组。
+应用分组、聚合入口及数据库客户端见 [程序模块说明](../programs/README.md)。桌面会话不应通过应用聚合入口启用。
 
-网络集成是独立模块：`desktop.programs.networking` 只注册为 NixOS 和 Darwin 模块，因此必须通过对应的系统模块类导入，不能作为 Home Manager 模块导入。
+## 边界
 
-数据库客户端单独注册为 `desktop.programs.database`，不包含在兼容性聚合入口中。API 客户端组当前包含 Hoppscotch，以及非 Darwin 平台上的 Cartero。
+- 桌面会话及其必要的系统集成放在本目录。
+- 用户级应用放在 `modules/programs/desktop/`。
+- 通用硬件能力放在 `modules/hardware/`。
+- 代理、数据库和其他主机服务放在 `modules/services/`，由 Host 显式选择。
+- 开发语言与 IDE 工具放在 `modules/development/`。
 
-桌面会话本身由 `modules/desktop/` 配置，而不是由本目录的应用 profile 配置。详见 [桌面模块目录说明](../desktop/README.md)。
-
-## 服务与平台边界
-
-系统服务模块位于 `modules/services/`，使用 `services.proxy`、`services.mysql`、`services.virtualisation.qemu` 等功能 ID，不会因为启用桌面 profile 而自动开启。
-
-系统服务和合成器/会话集成使用 `nixos` 模块类；用户级应用设置使用 `homeManager` 模块类。程序的平台差异应放在对应的 Linux、Darwin、NixOS 或 nix-darwin 模块中。
+新增桌面入口时，应同时明确 NixOS 与 Home Manager 两侧的职责，并避免将与桌面会话无关的服务隐式加入公共入口。
