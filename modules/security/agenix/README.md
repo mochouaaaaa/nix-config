@@ -41,6 +41,8 @@ git diff
 
 重新加密只负责更新配置的 Secret 密文，不负责部署或激活 NixOS / Darwin 系统。
 
+Darwin 上 LaunchAgent 的故障现象与手动恢复步骤见 [Darwin 故障处理记录](./darwin.md)。
+
 ## 安全注意事项
 
 - Master Identity 的明文内容不得进入 Git 或 Nix Store。
