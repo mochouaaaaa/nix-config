@@ -46,6 +46,10 @@
               };
             }
           ];
+          window-rule._children = [
+            { match._props.app-id = "vicinae"; }
+            { open-floating = true; }
+          ];
         }
 
       ];
