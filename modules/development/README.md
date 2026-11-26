@@ -1,26 +1,28 @@
 # 开发模块
 
-开发语言模块均为 Home Manager 模块。每种语言都可以独立选择；聚合入口仅用于提供便捷的组合方式。
+本目录提供 Home Manager 开发语言环境与可选开发工具。语言模块可独立导入，也可以通过语言聚合模块统一组合。
 
 ## 语言模块
 
 | 模块 ID | 职责 |
 | --- | --- |
-| `development.go` | Go 工具链、语言服务器、格式化工具、调试器和 Go 环境。 |
-| `development.node` | npm / Node.js 与 Yarn 配置。 |
-| `development.python` | Python 工具（ty、Ruff、uv）和 Playwright 浏览器运行环境。 |
-| `development.rust` | rustup 以及 Cargo / Rustup 环境。 |
+| `development.go` | Go 工具链、语言服务器、格式化工具和调试器。 |
+| `development.node` | Node.js、npm 与 Yarn 配置。 |
+| `development.python` | Python 工具，包括 ty、Ruff、uv 与 Playwright 浏览器运行环境。 |
+| `development.rust` | rustup、Cargo 与 Rust 工具链环境。 |
 
-## 聚合入口
+## 聚合模块
 
 - `development.languages` 导入上述四个语言模块。
-- `development` 是兼容性入口，导入 `development.languages`。`homeManager.workstation` 角色继续使用此 ID，因此现有工具链选择保持不变。
-- `development.gui` 是独立的可选 Home Manager 模块，用于图形化 IDE 集成。启用 Go 时会按条件加入 GoLand，启用 ty 时会按条件加入 PyCharm，并加入 JetBrains 支持包。它不会被 `development` 或 `workstation` 自动导入。
+- `homeManager.workstation` 角色通过 `development.languages` 组合开发语言环境。
+- 本目录没有单独注册名为 `development` 的兼容性模块。
 
-Host 可以按需导入一个或多个原子语言模块，而不必启用完整聚合入口。数据持久化声明仍放在拥有对应用户状态的语言/工具模块旁边，不会合并进 Home Manager 聚合入口。
+## 可选工具
 
-## 平台说明
+`development.gui` 是独立的 Home Manager 模块，目前用于加入仓库提供的 JetBrains 支持包 `jetbra-free`，并由 Preservation 模块按需保留 JetBrains 用户数据。它不负责安装 GoLand、PyCharm 等 IDE，也不会被 `development.languages` 或 `homeManager.workstation` 自动导入。
 
-Go 的项目路径在 Darwin 与其他平台上有所不同。Node.js 和 npm 使用相同的 Node.js 软件包版本。全局持久化模块不会推断项目本地的 Node.js 版本。
+## 平台与持久化
 
-JetBrains IDE 属于可选图形开发工具，应由具备桌面环境的 Host 通过 `development.gui` 显式选择。
+各语言模块根据目标平台配置对应工具。语言工具链的选择与桌面会话无关；Host 可以在没有桌面环境的情况下启用语言模块。
+
+与工具对应的用户数据持久化声明应靠近其功能模块，并仅在相关程序启用时生效。项目本地的语言版本仍由项目自身的工具配置决定，不由全局模块推断。
