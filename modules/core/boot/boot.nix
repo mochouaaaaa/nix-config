@@ -7,7 +7,7 @@
     }:
     {
       boot = {
-        tmp.cleanOnBoot = (config.fileSystems."/".fsType or "") != "tmpfs";
+        tmp.cleanOnBoot = lib.mkDefault ((config.fileSystems."/".fsType or "") != "tmpfs");
 
         kernelModules = [
           "uhid"
