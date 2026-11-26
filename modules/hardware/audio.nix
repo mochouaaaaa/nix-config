@@ -37,6 +37,8 @@
         };
       };
 
+      boot.kernelModules = [ "snd_aloop" ];
+
       security.rtkit.enable = true;
     };
 }
