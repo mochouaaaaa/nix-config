@@ -8,7 +8,6 @@
         NSGlobalDomain = {
           # `defaults read NSGlobalDomain "xxx"`
           "com.apple.swipescrolldirection" = true; # enable natural scrolling(default to true)
-          "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
 
           # Appearance
 
@@ -54,9 +53,7 @@
             # 是否像在 Linux 上一样，通过按住窗口上的任意位置来启用移动窗口。默认值为 false。
             NSWindowShouldDragOnGesture = true;
             # 当系统音量发生变化时发出反馈声音。此设置接受整数 0 或 1。默认值为 1。
-            "com.apple.sound.beep.feedback" = 0;
             # 将蜂鸣声/警报音量级别设置为 0.000（静音）到 1.000（100% 音量）
-            "com.apple.sound.beep.volume" = 0;
             # 配置触控板跟踪速度（0 到 3）。默认值为 1。
             "com.apple.trackpad.scaling" = 2;
           };
