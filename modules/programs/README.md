@@ -29,7 +29,7 @@
 
 `modules/programs/desktop/profiles.nix` 注册 Home Manager 聚合入口 `desktop.programs`。它组合 API 客户端、浏览器、音频、安全、通信、邮件、媒体、笔记、远程访问和办公等应用组。
 
-Host 可以导入 `desktop.programs`，也可以只选择所需的细分模块。聚合入口不会包含所有位于 `desktop/ ` 源目录下的模块。
+Host 可以导入 `desktop.programs`，也可以只选择所需的细分模块。聚合入口不会包含所有位于 `modules/programs/desktop/` 源目录下的模块。
 
 数据库客户端由 `modules/desktop/programs/db-clients.nix` 实现，单独注册为 Home Manager 模块 `desktop.programs.database`，不包含在 `desktop.programs` 聚合入口中。API 客户端模块位于 `modules/desktop/programs/api-clients.nix`。
 
