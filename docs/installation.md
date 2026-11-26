@@ -11,15 +11,15 @@
 
 - Flake Host：`mochou@remote`
 - 系统架构：`x86_64-linux`
-- Just 快捷命令：`just remote_install [IP]`
+- Just 快捷命令：`just remote_install <TARGET_IP> <SSH_PORT>`
 - 底层安装 App：`nix run .#remote_install`
 - 默认 SSH 目标：`root@192.168.122.246`
 - 磁盘设备：`/dev/vda`（由 `hosts/mochou@remote/disk-config.nix` 声明）
 
 远程安装与远程部署是不同操作：
 
-- **远程安装**使用 `just remote_install [IP]`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
-- **远程部署**使用 `just remote_deploy_dry [IP]` 预演、`just remote_deploy [IP]` 正式更新已有 NixOS，不会执行 Disko，不应拿来替代重装。
+- **远程安装**使用 `just remote_install <TARGET_IP> <SSH_PORT>`，底层调用 `nixos-anywhere` 和 Disko，会重新分区并格式化目标磁盘，适用于首次安装或明确要重装的场景。
+- **远程部署**使用 `just remote_deploy_dry` 预演、`just remote_deploy` 正式更新已有 NixOS；可通过 `ip` 和 `port` 命名参数指定目标，不会执行 Disko，不应拿来替代重装。
 
 当前 Disko 配置在目标磁盘上创建 GPT 分区：
 
@@ -183,16 +183,16 @@ sha256sum .cache/nixos-anywhere/nixos-kexec-installer-noninteractive-x86_64-linu
 在仓库根目录执行远程安装 Just 命令：
 
 ```bash
-just remote_install <TARGET_IP>
+just remote_install <TARGET_IP> <SSH_PORT>
 ```
 
 例如：
 
 ```bash
-just remote_install 192.168.122.62
+just remote_install 192.168.122.62 22
 ```
 
-该命令默认使用 `root@192.168.122.246`；传入 IP 后会覆盖目标地址。它调用仓库的 `remote_install` App，仍会要求确认目标 SSH 地址、选择磁盘并再次输入磁盘路径。**这是真正的远程安装，不是日常系统部署；确认后 Disko 会销毁目标磁盘上的原有数据。**
+该 Just 配方要求显式提供目标 IP 和 SSH 端口，例如 `just remote_install 192.168.122.62 22`。它会将目标转换为 `root@<TARGET_IP>`，并把端口传给仓库的 `remote_install` App；App 本身在未设置环境变量时的默认 SSH 目标是 `root@192.168.122.246`。配方仍会要求确认目标 SSH 地址、选择磁盘并再次输入磁盘路径。**这是真正的远程安装，不是日常系统部署；确认后 Disko 会销毁目标磁盘上的原有数据。**
 
 如果需要使用本地 kexec 文件或传入其他 nixos-anywhere 参数，可以继续直接调用底层 App：
 
@@ -284,36 +284,7 @@ ssh root@<TARGET_IP> '
 
 ### 日常远程部署与更新
 
-初次安装完成后，日常更新使用 deploy-rs，不要重复运行 `remote_install`。仓库提供了两个 Just 快捷命令，默认目标 IP 为 `192.168.122.62`：
-
-先执行 dry activation：
-
-```bash
-just remote_deploy_dry
-```
-
-确认目标地址、构建结果和激活计划正确后，再正式部署：
-
-```bash
-just remote_deploy
-```
-
-目标机 IP 变化时，可以直接把 IP 作为参数传入，不需要修改 `modules/flake/deploy.nix`：
-
-```bash
-just remote_deploy_dry 192.168.122.80
-just remote_deploy 192.168.122.80
-```
-
-这两个 recipe 内部使用 deploy-rs 的 `--hostname` 参数覆盖 Flake 节点的 hostname，节点和 profile 固定为 `remote` 的 `system`。也可以显式使用命名参数，例如 `just remote_deploy ip=192.168.122.80`。
-
-部署前建议确认 root SSH 公钥认证和目标主机身份：
-
-```bash
-ssh -o BatchMode=yes root@192.168.122.62 'hostname; nixos-version'
-```
-
-如果使用自定义 IP，请将上面 SSH 命令中的地址替换为相同 IP。deploy-rs 当前配置为本地构建（`remoteBuild = false`），再经 SSH 将系统闭包传输到目标机。部署机必须能够构建目标 `x86_64-linux` 系统；macOS 部署机需要可用的 Linux builder。日常更新流程是先同步仓库并检查本地改动，再执行 dry activation，确认无误后正式部署；不要用重新安装代替系统更新。
+首次安装完成后，日常系统更新应使用远程部署流程，不要重复运行 `remote_install`。部署方式、参数和验证步骤见[远程部署指南](./remote-deployment.md)。
 
 ## 8. 相关文件与上游文档
 

@@ -4,28 +4,44 @@
 
 ## 模块边界
 
-- `config.nix`：导入 `agenix-rekey.flakeModule`，注册需要参与 rekey 的 NixOS、Darwin 和 Home Manager configurations，并导出 `packages.agenix`。
-- `devshell.nix`：定义命名开发环境 `devShells.agenix`。该环境继承通用默认 devShell，并额外提供 `age`、`agenix-rekey` 和 `AGENIX_REKEY_ADD_TO_GIT`。
-- 平台运行时配置仍由各自的 `nixos/`、`darwin/` 和 `home/` 模块负责；Host 通过导入对应模块启用 Secret。
+- `config.nix`：导入 `agenix-rekey.flakeModule`，筛选并注册包含 `age.rekey` 配置的 NixOS、Darwin 和 Home Manager configurations，并导出 `packages.agenix`。
+- `devshell.nix`：定义命名开发环境 `devShells.agenix`，额外提供 `age` 和 agenix-rekey 工具，并设置 `AGENIX_REKEY_ADD_TO_GIT`。
+- 平台运行时配置仍由各自的 `nixos.nix`、`darwin.nix` 和 `home.nix` 模块负责；Host 通过导入对应模块启用 Secret。
 
-Agenix 工具不再注入 `devShells.default`，普通开发环境不会因为启用仓库的默认 devShell 而自动携带密钥管理环境变量。
+Agenix 工具不会注入 `devShells.default`。普通开发环境不会因为启用仓库默认 devShell 而自动携带密钥管理工具或相关环境变量。Agenix 专用环境独立定义，不继承默认开发环境。
 
-## Just 命令
+## 密钥重新加密
 
-在仓库根目录执行：
+在仓库根目录进入专用开发环境：
 
 ```bash
-# 进入 Agenix 专用开发环境
 just agenix
-
-# 在专用环境中运行 agenix-rekey
-just rekey
-
-# 查看 rekey 后的工作区变化
-just rekey-status
 ```
 
-`just rekey` 会从 Flake 根目录执行 `agenix-rekey`，并使用专用 devShell 中的工具与环境变量。它负责重新加密配置的 Secret，不负责部署或激活 NixOS / Darwin 系统。
+进入环境后执行：
+
+```bash
+agenix rekey -a
+```
+
+也可以不进入交互式环境，直接执行完整命令：
+
+```bash
+nix develop .#agenix --command agenix rekey -a
+```
+
+当前 `justfile` 只提供 `just agenix` 用于进入专用环境，没有 `just rekey` 或 `just rekey-status` 配方。不要使用不存在的 Just 命令。
+
+重新加密完成后，检查工作区变化：
+
+```bash
+git status --short
+git diff
+```
+
+重新加密只负责更新配置的 Secret 密文，不负责部署或激活 NixOS / Darwin 系统。
+
+Darwin 上 LaunchAgent 的故障现象与手动恢复步骤见 [Darwin 故障处理记录](./darwin.md)。
 
 ## 安全注意事项
 

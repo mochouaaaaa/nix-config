@@ -1,60 +1,55 @@
-# Desktop module composition
+# 桌面模块
 
-Desktop entries are NixOS modules that compose the system-side desktop environment with the matching Home Manager module for the Host's primary user. Select one desktop entry per Host unless there is an intentional reason to combine desktop environments.
+本目录组织桌面会话、系统桌面基础能力和桌面组件。桌面入口是 NixOS 模块，并为 Host 主用户组合对应的 Home Manager 模块。
 
-## Desktop entries
+## 当前桌面入口
 
-| NixOS module ID | Home Manager module ID | Session |
+| NixOS 模块 ID | Home Manager 模块 ID | 桌面会话 |
 | --- | --- | --- |
 | `desktop.hyprland` | `desktop.hyprland` | Hyprland |
 | `desktop.niri` | `desktop.niri` | Niri |
-| `desktop.gnome` | `desktop.gnome` | GNOME |
 | `desktop.kde` | `desktop.kde` | KDE Plasma |
+| `desktop.cosmic` | `desktop.cosmic` | COSMIC |
+| `desktop.umbriel` | `desktop.umbriel` | Umbriel |
 
-Each entry imports `desktop.common` and adds only its corresponding Home Manager module to `home-manager.users.<username>.imports`. The NixOS and Home Manager module classes remain separate; the composition is scoped to the Host's primary user rather than every Home Manager user.
+上述入口均导入 NixOS 模块 `desktop.common`，并只为 Host 主用户导入对应的 Home Manager 桌面模块。NixOS 与 Home Manager 仍属于不同模块类；此处的组合不会自动作用于其他 Home Manager 用户。
 
-Hyprland and Niri also import the Noctalia Greeter component. GNOME uses GDM, while KDE uses SDDM. Automatic login is intentionally left to the Host configuration.
+桌面入口负责会话本身及其必要的登录管理器配置。登录管理器和自动登录行为以对应入口及 Host 配置为准，不应从其他桌面入口推断。
 
-## Shared components
+## 公共基础模块
 
-| Module ID | Module class | Responsibility |
+| 模块 ID | 模块类 | 职责 |
 | --- | --- | --- |
-| `desktop.common` | NixOS + Home Manager | Compatibility aggregate; combines `desktop.base`, `desktop.hardware` and `homeManager.desktop.user` for existing desktop entries. |
-| `desktop.base` | NixOS | General desktop system foundations: appearance, desktop security, geolocation, UWSM, XDG portal, printing, power services, X server defaults, graphics integration, and related compatibility settings. |
-| `desktop.hardware` | NixOS | General hardware configuration plus the `hardware.desktop` bundle (audio and Bluetooth). |
-| `homeManager.desktop.user` | Home Manager | User desktop settings: Rime, appearance, shortcuts, Vicinae, cursor, XDG user directories and portal defaults, MPRIS, and Neovide Wayland integration. |
-| `desktop.greeter.noctalia` | NixOS | Noctalia Greeter integration used by Hyprland and Niri. |
-| `desktop.shell.noctalia` | Home Manager | Noctalia desktop shell configuration, split into focused component modules. |
-| `desktop.launcher.vicinae` | Home Manager | Vicinae launcher configuration and keymap. |
-| `desktop.flatpak` | NixOS + Home Manager | Explicit per-user Flatpak client integration and NixOS-to-Home-Manager composition. |
+| `desktop.common` | NixOS + Home Manager | 兼容性组合入口：NixOS 侧导入 `desktop.base`、`desktop.hardware`，并为主用户导入 Home Manager 的 `desktop.common`。 |
+| `desktop.base` | NixOS | 桌面系统基础能力，包括外观、安全、地理位置、UWSM 与 XDG Portal 基础配置。 |
+| `desktop.hardware` | NixOS | 导入通用硬件模块与 `hardware.desktop`，并配置图形桌面用户所需的设备组。 |
+| `desktop.user` | Home Manager | 用户桌面基础设置，包括输入法、外观、快捷键和 Vicinae 启动器。 |
 
-For a normal desktop Host, keep importing `desktop.common`. A Host that needs a narrower composition can import `desktop.base` and/or `desktop.hardware` independently, and add `homeManager.desktop.user` to the intended Home Manager user's imports when user-level desktop settings are wanted. The atomic modules remain independently available; the compatibility aggregate does not replace them.
+底层模块可以独立导入。需要精简桌面组合的 Host 可直接选择 `desktop.base`、`desktop.hardware` 和 `desktop.user`，而不是使用兼容性组合入口。
 
-The Noctalia shell and greeter are separate components. The desktop entry selects the greeter where required; the shell is independently composed by the relevant Home Manager setup.
+## 独立桌面组件
 
-Host-specific services such as proxy, databases and other server workloads do not belong in the desktop foundations; import them from the Host or a dedicated role instead. KVM tuning remains opt-in through the hardware profile.
+| 模块 ID | 模块类 | 用途 |
+| --- | --- | --- |
+| `desktop.greeter.noctalia` | NixOS | Noctalia Greeter 登录界面集成。 |
+| `desktop.shell.noctalia` | Home Manager | Noctalia 桌面 Shell，由需要它的桌面会话显式导入。 |
+| `desktop.launcher.vicinae` | Home Manager | Vicinae 启动器及按键映射。 |
+| `desktop.flatpak` | NixOS + Home Manager | Flatpak 系统侧支持与用户级客户端组合。 |
 
-## Desktop application profiles
+Greeter、Shell 和 Launcher 是不同组件，不会因为选择其中一个而自动启用其他组件。具体哪些桌面入口组合 Noctalia，应以对应的 NixOS 和 Home Manager 模块为准。
 
-Optional graphical applications are selected independently from the desktop session. Their Home Manager module IDs are registered under `desktop.programs.*`:
+## 桌面应用
 
-- `desktop.programs.api-clients`
-- `desktop.programs.browsers`
-- `desktop.programs.audio`
-- `desktop.programs.security`
-- `desktop.programs.communication`
-- `desktop.programs.email`
-- `desktop.programs.media`
-- `desktop.programs.notes`
-- `desktop.programs.remote`
-- `desktop.programs.office`
+可选图形应用与桌面会话分开管理，应用模块位于 `modules/programs/desktop/`，由 Host 或 Home Manager 角色按需导入。
 
-The compatibility aggregate `desktop.programs`, implemented in `modules/programs/desktop/profiles.nix`, imports the Home Manager application groups listed above. Hosts can instead import only the groups they need. Networking integration is intentionally separate: `desktop.programs.networking` is registered only for NixOS and Darwin, so it must be imported through the matching system module class rather than Home Manager.
+应用分组、聚合入口及数据库客户端见 [程序模块说明](../programs/README.md)。桌面会话不应通过应用聚合入口启用。
 
-Database clients are registered separately as `desktop.programs.database`; they are not included in the compatibility aggregate. The API client group currently includes Hoppscotch and, on non-Darwin systems, Cartero.
+## 边界
 
-## Services and platform boundaries
+- 桌面会话及其必要的系统集成放在本目录。
+- 用户级应用放在 `modules/programs/desktop/`。
+- 通用硬件能力放在 `modules/hardware/`。
+- 代理、数据库和其他主机服务放在 `modules/services/`，由 Host 显式选择。
+- 开发语言与 IDE 工具放在 `modules/development/`。
 
-System service modules live in `modules/services/` and use functional IDs such as `services.proxy`, `services.mysql` and `services.virtualisation.qemu`. They are not implicitly enabled by a desktop profile.
-
-Use the `nixos` module class for system services and compositor/session integration, and `homeManager` for per-user application settings. Platform-specific program behavior belongs in the corresponding Linux, Darwin, NixOS or nix-darwin module.
+新增桌面入口时，应同时明确 NixOS 与 Home Manager 两侧的职责，并避免将与桌面会话无关的服务隐式加入公共入口。

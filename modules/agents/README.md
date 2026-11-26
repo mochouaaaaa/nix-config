@@ -1,28 +1,26 @@
-# Agent modules
+# Agent 模块
 
-`modules/agents/` contains Home Manager integrations for AI coding agents and agent-oriented development tools. These modules are separate from ordinary applications because they configure an agent workflow and may also declare persistence for agent state.
+`modules/agents/` 存放 AI 编程 Agent 的 Home Manager 集成，以及与 Agent 用户数据相关的 Preservation 声明。
 
-## Available modules
+## 可用模块
 
-| Module ID | Implementation | Responsibility |
+| 模块 ID | 实现文件 | 职责 |
 | --- | --- | --- |
-| `agents.antigravity` | `antigravity.nix` | Enables the Antigravity CLI integration and keeps its settings mutable. |
-| `agents.codex` | `codex.nix` | Enables the Home Manager Codex program; mutable settings are enabled on non-Darwin systems. |
+| `agents.antigravity` | `antigravity.nix` | 启用 Antigravity CLI，并允许用户修改其设置。 |
+| `agents.codex` | `codex.nix` | 启用 Home Manager 的 Codex 程序；非 Darwin 平台允许用户修改设置。 |
 
-## Persistence
+## 数据持久化
 
-The NixOS preservation aspect in these files conditionally keeps each agent's user data when its corresponding Home Manager program is enabled:
+对应的 NixOS Preservation aspect 会在 Home Manager 程序启用时，有条件地保留用户数据：
 
-- Antigravity: `.antigravity-ide`
-- Codex: `.codex`
+- Antigravity：`.antigravity-ide`
+- Codex：`.config/codex`
 
-The persistence declarations are separate from the Home Manager program modules. They do not enable either agent by themselves.
+持久化声明与 Home Manager 程序模块相互独立。单独导入持久化声明不会启用对应的 Agent。
 
-## Boundaries
+## 模块边界
 
-- Put agent-specific installation and settings here.
-- Put shared language runtimes and development toolchains in `modules/development/`.
-- Put ordinary applications and command-line utilities in `modules/programs/`.
-- Keep credentials and API tokens in the repository's encrypted secret-management flow; do not put plaintext secrets in module files.
-
-Add future agent integrations here when they own a distinct agent workflow or state directory.
+- Agent 专属的安装和设置放在此目录。
+- 共享语言运行时和开发工具链放在 [development 模块](../development/README.md)。
+- 普通应用和命令行工具放在 [programs 模块](../programs/README.md)。
+- 凭据和 API Token 应通过仓库的加密密钥管理流程保存，不要将明文密钥写入模块文件。

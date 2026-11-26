@@ -1,26 +1,28 @@
-# Development modules
+# 开发模块
 
-Development language modules are Home Manager modules. Each language remains independently selectable; the aggregate entries are convenience bundles only.
+本目录提供 Home Manager 开发语言环境与可选开发工具。语言模块可独立导入，也可以通过语言聚合模块统一组合。
 
-## Language modules
+## 语言模块
 
-| Module ID | Responsibility |
+| 模块 ID | 职责 |
 | --- | --- |
-| `development.go` | Go toolchain, language server, formatters, debugger and Go environment |
-| `development.node` | npm / Node.js and Yarn configuration |
-| `development.python` | Python tooling (ty, Ruff, uv) and Playwright browser runtime |
-| `development.rust` | rustup and Cargo / Rustup environment |
+| `development.go` | Go 工具链、语言服务器、格式化工具和调试器。 |
+| `development.node` | Node.js、npm 与 Yarn 配置。 |
+| `development.python` | Python 工具，包括 ty、Ruff、uv 与 Playwright 浏览器运行环境。 |
+| `development.rust` | rustup、Cargo 与 Rust 工具链环境。 |
 
-## Bundles
+## 聚合模块
 
-- `development.languages` imports the four language modules above.
-- `development` is the compatibility entry point and imports `development.languages`. The `homeManager.workstation` role continues to use this ID, so its existing toolchain selection is unchanged.
-- `development.gui` remains a separate opt-in Home Manager module for graphical IDE integrations. It conditionally adds GoLand when Go is enabled, PyCharm when ty is enabled, and the JetBrains support package. It is not included automatically by `development` or `workstation`.
+- `development.languages` 导入上述四个语言模块。
+- `homeManager.workstation` 角色通过 `development.languages` 组合开发语言环境。
+- 本目录没有单独注册名为 `development` 的兼容性模块。
 
-A Host can import one or more atomic language modules instead of the full bundle. Preservation declarations remain alongside the language/tool module that owns the corresponding user state; they are not folded into the Home Manager aggregate.
+## 可选工具
 
-## Platform notes
+`development.gui` 是独立的 Home Manager 模块，目前用于加入仓库提供的 JetBrains 支持包 `jetbra-free`，并由 Preservation 模块按需保留 JetBrains 用户数据。它不负责安装 GoLand、PyCharm 等 IDE，也不会被 `development.languages` 或 `homeManager.workstation` 自动导入。
 
-Go's project path differs between Darwin and other platforms. Node.js and npm use the same Node.js package version. Project-local Node.js versions are intentionally not inferred by the global preservation module.
+## 平台与持久化
 
-JetBrains IDE applications are optional GUI tooling and should be selected by desktop-capable Hosts explicitly through `development.gui`.
+各语言模块根据目标平台配置对应工具。语言工具链的选择与桌面会话无关；Host 可以在没有桌面环境的情况下启用语言模块。
+
+与工具对应的用户数据持久化声明应靠近其功能模块，并仅在相关程序启用时生效。项目本地的语言版本仍由项目自身的工具配置决定，不由全局模块推断。

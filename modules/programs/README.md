@@ -1,40 +1,42 @@
-# Program modules
+# 程序模块
 
-`modules/programs/` contains reusable user-facing applications and tools. The source tree groups implementation files by function; public Dendritic module IDs are declared by each file's `flake.modules.*` attributes and do not have to mirror the source path exactly.
+`modules/programs/` 存放可复用的用户应用和工具。源目录按功能组织实现文件；公开模块 ID 由各文件中的 `flake.modules.*` 属性注册，不要求与源文件路径完全一致。
 
-## Layout
+## 目录布局
 
-| Directory / file | Responsibility |
+| 目录 / 文件 | 职责 |
 | --- | --- |
-| `browsers/` | Chromium and Firefox, including platform-specific configuration, profiles, plugins and Tridactyl integration. |
-| `cli/` | Command-line tools and utilities without a more specific functional domain, such as bat, btop, direnv, eza, fd, fzf, jq, lazygit, nh, ripgrep, television, yazi and zoxide. |
-| `desktop/` | Graphical applications grouped by use case: audio, authentication, communication, email, gaming, networking, notes, remote access and office. |
-| `editors/` | Neovim, VS Code and Neovide, including editor plugins, language tooling and platform-specific setup. |
-| `input-methods/` | Rime and xremap configuration with platform-specific integration. |
-| `media/` | Media players and their supporting scripts; mpv configuration and scripts are kept alongside the mpv module. |
-| `shells/` | Shell configuration, currently Zsh aliases, settings, plugins and proxy helpers. |
-| `system/` | Per-user system clients and baseline configuration, such as the SSH client. |
-| `terminals/` | Terminal emulators and multiplexers, including Kitty and tmux. |
-| `git.nix` | Shared Git and GitHub CLI configuration, exposed as `programs.git`. |
+| `browsers/` | Chromium、Firefox、浏览器配置档、插件及 Tridactyl 集成。 |
+| `cli/` | 通用命令行工具。 |
+| `desktop/` | 图形应用及按用途组织的应用配置。 |
+| `editors/` | Neovim、VS Code、Neovide 及其插件和语言工具。 |
+| `input-methods/` | Rime、xremap 及其平台集成。 |
+| `media/` | 媒体播放器及其辅助脚本。 |
+| `shells/` | Shell 配置、别名、插件和辅助功能。 |
+| `system/` | 用户级系统客户端，例如 SSH。 |
+| `terminals/` | 终端模拟器和终端复用器。 |
+| `git.nix` | 共享 Git 与 GitHub CLI 配置，对外注册为 `programs.git`。 |
 
-## Module boundaries
+## 模块边界
 
-- Home Manager modules own per-user application packages and settings.
-- NixOS and nix-darwin modules own system services, system packages, persistence declarations and Homebrew casks when a program needs system-level integration.
-- Platform-specific behavior belongs in the corresponding `homeManager`, `nixos` or `darwin` module rather than being forced into a cross-platform definition.
-- Reusable program modules are imported by their owning Host or role. Keep optional desktop applications out of headless CLI/server compositions.
-- Keep files loaded through relative paths (for example `tridactylrc` and `p10k.zsh`) alongside the module that consumes them.
+- Home Manager 模块负责用户级应用软件包和设置。
+- NixOS 与 nix-darwin 模块负责需要系统权限或系统级集成的配置。
+- 平台专属行为应放在对应的 `homeManager`、`nixos` 或 `darwin` 模块中。
+- 可复用程序模块由 Host 或 Home Manager 角色导入；无桌面的配置不应引入可选图形应用。
+- 由模块相对路径加载的配置文件应与使用它们的程序模块放在一起。
 
-## Desktop application groups
+## 桌面应用配置
 
-The `modules/programs/desktop/profiles.nix` module registers the compatibility aggregate `desktop.programs`. It imports the individual `desktop.programs.*` groups for API clients, browsers, audio, security, communication, email, media, notes, remote access, office and networking.
+`modules/programs/desktop/profiles.nix` 注册 Home Manager 聚合入口 `desktop.programs`。它组合 API 客户端、浏览器、音频、安全、通信、邮件、媒体、笔记、远程访问和办公等应用组。
 
-Hosts that need a smaller application set should import individual groups instead of the aggregate. Database clients are maintained separately in `modules/desktop/programs/db-clients.nix` as `desktop.programs.database`; API clients are also implemented under `modules/desktop/programs/`.
+Host 可以导入 `desktop.programs`，也可以只选择所需的细分模块。聚合入口不会包含所有位于 `modules/programs/desktop/` 源目录下的模块。
 
-The desktop session itself is configured under `modules/desktop/`, not here. See [../desktop/README.md](../desktop/README.md) for compositor and desktop composition details.
+数据库客户端由 `modules/desktop/programs/db-clients.nix` 实现，单独注册为 Home Manager 模块 `desktop.programs.database`，不包含在 `desktop.programs` 聚合入口中。API 客户端模块位于 `modules/desktop/programs/api-clients.nix`。
 
-## Nested program modules
+桌面会话本身由 [桌面模块](../desktop/README.md) 管理，不由应用聚合入口启用。
 
-A program's reusable configuration should be owned by that program rather than by a broad desktop profile. For example, `programs.mpv` owns its ModernZ options, playback-state script and locale resources; desktop application groups only select which applications are included in a Host's user environment.
+## 其他功能域
 
-AI Agent integrations live in [../agents/](../agents/README.md). Development language runtimes and toolchains live in `modules/development/`; security-related configuration lives in `modules/security/`.
+- AI 编程 Agent 集成见 [agents 模块](../agents/README.md)。
+- 开发语言运行时与工具链见 [development 模块](../development/README.md)。
+- 系统服务见 `modules/services/`，由 Host 显式选择。

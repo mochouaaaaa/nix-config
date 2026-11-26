@@ -16,7 +16,7 @@ Darwin Host 通过 Home Manager 的 `activate-agenix` LaunchAgent 挂载用户 S
 
 ### 原因
 
-LaunchAgent 的 plist 文件和 launchd 当前进程管理器中加载的 Job Definition 是两份状态。更新磁盘上的 plist，并不等于 launchd 已经重新加载它。
+LaunchAgent 的 plist 文件和 launchd 当前进程管理器中加载的任务定义（Job Definition） 是两份状态。更新磁盘上的 plist，并不等于 launchd 已经重新加载它。
 
 Home Manager activation 会比较新 generation 的 plist 与用户目录中的 plist，并在文件变化时尝试执行 `bootout`、安装 plist 和 `bootstrap`。如果磁盘文件已经更新、但 launchd 仍保留旧 Job Definition，单纯再次比较 plist 可能无法修复这种状态不一致。
 
@@ -40,7 +40,7 @@ launchctl kickstart -k "$label"
 
 这三个步骤分别用于：
 
-1. 从当前 GUI 用户的 launchd domain 卸载旧 Job；
+1. 从当前 GUI 用户的 launchd 域 卸载旧 Job；
 2. 从磁盘上的 plist 重新注册 LaunchAgent；
 3. 强制启动 Agent，立即执行 agenix Secret 挂载脚本。
 
