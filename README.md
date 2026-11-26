@@ -30,6 +30,25 @@ Host 目录采用 `<username>@<hostname>` 命名。实际主机配置位于 [hos
 └── secrets/           # 加密密钥与 rekey 数据
 ```
 
+## 当前功能
+
+以下列出仓库当前配置覆盖的主要功能与组件；具体启用范围由各 Host 导入的模块决定。
+
+| 类别 | 组件 / 能力 |
+| --- | --- |
+| **系统配置** | [NixOS](https://nixos.org/)、[nix-darwin](https://github.com/nix-darwin/nix-darwin)、[Home Manager](https://github.com/nix-community/home-manager) |
+| **桌面环境与合成器** | [Hyprland](https://hypr.land/)、[Niri](https://github.com/YaLTeR/niri)、[KDE Plasma](https://kde.org/)、[COSMIC](https://system76.com/cosmic) |
+| **桌面 Shell** | [Noctalia](https://github.com/noctalia-dev/noctalia)、Umbriel |
+| **应用启动器** | [Vicinae](https://github.com/vicinaehq/vicinae) |
+| **终端模拟器** | [Kitty](https://github.com/kovidgoyal/kitty) |
+| **输入法** | Rime |
+| **开发环境** | Go、Node.js、Python、Rust 工具链，[Visual Studio Code](https://code.visualstudio.com/)、Neovim |
+| **应用程序** | 浏览器、API 与数据库客户端、音频、通信、邮件、媒体、笔记、远程连接与办公软件 |
+| **AI Agent** | Codex、Claude Code、OpenCode、Gemini CLI 等 Agent 集成 |
+| **密钥管理** | [agenix](https://github.com/ryantm/agenix) + [agenix-rekey](https://github.com/oddlama/agenix-rekey) |
+| **持久化** | [preservation](https://github.com/nix-community/preservation) |
+| **Flake 架构** | [flake-parts](https://github.com/hercules-ci/flake-parts) + [import-tree](https://github.com/vic/import-tree) |
+
 ## 架构概要
 
 - 使用 flake-parts 组织 Flake 输出。
