@@ -48,8 +48,6 @@
             WebKitDeveloperExtras = true;
             # auto dark/light mode
             AppleInterfaceStyleSwitchesAutomatically = true;
-            # disable auto capitalization
-            NSAutomaticCapitalizationEnabled = false;
             # 是否像在 Linux 上一样，通过按住窗口上的任意位置来启用移动窗口。默认值为 false。
             NSWindowShouldDragOnGesture = true;
             # 配置触控板跟踪速度（0 到 3）。默认值为 1。
