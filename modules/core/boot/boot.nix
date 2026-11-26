@@ -9,13 +9,6 @@
       boot = {
         tmp.cleanOnBoot = lib.mkDefault ((config.fileSystems."/".fsType or "") != "tmpfs");
 
-        kernelModules = [
-          "uhid"
-          "hidp"
-          "hid_multitouch"
-          "snd_aloop"
-        ];
-
         loader = {
           systemd-boot = {
             configurationLimit = lib.mkDefault 10;
