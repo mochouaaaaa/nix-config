@@ -31,6 +31,9 @@ let
 
         modules = [
           inputs.${host.homeManagerInput}.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = hostArgs host;
+          }
           self.modules.nixos.core
           self.modules.nixos."services.base"
         ]
@@ -51,6 +54,9 @@ let
             nixpkgs.hostPlatform = host.system;
           })
           inputs.${host.homeManagerInput}.darwinModules.home-manager
+          {
+            home-manager.extraSpecialArgs = hostArgs host;
+          }
           self.modules.darwin.core
           self.modules.darwin.env
           self.modules.darwin."system.defaults"
