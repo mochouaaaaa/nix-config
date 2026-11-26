@@ -23,7 +23,6 @@
       home.sessionVariables = {
         LESSHISTFILE = cache + "/less/history";
         LESSKEY = c + "/less/lesskey";
-        BROWSER = "firefox";
         DELTA_PAGER = "less -R";
       };
     };
