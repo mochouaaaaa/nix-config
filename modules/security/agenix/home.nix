@@ -50,6 +50,7 @@
               };
               vicinae_github = {
                 rekeyFile = "${mysecrets}/home/vicinae_github.age";
+                path = "${config.xdg.configHome}/vicinae/github";
               };
               codestral = {
                 rekeyFile = "${mysecrets}/home/codestral.age";
