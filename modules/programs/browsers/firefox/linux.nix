@@ -9,6 +9,7 @@
       ...
     }:
     {
+      home.sessionVariables.BROWSER = "firefox";
       services.psd.enable = false;
 
       programs.firefox = {
