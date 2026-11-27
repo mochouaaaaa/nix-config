@@ -7,7 +7,7 @@
     };
   };
 
-  flake.aspects."programs"."homeManager" =
+  flake.aspects.editors.provides.neovide.homeManager =
     { lib, config, pkgs, ... }:
     let
       fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";
