@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.dns.mosdns" =
+  flake.aspects."services.dns.mosdns"."nixos" =
     {
       lib,
       pkgs,
