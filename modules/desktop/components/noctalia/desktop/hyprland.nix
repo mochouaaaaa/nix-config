@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.hyprland" = { mylib, ... }: {
+  flake.aspects."desktop.hyprland".homeManager = { mylib, ... }: {
     programs.noctalia = mylib.mkForceRecursive {
       settings = {
         bar = {
