@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.core = { pkgs, ... }: {
+  flake.aspects."core"."nixos" = { pkgs, ... }: {
     environment = {
       localBinInPath = true;
       systemPackages = with pkgs; [

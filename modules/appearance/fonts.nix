@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  flake.modules.homeManager.appearance =
+  flake.aspects."appearance"."homeManager" =
     {
       lib,
       pkgs,
@@ -74,7 +74,7 @@
       };
     };
 
-  flake.modules.nixos.appearance =
+  flake.aspects."appearance"."nixos" =
     {
       lib,
       options,
@@ -115,7 +115,7 @@
       ];
     };
 
-  flake.modules.darwin.default = { pkgs, ... }: {
+  flake.aspects."default"."darwin" = { pkgs, ... }: {
     fonts.packages = with pkgs; [
       inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.fonts.monaco
       maple-mono.CN

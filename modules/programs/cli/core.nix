@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.programs = { pkgs, ... }: {
+  flake.aspects."programs"."homeManager" = { pkgs, ... }: {
 
     home.shellAliases = {
       rm = ''echo "请用 trash-put 代替 rm"; false'';
