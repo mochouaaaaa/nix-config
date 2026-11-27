@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.core = { lib, config, ... }: {
+  flake.aspects."core"."homeManager" = { lib, config, ... }: {
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -36,7 +36,7 @@
 
   };
 
-  flake.modules.homeManager.darwin = {
+  flake.aspects."darwin"."homeManager" = {
     programs.ssh.settings."github.com".UseKeychain = "yes";
   };
 }

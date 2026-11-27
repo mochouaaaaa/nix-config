@@ -1,7 +1,7 @@
 {
   # Optional compatibility environment for software that expects a conventional
   # FHS runtime. Hosts opt in explicitly instead of inheriting it from nixos.core.
-  flake.modules.nixos."profiles.compat" =
+  flake.aspects."profiles.compat"."nixos" =
     { pkgs, ... }:
     let
       fhsArgs = pkgs.appimageTools.defaultFhsEnvArgs;

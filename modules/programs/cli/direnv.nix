@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."programs.direnv.26-11" =
+  flake.aspects."programs.direnv.26-11"."homeManager" =
     { lib, options, ... }:
     let
       hasDirenvenableGitIntegration = lib.hasAttrByPath [
@@ -15,7 +15,7 @@
       };
     };
 
-  flake.modules.homeManager."cli.direnv" =
+  flake.aspects."cli.direnv"."homeManager" =
     {
       pkgs,
       self,
@@ -87,7 +87,7 @@
       };
     };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,
