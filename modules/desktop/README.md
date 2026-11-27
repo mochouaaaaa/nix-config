@@ -12,7 +12,7 @@
 | `desktop.cosmic` | `desktop.cosmic` | COSMIC |
 | `desktop.umbriel` | `desktop.umbriel` | Umbriel |
 
-上述入口均通过 Aspect `includes` 声明对 `desktop.common` 的依赖，并只为 Host 主用户导入对应的 Home Manager 桌面模块。NixOS 与 Home Manager 仍属于不同模块类；此处的组合不会自动作用于其他 Home Manager 用户。
+上述入口均通过 Aspect `includes` 声明对 `desktop.common` 的依赖，并只为 Host 主用户导入对应的 Home Manager 桌面模块。`desktop.common` 的 NixOS Aspect 与 Home Manager 兼容模块分别注册，系统到用户配置通过 `home-manager.users.${username}.imports` 显式桥接；不会自动作用于其他 Home Manager 用户。
 
 桌面入口负责会话本身及其必要的登录管理器配置。登录管理器和自动登录行为以对应入口及 Host 配置为准，不应从其他桌面入口推断。
 
@@ -20,7 +20,7 @@
 
 | 模块 ID | 模块类 | 职责 |
 | --- | --- | --- |
-| `desktop.common` | NixOS + Home Manager | 兼容性组合入口：NixOS 侧导入 `desktop.base`、`desktop.hardware`，并为主用户导入 Home Manager 的 `desktop.common`。 |
+| `desktop.common` | NixOS Aspect + Home Manager 模块 | NixOS Aspect 通过 `includes` 组合 `desktop.base`、`desktop.hardware`，并为主用户桥接 Home Manager 的同名兼容模块；Home Manager 模块单独导入 `desktop.user`。 |
 | `desktop.base` | NixOS | 桌面系统基础能力，包括外观、安全、地理位置、UWSM 与 XDG Portal 基础配置。 |
 | `desktop.hardware` | NixOS | 导入通用硬件模块与 `hardware.desktop`，并配置图形桌面用户所需的设备组。 |
 | `desktop.user` | Home Manager | 用户桌面基础设置，包括输入法、外观、快捷键和 Vicinae 启动器。 |
