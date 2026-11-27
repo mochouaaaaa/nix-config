@@ -1,30 +1,29 @@
 {
   flake.aspects =
     {
-      aspects,
       lib,
+      self,
       ...
     }:
     {
-      "services.databases" =
+      "services.databases".nixos =
         {
           mysql ? true,
           postgresql ? true,
           redis ? true,
+          ...
         }:
         {
-          includes =
+          imports =
             lib.optionals mysql [
-              aspects."services.mysql"
+              self.modules.nixos."services.mysql"
             ]
             ++ lib.optionals postgresql [
-              aspects."services.postgresql"
+              self.modules.nixos."services.postgresql"
             ]
             ++ lib.optionals redis [
-              aspects."services.redis"
+              self.modules.nixos."services.redis"
             ];
-
-          nixos = { };
         };
     };
 }
