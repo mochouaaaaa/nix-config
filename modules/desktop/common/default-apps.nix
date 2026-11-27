@@ -1,5 +1,6 @@
+{ self, ... }:
 {
-  flake.modules.generic."desktop.default-apps" =
+  flake.aspects."desktop.default-apps".homeManager =
     { pkgs, ... }:
     let
       documentViewers = [
@@ -9,7 +10,6 @@
       archiveManagers = [
         pkgs.file-roller
       ];
-
     in
     {
       home.packages = documentViewers ++ archiveManagers;
@@ -56,21 +56,10 @@
       };
     };
 
-  flake.modules.homeManager."desktop.hyprland" = { self, ... }: {
+  # Preserve the generic module ID for existing consumers.
+  flake.modules.generic."desktop.default-apps" = {
     imports = [
-      self.modules.generic."desktop.default-apps"
-    ];
-  };
-
-  flake.modules.homeManager."desktop.niri" = { self, ... }: {
-    imports = [
-      self.modules.generic."desktop.default-apps"
-    ];
-  };
-
-  flake.modules.homeManager."desktop.kde" = { self, ... }: {
-    imports = [
-      self.modules.generic."desktop.default-apps"
+      self.modules.homeManager."desktop.default-apps"
     ];
   };
 }
