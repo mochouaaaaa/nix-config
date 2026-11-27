@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.dns.mosdns"."nixos" =
+  flake.aspects.services.provides.dns.mosdns.nixos =
     {
       pkgs,
       inputs,
