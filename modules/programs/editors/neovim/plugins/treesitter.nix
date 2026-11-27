@@ -1,5 +1,5 @@
 {
-  flake.aspects."cli.neovim.plugins.treesitter"."homeManager" = { pkgs, ... }: {
+  flake.aspects.editors.provides.neovim.plugins.treesitter.homeManager = { pkgs, ... }: {
     programs.neovim.plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (p: [
         p.nix
