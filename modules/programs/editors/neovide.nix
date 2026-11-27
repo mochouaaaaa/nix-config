@@ -8,7 +8,7 @@
   };
 
   flake.modules.homeManager.programs =
-    { config, pkgs, ... }:
+    { lib, config, pkgs, ... }:
     let
       fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";
     in
