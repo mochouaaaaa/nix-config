@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.homeManager."cli.neovim.lsp" = {
+  flake.aspects."cli.neovim.lsp"."homeManager" = {
     imports = [
       self.modules.homeManager."cli.neovim.lsp.nixd"
     ];

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.proxy" =
+  flake.aspects."services.proxy"."nixos" =
     {
       pkgs,
       lib,
@@ -167,7 +167,7 @@
       ];
     };
 
-  flake.modules.nixos.preservation = { lib, config, ... }: {
+  flake.aspects."preservation"."nixos" = { lib, config, ... }: {
     profiles.preservation.directories = lib.optionals config.services.mihomo.enable [
       "/var/lib/private/mihomo"
     ];

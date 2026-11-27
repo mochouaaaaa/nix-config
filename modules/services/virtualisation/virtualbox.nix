@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.virtualisation.virtualbox" =
+  flake.aspects."services.virtualisation.virtualbox"."nixos" =
     {
       username,
       ...

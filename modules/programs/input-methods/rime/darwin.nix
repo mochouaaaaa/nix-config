@@ -1,12 +1,12 @@
 {
 
-  flake.modules.darwin.programs = {
+  flake.aspects."programs"."darwin" = {
     homebrew.casks = [
       "squirrel-app" # input method for Chinese, rime-squirrel
     ];
   };
 
-  flake.modules.homeManager.darwin =
+  flake.aspects."darwin"."homeManager" =
     {
       self,
       config,
