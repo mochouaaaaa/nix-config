@@ -1,6 +1,6 @@
 {
 
-  flake.modules.nixos.assertions =
+  flake.aspects."assertions"."nixos" =
     { config, lib, ... }:
     let
       hasTmpfs = lib.any (fs: fs.fsType == "tmpfs") (lib.attrValues config.fileSystems);
@@ -27,7 +27,7 @@
       ];
     };
 
-  flake.modules.nixos.core = { self, ... }: {
+  flake.aspects."core"."nixos" = { self, ... }: {
     imports = [ self.modules.nixos.assertions ];
   };
 }
