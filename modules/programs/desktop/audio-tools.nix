@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.audio" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.audio"."homeManager" = { pkgs, ... }: {
 
     home.packages = with pkgs; [
       pavucontrol

@@ -33,7 +33,7 @@ in
 
   # Preserve TinyRDM data only when its package is in the user's effective
   # Home Manager package set.
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       pkgs,
