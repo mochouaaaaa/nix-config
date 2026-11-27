@@ -1,12 +1,14 @@
 { self, ... }:
 {
-  flake.aspects."desktop.user".homeManager = { pkgs, myvars, ... }: {
+  flake.aspects = { aspects, ... }: {
+    "desktop.user" = {
+      includes = [ aspects."desktop.launcher.vicinae" ];
+      homeManager = { pkgs, myvars, ... }: {
 
     imports = [
       self.modules.homeManager.rime
       self.modules.homeManager.appearance
       self.modules.homeManager.shortcuts
-      self.modules.homeManager."desktop.launcher.vicinae"
     ];
 
     config = {
@@ -20,7 +22,7 @@
         {
           ".face".source = face;
         };
+      };
     };
-
   };
 }
