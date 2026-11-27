@@ -50,7 +50,7 @@ let
     };
 in
 {
-  flake.aspects."cli.neovim.lsp.nixd"."homeManager" = { pkgs, ... }: {
+  flake.aspects.editors.provides.neovim.lsp.nixd.homeManager = { pkgs, ... }: {
     programs.neovim.extraPackages = with pkgs; [
       nil
       nixd
