@@ -1,11 +1,11 @@
 {
-  flake.modules.nixos.preservation = { lib, config, ... }: {
+  flake.aspects."preservation"."nixos" = { lib, config, ... }: {
     profiles.preservation.directories = lib.optionals config.virtualisation.libvirtd.enable [
       "/var/lib/libvirt"
     ];
   };
 
-  flake.modules.nixos."services.virtualisation.qemu" =
+  flake.aspects."services.virtualisation.qemu"."nixos" =
     {
       pkgs,
       username,

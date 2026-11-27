@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.dns.mosdns" = _: {
+  flake.aspects."services.dns.mosdns"."nixos" = _: {
     profiles.services.dns.mosdns = {
       settings.fallback = [
         {

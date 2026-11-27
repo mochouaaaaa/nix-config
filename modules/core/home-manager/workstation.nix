@@ -2,7 +2,7 @@
 {
   # Platform-neutral workstation role. Platform-specific integration remains
   # in homeManager.linux and homeManager.darwin.
-  flake.modules.homeManager.workstation = {
+  flake.aspects."workstation"."homeManager" = {
     imports = [
       self.modules.homeManager.cli
       self.modules.homeManager."development.languages"

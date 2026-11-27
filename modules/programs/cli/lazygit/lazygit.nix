@@ -1,13 +1,13 @@
 {
 
-  flake.modules.homeManager."programs.lazygit" = {
+  flake.aspects."programs.lazygit"."homeManager" = {
     programs.lazygit = {
       enable = true;
       shellWrapperName = "lazygit";
     };
   };
 
-  flake.modules.homeManager.programs = { self, ... }: {
+  flake.aspects."programs"."homeManager" = { self, ... }: {
 
     imports = [ self.modules.homeManager."programs.lazygit" ];
 
