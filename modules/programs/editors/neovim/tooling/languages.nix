@@ -1,5 +1,5 @@
 {
-  flake.aspects."cli.neovim.tooling.languages"."homeManager" = { pkgs, ... }: {
+  flake.aspects.editors.provides.neovim.tooling.languages.homeManager = { pkgs, ... }: {
     programs.neovim.extraPackages = with pkgs; [
       # shell
       bash-language-server
