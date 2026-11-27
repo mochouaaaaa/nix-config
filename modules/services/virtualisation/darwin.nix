@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin."services.virtualisation.orbstack" = {
+  flake.aspects."services.virtualisation.orbstack"."darwin" = {
     homebrew.casks = [ "orbstack" ];
   };
 }

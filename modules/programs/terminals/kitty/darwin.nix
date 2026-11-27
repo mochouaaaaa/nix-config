@@ -1,12 +1,12 @@
 {
 
-  flake.modules.darwin.programs = {
+  flake.aspects."programs"."darwin" = {
     homebrew.casks = [
       "kitty"
     ];
   };
 
-  flake.modules.homeManager.darwin =
+  flake.aspects."darwin"."homeManager" =
     { lib, ... }:
     {
       programs.kitty = {

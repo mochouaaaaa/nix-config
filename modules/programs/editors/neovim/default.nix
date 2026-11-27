@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.homeManager."cli.neovim" =
+  flake.aspects."cli.neovim"."homeManager" =
     {
       lib,
       pkgs,
