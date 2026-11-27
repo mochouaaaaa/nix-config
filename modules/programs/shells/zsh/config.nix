@@ -1,6 +1,6 @@
 {
 
-  flake.modules.generic.zsh = { pkgs, username, ... }: {
+  flake.aspects."zsh"."generic" = { pkgs, username, ... }: {
     users.users.${username}.description = "${username}. up up up!";
     programs.zsh = {
       enable = true;
@@ -10,15 +10,15 @@
     environment.shells = [ pkgs.zsh ];
   };
 
-  flake.modules.nixos.core = { self, ... }: {
+  flake.aspects."core"."nixos" = { self, ... }: {
     imports = [ self.modules.generic.zsh ];
   };
 
-  flake.modules.darwin.core = { self, ... }: {
+  flake.aspects."core"."darwin" = { self, ... }: {
     imports = [ self.modules.generic.zsh ];
   };
 
-  flake.modules.homeManager.programs = { pkgs, config, ... }: {
+  flake.aspects."programs"."homeManager" = { pkgs, config, ... }: {
 
     programs = {
       bash = {

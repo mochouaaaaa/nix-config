@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."programs.node.26-11" =
+  flake.aspects."programs.node.26-11"."homeManager" =
     { lib, options, ... }:
     let
       hasPnpm = lib.hasAttrByPath [
@@ -20,7 +20,7 @@
       };
     };
 
-  flake.modules.homeManager."development.node" =
+  flake.aspects."development.node"."homeManager" =
     { pkgs, self, ... }:
     {
       imports = [ self.modules.homeManager."programs.node.26-11" ];
@@ -76,7 +76,7 @@
 
   # Preserve global package-manager state only when installed through Home Manager.
   # Project-local Node.js runtimes are intentionally not inferred here.
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       pkgs,

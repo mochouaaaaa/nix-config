@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager.agenix =
+  flake.aspects."agenix"."homeManager" =
     {
       self,
       config,

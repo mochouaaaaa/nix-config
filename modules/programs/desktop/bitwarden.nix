@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.security" = { pkgs, username, ... }: {
+  flake.aspects."desktop.programs.security"."homeManager" = { pkgs, username, ... }: {
     home.packages = [
       # pkgs.bitwarden-cli
       pkgs.bitwarden-desktop
@@ -46,7 +46,7 @@
 
   };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       pkgs,

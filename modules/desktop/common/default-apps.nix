@@ -57,7 +57,7 @@
     };
 
   # Preserve the generic module ID for existing consumers.
-  flake.modules.generic."desktop.default-apps" = {
+  flake.aspects."desktop.default-apps"."generic" = {
     imports = [
       self.modules.homeManager."desktop.default-apps"
     ];
