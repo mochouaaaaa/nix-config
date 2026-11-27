@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.launcher.vicinae" =
+  flake.aspects."desktop.launcher.vicinae".homeManager =
     { config, ... }:
     let
       extensions = config.profiles.vicinae.extensions;
