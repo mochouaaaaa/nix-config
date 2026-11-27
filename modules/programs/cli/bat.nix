@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" =
+  flake.aspects = { cli.provides.bat.homeManager =
     {
       lib,
       pkgs,
@@ -106,4 +106,5 @@
       };
 
     };
+};
 }
