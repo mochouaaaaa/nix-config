@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.niri" = _: {
+  flake.aspects."desktop.niri".homeManager = _: {
     # programs.vicinae = {
     #   systemd = {
     #     enable = lib.mkForce false;
