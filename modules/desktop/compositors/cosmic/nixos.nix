@@ -7,11 +7,7 @@
 
       nixos =
         {
-          self,
-          lib,
-          config,
           pkgs,
-          username,
           ...
         }:
         {
@@ -23,10 +19,6 @@
             cosmic-term
             cosmic-store
             cosmic-edit
-          ];
-
-          home-manager.users.${username}.imports = lib.optionals (config ? home-manager) [
-            self.modules.homeManager."desktop.cosmic"
           ];
         };
     };
