@@ -29,9 +29,7 @@
     self.modules.nixos."programs.evolution"
     self.modules.nixos."services.ollama"
 
-    # self.modules.nixos."services.databases"
-    self.modules.nixos."services.postgresql"
-    self.modules.nixos."services.redis"
+    self.modules.nixos."services.databases"
 
     self.modules.nixos."services.virtualisation.podman"
     self.modules.nixos."services.virtualisation.qemu"
