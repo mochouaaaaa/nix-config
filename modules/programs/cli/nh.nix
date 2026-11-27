@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" = { config, ... }: {
+  flake.aspects = { cli.provides.nh.homeManager = { config, ... }: {
     programs.nh = {
       enable = true;
       flake = "${config.home.homeDirectory}/nix";
@@ -10,4 +10,5 @@
       };
     };
   };
+};
 }
