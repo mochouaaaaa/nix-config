@@ -17,13 +17,12 @@
             self.modules.homeManager."desktop.common"
           ];
         };
-    };
-  };
 
-  # Keep the Home Manager compatibility entry separate from the NixOS aspect.
-  flake.aspects."desktop.common"."homeManager" = {
-    imports = [
-      self.modules.homeManager."desktop.user"
-    ];
+      homeManager = {
+        imports = [
+          self.modules.homeManager."desktop.user"
+        ];
+      };
+    };
   };
 }
