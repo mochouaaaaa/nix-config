@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hardware =
+  flake.aspects."hardware"."nixos" =
     { lib, config, ... }:
     let
       cfg = config.profiles.hardware.kvm;

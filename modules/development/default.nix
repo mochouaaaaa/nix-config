@@ -1,7 +1,7 @@
 { self, ... }:
 {
   # Atomic language modules remain independently importable.
-  flake.modules.homeManager."development.languages" = {
+  flake.aspects."development.languages"."homeManager" = {
     imports = [
       self.modules.homeManager."development.go"
       self.modules.homeManager."development.node"
