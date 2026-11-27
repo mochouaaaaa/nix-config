@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.base"."nixos" = {
+  flake.aspects.services.provides.openssh.nixos = {
     services.openssh = {
       enable = true;
       settings = {

@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs.communication"."homeManager" = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.communication.materialgram."homeManager" = { pkgs, ... }: {
     home.packages = [
       pkgs.materialgram
     ];

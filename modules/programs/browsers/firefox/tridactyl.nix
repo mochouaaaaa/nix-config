@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs.browsers"."homeManager" =
+  flake.aspects."desktop.programs".provides.browsers.firefox."homeManager" =
     { pkgs, ... }:
     {
       programs.firefox = {

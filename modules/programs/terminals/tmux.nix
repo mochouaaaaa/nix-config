@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" =
+  flake.aspects.programs.provides.terminals.tmux.homeManager =
     {
       lib,
       pkgs,

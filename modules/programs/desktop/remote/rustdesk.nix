@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs.remote"."nixos" = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.remote.rustdesk."nixos" = { pkgs, ... }: {
     environment.systemPackages = [
       pkgs.rustdesk-flutter
     ];

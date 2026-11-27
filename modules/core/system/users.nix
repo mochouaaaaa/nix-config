@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."core"."homeManager" =
+  flake.aspects.core.provides.users.homeManager =
     {
       pkgs,
       config,
@@ -18,11 +18,11 @@
         };
     };
 
-  flake.aspects."core"."darwin" = { username, ... }: {
+  flake.aspects.core.provides.users.darwin = { username, ... }: {
     users.users.${username}.home = "/Users/${username}";
   };
 
-  flake.aspects."core"."nixos" =
+  flake.aspects.core.provides.users.nixos =
     {
       lib,
       pkgs,

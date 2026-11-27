@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs.media"."homeManager" =
+  flake.aspects."desktop.programs".provides.media.live."homeManager" =
     {
       pkgs,
       ...

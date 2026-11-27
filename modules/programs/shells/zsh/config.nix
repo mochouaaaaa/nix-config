@@ -18,7 +18,7 @@
     imports = [ self.modules.generic.zsh ];
   };
 
-  flake.aspects."programs"."homeManager" = { pkgs, config, ... }: {
+  flake.aspects.programs.provides.shells.zsh.homeManager = { pkgs, config, ... }: {
 
     programs = {
       bash = {

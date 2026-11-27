@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.programs.media" = {
+    "desktop.programs".provides.media.mpv = {
       includes = [
         aspects."programs.mpv"
       ];

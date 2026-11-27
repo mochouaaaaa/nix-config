@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs.media"."homeManager" = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.media.splayer."homeManager" = { pkgs, ... }: {
 
     home.packages = with pkgs; [
       # splayer-next

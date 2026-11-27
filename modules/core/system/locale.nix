@@ -1,5 +1,5 @@
 {
-  flake.aspects."core"."nixos" =
+  flake.aspects.core.provides.locale.nixos =
     { lib, ... }:
     let
       locale = "zh_CN.UTF-8";

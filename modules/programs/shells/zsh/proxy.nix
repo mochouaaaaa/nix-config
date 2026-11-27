@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" =
+  flake.aspects.programs.provides.shells.zsh.homeManager =
     let
       proxy_config = ''
         proxy() {

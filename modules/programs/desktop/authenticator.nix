@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs.security"."homeManager" = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.security.authenticator."homeManager" = { pkgs, ... }: {
     home.packages = [
       pkgs.ente-auth
       pkgs.authenticator

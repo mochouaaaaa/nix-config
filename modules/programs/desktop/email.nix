@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.aspects."desktop.programs.email"."homeManager" =
+  flake.aspects."desktop.programs".provides.email.thunderbird."homeManager" =
     {
       pkgs,
       config,

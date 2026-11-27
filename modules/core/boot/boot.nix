@@ -1,5 +1,5 @@
 {
-  flake.aspects."core"."nixos" =
+  flake.aspects.core.provides.boot.nixos =
     {
       lib,
       config,

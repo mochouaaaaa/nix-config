@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs.api-clients".homeManager = { pkgs, lib, ... }: {
+  flake.aspects."desktop.programs".provides.api-clients.homeManager = { pkgs, lib, ... }: {
     home.packages = [
       pkgs.hoppscotch
     ]
