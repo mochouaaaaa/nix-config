@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs.lazygit"."homeManager" = {
+  flake.aspects = { cli.provides.lazygit.homeManager = {
     programs.lazygit = {
       settings = {
         customCommands = [
@@ -40,4 +40,5 @@
     };
   };
 
+};
 }
