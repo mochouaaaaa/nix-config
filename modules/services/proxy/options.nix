@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.proxy" =
+  flake.aspects."services.proxy"."nixos" =
     { config, lib, ... }:
     {
       options.profiles.services.proxy = {

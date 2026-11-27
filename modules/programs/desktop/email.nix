@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.modules.homeManager."desktop.programs.email" =
+  flake.aspects."desktop.programs.email"."homeManager" =
     {
       pkgs,
       config,
@@ -26,7 +26,7 @@
 
     };
 
-  flake.modules.homeManager."programs.email" =
+  flake.aspects."programs.email"."homeManager" =
     {
       lib,
       username,
@@ -125,7 +125,7 @@
 
     };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,

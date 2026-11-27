@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.notes" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.notes"."homeManager" = { pkgs, ... }: {
 
     home.packages = with pkgs; [
       # GUI apps
