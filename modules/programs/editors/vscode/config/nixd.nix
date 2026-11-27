@@ -29,7 +29,7 @@ let
 in
 {
   # Keep nixd available even when Neovim is disabled.
-  flake.aspects."programs.vscode"."homeManager" =
+  flake.aspects.editors.provides.vscode.homeManager =
     { pkgs, ... }:
     {
       home.packages = [
