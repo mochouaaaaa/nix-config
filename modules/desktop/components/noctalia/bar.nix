@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.shell.noctalia" = {
+  flake.aspects."desktop.shell.noctalia".homeManager = {
     programs.noctalia = {
       settings = {
         widget = {
