@@ -53,7 +53,7 @@
       };
     };
 
-  flake.modules.nixos."desktop.flatpak" =
+  flake.aspects."desktop.flatpak".nixos =
     {
       self,
       username,
