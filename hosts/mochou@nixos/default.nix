@@ -52,7 +52,7 @@
     self.modules.homeManager.linux
     self.modules.homeManager."development.gui"
     self.modules.homeManager."agents.codex"
-    self.modules.homeManager."antigravity"
+    self.modules.homeManager."agents.antigravity"
     self.modules.homeManager."desktop.niri"
     self.modules.homeManager."desktop.programs"
   ];
