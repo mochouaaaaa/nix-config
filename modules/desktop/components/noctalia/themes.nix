@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.shell.noctalia" =
+  flake.aspects."desktop.shell.noctalia".homeManager =
     {
       lib,
       pkgs,
