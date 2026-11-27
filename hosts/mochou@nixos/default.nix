@@ -29,7 +29,9 @@
     self.modules.nixos."programs.evolution"
     self.modules.nixos."services.ollama"
 
-    self.modules.nixos."services.databases"
+    (self.modules.nixos."services.databases" {
+      mysql = false;
+    })
 
     self.modules.nixos."services.virtualisation.podman"
     self.modules.nixos."services.virtualisation.qemu"
@@ -50,7 +52,7 @@
     self.modules.homeManager.linux
     self.modules.homeManager."development.gui"
     self.modules.homeManager."agents.codex"
-    self.modules.homeManager."agents.antigravity"
+    self.modules.homeManager."antigravity"
     self.modules.homeManager."desktop.niri"
     self.modules.homeManager."desktop.programs"
   ];
