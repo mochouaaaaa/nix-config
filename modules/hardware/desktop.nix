@@ -1,12 +1,14 @@
-{ self, ... }:
 {
-  flake.modules.nixos."hardware.desktop" = {
-    imports = [
-      self.modules.nixos."hardware.audio"
-      self.modules.nixos."hardware.bluetooth"
-    ];
-    boot.kernelModules = [
-      "hid_multitouch"
-    ];
+  flake.aspects = { aspects, ... }: {
+    "hardware.desktop" = {
+      includes = [
+        aspects."hardware.audio"
+        aspects."hardware.bluetooth"
+      ];
+
+      nixos.boot.kernelModules = [
+        "hid_multitouch"
+      ];
+    };
   };
 }
