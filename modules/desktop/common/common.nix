@@ -1,26 +1,29 @@
 { self, ... }:
 {
-  # Compatibility aggregate: retain the previous all-in-one desktop entry.
-  flake.modules.homeManager."desktop.common" = {
-    imports = [
-      self.modules.homeManager."desktop.user"
-    ];
-  };
-
-  flake.modules.nixos."desktop.common" =
-    {
-      self,
-      username,
-      ...
-    }:
-    {
-      imports = [
-        self.modules.nixos."desktop.base"
-        self.modules.nixos."desktop.hardware"
-      ];
-
-      home-manager.users.${username}.imports = [
-        self.modules.homeManager."desktop.common"
+  flake.aspects = { aspects, ... }: {
+    "desktop.user" = {
+      homeManager.imports = [
+        self.modules.homeManager."desktop.user"
       ];
     };
+
+    "desktop.common" = {
+      includes = [
+        aspects."desktop.base"
+        aspects."desktop.hardware"
+        aspects."desktop.user"
+      ];
+
+      nixos =
+        {
+          username,
+          ...
+        }:
+        {
+          home-manager.users.${username}.imports = [
+            self.modules.homeManager."desktop.common"
+          ];
+        };
+    };
+  };
 }
