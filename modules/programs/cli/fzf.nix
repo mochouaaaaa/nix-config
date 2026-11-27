@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."programs"."homeManager" =
+  flake.aspects = { cli.provides.fzf.homeManager =
     {
       lib,
       pkgs,
@@ -122,4 +122,5 @@
 
       };
     };
+};
 }
