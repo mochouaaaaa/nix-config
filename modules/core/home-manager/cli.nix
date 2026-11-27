@@ -1,7 +1,7 @@
 {
-  flake.aspects = { ... }: {
+  flake.aspects = { aspects, ... }: {
     cli.provides.programs = {
-      includes = [ "programs" ];
+      includes = [ aspects.programs ];
     };
   };
 }
