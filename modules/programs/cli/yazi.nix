@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" =
+  flake.aspects = { cli.provides.yazi.homeManager =
     {
       lib,
       pkgs,
@@ -100,4 +100,5 @@
       xdg.configFile = config.profiles.dotfileLink "yazi";
 
     };
+};
 }
