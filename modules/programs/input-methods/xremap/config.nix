@@ -95,7 +95,7 @@
     services.xremap.withWlroots = lib.mkForce true;
   };
 
-  flake.modules.homeManager."desktop.kde" = {
+  flake.aspects."desktop.kde".homeManager = {
     services.xremap.withKDE = true;
   };
 
