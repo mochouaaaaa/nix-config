@@ -23,10 +23,6 @@ let
     inherit (config) myvars;
   };
 
-  desktopModules =
-    host:
-    lib.optional (host.desktop != null) self.modules.nixos."desktop.${host.desktop}";
-
   nixosConfigurations = lib.optionalAttrs (!checkOnly) (
     lib.mapAttrs (
       _name: host:
@@ -42,7 +38,6 @@ let
           self.modules.nixos."services.base"
         ]
         ++ lib.optional host.nixosWsl host.nixosWslModule
-        ++ desktopModules host
         ++ [ (inputs.import-tree host.path) ];
       }
     ) registry.nixosHosts
