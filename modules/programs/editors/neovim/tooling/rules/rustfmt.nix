@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."cli.neovim.tooling.rules.rustfmt" = { pkgs, ... }: {
+  flake.aspects."cli.neovim.tooling.rules.rustfmt"."homeManager" = { pkgs, ... }: {
     xdg.configFile."rustfmt/rustfmt.toml".source =
       let
         settings = {
