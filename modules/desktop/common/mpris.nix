@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.user" = {
+  flake.aspects."desktop.user".homeManager = {
     services.mpris-proxy.enable = true;
   };
 }
