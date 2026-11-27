@@ -42,7 +42,7 @@
       };
     };
 
-  flake.modules.homeManager."desktop.niri" = {
+  flake.aspects."desktop.niri".homeManager = {
     wayland.windowManager.niri.settings = {
       _children = [
         {
