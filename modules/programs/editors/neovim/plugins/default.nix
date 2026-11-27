@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.homeManager."cli.neovim.plugins" = { pkgs, ... }: {
+  flake.aspects."cli.neovim.plugins"."homeManager" = { pkgs, ... }: {
 
     imports = [
       self.modules.homeManager."cli.neovim.plugins.treesitter"
