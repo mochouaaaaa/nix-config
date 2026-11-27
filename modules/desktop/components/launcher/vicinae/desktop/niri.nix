@@ -1,10 +1,10 @@
 {
-  flake.modules.homeManager."desktop.niri" = { lib, ... }: {
-    programs.vicinae = {
-      systemd = {
-        enable = lib.mkForce false;
-      };
-    };
+  flake.modules.homeManager."desktop.niri" = _: {
+    # programs.vicinae = {
+    #   systemd = {
+    #     enable = lib.mkForce false;
+    #   };
+    # };
 
     wayland.windowManager.niri.settings = {
       debug = {
@@ -29,12 +29,12 @@
       };
 
       _children = [
-        {
-          spawn-at-startup = [
-            "vicinae"
-            "server"
-          ];
-        }
+        # {
+        #   spawn-at-startup = [
+        #     "vicinae"
+        #     "server"
+        #   ];
+        # }
         {
           layer-rule._children = [
             { match._props.namespace = "vicinae"; }

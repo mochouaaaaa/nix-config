@@ -54,6 +54,11 @@
           ".." = "cd ..";
         };
       };
+      xdg.userDirs.projects =
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          "/Volumes/Code/Projects"
+        else
+          "${config.home.homeDirectory}/Projects";
       programs.zsh = {
         dirHashes = {
           desktop = "${config.xdg.userDirs.desktop}";
@@ -62,6 +67,7 @@
           videos = "${config.xdg.userDirs.videos}";
           music = "${config.xdg.userDirs.music}";
           pictures = "${config.xdg.userDirs.pictures}";
+          projects = "${config.xdg.userDirs.projects}";
         }
         // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
           movies = "$HOME/Movies";

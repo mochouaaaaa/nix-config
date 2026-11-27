@@ -20,13 +20,6 @@
     programs.chromium.enable = lib.mkForce false;
   };
 
-  flake.modules.homeManager."desktop.gnome" = {
-    programs.chromium.commandLineArgs = [
-      "--gtk-version=4"
-      "--password-store=gnome-libsecret"
-    ];
-  };
-
   flake.modules.homeManager."desktop.kde" = { pkgs, ... }: {
     programs.chromium = {
       nativeMessagingHosts = [

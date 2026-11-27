@@ -31,6 +31,9 @@ let
 
         modules = [
           inputs.${host.homeManagerInput}.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = hostArgs host;
+          }
           self.modules.nixos.core
           self.modules.nixos."services.base"
         ]
@@ -51,13 +54,15 @@ let
             nixpkgs.hostPlatform = host.system;
           })
           inputs.${host.homeManagerInput}.darwinModules.home-manager
+          {
+            home-manager.extraSpecialArgs = hostArgs host;
+          }
           self.modules.darwin.core
           self.modules.darwin.env
           self.modules.darwin."system.defaults"
           self.modules.darwin.security
           self.modules.darwin.homebrew
           self.modules.darwin.services
-          self.modules.darwin.home-manager
           (inputs.import-tree host.path)
         ];
       }
@@ -78,7 +83,10 @@ let
 
         modules = [
           (inputs.import-tree host.path)
-          { programs.home-manager.enable = true; }
+          {
+            programs.home-manager.enable = true;
+            targets.genericLinux.enable = true;
+          }
         ];
       }
     ) registry.homeHosts

@@ -9,6 +9,11 @@
         bluetuith
       ];
 
+      boot.kernelModules = [
+        "uhid"
+        "hidp"
+      ];
+
       hardware.bluetooth = {
         enable = true;
         powerOnBoot = true;

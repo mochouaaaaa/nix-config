@@ -7,14 +7,7 @@
     }:
     {
       boot = {
-        tmp.cleanOnBoot = (config.fileSystems."/".fsType or "") != "tmpfs";
-
-        kernelModules = [
-          "uhid"
-          "hidp"
-          "hid_multitouch"
-          "snd_aloop"
-        ];
+        tmp.cleanOnBoot = lib.mkDefault ((config.fileSystems."/".fsType or "") != "tmpfs");
 
         loader = {
           systemd-boot = {

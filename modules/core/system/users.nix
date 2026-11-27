@@ -1,19 +1,28 @@
 {
-  flake.modules.generic.zsh = { pkgs, username, ... }: {
-    users.users.${username}.description = "${username}. up up up!";
-    programs.zsh = {
-      enable = true;
-      enableCompletion = false;
-      enableBashCompletion = false;
+
+  flake.modules.homeManager.core =
+    {
+      pkgs,
+      config,
+      username,
+      ...
+    }:
+    {
+      home =
+        let
+          rootName = if pkgs.stdenv.isDarwin then "Users" else "home";
+        in
+        {
+          inherit username;
+          homeDirectory = "/${rootName}/${config.home.username}";
+        };
     };
-    environment.shells = [ pkgs.zsh ];
+
+  flake.modules.darwin.core = { username, ... }: {
+    users.users.${username}.home = "/Users/${username}";
   };
 
-  flake.modules.homeManager.core = {
-    systemd.user.startServices = "sd-switch";
-  };
-
-  flake.modules.nixos.users =
+  flake.modules.nixos.core =
     {
       lib,
       pkgs,
@@ -28,7 +37,6 @@
         defaultUserShell = pkgs.zsh;
         groups = {
           "${username}" = { };
-          docker = { };
           keys = { };
           adbusers = { };
           dialout = { };
@@ -39,8 +47,9 @@
       services.userborn.passwordFilesLocation = "/var/lib/nixos";
 
       users.users."${username}" = {
-        inherit (myvars) initialHashedPassword;
         home = "/home/${username}";
+
+        inherit (myvars) initialHashedPassword;
         isNormalUser = true;
         extraGroups = [
           username
@@ -62,7 +71,7 @@
           autosubs = lib.pipe config.users.users [
             lib.attrValues
             (lib.filter (u: u.uid != null && u.isNormalUser))
-            (lib.concatMapStrings (u: "${toString u.uid}:${toString (100000 + u.uid * 65536)}:65536\n"))
+            (lib.concatMapStrings (u: "${toString u.uid}:${toString (100000 + u.uid * 65536)}:65536\\n"))
           ];
         in
         lib.optionalAttrs config.services.userborn.enable {
@@ -71,15 +80,4 @@
         };
     };
 
-  flake.modules.nixos.core = { self, ... }: {
-    imports = [
-      self.modules.generic.zsh
-      self.modules.nixos.users
-    ];
-  };
-
-  flake.modules.darwin.core = { self, username, ... }: {
-    imports = [ self.modules.generic.zsh ];
-    users.users."${username}".home = "/Users/${username}";
-  };
 }

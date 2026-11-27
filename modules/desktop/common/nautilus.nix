@@ -8,10 +8,6 @@
     imports = [ self.modules.nixos.nautilus ];
   };
 
-  flake.modules.nixos."desktop.gnome" = {
-    imports = [ self.modules.nixos.nautilus ];
-  };
-
   flake.modules.nixos.nautilus = { pkgs, ... }: {
 
     programs.nautilus-open-any-terminal = {

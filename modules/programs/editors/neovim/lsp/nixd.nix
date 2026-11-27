@@ -45,7 +45,7 @@ let
           },
         })
 
-        -- vim.lsp.enable("nixd")
+        vim.lsp.enable("nixd")
       '';
     };
 in

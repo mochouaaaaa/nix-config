@@ -5,7 +5,6 @@
   flake.modules.homeManager.cli = {
     imports = [
       self.modules.homeManager.programs
-      self.modules.homeManager."programs.git"
       self.modules.homeManager."cli.neovim"
       self.modules.homeManager."cli.direnv"
     ];

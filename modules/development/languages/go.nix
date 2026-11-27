@@ -13,13 +13,6 @@
 
   flake.modules.homeManager."development.go" =
     { pkgs, config, ... }:
-    let
-      goPath =
-        if pkgs.stdenv.hostPlatform.isDarwin then
-          "/Volumes/Code/Projects/golang"
-        else
-          "${config.home.homeDirectory}/Code/Projects/golang";
-    in
     {
       home.packages = with pkgs; [
         gcc
@@ -56,16 +49,20 @@
 
       programs.go = {
         enable = true;
-        env = {
-          GOPATH = goPath;
-          GOBIN = "${goPath}/bin";
-          GOMODCACHE = "${goPath}/pkg/mod";
-          # GOENV = "${goPath}/env";
-          GOPROXY = "https://goproxy.cn,direct";
-          GOSUMDB = "sum.golang.google.cn";
-          GOTELEMETRY = "off";
-          # GOTELEMETRYDIR = "${goPath}/telemetry";
-        };
+        env =
+          let
+            goPath = "${config.xdg.userDirs.projects}/golang";
+          in
+          {
+            GOPATH = goPath;
+            GOBIN = "${goPath}/bin";
+            GOMODCACHE = "${goPath}/pkg/mod";
+            # GOENV = "${goPath}/env";
+            GOPROXY = "https://goproxy.cn,direct";
+            GOSUMDB = "sum.golang.google.cn";
+            GOTELEMETRY = "off";
+            # GOTELEMETRYDIR = "${goPath}/telemetry";
+          };
       };
     };
 }

@@ -13,8 +13,8 @@
     self.modules.nixos.preservation
 
     self.modules.nixos."services.virtualisation.vm"
-    self.modules.nixos."desktop.hyprland"
-    # self.modules.nixos."desktop.niri"
+    # self.modules.nixos."desktop.hyprland"
+    self.modules.nixos."desktop.niri"
     # self.modules.nixos."desktop.umbriel"
     # self.modules.nixos."desktop.cosmic"
     self.modules.nixos."desktop.flatpak"
@@ -22,6 +22,7 @@
     self.modules.nixos.boot-loader-limine
     self.modules.nixos."hardware.hid-apple"
     self.modules.nixos."profiles.zram"
+    self.modules.nixos."profiles.compat"
 
     self.modules.nixos."services.dns.mosdns"
     self.modules.nixos."services.avahi"

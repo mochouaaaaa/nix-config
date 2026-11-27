@@ -1,19 +1,22 @@
-{ self, ... }: {
-  flake.modules.homeManager.darwin.imports = [
-    self.modules.homeManager."core.session-variables"
-  ];
+{
+
+  flake.modules.homeManager.darwin = { self, ... }: {
+    imports = [
+      self.modules.generic.session-variables
+    ];
+  };
 
   flake.modules.homeManager.linux =
-    { config, ... }:
+    { self, config, ... }:
     let
       d = config.xdg.dataHome;
     in
     {
-      imports = [ self.modules.homeManager."core.session-variables" ];
+      imports = [ self.modules.generic.session-variables ];
       home.sessionVariables.WINEPREFIX = d + "/wine";
     };
 
-  flake.modules.homeManager."core.session-variables" =
+  flake.modules.generic.session-variables =
     { config, ... }:
     let
       c = config.xdg.configHome;
@@ -23,8 +26,8 @@
       home.sessionVariables = {
         LESSHISTFILE = cache + "/less/history";
         LESSKEY = c + "/less/lesskey";
-        BROWSER = "firefox";
         DELTA_PAGER = "less -R";
       };
     };
+
 }
