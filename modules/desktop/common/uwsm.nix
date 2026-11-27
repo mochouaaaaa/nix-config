@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."desktop.base" = {
+  flake.aspects."desktop.base".nixos = {
     programs.uwsm = {
       enable = true;
     };
