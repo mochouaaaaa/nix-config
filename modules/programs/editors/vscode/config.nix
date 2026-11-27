@@ -1,6 +1,6 @@
 {
   # Shared VS Code application settings and baseline extensions.
-  flake.aspects."programs.vscode"."homeManager" =
+  flake.aspects.editors.provides.vscode.homeManager =
     { pkgs, ... }:
     {
       programs.vscode = {
