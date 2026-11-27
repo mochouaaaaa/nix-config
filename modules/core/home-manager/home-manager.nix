@@ -46,26 +46,14 @@
 
   };
 
-  flake.modules.homeManager.core =
-    {
-      lib,
-      inputs,
-      homeManagerNixpkgsInput,
-      ...
-    }:
-    {
-      systemd.user.startServices = "sd-switch";
-      home = {
-        enableNixpkgsReleaseCheck = false;
-        backupFileExtension = "home-manager.backup";
-        overwriteBackup = true;
-      };
-
-      _module.args = lib.optionalAttrs (homeManagerNixpkgsInput != null) {
-        pkgsPath = inputs.${homeManagerNixpkgsInput}.outPath;
-      };
-
+  flake.modules.homeManager.core = {
+    systemd.user.startServices = "sd-switch";
+    home = {
+      enableNixpkgsReleaseCheck = false;
+      backupFileExtension = "home-manager.backup";
+      overwriteBackup = true;
     };
+  };
 
   flake.modules.homeManager.linux = { username, ... }: {
     home = {
