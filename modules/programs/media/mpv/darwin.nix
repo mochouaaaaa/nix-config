@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.modules.homeManager.darwin = { lib, ... }: {
+  flake.aspects."darwin"."homeManager" = { lib, ... }: {
     imports = [
       self.modules.homeManager."programs.mpv"
     ];
@@ -8,7 +8,7 @@
     programs.mpv.enable = lib.mkForce false;
   };
 
-  flake.modules.darwin.programs = {
+  flake.aspects."programs"."darwin" = {
     homebrew.casks = [
       "iina"
       "iina+"

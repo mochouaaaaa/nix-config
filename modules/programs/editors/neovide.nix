@@ -1,13 +1,13 @@
 {
 
-  flake.modules.homeManager.darwin = { lib, ... }: {
+  flake.aspects."darwin"."homeManager" = { lib, ... }: {
     programs.neovide.package = null;
     programs.neovide.settings = {
       frame = lib.mkForce "transparent";
     };
   };
 
-  flake.modules.homeManager.programs =
+  flake.aspects."programs"."homeManager" =
     { lib, config, pkgs, ... }:
     let
       fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";

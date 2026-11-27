@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.programs.remote" = {
+  flake.aspects."desktop.programs.remote"."homeManager" = {
     services.remmina = {
       enable = true;
       systemdService = {
@@ -9,7 +9,7 @@
     };
   };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,

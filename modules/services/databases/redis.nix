@@ -1,6 +1,6 @@
 {
 
-  flake.modules.darwin."services.redis" = {
+  flake.aspects."services.redis"."darwin" = {
     services = {
       redis = {
         enable = true;
@@ -11,7 +11,7 @@
     };
   };
 
-  flake.modules.nixos."services.redis" =
+  flake.aspects."services.redis"."nixos" =
     {
       config,
 
