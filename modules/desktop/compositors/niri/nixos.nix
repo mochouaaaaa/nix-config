@@ -9,7 +9,6 @@
         {
           config,
           lib,
-          self,
           username,
           ...
         }:
@@ -31,9 +30,9 @@
           };
           services.displayManager.noctalia-greeter.settings.session.default = "niri-uwsm";
 
-          # Compose the matching Home Manager desktop only for the primary user.
+          # The desktop Home Manager aspect is forwarded by the Host configuration.
+          # Keep only the NixOS-dependent compatibility adjustments here.
           home-manager.users.${username}.imports = lib.optionals (config ? home-manager) [
-            self.modules.homeManager."desktop.niri"
             ({ lib, ... }: {
               wayland.windowManager.niri = {
                 package = lib.mkForce nixosNiri.package;
