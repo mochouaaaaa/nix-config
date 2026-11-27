@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.flatpak" =
+  flake.aspects."desktop.flatpak".homeManager =
     {
       inputs,
       lib,
