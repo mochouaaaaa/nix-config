@@ -50,7 +50,7 @@ let
     };
 in
 {
-  flake.modules.homeManager."cli.neovim.lsp.nixd" = { pkgs, ... }: {
+  flake.aspects."cli.neovim.lsp.nixd"."homeManager" = { pkgs, ... }: {
     programs.neovim.extraPackages = with pkgs; [
       nil
       nixd
@@ -58,12 +58,12 @@ in
     ];
   };
 
-  flake.modules.homeManager.darwin = mkNixdConfig {
+  flake.aspects."darwin"."homeManager" = mkNixdConfig {
     configuration = "darwinConfigurations";
     systemOptionName = "darwin";
   };
 
-  flake.modules.homeManager.linux = mkNixdConfig {
+  flake.aspects."linux"."homeManager" = mkNixdConfig {
     configuration = "nixosConfigurations";
     systemOptionName = "nixos";
   };

@@ -1,11 +1,11 @@
 {
-  flake.modules.nixos."desktop.programs.remote" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.remote"."nixos" = { pkgs, ... }: {
     environment.systemPackages = [
       pkgs.rustdesk-flutter
     ];
   };
 
-  flake.modules.darwin."desktop.programs.remote" = {
+  flake.aspects."desktop.programs.remote"."darwin" = {
     homebrew.casks = [ "rustdesk" ];
   };
 }
