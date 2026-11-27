@@ -1,5 +1,6 @@
 {
-  flake.aspects."programs"."homeManager" = {
+  flake.aspects = { cli.provides.television.homeManager = {
     programs.television.enable = true;
   };
+};
 }
