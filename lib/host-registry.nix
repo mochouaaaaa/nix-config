@@ -37,6 +37,14 @@ let
         else
           "nixos";
 
+      desktop = metadata.desktop or null;
+
+      validatedDesktop =
+        if desktop != null && class != "nixos" then
+          throw "Host '${name}' can select a desktop session only on NixOS."
+        else
+          desktop;
+
       homeManagerInput = checkInput name metadata."home-manager-input";
 
       nixosWslInput = if nixosWsl then checkInput name metadata."nixos-wsl-input" else null;
@@ -70,6 +78,7 @@ let
         hostName
         ;
       inherit system;
+      desktop = validatedDesktop;
       osInput = validatedOsInput;
       inherit homeManagerInput;
       path = hostsDir + "/${name}";
@@ -82,6 +91,7 @@ let
     inherit (host)
       class
       system
+      desktop
       nixosWsl
       nixosWslInput
       osInput
@@ -98,6 +108,7 @@ let
       hostName
       class
       system
+      desktop
       nixosWsl
       osInput
       homeManagerInput
