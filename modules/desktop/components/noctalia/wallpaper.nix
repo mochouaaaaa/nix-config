@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.shell.noctalia" = { config, ... }: {
+  flake.aspects."desktop.shell.noctalia".homeManager = { config, ... }: {
     programs.noctalia = {
       settings = {
         wallpaper = {
