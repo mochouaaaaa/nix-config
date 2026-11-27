@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs" = { self, ... }: {
+  flake.aspects."desktop.programs"."homeManager" = { self, ... }: {
     imports = [
       self.modules.homeManager."desktop.programs.api-clients"
       self.modules.homeManager."desktop.programs.browsers"

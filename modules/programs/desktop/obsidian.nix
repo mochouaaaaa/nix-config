@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.notes" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.notes"."homeManager" = { pkgs, ... }: {
     programs.obsidian = {
       enable = true;
       cli.enable = true;
@@ -10,7 +10,7 @@
     };
   };
 
-  flake.modules.darwin.programs = {
+  flake.aspects."programs"."darwin" = {
     homebrew.casks = [ "obsidian" ];
   };
 }

@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.programs.media" =
+  flake.aspects."desktop.programs.media"."homeManager" =
     {
       self,
       pkgs,
@@ -43,7 +43,7 @@
 
     };
 
-  flake.modules.homeManager."programs.mpv" = { self, pkgs, ... }: {
+  flake.aspects."programs.mpv"."homeManager" = { self, pkgs, ... }: {
 
     imports = [
       self.modules.homeManager."programs.mpv.modernz"
