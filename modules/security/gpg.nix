@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."security.gpg" = { pkgs, config, ... }: {
+  flake.aspects."security.gpg"."homeManager" = { pkgs, config, ... }: {
     programs.gpg.enable = true;
 
     services = {
@@ -24,7 +24,7 @@
   };
 
   # GCR's D-Bus services are only needed on NixOS hosts that enable GPG.
-  flake.modules.nixos."services.base" =
+  flake.aspects."services.base"."nixos" =
     {
       lib,
       pkgs,
@@ -40,7 +40,7 @@
 
   # Keep Linux-specific GPG agent behavior in the platform role while exposing
   # the reusable security configuration under its own module identifier.
-  flake.modules.homeManager.linux = { self, ... }: {
+  flake.aspects."linux"."homeManager" = { self, ... }: {
     imports = [ self.modules.homeManager."security.gpg" ];
   };
 }

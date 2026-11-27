@@ -9,17 +9,17 @@ let
 in
 {
   # NixOS
-  flake.modules.nixos.core = { pkgs, ... }: {
+  flake.aspects."core"."nixos" = { pkgs, ... }: {
     _module.args.mylib = mkMyLib pkgs.lib;
   };
 
   # Darwin
-  flake.modules.darwin.core = { pkgs, ... }: {
+  flake.aspects."core"."darwin" = { pkgs, ... }: {
     _module.args.mylib = mkMyLib pkgs.lib;
   };
 
   # Home Manager
-  flake.modules.homeManager.core = { pkgs, ... }: {
+  flake.aspects."core"."homeManager" = { pkgs, ... }: {
     _module.args.mylib = mkMyLib pkgs.lib;
   };
 }
