@@ -1,6 +1,6 @@
 {
 
-  flake.modules.homeManager."desktop.shell.noctalia" = { lib, ... }: {
+  flake.aspects."desktop.shell.noctalia".homeManager = { lib, ... }: {
 
     systemd.user.services = {
       noctalia-shell = {
