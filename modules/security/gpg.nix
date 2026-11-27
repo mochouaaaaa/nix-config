@@ -1,5 +1,5 @@
 {
-  flake.aspects."security.gpg"."homeManager" = { pkgs, config, ... }: {
+  flake.aspects.security.provides.gpg.homeManager = { pkgs, config, ... }: {
     programs.gpg.enable = true;
 
     services = {
