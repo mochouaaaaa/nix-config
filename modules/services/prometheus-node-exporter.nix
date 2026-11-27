@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.prometheus.node-exporter"."nixos" = {
+  flake.aspects.services.provides.prometheus.node-exporter.nixos = {
     services.prometheus.exporters.node = {
       enable = true;
       listenAddress = "0.0.0.0";
