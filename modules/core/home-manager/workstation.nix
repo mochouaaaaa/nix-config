@@ -5,7 +5,9 @@
   flake.aspects = { aspects, ... }: {
     workstation = {
       includes = [
-        aspects.cli
+        aspects.cli._.programs
+        aspects.cli._.neovim
+        aspects.cli._.direnv
         aspects."development.languages"
         aspects."programs.vscode"
         aspects."programs.kitty"
