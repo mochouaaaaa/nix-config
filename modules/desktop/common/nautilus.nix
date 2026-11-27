@@ -1,14 +1,14 @@
 { self, ... }: {
 
-  flake.modules.nixos."desktop.hyprland" = {
-    imports = [ self.modules.nixos.nautilus ];
-  };
+  flake.aspects."desktop.hyprland".includes = [
+    (flake.aspects."desktop.nautilus")
+  ];
 
-  flake.modules.nixos."desktop.niri" = {
-    imports = [ self.modules.nixos.nautilus ];
-  };
+  flake.aspects."desktop.niri".includes = [
+    (flake.aspects."desktop.nautilus")
+  ];
 
-  flake.modules.nixos.nautilus = { pkgs, ... }: {
+  flake.aspects."desktop.nautilus".nixos = { pkgs, ... }: {
 
     programs.nautilus-open-any-terminal = {
       enable = true;
