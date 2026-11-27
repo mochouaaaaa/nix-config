@@ -1,6 +1,6 @@
 {
   # System-level device rules for embedded development hardware.
-  flake.modules.nixos."hardware.embedded.udev" = { pkgs, ... }: {
+  flake.aspects."hardware.embedded.udev"."nixos" = { pkgs, ... }: {
     services.udev.packages = with pkgs; [
       platformio
       openocd

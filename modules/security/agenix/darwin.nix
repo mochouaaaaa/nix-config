@@ -1,6 +1,6 @@
 {
 
-  flake.modules.darwin.agenix =
+  flake.aspects."agenix"."darwin" =
     {
       self,
       lib,

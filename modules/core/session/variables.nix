@@ -1,12 +1,12 @@
 {
 
-  flake.modules.homeManager.darwin = { self, ... }: {
+  flake.aspects."darwin"."homeManager" = { self, ... }: {
     imports = [
       self.modules.generic.session-variables
     ];
   };
 
-  flake.modules.homeManager.linux =
+  flake.aspects."linux"."homeManager" =
     { self, config, ... }:
     let
       d = config.xdg.dataHome;
@@ -16,7 +16,7 @@
       home.sessionVariables.WINEPREFIX = d + "/wine";
     };
 
-  flake.modules.generic.session-variables =
+  flake.aspects."session-variables"."generic" =
     { config, ... }:
     let
       c = config.xdg.configHome;

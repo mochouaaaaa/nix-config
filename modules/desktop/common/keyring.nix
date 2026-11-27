@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     { lib, config, username, ... }:
     {
       profiles.preservation.users.${username}.directories =
