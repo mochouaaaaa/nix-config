@@ -26,8 +26,8 @@
           enable = true;
           watch = true;
           # Select build features from the enabled Home Manager desktop modules.
-          withWlroots = config.wayland.windowManager.hyprland.enable;
-          withNiri = config.wayland.windowManager.niri.enable;
+          withWlroots = config.wayland.windowManager.hyprland.enable or false;
+          withNiri = config.wayland.windowManager.niri.enable or false;
           withHypr = false;
 
           config = {
