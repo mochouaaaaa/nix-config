@@ -9,9 +9,6 @@
         {
           lib,
           pkgs,
-          username,
-          config,
-          self,
           ...
         }:
         {
@@ -42,10 +39,6 @@
             konsole
             # oxygen is normally not installed by default.
             # Keep krunner (Plasma's launcher) and kwallet (password wallet).
-          ];
-
-          home-manager.users.${username}.imports = lib.optionals (config ? home-manager) [
-            self.modules.homeManager."desktop.kde"
           ];
         };
     };
