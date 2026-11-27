@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.darwin =
+  flake.aspects.darwin.homeManager =
     {
       pkgs,
       username,
