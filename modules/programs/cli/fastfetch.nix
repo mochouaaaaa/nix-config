@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" = {
+  flake.aspects = { cli.provides.fastfetch.homeManager = {
 
     programs.fastfetch = {
       enable = true;
@@ -108,4 +108,5 @@
     };
 
   };
+};
 }
