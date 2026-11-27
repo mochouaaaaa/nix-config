@@ -12,16 +12,16 @@
   };
 
   flake.aspects.services.provides.ollama."nixos" =
+    { pkgs, username, ... }:
     {
-      self,
-      username,
-      ...
-    }:
-    {
-      home-manager.users.${username}.imports = [
-        self.modules.homeManager."services.ollama"
-      ];
-
+      home-manager.users.${username}.services.ollama = {
+        enable = true;
+        package = pkgs.ollama-rocm;
+        acceleration = "rocm";
+        environmentVariables = {
+          HSA_OVERRIDE_GFX_VERSION = "10.3.0";
+        };
+      };
     };
 
   flake.aspects."preservation"."nixos" =
