@@ -21,7 +21,7 @@
 | Aspect ID | Class | 职责 |
 | --- | --- | --- |
 | `desktop.common` | NixOS | 组合 `desktop.base` 与 `desktop.hardware`，并为主用户桥接 Home Manager 兼容入口。 |
-| `desktop.base` | NixOS | 桌面系统基础能力，包括外观、安全、地理位置、UWSM、XDG Portal、图形与电源服务。 |
+| `desktop.base` | NixOS | 桌面系统基础能力，包括外观、安全、AppImage 运行时、地理位置、UWSM、XDG Portal、图形与电源服务。 |
 | `desktop.hardware` | NixOS | 组合通用硬件模块与 `hardware.desktop`，并配置图形桌面用户所需的设备组。 |
 | `desktop.user` | Home Manager | 用户桌面基础设置，组合输入法、外观、快捷键和 Vicinae 启动器。 |
 | `desktop.default-apps` | Home Manager | 默认 MIME 应用及文档查看器、归档管理器，由需要它的桌面会话显式组合。 |
