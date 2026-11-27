@@ -7,16 +7,13 @@
         aspects."desktop.hardware"
       ];
 
-      nixos =
-        {
-          username,
-          ...
-        }:
-        {
-          home-manager.users.${username}.imports = [
-            self.modules.homeManager."desktop.common"
-          ];
-        };
+      nixos = { };
+
+      homeManager = {
+        imports = [
+          self.modules.homeManager."desktop.common"
+        ];
+      };
     };
   };
 
