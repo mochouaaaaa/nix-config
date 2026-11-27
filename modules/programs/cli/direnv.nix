@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    cli.provides.direnv-compat.homeManager =
+    cli.provides.direnvCompat.homeManager =
       { lib, options, ... }:
       let
         hasDirenvenableGitIntegration = lib.hasAttrByPath [
@@ -17,7 +17,7 @@
 
     cli.provides.direnv = {
       includes = [
-        aspects.cli._.direnv-compat
+        aspects.cli._.direnvCompat
       ];
 
       homeManager =
