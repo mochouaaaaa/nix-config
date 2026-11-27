@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" = { config, ... }: {
+  flake.aspects = { cli.provides.zoxide.homeManager = { config, ... }: {
     home.shellAliases.j = "z";
 
     programs.zoxide = {
@@ -8,4 +8,5 @@
       enableZshIntegration = config.programs.zsh.enable;
     };
   };
+};
 }
