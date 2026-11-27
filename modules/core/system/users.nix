@@ -47,7 +47,7 @@
       services.userborn.passwordFilesLocation = "/var/lib/nixos";
 
       users.users."${username}" = {
-        home = "/Users/${username}";
+        home = "/home/${username}";
 
         inherit (myvars) initialHashedPassword;
         isNormalUser = true;
