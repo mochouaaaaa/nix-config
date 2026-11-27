@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  flake.modules.homeManager.shortcuts =
+  flake.aspects."shortcuts"."homeManager" =
     {
       lib,
       config,

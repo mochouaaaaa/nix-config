@@ -29,7 +29,7 @@ let
 in
 {
   # Keep nixd available even when Neovim is disabled.
-  flake.modules.homeManager."programs.vscode" =
+  flake.aspects."programs.vscode"."homeManager" =
     { pkgs, ... }:
     {
       home.packages = [
@@ -39,12 +39,12 @@ in
     };
 
   # Platform modules provide the matching flake output and option namespace.
-  flake.modules.homeManager.darwin = mkNixdConfig {
+  flake.aspects."darwin"."homeManager" = mkNixdConfig {
     configuration = "darwinConfigurations";
     systemOptionName = "nix-darwin";
   };
 
-  flake.modules.homeManager.linux = mkNixdConfig {
+  flake.aspects."linux"."homeManager" = mkNixdConfig {
     configuration = "nixosConfigurations";
     systemOptionName = "nixos";
   };

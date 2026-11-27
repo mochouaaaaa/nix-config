@@ -1,6 +1,6 @@
 {
   # Tunnelblick is the macOS GUI client for OpenVPN.
-  flake.modules.darwin."desktop.programs.networking" = {
+  flake.aspects."desktop.programs.networking"."darwin" = {
     homebrew.casks = [ "tunnelblick" ];
   };
 }
