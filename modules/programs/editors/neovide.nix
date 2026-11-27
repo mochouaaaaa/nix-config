@@ -8,7 +8,7 @@
   };
 
   flake.modules.homeManager.programs =
-    { config, ... }:
+    { config, pkgs, ... }:
     let
       fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";
     in
@@ -36,14 +36,9 @@
           box-drawing = {
             mode = "native";
           };
+        } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+          wayland-app-id = "org.neovim.Neovide";
         };
-      };
-    };
-
-  flake.modules.homeManager."desktop.user" = {
-    programs.neovide = {
-      settings = {
-        wayland-app-id = "org.neovim.Neovide";
       };
     };
   };
