@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.console"."nixos" = { pkgs, ... }: {
+  flake.aspects.services.provides.console.nixos = { pkgs, ... }: {
 
     fonts.packages = with pkgs; [
       hack-font
