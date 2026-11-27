@@ -1,9 +1,9 @@
 {
-
   flake.aspects = { aspects, ... }: {
     "desktop.hyprland".includes = [ aspects."desktop.greeter.noctalia" ];
     "desktop.niri".includes = [ aspects."desktop.greeter.noctalia" ];
     "desktop.umbriel".includes = [ aspects."desktop.greeter.noctalia" ];
+
     "desktop.greeter.noctalia".nixos =
       { lib, pkgs, ... }:
       {
@@ -26,15 +26,14 @@
           };
         };
       };
+
+    "preservation".nixos =
+      { lib, config, ... }:
+      {
+        profiles.preservation.directories =
+          lib.optionals (config.services.displayManager.noctalia-greeter.enable or false) [
+            "/var/lib/noctalia-greeter"
+          ];
+      };
   };
-
-  flake.aspects."preservation"."nixos" =
-    { lib, config, ... }:
-    {
-      profiles.preservation.directories =
-        lib.optionals (config.services.displayManager.noctalia-greeter.enable or false) [
-          "/var/lib/noctalia-greeter"
-        ];
-    };
-
 }
