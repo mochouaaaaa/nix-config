@@ -28,10 +28,13 @@
       };
   };
 
-  flake.modules.nixos.preservation = {
-    profiles.preservation.directories = [
-      "/var/lib/noctalia-greeter"
-    ];
-  };
+  flake.modules.nixos.preservation =
+    { lib, config, ... }:
+    {
+      profiles.preservation.directories =
+        lib.optionals config.services.displayManager.noctalia-greeter.enable [
+          "/var/lib/noctalia-greeter"
+        ];
+    };
 
 }
