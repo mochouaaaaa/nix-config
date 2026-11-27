@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."hardware.bluetooth" =
+  flake.aspects."hardware.bluetooth".nixos =
     {
       pkgs,
       ...
@@ -38,7 +38,5 @@
           };
         };
       };
-
     };
-
 }
