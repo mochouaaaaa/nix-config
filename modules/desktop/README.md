@@ -12,7 +12,7 @@
 | `desktop.cosmic` | `desktop.cosmic` | COSMIC |
 | `desktop.umbriel` | `desktop.umbriel` | Umbriel |
 
-上述入口均导入 NixOS 模块 `desktop.common`，并只为 Host 主用户导入对应的 Home Manager 桌面模块。NixOS 与 Home Manager 仍属于不同模块类；此处的组合不会自动作用于其他 Home Manager 用户。
+上述入口均通过 Aspect `includes` 声明对 `desktop.common` 的依赖，并只为 Host 主用户导入对应的 Home Manager 桌面模块。NixOS 与 Home Manager 仍属于不同模块类；此处的组合不会自动作用于其他 Home Manager 用户。
 
 桌面入口负责会话本身及其必要的登录管理器配置。登录管理器和自动登录行为以对应入口及 Host 配置为准，不应从其他桌面入口推断。
 
