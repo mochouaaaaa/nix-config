@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."services.mysql"."darwin" = {
+  flake.aspects.services.provides.mysql."darwin" = {
     # SET PASSWORD FOR 'root'@'localhost' = PASSWORD('P@ssw0rd');
     homebrew.brews = [
       {
@@ -13,7 +13,7 @@
     ];
   };
 
-  flake.aspects."services.mysql"."nixos" =
+  flake.aspects.services.provides.mysql."nixos" =
     {
       pkgs,
 
