@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" = { config, ... }: {
+  flake.aspects = { cli.provides.eza.homeManager = { config, ... }: {
     home.shellAliases.tree = "eza --tree";
 
     programs.eza = {
@@ -12,4 +12,5 @@
       extraOptions = [ ];
     };
   };
+};
 }
