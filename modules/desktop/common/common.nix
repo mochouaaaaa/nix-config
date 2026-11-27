@@ -11,7 +11,7 @@
 
       homeManager = {
         imports = [
-          self.modules.homeManager."desktop.common"
+          self.modules.homeManager."desktop.user"
         ];
       };
     };
