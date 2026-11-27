@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.hyprland" = { lib, ... }: {
+  flake.aspects."desktop.hyprland".homeManager = { lib, ... }: {
     # programs.vicinae = {
     #   systemd = {
     #     enable = lib.mkForce false;
