@@ -32,11 +32,11 @@
 | 模块 ID | 模块类 | 用途 |
 | --- | --- | --- |
 | `desktop.greeter.noctalia` | NixOS | Noctalia Greeter 登录界面集成。 |
-| `desktop.shell.noctalia` | Home Manager | Noctalia 桌面 Shell，由需要它的桌面会话显式导入。 |
+| `desktop.shell.noctalia` | Home Manager Aspect | Noctalia 桌面 Shell，由 compositor Aspect 通过 `includes` 显式依赖。 |
 | `desktop.launcher.vicinae` | Home Manager | Vicinae 启动器及按键映射。 |
 | `desktop.flatpak` | NixOS + Home Manager | Flatpak 系统侧支持与用户级客户端组合。 |
 
-Greeter、Shell 和 Launcher 是不同组件，不会因为选择其中一个而自动启用其他组件。具体哪些桌面入口组合 Noctalia，应以对应的 NixOS 和 Home Manager 模块为准。
+Greeter、Shell 和 Launcher 是不同组件，不会因为选择其中一个而自动启用其他组件。Hyprland、Niri 和 Umbriel 的 Home Manager Aspect 显式 `includes` Noctalia Shell；Umbriel 另外通过普通 `imports` 引入外部 Luciole 模块。
 
 ## 桌面应用
 
