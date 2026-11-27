@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."programs.lazygit" = {
+  flake.aspects."programs.lazygit"."homeManager" = {
     programs.lazygit = {
       settings = {
         customCommands = [

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.rime =
+  flake.aspects."rime"."homeManager" =
     {
       lib,
       pkgs,

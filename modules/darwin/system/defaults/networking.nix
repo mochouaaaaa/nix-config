@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin."system.defaults" =
+  flake.aspects."system.defaults"."darwin" =
     { username, ... }:
     {
       # system.defaults.smb.NetBIOSName = hostname;
