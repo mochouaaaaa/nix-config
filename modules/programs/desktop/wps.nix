@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.office" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.office"."homeManager" = { pkgs, ... }: {
     home.packages = [
       pkgs.wpsoffice-cn
       # nur.repos.novel2430.wpsoffice-cn

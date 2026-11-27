@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.agenix =
+  flake.aspects."agenix"."nixos" =
     {
       self,
       inputs,

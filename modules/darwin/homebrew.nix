@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.homebrew =
+  flake.aspects."homebrew"."darwin" =
     { self, username, ... }:
     {
       imports = [

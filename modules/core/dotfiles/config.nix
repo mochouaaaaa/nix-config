@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.core =
+  flake.aspects."core"."homeManager" =
     {
       lib,
       config,
