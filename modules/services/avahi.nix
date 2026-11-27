@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.avahi"."nixos" = {
+  flake.aspects.services.provides.avahi.nixos = {
 
     services.avahi = {
       enable = true;
