@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.virtualisation.podman"."nixos" =
+  flake.aspects.services.provides.virtualisation.podman.nixos =
     {
       lib,
       pkgs,
@@ -75,7 +75,7 @@
 
     };
 
-  flake.aspects."preservation"."nixos" = { lib, config, ... }: {
+  flake.aspects.services.provides.virtualisation.podman.nixos = { lib, config, ... }: {
     # Podman 的持久化目录（不是 Docker）
     profiles.preservation.directories = lib.optionals config.virtualisation.podman.enable [
       "/var/lib/cni"
