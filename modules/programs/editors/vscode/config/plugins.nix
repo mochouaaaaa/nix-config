@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs.vscode"."homeManager" =
+  flake.aspects.editors.provides.vscode.homeManager =
     { pkgs, ... }:
     let
       inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
