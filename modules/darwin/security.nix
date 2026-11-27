@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.security = {
+  flake.aspects."security"."darwin" = {
     security.pam.services.sudo_local = {
       # Add ability to use Touch ID for sudo authentication.
       touchIdAuth = true;
@@ -10,7 +10,7 @@
     };
   };
 
-  flake.modules.darwin."system.defaults" =
+  flake.aspects."system.defaults"."darwin" =
     { username, ... }:
     {
       system.primaryUser = username;

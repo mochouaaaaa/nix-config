@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.core =
+  flake.aspects."core"."nixos" =
     {
       lib,
       config,

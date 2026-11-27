@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hardware = {
+  flake.aspects."hardware"."nixos" = {
     hardware.uinput.enable = true;
   };
 }

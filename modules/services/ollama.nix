@@ -1,6 +1,6 @@
 {
   # Ollama is an optional host service, not part of every desktop environment.
-  flake.modules.homeManager."services.ollama" = { pkgs, ... }: {
+  flake.aspects."services.ollama"."homeManager" = { pkgs, ... }: {
     services.ollama = {
       enable = true;
       package = pkgs.ollama-rocm;
@@ -11,7 +11,7 @@
     };
   };
 
-  flake.modules.nixos."services.ollama" =
+  flake.aspects."services.ollama"."nixos" =
     {
       self,
       username,
@@ -24,7 +24,7 @@
 
     };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,
@@ -40,7 +40,7 @@
 
     };
 
-  flake.modules.homeManager.darwin = { lib, ... }: {
+  flake.aspects."darwin"."homeManager" = { lib, ... }: {
     services.ollama.enable = lib.mkForce false;
   };
 }
