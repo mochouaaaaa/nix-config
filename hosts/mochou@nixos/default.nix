@@ -12,6 +12,7 @@
     self.modules.nixos.preservation
 
     self.modules.nixos."services.virtualisation.vm"
+    self.modules.nixos."desktop.niri"
     self.modules.nixos."desktop.flatpak"
     self.modules.nixos."desktop.programs.networking"
     self.modules.nixos.boot-loader-limine
@@ -52,6 +53,7 @@
     self.modules.homeManager."development.gui"
     self.modules.homeManager."agents.codex"
     self.modules.homeManager."agents.antigravity"
+    self.modules.homeManager."desktop.niri"
     self.modules.homeManager."desktop.programs"
   ];
 }
