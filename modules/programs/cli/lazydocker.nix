@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" =
+  flake.aspects = { cli.provides.lazydocker.homeManager =
     {
       lib,
       pkgs,
@@ -19,4 +19,5 @@
       ];
 
     };
+};
 }
