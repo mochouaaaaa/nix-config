@@ -25,30 +25,7 @@ let
 
   desktopModules =
     host:
-    if host.desktop == null then
-      [ ]
-    else
-      let
-        aspectsLib = inputs.flake-aspects.lib lib;
-
-        forwardedDesktop = aspectsLib.forward {
-          each = [ host.username ];
-          fromClass = _: "homeManager";
-          intoClass = _: "nixos";
-          intoPath = _: [
-            "home-manager"
-            "users"
-            host.username
-          ];
-          fromAspect = _: {
-            homeManager = self.modules.homeManager."desktop.${host.desktop}";
-          };
-        };
-      in
-      [
-        self.modules.nixos."desktop.${host.desktop}"
-        (aspectsLib.resolve "nixos" [ ] forwardedDesktop)
-      ];
+    lib.optional (host.desktop != null) self.modules.nixos."desktop.${host.desktop}";
 
   nixosConfigurations = lib.optionalAttrs (!checkOnly) (
     lib.mapAttrs (
