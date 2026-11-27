@@ -9,6 +9,8 @@
     }:
     let
       extensions = config.profiles.vicinae.extensions;
+      firefoxEnabled = config.programs.firefox.enable or false;
+      defaultFont = config.profiles.fonts.default or "Monaco Nerd Font";
     in
     {
 
@@ -29,10 +31,7 @@
             autoStart = true;
           };
           mutableSettings = true;
-          extensions = with extensions; [
-            firefox
-            bitwarden
-          ];
+          extensions = [ extensions.bitwarden ] ++ lib.optionals firefoxEnabled [ extensions.firefox ];
           settings = {
             close_on_focus_loss = true;
             consider_preedit = true;
@@ -55,7 +54,7 @@
               rendering = "native";
               normal = {
                 size = 12;
-                family = "${config.profiles.fonts.default}";
+                family = defaultFont;
               };
             };
             theme = {
@@ -73,11 +72,6 @@
                 preferences = {
                   defaultAction = "focus";
                   paths = [ ];
-                };
-              };
-              "@knoopx/${extensions.firefox.name}" = {
-                preferences = {
-                  profile_dir = "${config.programs.firefox.configPath}";
                 };
               };
               "@bl4zee1g/${extensions.bitwarden.name}" = {
@@ -98,6 +92,12 @@
                   history = {
                     shortcut = "";
                   };
+                };
+              };
+            } // lib.optionalAttrs firefoxEnabled {
+              "@knoopx/${extensions.firefox.name}" = {
+                preferences = {
+                  profile_dir = config.programs.firefox.configPath or "${config.xdg.configHome}/mozilla/firefox";
                 };
               };
             };
