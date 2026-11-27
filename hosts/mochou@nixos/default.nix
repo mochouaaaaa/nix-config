@@ -7,16 +7,11 @@
 }:
 
 {
-
   imports = [
     self.modules.nixos.agenix
     self.modules.nixos.preservation
 
     self.modules.nixos."services.virtualisation.vm"
-    # self.modules.nixos."desktop.hyprland"
-    self.modules.nixos."desktop.niri"
-    # self.modules.nixos."desktop.umbriel"
-    # self.modules.nixos."desktop.cosmic"
     self.modules.nixos."desktop.flatpak"
     self.modules.nixos."desktop.programs.networking"
     self.modules.nixos.boot-loader-limine
