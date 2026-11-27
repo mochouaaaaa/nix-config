@@ -36,14 +36,11 @@
             config.allowUnfree = true;
           };
         };
-
       };
-
     };
 
   flake.modules.darwin.core = { self, ... }: {
     imports = [ self.modules.generic.home-manager ];
-
   };
 
   flake.modules.homeManager.core =
@@ -61,20 +58,6 @@
         overwriteBackup = true;
       };
     };
-
-  flake.modules.homeManager.linux = { username, config, ... }: {
-    home = {
-      inherit username;
-      homeDirectory = "/home/${config.home.username}";
-    };
-  };
-
-  flake.modules.homeManager.darwin = { username, config, ... }: {
-    home = {
-      inherit username;
-      homeDirectory = "/Users/${config.home.username}";
-    };
-  };
 
   # Shared Home Manager foundations only. Select a role explicitly in each host.
   flake.modules.homeManager.host = { self, ... }: {

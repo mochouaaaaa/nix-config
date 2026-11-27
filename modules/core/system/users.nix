@@ -1,6 +1,28 @@
 {
 
-  flake.modules.nixos.users =
+  flake.modules.homeManager.core =
+    {
+      pkgs,
+      config,
+      username,
+      ...
+    }:
+    {
+      home =
+        let
+          rootName = if pkgs.stdenv.isDarwin then "Users" else "home";
+        in
+        {
+          inherit username;
+          homeDirectory = "/${rootName}/${config.home.username}";
+        };
+    };
+
+  flake.modules.darwin.core = { username, ... }: {
+    users.users.${username}.home = "/Users/${username}";
+  };
+
+  flake.modules.nixos.core =
     {
       lib,
       pkgs,
@@ -24,9 +46,9 @@
 
       services.userborn.passwordFilesLocation = "/var/lib/nixos";
 
+      users.users.${username}.home = "/Users/${username}";
       users.users."${username}" = {
         inherit (myvars) initialHashedPassword;
-        home = "/home/${username}";
         isNormalUser = true;
         extraGroups = [
           username
@@ -56,11 +78,5 @@
           subgid.text = autosubs;
         };
     };
-
-  flake.modules.nixos.core = { self, ... }: {
-    imports = [
-      self.modules.nixos.users
-    ];
-  };
 
 }
