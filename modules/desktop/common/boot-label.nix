@@ -13,10 +13,10 @@ let
   };
 in
 {
-  flake.modules.nixos = {
-    "desktop.hyprland" = mkDesktop "Hyprland";
-    "desktop.niri" = mkDesktop "Niri";
-    "desktop.umbriel" = mkDesktop "Umbriel";
-    "desktop.kde" = mkDesktop "KDE";
+  flake.aspects = {
+    "desktop.hyprland".nixos = mkDesktop "Hyprland";
+    "desktop.niri".nixos = mkDesktop "Niri";
+    "desktop.umbriel".nixos = mkDesktop "Umbriel";
+    "desktop.kde".nixos = mkDesktop "KDE";
   };
 }
