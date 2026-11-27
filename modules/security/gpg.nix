@@ -40,7 +40,7 @@
 
   # Keep Linux-specific GPG agent behavior in the platform role while exposing
   # the reusable security configuration under its own module identifier.
-  flake.aspects."linux"."homeManager" = { aspects, ... }: {
-    imports = [ aspects.security._.gpg ];
+  flake.aspects = { aspects, ... }: {
+    linux.includes = [ aspects.security._.gpg ];
   };
 }
