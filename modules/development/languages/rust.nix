@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."development.rust" = { pkgs, config, ... }: {
+  flake.aspects."development.rust"."homeManager" = { pkgs, config, ... }: {
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [
@@ -18,7 +18,7 @@
     };
   };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       pkgs,

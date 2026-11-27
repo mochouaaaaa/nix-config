@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin."system.defaults" = {
+  flake.aspects."system.defaults"."darwin" = {
     system = {
       defaults = {
         # customize finder

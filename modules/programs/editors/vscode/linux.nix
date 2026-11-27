@@ -1,6 +1,6 @@
 {
   # Shared Linux and WSL VS Code settings and extensions.
-  flake.modules.homeManager."programs.vscode.linux-config" =
+  flake.aspects."programs.vscode.linux-config"."homeManager" =
     {
       lib,
       pkgs,
@@ -36,7 +36,7 @@
       };
     };
 
-  flake.modules.homeManager.linux =
+  flake.aspects."linux"."homeManager" =
     {
       self,
       lib,
@@ -54,7 +54,7 @@
       ) config.programs.vscode.package;
     };
 
-  flake.modules.homeManager.wsl =
+  flake.aspects."wsl"."homeManager" =
     { self, ... }:
     {
       imports = [
@@ -65,7 +65,7 @@
       programs.vscode.package = null;
     };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,

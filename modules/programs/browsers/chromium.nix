@@ -1,6 +1,6 @@
 { self, ... }: {
 
-  flake.modules.homeManager."desktop.programs.browsers" = {
+  flake.aspects."desktop.programs.browsers"."homeManager" = {
     imports = [ self.modules.homeManager."programs.chromium" ];
 
     programs.chromium = {
@@ -16,7 +16,7 @@
 
   };
 
-  flake.modules.homeManager.darwin = { lib, ... }: {
+  flake.aspects."darwin"."homeManager" = { lib, ... }: {
     programs.chromium.enable = lib.mkForce false;
   };
 
@@ -32,7 +32,7 @@
     };
   };
 
-  flake.modules.homeManager."programs.chromium" = {
+  flake.aspects."programs.chromium"."homeManager" = {
 
     programs.chromium = {
       enable = false;
@@ -52,7 +52,7 @@
 
   };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."programs.mpv.modernz" = {
+  flake.aspects."programs.mpv.modernz"."homeManager" = {
 
     xdg.configFile."mpv/script-opts/modernz.conf" = {
       text = ''
