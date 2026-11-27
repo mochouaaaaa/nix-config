@@ -15,6 +15,10 @@
 | `formatter.nix` | 集成 treefmt-nix 与 git-hooks-nix，提供格式化和提交前检查。 |
 | `checks.nix` | 定义 Flake checks，包括开发环境、格式化与 Host 检查。 |
 
+## Host 注册
+
+`hosts/` 子目录包含 Host 元数据选项定义与 Flake 配置注册逻辑。它与 `modules/flake/` 中的全局输出模块同属 Flake 基础设施，但单独分目录，避免与普通系统功能 Aspect 混杂。
+
 ## 支持的平台
 
 `systems.nix` 声明以下平台：

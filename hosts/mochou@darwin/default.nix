@@ -7,7 +7,7 @@
 {
   imports = [
     self.modules.darwin.agenix
-    self.modules.darwin.default
+    self.modules.darwin.appearance
     self.modules.darwin."services.virtualisation.orbstack"
   ];
 

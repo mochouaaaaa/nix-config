@@ -4,6 +4,8 @@
 
 ## 桌面会话
 
+桌面会话的实现统一位于 `modules/desktop/sessions/`。这里的 `sessions` 同时涵盖 Wayland compositor 与完整桌面环境，避免将 KDE、COSMIC 等桌面环境误称为 compositor。
+
 | Aspect ID | NixOS class | Home Manager class | 桌面会话 |
 | --- | --- | --- | --- |
 | desktop.hyprland | NixOS | Home Manager | Hyprland |
@@ -41,14 +43,14 @@ Greeter、Shell 和 Launcher 是不同组件，不会因为选择其中一个而
 
 ## 桌面应用
 
-可选图形应用与桌面会话分开管理。所有用户级桌面应用（包括 API 客户端和数据库客户端）统一位于 `modules/programs/desktop/`，由 Host 或 Home Manager 角色按需导入。
+可选图形应用与桌面会话分开管理。通用独立图形应用（例如通信、邮件、安全、办公、笔记、媒体、远程桌面和数据库客户端）位于 `modules/programs/desktop/`，并按 `communication/`、`email/`、`security/`、`notes/`、`remote/` 等用途分组。浏览器、编辑器、媒体播放器、终端和输入法等具有独立配置域的程序，仍分别位于 `modules/programs/` 下对应的功能目录。
 
 `desktop.programs.*` Aspect 提供应用分组和聚合入口。数据库客户端 `desktop.programs.database` 由工作站角色单独组合，不属于完整桌面应用聚合入口。桌面会话不应通过应用聚合入口启用。
 
 ## 边界
 
 - 桌面会话及其必要的系统集成放在本目录。
-- 用户级应用放在 `modules/programs/desktop/`。
+- 通用独立图形应用放在 `modules/programs/desktop/`；浏览器、编辑器、媒体播放器、终端和输入法保留在各自的程序功能目录。
 - 通用硬件能力放在 `modules/hardware/`。
 - 代理、数据库和其他主机服务放在 `modules/services/`，由 Host 显式选择。
 - 开发语言与 IDE 工具放在 `modules/development/`。

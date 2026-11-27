@@ -56,7 +56,7 @@ let
     };
   };
 
-  hostsDir = ../hosts;
+  hostsDir = ../../../hosts;
 
   hostDirectories = lib.filterAttrs (_: type: type == "directory") (builtins.readDir hostsDir);
 

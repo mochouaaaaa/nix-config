@@ -37,12 +37,12 @@
 | [programs/](./programs/README.md) | 用户应用与工具 | 程序模块说明 |
 | [security/](./security/) | 密钥、安全与持久化 | [Agenix 说明](./security/agenix/README.md) |
 | [services/](./services/) | 系统服务 | — |
-| [hosts.nix](./hosts.nix) | Host 配置输出注册 | — |
+| [flake/hosts/](./flake/hosts/) | Host 元数据选项与 Flake 配置注册 | — |
 
 ## Host 注册
 
-Host 位于仓库根目录的 `hosts/<username>@<hostname>/`。模块目录中的 [hosts.nix](./hosts.nix) 与 Host 注册逻辑负责发现主机并生成 Flake 配置输出；Host 元数据由各主机目录中的 `nixpkgs.json` 提供。
+Host 位于仓库根目录的 `hosts/<username>@<hostname>/`。模块目录中的 [flake/hosts/](./flake/hosts/) 负责声明 Host 元数据选项、发现主机并生成 Flake 配置输出；Host 元数据由各主机目录中的 `nixpkgs.json` 提供。
 
-当前元数据使用 `system`、`system-input`、`home-manager-input` 等字段声明目标平台与构建输入。Standalone Home Manager Host 还可以单独指定 `home-manager-nixpkgs`。具体字段定义以 [host-options.nix](./host-options.nix) 和 [lib/host-registry.nix](../lib/host-registry.nix) 为准。
+当前元数据使用 `system`、`system-input`、`home-manager-input` 等字段声明目标平台与构建输入。Standalone Home Manager Host 还可以单独指定 `home-manager-nixpkgs`。具体字段定义以 [options.nix](./flake/hosts/options.nix) 和 [lib/host-registry.nix](../lib/host-registry.nix) 为准。
 
 主机级硬件、磁盘、网络和引导设置应留在对应 Host；可复用能力放在功能 Aspect 中。

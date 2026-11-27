@@ -7,13 +7,13 @@
 }:
 
 let
-  registry = import ../lib/host-registry.nix {
+  registry = import ../../../lib/host-registry.nix {
     inherit inputs lib;
     inherit (config) hosts;
-    hostsDir = ../hosts;
+    hostsDir = ../../../hosts;
   };
 
-  configurations = import ../lib/host-configurations.nix {
+  configurations = import ../../../lib/host-configurations.nix {
     inherit
       config
       inputs
