@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.browsers" =
+  flake.aspects."desktop.programs.browsers"."homeManager" =
     {
       lib,
       config,
@@ -39,7 +39,7 @@
 
     };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,
