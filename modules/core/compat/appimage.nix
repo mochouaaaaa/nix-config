@@ -1,29 +1,25 @@
-{ self, ... }: {
-  flake.modules.nixos.core-appimage =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      programs.appimage = {
-        enable = true;
-        package = pkgs.appimage-run.override {
-          extraPkgs = pkgs: [
-            pkgs.ffmpeg.lib # 只提供共享库，不含命令行工具
-            pkgs.imagemagick
-            # 只在确认某个 AppImage 缺失特定库时添加，例如：
-            # pkgs.icu
-            # pkgs.libxcrypt-legacy
-          ];
+{
+  flake.aspects = { aspects, ... }: {
+    "core.appimage".nixos =
+      { pkgs, ... }:
+      {
+        programs.appimage = {
+          enable = true;
+          package = pkgs.appimage-run.override {
+            extraPkgs = pkgs: [
+              pkgs.ffmpeg.lib # 只提供共享库，不含命令行工具
+              pkgs.imagemagick
+              # 只在确认某个 AppImage 缺失特定库时添加，例如：
+              # pkgs.icu
+              # pkgs.libxcrypt-legacy
+            ];
+          };
+          binfmt = true;
         };
-        binfmt = true;
       };
-    };
 
-  flake.modules.nixos."desktop.base" = {
-    imports = [
-      self.modules.nixos.core-appimage
+    "desktop.base".includes = [
+      aspects."core.appimage"
     ];
   };
-
 }
