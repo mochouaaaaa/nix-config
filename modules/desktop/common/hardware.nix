@@ -1,14 +1,12 @@
 { self, ... }:
 {
-  flake.aspects = { ... }: {
+  flake.aspects = { aspects, ... }: {
     "desktop.hardware" = {
-      # These modules have not been migrated to aspects yet; keep them as
-      # an inline dependency until their owning modules are converted.
       includes = [
+        aspects."hardware.desktop"
         {
           nixos.imports = [
             self.modules.nixos.hardware
-            self.modules.nixos."hardware.desktop"
           ];
         }
       ];
