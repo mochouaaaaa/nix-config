@@ -1,10 +1,10 @@
 {
   flake.modules.homeManager."desktop.hyprland" = { lib, ... }: {
-    programs.vicinae = {
-      systemd = {
-        enable = lib.mkForce false;
-      };
-    };
+    # programs.vicinae = {
+    #   systemd = {
+    #     enable = lib.mkForce false;
+    #   };
+    # };
 
     wayland.windowManager.hyprland = {
       settings.bind = [
@@ -23,9 +23,9 @@
       ];
 
       extraConfig = ''
-        hl.on("hyprland.start", function()
-            hl.exec_cmd("vicinae server")
-        end)
+        -- hl.on("hyprland.start", function()
+        --     hl.exec_cmd("vicinae server")
+        -- end)
 
         hl.layer_rule {
         	name = "vicinae",
