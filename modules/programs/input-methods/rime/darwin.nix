@@ -1,64 +1,67 @@
 {
+  flake.aspects = { aspects, ... }: {
+    "programs".darwin = {
+      homebrew.casks = [
+        "squirrel-app" # input method for Chinese, rime-squirrel
+      ];
+    };
 
-  flake.aspects."programs"."darwin" = {
-    homebrew.casks = [
-      "squirrel-app" # input method for Chinese, rime-squirrel
-    ];
-  };
+    "darwin" = {
+      includes = [
+        aspects.rime
+      ];
 
-  flake.aspects."darwin"."homeManager" =
-    {
-      self,
-      config,
-      ...
-    }:
-    let
-      rime-data = config.profiles.rime.data-package;
-    in
-    {
-      imports = [ self.modules.homeManager.rime ];
-
-      home.file = {
-        "Library/Rime" = {
-          enable = true;
-          source = "${rime-data}/share/rime-data";
-          force = true;
-          recursive = true;
-        };
-      };
-
-      profiles.rime.squirrelCustomYaml =
+      homeManager =
+        {
+          config,
+          ...
+        }:
         let
-          ascii = {
-            ascii_mode = true;
-            ascii_punct = true;
-          };
+          rime-data = config.profiles.rime.data-package;
         in
         {
-          patch = {
-            "menu/page_size" = 9;
-            "style/candidate_list_layout" = "linear";
-            "style/translucency" = true;
-            "style/font_face" = "Monaco";
-
-            "app_options/com.apple.Spotlight" = ascii;
-            "app_options/com.runningwithcrayons.Alfred" = ascii;
-            "app_options/com.apple.Terminal" = ascii;
-            "app_options/com.github.wez.wezterm" = ascii;
-            "app_options/net.kovidgoyal.kitty" = ascii;
-            "app_options/com.microsoft.VSCode" = ascii;
-            "app_options/com.neovide.neovide" = ascii;
-            "app_options/com.tencent.Lemon" = ascii;
-            "app_options/com.apple.dt.Xcode" = ascii;
-            "app_options/com.nektony.App-Cleaner-SII" = ascii;
-            "app_options/com.xunyong.hapigo" = ascii;
-            "app_options/com.termius-dmg.mac" = ascii;
-            "app_options/com.raycast.macos" = ascii;
-            "app_options/com.postmanlabs.mac" = ascii;
-            "app_options/com.jetbrains.intellij" = ascii;
-            "app_options/com.jetbrains.pycharm" = ascii;
+          home.file = {
+            "Library/Rime" = {
+              enable = true;
+              source = "${rime-data}/share/rime-data";
+              force = true;
+              recursive = true;
+            };
           };
-        };
 
+          profiles.rime.squirrelCustomYaml =
+            let
+              ascii = {
+                ascii_mode = true;
+                ascii_punct = true;
+              };
+            in
+            {
+              patch = {
+                "menu/page_size" = 9;
+                "style/candidate_list_layout" = "linear";
+                "style/translucency" = true;
+                "style/font_face" = "Monaco";
+
+                "app_options/com.apple.Spotlight" = ascii;
+                "app_options/com.runningwithcrayons.Alfred" = ascii;
+                "app_options/com.apple.Terminal" = ascii;
+                "app_options/com.github.wez.wezterm" = ascii;
+                "app_options/net.kovidgoyal.kitty" = ascii;
+                "app_options/com.microsoft.VSCode" = ascii;
+                "app_options/com.neovide.neovide" = ascii;
+                "app_options/com.tencent.Lemon" = ascii;
+                "app_options/com.apple.dt.Xcode" = ascii;
+                "app_options/com.nektony.App-Cleaner-SII" = ascii;
+                "app_options/com.xunyong.hapigo" = ascii;
+                "app_options/com.termius-dmg.mac" = ascii;
+                "app_options/com.raycast.macos" = ascii;
+                "app_options/com.postmanlabs.mac" = ascii;
+                "app_options/com.jetbrains.intellij" = ascii;
+                "app_options/com.jetbrains.pycharm" = ascii;
+              };
+            };
+        };
     };
+  };
 }

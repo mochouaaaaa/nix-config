@@ -1,17 +1,20 @@
-{ self, ... }: {
+{
+  flake.aspects = { aspects, ... }: {
+    "darwin" = {
+      includes = [
+        aspects."programs.mpv"
+      ];
 
-  flake.aspects."darwin"."homeManager" = { lib, ... }: {
-    imports = [
-      self.modules.homeManager."programs.mpv"
-    ];
+      homeManager = { lib, ... }: {
+        programs.mpv.enable = lib.mkForce false;
+      };
+    };
 
-    programs.mpv.enable = lib.mkForce false;
-  };
-
-  flake.aspects."programs"."darwin" = {
-    homebrew.casks = [
-      "iina"
-      "iina+"
-    ];
+    "programs".darwin = {
+      homebrew.casks = [
+        "iina"
+        "iina+"
+      ];
+    };
   };
 }

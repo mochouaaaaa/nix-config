@@ -4,15 +4,15 @@
     "desktop.user" = {
       includes = [
         aspects."desktop.launcher.vicinae"
+        aspects.rime
+        aspects.shortcuts
       ];
 
       homeManager =
         { pkgs, myvars, ... }:
         {
           imports = [
-            self.modules.homeManager.rime
             self.modules.homeManager.appearance
-            self.modules.homeManager.shortcuts
           ];
 
           home.file =

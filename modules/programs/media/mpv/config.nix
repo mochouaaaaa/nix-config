@@ -1,77 +1,77 @@
 {
-
-  flake.aspects."desktop.programs.media"."homeManager" =
-    {
-      self,
-      pkgs,
-      config,
-      ...
-    }:
-    {
-      imports = [
-        self.modules.homeManager."programs.mpv"
+  flake.aspects = { aspects, ... }: {
+    "desktop.programs.media" = {
+      includes = [
+        aspects."programs.mpv"
       ];
 
-      programs = {
-        mpv = {
-          scripts = [
-            pkgs.mpvScripts.mpris
-          ];
-        };
-        imv = {
-          enable = true;
-          settings = {
-            binds = {
-              "<h>" = "prev";
-              "<l>" = "next";
-              "<j>" = "zoom -1";
-              "<k>" = "zoom 1";
-              "<Space>" = "next";
+      homeManager =
+        {
+          pkgs,
+          config,
+          ...
+        }:
+        {
+          programs = {
+            mpv = {
+              scripts = [
+                pkgs.mpvScripts.mpris
+              ];
+            };
+            imv = {
+              enable = true;
+              settings = {
+                binds = {
+                  "<h>" = "prev";
+                  "<l>" = "next";
+                  "<j>" = "zoom -1";
+                  "<k>" = "zoom 1";
+                  "<Space>" = "next";
 
-              "<0>" = "zoom actual";
+                  "<0>" = "zoom actual";
 
-              "<f>" = "fullscreen";
-              "<r>" = "rotate by 90";
+                  "<f>" = "fullscreen";
+                  "<r>" = "rotate by 90";
+                };
+              };
             };
           };
+          xdg.mimeApps.defaultApplicationPackages = [
+            config.programs.mpv.package
+            config.programs.imv.package
+          ];
+        };
+    };
+
+    "programs.mpv" = {
+      includes = [
+        aspects."programs.mpv.modernz"
+        aspects."programs.mpv.auto-save-state"
+        aspects."programs.mpv.translations"
+      ];
+
+      homeManager = { pkgs, ... }: {
+        programs.mpv = {
+          enable = true;
+
+          defaultProfiles = [ "gpu-hq" ];
+          config = {
+            osc = "no";
+          };
+          bindings = {
+            WHEEL_LEFT = "seek 30";
+            WHEEL_RIGHT = "seek -30";
+            UP = "add volume +5";
+            DOWN = "add volume -5";
+          };
+          extraInput = ''
+            esc         quit                        #! Quit
+          '';
+          scripts = [
+            pkgs.mpvScripts.modernz
+          ];
         };
       };
-      xdg.mimeApps.defaultApplicationPackages = [
-        config.programs.mpv.package
-        config.programs.imv.package
-      ];
-
     };
-
-  flake.aspects."programs.mpv"."homeManager" = { self, pkgs, ... }: {
-
-    imports = [
-      self.modules.homeManager."programs.mpv.modernz"
-      self.modules.homeManager."programs.mpv.auto-save-state"
-      self.modules.homeManager."programs.mpv.translations"
-    ];
-
-    programs.mpv = {
-      enable = true;
-
-      defaultProfiles = [ "gpu-hq" ];
-      config = {
-        osc = "no";
-      };
-      bindings = {
-        WHEEL_LEFT = "seek 30";
-        WHEEL_RIGHT = "seek -30";
-        UP = "add volume +5";
-        DOWN = "add volume -5";
-      };
-      extraInput = ''
-        esc         quit                        #! Quit
-      '';
-      scripts = [
-        pkgs.mpvScripts.modernz
-      ];
-    };
-
   };
-
 }

@@ -1,16 +1,16 @@
 {
-  flake.aspects."desktop.programs"."homeManager" = { self, ... }: {
-    imports = [
-      self.modules.homeManager."desktop.programs.api-clients"
-      self.modules.homeManager."desktop.programs.browsers"
-      self.modules.homeManager."desktop.programs.audio"
-      self.modules.homeManager."desktop.programs.security"
-      self.modules.homeManager."desktop.programs.communication"
-      self.modules.homeManager."desktop.programs.email"
-      self.modules.homeManager."desktop.programs.media"
-      self.modules.homeManager."desktop.programs.notes"
-      self.modules.homeManager."desktop.programs.remote"
-      self.modules.homeManager."desktop.programs.office"
+  flake.aspects = { aspects, ... }: {
+    "desktop.programs".includes = [
+      aspects."desktop.programs.api-clients"
+      aspects."desktop.programs.browsers"
+      aspects."desktop.programs.audio"
+      aspects."desktop.programs.security"
+      aspects."desktop.programs.communication"
+      aspects."desktop.programs.email"
+      aspects."desktop.programs.media"
+      aspects."desktop.programs.notes"
+      aspects."desktop.programs.remote"
+      aspects."desktop.programs.office"
     ];
   };
 }

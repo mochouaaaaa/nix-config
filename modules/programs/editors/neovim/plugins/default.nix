@@ -1,15 +1,17 @@
-{ self, ... }:
+{ ... }:
 {
-  flake.aspects."cli.neovim.plugins"."homeManager" = { pkgs, ... }: {
+  flake.aspects = { aspects, ... }: {
+    "cli.neovim.plugins" = {
+      includes = [
+        aspects."cli.neovim.plugins.treesitter"
+      ];
 
-    imports = [
-      self.modules.homeManager."cli.neovim.plugins.treesitter"
-    ];
-
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      blink-cmp
-      markdown-preview-nvim
-    ];
-
+      homeManager = { pkgs, ... }: {
+        programs.neovim.plugins = with pkgs.vimPlugins; [
+          blink-cmp
+          markdown-preview-nvim
+        ];
+      };
+    };
   };
 }
