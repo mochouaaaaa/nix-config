@@ -1,8 +1,8 @@
 { ... }:
 {
   flake.aspects = { aspects, ... }: {
-    "cli.neovim.lsp".includes = [
-      aspects."cli.neovim.lsp.nixd"
+    editors.provides.neovim.lsp.includes = [
+      aspects.editors._.neovim.lsp.nixd
     ];
   };
 }
