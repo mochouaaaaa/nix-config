@@ -7,12 +7,10 @@
 
       nixos =
         {
-          self,
           lib,
           pkgs,
           inputs,
           config,
-
           username,
           ...
         }:
@@ -31,10 +29,9 @@
 
           services.displayManager.noctalia-greeter.settings.session.default = "hyprland-uwsm";
 
-          # Import the matching Home Manager desktop only for this host's primary user.
-          # The NixOS and HM module classes remain separate; this module composes them.
+          # The desktop Home Manager aspect is forwarded by the Host configuration.
+          # Keep only the NixOS-dependent compatibility adjustments here.
           home-manager.users.${username}.imports = lib.optionals (config ? home-manager) [
-            self.modules.homeManager."desktop.hyprland"
             (
               { lib, config, ... }:
               {
