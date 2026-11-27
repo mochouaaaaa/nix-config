@@ -41,7 +41,6 @@
         };
       };
     };
-  };
 
   flake.modules.homeManager."desktop.niri" = {
     wayland.windowManager.niri.settings = {
