@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs"."homeManager" = { pkgs, ... }: {
+  flake.aspects = { cli.provides.ripgrep.homeManager = { pkgs, ... }: {
 
     programs.ripgrep = {
       enable = true;
@@ -7,4 +7,5 @@
     };
 
   };
+};
 }
