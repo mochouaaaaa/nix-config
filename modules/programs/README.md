@@ -1,6 +1,6 @@
 # 程序模块
 
-`modules/programs/` 存放可复用的用户应用和工具。源目录按功能组织实现文件；公开模块通过 `flake.modules.*` 或 `flake.aspects.*` 注册，不要求与源文件路径完全一致。程序本身的配置留在程序模块中，桌面会话专属集成则作为对应桌面 Aspect 的贡献。
+`modules/programs/` 存放可复用的用户应用和工具。源目录按功能组织实现文件；仓库自有模块统一通过 `flake.aspects.<aspect>.<class>` 注册，并由 flake-aspects 生成对应的 `flake.modules.<class>.<aspect>` 消费入口。程序本身的配置留在程序 Aspect 中，桌面会话专属集成则作为对应桌面 Aspect 的贡献。
 
 ## 目录布局
 
@@ -19,11 +19,11 @@
 
 ## 模块边界
 
-- Home Manager 模块负责用户级应用软件包和设置。
-- NixOS 与 nix-darwin 模块负责需要系统权限或系统级集成的配置。
-- 平台专属行为应放在对应的 `homeManager`、`nixos` 或 `darwin` 模块中。
-- 可复用程序模块由 Host 或 Home Manager 角色导入；无桌面的配置不应引入可选图形应用。
-- 由模块相对路径加载的配置文件应与使用它们的程序模块放在一起。
+- Home Manager class 负责用户级应用软件包和设置。
+- NixOS 与 nix-darwin class 负责需要系统权限或系统级集成的配置。
+- 平台专属行为应放在对应的 `homeManager`、`nixos` 或 `darwin` Aspect 部分中。
+- 可复用程序 Aspect 由 Host 或 Home Manager 角色导入；无桌面的配置不应引入可选图形应用。
+- 由模块相对路径加载的配置文件应与使用它们的程序 Aspect 放在一起。
 
 ## 桌面应用配置
 

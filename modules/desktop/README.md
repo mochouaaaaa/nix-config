@@ -1,6 +1,6 @@
 # 桌面模块
 
-本目录组织桌面会话、系统桌面基础能力和桌面组件。可复用的 NixOS 与 Home Manager 配置优先定义为 flake Aspect，并通过 `includes` 声明组合关系；只有跨类桥接、兼容入口和 Preservation 聚合仍保留普通模块。
+本目录组织桌面会话、系统桌面基础能力和桌面组件。仓库自有配置统一定义为 flake Aspect，并通过 `includes` 声明组合关系；外部 flake 提供的模块仍通过普通 `imports` 引入。
 
 ## 桌面会话
 
@@ -28,7 +28,7 @@
 | `desktop.nautilus` | NixOS | Nautilus、GVFS 与缩略图支持，由 Hyprland 和 Niri 显式组合。 |
 | `desktop.keyring` | NixOS | GNOME Keyring 基础服务，由 Hyprland 和 Niri 显式组合。 |
 
-`desktop.common` 的 Home Manager 同名入口仍是普通兼容模块，用于显式桥接 `desktop.user`；它不是 NixOS Aspect 的跨 class 自动传播。需要精简桌面组合的 Host 可直接选择 `desktop.base`、`desktop.hardware` 和 `desktop.user`，而不是使用兼容性组合入口。
+`desktop.common` 的 Home Manager 同名入口用于显式桥接 `desktop.user`；它不是 NixOS Aspect 的跨 class 自动传播。需要精简桌面组合的 Host 可直接选择 `desktop.base`、`desktop.hardware` 和 `desktop.user`，而不是使用兼容性组合入口。
 
 ## 独立桌面组件
 
@@ -54,6 +54,6 @@ Greeter、Shell 和 Launcher 是不同组件，不会因为选择其中一个而
 - 通用硬件能力放在 `modules/hardware/`。
 - 代理、数据库和其他主机服务放在 `modules/services/`，由 Host 显式选择。
 - 开发语言与 IDE 工具放在 `modules/development/`。
-- Preservation 规则仍注册为独立 NixOS 模块，按实际启用状态决定是否持久化数据。
+- Preservation 规则以独立 NixOS Aspect 注册，按实际启用状态决定是否持久化数据。
 
 新增桌面入口时，应同时明确 NixOS 与 Home Manager 两侧的职责，并通过 Aspect `includes` 声明同 class 的依赖；跨 class 的 Home Manager 配置必须由 NixOS 侧显式桥接。
