@@ -1,17 +1,10 @@
 { self, ... }:
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.user" = {
-      homeManager.imports = [
-        self.modules.homeManager."desktop.user"
-      ];
-    };
-
     "desktop.common" = {
       includes = [
         aspects."desktop.base"
         aspects."desktop.hardware"
-        aspects."desktop.user"
       ];
 
       nixos =
@@ -24,6 +17,10 @@
             self.modules.homeManager."desktop.common"
           ];
         };
+
+      homeManager.imports = [
+        self.modules.homeManager."desktop.user"
+      ];
     };
   };
 }
