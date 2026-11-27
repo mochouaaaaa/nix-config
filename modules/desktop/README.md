@@ -24,8 +24,9 @@
 | `desktop.base` | NixOS | 桌面系统基础能力，包括外观、安全、地理位置、UWSM 与 XDG Portal 基础配置。 |
 | `desktop.hardware` | NixOS | 导入通用硬件模块与 `hardware.desktop`，并配置图形桌面用户所需的设备组。 |
 | `desktop.user` | Home Manager | 用户桌面基础设置，包括输入法、外观、快捷键和 Vicinae 启动器。 |
+| `desktop.default-apps` | Home Manager Aspect | 默认 MIME 应用及文档查看器、归档管理器，由 Hyprland、Niri、KDE 显式组合。 |
 
-底层模块可以独立导入。需要精简桌面组合的 Host 可直接选择 `desktop.base`、`desktop.hardware` 和 `desktop.user`，而不是使用兼容性组合入口。
+底层模块可以独立导入。需要精简桌面组合的 Host 可直接选择 `desktop.base`、`desktop.hardware` 和 `desktop.user`，而不是使用兼容性组合入口。`desktop.default-apps` 是独立的 Home Manager Aspect；原 `generic` 模块 ID 保留为兼容入口。
 
 ## 独立桌面组件
 
