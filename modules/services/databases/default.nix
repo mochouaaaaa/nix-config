@@ -1,29 +1,12 @@
+{ self, ... }:
 {
-  flake.aspects =
-    {
-      lib,
-      self,
-      ...
-    }:
-    {
-      "services.databases".nixos =
-        {
-          mysql ? true,
-          postgresql ? true,
-          redis ? true,
-          ...
-        }:
-        {
-          imports =
-            lib.optionals mysql [
-              self.modules.nixos."services.mysql"
-            ]
-            ++ lib.optionals postgresql [
-              self.modules.nixos."services.postgresql"
-            ]
-            ++ lib.optionals redis [
-              self.modules.nixos."services.redis"
-            ];
-        };
-    };
+  # Keep each database independently importable; this bundle preserves the
+  # current workstation host's combined database setup as an opt-in entry.
+  flake.modules.nixos."services.databases" = {
+    imports = [
+      self.modules.nixos."services.mysql"
+      self.modules.nixos."services.postgresql"
+      self.modules.nixos."services.redis"
+    ];
+  };
 }
