@@ -15,7 +15,7 @@
         };
       };
 
-    "cli.direnv" = {
+    cli.provides.direnv = {
       includes = [
         aspects."programs.direnv.26-11"
       ];
