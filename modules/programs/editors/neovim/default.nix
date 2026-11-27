@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    cli.provides.neovim = {
+    "cli.neovim" = {
       includes = [
         aspects."cli.neovim.plugins"
         aspects."cli.neovim.lsp"
