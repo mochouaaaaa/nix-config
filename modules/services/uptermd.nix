@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.uptermd"."nixos" = { pkgs, ... }: {
+  flake.aspects.services.provides.uptermd.nixos = { pkgs, ... }: {
     environment.systemPackages = [ pkgs.upterm ];
     services.uptermd = {
       enable = true;
