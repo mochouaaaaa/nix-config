@@ -4,7 +4,7 @@
 
 ## 模块类
 
-模块通过 `flake.modules.<class>.<name>` 注册。模块类区分配置所属的选项系统：
+普通模块通过 `flake.modules.<class>.<name>` 注册；可组合的功能单元优先通过 `flake.aspects.<name>.<class>` 声明，并用 `includes` 组合同 class 的依赖。Aspect 会按 class 提供对应模块入口，但不会自动跨 class 传播。模块类区分配置所属的选项系统：
 
 - `nixos`：NixOS 系统模块。
 - `darwin`：nix-darwin 系统模块。
@@ -34,7 +34,7 @@
 - 功能模块保持职责单一，Host 负责选择需要的功能。
 - 聚合模块只负责组合其他模块，不应隐藏额外的系统副作用。
 - NixOS、Darwin 和 Home Manager 模块应写入各自模块类对应的选项。
-- 需要同时配置系统与用户环境时，由系统模块显式组合目标用户的 Home Manager 模块。
+- 需要同时配置系统与用户环境时，由 NixOS Aspect 或模块显式组合目标用户的 Home Manager 模块；不要依赖跨 class 自动传播。
 - 平台差异放在对应平台的模块中；跨平台模块只保留真正通用的配置。
 
 ## Host 注册
