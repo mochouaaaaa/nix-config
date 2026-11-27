@@ -25,18 +25,6 @@ let
         description = "Target system platform, such as x86_64-linux.";
       };
 
-      desktop = lib.mkOption {
-        type = types.nullOr (types.enum [
-          "hyprland"
-          "niri"
-          "kde"
-          "cosmic"
-          "umbriel"
-        ]);
-        default = null;
-        description = "Optional NixOS desktop session forwarded to the primary Home Manager user.";
-      };
-
       "system-input" = lib.mkOption {
         type = types.nullOr types.str;
         default = "nixpkgs";
