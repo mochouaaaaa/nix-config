@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.brightness"."nixos" = { pkgs, ... }: {
+  flake.aspects.services.provides.brightness.nixos = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
       ddcutil
     ];
