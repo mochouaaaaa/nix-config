@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.kde" =
+  flake.aspects."desktop.kde".homeManager =
     { config, ... }:
     let
       fontConfig = {
