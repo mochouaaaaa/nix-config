@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs.lazygit"."homeManager" = { pkgs, ... }: {
+  flake.aspects = { cli.provides.lazygit.homeManager = { pkgs, ... }: {
     programs.lazygit =
       let
         aiRewordScript = pkgs.writeShellScript "lazygit-ai-reword" ''
@@ -69,4 +69,5 @@
         ];
       };
   };
+};
 }
