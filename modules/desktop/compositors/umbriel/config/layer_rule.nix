@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.umbriel" = {
+  flake.aspects."desktop.umbriel".homeManager = {
 
     programs.umbriel.settings.layer_rule = [
       {
