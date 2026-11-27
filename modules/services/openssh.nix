@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.base" = {
+  flake.aspects."services.base"."nixos" = {
     services.openssh = {
       enable = true;
       settings = {
@@ -17,7 +17,7 @@
     programs.ssh.startAgent = false;
   };
 
-  flake.modules.nixos.preservation = { lib, config, ... }: {
+  flake.aspects."preservation"."nixos" = { lib, config, ... }: {
     profiles.preservation.files = lib.optionals config.services.openssh.enable [
       {
         file = "/etc/ssh/ssh_host_rsa_key";
@@ -46,7 +46,7 @@
     ];
   };
 
-  flake.modules.darwin.services = {
+  flake.aspects."services"."darwin" = {
     services.openssh.enable = true;
   };
 }

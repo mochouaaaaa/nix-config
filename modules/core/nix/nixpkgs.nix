@@ -6,7 +6,7 @@ let
   };
 in
 {
-  flake.modules.homeManager.core =
+  flake.aspects."core"."homeManager" =
     {
       self,
       lib,
@@ -31,14 +31,14 @@ in
 
     };
 
-  flake.modules.nixos.core = { self, ... }: {
+  flake.aspects."core"."nixos" = { self, ... }: {
     nixpkgs = {
       inherit config;
       overlays = [ self.overlays.nixos ];
     };
   };
 
-  flake.modules.darwin.core = { self, ... }: {
+  flake.aspects."core"."darwin" = { self, ... }: {
     nixpkgs = {
       inherit config;
       overlays = [ self.overlays.darwin ];
