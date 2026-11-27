@@ -2,27 +2,30 @@
 {
   flake.aspects = { aspects, ... }: {
     "desktop.user" = {
-      includes = [ aspects."desktop.launcher.vicinae" ];
-      homeManager = { pkgs, myvars, ... }: {
+      includes = [
+        aspects."desktop.launcher.vicinae"
+      ];
 
-    imports = [
-      self.modules.homeManager.rime
-      self.modules.homeManager.appearance
-      self.modules.homeManager.shortcuts
-    ];
-
-    config = {
-      home.file =
-        let
-          face = pkgs.fetchurl {
-            url = "https://github.com/${myvars.githubUsername}.png";
-            hash = "sha256-xNnccpACVHCXLHs7rWYLdyAKGSbRcG2/u1U4PDECKbw=";
-          };
-        in
+      homeManager =
+        { pkgs, myvars, ... }:
         {
-          ".face".source = face;
+          imports = [
+            self.modules.homeManager.rime
+            self.modules.homeManager.appearance
+            self.modules.homeManager.shortcuts
+          ];
+
+          home.file =
+            let
+              face = pkgs.fetchurl {
+                url = "https://github.com/${myvars.githubUsername}.png";
+                hash = "sha256-xNnccpACVHCXLHs7rWYLdyAKGSbRcG2/u1U4PDECKbw=";
+              };
+            in
+            {
+              ".face".source = face;
+            };
         };
-      };
     };
   };
 }
