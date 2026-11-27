@@ -1,9 +1,7 @@
 {
   description = "Mochou's nix configuration for both NixOS & Nix & macOS";
 
-  # nixConfig here affects flake evaluation and fetching, not the deployed system settings.
-  # for more information, see:
-  #     https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
+  # Nix configuration here affects flake evaluation and fetching, not deployed system settings.
   nixConfig = {
     extra-substituters = [
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=10"
@@ -25,6 +23,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-aspects.url = "github:denful/flake-aspects/e5bbf7be955e8289d545c783673808b18d48c780";
     import-tree.url = "github:vic/import-tree";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
@@ -154,7 +153,6 @@
       url = "git+ssh://git@github.com/mochouaaaaa/secrets.git?shallow=1";
       flake = false;
     };
-
   };
 
   outputs =
@@ -162,11 +160,10 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.flake-parts.flakeModules.modules
+        inputs.flake-aspects.flakeModule
         inputs.home-manager.flakeModules.home-manager
 
         (inputs.import-tree ./modules)
       ];
-
     };
-
 }
