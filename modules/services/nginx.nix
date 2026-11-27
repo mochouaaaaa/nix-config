@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.nginx"."nixos" = {
+  flake.aspects.services.provides.nginx.nixos = {
 
     services.nginx = {
       enable = true;
