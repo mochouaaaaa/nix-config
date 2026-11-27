@@ -1,14 +1,10 @@
 {
-  flake.aspects = { aspects, ... }: {
-    "programs.lazygit".homeManager = {
+  flake.aspects = {
+    cli.provides.lazygit.homeManager = {
       programs.lazygit = {
         enable = true;
         shellWrapperName = "lazygit";
       };
     };
-
-    "programs".includes = [
-      aspects."programs.lazygit"
-    ];
   };
 }
