@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."hardware.audio" =
+  flake.aspects."hardware.audio".nixos =
     {
       pkgs,
       ...
