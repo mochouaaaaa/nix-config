@@ -1,12 +1,12 @@
 {
-  flake.modules.homeManager."desktop.programs.security" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.security"."homeManager" = { pkgs, ... }: {
     home.packages = [
       pkgs.ente-auth
       pkgs.authenticator
     ];
   };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       pkgs,

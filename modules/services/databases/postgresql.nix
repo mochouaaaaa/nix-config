@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.postgresql" =
+  flake.aspects."services.postgresql"."nixos" =
     {
       pkgs,
 

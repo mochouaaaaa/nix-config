@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."desktop.programs.gaming" =
+  flake.aspects."desktop.programs.gaming"."nixos" =
     { pkgs, ... }:
     {
       hardware.steam-hardware.enable = true;
@@ -23,7 +23,7 @@
       };
     };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,
