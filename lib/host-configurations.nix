@@ -63,7 +63,6 @@ let
           self.modules.darwin.security
           self.modules.darwin.homebrew
           self.modules.darwin.services
-          self.modules.darwin.home-manager
           (inputs.import-tree host.path)
         ];
       }

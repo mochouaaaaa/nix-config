@@ -46,26 +46,33 @@
 
   };
 
-  flake.modules.homeManager.core = {
-    systemd.user.startServices = "sd-switch";
+  flake.modules.homeManager.core =
+    { lib, config, ... }:
+    let
+      hasBackHM = lib.hasAttrByPath [ "home" "backupFileExtension" ] config;
+    in
+    {
+      systemd.user.startServices = "sd-switch";
+      home = {
+        enableNixpkgsReleaseCheck = false;
+      }
+      // lib.optionalAttrs hasBackHM {
+        backupFileExtension = "home-manager.backup";
+        overwriteBackup = true;
+      };
+    };
+
+  flake.modules.homeManager.linux = { username, config, ... }: {
     home = {
-      enableNixpkgsReleaseCheck = false;
-      backupFileExtension = "home-manager.backup";
-      overwriteBackup = true;
+      inherit username;
+      homeDirectory = "/home/${config.home.username}";
     };
   };
 
-  flake.modules.homeManager.linux = { username, ... }: {
+  flake.modules.homeManager.darwin = { username, config, ... }: {
     home = {
       inherit username;
-      homeDirectory = "/home/${username}";
-    };
-  };
-
-  flake.modules.homeManager.darwin = { username, ... }: {
-    home = {
-      inherit username;
-      homeDirectory = "/Users/${username}";
+      homeDirectory = "/Users/${config.home.username}";
     };
   };
 
