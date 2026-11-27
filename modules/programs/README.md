@@ -27,7 +27,7 @@
 
 ## 桌面应用配置
 
-`modules/programs/desktop/profiles.nix` 注册 Home Manager 聚合入口 `desktop.programs`。它组合 API 客户端、浏览器、音频、安全、通信、邮件、媒体、笔记、远程访问和办公等应用组。
+`desktop.programs` 聚合入口与应用分组规则统一位于 `modules/profiles/desktop/`：`programs.nix` 组合各应用组，`program-groups.nix` 定义各组包含的应用。
 
 Host 可以导入 `desktop.programs`，也可以只选择所需的细分模块。聚合入口不会包含所有位于 `modules/programs/desktop/` 源目录下的模块。
 

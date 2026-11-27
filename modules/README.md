@@ -35,6 +35,7 @@
 | [flake/](./flake/README.md) | Flake 全局输出、开发环境与检查 | Flake 基础设施说明 |
 | [hardware/](./hardware/) | 硬件能力与设备调优 | — |
 | [programs/](./programs/README.md) | 用户应用与工具 | 程序模块说明 |
+| [profiles/](./profiles/README.md) | 角色、聚合与配置规则 | Profile 说明 |
 | [security/](./security/) | 密钥、安全与持久化 | [Agenix 说明](./security/agenix/README.md) |
 | [services/](./services/) | 系统服务 | — |
 | [flake/hosts/](./flake/hosts/) | Host 元数据选项与 Flake 配置注册 | — |

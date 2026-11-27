@@ -1,6 +1,6 @@
 # 开发模块
 
-本目录提供 Home Manager 开发语言环境与可选开发工具。语言模块可独立导入，也可以通过语言聚合模块统一组合。
+本目录提供 Home Manager 开发语言环境与可选开发工具。语言模块可独立导入，也可以通过 `profiles/development.nix` 中的语言聚合规则统一组合。
 
 ## 语言模块
 
@@ -13,7 +13,7 @@
 
 ## 聚合模块
 
-- `development.languages` 导入上述四个语言模块。
+- `development.languages` 聚合规则位于 `modules/profiles/development.nix`，导入上述四个语言模块。
 - `homeManager.workstation` 角色通过 `development.languages` 组合开发语言环境。
 - 本目录没有单独注册名为 `development` 的兼容性模块。
 
