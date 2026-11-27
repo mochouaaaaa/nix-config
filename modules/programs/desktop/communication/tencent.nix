@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.programs.communication" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.communication"."homeManager" = { pkgs, ... }: {
     home.packages = with pkgs; [
       fractal
       nur.repos.so1ve.dingtalk
@@ -9,7 +9,7 @@
     ];
   };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       pkgs,

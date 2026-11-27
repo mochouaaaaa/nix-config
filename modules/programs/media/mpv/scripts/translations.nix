@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."programs.mpv.translations" =
+  flake.aspects."programs.mpv.translations"."homeManager" =
     { pkgs, ... }:
     let
       translations = pkgs.fetchurl {

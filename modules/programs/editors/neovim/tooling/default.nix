@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.homeManager."cli.neovim.tooling" = {
+  flake.aspects."cli.neovim.tooling"."homeManager" = {
     imports = [
       self.modules.homeManager."cli.neovim.tooling.languages"
       self.modules.homeManager."cli.neovim.tooling.rules.rustfmt"
