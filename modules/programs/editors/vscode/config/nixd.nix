@@ -39,12 +39,12 @@ in
     };
 
   # Platform modules provide the matching flake output and option namespace.
-  flake.aspects."darwin"."homeManager" = mkNixdConfig {
+  flake.aspects.darwin.homeManager = mkNixdConfig {
     configuration = "darwinConfigurations";
     systemOptionName = "nix-darwin";
   };
 
-  flake.aspects."linux"."homeManager" = mkNixdConfig {
+  flake.aspects.linux.homeManager = mkNixdConfig {
     configuration = "nixosConfigurations";
     systemOptionName = "nixos";
   };

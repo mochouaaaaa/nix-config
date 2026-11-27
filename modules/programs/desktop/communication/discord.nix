@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.communication.discord."homeManager" = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.communication.discord.homeManager = { pkgs, ... }: {
 
     programs.discord = {
       enable = true;
@@ -10,7 +10,7 @@
 
   };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       config,

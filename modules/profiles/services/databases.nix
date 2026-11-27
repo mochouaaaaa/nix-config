@@ -7,7 +7,7 @@
         aspects.services._.redis
       ];
 
-      nixos = { ... }: { };
+      nixos = _: { };
     };
   };
 }

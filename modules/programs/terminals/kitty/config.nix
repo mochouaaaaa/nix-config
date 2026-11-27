@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."programs.kitty"."homeManager" =
+  flake.aspects."programs.kitty".homeManager =
     {
       lib,
       pkgs,

@@ -1,11 +1,16 @@
 {
-  flake.aspects."desktop.programs".provides.communication.materialgram."homeManager" = { pkgs, ... }: {
-    home.packages = [
-      pkgs.materialgram
-    ];
-  };
+  flake.aspects."desktop.programs".provides.communication.materialgram.homeManager =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      home.packages = [
+        pkgs.materialgram
+      ];
+    };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       pkgs,

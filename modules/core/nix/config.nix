@@ -88,7 +88,7 @@ let
 in
 {
 
-  flake.aspects."core"."nixos" =
+  flake.aspects.core.nixos =
     {
       lib,
       pkgs,
@@ -103,7 +103,7 @@ in
     };
 
   # Lix is provided by the NixOS overlay; keep this opt-in module NixOS-only.
-  flake.aspects."lix"."nixos" = { lib, pkgs, ... }: {
+  flake.aspects."lix".nixos = { lib, pkgs, ... }: {
     nix = {
       package = lib.mkForce pkgs.lixPackageSets.git.lix;
       settings = {

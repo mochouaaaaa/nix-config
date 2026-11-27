@@ -64,7 +64,7 @@
         aspects."programs.vscode.linux-config"
       ];
 
-      homeManager = { ... }: {
+      homeManager = _: {
         programs.vscode.package = null;
       };
     };
@@ -78,13 +78,14 @@
       }:
       {
         profiles.preservation.users.${username}.directories =
-          lib.optionals config.home-manager.users.${username}.programs.vscode.enable [
-            # vscode
-            ".vscode"
-            ".config/Code"
-            ".vscode-insiders" # open source
-            ".config/Code - Insiders"
-          ];
+          lib.optionals config.home-manager.users.${username}.programs.vscode.enable
+            [
+              # vscode
+              ".vscode"
+              ".config/Code"
+              ".vscode-insiders" # open source
+              ".config/Code - Insiders"
+            ];
       };
   };
 }

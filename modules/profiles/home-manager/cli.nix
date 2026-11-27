@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
     cli = {
       includes = [
@@ -12,7 +11,7 @@
       ];
 
       # Keep the aggregate available as a Home Manager module.
-      homeManager = { ... }: { };
+      homeManager = _: { };
     };
   };
 }

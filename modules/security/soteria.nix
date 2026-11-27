@@ -1,5 +1,5 @@
 {
-  flake.aspects."security.soteria"."nixos" = {
+  flake.aspects."security.soteria".nixos = {
     # security.soteria.enable = true;
   };
 }

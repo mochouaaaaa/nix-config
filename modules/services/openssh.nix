@@ -17,7 +17,7 @@
     programs.ssh.startAgent = false;
   };
 
-  flake.aspects."preservation"."nixos" = { lib, config, ... }: {
+  flake.aspects.preservation.nixos = { lib, config, ... }: {
     profiles.preservation.files = lib.optionals config.services.openssh.enable [
       {
         file = "/etc/ssh/ssh_host_rsa_key";

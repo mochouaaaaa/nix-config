@@ -1,5 +1,5 @@
 {
-  flake.aspects."agents.codex"."homeManager" = { lib, pkgs, ... }: {
+  flake.aspects."agents.codex".homeManager = { lib, pkgs, ... }: {
     programs.codex = {
       enable = true;
     }
@@ -8,7 +8,7 @@
     };
   };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       username,
       lib,

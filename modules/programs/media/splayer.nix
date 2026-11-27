@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.media.splayer."homeManager" = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.media.splayer.homeManager = { pkgs, ... }: {
 
     home.packages = with pkgs; [
       # splayer-next
@@ -7,7 +7,7 @@
 
   };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       pkgs,

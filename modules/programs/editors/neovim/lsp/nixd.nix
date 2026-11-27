@@ -58,12 +58,12 @@ in
     ];
   };
 
-  flake.aspects."darwin"."homeManager" = mkNixdConfig {
+  flake.aspects.darwin.homeManager = mkNixdConfig {
     configuration = "darwinConfigurations";
     systemOptionName = "darwin";
   };
 
-  flake.aspects."linux"."homeManager" = mkNixdConfig {
+  flake.aspects.linux.homeManager = mkNixdConfig {
     configuration = "nixosConfigurations";
     systemOptionName = "nixos";
   };

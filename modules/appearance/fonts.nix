@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  flake.aspects."appearance"."homeManager" =
+  flake.aspects."appearance".homeManager =
     {
       lib,
       pkgs,
@@ -74,7 +74,7 @@
       };
     };
 
-  flake.aspects."appearance"."nixos" =
+  flake.aspects."appearance".nixos =
     {
       lib,
       options,

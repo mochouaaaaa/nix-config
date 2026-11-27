@@ -1,5 +1,5 @@
 _: {
-  flake.aspects."boot-loader-limine"."nixos" =
+  flake.aspects."boot-loader-limine".nixos =
     {
       lib,
       ...

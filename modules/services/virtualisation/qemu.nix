@@ -1,5 +1,5 @@
 {
-  flake.aspects."preservation"."nixos" = { lib, config, ... }: {
+  flake.aspects.preservation.nixos = { lib, config, ... }: {
     profiles.preservation.directories = lib.optionals config.virtualisation.libvirtd.enable [
       "/var/lib/libvirt"
     ];

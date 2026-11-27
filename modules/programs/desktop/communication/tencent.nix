@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.communication.tencent."homeManager" = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.communication.tencent.homeManager = { pkgs, ... }: {
     home.packages = with pkgs; [
       fractal
       nur.repos.so1ve.dingtalk
@@ -9,7 +9,7 @@
     ];
   };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       pkgs,

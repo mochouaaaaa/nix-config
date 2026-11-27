@@ -5,7 +5,7 @@
   };
 
   # Keep packet-capture permissions with the optional Wireshark feature.
-  flake.aspects."desktop.programs".provides.networking.wireshark."nixos" =
+  flake.aspects."desktop.programs".provides.networking.wireshark.nixos =
     { username, ... }:
     {
       programs.wireshark.enable = true;

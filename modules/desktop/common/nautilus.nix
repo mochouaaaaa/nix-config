@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
     "desktop.nautilus".nixos = { pkgs, ... }: {
       programs.nautilus-open-any-terminal = {

@@ -9,7 +9,7 @@ let
 in
 {
   # NixOS
-  flake.aspects."core"."nixos" = { pkgs, ... }: {
+  flake.aspects.core.nixos = { pkgs, ... }: {
     _module.args.mylib = mkMyLib pkgs.lib;
   };
 
@@ -19,7 +19,7 @@ in
   };
 
   # Home Manager
-  flake.aspects."core"."homeManager" = { pkgs, ... }: {
+  flake.aspects."core".homeManager = { pkgs, ... }: {
     _module.args.mylib = mkMyLib pkgs.lib;
   };
 }

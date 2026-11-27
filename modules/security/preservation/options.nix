@@ -1,5 +1,5 @@
 {
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     { lib, ... }:
 
     let

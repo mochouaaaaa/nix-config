@@ -9,7 +9,7 @@ let
   };
 in
 {
-  flake.aspects = { ... }: {
+  flake.aspects = _: {
     "desktop.hyprland".nixos = mkDesktop "Hyprland";
     "desktop.niri".nixos = mkDesktop "Niri";
     "desktop.umbriel".nixos = mkDesktop "Umbriel";

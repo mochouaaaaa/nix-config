@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs.mpv.auto-save-state"."homeManager" = {
+  flake.aspects."programs.mpv.auto-save-state".homeManager = {
 
     xdg.configFile."mpv/scripts/auto-save-state.lua" = {
       text = ''

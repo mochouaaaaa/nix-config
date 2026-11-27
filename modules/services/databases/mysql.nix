@@ -13,7 +13,7 @@
     ];
   };
 
-  flake.aspects.services.provides.mysql."nixos" =
+  flake.aspects.services.provides.mysql.nixos =
     {
       pkgs,
 

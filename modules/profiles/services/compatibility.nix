@@ -2,57 +2,57 @@
   flake.aspects = { aspects, ... }: {
     "services.virtualisation.vm" = {
       includes = [ aspects.services._.virtualisation.vm ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.virtualisation.podman" = {
       includes = [ aspects.services._.virtualisation.podman ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.virtualisation.qemu" = {
       includes = [ aspects.services._.virtualisation.qemu ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.virtualisation.orbstack" = {
       includes = [ aspects.services._.virtualisation.orbstack ];
-      darwin = { ... }: { };
+      darwin = _: { };
     };
 
     "services.dns.mosdns" = {
       includes = [ aspects.services._.dns.mosdns ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.avahi" = {
       includes = [ aspects.services._.avahi ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.console" = {
       includes = [ aspects.services._.console ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.brightness" = {
       includes = [ aspects.services._.brightness ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.uptermd" = {
       includes = [ aspects.services._.uptermd ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.proxy" = {
       includes = [ aspects.services._.proxy ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
     "services.ollama" = {
       includes = [ aspects.services._.ollama ];
-      nixos = { ... }: { };
+      nixos = _: { };
     };
   };
 }

@@ -1,6 +1,6 @@
 {
   # GUI development applications are enabled only by Linux desktop hosts.
-  flake.aspects."development.gui"."homeManager" =
+  flake.aspects."development.gui".homeManager =
     {
       lib,
       pkgs,
@@ -11,7 +11,7 @@
       home.packages = lib.optional config.programs.ty.enable pkgs.pycharm;
     };
 
-  flake.aspects."development.python"."homeManager" = { lib, pkgs, ... }: {
+  flake.aspects."development.python".homeManager = { lib, pkgs, ... }: {
 
     programs.neovim = {
       extraPython3Packages = ps: [
@@ -135,7 +135,7 @@
 
   };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       config,

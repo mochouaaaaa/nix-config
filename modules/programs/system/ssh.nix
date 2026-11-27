@@ -36,7 +36,7 @@
 
   };
 
-  flake.aspects."darwin"."homeManager" = {
+  flake.aspects.darwin.homeManager = {
     programs.ssh.settings."github.com".UseKeychain = "yes";
   };
 }

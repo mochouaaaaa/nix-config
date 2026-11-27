@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.dns"."nixos" =
+  flake.aspects."services.dns".nixos =
     {
       lib,
       ...

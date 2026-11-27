@@ -6,7 +6,7 @@
     ];
   };
 
-  flake.aspects."darwin"."homeManager" =
+  flake.aspects.darwin.homeManager =
     { lib, ... }:
     {
       programs.kitty = {

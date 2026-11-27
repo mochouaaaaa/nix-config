@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."darwin"."homeManager" = { lib, ... }: {
+  flake.aspects.darwin.homeManager = { lib, ... }: {
     programs.neovide.package = null;
     programs.neovide.settings = {
       frame = lib.mkForce "transparent";
@@ -8,7 +8,12 @@
   };
 
   flake.aspects.editors.provides.neovide.homeManager =
-    { lib, config, pkgs, ... }:
+    {
+      lib,
+      config,
+      pkgs,
+      ...
+    }:
     let
       fontFamily = config.profiles.fonts.default or "Monaco Nerd Font";
     in
@@ -36,7 +41,8 @@
           box-drawing = {
             mode = "native";
           };
-        } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+        }
+        // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
           wayland-app-id = "org.neovim.Neovide";
         };
       };

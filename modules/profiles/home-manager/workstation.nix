@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   # Platform-neutral workstation role. Platform-specific integration remains
   # in homeManager.linux and homeManager.darwin.
   flake.aspects = { aspects, ... }: {
@@ -13,7 +12,7 @@
       ];
 
       # Keep the aggregate available as a Home Manager module.
-      homeManager = { ... }: { };
+      homeManager = _: { };
     };
   };
 }

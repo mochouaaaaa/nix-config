@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs.evolution"."nixos" =
+  flake.aspects."programs.evolution".nixos =
     {
       pkgs,
       ...
@@ -11,7 +11,7 @@
       };
     };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       config,

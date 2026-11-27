@@ -1,6 +1,9 @@
 {
-  flake.aspects = { cli.provides.btop.homeManager = {
-    programs.btop.enable = true;
+  flake.aspects = {
+    cli.provides.btop = {
+      homeManager = {
+        programs.btop.enable = true;
+      };
+    };
   };
-};
 }

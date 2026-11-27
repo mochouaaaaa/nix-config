@@ -1,7 +1,7 @@
 {
   # Antigravity CLI is an AI coding agent; delegate installation and configuration
   # to Home Manager's native program module.
-  flake.aspects."agents.antigravity"."homeManager" = {
+  flake.aspects."agents.antigravity".homeManager = {
     programs = {
       # antigravity-ide = {
       #   enable = true;
@@ -13,7 +13,7 @@
     };
   };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       username,
       lib,

@@ -1,12 +1,13 @@
 {
-  flake.aspects = { cli.provides.zoxide.homeManager = { config, ... }: {
-    home.shellAliases.j = "z";
+  flake.aspects = {
+    cli.provides.zoxide.homeManager = { config, ... }: {
+      home.shellAliases.j = "z";
 
-    programs.zoxide = {
-      enable = true;
-      enableBashIntegration = config.programs.bash.enable;
-      enableZshIntegration = config.programs.zsh.enable;
+      programs.zoxide = {
+        enable = true;
+        enableBashIntegration = config.programs.bash.enable;
+        enableZshIntegration = config.programs.zsh.enable;
+      };
     };
   };
-};
 }

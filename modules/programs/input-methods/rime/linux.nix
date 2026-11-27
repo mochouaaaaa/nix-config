@@ -1,5 +1,5 @@
 {
-  flake.aspects."rime"."homeManager" =
+  flake.aspects.rime.homeManager =
     {
       lib,
       pkgs,
@@ -75,7 +75,7 @@
             };
           };
         };
-  
+
         profiles.rime.fcitx5CustomYaml =
           let
             ascii = {
@@ -89,7 +89,7 @@
               "menu/page_size" = 9;
               "style/candidate_list_layout" = "linear";
               "style/translucency" = true;
-  
+
               "app_options/gcr-prompter" = ascii;
               "app_options/org.wezfurlong.wezterm" = ascii;
               "app_options/kitty" = ascii;

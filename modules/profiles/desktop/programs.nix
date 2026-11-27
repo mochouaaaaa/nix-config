@@ -15,7 +15,7 @@
       ];
 
       # Keep the aggregate available as a Home Manager module.
-      homeManager = { ... }: { };
+      homeManager = _: { };
     };
   };
 }

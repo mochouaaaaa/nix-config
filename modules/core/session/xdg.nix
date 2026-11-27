@@ -1,5 +1,5 @@
 {
-  flake.aspects."core"."homeManager" = { config, ... }: {
+  flake.aspects."core".homeManager = { config, ... }: {
     xdg = {
       enable = true;
       localBinInPath = true;

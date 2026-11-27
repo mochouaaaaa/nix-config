@@ -1,19 +1,21 @@
 {
   flake.aspects = { aspects, ... }: {
-    cli.provides.direnvCompat.homeManager =
-      { lib, options, ... }:
-      let
-        hasDirenvenableGitIntegration = lib.hasAttrByPath [
-          "programs"
-          "direnv"
-          "enableGitIntegration"
-        ] options;
-      in
-      {
-        config = lib.optionalAttrs hasDirenvenableGitIntegration {
-          programs.direnv.enableGitIntegration = true;
+    cli.provides.direnvCompat = {
+      homeManager =
+        { lib, options, ... }:
+        let
+          hasDirenvenableGitIntegration = lib.hasAttrByPath [
+            "programs"
+            "direnv"
+            "enableGitIntegration"
+          ] options;
+        in
+        {
+          config = lib.optionalAttrs hasDirenvenableGitIntegration {
+            programs.direnv.enableGitIntegration = true;
+          };
         };
-      };
+    };
 
     cli.provides.direnv = {
       includes = [
@@ -47,7 +49,7 @@
                     ];
                 }
                 EOF
-                  ${EDITOR:-nvim} default.nix
+                  ''${EDITOR:-nvim} default.nix
                 fi
               '';
             })
@@ -61,7 +63,7 @@
                   echo "use flake" > .envrc
                   direnv allow
                 fi
-                ${EDITOR:-nvim} flake.nix
+                ''${EDITOR:-nvim} flake.nix
               '';
             })
           ];

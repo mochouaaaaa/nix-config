@@ -9,7 +9,7 @@
     }:
     let
       extensions = config.profiles.vicinae.extensions;
-      firefoxEnabled = config.programs.firefox.enable or false;
+      firefoxEnabled = config.programs.firefox.enable;
       defaultFont = config.profiles.fonts.default or "Monaco Nerd Font";
     in
     {
@@ -94,7 +94,8 @@
                   };
                 };
               };
-            } // lib.optionalAttrs firefoxEnabled {
+            }
+            // lib.optionalAttrs firefoxEnabled {
               "@knoopx/${extensions.firefox.name}" = {
                 preferences = {
                   profile_dir = config.programs.firefox.configPath or "${config.xdg.configHome}/mozilla/firefox";
@@ -117,7 +118,7 @@
       };
     };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       config,

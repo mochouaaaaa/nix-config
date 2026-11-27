@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
     editors.provides.neovim.plugins = {
       includes = [

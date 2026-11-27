@@ -31,9 +31,10 @@
       { lib, config, ... }:
       {
         profiles.preservation.directories =
-          lib.optionals (config.services.displayManager.noctalia-greeter.enable or false) [
-            "/var/lib/noctalia-greeter"
-          ];
+          lib.optionals (config.services.displayManager.noctalia-greeter.enable or false)
+            [
+              "/var/lib/noctalia-greeter"
+            ];
       };
   };
 }

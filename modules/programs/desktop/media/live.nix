@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.media.live."homeManager" =
+  flake.aspects."desktop.programs".provides.media.live.homeManager =
     {
       pkgs,
       ...
@@ -42,7 +42,7 @@
 
     };
 
-  flake.aspects."preservation"."nixos" =
+  flake.aspects.preservation.nixos =
     {
       lib,
       pkgs,

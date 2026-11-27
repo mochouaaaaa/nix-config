@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   # Atomic language modules remain independently importable.
   flake.aspects = { aspects, ... }: {
     "development.languages".includes = [

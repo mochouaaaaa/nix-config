@@ -11,7 +11,7 @@
     };
   };
 
-  flake.aspects.services.provides.redis."nixos" =
+  flake.aspects.services.provides.redis.nixos =
     {
       config,
 
