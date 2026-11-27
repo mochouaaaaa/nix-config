@@ -23,7 +23,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-aspects.url = "github:denful/flake-aspects/e5bbf7be955e8289d545c783673808b18d48c780";
+    flake-aspects.url = "github:denful/flake-aspects";
     import-tree.url = "github:vic/import-tree";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
