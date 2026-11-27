@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.user" = { pkgs, ... }: {
+  flake.aspects."desktop.user".homeManager = { pkgs, ... }: {
     home.pointerCursor = {
       enable = true;
       name = "Adwaita";
