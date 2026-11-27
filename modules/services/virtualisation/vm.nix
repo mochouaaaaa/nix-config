@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.virtualisation.vm" =
+  flake.aspects."services.virtualisation.vm"."nixos" =
     {
       inputs,
       lib,

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.dns.mosdns" =
+  flake.aspects."services.dns.mosdns"."nixos" =
     { config, ... }:
     let
       cfg = config.profiles.services.dns;
