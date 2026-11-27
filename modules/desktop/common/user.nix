@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.homeManager."desktop.user" = { pkgs, myvars, ... }: {
+  flake.aspects."desktop.user".homeManager = { pkgs, myvars, ... }: {
 
     imports = [
       self.modules.homeManager.rime
