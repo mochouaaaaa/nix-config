@@ -18,7 +18,7 @@
           ];
     };
 
-  flake.modules.nixos.common-keyring = _: {
+  flake.aspects."desktop.keyring".nixos = _: {
 
     services = {
       gnome = {
@@ -29,16 +29,12 @@
 
   };
 
-  flake.modules.nixos."desktop.hyprland" = {
-    imports = [
-      self.modules.nixos.common-keyring
-    ];
-  };
+  flake.aspects."desktop.hyprland".includes = [
+    (flake.aspects."desktop.keyring")
+  ];
 
-  flake.modules.nixos."desktop.niri" = {
-    imports = [
-      self.modules.nixos.common-keyring
-    ];
-  };
+  flake.aspects."desktop.niri".includes = [
+    (flake.aspects."desktop.keyring")
+  ];
 
 }
