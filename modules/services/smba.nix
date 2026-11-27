@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.samba"."nixos" =
+  flake.aspects.services.provides.samba.nixos =
     {
       lib,
       pkgs,
