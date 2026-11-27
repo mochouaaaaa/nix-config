@@ -1,6 +1,5 @@
 {
   "system": "x86_64-linux",
-  "desktop": "niri",
   "system-input": "nixpkgs",
   "home-manager-input": "home-manager"
 }
