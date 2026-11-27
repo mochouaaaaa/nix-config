@@ -1,5 +1,5 @@
 {
-  flake.aspects."services.ftp"."nixos" =
+  flake.aspects.services.provides.ftp.nixos =
     {
       username,
       ...
