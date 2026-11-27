@@ -23,7 +23,6 @@
 - NixOS 与 nix-darwin class 负责需要系统权限或系统级集成的配置。
 - 平台专属行为应放在对应的 `homeManager`、`nixos` 或 `darwin` Aspect 部分中。
 - 可复用程序能力由 Host 或 Home Manager 角色组合；无桌面的配置不应引入可选图形应用。
-- CLI 通过 `cli.provides.<name>` 提供内部模块，例如 `programs`、`neovim` 和 `direnv`。这些模块不作为顶层 Aspect 导出，由其他角色通过 `aspects.cli._.<name>` 组合；`cli` 本身仅作为私有能力的命名空间。
 - 由模块相对路径加载的配置文件应与使用它们的程序 Aspect 放在一起。
 
 ## 桌面应用配置
