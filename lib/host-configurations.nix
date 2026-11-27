@@ -23,6 +23,33 @@ let
     inherit (config) myvars;
   };
 
+  desktopModules =
+    host:
+    if host.desktop == null then
+      [ ]
+    else
+      let
+        aspectsLib = inputs.flake-aspects.lib lib;
+
+        forwardedDesktop = aspectsLib.forward {
+          each = [ host.username ];
+          fromClass = _: "homeManager";
+          intoClass = _: "nixos";
+          intoPath = _: [
+            "home-manager"
+            "users"
+            host.username
+          ];
+          fromAspect = _: {
+            homeManager = self.modules.homeManager."desktop.${host.desktop}";
+          };
+        };
+      in
+      [
+        self.modules.nixos."desktop.${host.desktop}"
+        (aspectsLib.resolve "nixos" [ ] forwardedDesktop)
+      ];
+
   nixosConfigurations = lib.optionalAttrs (!checkOnly) (
     lib.mapAttrs (
       _name: host:
@@ -38,6 +65,7 @@ let
           self.modules.nixos."services.base"
         ]
         ++ lib.optional host.nixosWsl host.nixosWslModule
+        ++ desktopModules host
         ++ [ (inputs.import-tree host.path) ];
       }
     ) registry.nixosHosts
