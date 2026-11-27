@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.linux =
+  flake.aspects."linux"."homeManager" =
     {
       lib,
       pkgs,
@@ -39,7 +39,7 @@
 
     };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       config,

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos."services.virtualisation.vmware" =
+  flake.aspects."services.virtualisation.vmware"."nixos" =
     {
       pkgs,
       ...

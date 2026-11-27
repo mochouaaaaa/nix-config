@@ -1,5 +1,5 @@
 {
-  flake.modules.generic.home-manager =
+  flake.aspects."home-manager"."generic" =
     {
       homeManagerNixpkgsInput,
       ...
@@ -18,7 +18,7 @@
 
     };
 
-  flake.modules.nixos.core =
+  flake.aspects."core"."nixos" =
     {
       self,
       inputs,
@@ -39,11 +39,11 @@
       };
     };
 
-  flake.modules.darwin.core = { self, ... }: {
+  flake.aspects."core"."darwin" = { self, ... }: {
     imports = [ self.modules.generic.home-manager ];
   };
 
-  flake.modules.homeManager.core =
+  flake.aspects."core"."homeManager" =
     { lib, config, ... }:
     let
       hasBackHM = lib.hasAttrByPath [ "home" "backupFileExtension" ] config;
@@ -60,7 +60,7 @@
     };
 
   # Shared Home Manager foundations only. Select a role explicitly in each host.
-  flake.modules.homeManager.host = { self, ... }: {
+  flake.aspects."host"."homeManager" = { self, ... }: {
     imports = [
       self.modules.homeManager.core
     ];
