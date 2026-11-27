@@ -20,7 +20,7 @@
     programs.chromium.enable = lib.mkForce false;
   };
 
-  flake.modules.homeManager."desktop.kde" = { pkgs, ... }: {
+  flake.aspects."desktop.kde".homeManager = { pkgs, ... }: {
     programs.chromium = {
       nativeMessagingHosts = [
         pkgs.kdePackages.plasma-browser-integration
