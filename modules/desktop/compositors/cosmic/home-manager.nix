@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager."desktop.cosmic" = { inputs, ... }: {
+  flake.aspects."desktop.cosmic".homeManager = { inputs, ... }: {
 
     imports = [ inputs.cosmic-manager.homeManagerModules.cosmic-manager ];
 
