@@ -99,7 +99,4 @@
     services.xremap.withKDE = true;
   };
 
-  flake.modules.homeManager."desktop.gnome" = {
-    services.xremap.withGnome = true;
-  };
 }

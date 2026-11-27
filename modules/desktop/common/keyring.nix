@@ -41,12 +41,4 @@
     ];
   };
 
-  flake.modules.nixos."desktop.gnome" = {
-    imports = [
-      self.modules.nixos.common-keyring
-    ];
-    services = {
-      speechd.enable = true;
-    };
-  };
 }

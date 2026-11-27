@@ -32,9 +32,9 @@
           };
         };
 
-        mimeApps.defaultApplicationPackages = lib.optionals config.programs.kitty.enable [
-          config.programs.kitty.package
-        ];
+        # mimeApps.defaultApplicationPackages = lib.optionals config.programs.kitty.enable [
+        #   config.programs.kitty.package
+        # ];
       };
 
     };
@@ -57,10 +57,6 @@
             ".config/kitty"
           ];
     };
-
-  flake.modules.homeManager."desktop.gnome" = {
-    programs.kitty.extraConfig = "background_opacity 1";
-  };
 
   flake.modules.homeManager."desktop.kde" = {
     programs.kitty.extraConfig = "# hide_window_decorations yes";
