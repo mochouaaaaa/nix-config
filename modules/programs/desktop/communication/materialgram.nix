@@ -1,11 +1,11 @@
 {
-  flake.modules.homeManager."desktop.programs.communication" = { pkgs, ... }: {
+  flake.aspects."desktop.programs.communication"."homeManager" = { pkgs, ... }: {
     home.packages = [
       pkgs.materialgram
     ];
   };
 
-  flake.modules.nixos.preservation =
+  flake.aspects."preservation"."nixos" =
     {
       lib,
       pkgs,
