@@ -32,7 +32,7 @@ in
       environment.shells = [ pkgs.zsh ];
     };
 
-    cli.provides.shells.zsh.homeManager = { pkgs, config, ... }: {
+    cli.provides."shells.zsh".homeManager = { pkgs, config, ... }: {
       programs = {
         bash = {
           enable = true;
