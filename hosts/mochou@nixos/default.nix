@@ -18,7 +18,6 @@
     self.modules.nixos."desktop.programs.networking"
     self.modules.nixos.boot-loader-limine
     self.modules.nixos."hardware.hid-apple"
-    self.modules.nixos."hardware.kvm.assertions"
     self.modules.nixos."hardware.kvm"
     self.modules.nixos."profiles.performance.zram"
     self.modules.nixos."profiles.compat"
