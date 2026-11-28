@@ -1,9 +1,13 @@
 { inputs, ... }:
+
+let
+  flakeAspectsLib = inputs.flake-aspects.lib inputs.nixpkgs.lib;
+in
 {
   flake.aspects = { aspects, ... }: {
     "darwin" = {
       includes = [
-        (inputs.flake-aspects.lib.forward {
+        (flakeAspectsLib.forward {
           each = [ null ];
           fromClass = _: "generic";
           intoClass = _: "homeManager";
@@ -16,7 +20,7 @@
 
     "linux" = {
       includes = [
-        (inputs.flake-aspects.lib.forward {
+        (flakeAspectsLib.forward {
           each = [ null ];
           fromClass = _: "generic";
           intoClass = _: "homeManager";
