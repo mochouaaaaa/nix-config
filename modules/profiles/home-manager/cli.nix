@@ -7,7 +7,14 @@ _: {
         aspects.cli._.terminals.tmux
         aspects.cli._.system.ssh
         aspects.cli._.direnv
+        aspects.cli._.core
+        aspects.cli._.bat
+        aspects.cli._.btop
+        aspects.cli._.eza
+        aspects.cli._.fastfetch
         aspects.cli._.fzf
+        aspects.cli._.lazydocker
+        aspects.cli._.lazygit
         aspects.cli._.yazi
         aspects.cli._.zoxide
         aspects.editors._.neovim
