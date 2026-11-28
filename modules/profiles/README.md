@@ -6,7 +6,9 @@
 
 - **功能模块**定义单一能力及其配置，放在对应领域目录。
 - **Profile / Role**通过 `includes` 组合同 class 功能模块；跨 class 组合通过 `forward` 完成。
-- **Host Profile**集中声明每个 Host 选择的 Home Manager 角色，并将这些角色转发到对应的 Home Manager 用户。
+- **Host Profile**集中声明每种 Host 角色选择的 Home Manager 角色，并将这些角色转发到 Host 元数据中的用户。
+- Host Profile Aspect ID 使用 `host.<hostname>`；用户名只从 `hosts/<username>@<hostname>/nixpkgs.json` 对应的 Host 元数据取得，不进入公共模块 ID，也不在公共模块中硬编码。
+- Host 目录通过 `self.modules.<class>."host.${hostName}"` 引入对应 Profile；`hostName` 与 `username` 均由 Host 注册器解析并作为 specialArgs 提供。
 - **Compatibility profile**为旧模块 ID 提供兼容入口，也放在本目录。
 - **Policy profile**表达可选系统策略，例如 FHS 兼容环境与性能调优（如 zram）。
 - 组合规则可以定义原有 Aspect ID；移动文件不改变 Aspect ID，因此消费者引用保持不变。
@@ -22,7 +24,7 @@
 | `hardware/` | 硬件兼容入口与组合规则。 |
 | `services/` | 服务基础入口、兼容入口和数据库聚合。 |
 | `home-manager/` | CLI、服务器和工作站用户角色。 |
-| `hosts.nix` | NixOS、Darwin、WSL 和远程 Host 的 Home Manager 角色转发。 |
+| `hosts.nix` | 从 Host 元数据生成 NixOS、Darwin、WSL 和远程 Host Profile，并动态转发 Home Manager 角色。 |
 | `compat.nix` | 兼容性策略 Profile。 |
 | `performance/zram.nix` | 可选性能策略 Profile。 |
 
