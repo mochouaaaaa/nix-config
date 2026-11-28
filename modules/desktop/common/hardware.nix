@@ -1,14 +1,10 @@
-{ self, ... }:
+{ ... }:
 {
   flake.aspects = { aspects, ... }: {
     "desktop.hardware" = {
       includes = [
-        aspects."hardware.desktop"
-        {
-          nixos.imports = [
-            self.modules.nixos.hardware
-          ];
-        }
+        aspects.hardware
+        aspects.hardware.desktop
       ];
 
       nixos =

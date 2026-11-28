@@ -6,6 +6,10 @@
   ...
 }:
 {
+  imports = [
+    self.modules.nixos."host.mochou.wsl"
+  ];
+
   networking.hostName = hostName;
   nixpkgs.hostPlatform = system;
 
@@ -18,11 +22,4 @@
   networking.resolvconf.enable = false;
 
   programs.nix-ld.enable = true;
-
-  home-manager.users.${username}.imports = [
-    self.modules.homeManager.host
-    self.modules.homeManager.linux
-    self.modules.homeManager.wsl
-    self.modules.homeManager.servers
-  ];
 }

@@ -1,8 +1,16 @@
+{ inputs, ... }:
 {
   flake.aspects = { aspects, ... }: {
     "desktop.niri" = {
       includes = [
         aspects."desktop.common"
+        (inputs.flake-aspects.lib.forward {
+          each = [ { userName = "mochou"; } ];
+          fromClass = _: "homeManager";
+          intoClass = _: "nixos";
+          intoPath = user: [ "home-manager" "users" user.userName ];
+          fromAspect = _: aspects."desktop.niri";
+        })
       ];
 
       nixos =
@@ -30,8 +38,7 @@
           };
           services.displayManager.noctalia-greeter.settings.session.default = "niri-uwsm";
 
-          # The desktop Home Manager aspect is forwarded by the Host configuration.
-          # Keep only the NixOS-dependent compatibility adjustments here.
+          # Keep the NixOS-dependent Home Manager compatibility adjustments here.
           home-manager.users.${username}.imports = lib.optionals (config ? home-manager) [
             ({ lib, ... }: {
               wayland.windowManager.niri = {

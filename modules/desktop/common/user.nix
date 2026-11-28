@@ -1,4 +1,4 @@
-{ self, ... }:
+{ ... }:
 {
   flake.aspects = { aspects, ... }: {
     "desktop.user" = {
@@ -6,15 +6,12 @@
         aspects."desktop.launcher.vicinae"
         aspects.rime
         aspects.shortcuts
+        aspects.appearance
       ];
 
       homeManager =
         { pkgs, myvars, ... }:
         {
-          imports = [
-            self.modules.homeManager.appearance
-          ];
-
           home.file =
             let
               face = pkgs.fetchurl {

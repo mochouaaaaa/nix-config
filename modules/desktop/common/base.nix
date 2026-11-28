@@ -1,14 +1,10 @@
-{ self, ... }:
+{ ... }:
 {
   flake.aspects = { aspects, ... }: {
     "desktop.base" = {
       includes = [
         aspects."security.desktop"
-        {
-          nixos.imports = [
-            self.modules.nixos.appearance
-          ];
-        }
+        aspects.appearance
       ];
 
       nixos =

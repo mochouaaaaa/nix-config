@@ -1,33 +1,52 @@
+{ inputs, ... }:
 {
-
-  flake.aspects."darwin"."homeManager" = { self, ... }: {
-    imports = [
-      self.modules.generic.session-variables
-    ];
-  };
-
-  flake.aspects."linux"."homeManager" =
-    { self, config, ... }:
-    let
-      d = config.xdg.dataHome;
-    in
-    {
-      imports = [ self.modules.generic.session-variables ];
-      home.sessionVariables.WINEPREFIX = d + "/wine";
+  flake.aspects = { aspects, ... }: {
+    "darwin" = {
+      includes = [
+        (inputs.flake-aspects.lib.forward {
+          each = [ null ];
+          fromClass = _: "generic";
+          intoClass = _: "homeManager";
+          intoPath = _: [ ];
+          fromAspect = _: aspects."session-variables";
+        })
+      ];
+      homeManager = { ... }: { };
     };
 
-  flake.aspects."session-variables"."generic" =
-    { config, ... }:
-    let
-      c = config.xdg.configHome;
-      cache = config.xdg.cacheHome;
-    in
-    {
-      home.sessionVariables = {
-        LESSHISTFILE = cache + "/less/history";
-        LESSKEY = c + "/less/lesskey";
-        DELTA_PAGER = "less -R";
+    "linux" = {
+      includes = [
+        (inputs.flake-aspects.lib.forward {
+          each = [ null ];
+          fromClass = _: "generic";
+          intoClass = _: "homeManager";
+          intoPath = _: [ ];
+          fromAspect = _: aspects."session-variables";
+        })
+      ];
+
+      homeManager =
+        { config, ... }:
+        let
+          d = config.xdg.dataHome;
+        in
+        {
+          home.sessionVariables.WINEPREFIX = d + "/wine";
+        };
+    };
+
+    "session-variables".generic =
+      { config, ... }:
+      let
+        c = config.xdg.configHome;
+        cache = config.xdg.cacheHome;
+      in
+      {
+        home.sessionVariables = {
+          LESSHISTFILE = cache + "/less/history";
+          LESSKEY = c + "/less/lesskey";
+          DELTA_PAGER = "less -R";
+        };
       };
-    };
-
+  };
 }

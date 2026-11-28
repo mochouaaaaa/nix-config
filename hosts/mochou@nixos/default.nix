@@ -8,6 +8,7 @@
 
 {
   imports = [
+    self.modules.nixos."host.mochou.nixos"
     self.modules.nixos.agenix
     self.modules.nixos.preservation
 
@@ -43,15 +44,4 @@
     cpuVendor = "amd";
     ignoreMsrs = true;
   };
-
-  home-manager.users.${username}.imports = [
-    self.modules.homeManager.host
-    self.modules.homeManager.workstation
-    self.modules.homeManager.linux
-    self.modules.homeManager."development.gui"
-    self.modules.homeManager."agents.codex"
-    self.modules.homeManager."agents.antigravity"
-    self.modules.homeManager."desktop.niri"
-    self.modules.homeManager."desktop.programs"
-  ];
 }

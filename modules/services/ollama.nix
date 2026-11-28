@@ -1,46 +1,48 @@
+{ inputs, ... }:
 {
-  # Ollama is an optional host service, not part of every desktop environment.
-  flake.aspects.services.provides.ollama."homeManager" = { pkgs, ... }: {
-    services.ollama = {
-      enable = true;
-      package = pkgs.ollama-rocm;
-      acceleration = "rocm";
-      environmentVariables = {
-        HSA_OVERRIDE_GFX_VERSION = "10.3.0";
-      };
-    };
-  };
+  flake.aspects = { aspects, ... }: {
+    services.provides.ollama = {
+      includes = [
+        (inputs.flake-aspects.lib.forward {
+          each = [ { userName = "mochou"; } ];
+          fromClass = _: "homeManager";
+          intoClass = _: "nixos";
+          intoPath = user: [ "home-manager" "users" user.userName ];
+          fromAspect = _: aspects.services._.ollama;
+        })
+      ];
 
-  flake.aspects.services.provides.ollama."nixos" =
-    { pkgs, username, ... }:
-    {
-      home-manager.users.${username}.services.ollama = {
-        enable = true;
-        package = pkgs.ollama-rocm;
-        acceleration = "rocm";
-        environmentVariables = {
-          HSA_OVERRIDE_GFX_VERSION = "10.3.0";
+      homeManager = { pkgs, ... }: {
+        services.ollama = {
+          enable = true;
+          package = pkgs.ollama-rocm;
+          acceleration = "rocm";
+          environmentVariables = {
+            HSA_OVERRIDE_GFX_VERSION = "10.3.0";
+          };
         };
       };
+
+      nixos = { ... }: { };
     };
 
-  flake.aspects."preservation"."nixos" =
-    {
-      lib,
-      config,
-      username,
-      ...
-    }:
-    {
-      profiles.preservation.users.${username}.directories =
-        lib.optionals config.home-manager.users.${username}.services.ollama.enable
-          [
-            ".ollama"
-          ];
+    "preservation".nixos =
+      {
+        lib,
+        config,
+        username,
+        ...
+      }:
+      {
+        profiles.preservation.users.${username}.directories =
+          lib.optionals config.home-manager.users.${username}.services.ollama.enable
+            [
+              ".ollama"
+            ];
+      };
 
+    "darwin".homeManager = { lib, ... }: {
+      services.ollama.enable = lib.mkForce false;
     };
-
-  flake.aspects."darwin"."homeManager" = { lib, ... }: {
-    services.ollama.enable = lib.mkForce false;
   };
 }

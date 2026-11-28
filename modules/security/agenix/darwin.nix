@@ -1,43 +1,51 @@
+{ inputs, ... }:
 {
-
-  flake.aspects."agenix"."darwin" =
-    {
-      self,
-      lib,
-      pkgs,
-      inputs,
-      hostName,
-      ...
-    }:
-    let
-      inherit (inputs) mysecrets;
-    in
-    {
-      imports = [
-        inputs.agenix.darwinModules.default
-        inputs.agenix-rekey.darwinModules.default
+  flake.aspects = { aspects, ... }: {
+    "agenix" = {
+      includes = [
+        (inputs.flake-aspects.lib.forward {
+          each = [ null ];
+          fromClass = _: "homeManager";
+          intoClass = _: "darwin";
+          intoPath = _: [ "home-manager" "sharedModules" ];
+          fromAspect = _: aspects.agenix;
+        })
       ];
 
-      home-manager.sharedModules = [
-        self.modules.homeManager.agenix
-      ];
-
-      services.openssh.enable = true;
-
-      age = {
-        rekey = {
-          masterIdentities = [
-            {
-              identity = "${mysecrets}/master.age";
-              pubkey = lib.strings.trim (builtins.readFile "${mysecrets}/master.pub");
-            }
+      darwin =
+        {
+          self,
+          inputs,
+          lib,
+          pkgs,
+          hostName,
+          ...
+        }:
+        let
+          inherit (inputs) mysecrets;
+        in
+        {
+          imports = [
+            inputs.agenix.darwinModules.default
+            inputs.agenix-rekey.darwinModules.default
           ];
-          storageMode = "local";
-          localStorageDir =
-            self.outPath + "/secrets/rekeyed/darwin/${pkgs.stdenv.hostPlatform.system}/${hostName}";
+
+          services.openssh.enable = true;
+
+          age = {
+            rekey = {
+              masterIdentities = [
+                {
+                  identity = "${mysecrets}/master.age";
+                  pubkey = lib.strings.trim (builtins.readFile "${mysecrets}/master.pub");
+                }
+              ];
+              storageMode = "local";
+              localStorageDir =
+                self.outPath + "/secrets/rekeyed/darwin/${pkgs.stdenv.hostPlatform.system}/${hostName}";
+            };
+          };
         };
-
-      };
     };
-
+  };
 }

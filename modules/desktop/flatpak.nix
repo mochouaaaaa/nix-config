@@ -1,91 +1,95 @@
+{ inputs, ... }:
 {
-  flake.aspects."desktop.flatpak".homeManager =
-    {
-      inputs,
-      lib,
-      pkgs,
-      config,
-      ...
-    }:
-    {
-      imports = [
-        inputs.nix-flatpak.homeManagerModules.nix-flatpak
+  flake.aspects = { aspects, ... }: {
+    "desktop.flatpak" = {
+      includes = [
+        (inputs.flake-aspects.lib.forward {
+          each = [ { userName = "mochou"; } ];
+          fromClass = _: "homeManager";
+          intoClass = _: "nixos";
+          intoPath = user: [ "home-manager" "users" user.userName ];
+          fromAspect = _: aspects."desktop.flatpak";
+        })
       ];
 
-      home.packages = with pkgs; [
-        flatpak
-      ];
+      homeManager =
+        {
+          inputs,
+          lib,
+          pkgs,
+          config,
+          ...
+        }:
+        {
+          imports = [
+            inputs.nix-flatpak.homeManagerModules.nix-flatpak
+          ];
 
-      xdg.systemDirs.data = [
-        "${config.home.homeDirectory}/.local/share/flatpak/exports/share"
-      ];
+          home.packages = with pkgs; [
+            flatpak
+          ];
 
-      services.flatpak = {
-        enable = true;
-        overrides = {
-          global = {
-            Context = {
-              filesystems = [
-                "xdg-config/gtk-3.0:ro"
-                "xdg-config/gtk-4.0:ro"
-                "/nix/store:ro"
-                "${config.home.homeDirectory}/.icons:ro"
-                "${config.home.homeDirectory}/.local/share/fonts:ro"
-              ];
+          xdg.systemDirs.data = [
+            "${config.home.homeDirectory}/.local/share/flatpak/exports/share"
+          ];
+
+          services.flatpak = {
+            enable = true;
+            overrides = {
+              global = {
+                Context = {
+                  filesystems = [
+                    "xdg-config/gtk-3.0:ro"
+                    "xdg-config/gtk-4.0:ro"
+                    "/nix/store:ro"
+                    "${config.home.homeDirectory}/.icons:ro"
+                    "${config.home.homeDirectory}/.local/share/fonts:ro"
+                  ];
+                };
+                Environment = {
+                  # GTK_THEME = "${config.profiles.themes.gtkTheme.name}";
+                };
+              };
             };
-            Environment = {
-              # GTK_THEME = "${config.profiles.themes.gtkTheme.name}";
-            };
+            remotes = lib.mkOptionDefault [
+              {
+                name = "flathub";
+                location = "https://flathub.org/repo/flathub.flatpakrepo";
+              }
+            ];
+            uninstallUnmanaged = false;
+            update.auto.enable = false;
+            packages = [
+              "com.github.tchx84.Flatseal"
+              "io.github.flattool.Warehouse"
+            ];
           };
         };
-        remotes = lib.mkOptionDefault [
-          {
-            name = "flathub";
-            location = "https://flathub.org/repo/flathub.flatpakrepo";
-          }
-        ];
-        uninstallUnmanaged = false;
-        update.auto.enable = false;
-        packages = [
-          "com.github.tchx84.Flatseal"
-          "io.github.flattool.Warehouse"
-        ];
+
+      nixos = { ... }: { };
+    };
+
+    "preservation".nixos =
+      {
+        lib,
+        config,
+        username,
+        ...
+      }:
+      let
+        flatpakEnabled = config.home-manager.users.${username}.services.flatpak.enable or false;
+      in
+      {
+        profiles.preservation = lib.mkIf flatpakEnabled {
+          users.${username}.directories = [
+            ".local/share/containers"
+            ".local/share/flatpak"
+            ".var/app"
+          ];
+          directories = [
+            "/var/lib/flatpak"
+          ];
+        };
       };
-    };
-
-  flake.aspects."desktop.flatpak".nixos =
-    {
-      self,
-      username,
-      ...
-    }:
-    {
-      home-manager.users.${username}.imports = [
-        self.modules.homeManager."desktop.flatpak"
-      ];
-
-    };
-
-  flake.aspects."preservation"."nixos" =
-    {
-      lib,
-      config,
-      username,
-      ...
-    }:
-    let
-      flatpakEnabled = config.home-manager.users.${username}.services.flatpak.enable or false;
-    in
-    {
-      profiles.preservation = lib.mkIf flatpakEnabled {
-        users.${username}.directories = [
-          ".local/share/containers"
-          ".local/share/flatpak"
-          ".var/app"
-        ];
-        directories = [
-          "/var/lib/flatpak"
-        ];
-      };
-    };
+  };
 }

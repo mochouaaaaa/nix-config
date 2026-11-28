@@ -11,13 +11,15 @@
 - `homeManager`：Home Manager 用户环境模块。
 - 其他自定义模块类可按需使用，但必须与对应模块系统的集成方式一致。
 
-同一个 Aspect 可以同时提供多个 class 的配置，但 class 之间不会自动传播。需要跨 class 配置时，必须分别定义对应 class 的部分，并由 NixOS、Darwin 或 Host 入口显式桥接。
+同一个 Aspect 可以同时提供多个 class 的配置，但 class 之间不会自动传播。需要跨 class 配置时，必须使用 `flake-aspects.lib.forward` 显式声明源 class、目标 class 和注入路径。
 
 ## 组合原则
 
-- 通过 `includes` 组合其他 Aspect；依赖应保持在相同 class 内。
-- `imports` 用于引入外部 flake 模块、第三方模块，或确实需要直接使用模块系统导入语义的配置。
-- Aspect 生成的 `self.modules.<class>.<aspect>` 是兼容与消费入口，不是仓库内部新模块的注册方式。
+- 同 class 的仓库内部 Aspect 依赖统一通过 `includes` 组合。
+- 跨 class 的仓库内部 Aspect 依赖统一通过 `forward` 转发；不要在 Aspect 内通过 `self.modules.*` 再次导入仓库自己的 Aspect。
+- `imports` 仅用于外部 flake 模块、第三方模块，或确实需要模块系统导入语义的内联兼容模块。
+- Aspect 生成的 `self.modules.<class>.<aspect>` 是 Host 的消费入口，不是仓库内部新模块的依赖声明方式。
+- Host Profile Aspect 负责将所选 Home Manager 角色转发到对应用户；NixOS 与 Darwin Host 不再逐项维护 `home-manager.users.<name>.imports`。
 - 功能 Aspect 保持职责单一；聚合 Aspect 只组合其他能力，不应隐藏额外副作用。
 - 平台差异放在对应 class 中；跨平台 Aspect 只保留真正通用的配置。
 - Preservation、选项声明、系统基础设施等也以 Aspect 注册；它们仍然可以保持独立 ID 和按需组合。
@@ -46,4 +48,4 @@ Host 位于仓库根目录的 `hosts/<username>@<hostname>/`。模块目录中�
 
 当前元数据使用 `system`、`system-input`、`home-manager-input` 等字段声明目标平台与构建输入。Standalone Home Manager Host 还可以单独指定 `home-manager-nixpkgs`。具体字段定义以 [options.nix](./flake/hosts/options.nix) 和 [lib/host-registry.nix](../lib/host-registry.nix) 为准。
 
-主机级硬件、磁盘、网络和引导设置应留在对应 Host；可复用能力放在功能 Aspect 中。
+主机级硬件、磁盘、网络和引导设置应留在对应 Host；可复用能力放在功能 Aspect 中。Host 的 Home Manager 角色由 [profiles/hosts.nix](./profiles/hosts.nix) 集中组合，并通过 `forward` 注入对应用户。

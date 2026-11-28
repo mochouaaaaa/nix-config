@@ -1,6 +1,6 @@
 # 桌面模块
 
-本目录组织桌面会话、系统桌面基础能力和桌面组件。仓库自有配置统一定义为 flake Aspect，并通过 includes 声明同 class 组合关系。
+本目录组织桌面会话、系统桌面基础能力和桌面组件。仓库自有配置统一定义为 flake Aspect；同 class 依赖使用 `includes`，跨 class 依赖使用 `forward`。
 
 ## 桌面会话
 
@@ -14,15 +14,15 @@
 | desktop.cosmic | NixOS | Home Manager | COSMIC |
 | desktop.umbriel | NixOS | Home Manager | Umbriel |
 
-桌面 Aspect 的 NixOS 与 Home Manager 配置属于不同 class。Host 负责选择桌面能力；Aspect 内的 includes 负责声明同 class 依赖。外部 flake 提供的模块（例如 Plasma Manager、COSMIC Manager、Luciole）仍通过普通 imports 引入。
+桌面 Aspect 的 NixOS 与 Home Manager 配置属于不同 class。Host 选择桌面 Aspect；桌面 Aspect 使用 `forward` 将自身 Home Manager class 注入 NixOS 用户模块。Aspect 内的同 class 依赖通过 `includes` 组合。
 
-Hyprland 和 Niri 还包含依赖 NixOS compositor 配置的 Home Manager 兼容设置。这些设置保留在对应的 NixOS Aspect 中；桌面主体配置则由 Host 选择的桌面 Aspect 提供。
+Hyprland 和 Niri 还包含依赖 NixOS compositor 配置的 Home Manager 兼容设置。这些设置保留在对应的 NixOS Aspect 中；桌面主体配置则由对应 Aspect 的 Home Manager class 提供。
 
 ## 公共基础能力
 
 | Aspect ID | Class | 职责 |
 | --- | --- | --- |
-| desktop.common | NixOS + Home Manager | 组合 desktop.base、desktop.hardware，并在 Home Manager class 中组合用户桌面基础配置。 |
+| desktop.common | NixOS + Home Manager | 组合 desktop.base、desktop.hardware 和 desktop.user。 |
 | desktop.base | NixOS | 桌面系统基础能力，包括外观、安全、AppImage 运行时、地理位置、UWSM、XDG Portal、图形与电源服务。 |
 | desktop.hardware | NixOS | 组合通用硬件模块与 hardware.desktop，并配置图形桌面用户所需的设备组。 |
 | desktop.user | Home Manager | 用户桌面基础设置，组合输入法、外观、快捷键和 Vicinae 启动器。 |
@@ -37,7 +37,7 @@ Hyprland 和 Niri 还包含依赖 NixOS compositor 配置的 Home Manager 兼容
 | desktop.greeter.noctalia | NixOS | Noctalia Greeter 登录界面集成。 |
 | desktop.shell.noctalia | Home Manager | Noctalia 桌面 Shell，由需要它的 compositor Aspect 显式组合。 |
 | desktop.launcher.vicinae | Home Manager | Vicinae 启动器、扩展及用户级配置，由 desktop.user 组合。 |
-| desktop.flatpak | NixOS + Home Manager | Flatpak 系统侧支持与用户级客户端组合。 |
+| desktop.flatpak | NixOS + Home Manager | Flatpak 系统侧支持与用户级客户端组合；NixOS class 通过 forward 转发 Home Manager class。 |
 
 Greeter、Shell 和 Launcher 是不同组件，不会因为选择其中一个而自动启用其他组件。
 
