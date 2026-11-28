@@ -3,7 +3,7 @@
   flake.aspects = { aspects, ... }: {
     "desktop.base" = {
       includes = [
-        aspects."security.desktop"
+        aspects.security._.desktop
         aspects.appearance
       ];
 
