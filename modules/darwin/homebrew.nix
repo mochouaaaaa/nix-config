@@ -61,8 +61,6 @@
               "appcleaner"
               "neteasemusic"
               # "adguard"
-
-              "google-chrome"
             ];
 
             caskArgs = {
