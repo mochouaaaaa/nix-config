@@ -74,7 +74,7 @@
           hostProfiles.${host.hostName}
             or (throw "Host '${host.username}@${host.hostName}' has no Host Profile.");
       in
-      lib.nameValuePair "host.${host.hostName}" {
+      lib.nameValuePair "host.${host.username}.${host.hostName}" {
         includes = [
           (forwardHomeManager {
             inherit (host) username;
