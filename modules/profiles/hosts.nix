@@ -1,9 +1,14 @@
-{ inputs, ... }:
+{ config, inputs, lib, ... }:
 {
-  flake.aspects = { aspects, ... }:
+  flake.aspects =
+    { aspects, ... }:
     let
       forwardHomeManager =
-        intoClass: roles:
+        {
+          username,
+          intoClass,
+          roles,
+        }:
         inputs.flake-aspects.lib.forward {
           each = roles;
           fromClass = _: "homeManager";
@@ -11,16 +16,16 @@
           intoPath = _: [
             "home-manager"
             "users"
-            "mochou"
+            username
           ];
           fromAspect = aspect: aspect;
         };
-    in
-    {
-      # NixOS desktop host: the host role owns Home Manager role selection.
-      "host.mochou.nixos" = {
-        includes = [
-          (forwardHomeManager "nixos" [
+
+      # Host names identify the machine role; usernames come from Host metadata.
+      hostProfiles = {
+        nixos = {
+          class = "nixos";
+          roles = [
             aspects.host
             aspects.workstation
             aspects.linux
@@ -28,45 +33,56 @@
             aspects."agents.codex"
             aspects."agents.antigravity"
             aspects."desktop.programs"
-          ])
-        ];
-        nixos = { ... }: { };
-      };
+          ];
+        };
 
-      "host.mochou.darwin" = {
-        includes = [
-          (forwardHomeManager "darwin" [
+        darwin = {
+          class = "darwin";
+          roles = [
             aspects.host
             aspects.workstation
             aspects."desktop.programs.api-clients"
             aspects."desktop.programs.browsers"
             aspects.darwin
             aspects."agents.codex"
-          ])
-        ];
-        darwin = { ... }: { };
-      };
+          ];
+        };
 
-      "host.mochou.wsl" = {
-        includes = [
-          (forwardHomeManager "nixos" [
+        wsl = {
+          class = "nixos";
+          roles = [
             aspects.host
             aspects.linux
             aspects.wsl
             aspects.servers
-          ])
-        ];
-        nixos = { ... }: { };
-      };
+          ];
+        };
 
-      "host.mochou.remote" = {
-        includes = [
-          (forwardHomeManager "nixos" [
+        remote = {
+          class = "nixos";
+          roles = [
             aspects.host
             aspects.servers
-          ])
-        ];
-        nixos = { ... }: { };
+          ];
+        };
       };
-    };
+    in
+    lib.mapAttrs' (
+      _name: host:
+      let
+        profile =
+          hostProfiles.\${host.hostName}
+            or (throw "Host '\${host.username}@\${host.hostName}' has no Host Profile.");
+      in
+      lib.nameValuePair "host.\${host.hostName}" {
+        includes = [
+          (forwardHomeManager {
+            inherit (host) username;
+            inherit (profile) class roles;
+          })
+        ];
+
+        \${profile.class} = { ... }: { };
+      }
+    ) config.hosts;
 }
