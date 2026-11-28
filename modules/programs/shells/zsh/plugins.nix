@@ -1,5 +1,5 @@
 {
-  flake.aspects.programs.provides.shells.zsh.homeManager =
+  flake.aspects.cli.provides.shells.zsh.homeManager =
     { lib, pkgs, ... }:
     let
       fzf-tab-source = pkgs.fetchFromGitHub {
@@ -10,7 +10,6 @@
       };
     in
     {
-
       programs.zsh = {
         autosuggestion.enable = true;
         initContent = lib.mkAfter ''
@@ -27,6 +26,5 @@
           }
         ];
       };
-
     };
 }
