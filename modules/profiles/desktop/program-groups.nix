@@ -63,8 +63,14 @@
         aspects."desktop.programs"._.networking._.wireshark
       ];
 
-      # Export this group as a NixOS module for host-level imports.
-      nixos = _: { };
+      nixos =
+        { pkgs, username, ... }:
+        {
+          programs.wireshark.enable = true;
+          environment.systemPackages = [ pkgs.wireshark-cli ];
+          users.groups.wireshark = { };
+          users.users.${username}.extraGroups = [ "wireshark" ];
+        };
     };
   };
 }
