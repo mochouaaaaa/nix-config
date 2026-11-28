@@ -9,7 +9,7 @@
 {
   imports = [
     inputs.disko.nixosModules.disko
-    self.modules.nixos."host.mochou.remote"
+    self.modules.nixos."host.${hostName}"
     self.modules.nixos.preservation
   ];
 
