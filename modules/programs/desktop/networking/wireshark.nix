@@ -4,8 +4,9 @@
     homebrew.casks = [ "wireshark-app" ];
   };
 
-  # Keep packet-capture permissions with the optional Wireshark feature.
-  flake.aspects."desktop.programs".provides.networking.wireshark.nixos =
+  # The host imports the networking aspect directly, so keep the NixOS
+  # Wireshark configuration on that aspect rather than an un-included child.
+  flake.aspects."desktop.programs".provides.networking.nixos =
     { username, ... }:
     {
       programs.wireshark.enable = true;
