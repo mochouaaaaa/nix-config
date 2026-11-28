@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.communication.discord.homeManager = { pkgs, ... }: {
+  flake.aspects."desktop.programs".provides.communication.provides.discord.homeManager = { pkgs, ... }: {
 
     programs.discord = {
       enable = true;

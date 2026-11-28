@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.programs".provides.browsers.chromium = {
+    "desktop.programs".provides.browsers.provides.chromium = {
       includes = [
         aspects."programs.chromium"
       ];

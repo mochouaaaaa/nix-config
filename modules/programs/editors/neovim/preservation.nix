@@ -1,5 +1,5 @@
 {
-  flake.aspects.editors.provides.neovim.preservation.nixos =
+  flake.aspects.editors.provides.neovim.provides.preservation.nixos =
     {
       lib,
       config,

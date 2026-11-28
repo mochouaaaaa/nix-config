@@ -13,6 +13,26 @@
 
 同一个 Aspect 可以同时提供多个 class 的配置，但 class 之间不会自动传播。需要跨 class 配置时，必须使用 `flake-aspects.lib.forward` 显式声明源 class、目标 class 和注入路径。
 
+### 嵌套 Aspect 的定义与引用
+
+`provides` 的每一层都是一个独立 Aspect。定义更深层的子 Aspect 时，必须在父 Aspect 内再次进入 `provides`（或其别名 `_`）；不能把普通属性路径误当成嵌套 Aspect：
+
+```nix
+flake.aspects = { aspects, ... }: {
+  "desktop.programs".provides.audio.provides.tools.homeManager = {
+    programs.cava.enable = true;
+  };
+
+  "desktop.programs.audio".includes = [
+    aspects."desktop.programs"._.audio._.tools
+  ];
+};
+```
+
+引用时，每一层同样使用 `_` 进入该 Aspect 的子提供者，例如 `aspects."desktop.programs"._.audio._.tools`。
+
+例如，`provides.audio.tools.homeManager` 中的 `tools` 会被解释为 `audio` Aspect 的 class 配置，而不是子 Aspect；这种写法不会注册预期的 `audio.tools` 能力。每层都要使用 `provides` / `_`，避免静默丢失功能模块。
+
 ## 组合原则
 
 - 同 class 的仓库内部 Aspect 依赖统一通过 `includes` 组合。

@@ -5,7 +5,7 @@
     ];
   };
 
-  flake.aspects.services.provides.virtualisation.qemu.nixos =
+  flake.aspects.services.provides.virtualisation.provides.qemu.nixos =
     {
       pkgs,
       username,

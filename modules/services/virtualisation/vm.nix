@@ -5,7 +5,7 @@ let
 in
 {
   flake.aspects = { aspects, ... }: {
-    services.provides.virtualisation.vm = {
+    services.provides.virtualisation.provides.vm = {
       includes = [
         (flakeAspectsLib.forward {
           each = [ null ];

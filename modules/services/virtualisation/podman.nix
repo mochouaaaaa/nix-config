@@ -1,5 +1,5 @@
 {
-  flake.aspects.services.provides.virtualisation.podman.nixos =
+  flake.aspects.services.provides.virtualisation.provides.podman.nixos =
     {
       lib,
       pkgs,

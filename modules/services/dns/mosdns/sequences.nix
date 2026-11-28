@@ -1,5 +1,5 @@
 {
-  flake.aspects.services.provides.dns.mosdns.nixos = _: {
+  flake.aspects.services.provides.dns.provides.mosdns.nixos = _: {
     profiles.services.dns.mosdns = {
       settings.sequences = [
         {

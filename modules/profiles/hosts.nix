@@ -90,7 +90,7 @@
             inherit roles;
           })
         ] ++ lib.optionals (host.hostName == "nixos") [
-          aspects.editors._.neovim.preservation
+          aspects.editors._.neovim._.preservation
         ];
 
         ${profile.class} = { ... }: { };

@@ -1,8 +1,8 @@
 _: {
   flake.aspects = { aspects, ... }: {
-    editors.provides.neovim.plugins = {
+    editors.provides.neovim.provides.plugins = {
       includes = [
-        aspects.editors._.neovim.plugins.treesitter
+        aspects.editors._.neovim._.plugins._.treesitter
       ];
 
       homeManager = { pkgs, ... }: {

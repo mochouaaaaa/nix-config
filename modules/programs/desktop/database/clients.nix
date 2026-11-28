@@ -15,7 +15,7 @@ let
     };
 in
 {
-  flake.aspects."desktop.programs".provides.database.clients.homeManager =
+  flake.aspects."desktop.programs".provides.database.provides.clients.homeManager =
     {
       lib,
       pkgs,

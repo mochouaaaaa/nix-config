@@ -2,9 +2,9 @@
   flake.aspects = { aspects, ... }: {
     editors.provides.neovim = {
       includes = [
-        aspects.editors._.neovim.plugins
-        aspects.editors._.neovim.lsp
-        aspects.editors._.neovim.tooling
+        aspects.editors._.neovim._.plugins
+        aspects.editors._.neovim._.lsp
+        aspects.editors._.neovim._.tooling
       ];
 
       homeManager =

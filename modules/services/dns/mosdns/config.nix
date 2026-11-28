@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.aspects = { aspects, ... }: {
-    services.provides.dns.mosdns = {
+    services.provides.dns.provides.mosdns = {
       includes = [
         aspects.services._.dns
       ];

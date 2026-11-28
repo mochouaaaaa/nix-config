@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.programs".provides.email.thunderbird = {
+    "desktop.programs".provides.email.provides.thunderbird = {
       includes = [
         aspects."programs.email"
       ];

@@ -1,27 +1,27 @@
 {
   flake.aspects = { aspects, ... }: {
     "services.virtualisation.vm" = {
-      includes = [ aspects.services._.virtualisation.vm ];
+      includes = [ aspects.services._.virtualisation._.vm ];
       nixos = _: { };
     };
 
     "services.virtualisation.podman" = {
-      includes = [ aspects.services._.virtualisation.podman ];
+      includes = [ aspects.services._.virtualisation._.podman ];
       nixos = _: { };
     };
 
     "services.virtualisation.qemu" = {
-      includes = [ aspects.services._.virtualisation.qemu ];
+      includes = [ aspects.services._.virtualisation._.qemu ];
       nixos = _: { };
     };
 
     "services.virtualisation.orbstack" = {
-      includes = [ aspects.services._.virtualisation.orbstack ];
+      includes = [ aspects.services._.virtualisation._.orbstack ];
       darwin = _: { };
     };
 
     "services.dns.mosdns" = {
-      includes = [ aspects.services._.dns.mosdns ];
+      includes = [ aspects.services._.dns._.mosdns ];
       nixos = _: { };
     };
 
