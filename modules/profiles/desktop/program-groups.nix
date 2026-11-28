@@ -57,20 +57,9 @@
       aspects."desktop.programs"._.gaming._.steam
     ];
 
-    "desktop.programs.networking" = {
-      includes = [
-        aspects."desktop.programs"._.networking._.openvpn
-        aspects."desktop.programs"._.networking._.wireshark
-      ];
-
-      nixos =
-        { pkgs, username, ... }:
-        {
-          programs.wireshark.enable = true;
-          environment.systemPackages = [ pkgs.wireshark-cli ];
-          users.groups.wireshark = { };
-          users.users.${username}.extraGroups = [ "wireshark" ];
-        };
-    };
+    "desktop.programs.networking".includes = [
+      aspects."desktop.programs"._.networking._.openvpn
+      aspects."desktop.programs"._.networking._.wireshark
+    ];
   };
 }
