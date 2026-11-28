@@ -1,9 +1,13 @@
 { inputs, ... }:
+
+let
+  flakeAspectsLib = inputs.flake-aspects.lib inputs.nixpkgs.lib;
+in
 {
   flake.aspects = { aspects, ... }: {
     services.provides.virtualisation.vm = {
       includes = [
-        (inputs.flake-aspects.lib.forward {
+        (flakeAspectsLib.forward {
           each = [ null ];
           fromClass = _: "nixos";
           intoClass = _: "nixos";
