@@ -1,6 +1,5 @@
 {
   self,
-  username,
   hostName,
   system,
   ...
