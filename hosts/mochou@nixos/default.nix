@@ -1,5 +1,6 @@
 {
   self,
+  username,
   hostName,
   system,
   ...
@@ -7,7 +8,7 @@
 
 {
   imports = [
-    self.modules.nixos."host.${hostName}"
+    self.modules.nixos."host.${username}.${hostName}"
     self.modules.nixos.agenix
     self.modules.nixos.preservation
 
