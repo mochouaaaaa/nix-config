@@ -30,7 +30,6 @@
           roles = [
             aspects.host
             aspects.workstation
-            aspects.cli
             aspects.linux
             aspects."development.gui"
             aspects."agents.codex"
@@ -44,7 +43,6 @@
           roles = [
             aspects.host
             aspects.workstation
-            aspects.cli
             aspects."desktop.programs.api-clients"
             aspects."desktop.programs.browsers"
             aspects.darwin
