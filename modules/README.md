@@ -19,7 +19,7 @@
 - 跨 class 的仓库内部 Aspect 依赖统一通过 `forward` 转发；不要在 Aspect 内通过 `self.modules.*` 再次导入仓库自己的 Aspect。
 - `imports` 仅用于外部 flake 模块、第三方模块，或确实需要模块系统导入语义的内联兼容模块。
 - Aspect 生成的 `self.modules.<class>.<aspect>` 是 Host 的消费入口，不是仓库内部新模块的依赖声明方式。
-- Host Profile Aspect 使用 `host.<username>.<hostname>` 命名；用户名从 Host 元数据动态取得，只用于将 Home Manager 角色 forward 到对应用户，不进入公共 Aspect ID。
+- Host Profile Aspect 使用 `host.<username>.<hostname>` 命名；用户名从 Host 元数据动态取得，并作为 Host Profile ID 的动态组成部分；它不应在公共模块中硬编码。
 - Host 目录通过 `self.modules.<class>."host.${username}.${hostName}"` 导入对应 Profile；`hostName` 与 `username` 均由 Host 注册器解析并作为 specialArgs 提供。
 - 功能 Aspect 保持职责单一；聚合 Aspect 只组合其他能力，不应隐藏额外副作用。
 - 平台差异放在对应 class 中；跨平台 Aspect 只保留真正通用的配置。
