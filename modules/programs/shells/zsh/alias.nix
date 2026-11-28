@@ -1,5 +1,5 @@
 {
-  flake.aspects.programs.provides.shells.zsh.homeManager =
+  flake.aspects.cli.provides."shells.zsh".homeManager =
     {
       lib,
       pkgs,
