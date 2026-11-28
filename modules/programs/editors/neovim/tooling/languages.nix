@@ -15,6 +15,10 @@
       markdown-toc
       markdownlint-cli2
 
+      # containers
+      dockerfile-language-server
+      docker-compose-language-service
+
       # filetypes
       yaml-language-server
       prettierd
