@@ -14,7 +14,7 @@
         flakeAspectsLib.forward {
           each = roles;
           fromClass = _: "homeManager";
-          inherit intoClass;
+          intoClass = _: intoClass;
           intoPath = _: [
             "home-manager"
             "users"
