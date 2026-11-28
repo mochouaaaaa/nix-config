@@ -3,13 +3,15 @@
   flake.aspects =
     { aspects, ... }:
     let
+      flakeAspectsLib = inputs.flake-aspects.lib inputs.nixpkgs.lib;
+
       forwardHomeManager =
         {
           username,
           intoClass,
           roles,
         }:
-        inputs.flake-aspects.lib.forward {
+        flakeAspectsLib.forward {
           each = roles;
           fromClass = _: "homeManager";
           inherit intoClass;
@@ -78,7 +80,8 @@
         includes = [
           (forwardHomeManager {
             inherit (host) username;
-            inherit (profile) class roles;
+            intoClass = profile.class;
+            inherit (profile) roles;
           })
         ];
 
