@@ -75,13 +75,19 @@
         profile =
           hostProfiles.${host.hostName}
             or (throw "Host '${host.username}@${host.hostName}' has no Host Profile.");
+
+        # Agenix Home Manager secrets are enabled only on the NixOS host
+        # that also imports the corresponding NixOS agenix module.
+        roles =
+          profile.roles
+          ++ lib.optionals (host.hostName == "nixos") [ aspects.agenix ];
       in
       lib.nameValuePair "host.${host.username}.${host.hostName}" {
         includes = [
           (forwardHomeManager {
             inherit (host) username;
             intoClass = profile.class;
-            inherit (profile) roles;
+            inherit roles;
           })
         ];
 
