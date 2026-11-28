@@ -3,9 +3,9 @@ _: {
     cli = {
       includes = [
         aspects.cli._.git
-        aspects.cli._.shells.zsh
-        aspects.cli._.terminals.tmux
-        aspects.cli._.system.ssh
+        aspects.cli._."shells.zsh"
+        aspects.cli._."terminals.tmux"
+        aspects.cli._."system.ssh"
         aspects.cli._.direnv
         aspects.cli._.core
         aspects.cli._.bat
