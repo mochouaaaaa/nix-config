@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    self.modules.nixos."host.${hostName}"
+    self.modules.nixos."host.${username}.${hostName}"
   ];
 
   networking.hostName = hostName;
