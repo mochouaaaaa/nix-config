@@ -22,6 +22,8 @@
       ];
 
       homeManager = { pkgs, ... }: {
+        home.packages = [ pkgs.deno ];
+
         programs = {
           vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
             # js
