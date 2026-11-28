@@ -17,6 +17,9 @@
             "podman"
           ];
 
+          # Provide Docker Compose as the Compose frontend for Podman.
+          environment.systemPackages = [ pkgs.docker-compose ];
+
           services.cockpit = rec {
             enable = false;
             port = 8099;
