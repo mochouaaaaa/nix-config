@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    services.databases = {
+    "services.databases" = {
       includes = [
         aspects.services._.mysql
         aspects.services._.postgresql
