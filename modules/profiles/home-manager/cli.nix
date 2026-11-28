@@ -6,8 +6,11 @@ _: {
         aspects.cli._.shells.zsh
         aspects.cli._.terminals.tmux
         aspects.cli._.system.ssh
-        aspects.editors._.neovim
         aspects.cli._.direnv
+        aspects.cli._.fzf
+        aspects.cli._.yazi
+        aspects.cli._.zoxide
+        aspects.editors._.neovim
       ];
 
       # Keep the aggregate available as a Home Manager module.
