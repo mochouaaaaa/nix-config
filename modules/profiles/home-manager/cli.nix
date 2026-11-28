@@ -12,6 +12,11 @@ _: {
         aspects.cli._.btop
         aspects.cli._.eza
         aspects.cli._.fastfetch
+        aspects.cli._.fd
+        aspects.cli._.jq
+        aspects.cli._.nh
+        aspects.cli._.ripgrep
+        aspects.cli._.television
         aspects.cli._.fzf
         aspects.cli._.lazydocker
         aspects.cli._.lazygit
