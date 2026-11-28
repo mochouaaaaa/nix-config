@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    self.modules.nixos."host.mochou.wsl"
+    self.modules.nixos."host.${hostName}"
   ];
 
   networking.hostName = hostName;
