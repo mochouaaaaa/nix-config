@@ -52,10 +52,6 @@
       aspects."desktop.programs"._.database.clients
     ];
 
-    "desktop.programs.utilities".includes = [
-      aspects."desktop.programs"._.utilities
-    ];
-
     "desktop.programs.gaming".includes = [
       aspects."desktop.programs"._.gaming.steam
     ];
