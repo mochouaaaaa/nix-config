@@ -8,7 +8,7 @@
 
 {
   imports = [
-    self.modules.nixos."host.mochou.nixos"
+    self.modules.nixos."host.${hostName}"
     self.modules.nixos.agenix
     self.modules.nixos.preservation
 
