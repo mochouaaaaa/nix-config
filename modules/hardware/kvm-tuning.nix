@@ -20,18 +20,20 @@
         ignoreMsrs = lib.mkEnableOption "Ignore unhandled MSR accesses (needed by some macOS guests).";
       };
 
-      config = {
-        # This marker is checked by the independently imported assertion aspect.
-        hardware.kvm.moduleImported = true;
+      config = lib.mkMerge [
+        {
+          # This marker is checked by the independently imported assertion aspect.
+          hardware.kvm.moduleImported = true;
+        }
 
-        config = lib.mkIf cfg.enable {
+        (lib.mkIf cfg.enable {
           boot.extraModprobeConfig = lib.concatStringsSep "\n" (
             lib.optional (cfg.cpuVendor == "amd") "options kvm_amd nested=1"
             ++ lib.optional (cfg.cpuVendor == "intel") "options kvm_intel nested=1"
             ++ lib.optional cfg.ignoreMsrs "options kvm ignore_msrs=1 report_ignored_msrs=0"
           );
-        };
-      };
+        })
+      ];
     };
 
   flake.aspects."hardware.kvm.assertions".nixos =
