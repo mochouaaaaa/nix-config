@@ -7,6 +7,7 @@
     "desktop.programs.browsers".includes = [
       aspects."desktop.programs"._.browsers.chromium
       aspects."desktop.programs"._.browsers.firefox
+      aspects."desktop.programs"._.browsers."google-chrome"
     ];
 
     "desktop.programs.audio".includes = [
