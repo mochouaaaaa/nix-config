@@ -13,11 +13,6 @@
       config = lib.mkMerge [
 
         {
-          environment.systemPackages = [
-            # pkgs.podman-desktop
-            pkgs.docker-compose # 配合 Podman 的 dockerSocket 使用
-          ];
-
           users.users.${username}.extraGroups = [
             "podman"
           ];
