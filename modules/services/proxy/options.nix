@@ -1,7 +1,13 @@
 {
-  flake.aspects.services.provides.proxy.nixos =
-    { config, lib, ... }:
-    {
+  flake.aspects = { aspects, ... }: {
+    services.provides.proxy = {
+      # Mihomo optionally publishes its endpoint through the shared DNS options.
+      # Import the DNS option provider whenever the proxy provider is enabled.
+      includes = [ aspects.services._.dns ];
+
+      nixos =
+        { config, lib, ... }:
+        {
       options.profiles.services.proxy = {
 
         mihomo = {
@@ -51,5 +57,7 @@
           message = "profiles.services.proxy.dae.enable requires profiles.services.proxy.mihomo.enable.";
         }
       ];
+        };
     };
+  };
 }
