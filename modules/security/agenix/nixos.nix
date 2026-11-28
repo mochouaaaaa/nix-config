@@ -12,7 +12,10 @@ in
           fromClass = _: "homeManager";
           intoClass = _: "nixos";
           intoPath = _: [ "home-manager" "sharedModules" ];
-          fromAspect = _: aspects.agenix;
+          # Forward only the Home Manager class, not the whole agenix aspect.
+          fromAspect = _: {
+            homeManager = aspects.agenix.homeManager;
+          };
         })
       ];
 
