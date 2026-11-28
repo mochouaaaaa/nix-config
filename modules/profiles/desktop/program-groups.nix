@@ -56,9 +56,14 @@
       aspects."desktop.programs"._.gaming.steam
     ];
 
-    "desktop.programs.networking".includes = [
-      aspects."desktop.programs"._.networking.openvpn
-      aspects."desktop.programs"._.networking.wireshark
-    ];
+    "desktop.programs.networking" = {
+      includes = [
+        aspects."desktop.programs"._.networking.openvpn
+        aspects."desktop.programs"._.networking.wireshark
+      ];
+
+      # Export this group as a NixOS module for host-level imports.
+      nixos = _: { };
+    };
   };
 }
