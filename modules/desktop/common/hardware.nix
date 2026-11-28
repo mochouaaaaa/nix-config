@@ -1,7 +1,6 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
-    "desktop.hardware" = {
+    desktop-hardware = {
       includes = [
         aspects.hardware
         aspects."hardware.desktop"

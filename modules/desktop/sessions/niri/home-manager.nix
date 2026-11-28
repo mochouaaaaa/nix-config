@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.niri" = {
+    desktop-niri = {
       includes = [
         aspects."desktop.shell.noctalia"
         aspects."desktop.default-apps"

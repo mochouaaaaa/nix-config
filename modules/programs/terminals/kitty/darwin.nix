@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."programs"."darwin" = {
+  flake.aspects."programs".darwin = {
     homebrew.casks = [
       "kitty"
     ];

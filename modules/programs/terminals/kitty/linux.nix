@@ -58,7 +58,7 @@
           ];
     };
 
-  flake.aspects."desktop.kde".homeManager = {
+  flake.aspects.desktop-kde.homeManager = {
     programs.kitty.extraConfig = "# hide_window_decorations yes";
   };
 

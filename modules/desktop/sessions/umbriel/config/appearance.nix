@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.umbriel".homeManager = { mylib, ... }: {
+  flake.aspects.desktop-umbriel.homeManager = { mylib, ... }: {
 
     programs.umbriel.settings.appearance = {
       prefer_no_csd = true;

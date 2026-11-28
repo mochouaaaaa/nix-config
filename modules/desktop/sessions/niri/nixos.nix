@@ -1,19 +1,11 @@
-{ inputs, ... }:
-
-let
-  flakeAspectsLib = inputs.flake-aspects.lib inputs.nixpkgs.lib;
-in
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.niri" = {
+    desktop-niri = {
       includes = [
-        aspects."desktop.common"
-        (flakeAspectsLib.forward {
-          each = [ { userName = "mochou"; } ];
-          fromClass = _: "homeManager";
-          intoClass = _: "nixos";
-          intoPath = user: [ "home-manager" "users" user.userName ];
-          fromAspect = _: aspects."desktop.niri";
+        (aspects.desktop-common {
+          browsers = [
+            "firefox"
+          ];
         })
       ];
 

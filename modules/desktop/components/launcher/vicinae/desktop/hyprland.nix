@@ -1,42 +1,46 @@
 {
-  flake.aspects."desktop.hyprland".homeManager = { lib, ... }: {
-    # programs.vicinae = {
-    #   systemd = {
-    #     enable = lib.mkForce false;
-    #   };
-    # };
+  flake.aspects = { aspects, ... }: {
+    includes = [ aspects.launcher._.vicinae ];
 
-    wayland.windowManager.hyprland = {
-      settings.bind = [
-        {
-          _args = [
-            "SUPER + SPACE"
-            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"vicinae toggle\")")
-          ];
-        }
-        {
-          _args = [
-            "SUPER + P"
-            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"vicinae vicinae://launch/clipboard/history\")")
-          ];
-        }
-      ];
+    desktop-hyprland.homeManager = { lib, ... }: {
+      # programs.vicinae = {
+      #   systemd = {
+      #     enable = lib.mkForce false;
+      #   };
+      # };
 
-      extraConfig = ''
-        -- hl.on("hyprland.start", function()
-        --     hl.exec_cmd("vicinae server")
-        -- end)
+      wayland.windowManager.hyprland = {
+        settings.bind = [
+          {
+            _args = [
+              "SUPER + SPACE"
+              (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"vicinae toggle\")")
+            ];
+          }
+          {
+            _args = [
+              "SUPER + P"
+              (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"vicinae vicinae://launch/clipboard/history\")")
+            ];
+          }
+        ];
 
-        hl.layer_rule {
-        	name = "vicinae",
-        	match = {
-        		namespace = "vicinae",
-        	},
-        	blur = true,
-        	ignore_alpha = 0,
-        }
+        extraConfig = ''
+          -- hl.on("hyprland.start", function()
+          --     hl.exec_cmd("vicinae server")
+          -- end)
 
-      '';
+          hl.layer_rule {
+          	name = "vicinae",
+          	match = {
+          		namespace = "vicinae",
+          	},
+          	blur = true,
+          	ignore_alpha = 0,
+          }
+
+        '';
+      };
     };
   };
 

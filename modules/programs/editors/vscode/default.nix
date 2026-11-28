@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "programs.vscode".includes = [
+    desktop-vscode.includes = [
       aspects.editors._.vscode
     ];
   };

@@ -92,7 +92,7 @@
         };
     };
 
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         config,

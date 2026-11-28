@@ -15,7 +15,7 @@ let
     };
 in
 {
-  flake.aspects."desktop.programs".provides.database.provides.clients.homeManager =
+  flake.aspects.desktop-programs.provides.database.provides.clients.homeManager =
     {
       lib,
       pkgs,
@@ -33,7 +33,7 @@ in
 
   # Preserve TinyRDM data only when its package is in the user's effective
   # Home Manager package set.
-  flake.aspects."preservation".nixos =
+  flake.aspects.preservation.nixos =
     {
       lib,
       pkgs,

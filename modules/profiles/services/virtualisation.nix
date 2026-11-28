@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "services.virtualisation" = {
+    services-virtualisation = {
       includes = [
         aspects.services._.virtualisation._.vm
         aspects.services._.virtualisation._.podman

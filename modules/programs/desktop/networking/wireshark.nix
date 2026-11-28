@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.networking.provides.wireshark = {
+  flake.aspects.desktop-programs.provides.networking.provides.wireshark = {
     nixos =
       { pkgs, username, ... }:
       {

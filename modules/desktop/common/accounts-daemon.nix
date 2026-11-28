@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.base".nixos = {
+  flake.aspects.desktop-base.nixos = {
     services.accounts-daemon.enable = true;
   };
 }

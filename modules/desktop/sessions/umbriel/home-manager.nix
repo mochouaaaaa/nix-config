@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.umbriel" = {
+    desktop-umbriel = {
       includes = [
         aspects."desktop.shell.noctalia"
       ];

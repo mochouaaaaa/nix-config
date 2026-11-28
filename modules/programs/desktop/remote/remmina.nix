@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."desktop.programs".provides.remote.provides.remmina.homeManager = {
+  flake.aspects.desktop-programs.provides.remote.provides.remmina.homeManager = {
     services.remmina = {
       enable = true;
       systemdService = {

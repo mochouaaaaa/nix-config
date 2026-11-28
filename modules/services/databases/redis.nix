@@ -1,64 +1,71 @@
 {
+  flake.aspects = { aspects, ... }: {
+    desktop-programs.provides.database.provides.redis = {
+      includes = [ aspects.services._.redis ];
+      nixos = _: { };
+      darwin = _: { };
+    };
 
-  flake.aspects.services.provides.redis."darwin" = {
-    services = {
-      redis = {
-        enable = true;
-        bind = "0.0.0.0";
-        # extraConfig = '''';
-        unixSocket = "/var/run/redis.sock";
+    services.provides.redis.darwin = {
+      services = {
+        redis = {
+          enable = true;
+          bind = "0.0.0.0";
+          # extraConfig = '''';
+          unixSocket = "/var/run/redis.sock";
+        };
       };
     };
-  };
 
-  flake.aspects.services.provides.redis.nixos =
-    {
-      config,
+    services.provides.redis.nixos =
+      {
+        config,
 
-      username,
-      ...
-    }:
-    {
-      services.redis.servers."main" = {
-        enable = true;
-        port = 6379;
+        username,
+        ...
+      }:
+      {
+        services.redis.servers."main" = {
+          enable = true;
+          port = 6379;
 
-        bind = "0.0.0.0";
-        openFirewall = true;
+          bind = "0.0.0.0";
+          openFirewall = true;
 
-        # 密码用文件注入，不要明文
-        # requirePassFile = config.age.secrets.redis-password.path;
-        requirePass = "letmein!";
+          # 密码用文件注入，不要明文
+          # requirePassFile = config.age.secrets.redis-password.path;
+          requirePass = "letmein!";
 
-        save = [
-          [
-            900
-            1
-          ]
-          [
-            300
-            10
-          ]
-          [
-            60
-            10000
-          ]
-        ];
-        appendOnly = true;
+          save = [
+            [
+              900
+              1
+            ]
+            [
+              300
+              10
+            ]
+            [
+              60
+              10000
+            ]
+          ];
+          appendOnly = true;
 
-        settings = {
-          maxmemory = "512mb";
-          maxmemory-policy = "allkeys-lru";
+          settings = {
+            maxmemory = "512mb";
+            maxmemory-policy = "allkeys-lru";
+          };
+
+          unixSocket = "/run/redis-main/redis.sock";
+          unixSocketPerm = 660;
         };
 
-        unixSocket = "/run/redis-main/redis.sock";
-        unixSocketPerm = 660;
+        users.users.${username}.extraGroups = [ "redis-main" ];
+
+        networking.firewall.extraInputRules = ''
+          ip saddr 192.168.1.0/24 tcp dport ${config.services.redis.services."main".port} accept
+        '';
       };
-
-      users.users.${username}.extraGroups = [ "redis-main" ];
-
-      networking.firewall.extraInputRules = ''
-        ip saddr 192.168.1.0/24 tcp dport ${config.services.redis.services."main".port} accept
-      '';
-    };
+  };
 }

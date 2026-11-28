@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.user".homeManager =
+  flake.aspects.desktop-user.homeManager =
     {
       lib,
       config,

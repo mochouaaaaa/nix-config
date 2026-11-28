@@ -1,10 +1,7 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
-    "desktop.user" = {
+    desktop-user = {
       includes = [
-        aspects."desktop.launcher.vicinae"
-        aspects.rime
         aspects.shortcuts
       ];
 

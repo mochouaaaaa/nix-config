@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.niri".homeManager = { lib, pkgs, ... }: {
+  flake.aspects.desktop-niri.homeManager = { lib, pkgs, ... }: {
 
     wayland.windowManager.niri.settings.binds =
       let

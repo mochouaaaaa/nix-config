@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.notes.provides.joplin.homeManager = { pkgs, ... }: {
+  flake.aspects.desktop-programs.provides.notes.provides.joplin.homeManager = { pkgs, ... }: {
 
     home.packages = with pkgs; [
       # GUI apps

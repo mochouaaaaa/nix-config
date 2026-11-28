@@ -1,5 +1,5 @@
 {
-  flake.aspects."system.defaults"."darwin" = {
+  flake.aspects."system.defaults".darwin = {
     system = {
 
       defaults = {

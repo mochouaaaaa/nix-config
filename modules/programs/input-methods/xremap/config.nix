@@ -1,102 +1,119 @@
 { inputs, ... }: {
-  flake.aspects."shortcuts".homeManager =
-    {
-      lib,
-      config,
-      ...
-    }:
+
+  flake.aspects =
+    { aspects, ... }:
     let
-      cfg = config.profiles.shortcuts;
+      xremapModule = [ aspects.inputs._.xremap ];
     in
     {
-      imports = [
-        inputs.xremap-flake.homeManagerModules.default
-      ];
 
-      options.profiles.shortcuts = {
-        global = lib.mkOption {
-          type = lib.types.listOf lib.types.attrs;
-          default = [ ];
-          description = "Global shortcuts.";
+      desktop-umbriel = {
+        includes = xremapModule;
+        homeManager = { lib, ... }: {
+          services.xremap.withWlroots = lib.mkForce true;
         };
       };
 
-      config = {
-        services.xremap = {
-          enable = true;
-          watch = true;
-          # Select build features from the enabled Home Manager desktop modules.
-          withWlroots = config.wayland.windowManager.hyprland.enable or false;
-          withNiri = config.wayland.windowManager.niri.enable or false;
-          withHypr = false;
+      desktop-kde = {
+        includes = xremapModule;
+        homeManager = {
+          services.xremap.withKDE = true;
+        };
+      };
+
+      desktop-niri.includes = xremapModule;
+      desktop-hyprland.includes = xremapModule;
+
+      inputs.provides.xremap.homeManager =
+        {
+          lib,
+          config,
+          ...
+        }:
+        let
+          cfg = config.profiles.shortcuts;
+        in
+        {
+          imports = [
+            inputs.xremap-flake.homeManagerModules.default
+          ];
+
+          options.profiles.shortcuts = {
+            global = lib.mkOption {
+              type = lib.types.listOf lib.types.attrs;
+              default = [ ];
+              description = "Global shortcuts.";
+            };
+          };
 
           config = {
-            modmap = [
-              {
-                name = "Global";
-                remap = {
-                  "CapsLock" = "Esc";
-                  "Esc" = "CapsLock";
-                };
-              }
-            ];
-            keymap =
-              let
-                base-keymap = {
-                  "SUPER-c" = "C-c";
-                  "SUPER-v" = "C-v";
-                  "SUPER-x" = "C-x";
-                  "SUPER-a" = "C-a";
-                  "SUPER-z" = "C-z";
-                };
-              in
-              [
-                {
-                  name = "Replace Super/Command With Ctrl";
-                  exact_match = true;
-                  application.only = [
-                    "firefox"
-                    "chromium"
-                    "zen"
-                    "zen-beta"
-                    "io.github.kukuruzka165.materialgram"
-                  ];
-                  remap = base-keymap;
-                }
-                {
-                  name = "Firefox/Chromium Replace Super/Command With Ctrl";
-                  exact_match = true;
-                  application.only = [
-                    "firefox"
-                    "chromium"
-                    "chromium-browser"
-                  ];
-                  remap = {
-                    "SUPER-r" = "C-r";
-                    "SUPER-f" = "C-f";
-                    "SUPER-w" = "C-w";
-                    "SUPER-t" = "C-t";
-                  };
-                }
-              ]
-              ++ (lib.optionals ((lib.lists.length cfg.global) > 0) [
-                {
-                  name = "Shortcuts";
-                  exact_match = true;
-                  remap = lib.mkMerge cfg.global;
-                }
-              ]);
+            services.xremap = {
+              enable = true;
+              watch = true;
+              withWlroots = config.wayland.windowManager.hyprland.enable or false;
+              withNiri = config.wayland.windowManager.niri.enable or false;
+              withHypr = false;
+
+              config = {
+                modmap = [
+                  {
+                    name = "Global";
+                    remap = {
+                      "CapsLock" = "Esc";
+                      "Esc" = "CapsLock";
+                    };
+                  }
+                ];
+                keymap =
+                  let
+                    base-keymap = {
+                      "SUPER-c" = "C-c";
+                      "SUPER-v" = "C-v";
+                      "SUPER-x" = "C-x";
+                      "SUPER-a" = "C-a";
+                      "SUPER-z" = "C-z";
+                    };
+                  in
+                  [
+                    {
+                      name = "Replace Super/Command With Ctrl";
+                      exact_match = true;
+                      application.only = [
+                        "firefox"
+                        "chromium"
+                        "zen"
+                        "zen-beta"
+                        "io.github.kukuruzka165.materialgram"
+                      ];
+                      remap = base-keymap;
+                    }
+                    {
+                      name = "Firefox/Chromium Replace Super/Command With Ctrl";
+                      exact_match = true;
+                      application.only = [
+                        "firefox"
+                        "chromium"
+                        "chromium-browser"
+                      ];
+                      remap = {
+                        "SUPER-r" = "C-r";
+                        "SUPER-f" = "C-f";
+                        "SUPER-w" = "C-w";
+                        "SUPER-t" = "C-t";
+                      };
+                    }
+                  ]
+                  ++ (lib.optionals ((lib.lists.length cfg.global) > 0) [
+                    {
+                      name = "Shortcuts";
+                      exact_match = true;
+                      remap = lib.mkMerge cfg.global;
+                    }
+                  ]);
+              };
+            };
           };
         };
-      };
     };
-
-  flake.aspects."desktop.umbriel".homeManager = { lib, ... }: {
-    services.xremap.withWlroots = lib.mkForce true;
-  };
-
-  flake.aspects."desktop.kde".homeManager = {
-    services.xremap.withKDE = true;
-  };
 
 }

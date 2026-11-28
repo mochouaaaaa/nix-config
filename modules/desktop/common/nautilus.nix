@@ -31,7 +31,7 @@ _: {
       };
     };
 
-    "desktop.hyprland".includes = [ aspects."desktop.nautilus" ];
-    "desktop.niri".includes = [ aspects."desktop.nautilus" ];
+    desktop-hyprland.includes = [ aspects."desktop.nautilus" ];
+    desktop-niri.includes = [ aspects."desktop.nautilus" ];
   };
 }

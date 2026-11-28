@@ -1,13 +1,18 @@
 {
-  flake.aspects."desktop.programs".provides.communication.provides.tencent.homeManager = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      fractal
-      nur.repos.so1ve.dingtalk
-      feishu
-      wechat-uos
-      wemeet
-    ];
-  };
+  flake.aspects.desktop-programs.provides.communication.provides.tencent.homeManager =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      home.packages = with pkgs; [
+        fractal
+        nur.repos.so1ve.dingtalk
+        feishu
+        wechat-uos
+        wemeet
+      ];
+    };
 
   flake.aspects.preservation.nixos =
     {

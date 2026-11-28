@@ -1,7 +1,6 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
-    "desktop.programs".provides.browsers.provides.chromium = {
+    desktop-programs.provides.browsers.provides.chromium = {
       includes = [
         aspects."programs.chromium"
       ];
@@ -24,7 +23,7 @@
       programs.chromium.enable = lib.mkForce false;
     };
 
-    "desktop.kde".homeManager = { pkgs, ... }: {
+    desktop-kde.homeManager = { pkgs, ... }: {
       programs.chromium = {
         nativeMessagingHosts = [
           pkgs.kdePackages.plasma-browser-integration
@@ -38,7 +37,7 @@
 
     "programs.chromium".homeManager = {
       programs.chromium = {
-        enable = false;
+        enable = true;
         extensions = [
           { id = "bkdgflcldnnnapblkhphbgpggdiikppg"; } # duckduckgo
           { id = "ffabmkklhbepgcgfonabamgnfafbdlkn"; } # gzip github
@@ -54,7 +53,7 @@
       };
     };
 
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         config,

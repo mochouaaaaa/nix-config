@@ -1,5 +1,5 @@
 {
-  flake.aspects.rime.homeManager =
+  flake.aspects.inputs.provides.rime.homeManager =
     {
       lib,
       pkgs,

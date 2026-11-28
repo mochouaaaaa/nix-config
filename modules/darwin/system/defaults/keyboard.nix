@@ -1,5 +1,5 @@
 {
-  flake.aspects."system.defaults"."darwin" = {
+  flake.aspects."system.defaults".darwin = {
     system = {
       # keyboard settings is not very useful on macOS
       # the most important thing is to remap option key to alt key globally,

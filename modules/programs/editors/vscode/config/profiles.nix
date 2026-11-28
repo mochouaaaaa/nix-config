@@ -1,5 +1,5 @@
 {
-  flake.aspects."programs.vscode".homeManager =
+  flake.aspects.desktop-vscode.homeManager =
     {
       lib,
       pkgs,

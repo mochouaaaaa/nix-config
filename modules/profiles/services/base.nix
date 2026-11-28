@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    services.base.includes = [
+    "services.base".includes = [
       aspects.services._.openssh
     ];
   };

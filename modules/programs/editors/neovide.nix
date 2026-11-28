@@ -48,7 +48,7 @@
       };
     };
 
-  flake.aspects."desktop.niri".homeManager = {
+  flake.aspects.desktop-niri.homeManager = {
     wayland.windowManager.niri.settings = {
       _children = [
         {

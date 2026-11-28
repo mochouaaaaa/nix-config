@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.umbriel".homeManager = { config, ... }: {
+  flake.aspects.desktop-umbriel.homeManager = { config, ... }: {
 
     programs.umbriel.settings.input = {
       cursor = {

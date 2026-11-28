@@ -11,7 +11,10 @@ in
           each = [ null ];
           fromClass = _: "nixos";
           intoClass = _: "nixos";
-          intoPath = _: [ "virtualisation" "vmVariantWithDisko" ];
+          intoPath = _: [
+            "virtualisation"
+            "vmVariantWithDisko"
+          ];
           fromAspect = _: aspects.appearance;
         })
       ];

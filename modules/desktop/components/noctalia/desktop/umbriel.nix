@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."desktop.umbriel".homeManager = { config, mylib, ... }: {
+  flake.aspects.desktop-umbriel.homeManager = { config, mylib, ... }: {
     programs.noctalia = mylib.mkForceRecursive {
       systemd.enable = false;
       settings = {

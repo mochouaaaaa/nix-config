@@ -1,21 +1,6 @@
-{ inputs, ... }:
-
-let
-  flakeAspectsLib = inputs.flake-aspects.lib inputs.nixpkgs.lib;
-in
 {
-  flake.aspects = { aspects, ... }: {
-    "desktop.flatpak" = {
-      includes = [
-        (flakeAspectsLib.forward {
-          each = [ { userName = "mochou"; } ];
-          fromClass = _: "homeManager";
-          intoClass = _: "nixos";
-          intoPath = user: [ "home-manager" "users" user.userName ];
-          fromAspect = _: aspects."desktop.flatpak";
-        })
-      ];
-
+  flake.aspects = {
+    desktop-flatpak = {
       homeManager =
         {
           inputs,
@@ -70,10 +55,10 @@ in
           };
         };
 
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         config,

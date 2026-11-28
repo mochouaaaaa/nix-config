@@ -1,14 +1,19 @@
 {
-  flake.aspects."desktop.programs".provides.communication.provides.discord.homeManager = { pkgs, ... }: {
+  flake.aspects.desktop-programs.provides.communication.provides.discord.homeManager =
+    {
+      pkgs,
+      ...
+    }:
+    {
 
-    programs.discord = {
-      enable = true;
-      package = pkgs.vencord;
+      programs.discord = {
+        enable = true;
+        package = pkgs.vencord;
+      };
+
+      programs.vesktop.enable = true;
+
     };
-
-    programs.vesktop.enable = true;
-
-  };
 
   flake.aspects.preservation.nixos =
     {

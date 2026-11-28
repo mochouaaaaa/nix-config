@@ -1,7 +1,6 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
-    "desktop.programs".provides.email.provides.thunderbird = {
+    desktop-programs.provides.email.provides.thunderbird = {
       includes = [
         aspects."programs.email"
       ];
@@ -126,7 +125,7 @@
         };
       };
 
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         config,

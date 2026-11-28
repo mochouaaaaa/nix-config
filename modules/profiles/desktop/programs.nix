@@ -1,22 +1,32 @@
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.programs" = {
-      includes = [
-        aspects."desktop.programs.api-clients"
-        aspects."desktop.programs.browsers"
-        aspects."desktop.programs.audio"
-        aspects."desktop.programs.security"
-        aspects."desktop.programs.communication"
-        aspects."desktop.programs.email"
-        aspects."desktop.programs.media"
-        aspects."desktop.programs.notes"
-        aspects."desktop.programs.remote"
-        aspects."desktop.programs.office"
-        aspects."desktop.programs.networking"
-      ];
+    desktop-programs.provides.configured =
+      {
+        browsers,
+        security,
+        communication,
+        email,
+        databases,
+        networking,
+      }:
+      {
+        includes = [
+          aspects.desktop-api-clients
+          (aspects.desktop-browsers { inherit browsers; })
+          aspects.desktop-audio
+          (aspects.desktop-security { inherit security; })
+          (aspects.desktop-communication { inherit communication; })
+          (aspects.desktop-email { inherit email; })
+          aspects.desktop-media
+          aspects.desktop-notes
+          aspects.desktop-remote
+          aspects.desktop-office
+          (aspects.desktop-database { inherit databases; })
+          (aspects.desktop-networking { inherit networking; })
+        ];
 
-      # Keep the aggregate available as a Home Manager module.
-      homeManager = _: { };
-    };
+        nixos = _: { };
+        homeManager = _: { };
+      };
   };
 }

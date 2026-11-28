@@ -47,7 +47,7 @@ in
         };
       };
 
-    "core".darwin = { ... }: { };
+    "core".darwin = _: { };
 
     "core".homeManager =
       { lib, config, ... }:
@@ -68,7 +68,7 @@ in
     # Shared Home Manager foundations only. Select a role explicitly in each host.
     "host" = {
       includes = [ aspects.core ];
-      homeManager = { ... }: { };
+      homeManager = _: { };
     };
   };
 }

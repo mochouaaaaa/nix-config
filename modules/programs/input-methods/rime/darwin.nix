@@ -6,9 +6,9 @@
       ];
     };
 
-    "darwin" = {
+    darwin = {
       includes = [
-        aspects.rime
+        aspects.inputs._.rime
       ];
 
       homeManager =

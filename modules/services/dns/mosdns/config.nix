@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
     services.provides.dns.provides.mosdns = {
       includes = [

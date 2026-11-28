@@ -1,6 +1,6 @@
 {
-  # GUI development applications are enabled only by Linux desktop hosts.
-  flake.aspects."development.gui".homeManager =
+  # IDE development applications are enabled only by Linux desktop hosts.
+  flake.aspects.development-ides.homeManager =
     {
       lib,
       pkgs,
@@ -11,7 +11,7 @@
       home.packages = lib.optional config.programs.go.enable pkgs.goland;
     };
 
-  flake.aspects."development.go".homeManager =
+  flake.aspects.development-go.homeManager =
     { pkgs, config, ... }:
     {
       home.packages = with pkgs; [

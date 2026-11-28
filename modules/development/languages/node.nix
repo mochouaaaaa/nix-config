@@ -16,7 +16,7 @@
         };
       };
 
-    "development.node" = {
+    development-node = {
       includes = [
         aspects."programs.node.26-11"
       ];
@@ -69,7 +69,7 @@
 
     # Preserve global package-manager state only when installed through Home Manager.
     # Project-local Node.js runtimes are intentionally not inferred here.
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         pkgs,

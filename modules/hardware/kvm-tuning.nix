@@ -39,7 +39,7 @@
           message = ''
             KVM configuration is enabled in the host, but the KVM module is not imported.
 
-            Import self.modules.nixos."hardware.kvm" in the host configuration.
+            Import self.modules.nixos.hardware-kvm in the host configuration.
           '';
         }
       ];

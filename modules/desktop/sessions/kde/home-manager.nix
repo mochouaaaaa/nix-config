@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.kde" = {
+    desktop-kde = {
       includes = [
         aspects."desktop.default-apps"
       ];

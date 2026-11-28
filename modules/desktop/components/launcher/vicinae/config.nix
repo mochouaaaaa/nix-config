@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.launcher.vicinae".homeManager =
+  flake.aspects.launcher.provides.vicinae.homeManager =
     {
       lib,
       pkgs,

@@ -5,7 +5,7 @@ let
 in
 {
   flake.aspects = { aspects, ... }: {
-    "darwin" = {
+    darwin = {
       includes = [
         (flakeAspectsLib.forward {
           each = [ null ];
@@ -15,7 +15,7 @@ in
           fromAspect = _: aspects."session-variables";
         })
       ];
-      homeManager = { ... }: { };
+      homeManager = _: { };
     };
 
     "linux" = {

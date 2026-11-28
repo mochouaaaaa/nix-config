@@ -46,7 +46,7 @@
     ];
   };
 
-  flake.aspects."services"."darwin" = {
+  flake.aspects."services".darwin = {
     services.openssh.enable = true;
   };
 }

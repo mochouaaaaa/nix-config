@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.hyprland" = {
+    desktop-hyprland = {
       includes = [
         aspects."desktop.shell.noctalia"
         aspects."desktop.default-apps"

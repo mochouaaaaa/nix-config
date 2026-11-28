@@ -1,11 +1,15 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
     "homebrew" = {
       includes = [
         aspects.programs
-        aspects."desktop.programs.networking"
-        aspects."desktop.programs.remote"
+        (aspects.desktop-networking {
+          networking = [
+            "openvpn"
+            "wireshark"
+          ];
+        })
+        aspects.desktop-remote
       ];
 
       darwin =

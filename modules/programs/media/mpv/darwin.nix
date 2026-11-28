@@ -1,6 +1,6 @@
 {
   flake.aspects = { aspects, ... }: {
-    "darwin" = {
+    darwin = {
       includes = [
         aspects."programs.mpv"
       ];

@@ -1,6 +1,6 @@
 _: {
   flake.aspects = { aspects, ... }: {
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         config,
@@ -27,7 +27,7 @@ _: {
       };
     };
 
-    "desktop.hyprland".includes = [ aspects."desktop.keyring" ];
-    "desktop.niri".includes = [ aspects."desktop.keyring" ];
+    desktop-hyprland.includes = [ aspects."desktop.keyring" ];
+    desktop-niri.includes = [ aspects."desktop.keyring" ];
   };
 }

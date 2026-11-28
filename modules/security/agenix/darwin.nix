@@ -11,7 +11,10 @@ in
           each = [ null ];
           fromClass = _: "homeManager";
           intoClass = _: "darwin";
-          intoPath = _: [ "home-manager" "sharedModules" ];
+          intoPath = _: [
+            "home-manager"
+            "sharedModules"
+          ];
           fromAspect = _: aspects.agenix;
         })
       ];

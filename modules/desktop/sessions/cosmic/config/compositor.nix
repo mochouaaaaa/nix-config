@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.cosmic".homeManager = { cosmicLib, ... }: {
+  flake.aspects.desktop-cosmic.homeManager = { cosmicLib, ... }: {
 
     wayland.desktopManager.cosmic.compositor = {
       active_hint = true;

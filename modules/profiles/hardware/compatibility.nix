@@ -1,11 +1,11 @@
 {
   flake.aspects = { aspects, ... }: {
-    "hardware.hid-apple" = {
+    hardware-hid-apple = {
       includes = [ aspects.hardware._.hid-apple ];
       nixos = _: { };
     };
 
-    "hardware.kvm" = {
+    hardware-kvm = {
       includes = [ aspects.hardware._.kvm ];
       nixos = _: { };
     };

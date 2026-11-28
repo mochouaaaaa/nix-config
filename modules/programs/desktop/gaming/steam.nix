@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.programs".provides.gaming.provides.steam.nixos =
+  flake.aspects.desktop-programs.provides.gaming.provides.steam.nixos =
     { pkgs, ... }:
     {
       hardware.steam-hardware.enable = true;

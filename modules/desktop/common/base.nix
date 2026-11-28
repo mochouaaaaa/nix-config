@@ -1,7 +1,6 @@
-{ ... }:
-{
+_: {
   flake.aspects = { aspects, ... }: {
-    "desktop.base" = {
+    desktop-base = {
       includes = [
         aspects.security._.desktop
         aspects.appearance

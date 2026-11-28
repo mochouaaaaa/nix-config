@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.umbriel".homeManager = {
+  flake.aspects.desktop-umbriel.homeManager = {
 
     programs.umbriel.settings.window_rule = [
       # ==============global===============

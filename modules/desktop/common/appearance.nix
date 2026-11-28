@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.user".homeManager = {
+  flake.aspects.desktop-user.homeManager = {
     # 4K 显示器 DPI（仅对 X11/XWayland 应用有效）
     xresources.properties = {
       "Xft.dpi" = 150;

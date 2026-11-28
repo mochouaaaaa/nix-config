@@ -14,7 +14,7 @@ in
   };
 
   # Darwin
-  flake.aspects."core"."darwin" = { pkgs, ... }: {
+  flake.aspects."core".darwin = { pkgs, ... }: {
     _module.args.mylib = mkMyLib pkgs.lib;
   };
 

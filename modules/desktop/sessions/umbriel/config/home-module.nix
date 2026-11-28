@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.umbriel".homeManager =
+  flake.aspects.desktop-umbriel.homeManager =
     {
       config,
       pkgs,

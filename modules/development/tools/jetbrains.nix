@@ -1,5 +1,5 @@
 {
-  flake.aspects."development.gui".homeManager = { inputs, pkgs, ... }: {
+  flake.aspects.development-ides.homeManager = { inputs, pkgs, ... }: {
     home.packages = [
       inputs.mochou_nur.packages.${pkgs.stdenv.hostPlatform.system}.jetbra-free
     ];

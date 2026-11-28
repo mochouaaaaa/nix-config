@@ -1,6 +1,6 @@
 {
 
-  flake.aspects."desktop.niri".homeManager = { mylib, ... }: {
+  flake.aspects.desktop-niri.homeManager = { mylib, ... }: {
     programs.noctalia = mylib.mkForceRecursive {
       settings = {
         bar = {

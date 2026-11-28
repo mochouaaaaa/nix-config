@@ -5,10 +5,9 @@ _: {
     workstation = {
       includes = [
         aspects.cli
-        aspects."development.languages"
-        aspects."programs.vscode"
-        aspects."programs.kitty"
-        aspects."desktop.programs.database"
+        aspects.development-languages
+        aspects.desktop-vscode
+        aspects.desktop-kitty
       ];
 
       # Keep the aggregate available as a Home Manager module.

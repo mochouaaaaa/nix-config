@@ -1,10 +1,11 @@
 {
   flake.aspects = { aspects, ... }: {
-    "desktop.hyprland".includes = [ aspects."desktop.greeter.noctalia" ];
-    "desktop.niri".includes = [ aspects."desktop.greeter.noctalia" ];
-    "desktop.umbriel".includes = [ aspects."desktop.greeter.noctalia" ];
 
-    "desktop.greeter.noctalia".nixos =
+    desktop-hyprland.includes = [ aspects.greeter._.noctalia ];
+    desktop-niri.includes = [ aspects.greeter._.noctalia ];
+    desktop-umbriel.includes = [ aspects.greeter._.noctalia ];
+
+    greeter.provides.noctalia.nixos =
       { lib, pkgs, ... }:
       {
         services.displayManager = {
@@ -27,7 +28,7 @@
         };
       };
 
-    "preservation".nixos =
+    preservation.nixos =
       { lib, config, ... }:
       {
         profiles.preservation.directories =

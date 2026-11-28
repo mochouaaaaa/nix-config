@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.niri".homeManager =
+  flake.aspects.desktop-niri.homeManager =
     {
       lib,
       pkgs,

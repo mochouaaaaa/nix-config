@@ -1,21 +1,6 @@
-{ inputs, ... }:
-
-let
-  flakeAspectsLib = inputs.flake-aspects.lib inputs.nixpkgs.lib;
-in
 {
-  flake.aspects = { aspects, ... }: {
+  flake.aspects = {
     services.provides.ollama = {
-      includes = [
-        (flakeAspectsLib.forward {
-          each = [ { userName = "mochou"; } ];
-          fromClass = _: "homeManager";
-          intoClass = _: "nixos";
-          intoPath = user: [ "home-manager" "users" user.userName ];
-          fromAspect = _: aspects.services._.ollama;
-        })
-      ];
-
       homeManager = { pkgs, ... }: {
         services.ollama = {
           enable = true;
@@ -27,10 +12,10 @@ in
         };
       };
 
-      nixos = { ... }: { };
+      nixos = _: { };
     };
 
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         config,

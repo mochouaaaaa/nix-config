@@ -60,7 +60,7 @@
 
     "wsl" = {
       includes = [
-        aspects."programs.vscode"
+        aspects.desktop-vscode
         aspects."programs.vscode.linux-config"
       ];
 
@@ -69,7 +69,7 @@
       };
     };
 
-    "preservation".nixos =
+    preservation.nixos =
       {
         lib,
         config,

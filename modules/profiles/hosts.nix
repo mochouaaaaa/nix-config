@@ -1,4 +1,9 @@
-{ config, inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   flake.aspects =
     { aspects, ... }:
@@ -31,10 +36,9 @@
             aspects.host
             aspects.workstation
             aspects.linux
-            aspects."development.gui"
+            aspects.development-ides
             aspects."agents.codex"
             aspects."agents.antigravity"
-            aspects."desktop.programs"
           ];
         };
 
@@ -43,8 +47,13 @@
           roles = [
             aspects.host
             aspects.workstation
-            aspects."desktop.programs.api-clients"
-            aspects."desktop.programs.browsers"
+            aspects.desktop-api-clients
+            (aspects.desktop-browsers {
+              browsers = [
+                "chromium"
+                "firefox"
+              ];
+            })
             aspects.darwin
             aspects."agents.codex"
           ];
@@ -56,7 +65,7 @@
             aspects.host
             aspects.linux
             aspects.wsl
-            aspects.servers
+            aspects.cli
           ];
         };
 
@@ -64,12 +73,44 @@
           class = "nixos";
           roles = [
             aspects.host
-            aspects.servers
+            aspects.cli
           ];
         };
       };
+
+      userScopedRoles = {
+        inherit (aspects)
+          desktop-hyprland
+          desktop-niri
+          desktop-kde
+          desktop-cosmic
+          desktop-umbriel
+          desktop-flatpak
+          ;
+        services-ollama = aspects.services._.ollama;
+      };
+
+      userScopedAspects = lib.listToAttrs (
+        lib.concatMap (
+          host:
+          lib.mapAttrsToList (
+            name: aspect:
+            lib.nameValuePair "host.${host.username}.${host.hostName}.${name}" {
+              includes = [
+                aspect
+                (forwardHomeManager {
+                  inherit (host) username;
+                  intoClass = "nixos";
+                  roles = [ aspect ];
+                })
+              ];
+              nixos = _: { };
+            }
+          ) userScopedRoles
+        ) (lib.filter (host: host.hostName == "nixos") (lib.attrValues config.hosts))
+      );
     in
-    lib.mapAttrs' (
+    (lib.mapAttrs' (
       _name: host:
       let
         profile =
@@ -78,9 +119,7 @@
 
         # Agenix Home Manager secrets are enabled only on the NixOS host
         # that also imports the corresponding NixOS agenix module.
-        roles =
-          profile.roles
-          ++ lib.optionals (host.hostName == "nixos") [ aspects.agenix ];
+        roles = profile.roles ++ lib.optionals (host.hostName == "nixos") [ aspects.agenix ];
       in
       lib.nameValuePair "host.${host.username}.${host.hostName}" {
         includes = [
@@ -89,11 +128,13 @@
             intoClass = profile.class;
             inherit roles;
           })
-        ] ++ lib.optionals (host.hostName == "nixos") [
+        ]
+        ++ lib.optionals (host.hostName == "nixos") [
           aspects.editors._.neovim._.preservation
         ];
 
-        ${profile.class} = { ... }: { };
+        ${profile.class} = _: { };
       }
-    ) config.hosts;
+    ) config.hosts)
+    // userScopedAspects;
 }

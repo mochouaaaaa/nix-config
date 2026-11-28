@@ -1,5 +1,5 @@
 {
-  flake.aspects."desktop.cosmic".homeManager =
+  flake.aspects.desktop-cosmic.homeManager =
     { cosmicLib, ... }:
 
     let

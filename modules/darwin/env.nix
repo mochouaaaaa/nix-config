@@ -1,5 +1,5 @@
 {
-  flake.aspects."env"."darwin" = {
+  flake.aspects."env".darwin = {
     # Resolve the active Xcode SDK when the shell starts; environment.variables
     # treats values as literals and does not evaluate command substitutions.
     environment.extraInit = ''

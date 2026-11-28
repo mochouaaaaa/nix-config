@@ -18,7 +18,7 @@
         };
       };
 
-    "desktop.base".includes = [
+    desktop-base.includes = [
       aspects."core.appimage"
     ];
   };
