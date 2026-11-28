@@ -13,6 +13,7 @@
         aspects."desktop.programs.remote"
         aspects."desktop.programs.office"
         aspects."desktop.programs.database"
+        aspects."desktop.programs.utilities"
       ];
 
       # Keep the aggregate available as a Home Manager module.
