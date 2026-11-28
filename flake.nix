@@ -109,7 +109,10 @@
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprland.url = "github:hyprwm/Hyprland/v0.57.2";
     hyprcapture = {
@@ -119,19 +122,7 @@
 
     luciole.url = "github:noctalia-dev/luciole";
 
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        # home-manager.follows = "home-manager";
-      };
-    };
-
     # desktop components
-    dank-material-shell = {
-      url = "github:AvengeMedia/DankMaterialShell?ref=v1.4.4";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     cosmic-manager = {
       url = "github:HeitorAugustoLN/cosmic-manager";
       inputs = {
