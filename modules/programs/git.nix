@@ -1,5 +1,5 @@
 {
-  flake.aspects.programs.provides.git.homeManager =
+  flake.aspects.cli.provides.git.homeManager =
     {
       config,
       pkgs,

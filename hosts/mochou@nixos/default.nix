@@ -17,7 +17,7 @@
     self.modules.nixos."desktop.programs.networking"
     self.modules.nixos.boot-loader-limine
     self.modules.nixos."hardware.hid-apple"
-    self.modules.nixos."profiles.zram"
+    self.modules.nixos."profiles.performance.zram"
     self.modules.nixos."profiles.compat"
 
     self.modules.nixos."services.dns.mosdns"

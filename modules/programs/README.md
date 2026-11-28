@@ -15,7 +15,7 @@
 | `shells/` | Shell 配置、别名、插件和辅助功能。 |
 | `system/` | 用户级系统客户端，例如 SSH。 |
 | `terminals/` | 终端模拟器和终端复用器。 |
-| `git.nix` | 共享 Git 与 GitHub CLI 配置，对外注册为 `programs`。 |
+| `git.nix` | Git 与 GitHub CLI 基础工具配置，对外注册为 `cli.git`。 |
 
 ## 模块边界
 

@@ -1,6 +1,6 @@
 {
   # Optional performance profile; hosts opt in explicitly.
-  flake.aspects."profiles.zram"."nixos" = {
+  flake.aspects."profiles.performance.zram"."nixos" = {
     zramSwap = {
       enable = true;
       algorithm = "zstd";

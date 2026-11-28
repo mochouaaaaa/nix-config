@@ -1,5 +1,5 @@
 {
-  flake.aspects.programs.provides.system.ssh.homeManager = { lib, config, ... }: {
+  flake.aspects.cli.provides.system.ssh.homeManager = { lib, config, ... }: {
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;

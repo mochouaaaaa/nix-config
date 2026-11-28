@@ -3,7 +3,10 @@
   flake.aspects = { aspects, ... }: {
     cli = {
       includes = [
-        aspects.programs
+        aspects.cli._.git
+        aspects.cli._.shells.zsh
+        aspects.cli._.terminals.tmux
+        aspects.cli._.system.ssh
         aspects."cli.neovim"
         aspects."cli.direnv"
       ];

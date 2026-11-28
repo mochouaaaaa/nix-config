@@ -7,7 +7,7 @@
 - **功能模块**定义单一能力及其配置，放在对应领域目录。
 - **Profile / Role**通过 `includes` 或模块导入组合多个功能模块，放在本目录。
 - **Compatibility profile**为旧模块 ID 提供兼容入口，也放在本目录。
-- **Policy profile**表达可选系统策略，例如 FHS 兼容环境与 zram 配置。
+- **Policy profile**表达可选系统策略，例如 FHS 兼容环境与性能调优（如 zram）。
 - 组合规则可以定义原有 Aspect ID；移动文件不改变 Aspect ID，因此消费者引用保持不变。
 - 组合文件不应顺带引入与组合职责无关的系统副作用。确有额外配置时，应评估它是否属于独立功能模块。
 
@@ -17,12 +17,12 @@
 | --- | --- |
 | `core.nix` | Core 基础能力聚合。 |
 | `development.nix` | 开发语言环境聚合。 |
-| `programs.nix` | 通用程序能力聚合。 |
 | `desktop/` | 桌面公共入口、图形应用分组及总聚合。 |
 | `hardware/` | 硬件兼容入口与组合规则。 |
 | `services/` | 服务基础入口、兼容入口和数据库聚合。 |
 | `home-manager/` | CLI、服务器和工作站用户角色。 |
-| `compat.nix`、`zram.nix` | 可选系统策略 Profile。 |
+| `compat.nix` | 兼容性策略 Profile。 |
+| `performance/zram.nix` | 可选性能策略 Profile。 |
 
 ## 领域边界
 
