@@ -12,7 +12,7 @@
     self.modules.nixos.agenix
     self.modules.nixos.preservation
 
-    self.modules.nixos."services.virtualisation.vm"
+    self.modules.nixos."services.virtualisation"
     self.modules.nixos."desktop.niri"
     self.modules.nixos."desktop.flatpak"
     self.modules.nixos."desktop.programs.networking"
@@ -32,9 +32,6 @@
     self.modules.nixos."services.ollama"
 
     self.modules.nixos."services.databases"
-
-    self.modules.nixos."services.virtualisation.podman"
-    self.modules.nixos."services.virtualisation.qemu"
   ];
 
   networking.hostName = hostName;
