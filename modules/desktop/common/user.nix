@@ -6,7 +6,6 @@
         aspects."desktop.launcher.vicinae"
         aspects.rime
         aspects.shortcuts
-        aspects.appearance
       ];
 
       homeManager =
