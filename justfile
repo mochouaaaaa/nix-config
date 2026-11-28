@@ -14,7 +14,7 @@
 set shell := ["bash", "-cu"]
 
 # Root directory of the Flake; NH_FLAKE can point recipes at another checkout.
-FLAKE := env_var_or_default("NH_FLAKE", justfile_directory())
+FLAKE := env_var_or_default("NH_FLAKE", ".")
 
 # Host selected by system recipes; NH_HOST overrides the platform-specific default.
 HOST := env_var_or_default("NH_HOST", if os() == "macos" { "mochou@darwin" } else { "mochou@nixos" })
