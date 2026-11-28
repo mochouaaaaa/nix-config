@@ -4,7 +4,7 @@
     "desktop.hardware" = {
       includes = [
         aspects.hardware
-        aspects.hardware.desktop
+        aspects."hardware.desktop"
       ];
 
       nixos =
